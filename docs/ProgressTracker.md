@@ -115,19 +115,19 @@
 * [x] User Repository
 
 
-### Service
+### Services
 
-* [ ] User Service
+* [x] getOrCreateUser
+* [x] getUserByClerkId
+* [x] getUserByUsername
+* [x] updateUserProfile
 
-### Controller
+### APIs
 
-* [ ] User Controller
+* [x] GET /users/me
+* [x] PATCH /users/me
+* [x] GET /users/:username
 
-### Routes
-
-* [ ] GET /users/me
-* [ ] PATCH /users/me
-* [ ] GET /users/:username
 
 ---
 
