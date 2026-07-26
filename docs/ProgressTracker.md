@@ -88,7 +88,7 @@
 
 * [x] Error middleware
 * [x] 404 middleware
-* [ ] Validation middleware
+* [x] Validation middleware
 * [ ] Authentication middleware
 
 ### Health API
@@ -106,7 +106,8 @@
 
 ### Validation
 
-* [ ] Update Profile
+* [x] Update Profile
+
 
 
 ### Repository
