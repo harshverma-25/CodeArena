@@ -46,54 +46,54 @@
 
 ---
 
-## 🟨 Milestone 2 — Backend Foundation
+## ✅ Milestone 2 — Backend Foundation
 
 ### Project Setup
 
-* [ ] Initialize Node.js project
-* [ ] Configure TypeScript
-* [ ] Configure ESLint
-* [ ] Configure Prettier
-* [ ] Configure environment variables
+* [x] Initialize Node.js project
+* [x] Configure TypeScript
+* [x] Configure ESLint
+* [x] Configure Prettier
+* [x] Configure environment variables
 
 ### Express
 
-* [ ] Express server
-* [ ] app.ts
-* [ ] server.ts
-* [ ] CORS
-* [ ] JSON parser
+* [x] Express server
+* [x] app.ts
+* [x] server.ts
+* [x] CORS
+* [x] JSON parser
 
 ### Database
 
-* [ ] MongoDB connection
-* [ ] Database configuration
-* [ ] Graceful shutdown
+* [x] MongoDB connection
+* [x] Database configuration
+* [x] Graceful shutdown
 
 ### Logger
 
-* [ ] Pino logger
-* [ ] Request logging
-* [ ] Error logging
+* [x] Pino logger
+* [x] Request logging
+* [x] Error logging
 
 ### Shared
 
-* [ ] ApiResponse
-* [ ] ApiError
-* [ ] asyncHandler
-* [ ] Constants
-* [ ] HTTP Status helper
+* [x] ApiResponse
+* [x] ApiError
+* [x] asyncHandler
+* [x] Constants
+* [x] HTTP Status helper
 
 ### Middleware
 
-* [ ] Error middleware
-* [ ] 404 middleware
+* [x] Error middleware
+* [x] 404 middleware
 * [ ] Validation middleware
 * [ ] Authentication middleware
 
 ### Health API
 
-* [ ] GET /api/v1/health
+* [x] GET /api/v1/health
 
 ---
 
@@ -101,12 +101,13 @@
 
 ### Model
 
-* [ ] User Schema
-* [ ] Indexes
+* [x] User Schema
+* [x] Indexes
 
 ### Validation
 
 * [ ] Update Profile
+
 
 ### Repository
 
@@ -132,10 +133,10 @@
 
 ### Model
 
-* [ ] Problem Schema
-* [ ] Hidden Test Cases
-* [ ] Starter Code
-* [ ] Reference Solutions
+* [x] Problem Schema
+* [x] Hidden Test Cases
+* [x] Starter Code
+* [x] Reference Solutions
 
 ### APIs
 
@@ -156,7 +157,8 @@
 
 ### Model
 
-* [ ] Room Schema
+* [x] Room Schema
+
 
 ### APIs
 
@@ -312,29 +314,21 @@
 
 ## Sprint Goal
 
-**Backend Foundation**
+**Database Models & Authentication**
 
 ### Current Tasks
 
-* [ ] Project Setup
-* [ ] Environment Configuration
-* [ ] Express Server
-* [ ] MongoDB Connection
-* [ ] Logger
-* [ ] Middleware
-* [ ] Shared Utilities
-* [ ] Health API
+* [x] Create Database Models (User, Problem, Room, Match, Submission)
+* [ ] Integrate Clerk Authentication Middleware
 
 ---
 
 # Recent Commits
 
 ```text
-docs: add complete project design and backend documentation
+feat: implement database models, types, enums and indexes for Phase 2
 
-docs: add AI development guidelines and project instructions
-
-feat: initialize backend project architecture
+feat: add backend foundation with environment, logging, and database setup
 ```
 
 ---
@@ -379,8 +373,9 @@ The MVP is complete when:
 
 **Planning:** ██████████ 100%
 
-**Implementation:** ░░░░░░░░░░ 0%
+**Implementation:** █░░░░░░░░░ 10%
 
-**Overall Project:** ███░░░░░░░ ~30%
+**Overall Project:** ████░░░░░░ ~40%
 
-> **Next Task:** Complete the Backend Foundation (Project Setup, Express, MongoDB, Logger, Middleware, and Health API).
+> **Next Task:** Implement Phase 3 - Authentication (Clerk Integration, JWT verification, and Auth Middleware).
+

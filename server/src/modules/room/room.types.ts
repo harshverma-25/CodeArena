@@ -1,13 +1,22 @@
 import { Document, Types } from 'mongoose';
 
+export enum RoomStatus {
+  WAITING = 'WAITING',
+  READY = 'READY',
+  IN_PROGRESS = 'IN_PROGRESS',
+  FINISHED = 'FINISHED',
+  CANCELLED = 'CANCELLED',
+}
+
 export interface IRoomPlayer {
   userId: Types.ObjectId;
+  isHost: boolean;
   isReady: boolean;
 }
 
 export interface IRoomSettings {
-  topic: string;
-  difficulty: 'easy' | 'medium' | 'hard' | 'random';
+  topic: string; // ProblemTopic or 'random'
+  difficulty: 'Easy' | 'Medium' | 'Hard' | 'random';
   duration: number; // in minutes
 }
 
@@ -16,10 +25,12 @@ export interface IRoom {
   hostId: Types.ObjectId;
   players: IRoomPlayer[];
   settings: IRoomSettings;
-  status: 'lobby' | 'playing' | 'finished';
-  matchId?: Types.ObjectId;
+  maxPlayers: number;
+  status: RoomStatus;
+  matchId?: Types.ObjectId | null;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export type IRoomDocument = IRoom & Document;
+

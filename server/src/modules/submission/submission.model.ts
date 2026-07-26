@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { ISubmissionDocument } from './submission.types.js';
+import { ISubmissionDocument, SubmissionVerdict } from './submission.types.js';
 
 const SubmissionSchema = new Schema<ISubmissionDocument>(
   {
@@ -11,17 +11,20 @@ const SubmissionSchema = new Schema<ISubmissionDocument>(
     verdict: {
       type: String,
       required: true,
-      enum: ['Accepted', 'Wrong Answer', 'Time Limit Exceeded', 'Memory Limit Exceeded', 'Runtime Error', 'Compilation Error', 'Pending'],
-      default: 'Pending',
+      enum: Object.values(SubmissionVerdict),
+      default: SubmissionVerdict.QUEUED,
+      index: true,
     },
     executionTime: { type: Number, default: 0 }, // in ms
-    memoryUsed: { type: Number, default: 0 }, // in KB
+    memoryUsed: { type: Number, default: 0 }, // in MB
     passedTestCases: { type: Number, default: 0 },
     totalTestCases: { type: Number, default: 0 },
     stdout: { type: String },
     stderr: { type: String },
     compileOutput: { type: String },
     isFinalAccepted: { type: Boolean, default: false },
+    submittedAt: { type: Date, required: true, default: Date.now, index: true },
+    judgedAt: { type: Date },
   },
   {
     timestamps: true,
@@ -33,3 +36,4 @@ SubmissionSchema.index({ matchId: 1, userId: 1 });
 
 export const SubmissionModel = model<ISubmissionDocument>('Submission', SubmissionSchema);
 export default SubmissionModel;
+

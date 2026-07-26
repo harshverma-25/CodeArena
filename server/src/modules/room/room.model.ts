@@ -1,16 +1,28 @@
 import { Schema, model } from 'mongoose';
-import { IRoomDocument } from './room.types.js';
+import { IRoomDocument, RoomStatus } from './room.types.js';
 
-const RoomPlayerSchema = new Schema({
-  userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  isReady: { type: Boolean, default: false },
-}, { _id: false });
+const RoomPlayerSchema = new Schema(
+  {
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    isHost: { type: Boolean, required: true, default: false },
+    isReady: { type: Boolean, required: true, default: false },
+  },
+  { _id: false }
+);
 
-const RoomSettingsSchema = new Schema({
-  topic: { type: String, required: true, default: 'random' },
-  difficulty: { type: String, required: true, enum: ['easy', 'medium', 'hard', 'random'], default: 'random' },
-  duration: { type: Number, required: true, default: 30 }, // in minutes
-}, { _id: false });
+const RoomSettingsSchema = new Schema(
+  {
+    topic: { type: String, required: true, default: 'random' },
+    difficulty: {
+      type: String,
+      required: true,
+      enum: ['Easy', 'Medium', 'Hard', 'random'],
+      default: 'random',
+    },
+    duration: { type: Number, required: true, default: 30 }, // in minutes
+  },
+  { _id: false }
+);
 
 const RoomSchema = new Schema<IRoomDocument>(
   {
@@ -18,13 +30,24 @@ const RoomSchema = new Schema<IRoomDocument>(
     hostId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     players: { type: [RoomPlayerSchema], default: [] },
     settings: { type: RoomSettingsSchema, required: true },
-    status: { type: String, required: true, enum: ['lobby', 'playing', 'finished'], default: 'lobby' },
-    matchId: { type: Schema.Types.ObjectId, ref: 'Match' },
+    maxPlayers: { type: Number, required: true, default: 2 },
+    status: {
+      type: String,
+      required: true,
+      enum: Object.values(RoomStatus),
+      default: RoomStatus.WAITING,
+    },
+    matchId: { type: Schema.Types.ObjectId, ref: 'Match', default: null },
   },
   {
     timestamps: true,
   }
 );
 
+// Indexes
+RoomSchema.index({ hostId: 1 });
+RoomSchema.index({ status: 1 });
+
 export const RoomModel = model<IRoomDocument>('Room', RoomSchema);
 export default RoomModel;
+
