@@ -111,7 +111,8 @@
 
 ### Repository
 
-* [ ] User Repository
+* [x] User Repository
+
 
 ### Service
 
@@ -314,11 +315,12 @@
 
 ## Sprint Goal
 
-**Database Models & Authentication**
+**Repository Layer & Authentication**
 
 ### Current Tasks
 
 * [x] Create Database Models (User, Problem, Room, Match, Submission)
+* [x] Implement Repository Layer (User, Problem, Room, Match, Submission)
 * [ ] Integrate Clerk Authentication Middleware
 
 ---
@@ -326,6 +328,8 @@
 # Recent Commits
 
 ```text
+feat: implement repository layer for all modules
+
 feat: implement database models, types, enums and indexes for Phase 2
 
 feat: add backend foundation with environment, logging, and database setup
@@ -373,9 +377,10 @@ The MVP is complete when:
 
 **Planning:** ██████████ 100%
 
-**Implementation:** █░░░░░░░░░ 10%
+**Implementation:** █▒░░░░░░░░ 15%
 
-**Overall Project:** ████░░░░░░ ~40%
+**Overall Project:** ████▒░░░░░ ~45%
 
-> **Next Task:** Implement Phase 3 - Authentication (Clerk Integration, JWT verification, and Auth Middleware).
+> **Next Task:** Integrate Phase 3 - Authentication (Clerk Integration, JWT verification, and Auth Middleware).
+
 
