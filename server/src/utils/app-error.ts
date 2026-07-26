@@ -1,12 +1,15 @@
-export class AppError extends Error {
-  public readonly statusCode: number;
+import { ApiError } from '../shared/errors/api-error.js';
+
+export class AppError extends ApiError {
   public readonly isOperational: boolean;
 
   constructor(message: string, statusCode: number, isOperational = true) {
-    super(message);
-    this.statusCode = statusCode;
+    super(statusCode, message);
     this.isOperational = isOperational;
-
+    
+    // Capture stack trace for this subclass
     Error.captureStackTrace(this, this.constructor);
   }
 }
+
+export default AppError;

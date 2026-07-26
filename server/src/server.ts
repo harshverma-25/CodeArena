@@ -2,7 +2,7 @@ import http from 'http';
 import app from './app.js';
 import { env } from './config/env.js';
 import { logger } from './config/logger.js';
-import { connectDatabase } from './config/database.js';
+import { connectDatabase, disconnectDatabase } from './config/database.js';
 
 const server = http.createServer(app);
 
@@ -22,15 +22,32 @@ const startServer = async () => {
 };
 
 // Graceful shutdown helper
-const gracefulShutdown = (signal: string) => {
+const gracefulShutdown = async (signal: string) => {
   logger.info(`Received ${signal}. Shutting down gracefully...`);
-  server.close(() => {
+  
+  server.close(async () => {
     logger.info('HTTP server closed.');
+    
+    // Disconnect from MongoDB
+    await disconnectDatabase();
+    
+    logger.info('Graceful shutdown completed successfully.');
     process.exit(0);
   });
+
+  // Set a fallback timeout to force exit if connections don't close in 10s
+  setTimeout(() => {
+    logger.error('Shutdown timed out, forcefully terminating process.');
+    process.exit(1);
+  }, 10000);
 };
 
-process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
-process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+process.on('SIGTERM', () => {
+  gracefulShutdown('SIGTERM');
+});
+
+process.on('SIGINT', () => {
+  gracefulShutdown('SIGINT');
+});
 
 startServer();
