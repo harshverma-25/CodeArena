@@ -5,8 +5,10 @@ import { requestLogger } from './middleware/request-logger.middleware.js';
 import { errorHandler } from './middleware/error.middleware.js';
 import { notFoundHandler } from './middleware/not-found.middleware.js';
 import { userRoutes } from './modules/user/user.routes.js';
+import { problemRoutes } from './modules/problem/problem.routes.js';
 
 const app = express();
+
 
 // Enable Cross-Origin Resource Sharing
 app.use(cors());
@@ -36,6 +38,7 @@ app.get('/api/v1/health', (req, res) => {
 
 // Register API Routes
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/problems', problemRoutes);
 
 // Unmatched route handler (404)
 app.use(notFoundHandler);

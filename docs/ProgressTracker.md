@@ -142,16 +142,17 @@
 
 ### APIs
 
-* [ ] GET /problems
-* [ ] GET /problems/:slug
-* [ ] GET /problems/random
+* [x] GET /problems
+* [x] GET /problems/:slug
+* [x] GET /problems/random
 
 ### Features
 
-* [ ] Pagination
-* [ ] Search
-* [ ] Topic Filter
-* [ ] Difficulty Filter
+* [x] Pagination
+* [x] Search
+* [x] Topic Filter
+* [x] Difficulty Filter
+
 
 ---
 

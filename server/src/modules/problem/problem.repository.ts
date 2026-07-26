@@ -3,13 +3,16 @@ import { IProblem, IProblemDocument } from './problem.types.js';
 
 export class ProblemRepository {
   async findAll(
-    filter: { topic?: string; difficulty?: string; status?: string } = {},
+    filter: { topic?: string; difficulty?: string; status?: string; search?: string } = {},
     options: { page?: number; limit?: number } = {}
   ): Promise<{ problems: IProblemDocument[]; total: number }> {
     const query: any = {};
     if (filter.topic) query.topic = filter.topic;
     if (filter.difficulty) query.difficulty = filter.difficulty;
     if (filter.status) query.status = filter.status;
+    if (filter.search) {
+      query.title = { $regex: filter.search, $options: 'i' };
+    }
 
     const page = options.page || 1;
     const limit = options.limit || 10;
