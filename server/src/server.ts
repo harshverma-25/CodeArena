@@ -3,6 +3,7 @@ import app from './app.js';
 import { env } from './config/env.js';
 import { logger } from './config/logger.js';
 import { connectDatabase, disconnectDatabase } from './config/database.js';
+import { initializeSocket } from './sockets/index.js';
 
 const server = http.createServer(app);
 
@@ -10,6 +11,9 @@ const startServer = async () => {
   try {
     // Connect to database first
     await connectDatabase();
+
+    // Initialize Socket.IO server
+    initializeSocket(server);
 
     // Start HTTP server
     server.listen(env.PORT, () => {
