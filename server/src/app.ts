@@ -9,6 +9,7 @@ import { problemRoutes } from './modules/problem/problem.routes.js';
 import { roomRoutes } from './modules/room/room.routes.js';
 import { matchRoutes } from './modules/match/match.routes.js';
 import { submissionRoutes } from './modules/submission/submission.routes.js';
+import { docsRoutes } from './modules/docs/docs.routes.js';
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use('/api/v1/problems', problemRoutes);
 app.use('/api/v1/rooms', roomRoutes);
 app.use('/api/v1/matches', matchRoutes);
 app.use('/api/v1/submissions', submissionRoutes);
+app.use('/api', docsRoutes);
 
 // Unmatched route handler (404)
 app.use(notFoundHandler);
