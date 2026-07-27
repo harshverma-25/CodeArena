@@ -7,6 +7,7 @@ import { notFoundHandler } from './middleware/not-found.middleware.js';
 import { userRoutes } from './modules/user/user.routes.js';
 import { problemRoutes } from './modules/problem/problem.routes.js';
 import { roomRoutes } from './modules/room/room.routes.js';
+import { matchRoutes } from './modules/match/match.routes.js';
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.get('/api/v1/health', (req, res) => {
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/problems', problemRoutes);
 app.use('/api/v1/rooms', roomRoutes);
+app.use('/api/v1/matches', matchRoutes);
 
 // Unmatched route handler (404)
 app.use(notFoundHandler);
