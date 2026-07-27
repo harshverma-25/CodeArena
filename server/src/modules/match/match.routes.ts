@@ -8,6 +8,8 @@ import {
   matchHistorySchema,
 } from './match.validation.js';
 import { asyncHandler } from '../../utils/async-handler.js';
+import { submissionController } from '../submission/submission.controller.js';
+import { matchSubmissionsParamSchema } from '../submission/submission.validation.js';
 
 const router = Router();
 
@@ -33,6 +35,13 @@ router.get(
   '/:matchId',
   validateRequest(matchIdParamSchema),
   asyncHandler((req, res) => matchController.getMatch(req, res))
+);
+
+// Route: GET /matches/:matchId/submissions
+router.get(
+  '/:matchId/submissions',
+  validateRequest(matchSubmissionsParamSchema),
+  asyncHandler((req, res) => submissionController.getMatchSubmissions(req, res))
 );
 
 export const matchRoutes = router;

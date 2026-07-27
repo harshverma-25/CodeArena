@@ -41,6 +41,16 @@ export class SubmissionRepository {
 
     return latest ? latest.submissionNumber : 0;
   }
+
+  async update(
+    submissionId: string,
+    updateData: Partial<ISubmission>
+  ): Promise<ISubmissionDocument | null> {
+    return SubmissionModel.findByIdAndUpdate(submissionId, updateData, { new: true })
+      .populate('matchId')
+      .populate('userId')
+      .exec();
+  }
 }
 
 export const submissionRepository = new SubmissionRepository();
