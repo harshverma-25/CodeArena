@@ -1,5 +1,6 @@
 export interface User {
-  id: string;
+  _id: string;
+  id?: string;
   clerkId: string;
   username: string;
   displayName: string;
@@ -41,4 +42,37 @@ export interface Problem {
   memoryLimit: number;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface RoomPlayer {
+  user: {
+    _id: string;
+    username: string;
+    displayName: string;
+    avatar: string;
+  } | null;
+  isHost: boolean;
+  isReady: boolean;
+}
+
+export interface RoomSettings {
+  topic: string;
+  difficulty: string;
+  duration: number; // in minutes
+}
+
+export interface Room {
+  roomCode: string;
+  host: {
+    _id: string;
+    username: string;
+    displayName: string;
+    avatar: string;
+  } | null;
+  players: RoomPlayer[];
+  settings: RoomSettings;
+  topic: string;
+  difficulty: string;
+  duration: number;
+  status: "waiting" | "full" | "starting" | "active" | "finished";
 }
