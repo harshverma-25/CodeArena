@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^7.6.3",
+    "@clerk/themes": "^2.4.57",
     "@hookform/resolvers": "^5.5.7",
     "@monaco-editor/react": "^4.7.0",
     "@tanstack/react-query": "^5.101.4",

@@ -1,7 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-// Define which routes are protected. All pages under dashboard, problems, battle, etc. are protected.
-// Public routes: landing (/), login, register.
 const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
   "/problems(.*)",
@@ -12,7 +10,20 @@ const isProtectedRoute = createRouteMatcher([
   "/match(.*)",
 ]);
 
+const isAuthRoute = createRouteMatcher([
+  "/login(.*)",
+  "/register(.*)",
+]);
+
 export default clerkMiddleware(async (auth, req) => {
+  const { userId } = await auth();
+
+  // If user is authenticated and attempts to visit login/register, redirect to dashboard
+  if (userId && isAuthRoute(req)) {
+    return Response.redirect(new URL("/dashboard", req.url));
+  }
+
+  // If route is protected and user is not authenticated, Clerk handles redirecting to sign-in page
   if (isProtectedRoute(req)) {
     await auth.protect();
   }
