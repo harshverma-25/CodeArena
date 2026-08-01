@@ -2,6 +2,7 @@ import { submissionRepository } from './submission.repository.js';
 import { matchRepository } from '../match/match.repository.js';
 import { problemRepository } from '../problem/problem.repository.js';
 import { roomRepository } from '../room/room.repository.js';
+import { userRepository } from '../user/user.repository.js';
 import { judge0Service, getJudge0LanguageId } from '../../shared/services/judge0.service.js';
 import { SubmissionVerdict, ISubmissionDocument } from './submission.types.js';
 import { MatchStatus } from '../match/match.types.js';
@@ -213,6 +214,16 @@ export class SubmissionService {
       throw new ApiError(500, 'Failed to update submission records');
     }
 
+    // Increment submission statistics
+    try {
+      await userRepository.incrementStatsById(userId.toString(), {
+        totalSubmissions: 1,
+        acceptedSubmissions: verdict === SubmissionVerdict.ACCEPTED ? 1 : 0,
+      });
+    } catch (statsError) {
+      logger.error(statsError, `Failed to update submission stats for user ${userId}`);
+    }
+
     // Update match winner & room status if submission is accepted
     if (verdict === SubmissionVerdict.ACCEPTED) {
       try {
@@ -223,8 +234,26 @@ export class SubmissionService {
           await roomRepository.update(roomCode, { status: 'FINISHED' as any });
         }
         logger.info(`Match ${matchId} completed. Winner: ${userId}`);
+
+        // Winner stats update
+        await userRepository.incrementStatsById(userId.toString(), {
+          matchesPlayed: 1,
+          wins: 1,
+        });
+
+        // Loser (opponent) stats update
+        const opponent = match.players.find(
+          (p) => p.userId && ((p.userId as any)._id ? (p.userId as any)._id.toString() !== userId.toString() : p.userId.toString() !== userId.toString())
+        );
+        const opponentId = opponent?.userId && (opponent.userId as any)._id ? (opponent.userId as any)._id.toString() : opponent?.userId?.toString();
+        if (opponentId) {
+          await userRepository.incrementStatsById(opponentId, {
+            matchesPlayed: 1,
+            losses: 1,
+          });
+        }
       } catch (completionError) {
-        logger.error(completionError, `Failed to update match/room completion for match ${matchId}`);
+        logger.error(completionError, `Failed to update match/room completion and stats for match ${matchId}`);
       }
     }
 

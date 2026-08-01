@@ -34,6 +34,13 @@ export class UserService {
 
       return user;
     } catch (error: any) {
+      // Check for MongoDB E11000 duplicate key error code or error message suffix
+      if (error.code === 11000 || error.message?.includes('E11000')) {
+        const existingUser = await userRepository.findByClerkId(clerkId);
+        if (existingUser) {
+          return existingUser;
+        }
+      }
       throw new AppError(`Failed to sync user profile from Clerk: ${error.message}`, 500);
     }
   }

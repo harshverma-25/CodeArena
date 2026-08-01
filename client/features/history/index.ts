@@ -1,1 +1,2 @@
-// TODO: Implement
+export * from "./components/MatchHistoryTable";
+export * from "./hooks/useMatchHistory";

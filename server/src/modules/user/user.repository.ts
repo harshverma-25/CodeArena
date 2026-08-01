@@ -33,6 +33,21 @@ export class UserRepository {
 
     return UserModel.findOneAndUpdate({ clerkId }, update, { new: true });
   }
+
+  async incrementStatsById(
+    userId: string,
+    stats: { matchesPlayed?: number; wins?: number; losses?: number; draws?: number; totalSubmissions?: number; acceptedSubmissions?: number }
+  ): Promise<IUserDocument | null> {
+    const update: any = { $inc: {} };
+    if (stats.matchesPlayed) update.$inc.matchesPlayed = stats.matchesPlayed;
+    if (stats.wins) update.$inc.wins = stats.wins;
+    if (stats.losses) update.$inc.losses = stats.losses;
+    if (stats.draws) update.$inc.draws = stats.draws;
+    if (stats.totalSubmissions) update.$inc.totalSubmissions = stats.totalSubmissions;
+    if (stats.acceptedSubmissions) update.$inc.acceptedSubmissions = stats.acceptedSubmissions;
+
+    return UserModel.findByIdAndUpdate(userId, update, { new: true });
+  }
 }
 
 export const userRepository = new UserRepository();

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type MatchStatus = "idle" | "lobby" | "countdown" | "active" | "completed";
+export type BattleStatus = "idle" | "lobby" | "countdown" | "active" | "completed";
 
 export interface Player {
   userId: string;
@@ -28,7 +28,7 @@ interface BattleState {
   // Room and Match Info
   roomCode: string | null;
   matchId: string | null;
-  status: MatchStatus;
+  status: BattleStatus;
   difficulty: "EASY" | "MEDIUM" | "HARD" | null;
   durationMinutes: number;
   timeRemainingSeconds: number;
@@ -46,7 +46,7 @@ interface BattleState {
   setSocketConnected: (connected: boolean) => void;
   setRoomDetails: (roomCode: string, difficulty: "EASY" | "MEDIUM" | "HARD", durationMinutes: number) => void;
   setMatchId: (matchId: string | null) => void;
-  setStatus: (status: MatchStatus) => void;
+  setStatus: (status: BattleStatus) => void;
   setPlayers: (players: Player[]) => void;
   setMyUserId: (userId: string | null) => void;
   setTimeRemaining: (seconds: number) => void;
