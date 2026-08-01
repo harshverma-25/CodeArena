@@ -1,6 +1,7 @@
 import { submissionRepository } from './submission.repository.js';
 import { matchRepository } from '../match/match.repository.js';
 import { problemRepository } from '../problem/problem.repository.js';
+import { roomRepository } from '../room/room.repository.js';
 import { judge0Service, getJudge0LanguageId } from '../../shared/services/judge0.service.js';
 import { SubmissionVerdict, ISubmissionDocument } from './submission.types.js';
 import { MatchStatus } from '../match/match.types.js';
@@ -212,6 +213,21 @@ export class SubmissionService {
       throw new ApiError(500, 'Failed to update submission records');
     }
 
+    // Update match winner & room status if submission is accepted
+    if (verdict === SubmissionVerdict.ACCEPTED) {
+      try {
+        const endedAt = new Date();
+        const duration = Math.round((endedAt.getTime() - match.startedAt.getTime()) / 1000);
+        await matchRepository.updateWinner(matchId, userId, MatchStatus.COMPLETED, endedAt, duration);
+        if (roomCode) {
+          await roomRepository.update(roomCode, { status: 'FINISHED' as any });
+        }
+        logger.info(`Match ${matchId} completed. Winner: ${userId}`);
+      } catch (completionError) {
+        logger.error(completionError, `Failed to update match/room completion for match ${matchId}`);
+      }
+    }
+
     // 12. Emit submission:result
     try {
       const io = getIo();
@@ -274,6 +290,78 @@ export class SubmissionService {
     }
 
     return submissionRepository.findByMatch(matchId);
+  }
+
+  /**
+   * Run code with custom input without saving a persistent submission record.
+   */
+  async runCode(
+    userId: string,
+    matchId: string,
+    language: string,
+    sourceCode: string,
+    customInput?: string
+  ): Promise<{
+    stdout: string | null;
+    stderr: string | null;
+    compileOutput: string | null;
+    time: number | null; // in ms
+    memory: number | null; // in MB
+    status: {
+      id: number;
+      description: string;
+    };
+  }> {
+    // 1. Fetch match and validate existence
+    const match = await matchRepository.findById(matchId);
+    if (!match) {
+      throw new ApiError(404, 'Match not found');
+    }
+
+    // 2. Validate match is in progress
+    if (match.status !== MatchStatus.IN_PROGRESS) {
+      throw new ApiError(400, 'Cannot run code: Match is not in progress');
+    }
+
+    // 3. Verify user belongs to the match
+    const userObjectIdStr = userId.toString();
+    const isParticipant = match.players.some(
+      (p) => p.userId && (p.userId as any)._id ? (p.userId as any)._id.toString() === userObjectIdStr : p.userId.toString() === userObjectIdStr
+    );
+    if (!isParticipant) {
+      throw new ApiError(403, 'Forbidden: You are not a participant in this match');
+    }
+
+    // 4. Retrieve problem details for limits
+    const problemSlug = (match.problemId as any)?.slug;
+    if (!problemSlug) {
+      throw new ApiError(500, 'Problem metadata missing from match details');
+    }
+    const problem = await problemRepository.findBySlug(problemSlug, false);
+    if (!problem) {
+      throw new ApiError(404, 'Problem details not found');
+    }
+
+    // 5. Submit to Judge0
+    const targetLangId = getJudge0LanguageId(language);
+    const token = await judge0Service.createSubmission({
+      sourceCode,
+      languageId: targetLangId,
+      stdin: customInput || '',
+      cpuTimeLimit: problem.timeLimit,
+      memoryLimit: problem.memoryLimit * 1024,
+    });
+
+    const result = await judge0Service.waitForResult(token);
+
+    return {
+      stdout: result.stdout,
+      stderr: result.stderr,
+      compileOutput: result.compile_output,
+      time: result.time ? result.time * 1000 : null, // convert to ms
+      memory: result.memory ? result.memory / 1024 : null, // convert to MB
+      status: result.status,
+    };
   }
 }
 

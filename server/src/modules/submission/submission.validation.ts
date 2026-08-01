@@ -32,7 +32,23 @@ export const matchSubmissionsParamSchema = z.object({
   }),
 });
 
+// Schema for POST /submissions/run (Run Code)
+export const runCodeSchema = z.object({
+  body: z.object({
+    matchId: objectIdSchema,
+    language: languageSchema,
+    sourceCode: z
+      .string({ required_error: 'Source code is required' })
+      .min(1, 'Source code cannot be empty'),
+    customInput: z.string().optional(),
+  }),
+  query: z.object({}).optional(),
+  params: z.object({}).optional(),
+});
+
 // Inferred TypeScript Types
 export type SubmitCodeRequest = z.infer<typeof submitCodeSchema>;
 export type SubmissionIdParamRequest = z.infer<typeof submissionIdParamSchema>;
 export type MatchSubmissionsParamRequest = z.infer<typeof matchSubmissionsParamSchema>;
+export type RunCodeRequest = z.infer<typeof runCodeSchema>;
+

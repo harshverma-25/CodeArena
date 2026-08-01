@@ -100,6 +100,31 @@ export class SubmissionController {
       )
     );
   }
+
+  /**
+   * POST /api/v1/submissions/run
+   * Run code with custom inputs.
+   */
+  async runCode(req: Request, res: Response): Promise<void> {
+    if (!req.user) {
+      throw new ApiError(401, 'Unauthorized: User session not found');
+    }
+
+    const { matchId, language, sourceCode, customInput } = req.body;
+    const userId = req.user._id.toString();
+
+    const result = await submissionService.runCode(
+      userId,
+      matchId,
+      language,
+      sourceCode,
+      customInput
+    );
+
+    res.status(200).json(
+      new ApiResponse(200, result, 'Code executed successfully.')
+    );
+  }
 }
 
 export const submissionController = new SubmissionController();
