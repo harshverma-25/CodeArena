@@ -6,3 +6,4 @@ export * from "./components/BattleStatus";
 export * from "./components/BattleSkeleton";
 export * from "./hooks/useRoom";
 export * from "./hooks/useBattleMutations";
+export * from "./hooks/useLobbySocket";

@@ -28,9 +28,10 @@ interface BattleSettingsProps {
   roomCode: string;
   settings: RoomSettings;
   isHost: boolean;
+  onUpdate?: (settings: RoomSettings) => void;
 }
 
-export function BattleSettings({ roomCode, settings, isHost }: BattleSettingsProps) {
+export function BattleSettings({ roomCode, settings, isHost, onUpdate }: BattleSettingsProps) {
   const { updateSettings } = useBattleMutations();
 
   const [topic, setTopic] = useState(settings?.topic || "Arrays");
@@ -52,6 +53,12 @@ export function BattleSettings({ roomCode, settings, isHost }: BattleSettingsPro
     if (!isHost) return;
     setError("");
     setFeedback("");
+
+    // If real-time onUpdate is provided, invoke it
+    if (onUpdate) {
+      onUpdate({ topic: newTopic, difficulty: newDiff, duration: newDur });
+      return;
+    }
 
     try {
       await updateSettings.mutateAsync({

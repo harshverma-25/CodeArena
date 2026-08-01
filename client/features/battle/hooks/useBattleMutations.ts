@@ -73,11 +73,30 @@ export function useBattleMutations() {
     },
   });
 
+  // Start Match Mutation
+  const startMatch = useMutation<{ matchId: string }, Error, string>({
+    mutationFn: async (roomCode) => {
+      const response = await api.post<{ success: boolean; data: { matchId: string } }>(
+        "/matches/start",
+        { roomCode }
+      );
+      const responseData = response as unknown as { success: boolean; data: { matchId: string } };
+      if (!responseData || !responseData.success) {
+        throw new Error("Failed to start the match. Ensure both players are ready.");
+      }
+      return responseData.data;
+    },
+    onSuccess: (_, roomCode) => {
+      queryClient.invalidateQueries({ queryKey: ["room", roomCode] });
+    },
+  });
+
   return {
     createRoom,
     joinRoom,
     updateSettings,
     leaveRoom,
+    startMatch,
   };
 }
 export default useBattleMutations;

@@ -78,6 +78,18 @@ export function PlayerList({ players }: PlayerListProps) {
 
               {/* Badges */}
               <div className="flex items-center gap-2">
+                {player.isReady ? (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 text-[10px] font-bold text-emerald-500 uppercase font-mono tracking-wider">
+                    <CheckCircle2 className="h-3 w-3" />
+                    Ready
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 text-[10px] font-bold text-amber-500 uppercase font-mono tracking-wider animate-pulse">
+                    <AlertCircle className="h-3 w-3" />
+                    Preparing
+                  </span>
+                )}
+                
                 {player.isHost ? (
                   <span className="inline-flex items-center rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-[10px] font-bold text-primary uppercase font-mono tracking-wider">
                     Host
