@@ -52,6 +52,30 @@ export class ProblemRepository {
     return ProblemModel.findById(result[0]._id).exec();
   }
 
+  async hasMatchingProblem(filter: { topic?: string; difficulty?: string }): Promise<boolean> {
+    const query: any = { status: 'Published' };
+    if (filter.topic && filter.topic !== 'random') {
+      query.topic = filter.topic;
+    }
+    if (filter.difficulty && filter.difficulty !== 'random') {
+      query.difficulty = filter.difficulty;
+    }
+    const count = await ProblemModel.countDocuments(query).exec();
+    return count > 0;
+  }
+
+  async getAvailability(): Promise<Array<{ _id: { topic: string; difficulty: string }; count: number }>> {
+    return ProblemModel.aggregate([
+      { $match: { status: 'Published' } },
+      {
+        $group: {
+          _id: { topic: '$topic', difficulty: '$difficulty' },
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+  }
+
   async create(problemData: Partial<IProblem>): Promise<IProblemDocument> {
     const problem = new ProblemModel(problemData);
     return problem.save();

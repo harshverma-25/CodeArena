@@ -1,6 +1,7 @@
 import { roomRepository } from './room.repository.js';
 import { IRoomDocument, RoomStatus, IRoomSettings } from './room.types.js';
 import { ApiError } from '../../shared/errors/api-error.js';
+import { problemRepository } from '../problem/problem.repository.js';
 
 export class RoomService {
   /**
@@ -22,6 +23,19 @@ export class RoomService {
     hostUserId: string,
     settings?: Partial<IRoomSettings>
   ): Promise<IRoomDocument> {
+    const topic = settings?.topic || 'random';
+    const difficulty = settings?.difficulty || 'random';
+
+    const hasProblem = await problemRepository.hasMatchingProblem({ topic, difficulty });
+    if (!hasProblem) {
+      const topicStr = topic === 'random' ? 'Any Topic' : topic;
+      const diffStr = difficulty === 'random' ? 'Any Difficulty' : difficulty;
+      throw new ApiError(
+        400,
+        `No published ${topicStr} / ${diffStr} problems are currently available.`
+      );
+    }
+
     let roomCode = '';
     let isUnique = false;
 
@@ -45,8 +59,8 @@ export class RoomService {
         },
       ],
       settings: {
-        topic: settings?.topic || 'random',
-        difficulty: settings?.difficulty || 'random',
+        topic,
+        difficulty,
         duration: settings?.duration || 30,
       },
       maxPlayers: 2,
@@ -145,6 +159,19 @@ export class RoomService {
       difficulty: settings.difficulty !== undefined ? settings.difficulty : room.settings.difficulty,
       duration: settings.duration !== undefined ? settings.duration : room.settings.duration,
     };
+
+    const hasProblem = await problemRepository.hasMatchingProblem({
+      topic: updatedSettings.topic,
+      difficulty: updatedSettings.difficulty,
+    });
+    if (!hasProblem) {
+      const topicStr = updatedSettings.topic === 'random' ? 'Any Topic' : updatedSettings.topic;
+      const diffStr = updatedSettings.difficulty === 'random' ? 'Any Difficulty' : updatedSettings.difficulty;
+      throw new ApiError(
+        400,
+        `No published ${topicStr} / ${diffStr} problems are currently available.`
+      );
+    }
 
     const updated = await roomRepository.update(code, {
       settings: updatedSettings,

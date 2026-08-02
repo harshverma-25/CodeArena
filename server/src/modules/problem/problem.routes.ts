@@ -29,6 +29,12 @@ router.get(
   asyncHandler((req, res) => problemController.getRandomProblem(req, res))
 );
 
+// Route: GET /problems/availability
+router.get(
+  '/availability',
+  asyncHandler((req, res) => problemController.getAvailability(req, res))
+);
+
 // Route: GET /problems/:slug
 router.get(
   '/:slug',

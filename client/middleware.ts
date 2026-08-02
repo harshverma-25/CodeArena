@@ -8,6 +8,8 @@ const isProtectedRoute = createRouteMatcher([
   "/settings(.*)",
   "/lobby(.*)",
   "/match(.*)",
+  "/history(.*)",
+  "/results(.*)",
 ]);
 
 const isAuthRoute = createRouteMatcher([

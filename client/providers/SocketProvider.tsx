@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { socketManager } from "@/lib/socket";
 import { useBattleStore } from "@/store/battleStore";
@@ -8,6 +8,11 @@ import { useBattleStore } from "@/store/battleStore";
 export function SocketProvider({ children }: { children: React.ReactNode }) {
   const { getToken, isSignedIn } = useAuth();
   const setSocketConnected = useBattleStore((state) => state.setSocketConnected);
+  
+  const getTokenRef = useRef(getToken);
+  useEffect(() => {
+    getTokenRef.current = getToken;
+  }, [getToken]);
 
   useEffect(() => {
     let active = true;
@@ -20,7 +25,7 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
 
     const initSocket = async () => {
       try {
-        const token = await getToken();
+        const token = await getTokenRef.current();
         if (!token || !active) return;
 
         const socket = socketManager.connect(token);
@@ -63,7 +68,7 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
       socketManager.disconnect();
       setSocketConnected(false);
     };
-  }, [isSignedIn, getToken, setSocketConnected]);
+  }, [isSignedIn, setSocketConnected]);
 
   return <>{children}</>;
 }

@@ -44,6 +44,16 @@ export class ProblemController {
       new ApiResponse(200, problem, 'Random problem retrieved successfully.')
     );
   }
+
+  /**
+   * GET /api/v1/problems/availability
+   */
+  async getAvailability(req: Request, res: Response): Promise<void> {
+    const availability = await problemService.getAvailability();
+    res.status(200).json(
+      new ApiResponse(200, availability, 'Problem availability matrix retrieved successfully.')
+    );
+  }
 }
 
 export const problemController = new ProblemController();

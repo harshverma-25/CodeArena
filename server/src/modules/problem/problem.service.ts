@@ -1,5 +1,5 @@
 import { problemRepository } from './problem.repository.js';
-import { IProblemDocument } from './problem.types.js';
+import { IProblemDocument, ProblemTopic, ProblemDifficulty } from './problem.types.js';
 import { AppError } from '../../utils/app-error.js';
 
 export class ProblemService {
@@ -61,6 +61,33 @@ export class ProblemService {
     }
 
     return problem;
+  }
+
+  /**
+   * Retrieves the availability matrix of published problems dynamically.
+   */
+  async getAvailability(): Promise<Record<string, Record<string, boolean>>> {
+    const raw = await problemRepository.getAvailability();
+    const availability: Record<string, Record<string, boolean>> = {};
+
+    for (const topic of Object.values(ProblemTopic)) {
+      availability[topic] = {
+        [ProblemDifficulty.EASY]: false,
+        [ProblemDifficulty.MEDIUM]: false,
+        [ProblemDifficulty.HARD]: false,
+      };
+    }
+
+    for (const item of raw) {
+      if (item._id && item._id.topic && item._id.difficulty) {
+        const { topic, difficulty } = item._id;
+        if (availability[topic]) {
+          availability[topic][difficulty] = item.count > 0;
+        }
+      }
+    }
+
+    return availability;
   }
 }
 

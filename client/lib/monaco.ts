@@ -67,9 +67,4 @@ export function configureMonacoLoader() {
       vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.43.0/min/vs",
     },
   });
-  
-  // Register theme immediately upon load
-  loader.init().then((monaco) => {
-    registerCodeArenaTheme(monaco);
-  });
 }

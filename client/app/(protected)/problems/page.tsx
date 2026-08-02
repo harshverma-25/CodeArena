@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, RefreshCw, Terminal } from "lucide-react";
 import { useProblems, ProblemFilters, ProblemTable, EmptyState, ProblemsSkeleton } from "@/features/problems";
 import { Button } from "@/components/ui/button";
 
-export default function ProblemsPage() {
+function ProblemsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -158,5 +158,13 @@ export default function ProblemsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ProblemsPage() {
+  return (
+    <Suspense fallback={<ProblemsSkeleton />}>
+      <ProblemsPageContent />
+    </Suspense>
   );
 }
