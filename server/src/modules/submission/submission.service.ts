@@ -286,7 +286,13 @@ export class SubmissionService {
     }
 
     // Authorize: user must belong to the associated match
-    const match = await matchRepository.findById(submission.matchId.toString());
+    const matchIdStr = (submission.matchId as any)?._id
+      ? (submission.matchId as any)._id.toString()
+      : submission.matchId?.toString();
+    if (!matchIdStr) {
+      throw new ApiError(400, 'Invalid match association on submission');
+    }
+    const match = await matchRepository.findById(matchIdStr);
     if (!match) {
       throw new ApiError(404, 'Match associated with this submission was not found');
     }
