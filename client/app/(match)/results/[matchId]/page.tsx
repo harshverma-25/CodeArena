@@ -1,15 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { useMatch } from "@/features/match/hooks/useMatch";
-import { useMatchSubmissions } from "@/features/match/hooks/useMatchSubmissions";
 import { useBattleStore } from "@/store/battleStore";
 import { Button } from "@/components/ui/button";
-import Editor from "@monaco-editor/react";
-import { registerCodeArenaTheme, CODEARENA_THEME_NAME, DEFAULT_MONACO_OPTIONS } from "@/lib/monaco";
-import { Trophy, Frown, Award, Clock, Code, Home, RefreshCw, BarChart2, BookOpen } from "lucide-react";
+import { Trophy, Frown, Award, Clock, Home, RefreshCw, BarChart2, BookOpen, CheckCircle2 } from "lucide-react";
 
 export default function MatchResultsPage() {
   const params = useParams();
@@ -18,17 +15,15 @@ export default function MatchResultsPage() {
 
   const { data: dbUser, isLoading: userLoading } = useCurrentUser();
   const { data: match, isLoading: matchLoading } = useMatch(matchId);
-  const { data: submissions = [], isLoading: subsLoading } = useMatchSubmissions(matchId);
 
   const { resetBattle } = useBattleStore();
-  const [activeCodeTab, setActiveCodeTab] = useState<"me" | "opponent">("me");
 
   useEffect(() => {
     // Reset store states when visiting results to clear lobby connections
     resetBattle();
   }, [resetBattle]);
 
-  if (userLoading || matchLoading || subsLoading) {
+  if (userLoading || matchLoading) {
     return (
       <div className="flex flex-col items-center justify-center h-screen w-screen bg-zinc-950 text-muted-foreground font-mono text-xs gap-3">
         <RefreshCw className="h-6 w-6 animate-spin text-primary" />
@@ -52,19 +47,6 @@ export default function MatchResultsPage() {
   const opponent = match.players.find((p) => p.user?._id !== dbUser._id)?.user;
   const opponentName = opponent?.displayName || opponent?.username || "Opponent";
 
-  // Submissions calculation
-  const mySubs = submissions.filter((s) => s.userId?._id === dbUser._id);
-  const oppSubs = submissions.filter((s) => s.userId?._id === opponent?._id);
-
-  // Final code templates
-  const myLastAccepted = mySubs.find((s) => s.verdict === "ACCEPTED");
-  const myFinalCode = myLastAccepted?.sourceCode || mySubs[mySubs.length - 1]?.sourceCode || "";
-  const myFinalLang = myLastAccepted?.language || mySubs[mySubs.length - 1]?.language || "javascript";
-
-  const oppLastAccepted = oppSubs.find((s) => s.verdict === "ACCEPTED");
-  const oppFinalCode = oppLastAccepted?.sourceCode || oppSubs[oppSubs.length - 1]?.sourceCode || "";
-  const oppFinalLang = oppLastAccepted?.language || oppSubs[oppSubs.length - 1]?.language || "javascript";
-
   // Match outcome definition
   let outcome: "victory" | "defeat" | "draw" = "draw";
   if (match.winner) {
@@ -74,39 +56,25 @@ export default function MatchResultsPage() {
   const outcomeDetails = {
     victory: {
       title: "Victory",
-      desc: "You outcoded the arena! Keep the streak hot.",
+      desc: "You outperformed the arena! Keep the streak hot.",
       colorClass: "text-amber-400 bg-amber-500/10 border-amber-500/35 shadow-amber-500/5",
       icon: <Trophy className="h-12 w-12 text-amber-400 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]" />,
     },
     defeat: {
       title: "Defeat",
-      desc: "An honorable battle. Analyze your code templates to improve.",
+      desc: "An honorable battle. Analyze your answers to improve.",
       colorClass: "text-rose-400 bg-rose-500/10 border-rose-500/35 shadow-rose-500/5",
       icon: <Frown className="h-12 w-12 text-rose-400 drop-shadow-[0_0_8px_rgba(244,63,94,0.5)]" />,
     },
     draw: {
       title: "Draw",
-      desc: "Time expired without an accepted submission from either competitor.",
+      desc: "Equal scores achieved across the battle questions.",
       colorClass: "text-zinc-400 bg-zinc-500/10 border-zinc-500/35 shadow-zinc-500/5",
       icon: <Award className="h-12 w-12 text-zinc-400" />,
     },
   };
 
   const currentOutcome = outcomeDetails[outcome];
-
-  const handleEditorDidMount = (editor: any, monaco: any) => {
-    registerCodeArenaTheme(monaco);
-    monaco.editor.setTheme(CODEARENA_THEME_NAME);
-  };
-
-  const getMonacoLanguage = (lang: string): string => {
-    const formatted = lang.toLowerCase();
-    if (formatted === "cpp") return "cpp";
-    if (formatted === "python") return "python";
-    if (formatted === "java") return "java";
-    if (formatted === "typescript") return "typescript";
-    return "javascript";
-  };
 
   return (
     <div className="min-h-screen bg-zinc-950 text-foreground p-6 md:p-10 flex flex-col items-center overflow-y-auto scrollbar-thin">
@@ -140,9 +108,9 @@ export default function MatchResultsPage() {
               <BookOpen className="h-5 w-5" />
             </div>
             <div className="flex flex-col font-mono text-xs">
-              <span className="text-zinc-500 font-bold uppercase tracking-wider">Assigned Problem</span>
+              <span className="text-zinc-500 font-bold uppercase tracking-wider">Opponent</span>
               <span className="font-black text-foreground mt-0.5 max-w-[200px] truncate">
-                {match.problem?.title || "N/A"}
+                {opponentName}
               </span>
             </div>
           </div>
@@ -154,7 +122,7 @@ export default function MatchResultsPage() {
             <div className="flex flex-col font-mono text-xs">
               <span className="text-zinc-500 font-bold uppercase tracking-wider">Total Duration</span>
               <span className="font-black text-foreground mt-0.5">
-                {match.duration ? `${Math.floor(match.duration / 60)}m ${match.duration % 60}s` : "Time Expired"}
+                {match.duration ? `${Math.floor(match.duration / 60)}m ${match.duration % 60}s` : "Finished"}
               </span>
             </div>
           </div>
@@ -166,78 +134,22 @@ export default function MatchResultsPage() {
             <div className="flex flex-col font-mono text-xs">
               <span className="text-zinc-500 font-bold uppercase tracking-wider">Topic</span>
               <span className="font-black text-foreground mt-0.5 uppercase">
-                {match.problem?.topic || "Algorithm"}
+                {match.problem?.topic || "Technical"}
               </span>
             </div>
           </div>
         </div>
 
-        {/* Code Comparison Workspace */}
-        <div className="flex-1 flex flex-col bg-zinc-900/60 border border-border/60 rounded-2xl shadow-xl overflow-hidden min-h-[450px]">
-          {/* Header Panel */}
-          <div className="flex flex-wrap items-center justify-between px-6 py-4 border-b border-border/60 bg-zinc-900 shrink-0">
-            <div className="flex items-center gap-2">
-              <Code className="h-4 w-4 text-primary" />
-              <span className="text-xs font-bold font-mono text-foreground uppercase tracking-wider">
-                Submission Workspace Code
-              </span>
-            </div>
-
-            <div className="flex items-center gap-1 bg-zinc-950 p-1 border border-border/50 rounded-lg">
-              <button
-                onClick={() => setActiveCodeTab("me")}
-                className={`px-3 py-1 text-[10px] font-bold font-mono uppercase rounded-md transition-all ${
-                  activeCodeTab === "me" ? "bg-zinc-800 text-foreground" : "text-zinc-500 hover:text-zinc-300"
-                }`}
-              >
-                My Solution ({mySubs.length} attempts)
-              </button>
-              <button
-                onClick={() => setActiveCodeTab("opponent")}
-                className={`px-3 py-1 text-[10px] font-bold font-mono uppercase rounded-md transition-all ${
-                  activeCodeTab === "opponent" ? "bg-zinc-800 text-foreground" : "text-zinc-500 hover:text-zinc-300"
-                }`}
-              >
-                {opponentName}&apos;s Solution ({oppSubs.length} attempts)
-              </button>
-            </div>
+        {/* Summary Card */}
+        <div className="flex-1 flex flex-col bg-zinc-900/60 border border-border/60 rounded-2xl p-8 shadow-xl items-center justify-center text-center gap-4">
+          <div className="p-4 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+            <CheckCircle2 className="h-8 w-8" />
           </div>
-
-          {/* Editor Workspace */}
-          <div className="flex-1 min-h-0 bg-[#09090b]">
-            {activeCodeTab === "me" && (
-              myFinalCode ? (
-                <Editor
-                  height="100%"
-                  language={getMonacoLanguage(myFinalLang)}
-                  value={myFinalCode}
-                  onMount={handleEditorDidMount}
-                  theme={CODEARENA_THEME_NAME}
-                  options={{ ...DEFAULT_MONACO_OPTIONS, readOnly: true, lineNumbers: "on" }}
-                />
-              ) : (
-                <div className="flex items-center justify-center h-full text-zinc-600 font-mono text-xs">
-                  No submissions recorded for your user.
-                </div>
-              )
-            )}
-
-            {activeCodeTab === "opponent" && (
-              oppFinalCode ? (
-                <Editor
-                  height="100%"
-                  language={getMonacoLanguage(oppFinalLang)}
-                  value={oppFinalCode}
-                  onMount={handleEditorDidMount}
-                  theme={CODEARENA_THEME_NAME}
-                  options={{ ...DEFAULT_MONACO_OPTIONS, readOnly: true, lineNumbers: "on" }}
-                />
-              ) : (
-                <div className="flex items-center justify-center h-full text-zinc-600 font-mono text-xs">
-                  No submissions recorded for {opponentName}.
-                </div>
-              )
-            )}
+          <div className="space-y-1 max-w-md">
+            <h3 className="text-lg font-bold text-foreground">Battle Complete</h3>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Old code editor comparison has been removed. Full MCQ question-by-question review, answer breakdown, and scoring will be populated here in the next step.
+            </p>
           </div>
         </div>
       </div>

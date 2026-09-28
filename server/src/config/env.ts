@@ -22,16 +22,6 @@ const envSchema = z.object({
   MONGODB_URI: z.string().min(1, 'MONGODB_URI is required'),
   CLERK_SECRET_KEY: z.string().min(1, 'CLERK_SECRET_KEY is required'),
   CLERK_PUBLISHABLE_KEY: z.string().min(1, 'CLERK_PUBLISHABLE_KEY is required'),
-  JUDGE0_URL: z.string().url('JUDGE0_URL must be a valid URL'),
-  JUDGE0_API_KEY: z.string().min(1, 'JUDGE0_API_KEY is required'),
-  JUDGE0_POLL_INTERVAL: z
-    .string()
-    .default('1000')
-    .transform((val) => parseInt(val, 10)),
-  JUDGE0_MAX_POLL_ATTEMPTS: z
-    .string()
-    .default('15')
-    .transform((val) => parseInt(val, 10)),
 });
 
 const result = envSchema.safeParse(process.env);

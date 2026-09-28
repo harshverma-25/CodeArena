@@ -1,17 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { useMatch } from "@/features/match/hooks/useMatch";
 import { useMatchSocket } from "@/features/match/hooks/useMatchSocket";
-import { useSubmission } from "@/features/match/hooks/useSubmission";
 import { useBattleStore } from "@/store/battleStore";
 import { ProblemPanel } from "@/features/match/components/ProblemPanel";
-import { MonacoEditorWrapper } from "@/features/match/components/MonacoEditorWrapper";
-import { OutputConsole } from "@/features/match/components/OutputConsole";
 import { MatchHeader } from "@/features/match/components/MatchHeader";
-import { RefreshCw, ShieldAlert, Home } from "lucide-react";
+import { RefreshCw, ShieldAlert, Home, Swords } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function MatchArenaPage() {
@@ -22,10 +19,6 @@ export default function MatchArenaPage() {
   const { data: dbUser, isLoading: userLoading } = useCurrentUser();
   const { data: match, isLoading: matchLoading, error: matchError } = useMatch(matchId);
 
-  const [selectedLanguage, setSelectedLanguage] = useState("javascript");
-  const [code, setCode] = useState("");
-  const [customInput, setCustomInput] = useState("");
-
   const {
     setMatchId,
     setTimeRemaining,
@@ -35,22 +28,11 @@ export default function MatchArenaPage() {
   } = useBattleStore();
 
   // Socket communication synchronization
-  const { isConnected: socketConnected } = useMatchSocket(
+  useMatchSocket(
     match?.roomCode,
     matchId,
     dbUser?._id
   );
-
-  // Run Code and Submission state hooks
-  const {
-    runCode,
-    submitSolution,
-    runResult,
-    submitResult,
-    activeTab,
-    setActiveTab,
-    isLoading: executionLoading,
-  } = useSubmission(matchId);
 
   // Sync loaded match information with Battle Store state
   useEffect(() => {
@@ -68,35 +50,7 @@ export default function MatchArenaPage() {
 
     setTimeRemaining(remaining);
     setStatus(match.status === "IN_PROGRESS" ? "active" : "completed");
-
-    // Pre-fill preferred language if available
-    if (dbUser.preferredLanguage) {
-      setSelectedLanguage(dbUser.preferredLanguage.toLowerCase());
-    }
-
-    // Pre-fill first example as custom input
-    if (match.problem?.examples?.[0]?.input) {
-      setCustomInput(match.problem.examples[0].input);
-    }
   }, [match, dbUser, setMatchId, setMyUserId, setTimeRemaining, setStatus]);
-
-  const handleRunCode = () => {
-    runCode.mutate({
-      language: selectedLanguage,
-      sourceCode: code,
-      customInput,
-    });
-  };
-
-  const handleSubmitSolution = () => {
-    const confirmSubmit = window.confirm("Ready to submit your code against all hidden test cases?");
-    if (!confirmSubmit) return;
-
-    submitSolution.mutate({
-      language: selectedLanguage,
-      sourceCode: code,
-    });
-  };
 
   // Loading States
   if (userLoading || matchLoading) {
@@ -151,35 +105,16 @@ export default function MatchArenaPage() {
           <ProblemPanel problem={match.problem} />
         </div>
 
-        {/* Right Column: Code Editor & Console */}
-        <div className="flex-1 h-1/2 lg:h-full flex flex-col gap-4 min-h-0">
-          {/* Monaco Editor Wrapper */}
-          <div className="flex-[6_6_0%] min-h-0">
-            <MonacoEditorWrapper
-              matchId={matchId}
-              problem={match.problem}
-              selectedLanguage={selectedLanguage}
-              setSelectedLanguage={setSelectedLanguage}
-              code={code}
-              setCode={setCode}
-              onRunCode={handleRunCode}
-              onSubmitSolution={handleSubmitSolution}
-              isExecuting={executionLoading}
-            />
+        {/* Right Column: MCQ Arena placeholder */}
+        <div className="flex-1 h-1/2 lg:h-full flex flex-col items-center justify-center bg-zinc-900/40 border border-border/60 rounded-2xl p-6 text-center gap-4">
+          <div className="p-4 rounded-full bg-primary/10 border border-primary/20 text-primary">
+            <Swords className="h-8 w-8" />
           </div>
-
-          {/* Output Console Panel */}
-          <div className="flex-[4_4_0%] min-h-0">
-            <OutputConsole
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-              customInput={customInput}
-              setCustomInput={setCustomInput}
-              runResult={runResult}
-              submitResult={submitResult}
-              isLoading={executionLoading}
-              examples={match.problem?.examples || []}
-            />
+          <div className="space-y-1 max-w-sm">
+            <h3 className="text-base font-bold text-foreground">1v1 Battle Arena Ready</h3>
+            <p className="text-xs text-muted-foreground">
+              Old code execution system removed. MCQ battle arena module will be connected in Step 2.
+            </p>
           </div>
         </div>
       </div>

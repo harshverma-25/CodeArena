@@ -21,7 +21,6 @@ export const logger = pino({
       'apiKey',
       'clerkSecretKey',
       'clerkPublishableKey',
-      'judge0ApiKey',
     ],
     censor: '[REDACTED]',
   },

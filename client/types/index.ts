@@ -105,37 +105,3 @@ export interface Match {
   duration?: number; // in seconds
   problem: Problem | null;
 }
-
-export type SubmissionVerdict =
-  | "QUEUED"
-  | "RUNNING"
-  | "ACCEPTED"
-  | "WRONG_ANSWER"
-  | "TIME_LIMIT_EXCEEDED"
-  | "COMPILATION_ERROR"
-  | "RUNTIME_ERROR";
-
-export interface Submission {
-  _id: string;
-  matchId: string;
-  userId: {
-    _id: string;
-    username: string;
-    displayName: string;
-    avatar: string;
-  } | null;
-  submissionNumber: number;
-  language: string;
-  sourceCode: string;
-  verdict: SubmissionVerdict;
-  executionTime: number; // in ms
-  memoryUsed: number; // in MB
-  passedTestCases: number;
-  totalTestCases: number;
-  stdout?: string;
-  stderr?: string;
-  compileOutput?: string;
-  isFinalAccepted: boolean;
-  submittedAt: string;
-  judgedAt?: string;
-}

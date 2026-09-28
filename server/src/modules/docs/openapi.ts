@@ -124,28 +124,6 @@ export const openApiSpec = {
           duration: { type: 'integer', example: 1800 },
         },
       },
-      Submission: {
-        type: 'object',
-        properties: {
-          _id: { type: 'string', example: '60d0fe4f5311236168a109ce' },
-          matchId: { type: 'string', example: '60d0fe4f5311236168a109cd' },
-          userId: { type: 'string', example: '60d0fe4f5311236168a109ca' },
-          submissionNumber: { type: 'integer', example: 1 },
-          language: { type: 'string', example: 'javascript' },
-          sourceCode: { type: 'string', example: 'function twoSum() {}' },
-          verdict: { type: 'string', example: 'ACCEPTED' },
-          executionTime: { type: 'integer', example: 45 },
-          memoryUsed: { type: 'number', example: 12.4 },
-          passedTestCases: { type: 'integer', example: 5 },
-          totalTestCases: { type: 'integer', example: 5 },
-          stdout: { type: 'string', nullable: true },
-          stderr: { type: 'string', nullable: true },
-          compileOutput: { type: 'string', nullable: true },
-          isFinalAccepted: { type: 'boolean', example: true },
-          submittedAt: { type: 'string', format: 'date-time' },
-          judgedAt: { type: 'string', format: 'date-time', nullable: true },
-        },
-      },
     },
   },
   security: [
@@ -620,94 +598,6 @@ export const openApiSpec = {
                   properties: {
                     success: { type: 'boolean', example: true },
                     data: { $ref: '#/components/schemas/Match' },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-    '/submissions': {
-      post: {
-        summary: 'Submit Code',
-        tags: ['Submissions'],
-        requestBody: {
-          required: true,
-          content: {
-            'application/json': {
-              schema: {
-                type: 'object',
-                required: ['matchId', 'language', 'sourceCode'],
-                properties: {
-                  matchId: { type: 'string', example: '60d0fe4f5311236168a109cd' },
-                  language: { type: 'string', example: 'javascript' },
-                  sourceCode: { type: 'string', example: 'function twoSum() { ... }' },
-                },
-              },
-            },
-          },
-        },
-        responses: {
-          201: {
-            description: 'Code executed on Judge0, result updated, socket emitted.',
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'object',
-                  properties: {
-                    success: { type: 'boolean', example: true },
-                    data: { $ref: '#/components/schemas/Submission' },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-    '/submissions/{submissionId}': {
-      get: {
-        summary: 'Get Submission Details',
-        tags: ['Submissions'],
-        parameters: [
-          { name: 'submissionId', in: 'path', required: true, schema: { type: 'string' } },
-        ],
-        responses: {
-          200: {
-            description: 'Sanitized submission outputs.',
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'object',
-                  properties: {
-                    success: { type: 'boolean', example: true },
-                    data: { $ref: '#/components/schemas/Submission' },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-    '/matches/{matchId}/submissions': {
-      get: {
-        summary: 'Get Match Submissions',
-        tags: ['Submissions'],
-        parameters: [
-          { name: 'matchId', in: 'path', required: true, schema: { type: 'string' } },
-        ],
-        responses: {
-          200: {
-            description: 'List of all submissions associated with the match.',
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'object',
-                  properties: {
-                    success: { type: 'boolean', example: true },
-                    data: { type: 'array', items: { $ref: '#/components/schemas/Submission' } },
                   },
                 },
               },
