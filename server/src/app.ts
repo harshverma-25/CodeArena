@@ -6,6 +6,7 @@ import { errorHandler } from './middleware/error.middleware.js';
 import { notFoundHandler } from './middleware/not-found.middleware.js';
 import { userRoutes } from './modules/user/user.routes.js';
 import { problemRoutes } from './modules/problem/problem.routes.js';
+import { questionRoutes } from './modules/question/question.routes.js';
 import { roomRoutes } from './modules/room/room.routes.js';
 import { matchRoutes } from './modules/match/match.routes.js';
 import { docsRoutes } from './modules/docs/docs.routes.js';
@@ -87,6 +88,7 @@ app.get('/api/v1/health', (req, res) => {
 
 // Register API Routes
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/questions', questionRoutes);
 app.use('/api/v1/problems', problemRoutes);
 app.use('/api/v1/rooms', roomRoutes);
 app.use('/api/v1/matches', matchRoutes);

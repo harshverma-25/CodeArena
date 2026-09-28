@@ -1,0 +1,62 @@
+[
+  {
+    "questionId": "js-001",
+    "topic": "JavaScript",
+    "difficulty": "easy",
+    "question": "Which operator is used for strict equality comparison in JavaScript without type coercion?",
+    "options": ["==", "===", "=", "equals"],
+    "correctAnswer": 1,
+    "explanation": "=== performs strict equality checking both value and data type without performing type coercion.",
+    "isPublished": true
+  },
+  {
+    "questionId": "js-002",
+    "topic": "JavaScript",
+    "difficulty": "easy",
+    "question": "What is the return type of typeof NaN in JavaScript?",
+    "options": ["'undefined'", "'nan'", "'number'", "'object'"],
+    "correctAnswer": 2,
+    "explanation": "In JavaScript, NaN stands for 'Not-a-Number', but its data type according to typeof is 'number'.",
+    "isPublished": true
+  },
+  {
+    "questionId": "js-003",
+    "topic": "JavaScript",
+    "difficulty": "medium",
+    "question": "What is a Closure in JavaScript?",
+    "options": ["A function inside an object", "A function combined with its lexical environment", "A method to close browser windows", "A tool for DOM manipulation"],
+    "correctAnswer": 1,
+    "explanation": "A closure is the combination of a function bundled together with references to its surrounding state (lexical environment).",
+    "isPublished": true
+  },
+  {
+    "questionId": "js-004",
+    "topic": "JavaScript",
+    "difficulty": "medium",
+    "question": "What will be the output of `console.log(typeof [])` in JavaScript?",
+    "options": ["'array'", "'object'", "'list'", "'undefined'"],
+    "correctAnswer": 1,
+    "explanation": "Arrays in JavaScript are a specialized sub-type of Object, so `typeof []` evaluates to `'object'`. Use `Array.isArray()` to check for arrays.",
+    "isPublished": true
+  },
+  {
+    "questionId": "js-005",
+    "topic": "JavaScript",
+    "difficulty": "hard",
+    "question": "Which queue in the Event Loop has higher priority: Microtask Queue or Macrotask Queue?",
+    "options": ["Macrotask Queue", "Microtask Queue", "Both have equal priority", "Priority depends on CPU usage"],
+    "correctAnswer": 1,
+    "explanation": "Microtasks (Promises, process.nextTick, queueMicrotask) are processed completely after the current operation finishes and before processing the next Macrotask (setTimeout, setInterval).",
+    "isPublished": true
+  },
+  {
+    "questionId": "js-006",
+    "topic": "JavaScript",
+    "difficulty": "hard",
+    "question": "What happens when you declare a variable with `const` inside a block and access it before initialization?",
+    "options": ["Returns undefined", "Returns null", "Throws ReferenceError (Temporal Dead Zone)", "Throws TypeError"],
+    "correctAnswer": 2,
+    "explanation": "`let` and `const` variables are hoisted but reside in the Temporal Dead Zone (TDZ) until initialized. Accessing them beforehand throws a ReferenceError.",
+    "isPublished": true
+  }
+]

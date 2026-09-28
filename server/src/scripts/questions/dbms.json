@@ -1,0 +1,62 @@
+[
+  {
+    "questionId": "dbms-001",
+    "topic": "DBMS",
+    "difficulty": "easy",
+    "question": "Which SQL command is used to remove all records from a table without deleting the table structure?",
+    "options": ["DROP", "DELETE", "TRUNCATE", "REMOVE"],
+    "correctAnswer": 2,
+    "explanation": "TRUNCATE removes all rows from a table quickly while preserving the table schema and structure.",
+    "isPublished": true
+  },
+  {
+    "questionId": "dbms-002",
+    "topic": "DBMS",
+    "difficulty": "easy",
+    "question": "What does the 'A' in ACID properties of a database transaction stand for?",
+    "options": ["Availability", "Atomicity", "Authentication", "Accuracy"],
+    "correctAnswer": 1,
+    "explanation": "ACID stands for Atomicity, Consistency, Isolation, and Durability. Atomicity ensures all-or-nothing completion.",
+    "isPublished": true
+  },
+  {
+    "questionId": "dbms-003",
+    "topic": "DBMS",
+    "difficulty": "medium",
+    "question": "Which Normal Form eliminates partial functional dependencies?",
+    "options": ["1NF", "2NF", "3NF", "BCNF"],
+    "correctAnswer": 1,
+    "explanation": "2NF (Second Normal Form) requires 1NF and ensures all non-key attributes are fully functionally dependent on the primary key.",
+    "isPublished": true
+  },
+  {
+    "questionId": "dbms-004",
+    "topic": "DBMS",
+    "difficulty": "medium",
+    "question": "Which JOIN type returns all rows from the left table and matched rows from the right table?",
+    "options": ["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "FULL OUTER JOIN"],
+    "correctAnswer": 1,
+    "explanation": "LEFT JOIN (or LEFT OUTER JOIN) preserves all records from the left table regardless of matching entries in the right table.",
+    "isPublished": true
+  },
+  {
+    "questionId": "dbms-005",
+    "topic": "DBMS",
+    "difficulty": "hard",
+    "question": "Which concurrency control phenomenon occurs when a transaction reads updated data that has not yet been committed by another transaction?",
+    "options": ["Dirty Read", "Non-repeatable Read", "Phantom Read", "Lost Update"],
+    "correctAnswer": 0,
+    "explanation": "A Dirty Read occurs when Transaction A reads uncommitted modifications made by Transaction B. If B rolls back, A holds invalid data.",
+    "isPublished": true
+  },
+  {
+    "questionId": "dbms-006",
+    "topic": "DBMS",
+    "difficulty": "hard",
+    "question": "What is the primary characteristic of Boyce-Codd Normal Form (BCNF)?",
+    "options": ["Every non-prime attribute is fully dependent on candidate keys", "For every functional dependency X -> Y, X must be a super key", "No multi-valued dependencies exist", "Every field contains atomic values"],
+    "correctAnswer": 1,
+    "explanation": "BCNF is a stricter version of 3NF requiring that for every non-trivial functional dependency X -> Y, X is a super key.",
+    "isPublished": true
+  }
+]
