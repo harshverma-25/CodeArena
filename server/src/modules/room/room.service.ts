@@ -1,7 +1,7 @@
 import { roomRepository } from './room.repository.js';
 import { IRoomDocument, RoomStatus, IRoomSettings } from './room.types.js';
 import { ApiError } from '../../shared/errors/api-error.js';
-import { problemRepository } from '../problem/problem.repository.js';
+import { questionRepository } from '../question/question.repository.js';
 
 export class RoomService {
   /**
@@ -26,13 +26,13 @@ export class RoomService {
     const topic = settings?.topic || 'random';
     const difficulty = settings?.difficulty || 'random';
 
-    const hasProblem = await problemRepository.hasMatchingProblem({ topic, difficulty });
-    if (!hasProblem) {
+    const hasQuestion = await questionRepository.hasMatchingQuestion({ topic, difficulty });
+    if (!hasQuestion) {
       const topicStr = topic === 'random' ? 'Any Topic' : topic;
       const diffStr = difficulty === 'random' ? 'Any Difficulty' : difficulty;
       throw new ApiError(
         400,
-        `No published ${topicStr} / ${diffStr} problems are currently available.`
+        `No published ${topicStr} / ${diffStr} questions are currently available.`
       );
     }
 
@@ -160,16 +160,16 @@ export class RoomService {
       duration: settings.duration !== undefined ? settings.duration : room.settings.duration,
     };
 
-    const hasProblem = await problemRepository.hasMatchingProblem({
+    const hasQuestion = await questionRepository.hasMatchingQuestion({
       topic: updatedSettings.topic,
       difficulty: updatedSettings.difficulty,
     });
-    if (!hasProblem) {
+    if (!hasQuestion) {
       const topicStr = updatedSettings.topic === 'random' ? 'Any Topic' : updatedSettings.topic;
       const diffStr = updatedSettings.difficulty === 'random' ? 'Any Difficulty' : updatedSettings.difficulty;
       throw new ApiError(
         400,
-        `No published ${topicStr} / ${diffStr} problems are currently available.`
+        `No published ${topicStr} / ${diffStr} questions are currently available.`
       );
     }
 

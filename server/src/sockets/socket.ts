@@ -5,6 +5,7 @@ import { env } from '../config/env.js';
 import { logger } from '../config/logger.js';
 import { userService } from '../modules/user/user.service.js';
 import { registerRoomHandlers } from './room.socket.js';
+import { registerBattleHandlers } from './battle.socket.js';
 
 let io: Server | null = null;
 
@@ -74,6 +75,7 @@ export function initializeSocket(httpServer: HttpServer): Server {
 
     // Register module-specific handlers
     registerRoomHandlers(io!, socket);
+    registerBattleHandlers(io!, socket);
 
     socket.on('disconnect', () => {
       logger.info(`Socket disconnected: ${socket.id} for user ${userId}`);

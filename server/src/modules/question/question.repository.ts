@@ -50,21 +50,25 @@ export class QuestionRepository {
   }
 
   /**
-   * Randomly sample published questions matching topic & difficulty criteria.
+   * Randomly sample published questions matching topic & difficulty criteria, excluding optional questionIds.
    * Useful for battle question generation.
    */
   async sampleRandomPublished(
-    topic: string | undefined,
-    difficulty: string,
-    count: number
+    topic?: string,
+    difficulty?: string,
+    count: number = 5,
+    excludeQuestionIds: string[] = []
   ): Promise<IQuestionDocument[]> {
     const matchStage: any = { isPublished: true };
 
-    if (topic && topic !== 'all') {
+    if (topic && topic !== 'all' && topic !== 'random') {
       matchStage.topic = topic;
     }
-    if (difficulty && difficulty !== 'all') {
-      matchStage.difficulty = difficulty;
+    if (difficulty && difficulty !== 'all' && difficulty !== 'random') {
+      matchStage.difficulty = difficulty.toLowerCase();
+    }
+    if (excludeQuestionIds.length > 0) {
+      matchStage.questionId = { $nin: excludeQuestionIds };
     }
 
     return QuestionModel.aggregate([
@@ -74,13 +78,32 @@ export class QuestionRepository {
   }
 
   /**
+   * Retrieve list of unique published topics available in DB.
+   */
+  async getAvailablePublishedTopics(): Promise<string[]> {
+    return QuestionModel.distinct('topic', { isPublished: true });
+  }
+
+  /**
    * Count published questions matching topic & difficulty.
    */
   async countMatching(topic?: string, difficulty?: string): Promise<number> {
     const query: any = { isPublished: true };
-    if (topic && topic !== 'all') query.topic = topic;
-    if (difficulty && difficulty !== 'all') query.difficulty = difficulty;
+    if (topic && topic !== 'all' && topic !== 'random') {
+      query.topic = topic;
+    }
+    if (difficulty && difficulty !== 'all' && difficulty !== 'random') {
+      query.difficulty = difficulty.toLowerCase();
+    }
     return QuestionModel.countDocuments(query);
+  }
+
+  /**
+   * Check if any published questions match the given topic & difficulty.
+   */
+  async hasMatchingQuestion(filter: { topic?: string; difficulty?: string }): Promise<boolean> {
+    const count = await this.countMatching(filter.topic, filter.difficulty);
+    return count > 0;
   }
 }
 
