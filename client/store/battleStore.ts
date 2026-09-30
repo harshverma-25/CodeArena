@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { BattleInitPayload } from "@/types";
 
 export type BattleStatus = "idle" | "lobby" | "countdown" | "active" | "completed";
 
@@ -33,6 +34,10 @@ interface BattleState {
   durationMinutes: number;
   timeRemainingSeconds: number;
   
+  // MCQ Battle Init Cache
+  battleInitData: BattleInitPayload | null;
+  setBattleInitData: (data: BattleInitPayload | null) => void;
+  
   // Players
   players: Player[];
   myUserId: string | null;
@@ -64,6 +69,8 @@ export const useBattleStore = create<BattleState>((set) => ({
   difficulty: null,
   durationMinutes: 30,
   timeRemainingSeconds: 0,
+  battleInitData: null,
+  setBattleInitData: (battleInitData) => set({ battleInitData }),
   players: [],
   myUserId: null,
   opponentProgress: null,

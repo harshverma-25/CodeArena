@@ -6,9 +6,11 @@ import { Swords, Plus, PlayCircle } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { JoinBattleModal } from "./JoinBattleModal";
+import { CreateBattleModal } from "./CreateBattleModal";
 
 export function QuickActions() {
   const [isJoinOpen, setIsJoinOpen] = useState(false);
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
 
   return (
     <>
@@ -28,12 +30,12 @@ export function QuickActions() {
             </div>
           </CardHeader>
           <CardContent className="pt-2">
-            <Link
-              href="/battle/new"
+            <button
+              onClick={() => setIsCreateOpen(true)}
               className={buttonVariants({ variant: "primary", className: "w-full cursor-pointer" })}
             >
               Start Battle Room
-            </Link>
+            </button>
           </CardContent>
         </Card>
 
@@ -87,6 +89,7 @@ export function QuickActions() {
       </div>
 
       <JoinBattleModal isOpen={isJoinOpen} onClose={() => setIsJoinOpen(false)} />
+      <CreateBattleModal isOpen={isCreateOpen} onClose={() => setIsCreateOpen(false)} />
     </>
   );
 }

@@ -1,18 +1,34 @@
 import { z } from 'zod';
 import { roomCodeSchema, topicSchema, difficultySchema } from '../../shared/validators/index.js';
 
+// Allowed topic schema: QuestionTopic string, legacy topicSchema, or 'random'
+const roomTopicSchema = z.string().min(1).default('random');
+const roomDifficultySchema = z.enum([
+  'Easy', 'Medium', 'Hard',
+  'easy', 'medium', 'hard',
+  'random'
+]).default('random');
+
 // Schema for POST /rooms (Create Room)
 export const createRoomSchema = z.object({
   body: z.object({
-    topic: topicSchema.or(z.literal('random')).default('random'),
-    difficulty: difficultySchema.or(z.literal('random')).default('random'),
+    topic: roomTopicSchema,
+    difficulty: roomDifficultySchema,
     duration: z.coerce
       .number({ invalid_type_error: 'Duration must be a number' })
       .int('Duration must be an integer')
       .positive('Duration must be positive')
       .min(5, 'Duration must be at least 5 minutes')
       .max(180, 'Duration cannot exceed 180 minutes')
-      .default(30),
+      .default(30)
+      .optional(),
+    questionCount: z.coerce
+      .number({ invalid_type_error: 'Question count must be a number' })
+      .int('Question count must be an integer')
+      .min(5, 'Question count must be at least 5')
+      .max(30, 'Question count cannot exceed 30')
+      .default(10)
+      .optional(),
   }),
   query: z.object({}).optional(),
   params: z.object({}).optional(),
@@ -39,14 +55,20 @@ export const roomCodeParamSchema = z.object({
 // Schema for PATCH /rooms/:roomCode/settings (Update Settings)
 export const updateSettingsSchema = z.object({
   body: z.object({
-    topic: topicSchema.or(z.literal('random')).optional(),
-    difficulty: difficultySchema.or(z.literal('random')).optional(),
+    topic: roomTopicSchema.optional(),
+    difficulty: roomDifficultySchema.optional(),
     duration: z.coerce
       .number({ invalid_type_error: 'Duration must be a number' })
       .int('Duration must be an integer')
       .positive('Duration must be positive')
       .min(5, 'Duration must be at least 5 minutes')
       .max(180, 'Duration cannot exceed 180 minutes')
+      .optional(),
+    questionCount: z.coerce
+      .number({ invalid_type_error: 'Question count must be a number' })
+      .int('Question count must be an integer')
+      .min(5, 'Question count must be at least 5')
+      .max(30, 'Question count cannot exceed 30')
       .optional(),
   }),
   query: z.object({}).optional(),

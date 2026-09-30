@@ -4,7 +4,8 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
 import { socketManager } from "@/lib/socket";
-import { Room, RoomPlayer, RoomSettings } from "@/types";
+import { Room, RoomPlayer, RoomSettings, BattleInitPayload } from "@/types";
+import { useBattleStore } from "@/store/battleStore";
 
 interface SocketRoomPayload {
   roomCode: string;
@@ -21,29 +22,31 @@ interface SocketRoomPayload {
     topic: string;
     difficulty: string;
     duration: number;
+    questionCount?: number;
   };
-  status: "waiting" | "full" | "starting" | "active" | "finished";
+  status: any;
 }
 
 export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) {
   const router = useRouter();
   const { isLoaded, isSignedIn } = useAuth();
-  
+  const setBattleInitData = useBattleStore((state) => state.setBattleInitData);
+
   const [room, setRoom] = useState<Room | null>(initialRoomData || null);
   const [isConnected, setIsConnected] = useState(false);
-  const [countdown, setCountdown] = useState<number | null>(null);
-  const [matchId, setMatchId] = useState<string | null>(null);
+  const [isStarting, setIsStarting] = useState(false);
+  const [opponentDisconnected, setOpponentDisconnected] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const navigatedRef = useRef(false);
 
   // Helper to map socket payload to Client Room interface
   const mapPayloadToRoom = useCallback((payload: SocketRoomPayload): Room => {
-    const mappedPlayers: RoomPlayer[] = payload.players.map((p) => ({
+    const mappedPlayers: RoomPlayer[] = (payload.players || []).map((p) => ({
       user: {
         _id: p.userId,
         username: p.username,
-        displayName: p.displayName,
+        displayName: p.displayName || p.username,
         avatar: p.avatar,
       },
       isHost: p.isHost,
@@ -60,13 +63,29 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
         topic: payload.settings.topic,
         difficulty: payload.settings.difficulty,
         duration: payload.settings.duration,
+        questionCount: payload.settings.questionCount || 10,
       },
       topic: payload.settings.topic,
       difficulty: payload.settings.difficulty,
       duration: payload.settings.duration,
+      questionCount: payload.settings.questionCount || 10,
       status: payload.status,
     };
   }, []);
+
+  // Update room when initialRoomData loads from REST
+  useEffect(() => {
+    if (initialRoomData && !room) {
+      setRoom(initialRoomData);
+    }
+  }, [initialRoomData, room]);
+
+  // Navigate to live battle
+  const navigateToBattle = useCallback(() => {
+    if (navigatedRef.current) return;
+    navigatedRef.current = true;
+    router.push(`/battle/${roomCode.toUpperCase()}`);
+  }, [router, roomCode]);
 
   // 1. Connection & Join logic
   useEffect(() => {
@@ -79,8 +98,7 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
       if (!active) return;
       setIsConnected(true);
       setError(null);
-      // Emit room join on connect
-      socketManager.emit("room:join", { roomCode });
+      socketManager.emit("room:join", { roomCode: roomCode.toUpperCase() });
     };
 
     const handleDisconnect = () => {
@@ -88,9 +106,9 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
       setIsConnected(false);
     };
 
-    const handleConnectError = (err: Error) => {
+    const handleConnectError = () => {
       if (!active) return;
-      setError("Socket connection failed. Attempting to reconnect...");
+      setError("Connecting to live arena server...");
     };
 
     const handleRoomUpdate = (payload: SocketRoomPayload) => {
@@ -98,36 +116,62 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
       try {
         const parsed = mapPayloadToRoom(payload);
         setRoom(parsed);
+
+        // If status became IN_PROGRESS, navigate to battle page
+        if (
+          parsed.status === "IN_PROGRESS" ||
+          parsed.status === "active" ||
+          parsed.status === "starting"
+        ) {
+          setIsStarting(true);
+          setTimeout(() => {
+            navigateToBattle();
+          }, 800);
+        }
       } catch (err) {
         console.error("Failed to parse room socket update:", err);
       }
     };
 
-    const handleMatchStart = (payload: { matchId: string; roomCode: string }) => {
+    const handleBattleInit = (payload: BattleInitPayload) => {
       if (!active) return;
-      setMatchId(payload.matchId);
-      setCountdown(5); // Start 5 second countdown
+      setBattleInitData(payload);
+      setIsStarting(true);
+      setTimeout(() => {
+        navigateToBattle();
+      }, 500);
+    };
+
+    const handlePlayerDisconnected = () => {
+      if (!active) return;
+      setOpponentDisconnected(true);
+    };
+
+    const handlePlayerReconnected = () => {
+      if (!active) return;
+      setOpponentDisconnected(false);
     };
 
     const handleSocketError = (payload: { message: string }) => {
       if (!active) return;
       setError(payload.message || "An error occurred in the room.");
+      setIsStarting(false);
     };
 
-    // Bind listeners
     if (socket) {
       setIsConnected(socket.connected);
-      
-      // If already connected, join room directly
+
       if (socket.connected) {
-        socketManager.emit("room:join", { roomCode });
+        socketManager.emit("room:join", { roomCode: roomCode.toUpperCase() });
       }
 
       socket.on("connect", handleConnect);
       socket.on("disconnect", handleDisconnect);
       socket.on("connect_error", handleConnectError);
       socket.on("room:update", handleRoomUpdate);
-      socket.on("match:start", handleMatchStart);
+      socket.on("battle:init", handleBattleInit);
+      socket.on("player:disconnected", handlePlayerDisconnected);
+      socket.on("player:reconnected", handlePlayerReconnected);
       socket.on("error", handleSocketError);
     }
 
@@ -138,52 +182,49 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
         socket.off("disconnect", handleDisconnect);
         socket.off("connect_error", handleConnectError);
         socket.off("room:update", handleRoomUpdate);
-        socket.off("match:start", handleMatchStart);
+        socket.off("battle:init", handleBattleInit);
+        socket.off("player:disconnected", handlePlayerDisconnected);
+        socket.off("player:reconnected", handlePlayerReconnected);
         socket.off("error", handleSocketError);
       }
     };
-  }, [isLoaded, isSignedIn, roomCode, mapPayloadToRoom]);
+  }, [isLoaded, isSignedIn, roomCode, mapPayloadToRoom, navigateToBattle, setBattleInitData]);
 
-  // 2. Countdown Timer logic
-  useEffect(() => {
-    if (countdown === null || !matchId) return;
+  // Actions
+  const toggleReady = useCallback(
+    (isReady: boolean) => {
+      setError(null);
+      socketManager.emit("room:ready", { roomCode: roomCode.toUpperCase(), isReady });
+    },
+    [roomCode]
+  );
 
-    if (countdown === 0) {
-      if (countdownIntervalRef.current) {
-        clearInterval(countdownIntervalRef.current);
-      }
-      // Navigate to match page
-      router.push(`/match/${matchId}`);
-      return;
-    }
+  const updateLobbySettings = useCallback(
+    (settings: RoomSettings) => {
+      setError(null);
+      socketManager.emit("room:update", {
+        roomCode: roomCode.toUpperCase(),
+        settings,
+      });
+    },
+    [roomCode]
+  );
 
-    countdownIntervalRef.current = setTimeout(() => {
-      setCountdown((prev) => (prev !== null ? prev - 1 : null));
-    }, 1000);
-
-    return () => {
-      if (countdownIntervalRef.current) {
-        clearTimeout(countdownIntervalRef.current);
-      }
-    };
-  }, [countdown, matchId, router]);
-
-  // 3. Socket actions
-  const toggleReady = useCallback((isReady: boolean) => {
-    socketManager.emit("room:ready", { roomCode, isReady });
-  }, [roomCode]);
-
-  const updateLobbySettings = useCallback((settings: RoomSettings) => {
-    socketManager.emit("room:update", { roomCode, settings });
+  const startBattle = useCallback(() => {
+    setError(null);
+    setIsStarting(true);
+    socketManager.emit("room:start_battle", { roomCode: roomCode.toUpperCase() });
   }, [roomCode]);
 
   return {
     room,
     isConnected,
-    countdown,
+    isStarting,
+    opponentDisconnected,
     error,
     toggleReady,
     updateLobbySettings,
+    startBattle,
     clearError: () => setError(null),
   };
 }

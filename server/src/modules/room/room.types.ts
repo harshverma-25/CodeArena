@@ -15,9 +15,10 @@ export interface IRoomPlayer {
 }
 
 export interface IRoomSettings {
-  topic: string; // ProblemTopic or 'random'
+  topic: string; // QuestionTopic or 'random'
   difficulty: 'Easy' | 'Medium' | 'Hard' | 'random';
   duration: number; // in minutes
+  questionCount?: number;
 }
 
 export interface IRoom {

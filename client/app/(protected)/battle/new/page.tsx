@@ -24,7 +24,7 @@ export default function CreateBattlePage() {
           Create Battle Arena
         </h1>
         <p className="text-muted-foreground text-sm">
-          Set up a custom coding room. Choose a problem category, difficulty level, and duration timer, then invite your challenger.
+          Set up a live 1v1 battle room. Choose a challenge topic, difficulty level, and number of questions, then invite your challenger.
         </p>
       </div>
 

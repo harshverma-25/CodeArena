@@ -20,6 +20,7 @@ const RoomSettingsSchema = new Schema(
       default: 'random',
     },
     duration: { type: Number, required: true, default: 30 }, // in minutes
+    questionCount: { type: Number, default: 10 },
   },
   { _id: false }
 );

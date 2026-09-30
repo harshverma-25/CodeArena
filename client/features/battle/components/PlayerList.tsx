@@ -6,9 +6,10 @@ import { RoomPlayer } from "@/types";
 
 interface PlayerListProps {
   players: RoomPlayer[];
+  currentUserId?: string;
 }
 
-export function PlayerList({ players }: PlayerListProps) {
+export function PlayerList({ players, currentUserId }: PlayerListProps) {
   // Pad the array to show 2 total slots
   const filledSlots = players || [];
   const emptySlotsCount = Math.max(0, 2 - filledSlots.length);
@@ -69,7 +70,14 @@ export function PlayerList({ players }: PlayerListProps) {
                   </div>
                 )}
                 <div className="space-y-0.5">
-                  <p className="text-sm font-extrabold text-foreground">{name}</p>
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-sm font-extrabold text-foreground">{name}</p>
+                    {user?._id === currentUserId && (
+                      <span className="bg-primary/20 text-primary border border-primary/30 text-[9px] font-bold px-1.5 py-0.2 rounded font-mono uppercase">
+                        You
+                      </span>
+                    )}
+                  </div>
                   <p className="text-[10px] text-muted-foreground font-mono">
                     @{user?.username || "guest"}
                   </p>

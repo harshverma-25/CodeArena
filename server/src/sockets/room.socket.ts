@@ -22,6 +22,7 @@ export function formatRoomSocketPayload(room: any) {
       topic: room.settings.topic,
       difficulty: room.settings.difficulty,
       duration: room.settings.duration,
+      questionCount: room.settings.questionCount || 10,
     },
     status: room.status,
   };

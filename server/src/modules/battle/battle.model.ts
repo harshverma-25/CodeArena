@@ -47,6 +47,7 @@ const BattleSchema = new Schema<IBattleDocument>(
   },
   {
     timestamps: true,
+    versionKey: false,
   }
 );
 

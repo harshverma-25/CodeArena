@@ -59,7 +59,20 @@ export interface RoomSettings {
   topic: string;
   difficulty: string;
   duration: number; // in minutes
+  questionCount?: number;
 }
+
+export type RoomStatusType =
+  | "WAITING"
+  | "READY"
+  | "IN_PROGRESS"
+  | "FINISHED"
+  | "CANCELLED"
+  | "waiting"
+  | "full"
+  | "starting"
+  | "active"
+  | "finished";
 
 export interface Room {
   roomCode: string;
@@ -74,7 +87,8 @@ export interface Room {
   topic: string;
   difficulty: string;
   duration: number;
-  status: "waiting" | "full" | "starting" | "active" | "finished";
+  questionCount?: number;
+  status: RoomStatusType;
 }
 
 export interface MatchPlayer {
@@ -104,4 +118,85 @@ export interface Match {
   endedAt?: string;
   duration?: number; // in seconds
   problem: Problem | null;
+}
+
+// ------------------------------
+// MCQ Battle Types
+// ------------------------------
+
+export interface BattleQuestion {
+  _id?: string;
+  questionId: string;
+  topic: string;
+  difficulty: string;
+  question: string;
+  options: string[]; // exactly 4 options
+}
+
+export interface BattlePlayer {
+  userId: string;
+  username: string;
+  displayName: string;
+  avatar: string;
+  currentQuestionIndex: number;
+  score: number;
+  isCompleted: boolean;
+}
+
+export interface BattleInitPayload {
+  battleId: string;
+  roomCode: string;
+  topic: string;
+  difficulty: string;
+  questionCount: number;
+  timePerQuestion: number;
+  currentQuestionIndex: number;
+  questionDeadline: string | Date | null;
+  currentQuestion: BattleQuestion | null;
+  players: BattlePlayer[];
+}
+
+export interface BattleNextQuestionPayload {
+  currentQuestionIndex: number;
+  totalQuestions: number;
+  questionDeadline: string | Date | null;
+  timePerQuestion: number;
+  question: BattleQuestion | null;
+  completed: boolean;
+}
+
+export interface BattleOpponentProgressPayload {
+  userId: string;
+  currentQuestionIndex: number;
+  totalQuestions: number;
+  isCompleted: boolean;
+  score: number;
+}
+
+export interface BattleResultsPlayer {
+  userId: string;
+  username: string;
+  displayName: string;
+  avatar: string;
+  score: number;
+  totalQuestions: number;
+  answers?: Array<{
+    questionId: string;
+    selectedOption: number;
+    isCorrect: boolean;
+    timeTakenMs: number;
+  }>;
+}
+
+export interface BattleResultsPayload {
+  battleId: string;
+  roomCode: string;
+  topic: string;
+  difficulty: string;
+  status: string;
+  winnerId: string | null;
+  isDraw: boolean;
+  startedAt: string | Date;
+  endedAt: string | Date;
+  players: BattleResultsPlayer[];
 }

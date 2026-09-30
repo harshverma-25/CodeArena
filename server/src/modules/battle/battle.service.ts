@@ -121,7 +121,7 @@ export class BattleService {
       targetDifficulty = 'easy';
     }
 
-    const defaultQuestionCount = 5;
+    const defaultQuestionCount = (room.settings as any).questionCount || 10;
     const totalNeeded = defaultQuestionCount * 2;
 
     // Sample distinct random published questions
@@ -148,7 +148,10 @@ export class BattleService {
     }
 
     // Equal question count per player
-    const actualQuestionCount = Math.floor(sampledQuestions.length / 2);
+    const actualQuestionCount = Math.min(
+      defaultQuestionCount,
+      Math.floor(sampledQuestions.length / 2)
+    );
     const p1Questions = sampledQuestions.slice(0, actualQuestionCount).map((q) => q.questionId);
     const p2Questions = sampledQuestions.slice(actualQuestionCount, actualQuestionCount * 2).map((q) => q.questionId);
 

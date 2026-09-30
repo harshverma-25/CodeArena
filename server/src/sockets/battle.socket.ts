@@ -104,4 +104,39 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
       }
     }
   );
+
+  // Player reconnects to an active or finished battle (e.g. on page refresh)
+  socket.on('battle:reconnect', async (payload: { roomCode: string }) => {
+    const roomCode = payload?.roomCode?.toUpperCase();
+    if (!roomCode) {
+      return socket.emit('error', { success: false, message: 'Room code is required' });
+    }
+
+    try {
+      const roomChannel = `room:${roomCode}`;
+      socket.join(roomChannel);
+      socket.data.roomCode = roomCode;
+
+      const battle = await battleService.getActiveBattleByRoomCode(roomCode);
+      if (battle) {
+        const initPayload = await battleService.getBattleInitPayload(battle, userId);
+        if (initPayload) {
+          socket.emit('battle:init', initPayload);
+          socket.to(roomChannel).emit('player:reconnected', { userId });
+          logger.info(`Player ${userId} reconnected to active battle in room ${roomCode}`);
+        }
+      } else {
+        const room = await roomService.getRoom(roomCode);
+        if (room && room.status === 'FINISHED' && room.matchId) {
+          const finishedBattle = await battleService.getBattleById(room.matchId.toString());
+          if (finishedBattle) {
+            socket.emit('battle:completed', battleService.formatResultsPayload(finishedBattle));
+            logger.info(`Emitted completed battle state to player ${userId} in finished room ${roomCode}`);
+          }
+        }
+      }
+    } catch (error: any) {
+      logger.error(error, `Failed to handle battle reconnect for player ${userId} in room ${roomCode}`);
+    }
+  });
 }

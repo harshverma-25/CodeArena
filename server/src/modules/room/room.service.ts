@@ -1,4 +1,5 @@
 import { roomRepository } from './room.repository.js';
+import { RoomModel } from './room.model.js';
 import { IRoomDocument, RoomStatus, IRoomSettings } from './room.types.js';
 import { ApiError } from '../../shared/errors/api-error.js';
 import { questionRepository } from '../question/question.repository.js';
@@ -62,6 +63,7 @@ export class RoomService {
         topic,
         difficulty,
         duration: settings?.duration || 30,
+        questionCount: settings?.questionCount || 10,
       },
       maxPlayers: 2,
       status: RoomStatus.WAITING,
@@ -158,6 +160,7 @@ export class RoomService {
       topic: settings.topic !== undefined ? settings.topic : room.settings.topic,
       difficulty: settings.difficulty !== undefined ? settings.difficulty : room.settings.difficulty,
       duration: settings.duration !== undefined ? settings.duration : room.settings.duration,
+      questionCount: settings.questionCount !== undefined ? settings.questionCount : (room.settings.questionCount || 10),
     };
 
     const hasQuestion = await questionRepository.hasMatchingQuestion({
@@ -211,20 +214,28 @@ export class RoomService {
       throw new ApiError(400, 'Cannot change ready status after the match has started');
     }
 
-    // Update ready state
-    room.players[playerIndex].isReady = isReady;
-
-    // Transition room status to READY if all players (specifically 2 players) are ready
-    const allReady = room.players.length === room.maxPlayers && room.players.every((p) => p.isReady);
-    const newStatus = allReady ? RoomStatus.READY : RoomStatus.WAITING;
-
-    const updated = await roomRepository.update(code, {
-      players: room.players,
-      status: newStatus,
-    });
+    // Atomic update of the player's isReady status
+    const playerObjId = (room.players[playerIndex].userId as any)._id || room.players[playerIndex].userId;
+    const updated = await RoomModel.findOneAndUpdate(
+      { roomCode: code, 'players.userId': playerObjId },
+      { $set: { 'players.$.isReady': isReady } },
+      { new: true }
+    )
+      .populate('hostId')
+      .populate('players.userId')
+      .exec();
 
     if (!updated) {
       throw new ApiError(500, 'Failed to update ready status');
+    }
+
+    // Transition room status to READY if all players are ready
+    const allReady = updated.players.length === updated.maxPlayers && updated.players.every((p) => p.isReady);
+    const newStatus = allReady ? RoomStatus.READY : RoomStatus.WAITING;
+
+    if (updated.status !== newStatus) {
+      updated.status = newStatus;
+      await updated.save();
     }
 
     return updated;
