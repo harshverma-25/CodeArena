@@ -7,7 +7,6 @@ import {
   Percent, 
   Swords, 
   Shield, 
-  Calendar, 
   Clock, 
   Frown, 
   Award, 
@@ -17,7 +16,6 @@ import {
   ArrowLeft
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { PublicUserProfile } from "@/types";
 
 interface PublicProfileViewProps {
