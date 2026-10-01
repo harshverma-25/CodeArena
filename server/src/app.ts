@@ -89,6 +89,7 @@ app.get('/api/v1/health', (req, res) => {
 
 // Register API Routes
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/leaderboard', userRoutes);
 app.use('/api/v1/questions', questionRoutes);
 app.use('/api/v1/problems', problemRoutes);
 app.use('/api/v1/rooms', roomRoutes);

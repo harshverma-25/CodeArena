@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { languageSchema, usernameSchema } from '../../shared/validators/index.js';
+import { languageSchema } from '../../shared/validators/index.js';
 
 // Schema for PATCH /users/me
 export const updateUserSchema = z.object({
@@ -22,10 +22,16 @@ export const updateUserSchema = z.object({
 
 // Schema for GET /users/:username
 export const getUserByUsernameSchema = z.object({
-  body: z.object({}).optional(),
-  query: z.object({}).optional(),
   params: z.object({
-    username: usernameSchema,
+    username: z.string({ required_error: 'Username parameter is required' }),
+  }),
+});
+
+// Schema for GET /leaderboard or GET /users/leaderboard
+export const leaderboardQuerySchema = z.object({
+  query: z.object({
+    page: z.string().optional().transform((val) => (val ? parseInt(val, 10) : 1)),
+    limit: z.string().optional().transform((val) => (val ? parseInt(val, 10) : 10)),
   }),
 });
 

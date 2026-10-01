@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useAuth, UserButton } from "@clerk/nextjs";
 import { useBattleStore } from "@/store/battleStore";
 import { cn } from "@/lib/utils";
-import { Terminal, Shield, Trophy, Activity, History as HistoryIcon, Layers } from "lucide-react";
+import { Terminal, Shield, Trophy, Activity, History as HistoryIcon, Layers, User as UserIcon } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 
 export function Navbar() {
@@ -17,8 +17,9 @@ export function Navbar() {
   const navLinks = [
     { href: "/dashboard", label: "Arena", icon: Layers },
     { href: "/problems", label: "Problems", icon: Terminal },
+    { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
     { href: "/history", label: "History", icon: HistoryIcon },
-    { href: "/profile", label: "Profile", icon: Trophy },
+    { href: "/profile", label: "Profile", icon: UserIcon },
   ];
 
   return (

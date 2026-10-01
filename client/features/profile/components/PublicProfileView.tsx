@@ -1,80 +1,49 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
-import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
-import { useUserProfile } from "../hooks/useUserProfile";
-import { useUpdateProfile } from "../hooks/useUpdateProfile";
-import { useUser } from "@clerk/nextjs";
 import { 
   Trophy, 
   Percent, 
   Swords, 
+  Shield, 
+  Calendar, 
+  Clock, 
   Frown, 
-  Award,
-  Activity,
-  Mail,
-  User as UserIcon,
-  Shield,
-  Save,
-  Check,
-  CheckCircle2,
-  Clock,
+  Award, 
   ExternalLink,
-  HelpCircle
+  HelpCircle,
+  CheckCircle2,
+  ArrowLeft
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { PublicUserProfile } from "@/types";
 
-export function ProfileStats() {
-  const { data: dbUser, isLoading: dbUserLoading } = useCurrentUser();
-  const { data: profile, isLoading: profileLoading } = useUserProfile("me");
-  const { user: clerkUser, isLoaded: clerkLoaded } = useUser();
-  const updateProfileMutation = useUpdateProfile();
+interface PublicProfileViewProps {
+  profile: PublicUserProfile;
+}
 
-  const [displayName, setDisplayName] = useState("");
-  const [preferredLanguage, setPreferredLanguage] = useState("javascript");
-  const [saveSuccess, setSaveSuccess] = useState(false);
+export function PublicProfileView({ profile }: PublicProfileViewProps) {
+  const {
+    username,
+    displayName,
+    avatar,
+    preferredLanguage,
+    joinedAt,
+    rank,
+    battlesPlayed,
+    wins,
+    losses,
+    draws,
+    totalCorrect,
+    totalQuestions,
+    accuracy,
+    isCurrentUser,
+    recentBattles,
+  } = profile;
 
-  useEffect(() => {
-    if (dbUser) {
-      setDisplayName(dbUser.displayName || "");
-      setPreferredLanguage(dbUser.preferredLanguage || "javascript");
-    }
-  }, [dbUser]);
-
-  if (dbUserLoading || profileLoading || !clerkLoaded) {
-    return (
-      <div className="space-y-6">
-        {/* Header Skeleton */}
-        <div className="flex flex-col sm:flex-row items-center gap-6 p-6 rounded-2xl border border-border bg-card/40 animate-pulse">
-          <div className="h-20 w-20 rounded-2xl bg-secondary shrink-0" />
-          <div className="space-y-2 flex-1 w-full text-center sm:text-left">
-            <div className="h-6 w-1/3 rounded bg-secondary mx-auto sm:mx-0" />
-            <div className="h-4 w-1/4 rounded bg-secondary mx-auto sm:mx-0" />
-          </div>
-        </div>
-
-        {/* Stats Grid Skeleton */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 animate-pulse">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-28 rounded-2xl border border-border bg-card p-5" />
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  const battlesPlayed = profile?.battlesPlayed || 0;
-  const wins = profile?.wins || 0;
-  const losses = profile?.losses || 0;
-  const draws = profile?.draws || 0;
-  const totalCorrect = profile?.totalCorrect || 0;
-  const totalQuestions = profile?.totalQuestions || 0;
-  const accuracy = profile?.accuracy || 0;
   const winRate = battlesPlayed ? Math.round((wins / battlesPlayed) * 100) : 0;
-  const rank = profile?.rank || 0;
-  const recentBattles = profile?.recentBattles || [];
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return "";
@@ -82,7 +51,7 @@ export function ProfileStats() {
     return date.toLocaleDateString("en-US", {
       month: "long",
       day: "numeric",
-      year: "numeric"
+      year: "numeric",
     });
   };
 
@@ -106,65 +75,73 @@ export function ProfileStats() {
     }
   };
 
-  const handleSave = () => {
-    updateProfileMutation.mutate(
-      { displayName, preferredLanguage },
-      {
-        onSuccess: () => {
-          setSaveSuccess(true);
-          setTimeout(() => setSaveSuccess(false), 3000);
-        }
-      }
-    );
-  };
-
   return (
     <div className="space-y-6">
-      {/* 1. Profile Header Overview Card */}
+      {/* 1. Header Overview Card */}
       <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-xl">
-        {/* Background Gradients */}
         <div className="absolute top-0 right-0 -translate-y-12 translate-x-12 w-64 h-64 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 translate-y-12 -translate-x-12 w-64 h-64 rounded-full bg-orange-500/5 blur-3xl pointer-events-none" />
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10">
           <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
             {/* User Avatar */}
             <div className="relative">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={dbUser?.avatar || clerkUser?.imageUrl || "/placeholder-avatar.png"}
-                alt={dbUser?.username || "User"}
-                className="h-20 w-20 rounded-2xl border border-border bg-zinc-950 object-cover shadow-inner shrink-0"
-              />
-              <span className="absolute -bottom-1.5 -right-1.5 flex h-6 w-6 items-center justify-center rounded-lg bg-primary text-[10px] font-bold text-primary-foreground border-2 border-card">
-                🏆
-              </span>
+              {avatar ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={avatar}
+                  alt={username}
+                  className="h-20 w-20 rounded-2xl border border-border bg-zinc-950 object-cover shadow-inner shrink-0"
+                />
+              ) : (
+                <div className="h-20 w-20 rounded-2xl border border-border bg-zinc-900 flex items-center justify-center font-mono font-bold text-zinc-400 text-xl shrink-0">
+                  {(displayName || username || "?").slice(0, 2).toUpperCase()}
+                </div>
+              )}
+              {rank > 0 && rank <= 3 && (
+                <span className="absolute -bottom-1.5 -right-1.5 flex h-7 w-7 items-center justify-center rounded-xl bg-amber-500/20 text-amber-300 font-bold border border-amber-400 text-xs shadow-md">
+                  {rank === 1 ? "🥇" : rank === 2 ? "🥈" : "🥉"}
+                </span>
+              )}
             </div>
 
             {/* User Meta */}
             <div className="space-y-1.5">
-              <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground">
-                {dbUser?.displayName || clerkUser?.fullName || dbUser?.username}
-              </h2>
+              <div className="flex items-center gap-2 justify-center sm:justify-start">
+                <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground">
+                  {displayName || username}
+                </h2>
+                {isCurrentUser && (
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-primary/20 text-primary border border-primary/30 px-2 py-0.5 rounded-full">
+                    You
+                  </span>
+                )}
+              </div>
               <p className="text-xs text-muted-foreground font-mono">
-                @{dbUser?.username || "challenger"}
+                @{username}
               </p>
               <div className="flex flex-wrap justify-center sm:justify-start items-center gap-x-4 gap-y-1 text-xs text-muted-foreground pt-1">
                 <span className="flex items-center gap-1 font-mono font-bold text-primary">
                   <Shield className="h-3.5 w-3.5" /> Rank #{rank > 0 ? rank : "Unranked"}
                 </span>
                 <span className="hidden sm:inline text-zinc-700">•</span>
-                <span className="font-mono">Joined: {formatDate(dbUser?.createdAt)}</span>
+                <span className="font-mono">Joined: {formatDate(joinedAt)}</span>
+                {preferredLanguage && (
+                  <>
+                    <span className="hidden sm:inline text-zinc-700">•</span>
+                    <span className="font-mono capitalize text-foreground/80">Lang: {preferredLanguage}</span>
+                  </>
+                )}
               </div>
             </div>
           </div>
 
+          {/* Back Action */}
           <div className="shrink-0 flex gap-2">
             <Link
               href="/leaderboard"
               className="inline-flex h-9 items-center gap-1.5 border border-border/80 rounded-lg bg-zinc-900 px-3.5 text-xs font-semibold text-foreground hover:bg-zinc-800 transition-colors font-mono cursor-pointer"
             >
-              Leaderboard
+              <ArrowLeft className="h-3.5 w-3.5" /> Leaderboard
             </Link>
           </div>
         </div>
@@ -173,7 +150,7 @@ export function ProfileStats() {
       {/* 2. Key Statistics Overview Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Global Rank */}
-        <div className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-md transition-all duration-300">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-md">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest font-mono">
               Global Rank
@@ -183,7 +160,9 @@ export function ProfileStats() {
             </div>
           </div>
           <div className="mt-3">
-            <span className="text-3xl font-black text-foreground font-mono">#{rank > 0 ? rank : "-"}</span>
+            <span className="text-3xl font-black text-foreground font-mono">
+              #{rank > 0 ? rank : "-"}
+            </span>
             <p className="text-[10px] text-muted-foreground mt-1 font-mono">
               Arena Standing
             </p>
@@ -191,7 +170,7 @@ export function ProfileStats() {
         </div>
 
         {/* Win Rate */}
-        <div className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-md transition-all duration-300">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-md">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest font-mono">
               Win Rate
@@ -209,7 +188,7 @@ export function ProfileStats() {
         </div>
 
         {/* Battles Played */}
-        <div className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-md transition-all duration-300">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-md">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest font-mono">
               Battles Played
@@ -227,7 +206,7 @@ export function ProfileStats() {
         </div>
 
         {/* Answer Accuracy */}
-        <div className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-md transition-all duration-300">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-md">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest font-mono">
               Accuracy
@@ -245,120 +224,7 @@ export function ProfileStats() {
         </div>
       </div>
 
-      {/* 3. Main Split View: Edit Settings & Account Details */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Edit Settings (Left 2 cols) */}
-        <div className="md:col-span-2 rounded-2xl border border-border bg-card p-6 shadow-xl space-y-5">
-          <div>
-            <h3 className="text-lg font-bold text-foreground">Profile Settings</h3>
-            <p className="text-xs text-muted-foreground mt-0.5">Customize your public-facing information.</p>
-          </div>
-
-          <div className="space-y-4">
-            {/* Display Name Input */}
-            <div className="space-y-1.5">
-              <label htmlFor="displayName" className="text-xs font-bold text-foreground uppercase tracking-wider font-mono">
-                Display Name
-              </label>
-              <input
-                id="displayName"
-                type="text"
-                value={displayName}
-                onChange={(e) => setDisplayName(e.target.value)}
-                placeholder="Enter your public display name"
-                className="flex h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary disabled:opacity-50"
-              />
-            </div>
-
-            {/* Preferred Language Input */}
-            <div className="space-y-1.5">
-              <label htmlFor="preferredLang" className="text-xs font-bold text-foreground uppercase tracking-wider font-mono">
-                Preferred Coding Language
-              </label>
-              <select
-                id="preferredLang"
-                value={preferredLanguage}
-                onChange={(e) => setPreferredLanguage(e.target.value)}
-                className="flex h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary cursor-pointer"
-              >
-                <option value="javascript">JavaScript</option>
-                <option value="typescript">TypeScript</option>
-                <option value="python">Python</option>
-                <option value="cpp">C++</option>
-                <option value="java">Java</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Action Trigger */}
-          <div className="flex items-center gap-3 pt-2">
-            <Button
-              onClick={handleSave}
-              disabled={updateProfileMutation.isPending}
-              className="gap-2 bg-primary text-primary-foreground hover:bg-primary/95 text-xs font-semibold cursor-pointer disabled:opacity-55 font-mono"
-            >
-              {updateProfileMutation.isPending ? (
-                <>Saving...</>
-              ) : saveSuccess ? (
-                <>
-                  <Check className="h-4 w-4" /> Saved!
-                </>
-              ) : (
-                <>
-                  <Save className="h-4 w-4" /> Save Changes
-                </>
-              )}
-            </Button>
-            {saveSuccess && (
-              <span className="text-xs font-bold font-mono text-emerald-400 animate-pulse">
-                Profile updated successfully.
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Account Details (Right 1 col) */}
-        <div className="md:col-span-1 rounded-2xl border border-border bg-card p-6 shadow-xl space-y-5 flex flex-col justify-between">
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-lg font-bold text-foreground">Security & Account</h3>
-              <p className="text-xs text-muted-foreground mt-0.5">Clerk authenticated information.</p>
-            </div>
-
-            <div className="space-y-3 font-mono text-xs">
-              <div className="flex flex-col gap-1 border-b border-border/40 pb-2">
-                <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Email Address</span>
-                <span className="text-foreground flex items-center gap-1.5 overflow-hidden text-ellipsis">
-                  <Mail className="h-3.5 w-3.5 text-primary shrink-0" />
-                  {clerkUser?.primaryEmailAddress?.emailAddress || "Guest email"}
-                </span>
-              </div>
-
-              <div className="flex flex-col gap-1 border-b border-border/40 pb-2">
-                <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Username ID</span>
-                <span className="text-foreground flex items-center gap-1.5">
-                  <UserIcon className="h-3.5 w-3.5 text-primary shrink-0" />
-                  {dbUser?.username || "no-username"}
-                </span>
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">System Status</span>
-                <span className="text-foreground flex items-center gap-1.5">
-                  <Activity className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                  Online
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-[10px] text-zinc-500 font-mono pt-4 border-t border-border/40">
-            Account ID: {clerkUser?.id || "N/A"}
-          </div>
-        </div>
-      </div>
-
-      {/* 4. Recent Completed Battles Log */}
+      {/* 3. Recent Battles Section */}
       <div className="rounded-2xl border border-border bg-card p-6 shadow-xl space-y-4">
         <div className="flex items-center justify-between border-b border-border pb-3">
           <h3 className="text-lg font-bold text-foreground">Recent Battle Log</h3>
@@ -374,7 +240,7 @@ export function ProfileStats() {
             </div>
             <p className="text-sm font-bold text-foreground">No completed battles recorded</p>
             <p className="text-xs text-muted-foreground max-w-sm mt-1">
-              Start a 1v1 battle challenge to record your performance stats!
+              This challenger has not completed any MCQ battles yet.
             </p>
           </div>
         ) : (
@@ -447,4 +313,4 @@ export function ProfileStats() {
   );
 }
 
-export default ProfileStats;
+export default PublicProfileView;

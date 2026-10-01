@@ -14,6 +14,7 @@ import {
 import { ApiError } from '../../shared/errors/api-error.js';
 import { logger } from '../../config/logger.js';
 import { Server } from 'socket.io';
+import { UserModel } from '../user/user.model.js';
 
 export class BattleService {
   private activeTimers = new Map<string, NodeJS.Timeout>();
@@ -518,6 +519,33 @@ export class BattleService {
     await roomRepository.update(battle.roomCode, {
       status: RoomStatus.FINISHED,
     });
+
+    // Update UserModel counters
+    try {
+      if (battle.isDraw) {
+        await UserModel.updateMany(
+          { _id: { $in: [player1.userId, player2.userId] } },
+          { $inc: { matchesPlayed: 1, draws: 1 } }
+        );
+      } else if (battle.winnerId) {
+        const winnerIdStr = (battle.winnerId as any)._id
+          ? (battle.winnerId as any)._id.toString()
+          : battle.winnerId.toString();
+
+        const loserUserId = p1UserId === winnerIdStr ? player2.userId : player1.userId;
+
+        await UserModel.updateOne(
+          { _id: battle.winnerId },
+          { $inc: { matchesPlayed: 1, wins: 1 } }
+        );
+        await UserModel.updateOne(
+          { _id: loserUserId },
+          { $inc: { matchesPlayed: 1, losses: 1 } }
+        );
+      }
+    } catch (err) {
+      logger.error(err, 'Failed to update user model stats in finalizeBattle');
+    }
 
     // Re-fetch populated battle for results formatting
     const populated = await this.repository.findById(battle._id.toString());

@@ -54,6 +54,7 @@ const BattleSchema = new Schema<IBattleDocument>(
 // Indexes for fast lookup
 BattleSchema.index({ roomId: 1 });
 BattleSchema.index({ roomCode: 1, status: 1 });
+BattleSchema.index({ status: 1, 'players.userId': 1 });
 
 export const BattleModel = model<IBattleDocument>('Battle', BattleSchema);
 export default BattleModel;
