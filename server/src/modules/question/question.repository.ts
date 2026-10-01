@@ -10,6 +10,13 @@ export class QuestionRepository {
   }
 
   /**
+   * Find multiple questions by an array of questionIds.
+   */
+  async findByQuestionIds(questionIds: string[]): Promise<IQuestionDocument[]> {
+    return QuestionModel.find({ questionId: { $in: questionIds } });
+  }
+
+  /**
    * Upsert a question based on its unique questionId to prevent duplicates.
    */
   async upsertQuestion(data: Partial<IQuestion>): Promise<IQuestionDocument> {

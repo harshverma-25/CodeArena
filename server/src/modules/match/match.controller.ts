@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { matchService } from './match.service.js';
+import { historyService } from '../history/history.service.js';
 import { ApiResponse } from '../../shared/utils/api-response.js';
 import { ApiError } from '../../shared/errors/api-error.js';
 import { IMatchDocument } from './match.types.js';
@@ -63,15 +64,25 @@ export class MatchController {
 
   /**
    * GET /api/v1/matches/:matchId
-   * Retrieve details of a specific match.
+   * Retrieve details of a specific match or battle.
    */
   async getMatch(req: Request, res: Response): Promise<void> {
     const { matchId } = req.params;
-    const match = await matchService.getMatch(matchId);
-
-    res.status(200).json(
-      new ApiResponse(200, formatMatchResponse(match), 'Match details retrieved successfully.')
-    );
+    try {
+      const match = await matchService.getMatch(matchId);
+      res.status(200).json(
+        new ApiResponse(200, formatMatchResponse(match), 'Match details retrieved successfully.')
+      );
+    } catch (err) {
+      if (req.user) {
+        const battleResult = await historyService.getBattleResults(matchId, req.user._id.toString());
+        res.status(200).json(
+          new ApiResponse(200, battleResult, 'Battle details retrieved successfully.')
+        );
+        return;
+      }
+      throw err;
+    }
   }
 
   /**
@@ -86,22 +97,13 @@ export class MatchController {
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
 
-    const { matches, total } = await matchService.getMatchHistory(req.user._id.toString(), {
+    const data = await historyService.getMatchHistory(req.user._id.toString(), {
       page,
       limit,
     });
 
     res.status(200).json(
-      new ApiResponse(
-        200,
-        {
-          matches: matches.map(formatMatchResponse),
-          total,
-          page,
-          limit,
-        },
-        'Match history retrieved successfully.'
-      )
+      new ApiResponse(200, data, 'Match history retrieved successfully.')
     );
   }
 }

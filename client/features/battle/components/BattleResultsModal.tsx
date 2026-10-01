@@ -134,22 +134,33 @@ export function BattleResultsModal({ results, currentUserId }: BattleResultsModa
         </div>
 
         {/* Action Buttons */}
-        <div className="grid grid-cols-2 gap-3 pt-2">
+        <div className="space-y-2 pt-2">
           <Button
-            onClick={() => router.push("/dashboard")}
-            variant="ghost"
-            className="border border-border text-foreground hover:bg-secondary/40 h-11 text-xs font-bold uppercase tracking-wider cursor-pointer"
+            onClick={() => router.push(`/results/${results.battleId}`)}
+            className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-11 text-xs font-extrabold uppercase tracking-wider shadow-md shadow-primary/15 cursor-pointer font-mono"
           >
-            <Home className="h-4 w-4 mr-1.5" />
-            Dashboard
+            <Swords className="h-4 w-4 mr-1.5" />
+            View Detailed Breakdown
           </Button>
-          <Button
-            onClick={() => router.push("/battle/new")}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 h-11 text-xs font-bold uppercase tracking-wider shadow-md shadow-primary/15 cursor-pointer"
-          >
-            <RotateCcw className="h-4 w-4 mr-1.5" />
-            Play Again
-          </Button>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Button
+              onClick={() => router.push("/dashboard")}
+              variant="ghost"
+              className="border border-border text-foreground hover:bg-secondary/40 h-10 text-xs font-bold uppercase tracking-wider cursor-pointer font-mono"
+            >
+              <Home className="h-4 w-4 mr-1.5" />
+              Dashboard
+            </Button>
+            <Button
+              onClick={() => router.push("/battle/new")}
+              variant="outline"
+              className="border border-border text-foreground hover:bg-secondary/40 h-10 text-xs font-bold uppercase tracking-wider cursor-pointer font-mono"
+            >
+              <RotateCcw className="h-4 w-4 mr-1.5" />
+              Play Again
+            </Button>
+          </div>
         </div>
       </div>
     </div>

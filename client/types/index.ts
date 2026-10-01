@@ -200,3 +200,50 @@ export interface BattleResultsPayload {
   endedAt: string | Date;
   players: BattleResultsPlayer[];
 }
+
+export interface BattleResultQuestion {
+  questionId: string;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+  selectedOption: number;
+  isCorrect: boolean;
+  timeTakenMs: number;
+  isUnanswered: boolean;
+}
+
+export interface BattleResultPlayerDetails {
+  userId: string;
+  username: string;
+  displayName: string;
+  avatar: string;
+  score: number;
+  totalQuestions: number;
+  correctCount: number;
+  incorrectCount: number;
+  unansweredCount: number;
+  isWinner: boolean;
+  isDraw: boolean;
+  questions: BattleResultQuestion[];
+}
+
+export interface BattleResultDetails {
+  battleId: string;
+  roomCode: string;
+  topic: string;
+  difficulty: string;
+  questionCount: number;
+  timePerQuestion: number;
+  status: string;
+  winnerId: string | null;
+  isDraw: boolean;
+  startedAt: string;
+  endedAt?: string;
+  duration: number; // in seconds
+  players: BattleResultPlayerDetails[];
+  userPlayer: BattleResultPlayerDetails;
+  opponentPlayer: BattleResultPlayerDetails | null;
+  result: "VICTORY" | "DEFEAT" | "DRAW" | "IN_PROGRESS" | "CANCELLED";
+}
+

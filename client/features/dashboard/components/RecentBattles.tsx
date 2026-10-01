@@ -167,14 +167,14 @@ export function RecentBattles() {
                   </div>
 
                   <Link
-                    href={`/match/${match._id}`}
+                    href={`/results/${match._id}`}
                     className={buttonVariants({
                       variant: "ghost",
                       size: "sm",
-                      className: "border border-border text-xs hover:bg-secondary/40",
+                      className: "border border-border text-xs hover:bg-secondary/40 font-mono",
                     })}
                   >
-                    View Room
+                    Results
                   </Link>
                 </div>
               </div>
