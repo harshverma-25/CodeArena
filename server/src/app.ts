@@ -5,10 +5,9 @@ import { requestLogger } from './middleware/request-logger.middleware.js';
 import { errorHandler } from './middleware/error.middleware.js';
 import { notFoundHandler } from './middleware/not-found.middleware.js';
 import { userRoutes } from './modules/user/user.routes.js';
-import { problemRoutes } from './modules/problem/problem.routes.js';
 import { questionRoutes } from './modules/question/question.routes.js';
 import { roomRoutes } from './modules/room/room.routes.js';
-import { matchRoutes } from './modules/match/match.routes.js';
+import { battleRoutes } from './modules/battle/battle.routes.js';
 import { historyRoutes } from './modules/history/history.routes.js';
 import { docsRoutes } from './modules/docs/docs.routes.js';
 
@@ -91,9 +90,9 @@ app.get('/api/v1/health', (req, res) => {
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/leaderboard', userRoutes);
 app.use('/api/v1/questions', questionRoutes);
-app.use('/api/v1/problems', problemRoutes);
 app.use('/api/v1/rooms', roomRoutes);
-app.use('/api/v1/matches', matchRoutes);
+app.use('/api/v1/battles', battleRoutes);
+app.use('/api/v1/matches', battleRoutes);
 app.use('/api/v1/history', historyRoutes);
 app.use('/api', docsRoutes);
 

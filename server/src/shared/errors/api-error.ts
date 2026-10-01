@@ -16,3 +16,10 @@ export class ApiError extends Error {
     }
   }
 }
+
+export class AppError extends ApiError {
+  constructor(message: string, statusCode: number = 500) {
+    super(statusCode, message);
+  }
+}
+

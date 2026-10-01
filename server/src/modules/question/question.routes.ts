@@ -3,7 +3,8 @@ import { questionController } from './question.controller.js';
 import { authenticate } from '../../middleware/auth.middleware.js';
 import { validateRequest } from '../../middleware/validate.middleware.js';
 import { listQuestionsSchema, getQuestionParamSchema } from './question.validation.js';
-import { asyncHandler } from '../../utils/async-handler.js';
+import { asyncHandler } from '../../shared/utils/async-handler.js';
+
 
 const router = Router();
 

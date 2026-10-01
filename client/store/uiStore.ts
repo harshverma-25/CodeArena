@@ -6,8 +6,6 @@ interface UIState {
   joinRoomModalOpen: boolean;
   inviteModalOpen: boolean;
   activeRoomCode: string | null;
-  editorFontSize: number;
-  editorTheme: string;
   
   // Actions
   setSidebarOpen: (open: boolean) => void;
@@ -15,8 +13,6 @@ interface UIState {
   setCreateRoomModalOpen: (open: boolean) => void;
   setJoinRoomModalOpen: (open: boolean) => void;
   setInviteModalOpen: (open: boolean, code?: string | null) => void;
-  setEditorFontSize: (size: number) => void;
-  setEditorTheme: (theme: string) => void;
   resetUI: () => void;
 }
 
@@ -26,8 +22,6 @@ export const useUIStore = create<UIState>((set) => ({
   joinRoomModalOpen: false,
   inviteModalOpen: false,
   activeRoomCode: null,
-  editorFontSize: 14,
-  editorTheme: "vs-dark",
 
   setSidebarOpen: (open) => set({ sidebarOpen: open }),
   toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
@@ -35,8 +29,6 @@ export const useUIStore = create<UIState>((set) => ({
   setJoinRoomModalOpen: (open) => set({ joinRoomModalOpen: open }),
   setInviteModalOpen: (open, code = null) => 
     set({ inviteModalOpen: open, activeRoomCode: code }),
-  setEditorFontSize: (size) => set({ editorFontSize: size }),
-  setEditorTheme: (theme) => set({ editorTheme: theme }),
   resetUI: () => set({
     sidebarOpen: false,
     createRoomModalOpen: false,
@@ -45,3 +37,4 @@ export const useUIStore = create<UIState>((set) => ({
     activeRoomCode: null,
   }),
 }));
+

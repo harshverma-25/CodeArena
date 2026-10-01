@@ -4,7 +4,6 @@ export interface DashboardStats {
   matchesPlayed: number;
   wins: number;
   winRate: number;
-  problemsSolved: number;
   highestWinStreak: number;
 }
 
@@ -15,7 +14,6 @@ export function useDashboardStats() {
     matchesPlayed: user?.matchesPlayed || 0,
     wins: user?.wins || 0,
     winRate: user?.matchesPlayed ? Math.round((user.wins / user.matchesPlayed) * 100) : 0,
-    problemsSolved: user?.acceptedSubmissions || 0,
     highestWinStreak: user?.highestWinStreak || 0,
   };
 

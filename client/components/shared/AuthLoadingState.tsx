@@ -3,21 +3,23 @@
 import React, { useEffect, useState } from "react";
 import { Shield } from "lucide-react";
 
+const STATUS_MESSAGES = [
+  "Establishing secure connection...",
+  "Verifying credentials...",
+  "Synchronizing Arena profile...",
+  "Preparing competitive coding workspace...",
+];
+
 export function AuthLoadingState() {
   const [statusIndex, setStatusIndex] = useState(0);
-  const statusMessages = [
-    "Establishing secure connection...",
-    "Verifying credentials...",
-    "Synchronizing Arena profile...",
-    "Preparing competitive coding workspace...",
-  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setStatusIndex((prev) => (prev + 1) % statusMessages.length);
+      setStatusIndex((prev) => (prev + 1) % STATUS_MESSAGES.length);
     }, 1500);
     return () => clearInterval(interval);
   }, []);
+
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background text-foreground">
@@ -37,7 +39,8 @@ export function AuthLoadingState() {
             CodeArena
           </h2>
           <p className="text-sm text-muted-foreground h-5 font-mono">
-            {statusMessages[statusIndex]}
+            {STATUS_MESSAGES[statusIndex]}
+
           </p>
         </div>
 

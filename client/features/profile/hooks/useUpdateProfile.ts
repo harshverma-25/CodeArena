@@ -6,7 +6,7 @@ export function useUpdateProfile() {
   const api = useApiClient();
   const queryClient = useQueryClient();
 
-  return useMutation<User, Error, { displayName?: string; preferredLanguage?: string }>({
+  return useMutation<User, Error, { displayName?: string }>({
     mutationFn: async (updateData) => {
       const response = await api.patch<{ success: boolean; data: User }>("/users/me", updateData);
       const responseData = response as unknown as { success: boolean; data: User };

@@ -53,7 +53,7 @@ class SocketManager {
     return this.socket;
   }
 
-  public emit(event: string, ...args: any[]) {
+  public emit(event: string, ...args: unknown[]) {
     if (!this.socket) {
       console.warn(`🔌 Cannot emit '${event}'. Socket is not initialized.`);
       return;
@@ -61,18 +61,20 @@ class SocketManager {
     this.socket.emit(event, ...args);
   }
 
-  public on(event: string, callback: (...args: any[]) => void) {
+  public on(event: string, callback: (...args: unknown[]) => void) {
     if (!this.socket) {
       console.warn(`🔌 Cannot listen for '${event}'. Socket is not initialized.`);
       return;
     }
-    this.socket.on(event, callback);
+    this.socket.on(event, callback as (...args: unknown[]) => void);
   }
 
-  public off(event: string, callback?: (...args: any[]) => void) {
+  public off(event: string, callback?: (...args: unknown[]) => void) {
     if (!this.socket) return;
-    this.socket.off(event, callback);
+    this.socket.off(event, callback as (...args: unknown[]) => void);
   }
+
+
 }
 
 export const socketManager = new SocketManager();

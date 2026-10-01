@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { CheckCircle2, Loader2, Swords } from "lucide-react";
+import { CheckCircle2, Loader2 } from "lucide-react";
+
 import { OpponentLiveState } from "../hooks/useLiveBattle";
 
 interface WaitingForOpponentProps {

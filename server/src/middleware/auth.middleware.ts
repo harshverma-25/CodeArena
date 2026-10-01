@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { AppError } from '../utils/app-error.js';
+import { AppError } from '../shared/errors/api-error.js';
+
 import { userService } from '../modules/user/user.service.js';
 
 export const authenticate = async (

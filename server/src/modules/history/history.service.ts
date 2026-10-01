@@ -126,12 +126,6 @@ export class HistoryService {
         userScore: myPlayer?.score || 0,
         opponentScore: oppPlayer?.score || 0,
         result,
-        problem: {
-          _id: battle._id.toString(),
-          title: `${battle.topic} Battle (${battle.questionCount} Questions)`,
-          difficulty: battle.difficulty,
-          topic: battle.topic,
-        },
       };
     });
 

@@ -3,7 +3,8 @@ import { historyController } from './history.controller.js';
 import { authenticate } from '../../middleware/auth.middleware.js';
 import { validateRequest } from '../../middleware/validate.middleware.js';
 import { historyQuerySchema, battleIdParamSchema } from './history.validator.js';
-import { asyncHandler } from '../../utils/async-handler.js';
+import { asyncHandler } from '../../shared/utils/async-handler.js';
+
 
 const router = Router();
 

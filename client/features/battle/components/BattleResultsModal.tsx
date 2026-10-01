@@ -19,7 +19,7 @@ export function BattleResultsModal({ results, currentUserId }: BattleResultsModa
 
   const isWinner = results.winnerId && currentUserId && results.winnerId === currentUserId;
   const isDraw = results.isDraw;
-  const isLoser = !isDraw && !isWinner;
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/90 backdrop-blur-md animate-in fade-in duration-300">

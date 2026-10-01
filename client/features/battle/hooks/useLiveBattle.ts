@@ -11,8 +11,8 @@ import {
   BattleNextQuestionPayload,
   BattleOpponentProgressPayload,
   BattleResultsPayload,
-  BattlePlayer,
 } from "@/types";
+
 
 export interface LiveBattleState {
   battleId: string | null;
@@ -112,9 +112,13 @@ export function useLiveBattle(roomCode: string) {
   // Initialize from cache if present
   useEffect(() => {
     if (cachedInitData && !battle) {
-      processInitPayload(cachedInitData);
+      const timer = setTimeout(() => {
+        processInitPayload(cachedInitData);
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [cachedInitData, battle, processInitPayload]);
+
 
   // Main Socket Listener & Reconnection
   useEffect(() => {
@@ -187,15 +191,16 @@ export function useLiveBattle(roomCode: string) {
       setIsLocked(true);
     };
 
-    const handlePlayerDisconnected = (payload: { userId: string }) => {
+    const handlePlayerDisconnected = () => {
       if (!active) return;
       setOpponent((prev) => (prev ? { ...prev, isDisconnected: true } : prev));
     };
 
-    const handlePlayerReconnected = (payload: { userId: string }) => {
+    const handlePlayerReconnected = () => {
       if (!active) return;
       setOpponent((prev) => (prev ? { ...prev, isDisconnected: false } : prev));
     };
+
 
     const handleError = (payload: { message: string }) => {
       if (!active) return;

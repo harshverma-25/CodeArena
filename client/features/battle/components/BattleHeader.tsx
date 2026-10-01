@@ -20,8 +20,9 @@ export function BattleHeader({
   currentQuestionNumber,
   totalQuestions,
   timeRemaining,
-  timePerQuestion,
 }: BattleHeaderProps) {
+
+
   const getDifficultyColor = (diff: string) => {
     switch (diff?.toLowerCase()) {
       case "easy":
@@ -38,10 +39,8 @@ export function BattleHeader({
   const progressPercentage =
     totalQuestions > 0 ? (currentQuestionNumber / totalQuestions) * 100 : 0;
 
-  const timerPercentage =
-    timePerQuestion > 0 ? (timeRemaining / timePerQuestion) * 100 : 0;
-
   const isLowTime = timeRemaining <= 5;
+
   const isMidTime = timeRemaining <= 10 && timeRemaining > 5;
 
   return (

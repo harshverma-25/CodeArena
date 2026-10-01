@@ -4,16 +4,13 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
-  Trophy, 
-  Award, 
   ChevronLeft, 
   ChevronRight, 
   AlertCircle,
   HelpCircle,
-  Percent,
-  Swords,
-  UserCheck
+  Percent
 } from "lucide-react";
+
 import { useLeaderboard } from "../hooks/useLeaderboard";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";

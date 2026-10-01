@@ -77,7 +77,7 @@ export function useBattleMutations() {
   const startMatch = useMutation<{ matchId: string }, Error, string>({
     mutationFn: async (roomCode) => {
       const response = await api.post<{ success: boolean; data: { matchId: string } }>(
-        "/matches/start",
+        "/battles/start",
         { roomCode }
       );
       const responseData = response as unknown as { success: boolean; data: { matchId: string } };

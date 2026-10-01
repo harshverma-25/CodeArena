@@ -54,9 +54,11 @@ export function BattleForm({ onSuccess }: { onSuccess?: (roomCode: string) => vo
       } else {
         router.push(`/lobby/${room.roomCode}`);
       }
-    } catch (err: any) {
-      setError(err?.message || "Failed to create battle room. Please try again.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to create battle room. Please try again.";
+      setError(message);
     }
+
   };
 
   return (

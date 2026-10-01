@@ -9,40 +9,11 @@ export interface User {
   wins: number;
   losses: number;
   draws: number;
-  totalSubmissions: number;
-  acceptedSubmissions: number;
   highestWinStreak: number;
-  preferredLanguage: string;
   createdAt: string;
   updatedAt: string;
 }
 
-export interface Example {
-  input: string;
-  output: string;
-  explanation?: string;
-}
-
-export interface Problem {
-  _id: string;
-  title: string;
-  slug: string;
-  topic: string;
-  difficulty: "Easy" | "Medium" | "Hard";
-  status: "Draft" | "Published" | "Archived";
-  description: string;
-  inputFormat: string;
-  outputFormat: string;
-  constraints: string;
-  examples: Example[];
-  starterCode: Record<string, string>;
-  tags: string[];
-  points: number;
-  timeLimit: number;
-  memoryLimit: number;
-  createdAt: string;
-  updatedAt: string;
-}
 
 export interface RoomPlayer {
   user: {
@@ -91,34 +62,6 @@ export interface Room {
   status: RoomStatusType;
 }
 
-export interface MatchPlayer {
-  user: {
-    _id: string;
-    username: string;
-    displayName: string;
-    avatar: string;
-  } | null;
-}
-
-export type MatchStatus = "IN_PROGRESS" | "COMPLETED" | "DRAW" | "ABANDONED" | "CANCELLED";
-
-export interface Match {
-  _id: string;
-  roomId: string;
-  roomCode: string;
-  players: MatchPlayer[];
-  winner: {
-    _id: string;
-    username: string;
-    displayName: string;
-    avatar: string;
-  } | null;
-  status: MatchStatus;
-  startedAt: string;
-  endedAt?: string;
-  duration?: number; // in seconds
-  problem: Problem | null;
-}
 
 // ------------------------------
 // MCQ Battle Types
@@ -276,7 +219,6 @@ export interface PublicUserProfile {
   username: string;
   displayName: string;
   avatar: string;
-  preferredLanguage?: string;
   joinedAt: string;
   rank: number;
   battlesPlayed: number;

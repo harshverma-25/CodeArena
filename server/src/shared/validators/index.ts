@@ -39,43 +39,18 @@ export const usernameSchema = z
   .max(30, 'Username cannot exceed 30 characters')
   .regex(/^[a-zA-Z0-9_-]+$/, 'Username can only contain alphanumeric characters, underscores, and hyphens');
 
-// 5. Programming Language Validator
-export const languageSchema = z.enum(
-  ['javascript', 'typescript', 'python', 'java', 'cpp', 'c++'],
-  {
-    errorMap: () => ({ message: 'Supported languages are: javascript, typescript, python, java, cpp, c++' }),
-  }
-);
-
-// 6. Difficulty Validator
+// 5. Difficulty Validator
 export const difficultySchema = z.enum(['Easy', 'Medium', 'Hard'], {
   errorMap: () => ({ message: "Difficulty must be one of: 'Easy', 'Medium', 'Hard'" }),
 });
 
-// 7. Topic Validator
-export const topicSchema = z.enum([
-  'Arrays',
-  'Strings',
-  'Trees',
-  'LinkedLists',
-  'DynamicProgramming',
-  'Graphs',
-  'Sorting',
-  'Searching',
-  'Math',
-  'StacksQueues',
-  'Heaps',
-  'Greedy',
-  'Backtracking',
-], {
-  errorMap: () => ({ message: 'Invalid topic' }),
-});
+// 6. Topic Validator
+export const topicSchema = z.string().min(1, 'Topic is required');
 
 // Inferred TypeScript Types
 export type ObjectIdValidation = z.infer<typeof objectIdSchema>;
 export type PaginationValidation = z.infer<typeof paginationSchema>;
 export type RoomCodeValidation = z.infer<typeof roomCodeSchema>;
 export type UsernameValidation = z.infer<typeof usernameSchema>;
-export type LanguageValidation = z.infer<typeof languageSchema>;
 export type DifficultyValidation = z.infer<typeof difficultySchema>;
 export type TopicValidation = z.infer<typeof topicSchema>;

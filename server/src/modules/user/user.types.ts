@@ -9,10 +9,7 @@ export interface IUser {
   wins: number;
   losses: number;
   draws: number;
-  totalSubmissions: number;
-  acceptedSubmissions: number;
   highestWinStreak: number;
-  preferredLanguage: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -48,7 +45,6 @@ export interface IPublicUserProfile {
   username: string;
   displayName: string;
   avatar: string;
-  preferredLanguage?: string;
   joinedAt: Date | string;
   rank: number;
   battlesPlayed: number;

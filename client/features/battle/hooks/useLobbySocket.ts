@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
 import { socketManager } from "@/lib/socket";
-import { Room, RoomPlayer, RoomSettings, BattleInitPayload } from "@/types";
+import { Room, RoomPlayer, RoomSettings, BattleInitPayload, RoomStatusType } from "@/types";
 import { useBattleStore } from "@/store/battleStore";
 
 interface SocketRoomPayload {
@@ -24,8 +24,9 @@ interface SocketRoomPayload {
     duration: number;
     questionCount?: number;
   };
-  status: any;
+  status: RoomStatusType;
 }
+
 
 export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) {
   const router = useRouter();
@@ -33,8 +34,9 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
   const setBattleInitData = useBattleStore((state) => state.setBattleInitData);
 
   const [room, setRoom] = useState<Room | null>(initialRoomData || null);
-  const [isConnected, setIsConnected] = useState(false);
+  const [isConnected, setIsConnected] = useState(() => socketManager.getSocket()?.connected ?? false);
   const [isStarting, setIsStarting] = useState(false);
+
   const [opponentDisconnected, setOpponentDisconnected] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -73,14 +75,8 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
     };
   }, []);
 
-  // Update room when initialRoomData loads from REST
-  useEffect(() => {
-    if (initialRoomData && !room) {
-      setRoom(initialRoomData);
-    }
-  }, [initialRoomData, room]);
-
   // Navigate to live battle
+
   const navigateToBattle = useCallback(() => {
     if (navigatedRef.current) return;
     navigatedRef.current = true;
@@ -159,11 +155,10 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
     };
 
     if (socket) {
-      setIsConnected(socket.connected);
-
       if (socket.connected) {
         socketManager.emit("room:join", { roomCode: roomCode.toUpperCase() });
       }
+
 
       socket.on("connect", handleConnect);
       socket.on("disconnect", handleDisconnect);
@@ -217,7 +212,8 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
   }, [roomCode]);
 
   return {
-    room,
+    room: room || initialRoomData || null,
+
     isConnected,
     isStarting,
     opponentDisconnected,

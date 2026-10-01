@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Trophy, Percent, Terminal, Flame, Swords } from "lucide-react";
+import { Trophy, Percent, Flame, Swords } from "lucide-react";
+
 import { useDashboardStats } from "../hooks/useDashboardStats";
 
 export function StatsOverview() {
@@ -30,11 +31,11 @@ export function StatsOverview() {
       bgClass: "bg-emerald-500/10 border-emerald-500/20",
     },
     {
-      label: "Problems Solved",
-      value: stats.problemsSolved,
-      icon: Terminal,
-      colorClass: "text-blue-500",
-      bgClass: "bg-blue-500/10 border-blue-500/20",
+      label: "Best Streak",
+      value: stats.highestWinStreak,
+      icon: Flame,
+      colorClass: "text-amber-500",
+      bgClass: "bg-amber-500/10 border-amber-500/20",
     },
   ];
 

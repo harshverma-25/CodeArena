@@ -38,7 +38,7 @@ const RoomSchema = new Schema<IRoomDocument>(
       enum: Object.values(RoomStatus),
       default: RoomStatus.WAITING,
     },
-    matchId: { type: Schema.Types.ObjectId, ref: 'Match', default: null },
+    matchId: { type: Schema.Types.ObjectId, ref: 'Battle', default: null },
   },
   {
     timestamps: true,

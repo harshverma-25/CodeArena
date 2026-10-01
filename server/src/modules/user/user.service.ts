@@ -1,7 +1,9 @@
 import { clerkClient } from '../../config/clerk.js';
 import { userRepository } from './user.repository.js';
 import { IUserDocument, IUser, ILeaderboardResponse, ILeaderboardEntry, IPublicUserProfile } from './user.types.js';
-import { AppError } from '../../utils/app-error.js';
+import { AppError } from '../../shared/errors/api-error.js';
+
+
 import { UserModel } from './user.model.js';
 import { BattleModel } from '../battle/battle.model.js';
 import { BattleStatus } from '../battle/battle.types.js';
@@ -29,10 +31,7 @@ export class UserService {
         wins: 0,
         losses: 0,
         draws: 0,
-        totalSubmissions: 0,
-        acceptedSubmissions: 0,
         highestWinStreak: 0,
-        preferredLanguage: 'javascript',
       });
 
       return user;
@@ -56,10 +55,7 @@ export class UserService {
           wins: 0,
           losses: 0,
           draws: 0,
-          totalSubmissions: 0,
-          acceptedSubmissions: 0,
           highestWinStreak: 0,
-          preferredLanguage: 'javascript',
         });
         return user;
       }
@@ -88,7 +84,6 @@ export class UserService {
     const allowedUpdates: Partial<IUser> = {};
     if (updateData.displayName !== undefined) allowedUpdates.displayName = updateData.displayName;
     if (updateData.avatar !== undefined) allowedUpdates.avatar = updateData.avatar;
-    if (updateData.preferredLanguage !== undefined) allowedUpdates.preferredLanguage = updateData.preferredLanguage;
 
     const user = await userRepository.updateByClerkId(clerkId, allowedUpdates);
     if (!user) {
@@ -334,7 +329,6 @@ export class UserService {
       username: user.username,
       displayName: user.displayName,
       avatar: user.avatar,
-      preferredLanguage: user.preferredLanguage,
       joinedAt: user.createdAt,
       rank,
       battlesPlayed,

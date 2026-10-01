@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
-import { Loader2, Swords, CheckCircle2, UserCheck } from "lucide-react";
+import { Loader2, UserCheck } from "lucide-react";
+
+
 import { Room } from "@/types";
 
 interface BattleStatusProps {

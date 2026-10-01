@@ -5,7 +5,9 @@ import { useParams, useRouter } from "next/navigation";
 import { useUserProfile } from "@/features/profile/hooks/useUserProfile";
 import { PublicProfileView } from "@/features/profile/components/PublicProfileView";
 import { Button } from "@/components/ui/button";
-import { RefreshCw, AlertTriangle, UserX, Home } from "lucide-react";
+import { RefreshCw, UserX } from "lucide-react";
+
+
 
 export default function UserPublicProfilePage() {
   const params = useParams();

@@ -27,7 +27,6 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
     username,
     displayName,
     avatar,
-    preferredLanguage,
     joinedAt,
     rank,
     battlesPlayed,
@@ -123,12 +122,6 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
                 </span>
                 <span className="hidden sm:inline text-zinc-700">•</span>
                 <span className="font-mono">Joined: {formatDate(joinedAt)}</span>
-                {preferredLanguage && (
-                  <>
-                    <span className="hidden sm:inline text-zinc-700">•</span>
-                    <span className="font-mono capitalize text-foreground/80">Lang: {preferredLanguage}</span>
-                  </>
-                )}
               </div>
             </div>
           </div>

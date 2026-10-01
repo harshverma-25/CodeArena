@@ -1,19 +1,18 @@
-import { matchRepository } from './match.repository.js';
+import { Request, Response } from 'express';
+import { battleService } from './battle.service.js';
 import { roomRepository } from '../room/room.repository.js';
-import { problemRepository } from '../problem/problem.repository.js';
-import { MatchStatus, IMatchDocument } from './match.types.js';
-import { RoomStatus } from '../room/room.types.js';
-import { ApiError } from '../../shared/errors/api-error.js';
 import { getIo } from '../../sockets/socket.js';
+import { formatRoomSocketPayload } from '../../sockets/room.socket.js';
 import { logger } from '../../config/logger.js';
 
-export class MatchService {
+export class BattleController {
   /**
-   * Start a match inside a room. Only the room host can initiate this.
+   * Start a battle inside a room. Only the room host can initiate this.
+   * POST /api/v1/battles/start
    */
-  async startMatch(userId: string, roomCode: string) {
-    const { battleService } = await import('../battle/battle.service.js');
-    const { formatRoomSocketPayload } = await import('../../sockets/room.socket.js');
+  async startBattle(req: Request, res: Response) {
+    const userId = req.user!._id.toString();
+    const { roomCode } = req.body;
     const battle = await battleService.startBattle(userId, roomCode);
 
     try {
@@ -55,35 +54,18 @@ export class MatchService {
       logger.error(socketError, 'Failed to broadcast battle socket events');
     }
 
-    return {
-      matchId: battle._id.toString(),
-      battleId: battle._id.toString(),
-      roomCode: battle.roomCode,
-      status: battle.status,
-    };
-  }
-
-  /**
-   * Retrieve match details by match ID.
-   */
-  async getMatch(matchId: string): Promise<IMatchDocument> {
-    const match = await matchRepository.findById(matchId);
-    if (!match) {
-      throw new ApiError(404, 'Match not found');
-    }
-    return match;
-  }
-
-  /**
-   * Get match history for the authenticated user (paginated).
-   */
-  async getMatchHistory(
-    userId: string,
-    options: { page?: number; limit?: number } = {}
-  ): Promise<{ matches: IMatchDocument[]; total: number }> {
-    return matchRepository.findHistory(userId, options);
+    return res.status(200).json({
+      success: true,
+      message: 'Battle started successfully',
+      data: {
+        battleId: battle._id.toString(),
+        matchId: battle._id.toString(),
+        roomCode: battle.roomCode,
+        status: battle.status,
+      },
+    });
   }
 }
 
-export const matchService = new MatchService();
-export default matchService;
+export const battleController = new BattleController();
+export default battleController;

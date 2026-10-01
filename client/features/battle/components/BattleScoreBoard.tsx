@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
-import { User, Trophy, WifiOff } from "lucide-react";
+import { Trophy, WifiOff } from "lucide-react";
+
+
 import { OpponentLiveState } from "../hooks/useLiveBattle";
 
 interface BattleScoreBoardProps {

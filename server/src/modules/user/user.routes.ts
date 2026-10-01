@@ -7,7 +7,10 @@ import {
   getUserByUsernameSchema,
   leaderboardQuerySchema,
 } from './user.validation.js';
-import { asyncHandler } from '../../utils/async-handler.js';
+
+import { asyncHandler } from '../../shared/utils/async-handler.js';
+
+
 
 const router = Router();
 

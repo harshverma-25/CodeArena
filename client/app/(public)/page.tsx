@@ -4,9 +4,9 @@ import React from "react";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
-import { Shield, Zap, Terminal, Trophy, Users, ArrowRight } from "lucide-react";
+import { Shield, Zap, BookOpen, Trophy, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function LandingPage() {
   const { isSignedIn } = useAuth();
@@ -31,8 +31,8 @@ export default function LandingPage() {
         <div className="mx-auto max-w-2xl shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
           {/* Version badge */}
           <div className="mt-24 sm:mt-32 lg:mt-16">
-            <span className="inline-flex items-center space-x-2 rounded-full bg-primary/10 px-3 py-1 text-sm font-medium leading-6 text-primary ring-1 ring-inset ring-primary/20">
-              <span>CodeArena v0.1</span>
+            <span className="inline-flex items-center space-x-2 rounded-full bg-primary/10 px-3 py-1 text-sm font-medium leading-6 text-primary ring-1 ring-inset ring-primary/20 font-mono">
+              <span>CodeArena MCQ Battle</span>
             </span>
           </div>
 
@@ -43,15 +43,15 @@ export default function LandingPage() {
             </span>
           </h1>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            A real-time competitive coding platform where you duel 1v1 against other developers. 
-            Solve algorithmic challenges, optimize your solutions, and climb the leaderboard.
+            A real-time competitive 1v1 quiz battle platform where you duel against other developers. 
+            Answer timed technical MCQs, prove your mastery across core CS subjects, and climb the leaderboard.
           </p>
 
           <div className="mt-10 flex items-center gap-x-6">
             {isSignedIn ? (
               <Link
                 href="/dashboard"
-                className={cn(buttonVariants({ size: "lg", variant: "primary" }), "group")}
+                className={cn(buttonVariants({ size: "lg", variant: "primary" }), "group font-mono")}
               >
                 Enter Arena{" "}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -60,14 +60,14 @@ export default function LandingPage() {
               <>
                 <Link
                   href="/register"
-                  className={cn(buttonVariants({ size: "lg", variant: "primary" }), "group")}
+                  className={cn(buttonVariants({ size: "lg", variant: "primary" }), "group font-mono")}
                 >
-                  Start Coding{" "}
+                  Start Battling{" "}
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
                   href="/login"
-                  className={buttonVariants({ size: "lg", variant: "ghost" })}
+                  className={buttonVariants({ size: "lg", variant: "ghost", className: "font-mono" })}
                 >
                   Log In
                 </Link>
@@ -84,9 +84,9 @@ export default function LandingPage() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                   <Zap className="h-6 w-6" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-foreground">Real-Time Duels</h3>
+                <h3 className="mt-4 text-lg font-semibold text-foreground">1v1 Quiz Battles</h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Match against challengers instantly. See progress, compilation states, and pass rates in real time.
+                  Challenge rivals in synchronized real-time rounds. Track opponent progress and live scoreboards as questions progress.
                 </p>
               </CardContent>
             </Card>
@@ -94,11 +94,11 @@ export default function LandingPage() {
             <Card className="bg-card/50 backdrop-blur-sm border-border hover:border-primary/30 transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <Terminal className="h-6 w-6" />
+                  <BookOpen className="h-6 w-6" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-foreground">Monaco Editor</h3>
+                <h3 className="mt-4 text-lg font-semibold text-foreground">Curated Question Bank</h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  A premium, customizable coding interface featuring auto-completion, multi-language support, and dark mode.
+                  High-yield MCQs covering JavaScript, Data Structures, Algorithms, DBMS, and Systems with detailed answer explanations.
                 </p>
               </CardContent>
             </Card>
@@ -108,9 +108,9 @@ export default function LandingPage() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                   <Shield className="h-6 w-6" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-foreground">Secure Judge</h3>
+                <h3 className="mt-4 text-lg font-semibold text-foreground">Anti-Cheat Architecture</h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Isolated, secure execution environment for evaluating solutions against edge cases instantly.
+                  Server-authoritative timers, blind question delivery, and instant cryptographic session validation prevent answer leaking.
                 </p>
               </CardContent>
             </Card>
@@ -120,9 +120,9 @@ export default function LandingPage() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                   <Trophy className="h-6 w-6" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-foreground">Rankings</h3>
+                <h3 className="mt-4 text-lg font-semibold text-foreground">Global Rankings</h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Win battles to improve your rank, build your profile, and showcase your competition statistics.
+                  Win battles to improve your global rank, earn win streaks, review match breakdowns, and showcase your competition stats.
                 </p>
               </CardContent>
             </Card>

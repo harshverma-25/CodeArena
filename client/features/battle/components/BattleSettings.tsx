@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+
 import { Sliders, BookOpen, ShieldAlert, Check, Hash } from "lucide-react";
 import { RoomSettings } from "@/types";
 import { useBattleMutations } from "../hooks/useBattleMutations";
@@ -37,20 +38,16 @@ interface BattleSettingsProps {
 export function BattleSettings({ roomCode, settings, isHost, onUpdate }: BattleSettingsProps) {
   const { updateSettings } = useBattleMutations();
 
-  const [topic, setTopic] = useState(settings?.topic || "random");
-  const [difficulty, setDifficulty] = useState(settings?.difficulty || "random");
-  const [questionCount, setQuestionCount] = useState(settings?.questionCount || 10);
+  const [userTopic, setTopic] = useState<string | null>(null);
+  const [userDifficulty, setDifficulty] = useState<string | null>(null);
+  const [userQuestionCount, setQuestionCount] = useState<number | null>(null);
   const [feedback, setFeedback] = useState("");
   const [error, setError] = useState("");
 
-  // Keep local state in sync when settings change
-  useEffect(() => {
-    if (settings) {
-      setTopic(settings.topic || "random");
-      setDifficulty(settings.difficulty || "random");
-      setQuestionCount(settings.questionCount || 10);
-    }
-  }, [settings]);
+  const topic = userTopic ?? settings?.topic ?? "random";
+  const difficulty = userDifficulty ?? settings?.difficulty ?? "random";
+  const questionCount = userQuestionCount ?? settings?.questionCount ?? 10;
+
 
   const handleUpdate = async (newTopic: string, newDiff: string, newCount: number) => {
     if (!isHost) return;
@@ -76,9 +73,11 @@ export function BattleSettings({ roomCode, settings, isHost, onUpdate }: BattleS
       });
       setFeedback("Settings saved.");
       setTimeout(() => setFeedback(""), 2000);
-    } catch (err: any) {
-      setError(err?.message || "Failed to update room settings.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to update room settings.";
+      setError(message);
     }
+
   };
 
   const getDifficultyColor = (diff: string) => {

@@ -37,13 +37,6 @@ export interface IBattleHistoryItem {
   userScore: number;
   opponentScore: number;
   result: 'VICTORY' | 'DEFEAT' | 'DRAW' | 'IN_PROGRESS' | 'CANCELLED';
-  // Additional compatibility fields for existing match history table:
-  problem?: {
-    _id: string;
-    title: string;
-    difficulty: string;
-    topic: string;
-  } | null;
 }
 
 export interface IBattleHistoryResponse {

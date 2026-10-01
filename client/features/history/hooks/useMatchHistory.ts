@@ -39,12 +39,6 @@ export interface MatchHistoryItem {
   userScore?: number;
   opponentScore?: number;
   result?: "VICTORY" | "DEFEAT" | "DRAW" | "IN_PROGRESS" | "CANCELLED";
-  problem?: {
-    _id: string;
-    title: string;
-    difficulty: string;
-    topic: string;
-  } | null;
 }
 
 export interface MatchHistoryResponse {

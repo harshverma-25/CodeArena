@@ -147,7 +147,7 @@ export function MatchHistoryTable() {
           </div>
           <h3 className="text-lg font-bold text-foreground mb-1">No completed battles found</h3>
           <p className="text-sm text-muted-foreground max-w-sm mb-6">
-            You haven't completed any MCQ coding battles yet. Host a battle or join one to test your speed!
+            You haven&apos;t completed any MCQ coding battles yet. Host a battle or join one to test your speed!
           </p>
           <Link href="/battle/new" className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-xs font-semibold text-primary-foreground hover:bg-primary/95 transition-colors font-mono">
             Start a Battle
@@ -163,11 +163,11 @@ export function MatchHistoryTable() {
               )?.user || null;
 
               const isWinner = match.result === "VICTORY" || match.winner?._id === myId || match.winnerId === myId;
-              const isDraw = match.result === "DRAW" || match.isDraw;
               const isDefeat = match.result === "DEFEAT";
 
-              const topicName = match.topic || match.problem?.topic || "MCQ Challenge";
-              const difficultyName = match.difficulty || match.problem?.difficulty || "Medium";
+
+              const topicName = match.topic || "MCQ Challenge";
+              const difficultyName = match.difficulty || "Medium";
 
               return (
                 <div

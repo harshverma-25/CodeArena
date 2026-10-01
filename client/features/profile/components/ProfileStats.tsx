@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+
 import Link from "next/link";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { useUserProfile } from "../hooks/useUserProfile";
@@ -32,16 +33,11 @@ export function ProfileStats() {
   const { user: clerkUser, isLoaded: clerkLoaded } = useUser();
   const updateProfileMutation = useUpdateProfile();
 
-  const [displayName, setDisplayName] = useState("");
-  const [preferredLanguage, setPreferredLanguage] = useState("javascript");
+  const [userDisplayName, setDisplayName] = useState<string | null>(null);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
-  useEffect(() => {
-    if (dbUser) {
-      setDisplayName(dbUser.displayName || "");
-      setPreferredLanguage(dbUser.preferredLanguage || "javascript");
-    }
-  }, [dbUser]);
+  const displayName = userDisplayName ?? dbUser?.displayName ?? "";
+
 
   if (dbUserLoading || profileLoading || !clerkLoaded) {
     return (
@@ -108,7 +104,7 @@ export function ProfileStats() {
 
   const handleSave = () => {
     updateProfileMutation.mutate(
-      { displayName, preferredLanguage },
+      { displayName },
       {
         onSuccess: () => {
           setSaveSuccess(true);
@@ -268,25 +264,6 @@ export function ProfileStats() {
                 placeholder="Enter your public display name"
                 className="flex h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary disabled:opacity-50"
               />
-            </div>
-
-            {/* Preferred Language Input */}
-            <div className="space-y-1.5">
-              <label htmlFor="preferredLang" className="text-xs font-bold text-foreground uppercase tracking-wider font-mono">
-                Preferred Coding Language
-              </label>
-              <select
-                id="preferredLang"
-                value={preferredLanguage}
-                onChange={(e) => setPreferredLanguage(e.target.value)}
-                className="flex h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary cursor-pointer"
-              >
-                <option value="javascript">JavaScript</option>
-                <option value="typescript">TypeScript</option>
-                <option value="python">Python</option>
-                <option value="cpp">C++</option>
-                <option value="java">Java</option>
-              </select>
             </div>
           </div>
 

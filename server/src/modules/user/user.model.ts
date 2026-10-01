@@ -11,10 +11,7 @@ const UserSchema = new Schema<IUserDocument>(
     wins: { type: Number, default: 0 },
     losses: { type: Number, default: 0 },
     draws: { type: Number, default: 0 },
-    totalSubmissions: { type: Number, default: 0 },
-    acceptedSubmissions: { type: Number, default: 0 },
     highestWinStreak: { type: Number, default: 0 },
-    preferredLanguage: { type: String, default: 'javascript' },
   },
   {
     timestamps: true,

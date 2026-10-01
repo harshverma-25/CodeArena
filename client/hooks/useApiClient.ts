@@ -19,21 +19,21 @@ export function useApiClient() {
       get: <T>(path: string, options?: Omit<RequestInit, "method">) =>
         request<T>(path, { ...options, method: "GET" }),
         
-      post: <T>(path: string, body?: any, options?: Omit<RequestInit, "method" | "body">) =>
+      post: <T>(path: string, body?: unknown, options?: Omit<RequestInit, "method" | "body">) =>
         request<T>(path, {
           ...options,
           method: "POST",
           body: body instanceof FormData ? body : JSON.stringify(body),
         }),
         
-      put: <T>(path: string, body?: any, options?: Omit<RequestInit, "method" | "body">) =>
+      put: <T>(path: string, body?: unknown, options?: Omit<RequestInit, "method" | "body">) =>
         request<T>(path, {
           ...options,
           method: "PUT",
           body: body instanceof FormData ? body : JSON.stringify(body),
         }),
         
-      patch: <T>(path: string, body?: any, options?: Omit<RequestInit, "method" | "body">) =>
+      patch: <T>(path: string, body?: unknown, options?: Omit<RequestInit, "method" | "body">) =>
         request<T>(path, {
           ...options,
           method: "PATCH",
@@ -42,6 +42,7 @@ export function useApiClient() {
         
       delete: <T>(path: string, options?: Omit<RequestInit, "method">) =>
         request<T>(path, { ...options, method: "DELETE" }),
+
     };
   }, [getToken]);
 }

@@ -32,7 +32,7 @@ export function WelcomeHeader() {
             {getGreeting()}, <span className="bg-gradient-to-r from-primary to-orange-400 bg-clip-text text-transparent">{displayName}</span>!
           </h1>
           <p className="text-muted-foreground text-sm max-w-xl">
-            Welcome to the CodeArena dashboard. Face off against other engineers, test your algorithmic speed, and claim your place on the leaderboard.
+            Welcome to the CodeArena dashboard. Face off against other engineers, test your computer science knowledge and speed, and claim your place on the leaderboard.
           </p>
         </div>
 
@@ -44,8 +44,8 @@ export function WelcomeHeader() {
           </div>
           <div className="h-4 w-[1px] bg-border" />
           <div>
-            <span className="text-success font-bold">LANG: </span>
-            <span className="capitalize">{user?.preferredLanguage || "JavaScript"}</span>
+            <span className="text-success font-bold">BATTLES: </span>
+            <span>{user?.matchesPlayed || 0} Played</span>
           </div>
         </div>
       </div>

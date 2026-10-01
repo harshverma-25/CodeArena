@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { languageSchema } from '../../shared/validators/index.js';
 
 // Schema for PATCH /users/me
 export const updateUserSchema = z.object({
@@ -14,7 +13,6 @@ export const updateUserSchema = z.object({
       .url('Invalid avatar URL')
       .or(z.literal(''))
       .optional(),
-    preferredLanguage: languageSchema.optional(),
   }),
   query: z.object({}).optional(),
   params: z.object({}).optional(),

@@ -2,7 +2,8 @@
 
 import React, { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { LogOut, RefreshCw, Swords, Play, AlertCircle, WifiOff } from "lucide-react";
+import { LogOut, RefreshCw, Swords, Play, WifiOff } from "lucide-react";
+
 import { useRoom } from "@/features/battle/hooks/useRoom";
 import { useBattleMutations } from "@/features/battle/hooks/useBattleMutations";
 import { useLobbySocket } from "@/features/battle/hooks/useLobbySocket";
@@ -100,7 +101,8 @@ export default function LobbyPage() {
   const isHost =
     currentUser &&
     room.host &&
-    (room.host._id === currentUser._id || (room as any).hostId === currentUser._id);
+    (room.host._id === currentUser._id || (room as { hostId?: string }).hostId === currentUser._id);
+
 
   const myPlayer = room.players.find((p) => p.user?._id === currentUser?._id);
   const isMyReady = myPlayer?.isReady || false;

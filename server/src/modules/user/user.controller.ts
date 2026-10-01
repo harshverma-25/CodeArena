@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { userService } from './user.service.js';
-import { AppError } from '../../utils/app-error.js';
+import { AppError } from '../../shared/errors/api-error.js';
+
+
 import { ApiResponse } from '../../shared/utils/api-response.js';
 
 export class UserController {

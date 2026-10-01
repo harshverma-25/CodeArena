@@ -30,8 +30,9 @@ export function AuthErrorState({ error, onRetry }: AuthErrorStateProps) {
             Arena Sync Failed
           </h2>
           <p className="text-sm text-muted-foreground">
-            We couldn't synchronize your profile with the CodeArena backend. The servers might be down or undergoing maintenance.
+            We couldn&apos;t synchronize your profile with the CodeArena backend. The servers might be down or undergoing maintenance.
           </p>
+
           {error && (
             <div className="mt-4 rounded-md bg-secondary/50 p-3 text-left border border-border">
               <span className="font-mono text-xs text-destructive block break-words">
