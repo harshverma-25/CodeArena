@@ -6,9 +6,8 @@ import { usePathname } from "next/navigation";
 import { useAuth, UserButton } from "@clerk/nextjs";
 import { useBattleStore } from "@/store/battleStore";
 import { cn } from "@/lib/utils";
-import { Terminal, Shield, Trophy, Activity, History as HistoryIcon, Layers, User as UserIcon } from "lucide-react";
+import { Shield, Trophy, Activity, History as HistoryIcon, Layers, User as UserIcon } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
-
 
 export function Navbar() {
   const pathname = usePathname();
@@ -23,15 +22,15 @@ export function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-2 font-mono text-xl font-bold tracking-tight">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <Shield className="h-5 w-5" />
+          <Link href="/" className="flex items-center gap-2.5 font-mono text-lg font-bold tracking-tight text-foreground hover:opacity-90 transition-opacity">
+            <span className="flex h-8 w-8 items-center justify-center rounded-md bg-foreground text-background">
+              <Shield className="h-4.5 w-4.5 fill-current" />
             </span>
-            <span className="bg-gradient-to-r from-primary to-orange-400 bg-clip-text text-transparent">
+            <span className="tracking-tight text-foreground font-sans text-xl font-black">
               CodeArena
             </span>
           </Link>
@@ -46,10 +45,10 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "flex items-center gap-2 px-3  h-9 rounded-md text-sm font-medium transition-colors hover:text-foreground",
+                    "flex items-center gap-2 px-3 h-9 rounded-md text-sm font-medium transition-colors",
                     isActive 
-                      ? "bg-secondary text-foreground" 
-                      : "text-muted-foreground hover:bg-secondary/40"
+                      ? "bg-secondary text-foreground font-semibold" 
+                      : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
                   )}
                 >
                   <Icon className="h-4 w-4" />
@@ -61,24 +60,24 @@ export function Navbar() {
         </div>
 
         {/* User Info & Connection State */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {/* Socket Connection Badge */}
           <div
             className={cn(
-              "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold border transition-colors",
+              "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-mono border transition-colors",
               isSocketConnected
-                ? "bg-success/10 text-success border-success/20"
-                : "bg-warning/10 text-warning border-warning/20 animate-pulse"
+                ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                : "bg-amber-500/10 text-amber-400 border-amber-500/20"
             )}
-            title={isSocketConnected ? "Connected to real-time servers" : "Connecting to real-time servers..."}
+            title={isSocketConnected ? "Real-time socket server active" : "Connecting to real-time socket server..."}
           >
-            <Activity className={cn("h-3 w-3", isSocketConnected && "animate-pulse")} />
+            <Activity className="h-3 w-3 shrink-0" />
             <span className="hidden sm:inline">
-              {isSocketConnected ? "Live" : "Connecting"}
+              {isSocketConnected ? "LIVE" : "SYNC"}
             </span>
           </div>
 
-          {/* Clerk Auth Integration */}
+          {/* Auth Actions */}
           {isSignedIn ? (
             <div className="flex items-center gap-3">
               <UserButton
@@ -93,13 +92,13 @@ export function Navbar() {
             <div className="flex items-center gap-2">
               <Link
                 href="/login"
-                className={buttonVariants({ variant: "ghost", size: "sm" })}
+                className={buttonVariants({ variant: "ghost", size: "sm", className: "font-mono text-xs" })}
               >
                 Log In
               </Link>
               <Link
                 href="/register"
-                className={buttonVariants({ variant: "primary", size: "sm" })}
+                className={buttonVariants({ variant: "primary", size: "sm", className: "font-mono text-xs font-semibold" })}
               >
                 Sign Up
               </Link>
