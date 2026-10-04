@@ -10,6 +10,12 @@ export interface IUser {
   losses: number;
   draws: number;
   highestWinStreak: number;
+<<<<<<< HEAD
+=======
+  preferredLanguage: string;
+  isGuest?: boolean;
+  role?: 'user' | 'guest' | 'admin';
+>>>>>>> 461132e (feat(auth): add secure guest login)
   createdAt: Date;
   updatedAt: Date;
 }

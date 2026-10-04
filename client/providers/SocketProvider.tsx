@@ -1,13 +1,29 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { socketManager } from "@/lib/socket";
 import { useBattleStore } from "@/store/battleStore";
+import { getGuestToken, isGuestSessionActive } from "@/features/auth/guestAuth";
 
 export function SocketProvider({ children }: { children: React.ReactNode }) {
   const { getToken, isSignedIn } = useAuth();
   const setSocketConnected = useBattleStore((state) => state.setSocketConnected);
+  const [guestActive, setGuestActive] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return isGuestSessionActive();
+  });
+
+  useEffect(() => {
+    const handleGuestAuthChange = () => {
+      setGuestActive(isGuestSessionActive());
+    };
+
+    window.addEventListener("codearena:guest-auth-change", handleGuestAuthChange);
+    return () => {
+      window.removeEventListener("codearena:guest-auth-change", handleGuestAuthChange);
+    };
+  }, []);
   
   const getTokenRef = useRef(getToken);
   useEffect(() => {
@@ -16,8 +32,9 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     let active = true;
+    const isAuthed = Boolean(isSignedIn || guestActive);
 
-    if (!isSignedIn) {
+    if (!isAuthed) {
       socketManager.disconnect();
       setSocketConnected(false);
       return;
@@ -25,7 +42,13 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
 
     const initSocket = async () => {
       try {
-        const token = await getTokenRef.current();
+        let token: string | null = null;
+        if (isSignedIn) {
+          token = await getTokenRef.current();
+        } else if (guestActive) {
+          token = getGuestToken();
+        }
+
         if (!token || !active) return;
 
         const socket = socketManager.connect(token);
@@ -68,7 +91,7 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
       socketManager.disconnect();
       setSocketConnected(false);
     };
-  }, [isSignedIn, setSocketConnected]);
+  }, [isSignedIn, guestActive, setSocketConnected]);
 
   return <>{children}</>;
 }

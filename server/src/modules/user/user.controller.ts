@@ -41,6 +41,9 @@ export class UserController {
     if (!req.user) {
       throw new AppError('Unauthorized: User profile not resolved', 401);
     }
+    if (req.user.isGuest || req.user.role === 'guest') {
+      throw new AppError('Forbidden: Guest users cannot modify persistent profile settings. Please create an account.', 403);
+    }
     const updatedUser = await userService.updateUserProfile(req.user.clerkId, req.body);
     res.status(200).json(
       new ApiResponse(200, updatedUser, 'Profile updated successfully.')

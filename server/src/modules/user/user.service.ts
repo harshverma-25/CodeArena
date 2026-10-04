@@ -1,4 +1,5 @@
 import { clerkClient } from '../../config/clerk.js';
+import { env } from '../../config/env.js';
 import { userRepository } from './user.repository.js';
 import { IUserDocument, IUser, ILeaderboardResponse, ILeaderboardEntry, IPublicUserProfile } from './user.types.js';
 import { AppError } from '../../shared/errors/api-error.js';
@@ -43,8 +44,8 @@ export class UserService {
           return existingUser;
         }
       }
-      // Fallback for mock test users not found in Clerk Cloud
-      if (clerkId.startsWith('user_')) {
+      // Fallback for mock test users not found in Clerk Cloud (strictly in test environment)
+      if (env.NODE_ENV === 'test' && clerkId.startsWith('user_')) {
         const username = `user_${clerkId.slice(-6)}`;
         user = await userRepository.create({
           clerkId,
@@ -102,8 +103,8 @@ export class UserService {
     const page = Math.max(1, options.page || 1);
     const limit = Math.min(100, Math.max(1, options.limit || 10));
 
-    // Fetch all users
-    const allUsers = await UserModel.find({}).sort({ createdAt: 1 }).exec();
+    // Fetch all registered users (excluding temporary guests)
+    const allUsers = await UserModel.find({ isGuest: { $ne: true } }).sort({ createdAt: 1 }).exec();
 
     // Fetch all completed battles
     const completedBattles = await BattleModel.find({ status: BattleStatus.COMPLETED })

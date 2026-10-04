@@ -12,6 +12,12 @@ const UserSchema = new Schema<IUserDocument>(
     losses: { type: Number, default: 0 },
     draws: { type: Number, default: 0 },
     highestWinStreak: { type: Number, default: 0 },
+<<<<<<< HEAD
+=======
+    preferredLanguage: { type: String, default: 'javascript' },
+    isGuest: { type: Boolean, default: false, index: true },
+    role: { type: String, enum: ['user', 'guest', 'admin'], default: 'user' },
+>>>>>>> 461132e (feat(auth): add secure guest login)
   },
   {
     timestamps: true,

@@ -22,6 +22,7 @@ const envSchema = z.object({
   MONGODB_URI: z.string().min(1, 'MONGODB_URI is required'),
   CLERK_SECRET_KEY: z.string().min(1, 'CLERK_SECRET_KEY is required'),
   CLERK_PUBLISHABLE_KEY: z.string().min(1, 'CLERK_PUBLISHABLE_KEY is required'),
+  GUEST_JWT_SECRET: z.string().default(process.env.GUEST_JWT_SECRET || process.env.CLERK_SECRET_KEY || 'codearena_secure_guest_jwt_secret_key_32_bytes_min'),
 });
 
 const result = envSchema.safeParse(process.env);

@@ -1,14 +1,32 @@
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useApiClient } from "@/hooks/useApiClient";
 import { useAuth } from "@clerk/nextjs";
 import { User } from "@/types";
+import { isGuestSessionActive, getGuestUser } from "@/features/auth/guestAuth";
 
 export function useCurrentUser() {
   const { isSignedIn, isLoaded } = useAuth();
   const api = useApiClient();
+  const [guestActive, setGuestActive] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return isGuestSessionActive();
+  });
+
+  useEffect(() => {
+    const handleGuestAuthChange = () => {
+      setGuestActive(isGuestSessionActive());
+    };
+    window.addEventListener("codearena:guest-auth-change", handleGuestAuthChange);
+    return () => {
+      window.removeEventListener("codearena:guest-auth-change", handleGuestAuthChange);
+    };
+  }, []);
+
+  const isEnabled = (isLoaded && Boolean(isSignedIn)) || guestActive;
 
   return useQuery<User, Error>({
-    queryKey: ["currentUser"],
+    queryKey: ["currentUser", isSignedIn ? "clerk" : "guest"],
     queryFn: async () => {
       const response = await api.get<{ success: boolean; data: User }>("/users/me");
       
@@ -16,11 +34,13 @@ export function useCurrentUser() {
       // We extract data and type-cast it safely
       const responseData = response as unknown as { success: boolean; data: User };
       if (!responseData || !responseData.success) {
+        const fallbackGuest = getGuestUser();
+        if (fallbackGuest) return fallbackGuest;
         throw new Error("Failed to retrieve user profile from competitive backend.");
       }
       return responseData.data;
     },
-    enabled: isLoaded && isSignedIn,
+    enabled: isEnabled,
     retry: 1, // Only retry once to avoid blocking the UI with long loads on network errors
     staleTime: 5 * 60 * 1000, // 5 minutes cache stale duration
   });

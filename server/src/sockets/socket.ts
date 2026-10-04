@@ -4,6 +4,7 @@ import { verifyToken } from '@clerk/express';
 import { env } from '../config/env.js';
 import { logger } from '../config/logger.js';
 import { userService } from '../modules/user/user.service.js';
+import { authService } from '../modules/auth/auth.service.js';
 import { registerRoomHandlers } from './room.socket.js';
 import { registerBattleHandlers } from './battle.socket.js';
 
@@ -27,7 +28,18 @@ export const socketAuthMiddleware = async (socket: Socket, next: (err?: Error) =
       return next(new Error('Authentication error: Token missing'));
     }
 
-    if (token.startsWith('mock_test_token_')) {
+    // 1. Verify backend-issued Guest JWT
+    const guestPayload = authService.verifyGuestToken(token);
+    if (guestPayload) {
+      const guestUser = await userService.getUserByClerkId(guestPayload.guestId);
+      if (guestUser && guestUser.isGuest) {
+        socket.data.user = guestUser;
+        return next();
+      }
+    }
+
+    // 2. Automated test suite bypass strictly in NODE_ENV === 'test'
+    if (env.NODE_ENV === 'test' && token.startsWith('mock_test_token_')) {
       const clerkId = token.replace('mock_test_token_', '');
       const dbUser = await userService.getOrCreateUser(clerkId);
       socket.data.user = dbUser;

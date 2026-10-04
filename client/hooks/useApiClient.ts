@@ -1,17 +1,26 @@
 import { useAuth } from "@clerk/nextjs";
 import { apiRequest } from "@/lib/api";
 import { useMemo } from "react";
+import { getGuestToken } from "@/features/auth/guestAuth";
 
 /**
  * A hook that provides a pre-authenticated API client.
- * It automatically retrieves the Clerk JWT token and attaches it to request headers.
+ * It automatically retrieves the Clerk JWT token or Guest JWT and attaches it to request headers.
  */
 export function useApiClient() {
   const { getToken } = useAuth();
 
   return useMemo(() => {
     const request = async <T>(path: string, options: RequestInit = {}): Promise<T> => {
-      const token = await getToken();
+      let token: string | null = null;
+      try {
+        token = await getToken();
+      } catch {
+        // Fallback for unauthenticated Clerk sessions
+      }
+      if (!token) {
+        token = getGuestToken();
+      }
       return apiRequest<T>(path, options, token);
     };
 

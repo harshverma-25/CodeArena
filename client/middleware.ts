@@ -18,14 +18,15 @@ const isAuthRoute = createRouteMatcher([
 
 export default clerkMiddleware(async (auth, req) => {
   const { userId } = await auth();
+  const hasGuestToken = req.cookies.has("codearena_guest_token");
 
   // If user is authenticated and attempts to visit login/register, redirect to dashboard
-  if (userId && isAuthRoute(req)) {
+  if ((userId || hasGuestToken) && isAuthRoute(req)) {
     return Response.redirect(new URL("/dashboard", req.url));
   }
 
-  // If route is protected and user is not authenticated, Clerk handles redirecting to sign-in page
-  if (isProtectedRoute(req)) {
+  // If route is protected and user is neither Clerk-authenticated nor active Guest, redirect to login
+  if (isProtectedRoute(req) && !hasGuestToken) {
     await auth.protect();
   }
 });
