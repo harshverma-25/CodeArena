@@ -6,6 +6,7 @@ import { useAuth } from "@clerk/nextjs";
 import { socketManager } from "@/lib/socket";
 import { Room, RoomPlayer, RoomSettings, BattleInitPayload, RoomStatusType } from "@/types";
 import { useBattleStore } from "@/store/battleStore";
+import { isGuestSessionActive } from "@/features/auth/guestAuth";
 
 interface SocketRoomPayload {
   roomCode: string;
@@ -85,7 +86,8 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
 
   // 1. Connection & Join logic
   useEffect(() => {
-    if (!isLoaded || !isSignedIn || !roomCode) return;
+    const hasAuth = (isLoaded && Boolean(isSignedIn)) || isGuestSessionActive();
+    if (!hasAuth || !roomCode) return;
 
     let active = true;
     const socket = socketManager.getSocket();

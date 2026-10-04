@@ -65,7 +65,7 @@ export class RoomService {
         duration: settings?.duration || 30,
         questionCount: settings?.questionCount || 10,
       },
-      maxPlayers: 2,
+      maxPlayers: 4,
       status: RoomStatus.WAITING,
     });
 

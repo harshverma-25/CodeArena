@@ -31,7 +31,7 @@ const RoomSchema = new Schema<IRoomDocument>(
     hostId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     players: { type: [RoomPlayerSchema], default: [] },
     settings: { type: RoomSettingsSchema, required: true },
-    maxPlayers: { type: Number, required: true, default: 2 },
+    maxPlayers: { type: Number, required: true, default: 4 },
     status: {
       type: String,
       required: true,

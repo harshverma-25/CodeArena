@@ -97,18 +97,21 @@ export class BattleService {
       throw new ApiError(400, 'Cannot start battle in a completed or cancelled room');
     }
 
-    // 3. Player quantity validation (exactly 2 players for 1v1 battle)
-    if (room.players.length !== 2) {
-      throw new ApiError(400, 'Room must contain exactly two players for 1v1 battle');
+    // 3. Player quantity validation (1 to 4 players)
+    if (room.players.length < 1 || room.players.length > (room.maxPlayers || 4)) {
+      throw new ApiError(400, 'Room must contain between 1 and 4 players');
     }
 
-    // 4. Ready state validation
-    const allReady = room.players.every((p) => p.isReady);
+    // 4. Ready state validation: non-host players must be ready, or host starting
+    const allReady = room.players.every((p) => {
+      const pId = p.userId && (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
+      return p.isReady || pId === userId;
+    });
     if (!allReady) {
       throw new ApiError(400, 'All players must be ready to start the battle');
     }
 
-    // 5. Select separate questions for each player
+    // 5. Select questions for the battle (all players play the same quiz)
     let targetTopic = room.settings.topic;
     if (targetTopic === 'random') {
       const availableTopics = await this.qRepository.getAvailablePublishedTopics();
@@ -125,7 +128,7 @@ export class BattleService {
     }
 
     const defaultQuestionCount = (room.settings as any).questionCount || 10;
-    const totalNeeded = defaultQuestionCount * 2;
+    const totalNeeded = defaultQuestionCount;
 
     // Sample distinct random published questions
     let sampledQuestions = await this.qRepository.sampleRandomPublished(targetTopic, targetDifficulty, totalNeeded);
@@ -146,28 +149,30 @@ export class BattleService {
       sampledQuestions = [...sampledQuestions, ...fallback];
     }
 
-    if (sampledQuestions.length < 2) {
+    if (sampledQuestions.length < 1) {
       throw new ApiError(400, 'Not enough questions available to initiate battle');
     }
 
-    // Equal question count per player
-    const actualQuestionCount = Math.min(
-      defaultQuestionCount,
-      Math.floor(sampledQuestions.length / 2)
-    );
-    const p1Questions = sampledQuestions.slice(0, actualQuestionCount).map((q) => q.questionId);
-    const p2Questions = sampledQuestions.slice(actualQuestionCount, actualQuestionCount * 2).map((q) => q.questionId);
+    const actualQuestionCount = Math.min(defaultQuestionCount, sampledQuestions.length);
+    const assignedQuestionIds = sampledQuestions.slice(0, actualQuestionCount).map((q) => q.questionId);
 
     const timePerQuestion = 30; // 30 seconds per question
     const initialDeadline = new Date(Date.now() + timePerQuestion * 1000);
 
-    const p1UserId = room.players[0].userId && (room.players[0].userId as any)._id
-      ? (room.players[0].userId as any)._id
-      : room.players[0].userId;
-
-    const p2UserId = room.players[1].userId && (room.players[1].userId as any)._id
-      ? (room.players[1].userId as any)._id
-      : room.players[1].userId;
+    const battlePlayers = room.players.map((p) => {
+      const pUserId = p.userId && (p.userId as any)._id
+        ? (p.userId as any)._id
+        : p.userId;
+      return {
+        userId: pUserId,
+        assignedQuestionIds,
+        currentQuestionIndex: 0,
+        questionDeadline: initialDeadline,
+        answers: [],
+        score: 0,
+        status: 'IN_PROGRESS',
+      };
+    });
 
     // 6. Create Battle document
     const battle = await this.repository.create({
@@ -177,26 +182,7 @@ export class BattleService {
       difficulty: targetDifficulty,
       questionCount: actualQuestionCount,
       timePerQuestion,
-      players: [
-        {
-          userId: p1UserId,
-          assignedQuestionIds: p1Questions,
-          currentQuestionIndex: 0,
-          questionDeadline: initialDeadline,
-          answers: [],
-          score: 0,
-          status: 'IN_PROGRESS',
-        },
-        {
-          userId: p2UserId,
-          assignedQuestionIds: p2Questions,
-          currentQuestionIndex: 0,
-          questionDeadline: initialDeadline,
-          answers: [],
-          score: 0,
-          status: 'IN_PROGRESS',
-        },
-      ],
+      players: battlePlayers as any,
       status: BattleStatus.IN_PROGRESS,
       startedAt: new Date(),
     });
@@ -494,23 +480,21 @@ export class BattleService {
    * Atomically and idempotently transitions the battle to COMPLETED.
    */
   async finalizeBattle(battle: IBattleDocument): Promise<IBattleResultsPayload> {
-    const player1 = battle.players[0];
-    const player2 = battle.players[1];
-
-    const p1UserId = (player1.userId as any)._id ? (player1.userId as any)._id.toString() : player1.userId.toString();
-    const p2UserId = (player2.userId as any)._id ? (player2.userId as any)._id.toString() : player2.userId.toString();
-
     let winnerId: any = null;
     let isDraw = false;
-    if (player1.score > player2.score) {
-      winnerId = player1.userId;
-      isDraw = false;
-    } else if (player2.score > player1.score) {
-      winnerId = player2.userId;
+
+    if (battle.players.length === 1) {
+      winnerId = battle.players[0].userId;
       isDraw = false;
     } else {
-      winnerId = null;
-      isDraw = true;
+      const sorted = [...battle.players].sort((a, b) => b.score - a.score);
+      if (sorted[0].score > sorted[1].score) {
+        winnerId = sorted[0].userId;
+        isDraw = false;
+      } else {
+        winnerId = null;
+        isDraw = true;
+      }
     }
 
     const endedAt = new Date();
@@ -542,42 +526,38 @@ export class BattleService {
       return this.formatResultsPayload(existing || battle);
     }
 
+    const playerUserIds = battle.players.map((p) =>
+      (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString()
+    );
+
     // Clear active timeouts
-    this.clearAllBattleTimers(battle._id.toString(), [p1UserId, p2UserId]);
+    this.clearAllBattleTimers(battle._id.toString(), playerUserIds);
 
     // Update Room status to FINISHED
     await roomRepository.update(battle.roomCode, {
       status: RoomStatus.FINISHED,
     });
 
-    // Update both players' persistent statistics atomically
+    // Update all players' persistent statistics atomically
     try {
       const winnerIdStr = winnerId
         ? ((winnerId as any)._id ? (winnerId as any)._id.toString() : winnerId.toString())
         : null;
 
-      const p1Correct = player1.answers ? player1.answers.filter((a) => a.isCorrect).length : 0;
-      const p1Questions = battle.questionCount || player1.assignedQuestionIds?.length || 0;
-
-      const p2Correct = player2.answers ? player2.answers.filter((a) => a.isCorrect).length : 0;
-      const p2Questions = battle.questionCount || player2.assignedQuestionIds?.length || 0;
-
-      await Promise.all([
-        userRepository.recordBattleStatsById(player1.userId, {
-          isWin: !isDraw && winnerIdStr === p1UserId,
-          isLoss: !isDraw && winnerIdStr !== null && winnerIdStr !== p1UserId,
-          isDraw,
-          correctCount: p1Correct,
-          questionCount: p1Questions,
-        }),
-        userRepository.recordBattleStatsById(player2.userId, {
-          isWin: !isDraw && winnerIdStr === p2UserId,
-          isLoss: !isDraw && winnerIdStr !== null && winnerIdStr !== p2UserId,
-          isDraw,
-          correctCount: p2Correct,
-          questionCount: p2Questions,
-        }),
-      ]);
+      await Promise.all(
+        battle.players.map((p) => {
+          const pUId = (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
+          const pCorrect = p.answers ? p.answers.filter((a) => a.isCorrect).length : 0;
+          const pQuestions = battle.questionCount || p.assignedQuestionIds?.length || 0;
+          return userRepository.recordBattleStatsById(p.userId, {
+            isWin: !isDraw && winnerIdStr === pUId,
+            isLoss: !isDraw && winnerIdStr !== null && winnerIdStr !== pUId,
+            isDraw,
+            correctCount: pCorrect,
+            questionCount: pQuestions,
+          });
+        })
+      );
     } catch (err) {
       logger.error(err, 'Failed to update user model stats in finalizeBattle');
     }
