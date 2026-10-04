@@ -3,18 +3,11 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
-<<<<<<< HEAD
-import { buttonVariants } from "@/components/ui/button";
-import { ArrowRight, Shield, Swords, Terminal, Cpu, Trophy, CheckCircle2, Lock, Zap, BookOpen, Layers } from "lucide-react";
+import { buttonVariants, Button } from "@/components/ui/button";
+import { ArrowRight, Shield, Terminal, Cpu, Trophy, CheckCircle2, Lock, Zap, Layers } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { InteractiveBattlePreview } from "./components/InteractiveBattlePreview";
-=======
-import { buttonVariants, Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { Card, CardContent } from "@/components/ui/card";
-import { Shield, Zap, Terminal, Trophy, Users, ArrowRight } from "lucide-react";
 import { isGuestSessionActive, PlayAsGuestModal } from "@/features/auth";
->>>>>>> 461132e (feat(auth): add secure guest login)
 
 export default function LandingPage() {
   const { isSignedIn } = useAuth();
@@ -38,10 +31,10 @@ export default function LandingPage() {
 
   return (
     <div className="relative min-h-screen bg-background text-foreground selection:bg-foreground selection:text-background">
-      {/* ---------------------------------------------------------------- border grid container */}
+      {/* Border grid container */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-20 sm:space-y-28">
 
-        {/* ---------------------------------------------------------------- SECTION 1: HERO */}
+        {/* SECTION 1: HERO */}
         <section className="space-y-12">
           {/* Top Status Tag */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md border border-border bg-card text-xs font-mono text-muted-foreground">
@@ -59,7 +52,6 @@ export default function LandingPage() {
                 <span className="text-muted-foreground">MCQ Battles.</span>
               </h1>
 
-<<<<<<< HEAD
               <p className="text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed font-sans">
                 Challenge fellow developers in synchronized, timed technical duels. 
                 10 questions. 30 seconds per round. Immediate answer verification and global rank updates.
@@ -67,7 +59,7 @@ export default function LandingPage() {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap items-center gap-4 pt-2">
-                {isSignedIn ? (
+                {hasAccess ? (
                   <Link
                     href="/dashboard"
                     className={cn(
@@ -90,11 +82,20 @@ export default function LandingPage() {
                       Start Battling{" "}
                       <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </Link>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setIsGuestModalOpen(true)}
+                      className="font-mono text-xs font-semibold px-6 h-12 border-border hover:bg-secondary/60 gap-2 cursor-pointer"
+                    >
+                      <Zap className="h-4 w-4 text-amber-500 fill-amber-500/20" />
+                      Play as Guest
+                    </Button>
                     <Link
                       href="/login"
                       className={cn(
-                        buttonVariants({ size: "lg", variant: "outline" }),
-                        "font-mono text-xs font-semibold px-6 h-12 border-border hover:bg-secondary/60"
+                        buttonVariants({ size: "lg", variant: "ghost" }),
+                        "font-mono text-xs font-semibold px-6 h-12 hover:bg-secondary/60"
                       )}
                     >
                       Log In
@@ -119,7 +120,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ---------------------------------------------------------------- SECTION 2: HOW IT WORKS */}
+        {/* SECTION 2: HOW IT WORKS */}
         <section className="space-y-8 border-t border-border pt-16">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
@@ -180,7 +181,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ---------------------------------------------------------------- SECTION 3: TOPICS CURRICULUM */}
+        {/* SECTION 3: TOPICS CURRICULUM */}
         <section className="space-y-8 border-t border-border pt-16">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
@@ -239,7 +240,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ---------------------------------------------------------------- SECTION 4: ENGINE INTEGRITY */}
+        {/* SECTION 4: ENGINE INTEGRITY */}
         <section className="space-y-8 border-t border-border pt-16">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
@@ -295,7 +296,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ---------------------------------------------------------------- SECTION 5: CALL TO ACTION */}
+        {/* SECTION 5: CALL TO ACTION */}
         <section className="p-8 sm:p-12 rounded-xl border border-border bg-card text-center space-y-6">
           <div className="max-w-2xl mx-auto space-y-3">
             <h2 className="text-3xl sm:text-5xl font-black text-foreground uppercase tracking-tight font-sans">
@@ -306,12 +307,8 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="flex justify-center pt-2">
-            {isSignedIn ? (
-=======
-          <div className="mt-10 flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap justify-center items-center gap-4 pt-2">
             {hasAccess ? (
->>>>>>> 461132e (feat(auth): add secure guest login)
               <Link
                 href="/dashboard"
                 className={cn(
@@ -322,112 +319,37 @@ export default function LandingPage() {
                 Go to Dashboard Arena
               </Link>
             ) : (
-<<<<<<< HEAD
-              <Link
-                href="/register"
-                className={cn(
-                  buttonVariants({ size: "lg", variant: "primary" }),
-                  "font-mono text-xs font-bold uppercase tracking-wider px-8 h-12"
-                )}
-              >
-                Create Account & Battle
-              </Link>
-=======
               <>
                 <Link
                   href="/register"
-                  className={cn(buttonVariants({ size: "lg", variant: "primary" }), "group")}
+                  className={cn(
+                    buttonVariants({ size: "lg", variant: "primary" }),
+                    "font-mono text-xs font-bold uppercase tracking-wider px-8 h-12"
+                  )}
                 >
-                  Start Coding{" "}
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  Create Account & Battle
                 </Link>
                 <Button
                   type="button"
                   variant="outline"
-                  size="lg"
                   onClick={() => setIsGuestModalOpen(true)}
-                  className="gap-2 cursor-pointer border-border hover:border-primary/40 bg-card/40 backdrop-blur-sm"
+                  className="font-mono text-xs font-semibold px-6 h-12 border-border hover:bg-secondary/60 gap-2 cursor-pointer"
                 >
                   <Zap className="h-4 w-4 text-amber-500 fill-amber-500/20" />
                   Play as Guest
                 </Button>
-                <Link
-                  href="/login"
-                  className={buttonVariants({ size: "lg", variant: "ghost" })}
-                >
-                  Log In
-                </Link>
               </>
->>>>>>> 461132e (feat(auth): add secure guest login)
             )}
           </div>
         </section>
 
-<<<<<<< HEAD
-        {/* ---------------------------------------------------------------- SECTION 6: FOOTER */}
+        {/* SECTION 6: FOOTER */}
         <footer className="border-t border-border pt-8 pb-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-muted-foreground">
           <div className="flex items-center gap-2 text-foreground font-bold">
             <span className="flex h-6 w-6 items-center justify-center rounded bg-foreground text-background">
               <Shield className="h-3.5 w-3.5 fill-current" />
             </span>
             <span>CodeArena</span>
-=======
-        <PlayAsGuestModal
-          isOpen={isGuestModalOpen}
-          onClose={() => setIsGuestModalOpen(false)}
-        />
-
-        {/* Feature Grid */}
-        <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-20">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:w-[32rem]">
-            <Card className="bg-card/50 backdrop-blur-sm border-border hover:border-primary/30 transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <Zap className="h-6 w-6" />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-foreground">Real-Time Duels</h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Match against challengers instantly. See progress, compilation states, and pass rates in real time.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-card/50 backdrop-blur-sm border-border hover:border-primary/30 transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <Terminal className="h-6 w-6" />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-foreground">Monaco Editor</h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  A premium, customizable coding interface featuring auto-completion, multi-language support, and dark mode.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-card/50 backdrop-blur-sm border-border hover:border-primary/30 transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <Shield className="h-6 w-6" />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-foreground">Secure Judge</h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Isolated, secure execution environment for evaluating solutions against edge cases instantly.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-card/50 backdrop-blur-sm border-border hover:border-primary/30 transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <Trophy className="h-6 w-6" />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-foreground">Rankings</h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Win battles to improve your rank, build your profile, and showcase your competition statistics.
-                </p>
-              </CardContent>
-            </Card>
->>>>>>> 461132e (feat(auth): add secure guest login)
           </div>
 
           <div className="flex items-center gap-6">
@@ -451,6 +373,11 @@ export default function LandingPage() {
         </footer>
 
       </div>
+
+      <PlayAsGuestModal
+        isOpen={isGuestModalOpen}
+        onClose={() => setIsGuestModalOpen(false)}
+      />
     </div>
   );
 }

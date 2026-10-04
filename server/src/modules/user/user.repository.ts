@@ -44,6 +44,38 @@ export class UserRepository {
 
     return UserModel.findByIdAndUpdate(userId, update, { new: true });
   }
+
+  async recordBattleStatsById(
+    userId: any,
+    stats: { isWin: boolean; isLoss: boolean; isDraw: boolean; correctCount: number; questionCount: number }
+  ): Promise<void> {
+    await UserModel.updateOne(
+      { _id: userId },
+      [
+        {
+          $set: {
+            matchesPlayed: { $add: [{ $ifNull: ['$matchesPlayed', 0] }, 1] },
+            wins: { $add: [{ $ifNull: ['$wins', 0] }, stats.isWin ? 1 : 0] },
+            losses: { $add: [{ $ifNull: ['$losses', 0] }, stats.isLoss ? 1 : 0] },
+            draws: { $add: [{ $ifNull: ['$draws', 0] }, stats.isDraw ? 1 : 0] },
+            totalCorrect: { $add: [{ $ifNull: ['$totalCorrect', 0] }, stats.correctCount] },
+            totalQuestions: { $add: [{ $ifNull: ['$totalQuestions', 0] }, stats.questionCount] },
+          },
+        },
+        {
+          $set: {
+            accuracy: {
+              $cond: [
+                { $gt: ['$totalQuestions', 0] },
+                { $round: [{ $multiply: [{ $divide: ['$totalCorrect', '$totalQuestions'] }, 100] }, 0] },
+                0,
+              ],
+            },
+          },
+        },
+      ]
+    );
+  }
 }
 
 export const userRepository = new UserRepository();

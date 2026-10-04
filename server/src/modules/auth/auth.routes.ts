@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { authController } from './auth.controller.js';
 import { validateRequest } from '../../middleware/validate.middleware.js';
 import { createGuestSessionSchema } from './auth.validator.js';
-import { asyncHandler } from '../../utils/async-handler.js';
+import { asyncHandler } from '../../shared/utils/async-handler.js';
 import { ApiError } from '../../shared/errors/api-error.js';
 
 const router = Router();
@@ -38,7 +38,7 @@ router.post(
   '/guest',
   guestRateLimiter,
   validateRequest(createGuestSessionSchema),
-  asyncHandler((req, res) => authController.createGuest(req, res))
+  asyncHandler((req: Request, res: Response) => authController.createGuest(req, res))
 );
 
 export const authRoutes = router;

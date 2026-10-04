@@ -55,6 +55,7 @@ const BattleSchema = new Schema<IBattleDocument>(
 BattleSchema.index({ roomId: 1 });
 BattleSchema.index({ roomCode: 1, status: 1 });
 BattleSchema.index({ status: 1, 'players.userId': 1 });
+BattleSchema.index({ 'players.userId': 1, status: 1, endedAt: -1 });
 
 export const BattleModel = model<IBattleDocument>('Battle', BattleSchema);
 export default BattleModel;

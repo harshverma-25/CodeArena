@@ -7,15 +7,13 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-<<<<<<< HEAD
-    "seed": "tsx src/scripts/seed-questions.ts",
-    "seed:questions": "tsx src/scripts/seed-questions.ts"
-=======
     "seed": "tsx src/scripts/seed.ts",
     "seed:questions": "tsx src/scripts/seed-questions.ts",
     "test:security": "tsx src/scripts/verify-env-security.ts",
-    "test:guest": "tsx src/scripts/verify-guest-auth.ts"
->>>>>>> 461132e (feat(auth): add secure guest login)
+    "test:guest": "tsx src/scripts/verify-guest-auth.ts",
+    "test:task2-1": "tsx src/scripts/verify-task2-1.ts",
+    "reconcile:dry-run": "tsx src/scripts/reconcile-user-stats.ts",
+    "reconcile:apply": "tsx src/scripts/reconcile-user-stats.ts --apply"
   },
   "dependencies": {
     "@clerk/express": "^1.3.11",

@@ -6,15 +6,10 @@ import { usePathname } from "next/navigation";
 import { useAuth, UserButton } from "@clerk/nextjs";
 import { useBattleStore } from "@/store/battleStore";
 import { cn } from "@/lib/utils";
-<<<<<<< HEAD
-import { Shield, Trophy, Activity, History as HistoryIcon, Layers, User as UserIcon } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-=======
 import { Terminal, Shield, Trophy, Activity, History as HistoryIcon, Layers, User as UserIcon, LogOut } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { getGuestUser, clearGuestSession } from "@/features/auth/guestAuth";
 import { User } from "@/types";
->>>>>>> 461132e (feat(auth): add secure guest login)
 
 export function Navbar() {
   const pathname = usePathname();
@@ -98,11 +93,7 @@ export function Navbar() {
             </span>
           </div>
 
-<<<<<<< HEAD
-          {/* Auth Actions */}
-=======
           {/* Authentication State */}
->>>>>>> 461132e (feat(auth): add secure guest login)
           {isSignedIn ? (
             <div className="flex items-center gap-3">
               <UserButton

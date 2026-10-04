@@ -120,8 +120,9 @@ export class AuthService {
       wins: 0,
       losses: 0,
       draws: 0,
-      totalSubmissions: 0,
-      acceptedSubmissions: 0,
+      totalCorrect: 0,
+      totalQuestions: 0,
+      accuracy: 0,
       highestWinStreak: 0,
       preferredLanguage: 'javascript',
     });

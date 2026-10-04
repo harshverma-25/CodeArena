@@ -32,6 +32,9 @@ export class UserService {
         wins: 0,
         losses: 0,
         draws: 0,
+        totalCorrect: 0,
+        totalQuestions: 0,
+        accuracy: 0,
         highestWinStreak: 0,
       });
 
@@ -56,6 +59,9 @@ export class UserService {
           wins: 0,
           losses: 0,
           draws: 0,
+          totalCorrect: 0,
+          totalQuestions: 0,
+          accuracy: 0,
           highestWinStreak: 0,
         });
         return user;
@@ -94,7 +100,38 @@ export class UserService {
   }
 
   /**
-   * Calculate global leaderboard based strictly on COMPLETED battles.
+   * Efficiently calculate a user's 1-indexed global rank using MongoDB countDocuments.
+   * Tie-breaking: wins DESC, accuracy DESC, matchesPlayed DESC, username ASC.
+   */
+  async calculateUserRank(user: {
+    wins?: number;
+    accuracy?: number;
+    matchesPlayed?: number;
+    username: string;
+    isGuest?: boolean;
+  }): Promise<number> {
+    if (user.isGuest) return 0;
+
+    const wins = user.wins || 0;
+    const accuracy = user.accuracy || 0;
+    const matchesPlayed = user.matchesPlayed || 0;
+    const username = user.username;
+
+    const higherRankCount = await UserModel.countDocuments({
+      isGuest: { $ne: true },
+      $or: [
+        { wins: { $gt: wins } },
+        { wins, accuracy: { $gt: accuracy } },
+        { wins, accuracy, matchesPlayed: { $gt: matchesPlayed } },
+        { wins, accuracy, matchesPlayed, username: { $lt: username } },
+      ],
+    });
+
+    return higherRankCount + 1;
+  }
+
+  /**
+   * Optimized global leaderboard with MongoDB pagination, projection, and indexed sorting.
    */
   async getLeaderboard(
     options: { page?: number; limit?: number },
@@ -102,104 +139,72 @@ export class UserService {
   ): Promise<ILeaderboardResponse> {
     const page = Math.max(1, options.page || 1);
     const limit = Math.min(100, Math.max(1, options.limit || 10));
+    const skip = (page - 1) * limit;
 
-    // Fetch all registered users (excluding temporary guests)
-    const allUsers = await UserModel.find({ isGuest: { $ne: true } }).sort({ createdAt: 1 }).exec();
+    const filter = { isGuest: { $ne: true } };
 
-    // Fetch all completed battles
-    const completedBattles = await BattleModel.find({ status: BattleStatus.COMPLETED })
-      .populate('players.userId', 'username displayName avatar')
-      .populate('winnerId', 'username displayName avatar')
-      .exec();
+    // Parallel count and indexed projection query
+    const [total, users] = await Promise.all([
+      UserModel.countDocuments(filter),
+      UserModel.find(filter)
+        .sort({ wins: -1, accuracy: -1, matchesPlayed: -1, username: 1 })
+        .skip(skip)
+        .limit(limit)
+        .select('_id username displayName avatar wins losses draws matchesPlayed totalCorrect totalQuestions accuracy')
+        .lean()
+        .exec(),
+    ]);
 
-    // Compute stats for each user based strictly on COMPLETED battles
-    const userStats = allUsers.map((user) => {
-      const uIdStr = user._id.toString();
-
-      // Find user's completed battles
-      const battles = completedBattles.filter((b) =>
-        b.players.some((p) => {
-          const pId = (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
-          return pId === uIdStr;
-        })
-      );
-
-      let wins = 0;
-      let losses = 0;
-      let draws = 0;
-      let totalCorrect = 0;
-      let totalQuestions = 0;
-
-      for (const b of battles) {
-        const pObj = b.players.find((p) => {
-          const pId = (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
-          return pId === uIdStr;
-        });
-
-        if (pObj) {
-          totalQuestions += b.questionCount;
-          totalCorrect += pObj.answers ? pObj.answers.filter((a) => a.isCorrect).length : 0;
-        }
-
-        const winnerIdStr = b.winnerId
-          ? (b.winnerId as any)._id
-            ? (b.winnerId as any)._id.toString()
-            : b.winnerId.toString()
-          : null;
-
-        if (b.isDraw) {
-          draws++;
-        } else if (winnerIdStr === uIdStr) {
-          wins++;
-        } else if (winnerIdStr !== null) {
-          losses++;
-        }
-      }
-
-      const battlesPlayed = battles.length;
-      const accuracy = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0;
-
+    const leaderboard: ILeaderboardEntry[] = users.map((u, index) => {
+      const uIdStr = u._id.toString();
       return {
+        rank: skip + index + 1,
         userId: uIdStr,
-        username: user.username,
-        displayName: user.displayName,
-        avatar: user.avatar,
-        wins,
-        losses,
-        draws,
-        battlesPlayed,
-        totalCorrect,
-        totalQuestions,
-        accuracy,
+        username: u.username,
+        displayName: u.displayName,
+        avatar: u.avatar || '',
+        wins: u.wins || 0,
+        losses: u.losses || 0,
+        draws: u.draws || 0,
+        battlesPlayed: u.matchesPlayed || 0,
+        totalCorrect: u.totalCorrect || 0,
+        totalQuestions: u.totalQuestions || 0,
+        accuracy: u.accuracy || 0,
         isCurrentUser: currentUserId ? uIdStr === currentUserId : false,
       };
     });
 
-    // Transparent & consistent ranking calculation: wins DESC, accuracy DESC, battlesPlayed DESC, username ASC
-    userStats.sort((a, b) => {
-      if (b.wins !== a.wins) return b.wins - a.wins;
-      if (b.accuracy !== a.accuracy) return b.accuracy - a.accuracy;
-      if (b.battlesPlayed !== a.battlesPlayed) return b.battlesPlayed - a.battlesPlayed;
-      return a.username.localeCompare(b.username);
-    });
-
-    // Assign 1-indexed ranks
-    const rankedList: ILeaderboardEntry[] = userStats.map((item, index) => ({
-      ...item,
-      rank: index + 1,
-    }));
-
-    const total = rankedList.length;
-    const skip = (page - 1) * limit;
-    const paginated = rankedList.slice(skip, skip + limit);
-
+    // Efficiently resolve currentUserRank
     let currentUserRank: ILeaderboardEntry | null = null;
     if (currentUserId) {
-      currentUserRank = rankedList.find((item) => item.userId === currentUserId) || null;
+      const inPageEntry = leaderboard.find((entry) => entry.userId === currentUserId);
+      if (inPageEntry) {
+        currentUserRank = inPageEntry;
+      } else {
+        const currentUserDoc = await UserModel.findById(currentUserId).lean();
+        if (currentUserDoc && !currentUserDoc.isGuest) {
+          const rank = await this.calculateUserRank(currentUserDoc);
+          currentUserRank = {
+            rank,
+            userId: currentUserId,
+            username: currentUserDoc.username,
+            displayName: currentUserDoc.displayName,
+            avatar: currentUserDoc.avatar || '',
+            wins: currentUserDoc.wins || 0,
+            losses: currentUserDoc.losses || 0,
+            draws: currentUserDoc.draws || 0,
+            battlesPlayed: currentUserDoc.matchesPlayed || 0,
+            totalCorrect: currentUserDoc.totalCorrect || 0,
+            totalQuestions: currentUserDoc.totalQuestions || 0,
+            accuracy: currentUserDoc.accuracy || 0,
+            isCurrentUser: true,
+          };
+        }
+      }
     }
 
     return {
-      leaderboard: paginated,
+      leaderboard,
       total,
       page,
       limit,
@@ -209,6 +214,7 @@ export class UserService {
 
   /**
    * Get public profile and completed battle stats for a user by username.
+   * Uses persistent counters, database rank calculation, and loads only the recent 10 battles.
    */
   async getUserProfileByUsername(username: string, currentUserId?: string): Promise<IPublicUserProfile> {
     const user = await userRepository.findByUsername(username);
@@ -218,58 +224,25 @@ export class UserService {
 
     const uIdStr = user._id.toString();
 
-    // Fetch user's completed battles
-    const userBattles = await BattleModel.find({
+    // 1. Calculate global rank efficiently without loading leaderboard
+    const rankPromise = this.calculateUserRank(user);
+
+    // 2. Fetch only the 10 most recent completed battles for this user (indexed query)
+    const recentBattlesPromise = BattleModel.find({
       'players.userId': user._id,
       status: BattleStatus.COMPLETED,
     })
       .sort({ endedAt: -1, startedAt: -1 })
+      .limit(10)
       .populate('players.userId', 'username displayName avatar')
       .populate('winnerId', 'username displayName avatar')
+      .lean()
       .exec();
 
-    let wins = 0;
-    let losses = 0;
-    let draws = 0;
-    let totalCorrect = 0;
-    let totalQuestions = 0;
-
-    for (const b of userBattles) {
-      const pObj = b.players.find((p) => {
-        const pId = (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
-        return pId === uIdStr;
-      });
-
-      if (pObj) {
-        totalQuestions += b.questionCount;
-        totalCorrect += pObj.answers ? pObj.answers.filter((a) => a.isCorrect).length : 0;
-      }
-
-      const winnerIdStr = b.winnerId
-        ? (b.winnerId as any)._id
-          ? (b.winnerId as any)._id.toString()
-          : b.winnerId.toString()
-        : null;
-
-      if (b.isDraw) {
-        draws++;
-      } else if (winnerIdStr === uIdStr) {
-        wins++;
-      } else if (winnerIdStr !== null) {
-        losses++;
-      }
-    }
-
-    const battlesPlayed = userBattles.length;
-    const accuracy = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0;
-
-    // Calculate global rank
-    const leaderboardData = await this.getLeaderboard({ page: 1, limit: 1000 }, uIdStr);
-    const userRankItem = leaderboardData.leaderboard.find((item) => item.userId === uIdStr);
-    const rank = userRankItem ? userRankItem.rank : 0;
+    const [rank, userBattles] = await Promise.all([rankPromise, recentBattlesPromise]);
 
     // Format recent completed battles
-    const recentBattles = userBattles.slice(0, 10).map((b) => {
+    const recentBattles = userBattles.map((b: any) => {
       const p1 = b.players[0];
       const p2 = b.players[1];
 
@@ -329,16 +302,16 @@ export class UserService {
       userId: uIdStr,
       username: user.username,
       displayName: user.displayName,
-      avatar: user.avatar,
+      avatar: user.avatar || '',
       joinedAt: user.createdAt,
       rank,
-      battlesPlayed,
-      wins,
-      losses,
-      draws,
-      totalCorrect,
-      totalQuestions,
-      accuracy,
+      battlesPlayed: user.matchesPlayed || 0,
+      wins: user.wins || 0,
+      losses: user.losses || 0,
+      draws: user.draws || 0,
+      totalCorrect: user.totalCorrect || 0,
+      totalQuestions: user.totalQuestions || 0,
+      accuracy: user.accuracy || 0,
       isCurrentUser: currentUserId ? uIdStr === currentUserId : false,
       recentBattles,
     };

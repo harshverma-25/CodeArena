@@ -15,6 +15,8 @@ import { ApiError } from '../../shared/errors/api-error.js';
 import { logger } from '../../config/logger.js';
 import { Server } from 'socket.io';
 import { UserModel } from '../user/user.model.js';
+import { BattleModel } from './battle.model.js';
+import { userRepository } from '../user/user.repository.js';
 
 export class BattleService {
   private activeTimers = new Map<string, NodeJS.Timeout>();
@@ -489,6 +491,7 @@ export class BattleService {
 
   /**
    * Finalize battle, calculate scores, determine winner/draw, and format results.
+   * Atomically and idempotently transitions the battle to COMPLETED.
    */
   async finalizeBattle(battle: IBattleDocument): Promise<IBattleResultsPayload> {
     const player1 = battle.players[0];
@@ -497,59 +500,91 @@ export class BattleService {
     const p1UserId = (player1.userId as any)._id ? (player1.userId as any)._id.toString() : player1.userId.toString();
     const p2UserId = (player2.userId as any)._id ? (player2.userId as any)._id.toString() : player2.userId.toString();
 
+    let winnerId: any = null;
+    let isDraw = false;
     if (player1.score > player2.score) {
-      battle.winnerId = player1.userId as any;
-      battle.isDraw = false;
+      winnerId = player1.userId;
+      isDraw = false;
     } else if (player2.score > player1.score) {
-      battle.winnerId = player2.userId as any;
-      battle.isDraw = false;
+      winnerId = player2.userId;
+      isDraw = false;
     } else {
-      battle.winnerId = null;
-      battle.isDraw = true;
+      winnerId = null;
+      isDraw = true;
     }
 
-    battle.status = BattleStatus.COMPLETED;
-    battle.endedAt = new Date();
+    const endedAt = new Date();
 
+    // 1. Truly atomic conditional transition:
+    // Only the single execution that transitions battle status away from non-COMPLETED
+    // acquires the exclusive right to finalize and update persistent user statistics.
+    const transitionedBattle = await BattleModel.findOneAndUpdate(
+      {
+        _id: battle._id,
+        status: { $ne: BattleStatus.COMPLETED },
+      },
+      {
+        $set: {
+          status: BattleStatus.COMPLETED,
+          winnerId,
+          isDraw,
+          endedAt,
+          players: battle.players,
+        },
+      },
+      { new: true }
+    );
+
+    if (!transitionedBattle) {
+      // Race condition lost: Another concurrent handler already finalized this battle.
+      // Re-fetch existing battle to return consistent formatted results without double-counting stats.
+      const existing = await this.repository.findById(battle._id.toString());
+      return this.formatResultsPayload(existing || battle);
+    }
+
+    // Clear active timeouts
     this.clearAllBattleTimers(battle._id.toString(), [p1UserId, p2UserId]);
-
-    await this.repository.save(battle);
 
     // Update Room status to FINISHED
     await roomRepository.update(battle.roomCode, {
       status: RoomStatus.FINISHED,
     });
 
-    // Update UserModel counters
+    // Update both players' persistent statistics atomically
     try {
-      if (battle.isDraw) {
-        await UserModel.updateMany(
-          { _id: { $in: [player1.userId, player2.userId] } },
-          { $inc: { matchesPlayed: 1, draws: 1 } }
-        );
-      } else if (battle.winnerId) {
-        const winnerIdStr = (battle.winnerId as any)._id
-          ? (battle.winnerId as any)._id.toString()
-          : battle.winnerId.toString();
+      const winnerIdStr = winnerId
+        ? ((winnerId as any)._id ? (winnerId as any)._id.toString() : winnerId.toString())
+        : null;
 
-        const loserUserId = p1UserId === winnerIdStr ? player2.userId : player1.userId;
+      const p1Correct = player1.answers ? player1.answers.filter((a) => a.isCorrect).length : 0;
+      const p1Questions = battle.questionCount || player1.assignedQuestionIds?.length || 0;
 
-        await UserModel.updateOne(
-          { _id: battle.winnerId },
-          { $inc: { matchesPlayed: 1, wins: 1 } }
-        );
-        await UserModel.updateOne(
-          { _id: loserUserId },
-          { $inc: { matchesPlayed: 1, losses: 1 } }
-        );
-      }
+      const p2Correct = player2.answers ? player2.answers.filter((a) => a.isCorrect).length : 0;
+      const p2Questions = battle.questionCount || player2.assignedQuestionIds?.length || 0;
+
+      await Promise.all([
+        userRepository.recordBattleStatsById(player1.userId, {
+          isWin: !isDraw && winnerIdStr === p1UserId,
+          isLoss: !isDraw && winnerIdStr !== null && winnerIdStr !== p1UserId,
+          isDraw,
+          correctCount: p1Correct,
+          questionCount: p1Questions,
+        }),
+        userRepository.recordBattleStatsById(player2.userId, {
+          isWin: !isDraw && winnerIdStr === p2UserId,
+          isLoss: !isDraw && winnerIdStr !== null && winnerIdStr !== p2UserId,
+          isDraw,
+          correctCount: p2Correct,
+          questionCount: p2Questions,
+        }),
+      ]);
     } catch (err) {
       logger.error(err, 'Failed to update user model stats in finalizeBattle');
     }
 
     // Re-fetch populated battle for results formatting
     const populated = await this.repository.findById(battle._id.toString());
-    const target = populated || battle;
+    const target = populated || transitionedBattle;
 
     return this.formatResultsPayload(target);
   }

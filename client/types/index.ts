@@ -10,12 +10,9 @@ export interface User {
   losses: number;
   draws: number;
   highestWinStreak: number;
-<<<<<<< HEAD
-=======
   preferredLanguage: string;
   isGuest?: boolean;
   role?: string;
->>>>>>> 461132e (feat(auth): add secure guest login)
   createdAt: string;
   updatedAt: string;
 }

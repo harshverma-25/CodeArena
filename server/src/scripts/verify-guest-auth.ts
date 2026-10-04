@@ -5,7 +5,6 @@ import { userRepository } from '../modules/user/user.repository.js';
 import { userService } from '../modules/user/user.service.js';
 import { env } from '../config/env.js';
 import { connectDatabase, disconnectDatabase } from '../config/database.js';
-import { AppError } from '../utils/AppError.js';
 
 function createMockReq(authHeader?: string, clerkUserId?: string): any {
   return {

@@ -11,18 +11,20 @@ const UserSchema = new Schema<IUserDocument>(
     wins: { type: Number, default: 0 },
     losses: { type: Number, default: 0 },
     draws: { type: Number, default: 0 },
-    highestWinStreak: { type: Number, default: 0 },
-<<<<<<< HEAD
-=======
+    totalCorrect: { type: Number, default: 0 },
+    totalQuestions: { type: Number, default: 0 },
+    accuracy: { type: Number, default: 0 },
     preferredLanguage: { type: String, default: 'javascript' },
     isGuest: { type: Boolean, default: false, index: true },
     role: { type: String, enum: ['user', 'guest', 'admin'], default: 'user' },
->>>>>>> 461132e (feat(auth): add secure guest login)
   },
   {
     timestamps: true,
   }
 );
+
+// Compound index for optimized global leaderboard sorting & rank calculation
+UserSchema.index({ isGuest: 1, wins: -1, accuracy: -1, matchesPlayed: -1, username: 1 });
 
 export const UserModel = model<IUserDocument>('User', UserSchema);
 export default UserModel;
