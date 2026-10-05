@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useApiClient } from "@/hooks/useApiClient";
 import { useAuth } from "@clerk/nextjs";
+import { isGuestSessionActive } from "@/features/auth/guestAuth";
 import { BattleResultDetails } from "@/types";
 
 export function useBattleResult(battleId: string) {
   const { isSignedIn, isLoaded } = useAuth();
   const api = useApiClient();
+
+  const hasAuth = (isLoaded && Boolean(isSignedIn)) || isGuestSessionActive();
 
   return useQuery<BattleResultDetails, Error>({
     queryKey: ["battleResult", battleId],
@@ -21,7 +24,7 @@ export function useBattleResult(battleId: string) {
       }
       return responseData.data;
     },
-    enabled: isLoaded && isSignedIn && !!battleId,
+    enabled: hasAuth && !!battleId,
     staleTime: 60 * 1000, // 1 minute
   });
 }

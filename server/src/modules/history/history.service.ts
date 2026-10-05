@@ -10,6 +10,8 @@ import {
 } from './history.types.js';
 import { ApiError } from '../../shared/errors/api-error.js';
 import { IQuestionDocument } from '../question/question.types.js';
+import { BattleModel } from '../battle/battle.model.js';
+import { Types } from 'mongoose';
 
 export class HistoryService {
   constructor(
@@ -141,13 +143,19 @@ export class HistoryService {
    * Get detailed battle results for an authenticated participant after battle completion.
    */
   async getBattleResults(battleId: string, userId: string): Promise<IBattleResultDetails> {
-    const battle = await this.repository.getBattleById(battleId);
+    let battle: any = null;
+    if (Types.ObjectId.isValid(battleId)) {
+      battle = await this.repository.getBattleById(battleId);
+    }
+    if (!battle) {
+      battle = await BattleModel.findOne({ roomCode: battleId.toUpperCase() }).populate('players.userId');
+    }
     if (!battle) {
       throw new ApiError(404, 'Battle not found');
     }
 
     // 1. Participant Authorization Check
-    const isParticipant = battle.players.some((p) => {
+    const isParticipant = battle.players.some((p: any) => {
       const pId = (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
       return pId === userId;
     });
@@ -183,15 +191,15 @@ export class HistoryService {
       : null;
 
     // 4. Build results for each player
-    const formattedPlayers: IBattleResultPlayer[] = battle.players.map((p) => {
+    const formattedPlayers: IBattleResultPlayer[] = battle.players.map((p: any) => {
       const pUserIdStr = (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
 
       let correctCount = 0;
       let incorrectCount = 0;
       let unansweredCount = 0;
 
-      const questionsBreakdown: IBattleResultQuestion[] = p.assignedQuestionIds.map((qId) => {
-        const answerObj = p.answers.find((a) => a.questionId === qId);
+      const questionsBreakdown: IBattleResultQuestion[] = p.assignedQuestionIds.map((qId: string) => {
+        const answerObj = p.answers.find((a: any) => a.questionId === qId);
         const qDoc = questionMap.get(qId);
 
         const selectedOption = answerObj ? answerObj.selectedOption : -1;
