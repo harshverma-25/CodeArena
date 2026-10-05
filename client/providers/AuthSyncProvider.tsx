@@ -1,37 +1,32 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useAuth } from "@clerk/nextjs";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { AuthLoadingState } from "@/components/shared/AuthLoadingState";
 import { AuthErrorState } from "@/components/shared/AuthErrorState";
 import { isGuestSessionActive } from "@/features/auth/guestAuth";
+import { isNativeAuthActive } from "@/features/auth/nativeAuth";
 
 export function AuthSyncProvider({ children }: { children: React.ReactNode }) {
-  const { isLoaded, isSignedIn } = useAuth();
   const { isLoading, isError, error, refetch } = useCurrentUser();
-  const [guestActive, setGuestActive] = useState<boolean>(() => {
+  const [authed, setAuthed] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
-    return isGuestSessionActive();
+    return isNativeAuthActive() || isGuestSessionActive();
   });
 
   useEffect(() => {
-    const handleGuestAuthChange = () => {
-      setGuestActive(isGuestSessionActive());
+    const handleAuthChange = () => {
+      setAuthed(isNativeAuthActive() || isGuestSessionActive());
     };
-    window.addEventListener("codearena:guest-auth-change", handleGuestAuthChange);
+    window.addEventListener("codearena:native-auth-change", handleAuthChange);
+    window.addEventListener("codearena:guest-auth-change", handleAuthChange);
     return () => {
-      window.removeEventListener("codearena:guest-auth-change", handleGuestAuthChange);
+      window.removeEventListener("codearena:native-auth-change", handleAuthChange);
+      window.removeEventListener("codearena:guest-auth-change", handleAuthChange);
     };
   }, []);
 
-  // 1. Wait for Clerk JS SDK to finish loading
-  if (!isLoaded) {
-    return <AuthLoadingState />;
-  }
-
-  // 2. If signed in or guest session active, sync user profile with MongoDB via useCurrentUser query
-  if (isSignedIn || guestActive) {
+  if (authed) {
     if (isLoading) {
       return <AuthLoadingState />;
     }
@@ -40,7 +35,6 @@ export function AuthSyncProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  // 3. User is unauthenticated on public routes
   return <>{children}</>;
 }
 export default AuthSyncProvider;

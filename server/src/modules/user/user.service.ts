@@ -1,27 +1,29 @@
-import { clerkClient } from '../../config/clerk.js';
 import { env } from '../../config/env.js';
 import { userRepository } from './user.repository.js';
 import { IUserDocument, IUser, ILeaderboardResponse, ILeaderboardEntry, IPublicUserProfile } from './user.types.js';
 import { AppError } from '../../shared/errors/api-error.js';
 
-
 import { UserModel } from './user.model.js';
+import { Types } from 'mongoose';
 import { BattleModel } from '../battle/battle.model.js';
 import { BattleStatus } from '../battle/battle.types.js';
 
 export class UserService {
   async getOrCreateUser(clerkId: string): Promise<IUserDocument> {
+    if (Types.ObjectId.isValid(clerkId)) {
+      const byId = await UserModel.findById(clerkId);
+      if (byId) return byId;
+    }
+
     let user = await userRepository.findByClerkId(clerkId);
     if (user) {
       return user;
     }
 
     try {
-      const clerkUser = await clerkClient.users.getUser(clerkId);
-      
-      const username = clerkUser.username || `user_${clerkId.slice(-6)}`;
-      const displayName = `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim() || username;
-      const avatar = clerkUser.imageUrl || '';
+      const username = `user_${clerkId.slice(-8)}`;
+      const displayName = `User ${clerkId.slice(-4)}`;
+      const avatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${username}`;
 
       user = await userRepository.create({
         clerkId,
@@ -40,33 +42,13 @@ export class UserService {
 
       return user;
     } catch (error: any) {
-      // Check for MongoDB E11000 duplicate key error code or error message suffix
       if (error.code === 11000 || error.message?.includes('E11000')) {
         const existingUser = await userRepository.findByClerkId(clerkId);
         if (existingUser) {
           return existingUser;
         }
       }
-      // Fallback for mock test users not found in Clerk Cloud (strictly in test environment)
-      if (env.NODE_ENV === 'test' && clerkId.startsWith('user_')) {
-        const username = `user_${clerkId.slice(-6)}`;
-        user = await userRepository.create({
-          clerkId,
-          username,
-          displayName: `User ${clerkId.slice(-6)}`,
-          avatar: '',
-          matchesPlayed: 0,
-          wins: 0,
-          losses: 0,
-          draws: 0,
-          totalCorrect: 0,
-          totalQuestions: 0,
-          accuracy: 0,
-          highestWinStreak: 0,
-        });
-        return user;
-      }
-      throw new AppError(`Failed to sync user profile from Clerk: ${error.message}`, 500);
+      throw error;
     }
   }
 
@@ -86,13 +68,19 @@ export class UserService {
     return user;
   }
 
-  async updateUserProfile(clerkId: string, updateData: Partial<IUser>): Promise<IUserDocument> {
+  async updateUserProfile(userIdOrClerkId: string, updateData: Partial<IUser>): Promise<IUserDocument> {
     // Only allow updating specific non-statistic profile fields
     const allowedUpdates: Partial<IUser> = {};
     if (updateData.displayName !== undefined) allowedUpdates.displayName = updateData.displayName;
     if (updateData.avatar !== undefined) allowedUpdates.avatar = updateData.avatar;
 
-    const user = await userRepository.updateByClerkId(clerkId, allowedUpdates);
+    let user: IUserDocument | null = null;
+    if (Types.ObjectId.isValid(userIdOrClerkId)) {
+      user = await UserModel.findByIdAndUpdate(userIdOrClerkId, allowedUpdates, { new: true });
+    }
+    if (!user) {
+      user = await userRepository.updateByClerkId(userIdOrClerkId, allowedUpdates);
+    }
     if (!user) {
       throw new AppError('User not found', 404);
     }

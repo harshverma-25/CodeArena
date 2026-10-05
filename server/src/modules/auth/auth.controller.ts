@@ -1,11 +1,137 @@
 import { Request, Response } from 'express';
 import { authService } from './auth.service.js';
 import { ApiResponse } from '../../shared/utils/api-response.js';
+import { ApiError } from '../../shared/errors/api-error.js';
 
 export class AuthController {
   /**
+   * POST /api/v1/auth/register
+   * Registers a new native user account.
+   */
+  async register(req: Request, res: Response): Promise<void> {
+    const result = await authService.register(req.body);
+
+    // Set HttpOnly refresh token cookie
+    res.cookie('refreshToken', result.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      path: '/api/v1/auth',
+    });
+
+    res.status(201).json(
+      new ApiResponse(201, result, 'User registered successfully.')
+    );
+  }
+
+  /**
+   * POST /api/v1/auth/login
+   * Authenticates a native user with email/username and password.
+   */
+  async login(req: Request, res: Response): Promise<void> {
+    const result = await authService.login(req.body);
+
+    // Set HttpOnly refresh token cookie
+    res.cookie('refreshToken', result.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: '/api/v1/auth',
+    });
+
+    res.status(200).json(
+      new ApiResponse(200, result, 'Logged in successfully.')
+    );
+  }
+
+  /**
+   * POST /api/v1/auth/refresh
+   * Obtains a new access token using a refresh token.
+   */
+  async refresh(req: Request, res: Response): Promise<void> {
+    const token = req.cookies?.refreshToken || req.body?.refreshToken;
+    if (!token) {
+      throw new ApiError(401, 'Refresh token is required');
+    }
+
+    const result = await authService.refresh(token);
+
+    // Set updated HttpOnly refresh token cookie
+    res.cookie('refreshToken', result.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: '/api/v1/auth',
+    });
+
+    res.status(200).json(
+      new ApiResponse(200, result, 'Token refreshed successfully.')
+    );
+  }
+
+  /**
+   * POST /api/v1/auth/logout
+   * Invalidates refresh session and clears cookie.
+   */
+  async logout(req: Request, res: Response): Promise<void> {
+    const userId = req.user?._id?.toString() || req.user?.id?.toString();
+    if (userId) {
+      await authService.logout(userId);
+    }
+
+    res.clearCookie('refreshToken', {
+      path: '/api/v1/auth',
+    });
+
+    res.status(200).json(
+      new ApiResponse(200, null, 'Logged out successfully.')
+    );
+  }
+
+  /**
+   * GET /api/v1/auth/me
+   * Returns current authenticated user or guest profile.
+   */
+  async getMe(req: Request, res: Response): Promise<void> {
+    const user = req.user;
+    if (!user) {
+      throw new ApiError(401, 'Unauthorized');
+    }
+
+    const responseData = user.isGuest
+      ? {
+          id: user._id.toString(),
+          _id: user._id.toString(),
+          displayName: user.displayName,
+          username: user.username,
+          avatar: user.avatar,
+          type: 'guest',
+          isGuest: true,
+          role: 'guest',
+        }
+      : {
+          id: user._id.toString(),
+          _id: user._id.toString(),
+          username: user.username,
+          displayName: user.displayName,
+          email: user.email,
+          avatar: user.avatar,
+          type: 'user',
+          isGuest: false,
+          role: user.role || 'user',
+        };
+
+    res.status(200).json(
+      new ApiResponse(200, responseData, 'Current user retrieved successfully.')
+    );
+  }
+
+  /**
    * POST /api/v1/auth/guest
-   * Creates an ephemeral guest account and returns a securely signed 24h JWT.
+   * Creates an ephemeral guest account and returns a signed guest JWT.
    */
   async createGuest(req: Request, res: Response): Promise<void> {
     const displayName = req.body?.displayName;
@@ -19,3 +145,4 @@ export class AuthController {
 
 export const authController = new AuthController();
 export default authController;
+

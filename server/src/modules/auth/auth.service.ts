@@ -1,14 +1,241 @@
 import crypto from 'crypto';
 import { env } from '../../config/env.js';
 import { userRepository } from '../user/user.repository.js';
+import { UserModel } from '../user/user.model.js';
 import { IGuestTokenPayload, IGuestSessionResponse } from './auth.types.js';
 import { logger } from '../../config/logger.js';
+import { hashPassword, verifyPassword, hashToken } from '../../shared/utils/crypto-auth.js';
+import { signJwtToken, verifyJwtToken, ITokenPayload } from '../../shared/utils/jwt.js';
+import { ApiError } from '../../shared/errors/api-error.js';
 
 export class AuthService {
   /**
-   * Cryptographically sign a secure HS256 JWT for guest sessions.
-   * Default expiration: 24 hours (86400 seconds).
+   * Register a new native user account.
    */
+  async register(data: {
+    email: string;
+    username: string;
+    displayName?: string;
+    password: string;
+  }) {
+    const email = data.email.trim().toLowerCase();
+    const username = data.username.trim();
+    const displayName = data.displayName?.trim() || username;
+    const password = data.password;
+
+    if (!email || !email.includes('@')) {
+      throw new ApiError(400, 'Valid email address is required');
+    }
+    if (!username || username.length < 3) {
+      throw new ApiError(400, 'Username must be at least 3 characters');
+    }
+    if (!password || password.length < 6) {
+      throw new ApiError(400, 'Password must be at least 6 characters');
+    }
+
+    const existingEmail = await UserModel.findOne({ email });
+    if (existingEmail) {
+      throw new ApiError(409, 'An account with this email already exists');
+    }
+
+    const existingUsername = await UserModel.findOne({ username });
+    if (existingUsername) {
+      throw new ApiError(409, 'Username is already taken');
+    }
+
+    const passwordHash = hashPassword(password);
+    const avatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(username)}`;
+
+    const user = await UserModel.create({
+      email,
+      username,
+      displayName,
+      passwordHash,
+      avatar,
+      isGuest: false,
+      role: 'user',
+    });
+
+    const accessExpiry = parseInt(env.JWT_ACCESS_EXPIRES_IN, 10) || 900; // 15 mins
+    const refreshExpiry = parseInt(env.JWT_REFRESH_EXPIRES_IN, 10) || 604800; // 7 days
+
+    const accessToken = signJwtToken(
+      { sub: user._id.toString(), type: 'access', username: user.username, isGuest: false },
+      env.JWT_ACCESS_SECRET,
+      accessExpiry
+    );
+
+    const refreshToken = signJwtToken(
+      { sub: user._id.toString(), type: 'refresh' },
+      env.JWT_REFRESH_SECRET,
+      refreshExpiry
+    );
+
+    user.refreshTokenHash = hashToken(refreshToken);
+    await user.save();
+
+    logger.info(`Native user registered: ${user.username} (${user._id})`);
+
+    return {
+      accessToken,
+      refreshToken,
+      expiresIn: accessExpiry,
+      user: {
+        _id: user._id.toString(),
+        id: user._id.toString(),
+        email: user.email,
+        username: user.username,
+        displayName: user.displayName,
+        avatar: user.avatar,
+        isGuest: false,
+        role: user.role,
+      },
+    };
+  }
+
+  /**
+   * Authenticate a native user with email/username and password.
+   */
+  async login(data: { emailOrUsername: string; password: string }) {
+    const input = data.emailOrUsername.trim().toLowerCase();
+    const password = data.password;
+
+    if (!input || !password) {
+      throw new ApiError(400, 'Email/username and password are required');
+    }
+
+    const user = await UserModel.findOne({
+      $or: [{ email: input }, { username: input }],
+    }).select('+passwordHash');
+
+    if (!user || !user.passwordHash) {
+      throw new ApiError(401, 'Invalid email/username or password');
+    }
+
+    const isValid = verifyPassword(password, user.passwordHash);
+    if (!isValid) {
+      throw new ApiError(401, 'Invalid email/username or password');
+    }
+
+    const accessExpiry = parseInt(env.JWT_ACCESS_EXPIRES_IN, 10) || 900;
+    const refreshExpiry = parseInt(env.JWT_REFRESH_EXPIRES_IN, 10) || 604800;
+
+    const accessToken = signJwtToken(
+      { sub: user._id.toString(), type: 'access', username: user.username, isGuest: false },
+      env.JWT_ACCESS_SECRET,
+      accessExpiry
+    );
+
+    const refreshToken = signJwtToken(
+      { sub: user._id.toString(), type: 'refresh' },
+      env.JWT_REFRESH_SECRET,
+      refreshExpiry
+    );
+
+    user.refreshTokenHash = hashToken(refreshToken);
+    await user.save();
+
+    logger.info(`Native user logged in: ${user.username} (${user._id})`);
+
+    return {
+      accessToken,
+      refreshToken,
+      expiresIn: accessExpiry,
+      user: {
+        _id: user._id.toString(),
+        id: user._id.toString(),
+        email: user.email,
+        username: user.username,
+        displayName: user.displayName,
+        avatar: user.avatar,
+        isGuest: false,
+        role: user.role,
+      },
+    };
+  }
+
+  /**
+   * Refresh an access token using a valid refresh token.
+   */
+  async refresh(refreshToken: string) {
+    if (!refreshToken) {
+      throw new ApiError(401, 'Refresh token is required');
+    }
+
+    const payload = verifyJwtToken(refreshToken, env.JWT_REFRESH_SECRET);
+    if (!payload || payload.type !== 'refresh' || !payload.sub) {
+      throw new ApiError(401, 'Invalid or expired refresh token');
+    }
+
+    const user = await UserModel.findById(payload.sub).select('+refreshTokenHash');
+    if (!user) {
+      throw new ApiError(401, 'User not found');
+    }
+
+    if (!user.refreshTokenHash) {
+      throw new ApiError(401, 'Invalid or revoked refresh token');
+    }
+    const incomingHash = hashToken(refreshToken);
+    if (incomingHash !== user.refreshTokenHash) {
+      throw new ApiError(401, 'Invalid or revoked refresh token');
+    }
+
+    const accessExpiry = parseInt(env.JWT_ACCESS_EXPIRES_IN, 10) || 900;
+    const refreshExpiry = parseInt(env.JWT_REFRESH_EXPIRES_IN, 10) || 604800;
+
+    const newAccessToken = signJwtToken(
+      { sub: user._id.toString(), type: 'access', username: user.username, isGuest: user.isGuest },
+      env.JWT_ACCESS_SECRET,
+      accessExpiry
+    );
+
+    const newRefreshToken = signJwtToken(
+      { sub: user._id.toString(), type: 'refresh' },
+      env.JWT_REFRESH_SECRET,
+      refreshExpiry
+    );
+
+    user.refreshTokenHash = hashToken(newRefreshToken);
+    await user.save();
+
+    return {
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken,
+      expiresIn: accessExpiry,
+      user: {
+        _id: user._id.toString(),
+        id: user._id.toString(),
+        email: user.email,
+        username: user.username,
+        displayName: user.displayName,
+        avatar: user.avatar,
+        isGuest: user.isGuest || false,
+        role: user.role,
+      },
+    };
+  }
+
+  /**
+   * Revoke session on logout.
+   */
+  async logout(userId: string) {
+    if (userId) {
+      await UserModel.findByIdAndUpdate(userId, { $unset: { refreshTokenHash: 1 } });
+    }
+  }
+
+  /**
+   * Verify native access token.
+   */
+  verifyAccessToken(token: string): ITokenPayload | null {
+    const payload = verifyJwtToken(token, env.JWT_ACCESS_SECRET);
+    if (payload && payload.type === 'access') {
+      return payload;
+    }
+    return null;
+  }
+
+  // Preserve existing guest functions
   signGuestToken(
     payload: { sub: string; guestId: string; displayName: string },
     expiresInSeconds: number = 86400
@@ -39,19 +266,10 @@ export class AuthService {
     return `${signatureInput}.${signature}`;
   }
 
-  /**
-   * Verify and decode a backend-issued guest JWT.
-   * Performs timing-safe HMAC validation, role checks, and expiration checks.
-   */
   verifyGuestToken(token: string): IGuestTokenPayload | null {
-    if (!token || typeof token !== 'string') {
-      return null;
-    }
-
+    if (!token || typeof token !== 'string') return null;
     const parts = token.split('.');
-    if (parts.length !== 3) {
-      return null;
-    }
+    if (parts.length !== 3) return null;
 
     const [encodedHeader, encodedPayload, signature] = parts;
     const signatureInput = `${encodedHeader}.${encodedPayload}`;
@@ -75,31 +293,19 @@ export class AuthService {
       const payloadString = Buffer.from(encodedPayload, 'base64url').toString('utf-8');
       const payload: IGuestTokenPayload = JSON.parse(payloadString);
 
-      // Verify explicit role and type
-      if (payload.type !== 'guest' || payload.role !== 'guest') {
-        return null;
-      }
+      if (payload.type !== 'guest' || payload.role !== 'guest') return null;
 
-      // Verify expiration (Unix timestamp in seconds)
       const now = Math.floor(Date.now() / 1000);
-      if (typeof payload.exp !== 'number' || payload.exp < now) {
-        return null;
-      }
+      if (typeof payload.exp !== 'number' || payload.exp < now) return null;
 
-      // Verify guest ID structure
-      if (!payload.guestId || !payload.guestId.startsWith('guest_')) {
-        return null;
-      }
+      if (!payload.guestId || !payload.guestId.startsWith('guest_')) return null;
 
       return payload;
-    } catch (err) {
+    } catch {
       return null;
     }
   }
 
-  /**
-   * Provision a temporary guest user and return a signed 24-hour guest JWT session.
-   */
   async createGuestSession(customDisplayName?: string): Promise<IGuestSessionResponse> {
     const rawUuid = crypto.randomUUID().replace(/-/g, '');
     const guestId = `guest_${rawUuid.slice(0, 16)}`;
@@ -131,7 +337,7 @@ export class AuthService {
     const token = this.signGuestToken(
       {
         sub: user._id.toString(),
-        guestId: user.clerkId,
+        guestId: user.clerkId || guestId,
         displayName: user.displayName,
       },
       expiresIn
@@ -143,7 +349,7 @@ export class AuthService {
       token,
       user: {
         _id: user._id.toString(),
-        clerkId: user.clerkId,
+        clerkId: user.clerkId || guestId,
         username: user.username,
         displayName: user.displayName,
         avatar: user.avatar,

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useApiClient } from "@/hooks/useApiClient";
-import { useAuth } from "@clerk/nextjs";
+import { isGuestSessionActive } from "@/features/auth/guestAuth";
+import { isNativeAuthActive } from "@/features/auth/nativeAuth";
 
 export interface MatchHistoryItem {
   _id: string;
@@ -14,7 +15,7 @@ export interface MatchHistoryItem {
   isDraw?: boolean;
   startedAt: string;
   endedAt?: string;
-  duration?: number; // in seconds
+  duration?: number;
   players?: Array<{
     user: {
       _id: string;
@@ -49,8 +50,8 @@ export interface MatchHistoryResponse {
 }
 
 export function useMatchHistory(page = 1, limit = 10) {
-  const { isSignedIn, isLoaded } = useAuth();
   const api = useApiClient();
+  const hasAuth = isNativeAuthActive() || isGuestSessionActive();
 
   return useQuery<MatchHistoryResponse, Error>({
     queryKey: ["matchHistory", page, limit],
@@ -58,15 +59,15 @@ export function useMatchHistory(page = 1, limit = 10) {
       const response = await api.get<{ success: boolean; data: MatchHistoryResponse }>(
         `/history?page=${page}&limit=${limit}`
       );
-      
+
       const responseData = response as unknown as { success: boolean; data: MatchHistoryResponse };
       if (!responseData || !responseData.success) {
         throw new Error("Failed to retrieve match history.");
       }
       return responseData.data;
     },
-    enabled: isLoaded && isSignedIn,
-    staleTime: 15 * 1000, // 15 seconds cache freshness
+    enabled: hasAuth,
+    staleTime: 15 * 1000,
   });
 }
 export default useMatchHistory;

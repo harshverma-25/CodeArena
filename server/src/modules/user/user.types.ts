@@ -1,7 +1,10 @@
 import { Document } from 'mongoose';
 
 export interface IUser {
-  clerkId: string;
+  clerkId?: string;
+  email?: string;
+  passwordHash?: string;
+  refreshTokenHash?: string;
   username: string;
   displayName: string;
   avatar: string;

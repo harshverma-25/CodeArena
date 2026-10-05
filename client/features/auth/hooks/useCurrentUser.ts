@@ -1,48 +1,61 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useApiClient } from "@/hooks/useApiClient";
-import { useAuth } from "@clerk/nextjs";
 import { User } from "@/types";
 import { isGuestSessionActive, getGuestUser } from "@/features/auth/guestAuth";
+import { isNativeAuthActive, getNativeUser } from "@/features/auth/nativeAuth";
 
 export function useCurrentUser() {
-  const { isSignedIn, isLoaded } = useAuth();
   const api = useApiClient();
-  const [guestActive, setGuestActive] = useState<boolean>(() => {
-    if (typeof window === "undefined") return false;
-    return isGuestSessionActive();
-  });
+  const [authState, setAuthState] = useState(() => ({
+    isNative: isNativeAuthActive(),
+    isGuest: isGuestSessionActive(),
+  }));
 
   useEffect(() => {
-    const handleGuestAuthChange = () => {
-      setGuestActive(isGuestSessionActive());
+    const handleAuthChange = () => {
+      setAuthState({
+        isNative: isNativeAuthActive(),
+        isGuest: isGuestSessionActive(),
+      });
     };
-    window.addEventListener("codearena:guest-auth-change", handleGuestAuthChange);
+
+    window.addEventListener("codearena:native-auth-change", handleAuthChange);
+    window.addEventListener("codearena:guest-auth-change", handleAuthChange);
     return () => {
-      window.removeEventListener("codearena:guest-auth-change", handleGuestAuthChange);
+      window.removeEventListener("codearena:native-auth-change", handleAuthChange);
+      window.removeEventListener("codearena:guest-auth-change", handleAuthChange);
     };
   }, []);
 
-  const isEnabled = (isLoaded && Boolean(isSignedIn)) || guestActive;
+  const isEnabled = authState.isNative || authState.isGuest;
 
   return useQuery<User, Error>({
-    queryKey: ["currentUser", isSignedIn ? "clerk" : "guest"],
+    queryKey: ["currentUser", authState.isNative ? "native" : "guest"],
     queryFn: async () => {
-      const response = await api.get<{ success: boolean; data: User }>("/users/me");
-      
-      // The API response is parsed as { success: boolean, data: User, message?: string }
-      // We extract data and type-cast it safely
-      const responseData = response as unknown as { success: boolean; data: User };
-      if (!responseData || !responseData.success) {
-        const fallbackGuest = getGuestUser();
-        if (fallbackGuest) return fallbackGuest;
-        throw new Error("Failed to retrieve user profile from competitive backend.");
+      try {
+        const response = await api.get<{ success: boolean; data: User }>("/auth/me");
+        const responseData = response as unknown as { success: boolean; data: User };
+        if (responseData && responseData.data) {
+          return responseData.data;
+        }
+      } catch (err) {
+        // Fallback to local user state if available
+        const native = getNativeUser();
+        if (native) return native;
+        const guest = getGuestUser();
+        if (guest) return guest;
+        throw err;
       }
-      return responseData.data;
+      const native = getNativeUser();
+      if (native) return native;
+      const guest = getGuestUser();
+      if (guest) return guest;
+      throw new Error("Failed to retrieve user profile.");
     },
     enabled: isEnabled,
-    retry: 1, // Only retry once to avoid blocking the UI with long loads on network errors
-    staleTime: 5 * 60 * 1000, // 5 minutes cache stale duration
+    retry: 1,
+    staleTime: 5 * 60 * 1000,
   });
 }
 export default useCurrentUser;

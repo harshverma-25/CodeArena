@@ -3,9 +3,12 @@ import { IUserDocument } from './user.types.js';
 
 const UserSchema = new Schema<IUserDocument>(
   {
-    clerkId: { type: String, required: true, unique: true, index: true },
-    username: { type: String, required: true, unique: true },
-    displayName: { type: String, required: true },
+    clerkId: { type: String, unique: true, sparse: true, index: true },
+    email: { type: String, unique: true, sparse: true, index: true, lowercase: true, trim: true },
+    passwordHash: { type: String, select: false },
+    refreshTokenHash: { type: String, select: false },
+    username: { type: String, required: true, unique: true, trim: true },
+    displayName: { type: String, required: true, trim: true },
     avatar: { type: String, default: '' },
     matchesPlayed: { type: Number, default: 0 },
     wins: { type: Number, default: 0 },

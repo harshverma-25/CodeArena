@@ -2,27 +2,25 @@
 
 import React from "react";
 import Link from "next/link";
-import { useAuth } from "@clerk/nextjs";
 import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 
 export function HeroSection() {
-  const { isSignedIn } = useAuth();
+  const { data: currentUser } = useCurrentUser();
+  const isSignedIn = Boolean(currentUser);
 
   return (
     <section className="relative w-full border-b border-border bg-background pt-16 pb-20 sm:pt-24 sm:pb-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Confident Editorial Typography */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-8">
-            {/* Protocol Meta Badge */}
             <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded border border-border bg-surface font-mono text-[11px] text-muted-foreground uppercase tracking-widest">
               <span className="h-1.5 w-1.5 rounded-full bg-foreground" />
               <span>Engine v2.4 // Real-Time 1v1 MCQ Arena</span>
             </div>
 
-            {/* Main Headline */}
             <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-foreground leading-[1.08] sm:leading-[1.06]">
               Two engineers.
               <br />
@@ -31,13 +29,11 @@ export function HeroSection() {
               <span className="text-muted-foreground">Thirty seconds on the clock.</span>
             </h1>
 
-            {/* Subheadline */}
             <p className="text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed">
               CodeArena is a live, competitive battleground where developers duel in real time. 
               Synchronized question timers, server-authoritative scoring, and instant solution breakdowns across core computer science subjects.
             </p>
 
-            {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
               {isSignedIn ? (
                 <Link
@@ -85,7 +81,6 @@ export function HeroSection() {
               </a>
             </div>
 
-            {/* Quick Specs Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-border font-mono text-xs">
               <div className="space-y-0.5">
                 <div className="text-muted-foreground text-[10px] uppercase tracking-wider">Clock</div>
@@ -106,10 +101,8 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: Terminal HUD Simulation */}
           <div className="lg:col-span-5">
             <div className="rounded-lg border border-border bg-surface overflow-hidden shadow-sm">
-              {/* Terminal Window Bar */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-surface-elevated font-mono text-xs text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <span className="h-2.5 w-2.5 rounded-full bg-border" />
@@ -120,7 +113,6 @@ export function HeroSection() {
                 <span className="text-[10px] tracking-wider uppercase">WS_PORT: 5000</span>
               </div>
 
-              {/* Terminal Stream Content */}
               <div className="p-5 font-mono text-xs text-foreground space-y-3 leading-relaxed">
                 <div className="text-muted-foreground">
                   $ codearena duel --room CA-8492 --mode 1v1

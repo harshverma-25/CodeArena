@@ -1,12 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-
 import Link from "next/link";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { useUserProfile } from "../hooks/useUserProfile";
 import { useUpdateProfile } from "../hooks/useUpdateProfile";
-import { useUser } from "@clerk/nextjs";
 import { 
   Trophy, 
   Percent, 
@@ -30,7 +28,6 @@ import { Button } from "@/components/ui/button";
 export function ProfileStats() {
   const { data: dbUser, isLoading: dbUserLoading } = useCurrentUser();
   const { data: profile, isLoading: profileLoading } = useUserProfile("me");
-  const { user: clerkUser, isLoaded: clerkLoaded } = useUser();
   const updateProfileMutation = useUpdateProfile();
 
   const [userDisplayName, setDisplayName] = useState<string | null>(null);
@@ -38,8 +35,7 @@ export function ProfileStats() {
 
   const displayName = userDisplayName ?? dbUser?.displayName ?? "";
 
-
-  if (dbUserLoading || profileLoading || !clerkLoaded) {
+  if (dbUserLoading || profileLoading) {
     return (
       <div className="space-y-6">
         {/* Header Skeleton */}
@@ -128,7 +124,7 @@ export function ProfileStats() {
             <div className="relative">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={dbUser?.avatar || clerkUser?.imageUrl || "/placeholder-avatar.png"}
+                src={dbUser?.avatar || `https://api.dicebear.com/7.x/bottts/svg?seed=${dbUser?.username || 'user'}`}
                 alt={dbUser?.username || "User"}
                 className="h-20 w-20 rounded-2xl border border-border bg-zinc-950 object-cover shadow-inner shrink-0"
               />
@@ -140,7 +136,7 @@ export function ProfileStats() {
             {/* User Meta */}
             <div className="space-y-1.5">
               <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground">
-                {dbUser?.displayName || clerkUser?.fullName || dbUser?.username}
+                {dbUser?.displayName || dbUser?.username}
               </h2>
               <p className="text-xs text-muted-foreground font-mono">
                 @{dbUser?.username || "challenger"}
@@ -307,7 +303,7 @@ export function ProfileStats() {
                 <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Email Address</span>
                 <span className="text-foreground flex items-center gap-1.5 overflow-hidden text-ellipsis">
                   <Mail className="h-3.5 w-3.5 text-primary shrink-0" />
-                  {clerkUser?.primaryEmailAddress?.emailAddress || "Guest email"}
+                  {dbUser?.email || "Guest Account"}
                 </span>
               </div>
 
@@ -330,7 +326,7 @@ export function ProfileStats() {
           </div>
 
           <div className="text-[10px] text-zinc-500 font-mono pt-4 border-t border-border/40">
-            Account ID: {clerkUser?.id || "N/A"}
+            Account ID: {dbUser?._id || dbUser?.id || "N/A"}
           </div>
         </div>
       </div>

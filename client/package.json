@@ -9,8 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^7.6.3",
-    "@clerk/themes": "^2.4.57",
     "@hookform/resolvers": "^5.5.7",
     "@tanstack/react-query": "^5.101.4",
     "class-variance-authority": "^0.7.1",

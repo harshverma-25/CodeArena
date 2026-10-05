@@ -2,14 +2,15 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useAuth, UserButton } from "@clerk/nextjs";
 import { ArrowUpRight, Menu, X, Swords } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 
 export function LandingNavbar() {
-  const { isSignedIn } = useAuth();
+  const { data: currentUser } = useCurrentUser();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isSignedIn = Boolean(currentUser);
 
   const navLinks = [
     { href: "#demo", label: "Interactive Demo" },
@@ -22,7 +23,6 @@ export function LandingNavbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Brand identity */}
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2.5 font-mono text-base font-bold tracking-tight text-foreground hover:opacity-90 transition-opacity">
             <span className="flex h-8 w-8 items-center justify-center rounded-md bg-foreground text-background">
@@ -35,7 +35,6 @@ export function LandingNavbar() {
           </Link>
         </div>
 
-        {/* Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-6 text-xs font-mono uppercase tracking-wider text-muted-foreground">
           {navLinks.map((link) => (
             <Link
@@ -48,7 +47,6 @@ export function LandingNavbar() {
           ))}
         </nav>
 
-        {/* User / Auth Operations */}
         <div className="hidden sm:flex items-center gap-3">
           {isSignedIn ? (
             <div className="flex items-center gap-3">
@@ -62,13 +60,6 @@ export function LandingNavbar() {
                 <span>Enter Arena</span>
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </Link>
-              <UserButton
-                appearance={{
-                  elements: {
-                    avatarBox: "h-8 w-8 rounded-md border border-border",
-                  },
-                }}
-              />
             </div>
           ) : (
             <div className="flex items-center gap-2">
@@ -95,7 +86,6 @@ export function LandingNavbar() {
           )}
         </div>
 
-        {/* Mobile Hamburger Button */}
         <div className="flex lg:hidden items-center gap-2">
           {isSignedIn && (
             <Link
@@ -119,7 +109,6 @@ export function LandingNavbar() {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-b border-border bg-surface px-4 py-5 space-y-4">
           <nav className="flex flex-col space-y-3 font-mono text-xs uppercase tracking-wider">

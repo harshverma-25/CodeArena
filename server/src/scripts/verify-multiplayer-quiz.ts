@@ -59,7 +59,7 @@ async function runMultiplayerQuizVerificationSuite() {
     const soloRoom = await roomService.createRoom(hostUser._id.toString(), {
       topic: 'random',
       difficulty: 'random',
-      questionCount: 1,
+      questionCount: 10,
     });
     const soloBattle = await battleService.startBattle(hostUser._id.toString(), soloRoom.roomCode);
     if (!soloBattle || soloBattle.players.length !== 1) {
@@ -76,7 +76,7 @@ async function runMultiplayerQuizVerificationSuite() {
     const quadRoom = await roomService.createRoom(hostUser._id.toString(), {
       topic: 'random',
       difficulty: 'random',
-      questionCount: 2,
+      questionCount: 10,
     });
 
     await roomService.joinRoom(player2._id.toString(), quadRoom.roomCode);

@@ -3,8 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAuth, useUser } from "@clerk/nextjs";
-import { isGuestSessionActive, getGuestUser, PlayAsGuestModal } from "@/features/auth";
+import { isGuestSessionActive, getGuestUser, PlayAsGuestModal, useCurrentUser } from "@/features/auth";
 import { useApiClient } from "@/hooks/useApiClient";
 import { Category, Subject } from "@/types";
 
@@ -53,8 +52,8 @@ const formatTimeAgo = (dateInput?: string | Date): string => {
 export default function StitchHomePage() {
   const router = useRouter();
   const api = useApiClient();
-  const { isSignedIn } = useAuth();
-  const { user } = useUser();
+  const { data: currentUser } = useCurrentUser();
+  const isUserAuthenticated = Boolean(currentUser);
 
   // Backend API states
   const [categories, setCategories] = useState<Category[]>([]);
@@ -98,9 +97,9 @@ export default function StitchHomePage() {
     };
   }, []);
 
-  const hasAccess = Boolean(isSignedIn || guestActive);
-  const displayName = isSignedIn
-    ? user?.fullName || user?.firstName || user?.username || "Player"
+  const hasAccess = Boolean(isUserAuthenticated || guestActive);
+  const displayName = isUserAuthenticated && currentUser
+    ? currentUser.displayName || currentUser.username || "Player"
     : guestActive && guestUser
     ? guestUser.displayName || guestUser.username || "Guest Player"
     : "Player";
@@ -386,9 +385,9 @@ export default function StitchHomePage() {
               className="flex items-center gap-space-sm pl-1 pr-3 py-1 bg-surface-container-lowest border border-surface-container-highest rounded-full shadow-[0_1px_3px_-1px_rgba(60,52,42,0.03)] cursor-pointer hover:border-outline-variant transition-colors"
             >
               <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center overflow-hidden">
-                {isSignedIn && user?.imageUrl ? (
+                {isUserAuthenticated && currentUser?.avatar ? (
                   <img
-                    src={user.imageUrl}
+                    src={currentUser.avatar}
                     alt={displayName}
                     className="w-full h-full object-cover"
                   />

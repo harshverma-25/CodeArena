@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useAuth } from "@clerk/nextjs";
 import { socketManager } from "@/lib/socket";
 import { useBattleStore } from "@/store/battleStore";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { isGuestSessionActive } from "@/features/auth/guestAuth";
+import { isNativeAuthActive } from "@/features/auth/nativeAuth";
 import {
   BattleQuestion,
   BattleInitPayload,
@@ -49,7 +49,6 @@ export type OpponentLiveState = LiveBattlePlayer;
 
 export function useLiveBattle(roomCode: string) {
   const code = (roomCode || "").toUpperCase();
-  const { isLoaded, isSignedIn } = useAuth();
   const { data: currentUser } = useCurrentUser();
   const cachedInitData = useBattleStore((state) => state.battleInitData);
   const setBattleInitData = useBattleStore((state) => state.setBattleInitData);
@@ -139,7 +138,7 @@ export function useLiveBattle(roomCode: string) {
 
   // Main Socket Listener & Reconnection
   useEffect(() => {
-    const hasAuth = (isLoaded && Boolean(isSignedIn)) || isGuestSessionActive();
+    const hasAuth = isNativeAuthActive() || isGuestSessionActive();
     if (!hasAuth || !code) return;
 
     let active = true;
@@ -295,7 +294,7 @@ export function useLiveBattle(roomCode: string) {
         socket.off("error", handleError);
       }
     };
-  }, [isLoaded, isSignedIn, code, currentUser, processInitPayload, setBattleInitData, status, battle]);
+  }, [code, currentUser, processInitPayload, setBattleInitData, status, battle]);
 
   // Dynamic Decreasing Points & Visual Countdown Timer
   useEffect(() => {

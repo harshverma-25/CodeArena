@@ -1,41 +1,43 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse, NextRequest } from "next/server";
 
-const isProtectedRoute = createRouteMatcher([
-  "/dashboard(.*)",
-  "/battle(.*)",
-  "/profile(.*)",
-  "/settings(.*)",
-  "/lobby(.*)",
-  "/leaderboard(.*)",
-  "/history(.*)",
-  "/results(.*)",
-]);
+const PROTECTED_PREFIXES = [
+  "/dashboard",
+  "/battle",
+  "/profile",
+  "/settings",
+  "/lobby",
+  "/leaderboard",
+  "/history",
+  "/results",
+];
 
-const isAuthRoute = createRouteMatcher([
-  "/login(.*)",
-  "/register(.*)",
-]);
+const AUTH_PREFIXES = ["/login", "/register"];
 
-export default clerkMiddleware(async (auth, req) => {
-  const { userId } = await auth();
+export function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+
+  const hasAccessToken = req.cookies.has("codearena_access_token") || req.cookies.has("refreshToken");
   const hasGuestToken = req.cookies.has("codearena_guest_token");
+  const isAuthenticated = hasAccessToken || hasGuestToken;
 
-  // If user is authenticated and attempts to visit login/register, redirect to dashboard
-  if ((userId || hasGuestToken) && isAuthRoute(req)) {
-    return Response.redirect(new URL("/dashboard", req.url));
+  const isAuthRoute = AUTH_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+  const isProtectedRoute = PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+
+  if (isAuthenticated && isAuthRoute) {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
-  // If route is protected and user is neither Clerk-authenticated nor active Guest, redirect to login
-  if (isProtectedRoute(req) && !hasGuestToken) {
-    await auth.protect();
+  if (isProtectedRoute && !isAuthenticated) {
+    const loginUrl = new URL("/login", req.url);
+    loginUrl.searchParams.set("redirect", pathname);
+    return NextResponse.redirect(loginUrl);
   }
-});
+
+  return NextResponse.next();
+}
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
     "/((?!_next|[^?]*\\.[\\w]+$|_next/image|_next/static|favicon.ico).*)",
-    // Always run for API routes
-    "/(api|trpc)(.*)",
   ],
 };

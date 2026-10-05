@@ -2,11 +2,11 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@clerk/nextjs";
 import { socketManager } from "@/lib/socket";
 import { Room, RoomPlayer, RoomSettings, BattleInitPayload, RoomStatusType } from "@/types";
 import { useBattleStore } from "@/store/battleStore";
 import { isGuestSessionActive } from "@/features/auth/guestAuth";
+import { isNativeAuthActive } from "@/features/auth/nativeAuth";
 
 interface SocketRoomPayload {
   roomCode: string;
@@ -31,7 +31,6 @@ interface SocketRoomPayload {
 
 export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) {
   const router = useRouter();
-  const { isLoaded, isSignedIn } = useAuth();
   const setBattleInitData = useBattleStore((state) => state.setBattleInitData);
 
   const [room, setRoom] = useState<Room | null>(initialRoomData || null);
@@ -86,7 +85,7 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
 
   // 1. Connection & Join logic
   useEffect(() => {
-    const hasAuth = (isLoaded && Boolean(isSignedIn)) || isGuestSessionActive();
+    const hasAuth = isNativeAuthActive() || isGuestSessionActive();
     if (!hasAuth || !roomCode) return;
 
     let active = true;
@@ -185,7 +184,7 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
         socket.off("error", handleSocketError);
       }
     };
-  }, [isLoaded, isSignedIn, roomCode, mapPayloadToRoom, navigateToBattle, setBattleInitData]);
+  }, [roomCode, mapPayloadToRoom, navigateToBattle, setBattleInitData]);
 
   // Actions
   const toggleReady = useCallback(

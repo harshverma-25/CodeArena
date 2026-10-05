@@ -20,9 +20,13 @@ const envSchema = z.object({
     errorMap: () => ({ message: 'NODE_ENV must be development, production, or test' }),
   }),
   MONGODB_URI: z.string().min(1, 'MONGODB_URI is required'),
-  CLERK_SECRET_KEY: z.string().min(1, 'CLERK_SECRET_KEY is required'),
-  CLERK_PUBLISHABLE_KEY: z.string().min(1, 'CLERK_PUBLISHABLE_KEY is required'),
-  GUEST_JWT_SECRET: z.string().default(process.env.GUEST_JWT_SECRET || process.env.CLERK_SECRET_KEY || 'codearena_secure_guest_jwt_secret_key_32_bytes_min'),
+  CLERK_SECRET_KEY: z.string().optional(),
+  CLERK_PUBLISHABLE_KEY: z.string().optional(),
+  GUEST_JWT_SECRET: z.string().default(process.env.GUEST_JWT_SECRET || 'codearena_secure_guest_jwt_secret_key_32_bytes_min'),
+  JWT_ACCESS_SECRET: z.string().default(process.env.JWT_ACCESS_SECRET || process.env.GUEST_JWT_SECRET || 'codearena_secure_access_jwt_secret_key_32_bytes_min'),
+  JWT_REFRESH_SECRET: z.string().default(process.env.JWT_REFRESH_SECRET || 'codearena_secure_refresh_jwt_secret_key_32_bytes_min'),
+  JWT_ACCESS_EXPIRES_IN: z.string().default(process.env.JWT_ACCESS_EXPIRES_IN || '900'), // 15 mins (in seconds)
+  JWT_REFRESH_EXPIRES_IN: z.string().default(process.env.JWT_REFRESH_EXPIRES_IN || '604800'), // 7 days (in seconds)
 });
 
 const result = envSchema.safeParse(process.env);

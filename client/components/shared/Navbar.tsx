@@ -2,33 +2,59 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useAuth, UserButton } from "@clerk/nextjs";
+import { usePathname, useRouter } from "next/navigation";
 import { useBattleStore } from "@/store/battleStore";
 import { cn } from "@/lib/utils";
-import { Terminal, Shield, Trophy, Activity, History as HistoryIcon, Layers, User as UserIcon, LogOut } from "lucide-react";
+import { Shield, Trophy, Activity, History as HistoryIcon, Layers, User as UserIcon, LogOut } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { getGuestUser, clearGuestSession } from "@/features/auth/guestAuth";
+import { clearNativeSession, getNativeUser } from "@/features/auth/nativeAuth";
+import { useApiClient } from "@/hooks/useApiClient";
 import { User } from "@/types";
 
 export function Navbar() {
   const pathname = usePathname();
-  const { isSignedIn } = useAuth();
+  const router = useRouter();
+  const api = useApiClient();
+  const { data: currentUser } = useCurrentUser();
   const isSocketConnected = useBattleStore((state) => state.isSocketConnected);
+
+  const [nativeUser, setNativeUser] = useState<User | null>(() => {
+    if (typeof window === "undefined") return null;
+    return getNativeUser();
+  });
+
   const [guestUser, setGuestUser] = useState<User | null>(() => {
     if (typeof window === "undefined") return null;
     return getGuestUser();
   });
 
   useEffect(() => {
-    const handleAuthChange = () => {
-      setGuestUser(getGuestUser());
-    };
-    window.addEventListener("codearena:guest-auth-change", handleAuthChange);
+    const handleNativeChange = () => setNativeUser(getNativeUser());
+    const handleGuestChange = () => setGuestUser(getGuestUser());
+
+    window.addEventListener("codearena:native-auth-change", handleNativeChange);
+    window.addEventListener("codearena:guest-auth-change", handleGuestChange);
     return () => {
-      window.removeEventListener("codearena:guest-auth-change", handleAuthChange);
+      window.removeEventListener("codearena:native-auth-change", handleNativeChange);
+      window.removeEventListener("codearena:guest-auth-change", handleGuestChange);
     };
   }, []);
+
+  const activeUser = currentUser || nativeUser || guestUser;
+  const isGuest = Boolean(activeUser?.isGuest || (activeUser as any)?.type === "guest");
+
+  const handleLogout = async () => {
+    try {
+      await api.post("/auth/logout");
+    } catch {
+      // Ignore logout errors
+    }
+    clearNativeSession();
+    clearGuestSession();
+    router.push("/");
+  };
 
   const navLinks = [
     { href: "/dashboard", label: "Arena", icon: Layers },
@@ -94,30 +120,40 @@ export function Navbar() {
           </div>
 
           {/* Authentication State */}
-          {isSignedIn ? (
+          {activeUser && !isGuest ? (
             <div className="flex items-center gap-3">
-              <UserButton
-                appearance={{
-                  elements: {
-                    avatarBox: "h-9 w-9 rounded-md border border-border hover:opacity-90 transition-opacity",
-                  },
-                }}
-              />
+              <Link href="/profile" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <img
+                  src={activeUser.avatar || `https://api.dicebear.com/7.x/bottts/svg?seed=${activeUser.username}`}
+                  alt={activeUser.displayName || activeUser.username}
+                  className="h-9 w-9 rounded-full border border-border object-cover bg-muted"
+                />
+                <span className="hidden sm:inline-block text-sm font-semibold max-w-[120px] truncate">
+                  {activeUser.displayName || activeUser.username}
+                </span>
+              </Link>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleLogout}
+                className="h-8 text-xs text-muted-foreground hover:text-foreground cursor-pointer"
+                title="Log out"
+              >
+                <LogOut className="h-3.5 w-3.5 mr-1" />
+                Logout
+              </Button>
             </div>
-          ) : guestUser ? (
+          ) : activeUser && isGuest ? (
             <div className="flex items-center gap-2 sm:gap-3">
               <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-500 text-xs font-semibold">
                 <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
-                <span className="max-w-[110px] truncate">{guestUser.displayName || guestUser.username}</span>
+                <span className="max-w-[110px] truncate">{activeUser.displayName || activeUser.username}</span>
                 <span className="text-[10px] uppercase font-mono px-1 py-0.5 bg-amber-500/20 rounded text-amber-400">Guest</span>
               </div>
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => {
-                  clearGuestSession();
-                  window.location.href = "/";
-                }}
+                onClick={handleLogout}
                 className="h-8 text-xs text-muted-foreground hover:text-foreground cursor-pointer"
                 title="Exit guest mode"
               >

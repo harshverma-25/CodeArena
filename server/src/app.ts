@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import { clerkMiddleware } from '@clerk/express';
 import { requestLogger } from './middleware/request-logger.middleware.js';
 import { errorHandler } from './middleware/error.middleware.js';
 import { notFoundHandler } from './middleware/not-found.middleware.js';
@@ -49,9 +48,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Request logging middleware
 app.use(requestLogger);
-
-// Global Clerk middleware for parsing authentication headers
-app.use(clerkMiddleware());
 
 // Health check endpoint
 const getHealthStatus = () => {

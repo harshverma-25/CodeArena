@@ -249,7 +249,7 @@ async function runCategorySubjectVerificationSuite() {
     const catRoom = await roomService.createRoom(testHost._id.toString(), {
       categoryId: 'programming',
       subjectId: 'dsa',
-      questionCount: 2,
+      questionCount: 10,
     });
 
     await roomService.joinRoom(p2._id.toString(), catRoom.roomCode);

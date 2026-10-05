@@ -1,9 +1,9 @@
 import { Server as HttpServer } from 'http';
 import { Server, Socket } from 'socket.io';
-import { verifyToken } from '@clerk/express';
 import { env } from '../config/env.js';
 import { logger } from '../config/logger.js';
 import { userService } from '../modules/user/user.service.js';
+import { UserModel } from '../modules/user/user.model.js';
 import { authService } from '../modules/auth/auth.service.js';
 import { registerRoomHandlers } from './room.socket.js';
 import { registerBattleHandlers } from './battle.socket.js';
@@ -28,17 +28,36 @@ export const socketAuthMiddleware = async (socket: Socket, next: (err?: Error) =
       return next(new Error('Authentication error: Token missing'));
     }
 
-    // 1. Verify backend-issued Guest JWT
-    const guestPayload = authService.verifyGuestToken(token);
-    if (guestPayload) {
-      const guestUser = await userService.getUserByClerkId(guestPayload.guestId);
-      if (guestUser && guestUser.isGuest) {
-        socket.data.user = guestUser;
+    // 1. Native Access Token
+    const accessPayload = authService.verifyAccessToken(token);
+    if (accessPayload && accessPayload.sub) {
+      const dbUser = await UserModel.findById(accessPayload.sub);
+      if (dbUser) {
+        socket.data.user = dbUser;
         return next();
       }
     }
 
-    // 2. Automated test suite bypass strictly in NODE_ENV === 'test'
+    // 2. Guest JWT Token
+    const guestPayload = authService.verifyGuestToken(token);
+    if (guestPayload) {
+      if (guestPayload.sub) {
+        const guestUser = await UserModel.findById(guestPayload.sub);
+        if (guestUser) {
+          socket.data.user = guestUser;
+          return next();
+        }
+      }
+      if (guestPayload.guestId) {
+        const guestUser = await userService.getUserByClerkId(guestPayload.guestId);
+        if (guestUser && guestUser.isGuest) {
+          socket.data.user = guestUser;
+          return next();
+        }
+      }
+    }
+
+    // 3. Automated test suite bypass strictly in NODE_ENV === 'test'
     if (env.NODE_ENV === 'test' && token.startsWith('mock_test_token_')) {
       const clerkId = token.replace('mock_test_token_', '');
       const dbUser = await userService.getOrCreateUser(clerkId);
@@ -46,26 +65,7 @@ export const socketAuthMiddleware = async (socket: Socket, next: (err?: Error) =
       return next();
     }
 
-    // Verify token using Clerk
-    const decoded = await verifyToken(token, {
-      secretKey: env.CLERK_SECRET_KEY,
-    });
-
-    const clerkId = decoded.sub;
-    if (!clerkId) {
-      return next(new Error('Authentication error: Invalid token payload'));
-    }
-
-    // Retrieve or auto-sync database user
-    const dbUser = await userService.getOrCreateUser(clerkId);
-    if (!dbUser) {
-      return next(new Error('Authentication error: User sync failed'));
-    }
-
-    // Attach user to socket data
-    socket.data.user = dbUser;
-
-    next();
+    return next(new Error('Authentication error: Invalid or expired token'));
   } catch (error: any) {
     logger.error(error, 'Socket authentication failed');
     next(new Error(`Authentication error: ${error.message || 'Invalid token'}`));

@@ -2,13 +2,14 @@
 
 import React from "react";
 import Link from "next/link";
-import { useAuth } from "@clerk/nextjs";
 import { ArrowRight, Trophy, Swords } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 
 export function FinalCta() {
-  const { isSignedIn } = useAuth();
+  const { data: currentUser } = useCurrentUser();
+  const isSignedIn = Boolean(currentUser);
 
   return (
     <section className="w-full py-24 border-b border-border bg-background">

@@ -4,6 +4,7 @@ export interface User {
   clerkId: string;
   username: string;
   displayName: string;
+  email?: string;
   avatar: string;
   matchesPlayed: number;
   wins: number;

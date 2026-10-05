@@ -1,97 +1,68 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { useAuth } from "@clerk/nextjs";
+import React, { useEffect, useState } from "react";
 import { socketManager } from "@/lib/socket";
 import { useBattleStore } from "@/store/battleStore";
 import { getGuestToken, isGuestSessionActive } from "@/features/auth/guestAuth";
+import { getAccessToken, isNativeAuthActive } from "@/features/auth/nativeAuth";
 
 export function SocketProvider({ children }: { children: React.ReactNode }) {
-  const { getToken, isSignedIn } = useAuth();
   const setSocketConnected = useBattleStore((state) => state.setSocketConnected);
-  const [guestActive, setGuestActive] = useState<boolean>(() => {
+  const [authed, setAuthed] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
-    return isGuestSessionActive();
+    return isNativeAuthActive() || isGuestSessionActive();
   });
 
   useEffect(() => {
-    const handleGuestAuthChange = () => {
-      setGuestActive(isGuestSessionActive());
+    const handleAuthChange = () => {
+      setAuthed(isNativeAuthActive() || isGuestSessionActive());
     };
 
-    window.addEventListener("codearena:guest-auth-change", handleGuestAuthChange);
+    window.addEventListener("codearena:native-auth-change", handleAuthChange);
+    window.addEventListener("codearena:guest-auth-change", handleAuthChange);
     return () => {
-      window.removeEventListener("codearena:guest-auth-change", handleGuestAuthChange);
+      window.removeEventListener("codearena:native-auth-change", handleAuthChange);
+      window.removeEventListener("codearena:guest-auth-change", handleAuthChange);
     };
   }, []);
-  
-  const getTokenRef = useRef(getToken);
-  useEffect(() => {
-    getTokenRef.current = getToken;
-  }, [getToken]);
 
   useEffect(() => {
     let active = true;
-    const isAuthed = Boolean(isSignedIn || guestActive);
 
-    if (!isAuthed) {
+    if (!authed) {
       socketManager.disconnect();
       setSocketConnected(false);
       return;
     }
 
-    const initSocket = async () => {
-      try {
-        let token: string | null = null;
-        if (isSignedIn) {
-          token = await getTokenRef.current();
-        } else if (guestActive) {
-          token = getGuestToken();
-        }
+    const token = getAccessToken() || getGuestToken();
+    if (!token) return;
 
-        if (!token || !active) return;
+    const socket = socketManager.connect(token);
 
-        const socket = socketManager.connect(token);
-
-        const handleConnect = () => {
-          if (active) setSocketConnected(true);
-        };
-
-        const handleDisconnect = () => {
-          if (active) setSocketConnected(false);
-        };
-
-        socket.on("connect", handleConnect);
-        socket.on("disconnect", handleDisconnect);
-
-        // Sync initial state
-        if (socket.connected) {
-          setSocketConnected(true);
-        }
-
-        return () => {
-          socket.off("connect", handleConnect);
-          socket.off("disconnect", handleDisconnect);
-        };
-      } catch (error) {
-        console.error("🔌 Failed to initialize Socket.IO connection:", error);
-      }
+    const handleConnect = () => {
+      if (active) setSocketConnected(true);
     };
 
-    let cleanupFn: (() => void) | undefined;
-    initSocket().then((cleanup) => {
-      if (cleanup) cleanupFn = cleanup;
-    });
+    const handleDisconnect = () => {
+      if (active) setSocketConnected(false);
+    };
+
+    socket.on("connect", handleConnect);
+    socket.on("disconnect", handleDisconnect);
+
+    if (socket.connected) {
+      setSocketConnected(true);
+    }
 
     return () => {
       active = false;
-      if (cleanupFn) {
-        cleanupFn();
-      }
+      socket.off("connect", handleConnect);
+      socket.off("disconnect", handleDisconnect);
       socketManager.disconnect();
       setSocketConnected(false);
     };
-  }, [isSignedIn, guestActive, setSocketConnected]);
+  }, [authed, setSocketConnected]);
 
   return <>{children}</>;
 }
