@@ -224,7 +224,7 @@ export default function MultiplayerLobbyPage() {
               Initializing Live Arena
             </div>
             <h2 className="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
-              Battle Commencing!
+              Quiz Commencing!
             </h2>
             <p className="font-body-md text-body-md text-on-surface-variant">
               Synchronizing question queue and preparing server timer...
@@ -378,7 +378,7 @@ export default function MultiplayerLobbyPage() {
                   </div>
                   <p className="font-body-sm text-body-sm text-on-surface-variant max-w-xs">
                     Open on any mobile browser or desktop to jump straight into this
-                    match.
+                    quiz.
                   </p>
                   <button
                     className="mt-space-xs flex items-center gap-space-xs px-space-md py-2 bg-[#f9f3ea] hover:bg-[#f3ede4] text-[#317a63] rounded-full font-label-md text-label-md transition-all active:scale-95 shadow-sm border border-[#ede7de] cursor-pointer font-semibold"
@@ -522,7 +522,7 @@ export default function MultiplayerLobbyPage() {
                           {name}
                         </span>
                         <span className="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
-                          {isPlayerHost ? "Room Admin" : `Challenger #${index + 1}`}
+                          {isPlayerHost ? "Room Admin" : `Player #${index + 1}`}
                         </span>
 
                         <div className="mt-auto inline-flex items-center gap-1.5 px-space-md py-1 bg-[#e8f5ee] text-[#317a63] border border-[#d2eadc] font-label-sm text-label-sm rounded-full font-bold">
@@ -571,7 +571,7 @@ export default function MultiplayerLobbyPage() {
                     </>
                   ) : (
                     <span className="font-body-sm text-body-sm text-[#317a63] font-bold">
-                      Full 4-player party assembled! Ready for match.
+                      Full 4-player party assembled! Ready for quiz.
                     </span>
                   )}
                 </div>
@@ -592,7 +592,7 @@ export default function MultiplayerLobbyPage() {
                   >
                     play_arrow
                   </span>
-                  <span>{isStarting ? "Launching Quiz Arena..." : "Start game"}</span>
+                  <span>{isStarting ? "Launching Quiz Arena..." : "Start Quiz"}</span>
                 </button>
 
                 {/* Host Permission Notice */}
@@ -611,7 +611,7 @@ export default function MultiplayerLobbyPage() {
                         <strong className="text-on-surface font-bold">
                           {hostDisplayName}
                         </strong>
-                        ) can start the game
+                        ) can start the quiz
                       </>
                     )}
                   </span>

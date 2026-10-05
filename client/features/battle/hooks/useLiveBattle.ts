@@ -60,7 +60,7 @@ export function useLiveBattle(roomCode: string) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [potentialScore, setPotentialScore] = useState<number>(1000);
   const [lockedScore, setLockedScore] = useState<number | null>(null);
-  const [timeRemaining, setTimeRemaining] = useState<number>(15);
+  const [timeRemaining, setTimeRemaining] = useState<number>(30);
   const [timerPercent, setTimerPercent] = useState<number>(100);
   const [isRevealed, setIsRevealed] = useState(false);
   const [revealData, setRevealData] = useState<BattleRevealPayload | null>(null);
@@ -89,7 +89,7 @@ export function useLiveBattle(roomCode: string) {
         topic: payload.topic,
         difficulty: payload.difficulty,
         questionCount: payload.questionCount,
-        timePerQuestion: payload.timePerQuestion || 15,
+        timePerQuestion: payload.timePerQuestion || 30,
         currentQuestionIndex: payload.currentQuestionIndex,
         currentQuestion: payload.currentQuestion,
         roundStartedAt: startedAt,
@@ -303,7 +303,7 @@ export function useLiveBattle(roomCode: string) {
       return;
     }
 
-    const totalDurationSec = battle.timePerQuestion || 15;
+    const totalDurationSec = battle.timePerQuestion || 30;
     const totalDurationMs = totalDurationSec * 1000;
     const startedAt = battle.roundStartedAt;
 

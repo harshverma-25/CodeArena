@@ -85,7 +85,11 @@ export interface IBattleResultDetails {
   isDraw: boolean;
   startedAt: Date | string;
   endedAt?: Date | string;
-  duration: number; // in seconds
+  duration: number;
+  categoryId?: string;
+  subjectId?: string | null;
+  isMixedCategory?: boolean;
+  rankings?: any[];
   players: IBattleResultPlayer[];
   userPlayer: IBattleResultPlayer;
   opponentPlayer: IBattleResultPlayer | null;

@@ -23,6 +23,10 @@ export function formatRoomSocketPayload(room: any) {
       difficulty: room.settings.difficulty,
       duration: room.settings.duration,
       questionCount: room.settings.questionCount || 10,
+      categoryId: room.settings.categoryId,
+      subjectId: room.settings.subjectId,
+      isMixedCategory: room.settings.isMixedCategory,
+      timeLimit: room.settings.timeLimit,
     },
     status: room.status,
   };

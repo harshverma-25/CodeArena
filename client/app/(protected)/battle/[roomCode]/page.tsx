@@ -20,7 +20,6 @@ import {
 } from "lucide-react";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { useLiveBattle } from "@/features/battle/hooks/useLiveBattle";
-import { BattleResultsModal } from "@/features/battle/components/BattleResultsModal";
 
 const OPTION_LETTERS = ["A", "B", "C", "D"];
 
@@ -64,7 +63,7 @@ export default function LiveBattlePage() {
           Entering Quiz Arena
         </h2>
         <p className="text-sm text-[#3f4944] font-mono mt-1">
-          Synchronizing match with room {roomCode}...
+          Synchronizing quiz with room {roomCode}...
         </p>
       </div>
     );
@@ -81,7 +80,7 @@ export default function LiveBattlePage() {
           <h3 className="text-2xl font-black text-[#1d1b16]">Quiz Session Unavailable</h3>
           <p className="text-sm text-[#3f4944] leading-relaxed">
             {errorMessage ||
-              "Unable to connect to this live battle. The room may have ended or the PIN is invalid."}
+              "Unable to connect to this live quiz. The room may have ended or the PIN is invalid."}
           </p>
           <div className="flex gap-3 justify-center pt-2">
             <button
@@ -141,11 +140,6 @@ export default function LiveBattlePage() {
 
   return (
     <div className="bg-[#fff8f0] min-h-screen text-[#1d1b16] flex flex-col font-sans antialiased selection:bg-[#317a63]/20">
-      {/* Results Modal when match completes */}
-      {status === "completed" && results && (
-        <BattleResultsModal results={results} currentUserId={myId} />
-      )}
-
       {/* TOP HEADER: Frosted Glass Bar matching Stitch design */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#fff8f0]/90 backdrop-blur-xl border-b border-[#ede7de] shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
         <div className="h-16 w-full max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between gap-4">
@@ -156,7 +150,7 @@ export default function LiveBattlePage() {
             </div>
             <div className="hidden sm:flex items-center gap-1.5 bg-[#f3ede4] px-3 py-1 rounded-full text-[#317a63] font-bold text-xs uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-[#317a63] animate-pulse" />
-              <span>Live Match</span>
+              <span>Live Quiz</span>
             </div>
             <div className="hidden md:flex items-center gap-1.5 bg-white border border-[#ede7de] px-3 py-1 rounded-full shadow-sm">
               <span className="text-xs font-semibold text-[#3f4944]">PIN</span>
@@ -197,12 +191,12 @@ export default function LiveBattlePage() {
             <button
               type="button"
               onClick={() => {
-                if (window.confirm("Leave this active quiz match? Your progress will be forfeited.")) {
+                if (window.confirm("Leave this active quiz? Your progress will be forfeited.")) {
                   router.push("/dashboard");
                 }
               }}
               className="flex items-center gap-1 bg-[#fbeae7] hover:bg-[#f8ded8] text-[#9f2b1d] border border-[#f4c8c0] px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 shadow-sm"
-              title="Leave Match"
+              title="Leave Quiz"
             >
               <LogOut className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Leave</span>
@@ -225,7 +219,7 @@ export default function LiveBattlePage() {
             <div className="flex items-center gap-2.5 flex-wrap">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f5ee] text-[#317a63] font-bold text-xs uppercase tracking-wider border border-[#d2eadc]">
                 <span className="w-2 h-2 rounded-full bg-[#317a63] animate-pulse" />
-                Live Match
+                Live Quiz
               </span>
               <span className="text-xl sm:text-2xl font-extrabold text-[#1d1b16] tracking-tight">
                 {battle?.topic || "Technical Quiz"}
@@ -235,7 +229,7 @@ export default function LiveBattlePage() {
               </span>
               <span className="px-3 py-1 rounded-full bg-[#d9e2ff] text-xs font-bold text-[#003275]">
                 {battle?.difficulty ? `${battle.difficulty.toUpperCase()} • ` : ""}
-                {battle?.timePerQuestion || 15}s limit
+                {battle?.timePerQuestion || 30}s limit
               </span>
             </div>
 
@@ -252,7 +246,7 @@ export default function LiveBattlePage() {
           {/* Question Progress Bar Strip */}
           <div className="flex flex-col gap-1.5">
             <div className="flex justify-between items-center text-xs font-medium text-[#3f4944]">
-              <span>Match Progress ({matchProgressPct}%)</span>
+              <span>Quiz Progress ({matchProgressPct}%)</span>
               <span className="font-bold text-[#1d1b16]">
                 Question {currentQNumber} / {totalQuestions}
               </span>
@@ -666,7 +660,7 @@ export default function LiveBattlePage() {
                 {/* Match Accuracy Metric */}
                 <div className="pt-2 border-t border-[#ede7de] flex flex-col gap-1.5">
                   <div className="flex justify-between items-center text-xs font-semibold">
-                    <span className="text-[#3f4944]">Match Accuracy (Round {currentQNumber})</span>
+                    <span className="text-[#3f4944]">Round Accuracy (Round {currentQNumber})</span>
                     <span className="text-[#317a63] font-bold">
                       {revealData.accuracyPct}% ({revealData.correctCount} of {revealData.totalPlayers}{" "}
                       correct)

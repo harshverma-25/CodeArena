@@ -252,6 +252,21 @@ export interface BattleResultDetails {
   startedAt: string;
   endedAt?: string;
   duration: number; // in seconds
+  categoryId?: string;
+  subjectId?: string | null;
+  isMixedCategory?: boolean;
+  rankings?: Array<{
+    userId: string;
+    username: string;
+    displayName: string;
+    avatar: string;
+    totalScore: number;
+    rank: number;
+    correctAnswers: number;
+    incorrectAnswers: number;
+    unanswered: number;
+    accuracy: number;
+  }>;
   players: BattleResultPlayerDetails[];
   userPlayer: BattleResultPlayerDetails;
   opponentPlayer: BattleResultPlayerDetails | null;

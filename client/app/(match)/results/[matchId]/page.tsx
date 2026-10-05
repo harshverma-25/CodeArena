@@ -76,11 +76,11 @@ export default function MatchResultsPage() {
           </div>
           <div className="space-y-1.5">
             <h3 className="text-xl font-bold text-[#1d1b16]">
-              {isForbidden ? "Access Restricted" : "Battle Results Unavailable"}
+              {isForbidden ? "Access Restricted" : "Quiz Results Unavailable"}
             </h3>
             <p className="text-xs text-[#3f4944] leading-relaxed">
               {error?.message ||
-                "Unable to retrieve battle performance report. Please verify your permissions or try again."}
+                "Unable to retrieve quiz performance report. Please verify your permissions or try again."}
             </p>
           </div>
           <div className="flex gap-3 justify-center pt-2 text-xs font-semibold">
@@ -171,13 +171,16 @@ export default function MatchResultsPage() {
       setIsCreatingRoom(true);
       const newRoom = await createRoom.mutateAsync({
         topic: results.topic,
+        categoryId: results.categoryId,
+        subjectId: results.isMixedCategory ? null : results.subjectId,
+        isMixedCategory: Boolean(results.isMixedCategory),
         difficulty: (results.difficulty as any) || "Easy",
-        duration: 15,
+        duration: results.timePerQuestion || 30,
         questionCount: results.questionCount,
       });
       router.push(`/lobby/${newRoom.roomCode}`);
     } catch (err: any) {
-      alert(err.message || "Failed to create new game room.");
+      alert(err.message || "Failed to create new quiz room.");
     } finally {
       setIsCreatingRoom(false);
     }
@@ -495,7 +498,7 @@ export default function MatchResultsPage() {
                 </h2>
                 <p className="text-xs sm:text-sm text-[#3f4944]">
                   {myPlayer.displayName || myPlayer.username} •{" "}
-                  {myPlayer.isWinner ? "1st Place Victory Analytics" : "Match Performance Breakdown"}
+                  {myPlayer.isWinner ? "1st Place Victory Analytics" : "Quiz Performance Breakdown"}
                 </p>
               </div>
               <span className="inline-flex items-center gap-1 text-xs font-bold text-[#10614b]">
@@ -591,7 +594,7 @@ export default function MatchResultsPage() {
               <div>
                 <h3 className="text-lg font-bold text-[#1d1b16]">Question Breakdown</h3>
                 <p className="text-xs text-[#3f4944]">
-                  Step-by-step audit of all {myPlayer.totalQuestions} round results for your match
+                  Step-by-step audit of all {myPlayer.totalQuestions} round results for your quiz
                 </p>
               </div>
 

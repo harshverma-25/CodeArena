@@ -11,6 +11,7 @@ import {
 import { ApiError } from '../../shared/errors/api-error.js';
 import { IQuestionDocument } from '../question/question.types.js';
 import { BattleModel } from '../battle/battle.model.js';
+import { roomRepository } from '../room/room.repository.js';
 import { Types } from 'mongoose';
 
 export class HistoryService {
@@ -264,6 +265,30 @@ export class HistoryService {
     const endedMs = battle.endedAt ? new Date(battle.endedAt).getTime() : Date.now();
     const duration = startedMs > 0 ? Math.max(0, Math.floor((endedMs - startedMs) / 1000)) : 0;
 
+    // Retrieve associated room settings for category/subject context
+    const room = await roomRepository.findByRoomCode(battle.roomCode);
+
+    // Compute dynamic player rankings for 1..4 players
+    const sortedPlayers = [...formattedPlayers].sort((a, b) => b.score - a.score);
+    let currentRank = 1;
+    const rankings = sortedPlayers.map((p, index) => {
+      if (index > 0 && p.score < sortedPlayers[index - 1].score) {
+        currentRank = index + 1;
+      }
+      return {
+        userId: p.userId,
+        username: p.username,
+        displayName: p.displayName,
+        avatar: p.avatar,
+        totalScore: p.score,
+        rank: currentRank,
+        correctAnswers: p.correctCount,
+        incorrectAnswers: p.incorrectCount,
+        unanswered: p.unansweredCount,
+        accuracy: p.totalQuestions > 0 ? Math.round((p.correctCount / p.totalQuestions) * 100) : 0,
+      };
+    });
+
     return {
       battleId: battle._id.toString(),
       roomCode: battle.roomCode,
@@ -277,6 +302,10 @@ export class HistoryService {
       startedAt: battle.startedAt,
       endedAt: battle.endedAt,
       duration,
+      categoryId: room?.settings?.categoryId,
+      subjectId: room?.settings?.subjectId,
+      isMixedCategory: room?.settings?.isMixedCategory,
+      rankings,
       players: formattedPlayers,
       userPlayer,
       opponentPlayer,

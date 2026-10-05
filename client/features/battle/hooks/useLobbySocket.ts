@@ -24,6 +24,10 @@ interface SocketRoomPayload {
     difficulty: string;
     duration: number;
     questionCount?: number;
+    categoryId?: string;
+    subjectId?: string | null;
+    isMixedCategory?: boolean;
+    timeLimit?: number;
   };
   status: RoomStatusType;
 }
@@ -66,6 +70,10 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
         difficulty: payload.settings.difficulty,
         duration: payload.settings.duration,
         questionCount: payload.settings.questionCount || 10,
+        categoryId: payload.settings.categoryId,
+        subjectId: payload.settings.subjectId,
+        isMixedCategory: payload.settings.isMixedCategory,
+        timeLimit: payload.settings.timeLimit,
       },
       topic: payload.settings.topic,
       difficulty: payload.settings.difficulty,
