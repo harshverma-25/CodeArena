@@ -601,7 +601,7 @@ export default function StitchHomePage() {
                               {item.difficulty || "Standard"}
                             </span>
                             <button
-                              onClick={() => router.push(`/history/battles/${item._id}`)}
+                              onClick={() => router.push(`/results/${item._id}`)}
                               className="px-5 py-2 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-bold transition-all shadow-sm cursor-pointer"
                               type="button"
                             >

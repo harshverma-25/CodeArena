@@ -94,7 +94,7 @@ export function RecentBattles() {
 
           <div className="flex gap-3">
             <Link
-              href="/battle/new"
+              href="/"
               className={buttonVariants({ variant: "primary", className: "cursor-pointer text-xs font-mono" })}
             >
               Start Battle

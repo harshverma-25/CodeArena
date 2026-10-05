@@ -149,7 +149,7 @@ export function MatchHistoryTable() {
           <p className="text-sm text-muted-foreground max-w-sm mb-6">
             You haven&apos;t completed any MCQ coding battles yet. Host a battle or join one to test your speed!
           </p>
-          <Link href="/battle/new" className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-xs font-semibold text-primary-foreground hover:bg-primary/95 transition-colors font-mono">
+          <Link href="/" className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-xs font-semibold text-primary-foreground hover:bg-primary/95 transition-colors font-mono">
             Start a Battle
           </Link>
         </div>

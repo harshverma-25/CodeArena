@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import { requestLogger } from './middleware/request-logger.middleware.js';
 import { errorHandler } from './middleware/error.middleware.js';
 import { notFoundHandler } from './middleware/not-found.middleware.js';
@@ -36,9 +37,12 @@ app.use(rateLimiter);
 
 // Enable Cross-Origin Resource Sharing
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
+  origin: process.env.CORS_ORIGIN && process.env.CORS_ORIGIN !== '*' ? process.env.CORS_ORIGIN : true,
   credentials: true,
 }));
+
+// Parse Cookie headers for HttpOnly auth tokens
+app.use(cookieParser());
 
 // Parse incoming JSON payloads
 app.use(express.json());
@@ -102,4 +106,5 @@ app.use(notFoundHandler);
 // Centralized error handling middleware
 app.use(errorHandler);
 
+export { app };
 export default app;

@@ -153,7 +153,7 @@ export function BattleResultsModal({ results, currentUserId }: BattleResultsModa
               Dashboard
             </Button>
             <Button
-              onClick={() => router.push("/battle/new")}
+              onClick={() => router.push("/")}
               variant="outline"
               className="border border-border text-foreground hover:bg-secondary/40 h-10 text-xs font-bold uppercase tracking-wider cursor-pointer font-mono"
             >

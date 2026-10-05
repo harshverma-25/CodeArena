@@ -127,7 +127,7 @@ export function BattleResultsHeader({ results }: BattleResultsHeaderProps) {
             Dashboard
           </Link>
           <Link
-            href="/battle/new"
+            href="/"
             className="inline-flex h-10 items-center gap-1.5 rounded-xl bg-primary px-4 text-xs font-bold text-primary-foreground hover:bg-primary/90 transition-colors font-mono cursor-pointer shadow-md shadow-primary/15"
           >
             <RotateCcw className="h-4 w-4" />

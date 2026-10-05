@@ -316,7 +316,7 @@ async function runEndToEndProductFlowVerification() {
     const rematchRoom = await roomService.createRoom(regUser._id.toString(), {
       topic: results4p.topic,
       categoryId: results4p.categoryId,
-      subjectId: results4p.subjectId,
+      subjectId: results4p.subjectId || undefined,
       isMixedCategory: results4p.isMixedCategory,
       questionCount: results4p.questionCount,
       duration: results4p.timePerQuestion,

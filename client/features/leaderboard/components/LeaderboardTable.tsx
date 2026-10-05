@@ -176,7 +176,7 @@ export function LeaderboardTable() {
           <p className="text-sm text-muted-foreground max-w-sm mb-6">
             Be the first contender to play and claim rank 1 on the global leaderboard!
           </p>
-          <Link href="/battle/new" className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-xs font-semibold text-primary-foreground hover:bg-primary/95 transition-colors font-mono">
+          <Link href="/" className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-xs font-semibold text-primary-foreground hover:bg-primary/95 transition-colors font-mono">
             Start a Battle
           </Link>
         </div>
