@@ -3,15 +3,14 @@ import { userRepository } from './user.repository.js';
 import { IUserDocument, IUser, ILeaderboardResponse, ILeaderboardEntry, IPublicUserProfile } from './user.types.js';
 import { AppError } from '../../shared/errors/api-error.js';
 
-import { UserModel } from './user.model.js';
 import { Types } from 'mongoose';
-import { BattleModel } from '../battle/battle.model.js';
+import { battleRepository } from '../battle/battle.repository.js';
 import { BattleStatus } from '../battle/battle.types.js';
 
 export class UserService {
   async getOrCreateUser(clerkId: string): Promise<IUserDocument> {
     if (Types.ObjectId.isValid(clerkId)) {
-      const byId = await UserModel.findById(clerkId);
+      const byId = await userRepository.findById(clerkId);
       if (byId) return byId;
     }
 
@@ -76,7 +75,7 @@ export class UserService {
 
     let user: IUserDocument | null = null;
     if (Types.ObjectId.isValid(userIdOrClerkId)) {
-      user = await UserModel.findByIdAndUpdate(userIdOrClerkId, allowedUpdates, { new: true });
+      user = await userRepository.updateById(userIdOrClerkId, allowedUpdates);
     }
     if (!user) {
       user = await userRepository.updateByClerkId(userIdOrClerkId, allowedUpdates);
@@ -105,14 +104,11 @@ export class UserService {
     const matchesPlayed = user.matchesPlayed || 0;
     const username = user.username;
 
-    const higherRankCount = await UserModel.countDocuments({
-      isGuest: { $ne: true },
-      $or: [
-        { wins: { $gt: wins } },
-        { wins, accuracy: { $gt: accuracy } },
-        { wins, accuracy, matchesPlayed: { $gt: matchesPlayed } },
-        { wins, accuracy, matchesPlayed, username: { $lt: username } },
-      ],
+    const higherRankCount = await userRepository.countHigherRankedUsers({
+      wins,
+      accuracy,
+      matchesPlayed,
+      username,
     });
 
     return higherRankCount + 1;
@@ -129,19 +125,8 @@ export class UserService {
     const limit = Math.min(100, Math.max(1, options.limit || 10));
     const skip = (page - 1) * limit;
 
-    const filter = { isGuest: { $ne: true } };
-
-    // Parallel count and indexed projection query
-    const [total, users] = await Promise.all([
-      UserModel.countDocuments(filter),
-      UserModel.find(filter)
-        .sort({ wins: -1, accuracy: -1, matchesPlayed: -1, username: 1 })
-        .skip(skip)
-        .limit(limit)
-        .select('_id username displayName avatar wins losses draws matchesPlayed totalCorrect totalQuestions accuracy')
-        .lean()
-        .exec(),
-    ]);
+    // Parallel count and indexed projection query via repository
+    const { total, users } = await userRepository.findLeaderboard({ skip, limit });
 
     const leaderboard: ILeaderboardEntry[] = users.map((u, index) => {
       const uIdStr = u._id.toString();
@@ -169,7 +154,7 @@ export class UserService {
       if (inPageEntry) {
         currentUserRank = inPageEntry;
       } else {
-        const currentUserDoc = await UserModel.findById(currentUserId).lean();
+        const currentUserDoc = await userRepository.findById(currentUserId);
         if (currentUserDoc && !currentUserDoc.isGuest) {
           const rank = await this.calculateUserRank(currentUserDoc);
           currentUserRank = {
@@ -216,16 +201,7 @@ export class UserService {
     const rankPromise = this.calculateUserRank(user);
 
     // 2. Fetch only the 10 most recent completed battles for this user (indexed query)
-    const recentBattlesPromise = BattleModel.find({
-      'players.userId': user._id,
-      status: BattleStatus.COMPLETED,
-    })
-      .sort({ endedAt: -1, startedAt: -1 })
-      .limit(10)
-      .populate('players.userId', 'username displayName avatar')
-      .populate('winnerId', 'username displayName avatar')
-      .lean()
-      .exec();
+    const recentBattlesPromise = battleRepository.findRecentCompletedByUserId(user._id, 10);
 
     const [rank, userBattles] = await Promise.all([rankPromise, recentBattlesPromise]);
 

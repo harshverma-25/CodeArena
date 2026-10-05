@@ -276,7 +276,7 @@ export default function StitchHomePage() {
         throw new Error("Failed to retrieve valid room code from server.");
       }
     } catch (err: any) {
-      setRoomError(err.message || "Failed to create battle room. Please try again.");
+      setRoomError(err.message || "Failed to create quiz room. Please try again.");
     } finally {
       setCreatingRoomCardId(null);
     }
@@ -639,7 +639,7 @@ export default function StitchHomePage() {
               ) : recentHistory.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
                   {recentHistory.map((item) => {
-                    const topicName = item.topic || "Quiz Battle";
+                    const topicName = item.topic || "Quiz";
                     const timeStr = formatTimeAgo(item.endedAt || item.startedAt);
                     const userScore = item.userScore ?? 0;
                     const resultText = item.result || "COMPLETED";
@@ -662,7 +662,7 @@ export default function StitchHomePage() {
                             </span>
                           </div>
                           <h3 className="font-headline-sm text-headline-sm text-on-surface tracking-tight mt-space-sm mb-space-xs group-hover:text-primary transition-colors">
-                            {topicName} Battle
+                            {topicName} Quiz
                           </h3>
                           <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
                             Room Code: <span className="font-mono font-bold">{item.roomCode || "N/A"}</span> • {item.questionCount || 10} Questions
@@ -699,7 +699,7 @@ export default function StitchHomePage() {
                     No Recent Quiz Activity
                   </h3>
                   <p className="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto mt-1">
-                    Select a subject or mixed quiz below to launch your first 1–4 player quiz battle!
+                    Select a subject or mixed quiz below to launch your first 1–4 player quiz!
                   </p>
                 </div>
               )}
@@ -988,7 +988,7 @@ export default function StitchHomePage() {
                   Explore All Categories
                 </h2>
                 <p className="font-body-md text-body-md text-on-surface-variant mt-1">
-                  Discover categories backed by live backend questions and real-time multiplayer arenas.
+                  Discover categories backed by live backend questions and real-time multiplayer quizzes.
                 </p>
               </div>
 
@@ -1078,7 +1078,7 @@ export default function StitchHomePage() {
               Browse Categories
             </a>
             <a className="hover:text-on-surface transition-colors" href="#">
-              Arena Schedule
+              Quiz Schedule
             </a>
             <a className="hover:text-on-surface transition-colors" href="#">
               Rankings

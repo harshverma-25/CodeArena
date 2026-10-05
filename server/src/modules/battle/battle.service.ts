@@ -16,8 +16,8 @@ import {
 import { ApiError } from '../../shared/errors/api-error.js';
 import { logger } from '../../config/logger.js';
 import { Server } from 'socket.io';
-import { UserModel } from '../user/user.model.js';
-import { BattleModel } from './battle.model.js';
+import { getIo } from '../../sockets/socket.js';
+import { formatRoomSocketPayload } from '../../sockets/room.socket.js';
 import { userRepository } from '../user/user.repository.js';
 import { getCategoryTimeLimit } from '../../shared/config/quiz-config.js';
 
@@ -269,6 +269,49 @@ export class BattleService {
     this.initRoundState(battle._id.toString(), code, 0, assignedQuestionIds[0], timePerQuestion, initialDeadline);
 
     return battle;
+  }
+
+  /**
+   * Broadcast battle start events across room sockets and initiate round 0 server timer.
+   */
+  async broadcastBattleStart(battle: IBattleDocument, ioInstance?: Server): Promise<void> {
+    let io = ioInstance;
+    if (!io) {
+      try {
+        io = getIo();
+      } catch {
+        return;
+      }
+    }
+    const code = battle.roomCode;
+    const roomChannel = `room:${code}`;
+
+    // Update room state for sockets
+    const updatedRoom = await roomRepository.findByRoomCode(code);
+    if (updatedRoom) {
+      io.to(roomChannel).emit('room:update', formatRoomSocketPayload(updatedRoom));
+    }
+
+    // Emit battle:init to sockets
+    const sockets = await io.in(roomChannel).fetchSockets();
+    for (const playerSocket of sockets) {
+      const pUserId = playerSocket.data.user?._id?.toString();
+      if (pUserId) {
+        const initPayload = await this.getBattleInitPayload(battle, pUserId);
+        if (initPayload) {
+          playerSocket.emit('battle:init', initPayload);
+        }
+      }
+    }
+
+    // Register synchronized server round timer
+    this.setRoundTimeout(
+      battle._id.toString(),
+      0,
+      battle.timePerQuestion * 1000 + 1000,
+      io,
+      code
+    );
   }
 
   /**
@@ -673,22 +716,12 @@ export class BattleService {
     // 1. Truly atomic conditional transition:
     // Only the single execution that transitions battle status away from non-COMPLETED
     // acquires the exclusive right to finalize and update persistent user statistics.
-    const transitionedBattle = await BattleModel.findOneAndUpdate(
-      {
-        _id: battle._id,
-        status: { $ne: BattleStatus.COMPLETED },
-      },
-      {
-        $set: {
-          status: BattleStatus.COMPLETED,
-          winnerId,
-          isDraw,
-          endedAt,
-          players: battle.players,
-        },
-      },
-      { new: true }
-    );
+    const transitionedBattle = await this.repository.transitionToCompleted(battle._id, {
+      winnerId,
+      isDraw,
+      endedAt,
+      players: battle.players,
+    });
 
     if (!transitionedBattle) {
       // Race condition lost: Another concurrent handler already finalized this battle.

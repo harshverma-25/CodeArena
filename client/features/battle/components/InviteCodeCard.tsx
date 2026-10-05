@@ -26,13 +26,13 @@ export function InviteCodeCard({ roomCode }: InviteCodeCardProps) {
       <div className="space-y-4">
         <div className="flex items-center gap-2 text-primary font-bold">
           <Share2 className="h-4.5 w-4.5" />
-          <span className="text-xs uppercase tracking-wider font-mono">Invite Competitors</span>
+          <span className="text-xs uppercase tracking-wider font-mono">Invite Players</span>
         </div>
         
         <div className="space-y-1.5">
           <h3 className="text-sm font-bold text-foreground">Share this Room Code</h3>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Other engineers can join this lobby by entering the code below into their Join Room fields.
+            Other players can join this lobby by entering the code below into their Join Room fields.
           </p>
         </div>
       </div>

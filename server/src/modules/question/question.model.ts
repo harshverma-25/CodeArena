@@ -41,6 +41,7 @@ const QuestionSchema = new Schema<IQuestionDocument>(
 
 // Compound Indexes for efficient random selection & filtered pagination
 QuestionSchema.index({ categoryId: 1, subjectId: 1, isPublished: 1 });
+QuestionSchema.index({ categoryId: 1, subjectId: 1, difficulty: 1, isPublished: 1 });
 QuestionSchema.index({ categoryId: 1, isPublished: 1 });
 QuestionSchema.index({ topic: 1, difficulty: 1, isPublished: 1 });
 

@@ -16,7 +16,7 @@ export function WaitingForOpponent({
   totalQuestions,
   opponent,
 }: WaitingForOpponentProps) {
-  const oppName = opponent?.displayName || opponent?.username || "Opponent";
+  const oppName = opponent?.displayName || opponent?.username || "Player";
   const oppCurrentQ = (opponent?.currentQuestionIndex || 0) + 1;
 
   return (
@@ -35,7 +35,7 @@ export function WaitingForOpponent({
         <p className="text-sm text-muted-foreground leading-relaxed">
           Great job! Your answers are locked in. Waiting for{" "}
           <span className="text-foreground font-bold font-mono">@{oppName}</span> to complete
-          their match.
+          their quiz.
         </p>
       </div>
 
@@ -57,7 +57,7 @@ export function WaitingForOpponent({
       {/* Live Polling Spinner */}
       <div className="flex items-center justify-center gap-2 text-xs font-mono text-muted-foreground pt-2">
         <Loader2 className="h-4 w-4 animate-spin text-primary" />
-        <span>Synchronizing final match results...</span>
+        <span>Synchronizing final quiz results...</span>
       </div>
     </div>
   );

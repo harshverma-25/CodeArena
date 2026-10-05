@@ -55,12 +55,12 @@ export function BattleStatus({ room, isConnected, socketError }: BattleStatusPro
             
             <div className="space-y-1">
               <h3 className="text-base font-bold text-foreground">
-                {isFull ? "Challenger Connected" : "Awaiting Competitor"}
+                {isFull ? "Players Connected" : "Waiting for Players"}
               </h3>
               <p className="text-xs text-muted-foreground max-w-md">
                 {isFull 
-                  ? "Lobby is full! The host will configure rules and start the match when ready." 
-                  : "Invite another programmer using the room code. The Arena will activate once two players enter."}
+                  ? "Lobby has enough players! The host can start the quiz when ready." 
+                  : "Invite players using the room code. The quiz can start once players join."}
               </p>
             </div>
           </div>
@@ -72,7 +72,7 @@ export function BattleStatus({ room, isConnected, socketError }: BattleStatusPro
                 isFull ? "bg-success animate-pulse" : "bg-primary animate-pulse"
               }`} />
               <span className="font-bold text-muted-foreground uppercase">
-                {isFull ? "Ready to Fight" : "Waiting..."}
+                {isFull ? "Ready to Start" : "Waiting..."}
               </span>
             </div>
 

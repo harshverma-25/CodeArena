@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ChevronLeft, Swords } from "lucide-react";
+import { ChevronLeft, Sparkles } from "lucide-react";
 import { BattleForm } from "@/features/battle";
 
 export default function CreateBattlePage() {
@@ -20,11 +20,11 @@ export default function CreateBattlePage() {
       {/* Header */}
       <div className="space-y-2">
         <h1 className="text-3xl font-extrabold tracking-tight text-foreground md:text-4xl flex items-center gap-2">
-          <Swords className="h-8 w-8 text-primary" />
-          Create Battle Arena
+          <Sparkles className="h-8 w-8 text-primary" />
+          Create Quiz Room
         </h1>
         <p className="text-muted-foreground text-sm">
-          Set up a live 1v1 battle room. Choose a challenge topic, difficulty level, and number of questions, then invite your challenger.
+          Set up a live multiplayer quiz room. Choose a category, subject, and question count, then invite friends to join.
         </p>
       </div>
 

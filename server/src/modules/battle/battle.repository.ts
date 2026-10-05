@@ -28,6 +28,59 @@ export class BattleRepository {
   }
 
   /**
+   * Find battle by roomCode with populated player user details.
+   */
+  async findByRoomCode(roomCode: string): Promise<IBattleDocument | null> {
+    return BattleModel.findOne({
+      roomCode: roomCode.toUpperCase(),
+    }).populate('players.userId', 'username displayName avatar');
+  }
+
+  /**
+   * Fetch recent completed battles for a user.
+   */
+  async findRecentCompletedByUserId(userId: any, limit: number = 10): Promise<IBattleDocument[]> {
+    return BattleModel.find({
+      'players.userId': userId,
+      status: BattleStatus.COMPLETED,
+    })
+      .sort({ endedAt: -1, startedAt: -1 })
+      .limit(limit)
+      .populate('players.userId', 'username displayName avatar')
+      .populate('winnerId', 'username displayName avatar')
+      .lean()
+      .exec() as any;
+  }
+
+  /**
+   * Atomically transition battle to COMPLETED status.
+   * Returns document only if battle was not already COMPLETED.
+   */
+  async transitionToCompleted(
+    battleId: any,
+    updateData: {
+      winnerId: any;
+      isDraw: boolean;
+      endedAt: Date;
+      players: any[];
+    }
+  ): Promise<IBattleDocument | null> {
+    return BattleModel.findOneAndUpdate(
+      {
+        _id: battleId,
+        status: { $ne: BattleStatus.COMPLETED },
+      },
+      {
+        $set: {
+          status: BattleStatus.COMPLETED,
+          ...updateData,
+        },
+      },
+      { new: true }
+    );
+  }
+
+  /**
    * Save / update a battle document.
    */
   async save(battle: IBattleDocument): Promise<IBattleDocument> {

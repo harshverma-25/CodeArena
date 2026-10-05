@@ -2,6 +2,62 @@ import { UserModel } from './user.model.js';
 import { IUser, IUserDocument } from './user.types.js';
 
 export class UserRepository {
+  async findById(userId: string): Promise<IUserDocument | null> {
+    return UserModel.findById(userId);
+  }
+
+  async findByEmail(email: string): Promise<IUserDocument | null> {
+    return UserModel.findOne({ email });
+  }
+
+  async findByUsernameOrEmail(identifier: string): Promise<IUserDocument | null> {
+    return UserModel.findOne({
+      $or: [{ email: identifier }, { username: identifier }],
+    }).select('+passwordHash');
+  }
+
+  async findByIdWithRefreshToken(userId: string): Promise<IUserDocument | null> {
+    return UserModel.findById(userId).select('+refreshTokenHash');
+  }
+
+  async updateRefreshToken(userId: string, refreshTokenHash: string): Promise<void> {
+    await UserModel.findByIdAndUpdate(userId, { refreshTokenHash });
+  }
+
+  async clearRefreshToken(userId: string): Promise<void> {
+    await UserModel.findByIdAndUpdate(userId, { $unset: { refreshTokenHash: 1 } });
+  }
+
+  async updateById(userId: string, updateData: Partial<IUser>): Promise<IUserDocument | null> {
+    return UserModel.findByIdAndUpdate(userId, updateData, { new: true });
+  }
+
+  async countHigherRankedUsers(criteria: { wins: number; accuracy: number; matchesPlayed: number; username: string }): Promise<number> {
+    return UserModel.countDocuments({
+      isGuest: { $ne: true },
+      $or: [
+        { wins: { $gt: criteria.wins } },
+        { wins: criteria.wins, accuracy: { $gt: criteria.accuracy } },
+        { wins: criteria.wins, accuracy: criteria.accuracy, matchesPlayed: { $gt: criteria.matchesPlayed } },
+        { wins: criteria.wins, accuracy: criteria.accuracy, matchesPlayed: criteria.matchesPlayed, username: { $lt: criteria.username } },
+      ],
+    });
+  }
+
+  async findLeaderboard(options: { skip: number; limit: number }): Promise<{ users: IUserDocument[]; total: number }> {
+    const filter = { isGuest: { $ne: true } };
+    const [total, users] = await Promise.all([
+      UserModel.countDocuments(filter),
+      UserModel.find(filter)
+        .sort({ wins: -1, accuracy: -1, matchesPlayed: -1, username: 1 })
+        .skip(options.skip)
+        .limit(options.limit)
+        .lean()
+        .exec(),
+    ]);
+    return { users: users as any, total };
+  }
+
   async findByClerkId(clerkId: string): Promise<IUserDocument | null> {
     return UserModel.findOne({ clerkId });
   }

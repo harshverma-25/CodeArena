@@ -103,7 +103,7 @@ export function BattleSettings({ roomCode, settings, isHost, onUpdate }: BattleS
       <div className="flex items-center justify-between border-b border-border/40 pb-3">
         <div className="flex items-center gap-2 text-foreground font-bold">
           <Sliders className="h-5 w-5 text-primary" />
-          <h2 className="text-base tracking-tight">Battle Settings</h2>
+          <h2 className="text-base tracking-tight">Quiz Settings</h2>
         </div>
         {isHost ? (
           <span className="text-[10px] font-bold uppercase tracking-wider text-primary font-mono bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">

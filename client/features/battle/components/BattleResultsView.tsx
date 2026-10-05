@@ -36,7 +36,7 @@ export function BattleResultsView({ results }: BattleResultsViewProps) {
               Question Breakdown
             </h2>
             <p className="text-xs text-muted-foreground mt-0.5">
-              Review full options, submitted answers, correct solutions, and explanations
+              Review full options, submitted answers, correct answers, and explanations
             </p>
           </div>
 
@@ -68,7 +68,7 @@ export function BattleResultsView({ results }: BattleResultsViewProps) {
                 )}
               >
                 <Users className="h-3.5 w-3.5" />
-                {opponentPlayer.displayName || opponentPlayer.username || "Opponent"} ({opponentPlayer.score} pts)
+                {opponentPlayer.displayName || opponentPlayer.username || "Player 2"} ({opponentPlayer.score} pts)
               </button>
             </div>
           )}

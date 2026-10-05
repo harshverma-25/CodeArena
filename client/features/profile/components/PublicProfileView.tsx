@@ -158,7 +158,7 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
               #{rank > 0 ? rank : "-"}
             </span>
             <p className="text-[10px] text-muted-foreground mt-1 font-mono">
-              Arena Standing
+              Global Standing
             </p>
           </div>
         </div>

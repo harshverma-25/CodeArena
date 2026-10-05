@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Swords, User as UserIcon, CheckCircle2, AlertCircle } from "lucide-react";
+import { Users, User as UserIcon, CheckCircle2, AlertCircle } from "lucide-react";
 import { RoomPlayer } from "@/types";
 
 interface PlayerListProps {
@@ -18,8 +18,8 @@ export function PlayerList({ players, currentUserId }: PlayerListProps) {
   return (
     <div className="rounded-2xl border border-border bg-card p-6 shadow-xl space-y-4">
       <div className="flex items-center gap-2 text-foreground font-bold border-b border-border/40 pb-3">
-        <Swords className="h-5 w-5 text-primary animate-pulse" />
-        <h2 className="text-base tracking-tight">Active Challengers ({filledSlots.length}/2)</h2>
+        <Users className="h-5 w-5 text-primary" />
+        <h2 className="text-base tracking-tight">Active Players ({filledSlots.length}/2)</h2>
       </div>
 
       <div className="space-y-3 pt-1">
@@ -47,7 +47,7 @@ export function PlayerList({ players, currentUserId }: PlayerListProps) {
           }
 
           const user = player.user;
-          const name = user?.displayName || user?.username || "Guest Challenger";
+          const name = user?.displayName || user?.username || "Guest Player";
           const avatar = user?.avatar;
 
           return (

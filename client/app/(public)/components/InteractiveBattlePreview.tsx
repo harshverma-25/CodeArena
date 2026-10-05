@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Check, X, Timer, Trophy, Swords, RefreshCw, Zap } from "lucide-react";
+import { Check, X, Timer, Trophy, Sparkles, RefreshCw, Zap } from "lucide-react";
 
 interface SampleQuestion {
   id: number;
@@ -83,10 +83,10 @@ export function InteractiveBattlePreview() {
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4 mb-5">
         <div className="flex items-center gap-2">
           <span className="flex h-6 w-6 items-center justify-center rounded bg-foreground text-background">
-            <Swords className="h-3.5 w-3.5" />
+            <Sparkles className="h-3.5 w-3.5" />
           </span>
           <span className="font-mono text-xs font-bold uppercase tracking-wider text-foreground">
-            LIVE ARENA DEMO
+            INTERACTIVE QUIZ DEMO
           </span>
           <span className="text-xs font-mono px-2 py-0.5 rounded bg-secondary text-muted-foreground border border-border">
             {currentQ.topic} • {currentQ.difficulty}
@@ -101,7 +101,7 @@ export function InteractiveBattlePreview() {
         </div>
       </div>
 
-      {/* 1v1 Players Status Bar */}
+      {/* Multiplayer Players Status Bar */}
       <div className="grid grid-cols-2 gap-3 mb-6">
         {/* Player 1 (You) */}
         <div className="flex items-center justify-between p-3 rounded-lg border border-foreground/30 bg-secondary/50">
@@ -110,7 +110,7 @@ export function InteractiveBattlePreview() {
               YOU
             </div>
             <div>
-              <p className="text-xs font-bold text-foreground">Challenger</p>
+              <p className="text-xs font-bold text-foreground">Player 1</p>
               <p className="text-[10px] text-muted-foreground font-mono">Q3 of 10</p>
             </div>
           </div>

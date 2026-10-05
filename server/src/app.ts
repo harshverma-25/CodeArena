@@ -11,6 +11,7 @@ import { battleRoutes } from './modules/battle/battle.routes.js';
 import { historyRoutes } from './modules/history/history.routes.js';
 import { authRoutes } from './modules/auth/auth.routes.js';
 import { categoryRoutes } from './modules/category/category.routes.js';
+import { leaderboardRoutes } from './modules/leaderboard/leaderboard.routes.js';
 import { docsRoutes } from './modules/docs/docs.routes.js';
 
 import mongoose from 'mongoose';
@@ -92,7 +93,7 @@ app.get('/api/v1/health', (req, res) => {
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/categories', categoryRoutes);
 app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/leaderboard', userRoutes);
+app.use('/api/v1/leaderboard', leaderboardRoutes);
 app.use('/api/v1/questions', questionRoutes);
 app.use('/api/v1/rooms', roomRoutes);
 app.use('/api/v1/battles', battleRoutes);

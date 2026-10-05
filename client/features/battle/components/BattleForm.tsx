@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Swords, ShieldAlert, SlidersHorizontal, BookOpen, Hash } from "lucide-react";
+import { Sparkles, ShieldAlert, SlidersHorizontal, BookOpen, Hash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useBattleMutations } from "../hooks/useBattleMutations";
 
@@ -55,7 +55,7 @@ export function BattleForm({ onSuccess }: { onSuccess?: (roomCode: string) => vo
         router.push(`/lobby/${room.roomCode}`);
       }
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Failed to create battle room. Please try again.";
+      const message = err instanceof Error ? err.message : "Failed to create quiz room. Please try again.";
       setError(message);
     }
 
@@ -74,7 +74,7 @@ export function BattleForm({ onSuccess }: { onSuccess?: (roomCode: string) => vo
       <div className="space-y-2">
         <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground font-mono flex items-center gap-1.5">
           <BookOpen className="h-4 w-4 text-primary" />
-          Challenge Topic
+          Quiz Topic
         </label>
         <div className="relative">
           <select
@@ -154,8 +154,8 @@ export function BattleForm({ onSuccess }: { onSuccess?: (roomCode: string) => vo
           disabled={createRoom.isPending}
           className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 gap-2 text-sm font-bold shadow-lg shadow-primary/15 transition-all cursor-pointer"
         >
-          <Swords className="h-5 w-5" />
-          {createRoom.isPending ? "Generating Battle Room..." : "Create Battle Room"}
+          <Sparkles className="h-5 w-5" />
+          {createRoom.isPending ? "Creating Quiz Room..." : "Create Quiz Room"}
         </Button>
       </div>
     </form>

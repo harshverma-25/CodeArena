@@ -11,28 +11,32 @@ const roomDifficultySchema = z.enum([
 
 // Schema for POST /rooms (Create Room)
 export const createRoomSchema = z.object({
-  body: z.object({
-    topic: roomTopicSchema.optional(),
-    difficulty: roomDifficultySchema.optional(),
-    duration: z.coerce
-      .number({ invalid_type_error: 'Duration must be a number' })
-      .int('Duration must be an integer')
-      .positive('Duration must be positive')
-      .min(5, 'Duration must be at least 5 minutes')
-      .max(180, 'Duration cannot exceed 180 minutes')
-      .default(30)
-      .optional(),
-    questionCount: z.coerce
-      .number({ invalid_type_error: 'Question count must be a number' })
-      .int('Question count must be an integer')
-      .min(5, 'Question count must be at least 5')
-      .max(30, 'Question count cannot exceed 30')
-      .default(10)
-      .optional(),
-    categoryId: z.string().optional(),
-    subjectId: z.string().nullable().optional(),
-    isMixedCategory: z.boolean().optional(),
-  }),
+  body: z
+    .object({
+      topic: roomTopicSchema.optional(),
+      difficulty: roomDifficultySchema.optional(),
+      duration: z.coerce
+        .number({ invalid_type_error: 'Duration must be a number' })
+        .int('Duration must be an integer')
+        .positive('Duration must be positive')
+        .min(5, 'Duration must be at least 5 minutes')
+        .max(180, 'Duration cannot exceed 180 minutes')
+        .default(30)
+        .optional(),
+      questionCount: z.coerce
+        .number({ invalid_type_error: 'Question count must be a number' })
+        .int('Question count must be an integer')
+        .min(5, 'Question count must be at least 5')
+        .max(30, 'Question count cannot exceed 30')
+        .default(10)
+        .optional(),
+      categoryId: z.string().optional(),
+      subjectId: z.string().nullable().optional(),
+      isMixedCategory: z.boolean().optional(),
+    })
+    .refine((data) => !('timeLimit' in data), {
+      message: 'Arbitrary timeLimit cannot be set by client',
+    }),
   query: z.object({}).optional(),
   params: z.object({}).optional(),
 });
@@ -57,23 +61,30 @@ export const roomCodeParamSchema = z.object({
 
 // Schema for PATCH /rooms/:roomCode/settings (Update Settings)
 export const updateSettingsSchema = z.object({
-  body: z.object({
-    topic: roomTopicSchema.optional(),
-    difficulty: roomDifficultySchema.optional(),
-    duration: z.coerce
-      .number({ invalid_type_error: 'Duration must be a number' })
-      .int('Duration must be an integer')
-      .positive('Duration must be positive')
-      .min(5, 'Duration must be at least 5 minutes')
-      .max(180, 'Duration cannot exceed 180 minutes')
-      .optional(),
-    questionCount: z.coerce
-      .number({ invalid_type_error: 'Question count must be a number' })
-      .int('Question count must be an integer')
-      .min(5, 'Question count must be at least 5')
-      .max(30, 'Question count cannot exceed 30')
-      .optional(),
-  }),
+  body: z
+    .object({
+      topic: roomTopicSchema.optional(),
+      difficulty: roomDifficultySchema.optional(),
+      duration: z.coerce
+        .number({ invalid_type_error: 'Duration must be a number' })
+        .int('Duration must be an integer')
+        .positive('Duration must be positive')
+        .min(5, 'Duration must be at least 5 minutes')
+        .max(180, 'Duration cannot exceed 180 minutes')
+        .optional(),
+      questionCount: z.coerce
+        .number({ invalid_type_error: 'Question count must be a number' })
+        .int('Question count must be an integer')
+        .min(5, 'Question count must be at least 5')
+        .max(30, 'Question count cannot exceed 30')
+        .optional(),
+      categoryId: z.string().optional(),
+      subjectId: z.string().nullable().optional(),
+      isMixedCategory: z.boolean().optional(),
+    })
+    .refine((data) => !('timeLimit' in data), {
+      message: 'Arbitrary timeLimit cannot be set by client',
+    }),
   query: z.object({}).optional(),
   params: z.object({
     roomCode: roomCodeSchema,

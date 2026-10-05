@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Swords, X } from "lucide-react";
+import { Sparkles, X } from "lucide-react";
 import { BattleForm } from "@/features/battle/components/BattleForm";
 
 interface CreateBattleModalProps {
@@ -45,14 +45,14 @@ export function CreateBattleModal({ isOpen, onClose }: CreateBattleModalProps) {
         {/* Title */}
         <div className="flex items-center gap-3 mb-6">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20">
-            <Swords className="h-6 w-6" />
+            <Sparkles className="h-6 w-6" />
           </div>
           <div>
             <h2 className="text-xl font-bold tracking-tight text-foreground">
-              Create Battle Room
+              Create Quiz Room
             </h2>
             <p className="text-xs text-muted-foreground">
-              Configure your challenge topic, difficulty, and question count.
+              Configure your quiz topic, subject, and question count.
             </p>
           </div>
         </div>

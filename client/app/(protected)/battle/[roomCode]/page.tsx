@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
-  Swords,
+  Sparkles,
   RefreshCw,
   AlertTriangle,
   Home,
@@ -57,10 +57,10 @@ export default function LiveBattlePage() {
       <div className="min-h-screen bg-[#fff8f0] flex flex-col items-center justify-center p-6 text-center">
         <div className="relative flex items-center justify-center mb-6">
           <div className="w-16 h-16 border-4 border-[#317a63]/20 border-t-[#317a63] rounded-full animate-spin" />
-          <Swords className="h-7 w-7 text-[#317a63] absolute animate-pulse" />
+          <Sparkles className="h-7 w-7 text-[#317a63] absolute animate-pulse" />
         </div>
         <h2 className="text-2xl font-black text-[#1d1b16] tracking-tight font-headline-md">
-          Entering Quiz Arena
+          Entering Quiz Room
         </h2>
         <p className="text-sm text-[#3f4944] font-mono mt-1">
           Synchronizing quiz with room {roomCode}...

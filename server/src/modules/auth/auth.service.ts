@@ -1,7 +1,6 @@
 import crypto from 'crypto';
 import { env } from '../../config/env.js';
 import { userRepository } from '../user/user.repository.js';
-import { UserModel } from '../user/user.model.js';
 import { IGuestTokenPayload, IGuestSessionResponse } from './auth.types.js';
 import { logger } from '../../config/logger.js';
 import { hashPassword, verifyPassword, hashToken } from '../../shared/utils/crypto-auth.js';
@@ -33,12 +32,12 @@ export class AuthService {
       throw new ApiError(400, 'Password must be at least 6 characters');
     }
 
-    const existingEmail = await UserModel.findOne({ email });
+    const existingEmail = await userRepository.findByEmail(email);
     if (existingEmail) {
       throw new ApiError(409, 'An account with this email already exists');
     }
 
-    const existingUsername = await UserModel.findOne({ username });
+    const existingUsername = await userRepository.findByUsername(username);
     if (existingUsername) {
       throw new ApiError(409, 'Username is already taken');
     }
@@ -46,7 +45,7 @@ export class AuthService {
     const passwordHash = hashPassword(password);
     const avatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(username)}`;
 
-    const user = await UserModel.create({
+    const user = await userRepository.create({
       email,
       username,
       displayName,
@@ -104,9 +103,7 @@ export class AuthService {
       throw new ApiError(400, 'Email/username and password are required');
     }
 
-    const user = await UserModel.findOne({
-      $or: [{ email: input }, { username: input }],
-    }).select('+passwordHash');
+    const user = await userRepository.findByUsernameOrEmail(input);
 
     if (!user || !user.passwordHash) {
       throw new ApiError(401, 'Invalid email/username or password');
@@ -167,7 +164,7 @@ export class AuthService {
       throw new ApiError(401, 'Invalid or expired refresh token');
     }
 
-    const user = await UserModel.findById(payload.sub).select('+refreshTokenHash');
+    const user = await userRepository.findByIdWithRefreshToken(payload.sub);
     if (!user) {
       throw new ApiError(401, 'User not found');
     }
@@ -220,7 +217,7 @@ export class AuthService {
    */
   async logout(userId: string) {
     if (userId) {
-      await UserModel.findByIdAndUpdate(userId, { $unset: { refreshTokenHash: 1 } });
+      await userRepository.clearRefreshToken(userId);
     }
   }
 

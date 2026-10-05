@@ -1,5 +1,4 @@
 import { roomRepository } from './room.repository.js';
-import { RoomModel } from './room.model.js';
 import { IRoomDocument, RoomStatus, IRoomSettings } from './room.types.js';
 import { ApiError } from '../../shared/errors/api-error.js';
 import { questionRepository } from '../question/question.repository.js';
@@ -346,14 +345,7 @@ export class RoomService {
 
     // Atomic update of the player's isReady status
     const playerObjId = (room.players[playerIndex].userId as any)._id || room.players[playerIndex].userId;
-    const updated = await RoomModel.findOneAndUpdate(
-      { roomCode: code, 'players.userId': playerObjId },
-      { $set: { 'players.$.isReady': isReady } },
-      { new: true }
-    )
-      .populate('hostId')
-      .populate('players.userId')
-      .exec();
+    const updated = await roomRepository.updatePlayerReady(code, playerObjId, isReady);
 
     if (!updated) {
       throw new ApiError(500, 'Failed to update ready status');

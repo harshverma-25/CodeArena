@@ -24,8 +24,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CodeArena | Real-Time Technical Quiz Battle",
-  description: "A real-time 1v1 and multiplayer competitive technical quiz battle platform.",
+  title: "CodeArena | Real-Time Multiplayer Quiz Platform",
+  description: "A real-time 1–4 player multiplayer quiz platform for students, developers, and trivia enthusiasts.",
 };
 
 export default function RootLayout({

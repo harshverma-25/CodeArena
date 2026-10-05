@@ -10,7 +10,6 @@ import {
 } from './history.types.js';
 import { ApiError } from '../../shared/errors/api-error.js';
 import { IQuestionDocument } from '../question/question.types.js';
-import { BattleModel } from '../battle/battle.model.js';
 import { roomRepository } from '../room/room.repository.js';
 import { Types } from 'mongoose';
 
@@ -196,7 +195,7 @@ export class HistoryService {
       battle = await this.repository.getBattleById(battleId);
     }
     if (!battle) {
-      battle = await BattleModel.findOne({ roomCode: battleId.toUpperCase() }).populate('players.userId');
+      battle = await this.repository.getBattleByRoomCode(battleId);
     }
     if (!battle) {
       throw new ApiError(404, 'Battle not found');

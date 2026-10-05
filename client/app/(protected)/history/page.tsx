@@ -8,10 +8,10 @@ export default function HistoryPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-foreground to-foreground/75 bg-clip-text text-transparent">
-          Battle History
+          Quiz History
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Review your past matches, code solutions, and challenge results.
+          Review your past quizzes, answer breakdowns, and performance results.
         </p>
       </div>
 

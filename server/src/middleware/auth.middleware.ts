@@ -3,7 +3,7 @@ import { ApiError } from '../shared/errors/api-error.js';
 import { userService } from '../modules/user/user.service.js';
 import { env } from '../config/env.js';
 import { authService } from '../modules/auth/auth.service.js';
-import { UserModel } from '../modules/user/user.model.js';
+import { userRepository } from '../modules/user/user.repository.js';
 import { Types } from 'mongoose';
 
 export const resolveUserFromToken = async (req: Request): Promise<any> => {
@@ -18,7 +18,7 @@ export const resolveUserFromToken = async (req: Request): Promise<any> => {
   const accessPayload = authService.verifyAccessToken(token);
   if (accessPayload && accessPayload.sub) {
     if (Types.ObjectId.isValid(accessPayload.sub)) {
-      const user = await UserModel.findById(accessPayload.sub);
+      const user = await userRepository.findById(accessPayload.sub);
       if (user) return user;
     }
   }
@@ -27,7 +27,7 @@ export const resolveUserFromToken = async (req: Request): Promise<any> => {
   const guestPayload = authService.verifyGuestToken(token);
   if (guestPayload) {
     if (guestPayload.sub && Types.ObjectId.isValid(guestPayload.sub)) {
-      const user = await UserModel.findById(guestPayload.sub);
+      const user = await userRepository.findById(guestPayload.sub);
       if (user) return user;
     }
     if (guestPayload.guestId) {

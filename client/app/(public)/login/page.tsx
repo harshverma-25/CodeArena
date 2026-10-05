@@ -206,10 +206,10 @@ export default function LoginPage() {
           </span>
         </Link>
         <h2 className="text-2xl font-bold tracking-tight text-foreground">
-          Welcome back to the Arena
+          Welcome back to CodeArena
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Log in to compete in real-time technical trivia battles
+          Log in to play real-time quizzes and test your knowledge
         </p>
       </div>
 

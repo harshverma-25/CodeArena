@@ -42,6 +42,17 @@ export class HistoryRepository {
       .populate('roomId', 'settings roomCode')
       .exec();
   }
+
+  /**
+   * Find battle by roomCode with populated player user details.
+   */
+  async getBattleByRoomCode(roomCode: string): Promise<IBattleDocument | null> {
+    return BattleModel.findOne({ roomCode: roomCode.toUpperCase() })
+      .populate('players.userId', 'username displayName avatar')
+      .populate('winnerId', 'username displayName avatar')
+      .populate('roomId', 'settings roomCode')
+      .exec();
+  }
 }
 
 export const historyRepository = new HistoryRepository();

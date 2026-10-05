@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { categoryService } from './category.service.js';
+import { ApiResponse } from '../../shared/utils/api-response.js';
 
 export class CategoryController {
   /**
@@ -8,11 +9,9 @@ export class CategoryController {
    */
   async getCategories(_req: Request, res: Response) {
     const categories = await categoryService.getAllCategories();
-    return res.status(200).json({
-      success: true,
-      message: 'Categories retrieved successfully',
-      data: categories,
-    });
+    return res.status(200).json(
+      new ApiResponse(200, categories, 'Categories retrieved successfully')
+    );
   }
 
   /**
@@ -22,14 +21,9 @@ export class CategoryController {
   async getSubjects(req: Request, res: Response) {
     const { categoryId } = req.params;
     const { category, subjects } = await categoryService.getSubjectsForCategory(categoryId);
-    return res.status(200).json({
-      success: true,
-      message: 'Subjects retrieved successfully',
-      data: {
-        category,
-        subjects,
-      },
-    });
+    return res.status(200).json(
+      new ApiResponse(200, { category, subjects }, 'Subjects retrieved successfully')
+    );
   }
 }
 

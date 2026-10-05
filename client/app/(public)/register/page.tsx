@@ -109,10 +109,10 @@ export default function RegisterPage() {
           </span>
         </Link>
         <h2 className="text-2xl font-bold tracking-tight text-foreground">
-          Create your Arena Account
+          Create your CodeArena Account
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Join 1v1 and 4-player technical MCQ battles and track your stats
+          Join 1–4 player multiplayer quizzes, test your knowledge, and track your progress
         </p>
       </div>
 

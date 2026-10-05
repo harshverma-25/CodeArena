@@ -26,7 +26,7 @@ export function BattleScoreBoard({
   opponent,
 }: BattleScoreBoardProps) {
   const myName = myDisplayName || myUsername || "You";
-  const oppName = opponent?.displayName || opponent?.username || "Opponent";
+  const oppName = opponent?.displayName || opponent?.username || "Player 2";
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
@@ -114,7 +114,7 @@ export function BattleScoreBoard({
                 ? opponent.isCompleted
                   ? "All questions answered"
                   : `Question ${Math.min((opponent.currentQuestionIndex || 0) + 1, totalQuestions)} of ${totalQuestions}`
-                : "Waiting for challenger..."}
+                : "Waiting for player..."}
             </p>
           </div>
         </div>

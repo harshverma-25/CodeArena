@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { questionService } from './question.service.js';
+import { ApiResponse } from '../../shared/utils/api-response.js';
 
 export class QuestionController {
   /**
@@ -15,11 +16,9 @@ export class QuestionController {
       limit: limit ? Number(limit) : undefined,
     });
 
-    res.status(200).json({
-      success: true,
-      message: 'Published questions retrieved successfully',
-      data: result,
-    });
+    res.status(200).json(
+      new ApiResponse(200, result, 'Published questions retrieved successfully')
+    );
   }
 
   /**
@@ -30,11 +29,9 @@ export class QuestionController {
     const { questionId } = req.params;
     const question = await questionService.getQuestionByQuestionId(questionId);
 
-    res.status(200).json({
-      success: true,
-      message: 'Question retrieved successfully',
-      data: question,
-    });
+    res.status(200).json(
+      new ApiResponse(200, question, 'Question retrieved successfully')
+    );
   }
 }
 

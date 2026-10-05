@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { categoryController } from './category.controller.js';
 import { asyncHandler } from '../../shared/utils/async-handler.js';
+import { validateRequest } from '../../middleware/validate.middleware.js';
+import { categoryParamSchema } from './category.validation.js';
 
 const router = Router();
 
@@ -13,6 +15,7 @@ router.get(
 // Route: GET /api/v1/categories/:categoryId/subjects
 router.get(
   '/:categoryId/subjects',
+  validateRequest(categoryParamSchema),
   asyncHandler((req, res) => categoryController.getSubjects(req, res))
 );
 

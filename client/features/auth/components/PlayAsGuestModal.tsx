@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Swords, X, Zap, Shield, Loader2, ArrowRight } from "lucide-react";
+import { X, Zap, Shield, Loader2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { setGuestSession } from "../guestAuth";
@@ -94,7 +94,7 @@ export function PlayAsGuestModal({ isOpen, onClose }: PlayAsGuestModalProps) {
         </div>
 
         <p className="text-xs text-muted-foreground mb-6 leading-relaxed">
-          Jump straight into 1v1 speed battles and practice questions. You can upgrade to a permanent account at any time.
+          Jump straight into multiplayer quizzes and practice questions. You can upgrade to a permanent account at any time.
         </p>
 
         {error && (
@@ -106,7 +106,7 @@ export function PlayAsGuestModal({ isOpen, onClose }: PlayAsGuestModalProps) {
         <form onSubmit={handleGuestLogin} className="space-y-4">
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-foreground">
-              Challenger Handle <span className="text-muted-foreground font-normal">(Optional)</span>
+              Player Handle <span className="text-muted-foreground font-normal">(Optional)</span>
             </label>
             <Input
               type="text"
@@ -118,7 +118,7 @@ export function PlayAsGuestModal({ isOpen, onClose }: PlayAsGuestModalProps) {
               className="h-10 text-xs bg-background/50 border-border"
             />
             <p className="text-[10px] text-muted-foreground">
-              Leave blank to automatically assign a randomized challenger name.
+              Leave blank to automatically assign a randomized player name.
             </p>
           </div>
 
@@ -131,11 +131,11 @@ export function PlayAsGuestModal({ isOpen, onClose }: PlayAsGuestModalProps) {
               {isLoading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Creating Guest Arena Session...
+                  Creating Guest Session...
                 </>
               ) : (
                 <>
-                  Enter Arena as Guest
+                  Continue as Guest
                   <ArrowRight className="h-4 w-4" />
                 </>
               )}
@@ -156,7 +156,7 @@ export function PlayAsGuestModal({ isOpen, onClose }: PlayAsGuestModalProps) {
         <div className="mt-5 pt-4 border-t border-border/50 text-center">
           <div className="flex items-center justify-center gap-1.5 text-[10px] text-muted-foreground">
             <Shield className="h-3 w-3 text-primary" />
-            <span>24-hour temporary session with battle history</span>
+            <span>24-hour temporary session with quiz history</span>
           </div>
         </div>
       </div>

@@ -44,6 +44,18 @@ export class RoomRepository {
       .populate('players.userId')
       .exec();
   }
+
+  async updatePlayerReady(roomCode: string, userId: any, isReady: boolean): Promise<IRoomDocument | null> {
+    const userObjectId = userId instanceof Types.ObjectId ? userId : new Types.ObjectId(userId);
+    return RoomModel.findOneAndUpdate(
+      { roomCode, 'players.userId': userObjectId },
+      { $set: { 'players.$.isReady': isReady } },
+      { new: true }
+    )
+      .populate('hostId')
+      .populate('players.userId')
+      .exec();
+  }
 }
 
 export const roomRepository = new RoomRepository();

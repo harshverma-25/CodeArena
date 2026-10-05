@@ -237,7 +237,7 @@ export default function MatchResultsPage() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#fff8f0]/85 backdrop-blur-xl border-b border-[#ede7de] shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
         <div className="h-16 max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
-            <span className="font-extrabold text-xl text-[#317a63] tracking-tight">Quizly</span>
+            <span className="font-extrabold text-xl text-[#317a63] tracking-tight">CodeArena</span>
             <div className="h-4 w-px bg-[#ede7de] shrink-0" />
             <div className="flex items-center gap-2 truncate">
               <span className="text-sm font-bold text-[#1d1b16] truncate">{results.topic}</span>
@@ -568,7 +568,7 @@ export default function MatchResultsPage() {
                 </h2>
                 <p className="text-xs sm:text-sm text-[#3f4944]">
                   {myPlayer.displayName || myPlayer.username} •{" "}
-                  {myPlayer.isWinner ? "1st Place Victory Analytics" : "Quiz Performance Breakdown"}
+                  {myPlayer.isWinner ? "1st Place Performance" : "Quiz Performance Breakdown"}
                 </p>
               </div>
               <span className="inline-flex items-center gap-1 text-xs font-bold text-[#10614b]">
@@ -795,14 +795,14 @@ export default function MatchResultsPage() {
       <footer className="w-full bg-[#f9f3ea] border-t border-[#ede7de] mt-12 py-4">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#3f4944]">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-[#1d1b16]">Quizly Multiplayer</span>
+            <span className="font-bold text-[#1d1b16]">CodeArena Multiplayer</span>
             <span>•</span>
             <span>Room PIN: {results.roomCode}</span>
           </div>
           <div className="flex items-center gap-2">
             <span>All {results.questionCount} questions scored</span>
             <span>•</span>
-            <span>© 2026 Quizly. Ambient smart trivia.</span>
+            <span>© 2026 CodeArena. Multiplayer Quiz Platform.</span>
           </div>
         </div>
       </footer>

@@ -151,7 +151,7 @@ export function QuestionReviewCard({ questionNumber, question }: QuestionReviewC
         <div className="mt-4 rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 space-y-2">
           <div className="flex items-center gap-2 text-amber-400 text-xs font-bold font-mono uppercase tracking-wider">
             <Lightbulb className="h-4 w-4 shrink-0 text-amber-400" />
-            <span>Solution Breakdown & Explanation</span>
+            <span>Answer Breakdown & Explanation</span>
           </div>
           <p className="text-xs sm:text-sm text-foreground/90 leading-relaxed font-sans pl-6">
             {explanation}

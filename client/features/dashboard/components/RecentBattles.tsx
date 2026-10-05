@@ -69,7 +69,7 @@ export function RecentBattles() {
     <div className="rounded-2xl border border-border bg-card p-6 shadow-xl flex flex-col h-full">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
-          Recent Battles
+          Recent Quizzes
         </h2>
         {matches.length > 0 && (
           <Link

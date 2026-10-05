@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Trophy, Swords, Home, RotateCcw, Award, Meh } from "lucide-react";
+import { Trophy, Sparkles, Home, RotateCcw, Award, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BattleResultsPayload } from "@/types";
 
@@ -31,11 +31,11 @@ export function BattleResultsModal({ results, currentUserId }: BattleResultsModa
               ? "from-amber-400 via-primary to-amber-500"
               : isDraw
               ? "from-blue-500 via-indigo-500 to-primary"
-              : "from-rose-500 via-zinc-600 to-rose-700"
+              : "from-blue-500 via-zinc-600 to-primary"
           }`}
         />
 
-        {/* Victory / Defeat / Draw Icon & Title */}
+        {/* 1st Place / Complete / Tied Icon & Title */}
         <div className="space-y-3 pt-2">
           <div
             className={`mx-auto flex h-20 w-20 items-center justify-center rounded-3xl shadow-xl ${
@@ -51,20 +51,20 @@ export function BattleResultsModal({ results, currentUserId }: BattleResultsModa
             ) : isDraw ? (
               <Award className="h-10 w-10" />
             ) : (
-              <Meh className="h-10 w-10" />
+              <CheckCircle2 className="h-10 w-10 text-primary" />
             )}
           </div>
 
           <div>
             <h1 className="text-3xl md:text-4xl font-black tracking-tight text-foreground">
-              {isWinner ? "VICTORY!" : isDraw ? "IT'S A DRAW!" : "DEFEAT"}
+              {isWinner ? "1ST PLACE!" : isDraw ? "TIED SCORE!" : "QUIZ COMPLETE"}
             </h1>
             <p className="text-sm text-muted-foreground mt-1 font-mono">
               {isWinner
-                ? "Outstanding performance! You conquered this battle arena."
+                ? "Outstanding performance! You finished at the top of the leaderboard."
                 : isDraw
-                ? "Incredible match! Both contenders finished with identical scores."
-                : "Good effort! Sharpen your skills and claim victory next time."}
+                ? "Incredible match! Both participants finished with identical scores."
+                : "Good effort! Review your question breakdown to sharpen your skills."}
             </p>
           </div>
         </div>
@@ -81,7 +81,7 @@ export function BattleResultsModal({ results, currentUserId }: BattleResultsModa
           >
             {isWinner && (
               <span className="absolute top-2 right-2 text-[9px] font-black uppercase tracking-wider bg-primary text-primary-foreground px-2 py-0.5 rounded-full font-mono">
-                Winner
+                1st Place
               </span>
             )}
             <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground font-mono">
@@ -105,11 +105,11 @@ export function BattleResultsModal({ results, currentUserId }: BattleResultsModa
           >
             {!isDraw && !isWinner && (
               <span className="absolute top-2 right-2 text-[9px] font-black uppercase tracking-wider bg-primary text-primary-foreground px-2 py-0.5 rounded-full font-mono">
-                Winner
+                1st Place
               </span>
             )}
             <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground font-mono truncate">
-              {oppPlayer?.displayName || oppPlayer?.username || "Opponent"}
+              {oppPlayer?.displayName || oppPlayer?.username || "Player 2"}
             </p>
             <p className="text-4xl font-black font-mono text-foreground">
               {oppPlayer?.score || 0}
@@ -139,7 +139,7 @@ export function BattleResultsModal({ results, currentUserId }: BattleResultsModa
             onClick={() => router.push(`/results/${results.battleId}`)}
             className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-11 text-xs font-extrabold uppercase tracking-wider shadow-md shadow-primary/15 cursor-pointer font-mono"
           >
-            <Swords className="h-4 w-4 mr-1.5" />
+            <Sparkles className="h-4 w-4 mr-1.5" />
             View Detailed Breakdown
           </Button>
 

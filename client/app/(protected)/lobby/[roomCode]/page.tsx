@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { Swords, WifiOff } from "lucide-react";
+import { Sparkles, WifiOff } from "lucide-react";
 
 import { useRoom } from "@/features/battle/hooks/useRoom";
 import { useBattleMutations } from "@/features/battle/hooks/useBattleMutations";
@@ -335,7 +335,7 @@ export default function MultiplayerLobbyPage() {
       await startMatch.mutateAsync(roomCode);
     } catch (err: any) {
       console.error("Failed to start match:", err);
-      showToast(err?.message || "Failed to start quiz arena");
+      showToast(err?.message || "Failed to start quiz");
     }
   };
 
@@ -406,8 +406,8 @@ export default function MultiplayerLobbyPage() {
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#fff8f0]/95 backdrop-blur-md transition-all duration-300">
           <div className="text-center space-y-4 max-w-md px-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e8f5ee] border border-[#d2eadc] text-xs font-bold text-[#317a63] font-mono tracking-wide uppercase animate-pulse">
-              <Swords className="h-4 w-4" />
-              Initializing Live Arena
+              <Sparkles className="h-4 w-4" />
+              Initializing Quiz Session
             </div>
             <h2 className="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
               Quiz Commencing!
@@ -648,7 +648,7 @@ export default function MultiplayerLobbyPage() {
                         : "Waiting for players..."}
                     </h2>
                     <p className="font-body-md text-body-md text-on-surface-variant">
-                      Share the PIN or QR code with friends to join the arena.
+                      Share the PIN or QR code with friends to join the quiz room.
                     </p>
                   </div>
                   {/* Lobby Slot Count Status Pill */}
@@ -819,7 +819,7 @@ export default function MultiplayerLobbyPage() {
                     </span>
                     <span>
                       {isStarting
-                        ? "Launching Quiz Arena..."
+                        ? "Launching Quiz..."
                         : !allNonHostsReady && playerCount > 1
                         ? `Waiting for ${unreadyCount} player${unreadyCount > 1 ? "s" : ""} to ready up...`
                         : "Start Quiz"}
@@ -855,7 +855,7 @@ export default function MultiplayerLobbyPage() {
                       playerCount === 1 ? (
                         "You are the room host. Ready to start whenever you want!"
                       ) : allNonHostsReady ? (
-                        "All players in the room are ready! You can now launch the arena."
+                        "All players in the room are ready! You can now start the quiz."
                       ) : (
                         `Waiting for ${unreadyCount} player${unreadyCount > 1 ? "s" : ""} to click Ready Up before starting.`
                       )

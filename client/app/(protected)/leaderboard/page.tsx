@@ -11,7 +11,7 @@ export default function LeaderboardPage() {
           Leaderboard
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Global rankings of competitive arena players based on completed battle victories and accuracy.
+          Global rankings of players based on completed quizzes, score, and accuracy.
         </p>
       </div>
 

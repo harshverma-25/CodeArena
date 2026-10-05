@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Trophy, Percent, Flame, Swords } from "lucide-react";
+import { Trophy, Percent, Flame, Gamepad2 } from "lucide-react";
 
 import { useDashboardStats } from "../hooks/useDashboardStats";
 
@@ -10,14 +10,14 @@ export function StatsOverview() {
 
   const statsItems = [
     {
-      label: "Battles Played",
+      label: "Quizzes Played",
       value: stats.matchesPlayed,
-      icon: Swords,
+      icon: Gamepad2,
       colorClass: "text-purple-500",
       bgClass: "bg-purple-500/10 border-purple-500/20",
     },
     {
-      label: "Wins",
+      label: "Top Finishes",
       value: stats.wins,
       icon: Trophy,
       colorClass: "text-orange-500",

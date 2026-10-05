@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Swords, Plus, Trophy } from "lucide-react";
+import { Users, Plus, Trophy } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { JoinBattleModal } from "./JoinBattleModal";
@@ -23,9 +23,9 @@ export function QuickActions() {
               <Plus className="h-6 w-6" />
             </div>
             <div>
-              <CardTitle className="text-xl font-bold text-foreground">Create Battle</CardTitle>
+              <CardTitle className="text-xl font-bold text-foreground">Create Quiz</CardTitle>
               <CardDescription className="text-sm text-muted-foreground mt-1">
-                Configure a custom room, set topic and rules, invite a challenger, and compete.
+                Configure a custom room, select a subject, invite friends, and play.
               </CardDescription>
             </div>
           </CardHeader>
@@ -34,7 +34,7 @@ export function QuickActions() {
               onClick={() => setIsCreateOpen(true)}
               className={buttonVariants({ variant: "primary", className: "w-full cursor-pointer font-mono text-xs" })}
             >
-              Start Battle Room
+              Start Quiz Room
             </button>
           </CardContent>
         </Card>
@@ -44,12 +44,12 @@ export function QuickActions() {
           <div className="absolute top-0 right-0 -translate-y-4 translate-x-4 w-24 h-24 rounded-full bg-primary/5 group-hover:bg-primary/10 transition-all duration-300 blur-xl pointer-events-none" />
           <CardHeader className="space-y-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20 group-hover:scale-110 transition-transform duration-300">
-              <Swords className="h-5 w-5" />
+              <Users className="h-5 w-5" />
             </div>
             <div>
-              <CardTitle className="text-xl font-bold text-foreground">Join Battle</CardTitle>
+              <CardTitle className="text-xl font-bold text-foreground">Join Room</CardTitle>
               <CardDescription className="text-sm text-muted-foreground mt-1">
-                Have a code? Type it in to enter a live lobby and start battling.
+                Have a code? Enter it to join a live quiz lobby with friends.
               </CardDescription>
             </div>
           </CardHeader>
@@ -73,7 +73,7 @@ export function QuickActions() {
             <div>
               <CardTitle className="text-xl font-bold text-foreground">Leaderboard</CardTitle>
               <CardDescription className="text-sm text-muted-foreground mt-1">
-                Check global player rankings, track top win rates, and see where you stand.
+                Check global player rankings, track top scores, and see where you stand.
               </CardDescription>
             </div>
           </CardHeader>

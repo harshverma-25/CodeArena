@@ -15,24 +15,24 @@ export function BattleResultsHeader({ results }: BattleResultsHeaderProps) {
 
   const outcomeConfig = {
     VICTORY: {
-      title: "VICTORY!",
-      desc: "Outstanding performance! You conquered this battle arena.",
+      title: "1ST PLACE!",
+      desc: "Outstanding performance! You finished at the top of the leaderboard.",
       bannerBg: "from-amber-500/15 via-primary/10 to-amber-500/5 border-amber-500/30",
       iconBg: "bg-amber-500/15 text-amber-400 border-amber-500/40 shadow-amber-500/10",
       icon: <Trophy className="h-10 w-10 text-amber-400 animate-bounce" />,
       badgeBg: "bg-amber-400 text-amber-950 font-black",
     },
     DEFEAT: {
-      title: "DEFEAT",
-      desc: "An honorable battle. Review your question breakdown to sharpen your skills.",
-      bannerBg: "from-rose-500/15 via-zinc-900/40 to-rose-500/5 border-rose-500/30",
-      iconBg: "bg-rose-500/15 text-rose-400 border-rose-500/40 shadow-rose-500/10",
-      icon: <Frown className="h-10 w-10 text-rose-400" />,
-      badgeBg: "bg-rose-500 text-rose-950 font-black",
+      title: "QUIZ COMPLETE",
+      desc: "Great effort! Review your question breakdown to sharpen your skills.",
+      bannerBg: "from-blue-500/15 via-zinc-900/40 to-blue-500/5 border-blue-500/30",
+      iconBg: "bg-blue-500/15 text-blue-400 border-blue-500/40 shadow-blue-500/10",
+      icon: <Award className="h-10 w-10 text-blue-400" />,
+      badgeBg: "bg-blue-500 text-blue-950 font-black",
     },
     DRAW: {
-      title: "IT'S A DRAW!",
-      desc: "Incredible match! Both contenders achieved identical final scores.",
+      title: "TIED SCORE!",
+      desc: "Incredible match! Both participants achieved identical final scores.",
       bannerBg: "from-primary/15 via-indigo-950/40 to-primary/5 border-primary/30",
       iconBg: "bg-primary/15 text-primary border-primary/40 shadow-primary/10",
       icon: <Award className="h-10 w-10 text-primary" />,
@@ -40,7 +40,7 @@ export function BattleResultsHeader({ results }: BattleResultsHeaderProps) {
     },
     IN_PROGRESS: {
       title: "IN PROGRESS",
-      desc: "This battle is still ongoing.",
+      desc: "This quiz is still ongoing.",
       bannerBg: "from-blue-500/15 to-blue-500/5 border-blue-500/30",
       iconBg: "bg-blue-500/15 text-blue-400 border-blue-500/40",
       icon: <Award className="h-10 w-10 text-blue-400" />,
@@ -48,7 +48,7 @@ export function BattleResultsHeader({ results }: BattleResultsHeaderProps) {
     },
     CANCELLED: {
       title: "CANCELLED",
-      desc: "This battle was cancelled before completion.",
+      desc: "This quiz was cancelled before completion.",
       bannerBg: "from-zinc-500/15 to-zinc-500/5 border-zinc-500/30",
       iconBg: "bg-zinc-500/15 text-zinc-400 border-zinc-500/40",
       icon: <Frown className="h-10 w-10 text-zinc-400" />,
@@ -210,15 +210,15 @@ export function BattleResultsHeader({ results }: BattleResultsHeaderProps) {
                 />
               ) : (
                 <div className="h-12 w-12 rounded-2xl border border-border bg-zinc-900 flex items-center justify-center font-mono font-bold text-zinc-400 text-sm shrink-0">
-                  {(opponentPlayer.displayName || opponentPlayer.username || "Opponent").slice(0, 2).toUpperCase()}
+                  {(opponentPlayer.displayName || opponentPlayer.username || "P2").slice(0, 2).toUpperCase()}
                 </div>
               )}
               <div className="min-w-0 space-y-0.5">
                 <span className="text-[10px] font-bold uppercase tracking-wider font-mono text-muted-foreground">
-                  Opponent
+                  Participant
                 </span>
                 <h3 className="text-base font-extrabold text-foreground truncate max-w-[150px] sm:max-w-[200px]">
-                  {opponentPlayer.displayName || opponentPlayer.username || "Challenger"}
+                  {opponentPlayer.displayName || opponentPlayer.username || "Player 2"}
                 </h3>
                 <p className="text-xs text-muted-foreground font-mono">
                   {opponentPlayer.correctCount || 0} / {results.questionCount} Correct

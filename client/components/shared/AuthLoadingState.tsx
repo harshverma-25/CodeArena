@@ -6,8 +6,8 @@ import { Shield } from "lucide-react";
 const STATUS_MESSAGES = [
   "Establishing secure connection...",
   "Verifying credentials...",
-  "Synchronizing Arena profile...",
-  "Preparing competitive coding workspace...",
+  "Synchronizing player profile...",
+  "Preparing quiz workspace...",
 ];
 
 export function AuthLoadingState() {

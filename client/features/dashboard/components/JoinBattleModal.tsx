@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ShieldAlert, X, Swords } from "lucide-react";
+import { ShieldAlert, X, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -71,14 +71,14 @@ export function JoinBattleModal({ isOpen, onClose }: JoinBattleModalProps) {
         {/* Title & Description */}
         <div className="flex items-center gap-3 mb-4">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20">
-            <Swords className="h-5 w-5" />
+            <Users className="h-5 w-5" />
           </div>
           <div>
             <h2 className="text-xl font-bold tracking-tight text-foreground">
-              Join Battle Room
+              Join Quiz Room
             </h2>
             <p className="text-xs text-muted-foreground">
-              Enter the room code shared by the host to join the battle lobby.
+              Enter the room code shared by the host to join the quiz lobby.
             </p>
           </div>
         </div>

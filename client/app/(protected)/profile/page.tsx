@@ -11,7 +11,7 @@ export default function ProfilePage() {
           User Profile
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Monitor your competitive coding statistics and update your account settings.
+          Track your quiz performance, view past achievements, and update your account settings.
         </p>
       </div>
 

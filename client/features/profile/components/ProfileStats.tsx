@@ -8,8 +8,6 @@ import { useUpdateProfile } from "../hooks/useUpdateProfile";
 import { 
   Trophy, 
   Percent, 
-  Swords, 
-  Frown, 
   Award,
   Activity,
   Mail,
@@ -142,7 +140,7 @@ export function ProfileStats() {
                 {dbUser?.displayName || dbUser?.username}
               </h2>
               <p className="text-xs text-muted-foreground font-mono">
-                @{dbUser?.username || "challenger"}
+                @{dbUser?.username || "player"}
               </p>
               <div className="flex flex-wrap justify-center sm:justify-start items-center gap-x-4 gap-y-1 text-xs text-muted-foreground pt-1">
                 <span className="flex items-center gap-1 font-mono font-bold text-primary">
@@ -180,7 +178,7 @@ export function ProfileStats() {
           <div className="mt-3">
             <span className="text-3xl font-black text-foreground font-mono">#{rank > 0 ? rank : "-"}</span>
             <p className="text-[10px] text-muted-foreground mt-1 font-mono">
-              Arena Standing
+              Global Standing
             </p>
           </div>
         </div>
@@ -298,7 +296,7 @@ export function ProfileStats() {
           <div className="space-y-4">
             <div>
               <h3 className="text-lg font-bold text-foreground">Security & Account</h3>
-              <p className="text-xs text-muted-foreground mt-0.5">Clerk authenticated information.</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Account authentication information.</p>
             </div>
 
             <div className="space-y-3 font-mono text-xs">

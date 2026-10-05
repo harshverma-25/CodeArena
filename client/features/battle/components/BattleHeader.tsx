@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Timer, Swords, Hash } from "lucide-react";
+import { Timer, Gamepad2, Hash } from "lucide-react";
 
 interface BattleHeaderProps {
   roomCode: string;
@@ -53,7 +53,7 @@ export function BattleHeader({
         {/* Topic and Room Badges */}
         <div className="flex items-center gap-2 flex-wrap">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold font-mono">
-            <Swords className="h-3.5 w-3.5" />
+            <Gamepad2 className="h-3.5 w-3.5" />
             <span>Room: {roomCode}</span>
           </div>
 

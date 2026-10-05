@@ -57,7 +57,7 @@ export function Navbar() {
   };
 
   const navLinks = [
-    { href: "/dashboard", label: "Arena", icon: Layers },
+    { href: "/dashboard", label: "Quizzes", icon: Layers },
     { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
     { href: "/history", label: "History", icon: HistoryIcon },
     { href: "/profile", label: "Profile", icon: UserIcon },
