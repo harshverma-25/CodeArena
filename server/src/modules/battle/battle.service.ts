@@ -209,8 +209,21 @@ export class BattleService {
       sampledQuestions = [...sampledQuestions, ...extra];
     }
 
+    // Ensure distinct questions by questionId
+    const uniqueMap = new Map<string, any>();
+    for (const q of sampledQuestions) {
+      if (!uniqueMap.has(q.questionId)) {
+        uniqueMap.set(q.questionId, q);
+      }
+    }
+    sampledQuestions = Array.from(uniqueMap.values());
+
     if (sampledQuestions.length < totalNeeded) {
-      throw new ApiError(400, `Not enough published questions available to initiate battle (${sampledQuestions.length} available, ${totalNeeded} requested)`);
+      const targetLabel = room.settings.subjectId || room.settings.categoryId || 'This subject';
+      throw new ApiError(
+        400,
+        `Not enough published questions: ${targetLabel} has only ${sampledQuestions.length} question${sampledQuestions.length === 1 ? '' : 's'}. Choose a smaller quiz or another subject.`
+      );
     }
 
     const targetTopic = room.settings.topic || room.settings.subjectId || room.settings.categoryId || 'General';

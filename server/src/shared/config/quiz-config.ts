@@ -43,3 +43,16 @@ export function isValidQuestionCount(count: unknown): count is number {
   }
   return QUESTION_COUNT_OPTIONS.includes(count as any);
 }
+
+/**
+ * Returns the list of standard quiz lengths [10, 15, 20] that can be satisfied
+ * by the given published question count.
+ * - < 10 questions -> []
+ * - 10-14 questions -> [10]
+ * - 15-19 questions -> [10, 15]
+ * - >= 20 questions -> [10, 15, 20]
+ */
+export function getAvailableQuizLengths(publishedCount: number): number[] {
+  if (typeof publishedCount !== 'number' || publishedCount < 0) return [];
+  return QUESTION_COUNT_OPTIONS.filter((opt) => publishedCount >= opt);
+}

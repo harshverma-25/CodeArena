@@ -38,6 +38,8 @@ export interface Category {
   icon?: string;
   isActive: boolean;
   questionCount: number;
+  availableLengths?: number[];
+  isPlayable?: boolean;
 }
 
 export interface Subject {
@@ -48,6 +50,8 @@ export interface Subject {
   categoryId: string;
   isActive: boolean;
   questionCount: number;
+  availableLengths?: number[];
+  isPlayable?: boolean;
 }
 
 export interface RoomSettings {

@@ -81,7 +81,22 @@ export class RoomService {
     });
 
     if (matchingCount < questionCount) {
-      throw new ApiError(400, `Not enough published questions available for requested question count (${matchingCount} available, ${questionCount} requested)`);
+      const targetLabel = resolvedSubjDoc?.name
+        ? `This subject (${resolvedSubjDoc.name})`
+        : resolvedCatDoc?.name
+        ? `This category (${resolvedCatDoc.name})`
+        : 'This subject';
+
+      if (matchingCount === 0) {
+        throw new ApiError(
+          400,
+          `Not enough published questions: ${targetLabel} has 0 questions available. Choose another subject.`
+        );
+      }
+      throw new ApiError(
+        400,
+        `Not enough published questions: ${targetLabel} has only ${matchingCount} question${matchingCount === 1 ? '' : 's'}. Choose a smaller quiz or another subject.`
+      );
     }
 
     return {

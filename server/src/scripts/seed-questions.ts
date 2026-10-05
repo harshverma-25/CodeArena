@@ -4,6 +4,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { questionService } from '../modules/question/question.service.js';
 import { IQuestion } from '../modules/question/question.types.js';
+import { seedCategoriesAndMigrateQuestions } from './seed-categories.js';
 
 // Load environment variables
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
@@ -62,6 +63,10 @@ async function seedQuestions() {
     console.log(`✨ Seeding completed successfully!`);
     console.log(`   - New questions inserted: ${inserted}`);
     console.log(`   - Existing questions updated: ${updated}`);
+
+    console.log('🔄 Linking question category and subject relationships...');
+    await seedCategoriesAndMigrateQuestions();
+    console.log('✅ Categories, subjects and question references synchronized!');
   } catch (error) {
     console.error('❌ Error during question seeding:', error);
   } finally {

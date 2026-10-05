@@ -2,12 +2,13 @@ import { categoryRepository, CategoryRepository } from './category.repository.js
 import { ICategoryDocument, ISubjectDocument } from './category.types.js';
 import { ApiError } from '../../shared/errors/api-error.js';
 import { questionRepository } from '../question/question.repository.js';
+import { getAvailableQuizLengths } from '../../shared/config/quiz-config.js';
 
 export class CategoryService {
   constructor(private repository: CategoryRepository = categoryRepository) {}
 
   /**
-   * Retrieve all active categories with question counts.
+   * Retrieve all active categories with question counts and availability metrics.
    */
   async getAllCategories(): Promise<any[]> {
     const categories = await this.repository.findAllActiveCategories();
@@ -17,14 +18,18 @@ export class CategoryService {
           categoryId: cat.slug,
           isMixedCategory: true,
         });
+        const availableLengths = getAvailableQuizLengths(questionCount);
         return {
           _id: cat._id.toString(),
+          id: cat._id.toString(),
           name: cat.name,
           slug: cat.slug,
           description: cat.description,
           icon: cat.icon,
           isActive: cat.isActive,
           questionCount,
+          availableLengths,
+          isPlayable: questionCount >= 10,
         };
       })
     );
@@ -42,7 +47,7 @@ export class CategoryService {
   }
 
   /**
-   * Retrieve category and all active subjects belonging to it with question counts.
+   * Retrieve category and all active subjects belonging to it with question counts and availability metrics.
    */
   async getSubjectsForCategory(categoryIdOrSlug: string): Promise<{ category: any; subjects: any[] }> {
     const category = await this.getCategory(categoryIdOrSlug);
@@ -52,6 +57,7 @@ export class CategoryService {
       categoryId: category.slug,
       isMixedCategory: true,
     });
+    const categoryAvailableLengths = getAvailableQuizLengths(categoryQuestionCount);
 
     const subjectsWithCount = await Promise.all(
       subjects.map(async (subj) => {
@@ -60,8 +66,10 @@ export class CategoryService {
           subjectId: subj.slug,
           isMixedCategory: false,
         });
+        const availableLengths = getAvailableQuizLengths(questionCount);
         return {
           _id: subj._id.toString(),
+          id: subj._id.toString(),
           categoryId: subj.categoryId.toString(),
           name: subj.name,
           slug: subj.slug,
@@ -69,6 +77,8 @@ export class CategoryService {
           icon: subj.icon,
           isActive: subj.isActive,
           questionCount,
+          availableLengths,
+          isPlayable: questionCount >= 10,
         };
       })
     );
@@ -76,12 +86,15 @@ export class CategoryService {
     return {
       category: {
         _id: category._id.toString(),
+        id: category._id.toString(),
         name: category.name,
         slug: category.slug,
         description: category.description,
         icon: category.icon,
         isActive: category.isActive,
         questionCount: categoryQuestionCount,
+        availableLengths: categoryAvailableLengths,
+        isPlayable: categoryQuestionCount >= 10,
       },
       subjects: subjectsWithCount,
     };

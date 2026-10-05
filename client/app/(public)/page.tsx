@@ -287,6 +287,14 @@ export default function StitchHomePage() {
     (c) => c.id === selectedCategoryId || c.slug === selectedCategoryId
   ) || (categories.length > 0 ? categories[0] : null);
 
+  const getAvailableLengths = (count: number) => {
+    const lengths: number[] = [];
+    if (count >= 10) lengths.push(10);
+    if (count >= 15) lengths.push(15);
+    if (count >= 20) lengths.push(20);
+    return lengths;
+  };
+
   const mixedQuizCard = currentCategory
     ? {
         cardId: `mixed-${currentCategory.id}`,
@@ -294,6 +302,8 @@ export default function StitchHomePage() {
         category: currentCategory.name,
         description: `Randomized mix of questions covering all subjects in ${currentCategory.name}.`,
         questionCount: currentCategory.questionCount || 0,
+        availableLengths: currentCategory.availableLengths ?? getAvailableLengths(currentCategory.questionCount || 0),
+        isPlayable: currentCategory.isPlayable ?? ((currentCategory.questionCount || 0) >= 10),
         isMixedCategory: true,
         categoryId: currentCategory.id,
         subjectId: null,
@@ -306,6 +316,8 @@ export default function StitchHomePage() {
     category: currentCategory?.name || "Subject",
     description: sub.description || `Test your grasp on ${sub.name} concepts and problems.`,
     questionCount: sub.questionCount || 0,
+    availableLengths: sub.availableLengths ?? getAvailableLengths(sub.questionCount || 0),
+    isPlayable: sub.isPlayable ?? ((sub.questionCount || 0) >= 10),
     isMixedCategory: false,
     categoryId: sub.categoryId || currentCategory?.id || selectedCategoryId,
     subjectId: sub.id,
@@ -321,6 +333,35 @@ export default function StitchHomePage() {
     if (activeFilter === "subjects") return !card.isMixedCategory;
     return true;
   });
+
+  // Calculate highest question count available in currently filtered view
+  const maxQuestionsInView = filteredQuizCards.reduce(
+    (max, card) => Math.max(max, card.questionCount),
+    0
+  );
+
+  // Auto-correct selectedQuestionCount when category, subjects, or filter changes
+  useEffect(() => {
+    if (maxQuestionsInView >= 20) {
+      return;
+    }
+    if (maxQuestionsInView >= 15) {
+      if (selectedQuestionCount > 15) {
+        setSelectedQuestionCount(15);
+      }
+      return;
+    }
+    if (maxQuestionsInView >= 10) {
+      if (selectedQuestionCount > 10) {
+        setSelectedQuestionCount(10);
+      }
+      return;
+    }
+    // If < 10 questions are available, default to 10 (all options disabled)
+    if (selectedQuestionCount !== 10) {
+      setSelectedQuestionCount(10);
+    }
+  }, [maxQuestionsInView, selectedQuestionCount]);
 
   return (
     <div className="stitch-scope min-h-screen bg-surface font-body-md text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
@@ -717,20 +758,31 @@ export default function StitchHomePage() {
                   {/* Question Count Selector (10, 15, 20) */}
                   <div className="inline-flex items-center gap-1 p-1 bg-tertiary-fixed/30 border border-tertiary-fixed-dim/40 rounded-full">
                     <span className="text-xs font-bold text-tertiary px-2 uppercase font-mono">Length:</span>
-                    {[10, 15, 20].map((countOption) => (
-                      <button
-                        key={countOption}
-                        onClick={() => setSelectedQuestionCount(countOption)}
-                        className={`px-3 py-1 rounded-full font-label-sm text-label-sm transition-all cursor-pointer ${
-                          selectedQuestionCount === countOption
-                            ? "bg-tertiary text-on-tertiary shadow-sm font-bold"
-                            : "text-on-surface-variant hover:text-on-surface font-semibold"
-                        }`}
-                        type="button"
-                      >
-                        {countOption} Qs
-                      </button>
-                    ))}
+                    {[10, 15, 20].map((countOption) => {
+                      const isOptionAvailable = maxQuestionsInView >= countOption;
+                      return (
+                        <button
+                          key={countOption}
+                          disabled={!isOptionAvailable}
+                          onClick={() => isOptionAvailable && setSelectedQuestionCount(countOption)}
+                          className={`px-3 py-1 rounded-full font-label-sm text-label-sm transition-all ${
+                            !isOptionAvailable
+                              ? "opacity-40 cursor-not-allowed text-on-surface-variant line-through"
+                              : selectedQuestionCount === countOption
+                              ? "bg-tertiary text-on-tertiary shadow-sm font-bold cursor-pointer"
+                              : "text-on-surface-variant hover:text-on-surface font-semibold cursor-pointer"
+                          }`}
+                          title={
+                            !isOptionAvailable
+                              ? `Requires at least ${countOption} published questions (max available: ${maxQuestionsInView})`
+                              : `Set quiz length to ${countOption} questions`
+                          }
+                          type="button"
+                        >
+                          {countOption} Qs
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -762,12 +814,22 @@ export default function StitchHomePage() {
                           <div className="flex items-center justify-between mb-space-md">
                             <span
                               className={`px-3 py-1 rounded-full font-label-sm text-label-sm font-semibold ${
-                                quiz.isMixedCategory
+                                quiz.questionCount === 0
+                                  ? "bg-surface-container-high text-on-surface-variant/80 border border-surface-container-highest"
+                                  : quiz.questionCount < 10
+                                  ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20"
+                                  : quiz.isMixedCategory
                                   ? "bg-primary text-on-primary"
                                   : "bg-surface-container-high text-on-surface-variant"
                               }`}
                             >
-                              {quiz.isMixedCategory ? "Mixed Pool" : quiz.category}
+                              {quiz.questionCount === 0
+                                ? "Coming Soon"
+                                : quiz.questionCount < 10
+                                ? "Not Enough Questions"
+                                : quiz.isMixedCategory
+                                ? "Mixed Pool"
+                                : quiz.category}
                             </span>
                             <button
                               aria-label="Bookmark quiz"
@@ -797,53 +859,111 @@ export default function StitchHomePage() {
 
                         <div className="pt-space-md mt-space-sm flex flex-col gap-2.5 border-t border-surface-container-low">
                           <div className="flex items-center justify-between text-xs">
-                            <span className="font-label-md text-label-md text-on-surface-variant font-medium">
-                              {quiz.questionCount} Qs Available
-                            </span>
-                            {!hasEnoughQuestions && (
-                              <span className="font-bold text-error">
-                                Requires {selectedQuestionCount} Qs
-                              </span>
+                            {quiz.questionCount === 0 ? (
+                              <>
+                                <span className="font-label-md text-label-md text-on-surface-variant font-medium flex items-center gap-1">
+                                  <span className="material-symbols-outlined text-[15px]">hourglass_empty</span>
+                                  Coming Soon
+                                </span>
+                                <span className="font-semibold text-on-surface-variant">
+                                  0 Questions
+                                </span>
+                              </>
+                            ) : quiz.questionCount < 10 ? (
+                              <>
+                                <span className="font-label-md text-label-md text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1">
+                                  <span className="material-symbols-outlined text-[15px]">info</span>
+                                  Not enough questions yet
+                                </span>
+                                <span className="font-semibold text-on-surface-variant">
+                                  {quiz.questionCount}/10 Qs
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                <span className="font-label-md text-label-md text-on-surface-variant font-medium">
+                                  {quiz.questionCount} Qs Available
+                                </span>
+                                {!hasEnoughQuestions ? (
+                                  <span className="font-bold text-error">
+                                    Requires {selectedQuestionCount} Qs
+                                  </span>
+                                ) : (
+                                  <span className="font-medium text-primary text-xs">
+                                    Supports {quiz.availableLengths.join('/')} Qs
+                                  </span>
+                                )}
+                              </>
                             )}
                           </div>
 
-                          <div className="grid grid-cols-2 gap-2">
-                            {/* Solo Quiz (Direct Gameplay) */}
-                            <button
-                              disabled={isBusy || !hasEnoughQuestions}
-                              onClick={() => handlePlaySoloQuiz(quiz)}
-                              className={`px-3 py-2 rounded-full font-label-md text-label-md font-bold transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer ${
-                                hasEnoughQuestions
-                                  ? "bg-primary hover:bg-primary-container text-on-primary hover:-translate-y-0.5 active:translate-y-0"
-                                  : "bg-surface-container-high text-on-surface-variant opacity-60 cursor-not-allowed"
-                              }`}
-                              type="button"
-                              title="Start solo quiz directly without a lobby"
-                            >
-                              <span className="material-symbols-outlined text-[16px]">play_arrow</span>
-                              <span>
-                                {isStartingThisSolo ? "Starting..." : "Solo Quiz"}
-                              </span>
-                            </button>
+                          {quiz.questionCount === 0 ? (
+                            <div className="grid grid-cols-1">
+                              <button
+                                disabled
+                                className="w-full px-3 py-2 rounded-full font-label-md text-label-md font-semibold bg-surface-container-high text-on-surface-variant/60 cursor-not-allowed text-center"
+                                type="button"
+                              >
+                                Coming Soon (0 Questions)
+                              </button>
+                            </div>
+                          ) : quiz.questionCount < 10 ? (
+                            <div className="grid grid-cols-1">
+                              <button
+                                disabled
+                                className="w-full px-3 py-2 rounded-full font-label-md text-label-md font-semibold bg-surface-container-high text-on-surface-variant/60 cursor-not-allowed text-center"
+                                type="button"
+                              >
+                                Not enough questions yet ({quiz.questionCount}/10 Qs)
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="grid grid-cols-2 gap-2">
+                              {/* Solo Quiz (Direct Gameplay) */}
+                              <button
+                                disabled={isBusy || !hasEnoughQuestions}
+                                onClick={() => handlePlaySoloQuiz(quiz)}
+                                className={`px-3 py-2 rounded-full font-label-md text-label-md font-bold transition-all shadow-sm flex items-center justify-center gap-1.5 ${
+                                  hasEnoughQuestions
+                                    ? "bg-primary hover:bg-primary-container text-on-primary hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+                                    : "bg-surface-container-high text-on-surface-variant opacity-60 cursor-not-allowed"
+                                }`}
+                                type="button"
+                                title={
+                                  hasEnoughQuestions
+                                    ? "Start solo quiz directly without a lobby"
+                                    : `This quiz has only ${quiz.questionCount} questions. Select a smaller quiz length (${quiz.availableLengths.join(' or ')})`
+                                }
+                              >
+                                <span className="material-symbols-outlined text-[16px]">play_arrow</span>
+                                <span>
+                                  {isStartingThisSolo ? "Starting..." : "Solo Quiz"}
+                                </span>
+                              </button>
 
-                            {/* Multiplayer (Room Lobby) */}
-                            <button
-                              disabled={isBusy || !hasEnoughQuestions}
-                              onClick={() => handlePlayQuizCard(quiz)}
-                              className={`px-3 py-2 rounded-full font-label-md text-label-md font-bold transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer ${
-                                hasEnoughQuestions
-                                  ? "bg-surface-container-high hover:bg-surface-container-highest text-on-surface hover:-translate-y-0.5 active:translate-y-0 border border-outline-variant/40"
-                                  : "bg-surface-container-high text-on-surface-variant opacity-60 cursor-not-allowed"
-                              }`}
-                              type="button"
-                              title="Create 1–4 player room to invite friends"
-                            >
-                              <span className="material-symbols-outlined text-[16px]">group</span>
-                              <span>
-                                {isCreatingThis ? "Creating..." : "Multiplayer"}
-                              </span>
-                            </button>
-                          </div>
+                              {/* Multiplayer (Room Lobby) */}
+                              <button
+                                disabled={isBusy || !hasEnoughQuestions}
+                                onClick={() => handlePlayQuizCard(quiz)}
+                                className={`px-3 py-2 rounded-full font-label-md text-label-md font-bold transition-all shadow-sm flex items-center justify-center gap-1.5 ${
+                                  hasEnoughQuestions
+                                    ? "bg-surface-container-high hover:bg-surface-container-highest text-on-surface hover:-translate-y-0.5 active:translate-y-0 border border-outline-variant/40 cursor-pointer"
+                                    : "bg-surface-container-high text-on-surface-variant opacity-60 cursor-not-allowed"
+                                }`}
+                                type="button"
+                                title={
+                                  hasEnoughQuestions
+                                    ? "Create 1–4 player room to invite friends"
+                                    : `This quiz has only ${quiz.questionCount} questions. Select a smaller quiz length (${quiz.availableLengths.join(' or ')})`
+                                }
+                              >
+                                <span className="material-symbols-outlined text-[16px]">group</span>
+                                <span>
+                                  {isCreatingThis ? "Creating..." : "Multiplayer"}
+                                </span>
+                              </button>
+                            </div>
+                          )}
                         </div>
                       </div>
                     );
