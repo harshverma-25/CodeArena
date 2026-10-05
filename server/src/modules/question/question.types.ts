@@ -20,7 +20,9 @@ export enum QuestionDifficulty {
 
 export interface IQuestion {
   questionId: string;
-  topic: QuestionTopic;
+  categoryId?: Types.ObjectId;
+  subjectId?: Types.ObjectId;
+  topic?: QuestionTopic | string;
   difficulty: QuestionDifficulty;
   question: string;
   options: string[]; // Exactly 4 options
@@ -39,7 +41,9 @@ export interface IQuestionDocument extends IQuestion, Document {
 export interface ISanitizedQuestion {
   _id: string;
   questionId: string;
-  topic: QuestionTopic;
+  categoryId?: string;
+  subjectId?: string;
+  topic?: string;
   difficulty: QuestionDifficulty;
   question: string;
   options: string[];

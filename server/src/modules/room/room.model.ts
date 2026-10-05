@@ -12,11 +12,13 @@ const RoomPlayerSchema = new Schema(
 
 const RoomSettingsSchema = new Schema(
   {
-    topic: { type: String, required: true, default: 'random' },
+    categoryId: { type: String, default: null },
+    subjectId: { type: String, default: null },
+    isMixedCategory: { type: Boolean, default: false },
+    topic: { type: String, default: 'random' },
     difficulty: {
       type: String,
       required: true,
-      enum: ['Easy', 'Medium', 'Hard', 'random'],
       default: 'random',
     },
     duration: { type: Number, required: true, default: 30 }, // in minutes

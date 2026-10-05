@@ -181,17 +181,7 @@ export class BattleService {
     }
 
     // 5. Select questions for the battle (all players play the same quiz)
-    let targetTopic = room.settings.topic;
-    if (targetTopic === 'random') {
-      const availableTopics = await this.qRepository.getAvailablePublishedTopics();
-      if (availableTopics.length > 0) {
-        targetTopic = availableTopics[Math.floor(Math.random() * availableTopics.length)];
-      } else {
-        targetTopic = 'JavaScript';
-      }
-    }
-
-    let targetDifficulty = room.settings.difficulty.toLowerCase();
+    let targetDifficulty = room.settings.difficulty ? room.settings.difficulty.toLowerCase() : 'easy';
     if (targetDifficulty === 'random') {
       targetDifficulty = 'easy';
     }
@@ -199,18 +189,26 @@ export class BattleService {
     const defaultQuestionCount = (room.settings as any).questionCount || 10;
     const totalNeeded = defaultQuestionCount;
 
-    // Sample distinct random published questions
-    let sampledQuestions = await this.qRepository.sampleRandomPublished(targetTopic, targetDifficulty, totalNeeded);
+    const filterObj = {
+      categoryId: room.settings.categoryId,
+      subjectId: room.settings.subjectId,
+      isMixedCategory: room.settings.isMixedCategory,
+      topic: room.settings.topic,
+      difficulty: targetDifficulty,
+    };
 
-    // Fallback 1: match topic with any difficulty if not enough questions
+    // Sample distinct random published questions using Category / Subject / Mixed filter
+    let sampledQuestions = await this.qRepository.sampleRandomPublished(filterObj, targetDifficulty, totalNeeded);
+
+    // Fallback 1: match category/subject with any difficulty if not enough questions
     if (sampledQuestions.length < totalNeeded) {
       const existingIds = sampledQuestions.map((q) => q.questionId);
       const remaining = totalNeeded - sampledQuestions.length;
-      const extra = await this.qRepository.sampleRandomPublished(targetTopic, undefined, remaining, existingIds);
+      const extra = await this.qRepository.sampleRandomPublished({ ...filterObj, difficulty: undefined }, undefined, remaining, existingIds);
       sampledQuestions = [...sampledQuestions, ...extra];
     }
 
-    // Fallback 2: match any topic/difficulty if still not enough questions
+    // Fallback 2: match any published questions if still not enough
     if (sampledQuestions.length < totalNeeded) {
       const existingIds = sampledQuestions.map((q) => q.questionId);
       const remaining = totalNeeded - sampledQuestions.length;
@@ -221,6 +219,8 @@ export class BattleService {
     if (sampledQuestions.length < 1) {
       throw new ApiError(400, 'Not enough questions available to initiate battle');
     }
+
+    const targetTopic = room.settings.topic || room.settings.subjectId || room.settings.categoryId || 'General';
 
     const actualQuestionCount = Math.min(defaultQuestionCount, sampledQuestions.length);
     const assignedQuestionIds = sampledQuestions.slice(0, actualQuestionCount).map((q) => q.questionId);

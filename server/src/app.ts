@@ -10,6 +10,7 @@ import { roomRoutes } from './modules/room/room.routes.js';
 import { battleRoutes } from './modules/battle/battle.routes.js';
 import { historyRoutes } from './modules/history/history.routes.js';
 import { authRoutes } from './modules/auth/auth.routes.js';
+import { categoryRoutes } from './modules/category/category.routes.js';
 import { docsRoutes } from './modules/docs/docs.routes.js';
 
 import mongoose from 'mongoose';
@@ -89,6 +90,7 @@ app.get('/api/v1/health', (req, res) => {
 
 // Register API Routes
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/categories', categoryRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/leaderboard', userRoutes);
 app.use('/api/v1/questions', questionRoutes);

@@ -3,6 +3,7 @@ import { RoomModel } from './room.model.js';
 import { IRoomDocument, RoomStatus, IRoomSettings } from './room.types.js';
 import { ApiError } from '../../shared/errors/api-error.js';
 import { questionRepository } from '../question/question.repository.js';
+import { categoryRepository } from '../category/category.repository.js';
 
 export class RoomService {
   /**
@@ -18,24 +19,71 @@ export class RoomService {
   }
 
   /**
+   * Validate category and subject relationships server-side.
+   */
+  private async validateAndResolveCategorySettings(settings?: Partial<IRoomSettings>): Promise<IRoomSettings> {
+    const categoryId = settings?.categoryId;
+    const subjectId = settings?.subjectId;
+    const isMixedCategory = !!settings?.isMixedCategory;
+    const topic = settings?.topic || 'random';
+    const difficulty = settings?.difficulty || 'random';
+    const duration = settings?.duration || 30;
+    const questionCount = settings?.questionCount || 10;
+
+    let resolvedCatDoc = null;
+    let resolvedSubjDoc = null;
+
+    if (categoryId) {
+      resolvedCatDoc = await categoryRepository.findCategoryByIdOrSlug(categoryId);
+      if (!resolvedCatDoc) {
+        throw new ApiError(404, `Category '${categoryId}' does not exist or is inactive`);
+      }
+    }
+
+    if (subjectId && !isMixedCategory) {
+      resolvedSubjDoc = await categoryRepository.findSubjectByIdOrSlug(subjectId);
+      if (!resolvedSubjDoc) {
+        throw new ApiError(404, `Subject '${subjectId}' does not exist or is inactive`);
+      }
+
+      if (resolvedCatDoc && resolvedSubjDoc.categoryId.toString() !== resolvedCatDoc._id.toString()) {
+        throw new ApiError(400, `Subject '${resolvedSubjDoc.name}' does not belong to selected category '${resolvedCatDoc.name}'`);
+      } else if (!resolvedCatDoc) {
+        resolvedCatDoc = await categoryRepository.findCategoryByIdOrSlug(resolvedSubjDoc.categoryId.toString());
+      }
+    }
+
+    const hasQuestion = await questionRepository.hasMatchingQuestion({
+      categoryId: resolvedCatDoc ? resolvedCatDoc.slug : categoryId,
+      subjectId: resolvedSubjDoc ? resolvedSubjDoc.slug : subjectId,
+      isMixedCategory,
+      topic,
+      difficulty,
+    });
+
+    if (!hasQuestion) {
+      throw new ApiError(400, `No published questions match the selected category/subject/difficulty criteria`);
+    }
+
+    return {
+      categoryId: resolvedCatDoc ? resolvedCatDoc.slug : categoryId,
+      subjectId: resolvedSubjDoc ? resolvedSubjDoc.slug : subjectId,
+      isMixedCategory,
+      topic,
+      difficulty,
+      duration,
+      questionCount,
+    };
+  }
+
+  /**
    * Create a new private room with the authenticated user as the host.
    */
   async createRoom(
     hostUserId: string,
     settings?: Partial<IRoomSettings>
   ): Promise<IRoomDocument> {
-    const topic = settings?.topic || 'random';
-    const difficulty = settings?.difficulty || 'random';
-
-    const hasQuestion = await questionRepository.hasMatchingQuestion({ topic, difficulty });
-    if (!hasQuestion) {
-      const topicStr = topic === 'random' ? 'Any Topic' : topic;
-      const diffStr = difficulty === 'random' ? 'Any Difficulty' : difficulty;
-      throw new ApiError(
-        400,
-        `No published ${topicStr} / ${diffStr} questions are currently available.`
-      );
-    }
+    const validatedSettings = await this.validateAndResolveCategorySettings(settings);
 
     let roomCode = '';
     let isUnique = false;
@@ -59,12 +107,7 @@ export class RoomService {
           isReady: false,
         },
       ],
-      settings: {
-        topic,
-        difficulty,
-        duration: settings?.duration || 30,
-        questionCount: settings?.questionCount || 10,
-      },
+      settings: validatedSettings,
       maxPlayers: 4,
       status: RoomStatus.WAITING,
     });
@@ -156,28 +199,20 @@ export class RoomService {
       throw new ApiError(400, 'Cannot update settings after the match has started');
     }
 
-    const updatedSettings = {
+    const updatedSettingsCandidate = {
+      categoryId: settings.categoryId !== undefined ? settings.categoryId : room.settings.categoryId,
+      subjectId: settings.subjectId !== undefined ? settings.subjectId : room.settings.subjectId,
+      isMixedCategory: settings.isMixedCategory !== undefined ? settings.isMixedCategory : room.settings.isMixedCategory,
       topic: settings.topic !== undefined ? settings.topic : room.settings.topic,
       difficulty: settings.difficulty !== undefined ? settings.difficulty : room.settings.difficulty,
       duration: settings.duration !== undefined ? settings.duration : room.settings.duration,
       questionCount: settings.questionCount !== undefined ? settings.questionCount : (room.settings.questionCount || 10),
     };
 
-    const hasQuestion = await questionRepository.hasMatchingQuestion({
-      topic: updatedSettings.topic,
-      difficulty: updatedSettings.difficulty,
-    });
-    if (!hasQuestion) {
-      const topicStr = updatedSettings.topic === 'random' ? 'Any Topic' : updatedSettings.topic;
-      const diffStr = updatedSettings.difficulty === 'random' ? 'Any Difficulty' : updatedSettings.difficulty;
-      throw new ApiError(
-        400,
-        `No published ${topicStr} / ${diffStr} questions are currently available.`
-      );
-    }
+    const validatedSettings = await this.validateAndResolveCategorySettings(updatedSettingsCandidate);
 
     const updated = await roomRepository.update(code, {
-      settings: updatedSettings,
+      settings: validatedSettings,
     });
 
     if (!updated) {

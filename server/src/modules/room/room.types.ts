@@ -15,8 +15,11 @@ export interface IRoomPlayer {
 }
 
 export interface IRoomSettings {
-  topic: string; // QuestionTopic or 'random'
-  difficulty: 'Easy' | 'Medium' | 'Hard' | 'random';
+  categoryId?: string;
+  subjectId?: string;
+  isMixedCategory?: boolean;
+  topic?: string; // QuestionTopic, subject slug, or 'random'
+  difficulty: 'Easy' | 'Medium' | 'Hard' | 'random' | 'easy' | 'medium' | 'hard';
   duration: number; // in minutes
   questionCount?: number;
 }

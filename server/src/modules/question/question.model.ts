@@ -4,10 +4,10 @@ import { IQuestionDocument, QuestionTopic, QuestionDifficulty } from './question
 const QuestionSchema = new Schema<IQuestionDocument>(
   {
     questionId: { type: String, required: true, unique: true, index: true },
+    categoryId: { type: Schema.Types.ObjectId, ref: 'Category', index: true },
+    subjectId: { type: Schema.Types.ObjectId, ref: 'Subject', index: true },
     topic: {
       type: String,
-      required: true,
-      enum: Object.values(QuestionTopic),
       index: true,
     },
     difficulty: {
@@ -39,7 +39,9 @@ const QuestionSchema = new Schema<IQuestionDocument>(
   }
 );
 
-// Compound Index for efficient random selection & filtered pagination
+// Compound Indexes for efficient random selection & filtered pagination
+QuestionSchema.index({ categoryId: 1, subjectId: 1, isPublished: 1 });
+QuestionSchema.index({ categoryId: 1, isPublished: 1 });
 QuestionSchema.index({ topic: 1, difficulty: 1, isPublished: 1 });
 
 export const QuestionModel = model<IQuestionDocument>('Question', QuestionSchema);

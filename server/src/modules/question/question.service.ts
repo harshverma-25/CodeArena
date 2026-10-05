@@ -14,6 +14,8 @@ export class QuestionService {
     return {
       _id: doc._id.toString(),
       questionId: doc.questionId,
+      categoryId: doc.categoryId ? doc.categoryId.toString() : undefined,
+      subjectId: doc.subjectId ? doc.subjectId.toString() : undefined,
       topic: doc.topic,
       difficulty: doc.difficulty,
       question: doc.question,
@@ -26,12 +28,12 @@ export class QuestionService {
    * Retrieve paginated list of published sanitized questions.
    */
   async getQuestions(
-    query: { topic?: string; difficulty?: string; page?: number; limit?: number }
+    query: { categoryId?: string; subjectId?: string; isMixedCategory?: boolean; topic?: string; difficulty?: string; page?: number; limit?: number }
   ): Promise<{ questions: ISanitizedQuestion[]; total: number; page: number; limit: number }> {
     const page = query.page || 1;
     const limit = query.limit || 10;
     const { questions, total } = await this.repository.findPublished(
-      { topic: query.topic, difficulty: query.difficulty },
+      { categoryId: query.categoryId, subjectId: query.subjectId, isMixedCategory: query.isMixedCategory, topic: query.topic, difficulty: query.difficulty },
       { page, limit }
     );
 

@@ -1,7 +1,57 @@
 import { QuestionModel } from './question.model.js';
 import { IQuestion, IQuestionDocument, QuestionTopic, QuestionDifficulty } from './question.types.js';
+import { categoryRepository } from '../category/category.repository.js';
 
 export class QuestionRepository {
+  /**
+   * Helper to construct MongoDB query matching categoryId, subjectId, isMixedCategory, or legacy topic.
+   */
+  private async buildQuestionMatchQuery(filter: {
+    categoryId?: string;
+    subjectId?: string;
+    isMixedCategory?: boolean;
+    topic?: string;
+    difficulty?: string;
+  }): Promise<any> {
+    const query: any = { isPublished: true };
+
+    if (filter.difficulty && filter.difficulty !== 'all' && filter.difficulty !== 'random') {
+      query.difficulty = filter.difficulty.toLowerCase();
+    }
+
+    let categoryDoc = filter.categoryId
+      ? await categoryRepository.findCategoryByIdOrSlug(filter.categoryId)
+      : null;
+
+    let subjectDoc = filter.subjectId && !filter.isMixedCategory
+      ? await categoryRepository.findSubjectByIdOrSlug(filter.subjectId)
+      : null;
+
+    // Fallback: if categoryId was not passed but topic was passed
+    if (!categoryDoc && !subjectDoc && filter.topic && filter.topic !== 'all' && filter.topic !== 'random') {
+      subjectDoc = await categoryRepository.findSubjectByIdOrSlug(filter.topic);
+      if (subjectDoc) {
+        categoryDoc = await categoryRepository.findCategoryByIdOrSlug(subjectDoc.categoryId.toString());
+      } else {
+        categoryDoc = await categoryRepository.findCategoryByIdOrSlug(filter.topic);
+      }
+    }
+
+    if (categoryDoc) {
+      query.categoryId = categoryDoc._id;
+    }
+    if (subjectDoc && !filter.isMixedCategory) {
+      query.subjectId = subjectDoc._id;
+    }
+
+    // If neither categoryId nor subjectId could be resolved, fallback to legacy topic query
+    if (!query.categoryId && !query.subjectId && filter.topic && filter.topic !== 'all' && filter.topic !== 'random') {
+      query.topic = filter.topic;
+    }
+
+    return query;
+  }
+
   /**
    * Find a question by its unique questionId.
    */
@@ -29,20 +79,13 @@ export class QuestionRepository {
   }
 
   /**
-   * Find published questions filtered by topic & difficulty with pagination.
+   * Find published questions filtered by categoryId, subjectId, topic & difficulty with pagination.
    */
   async findPublished(
-    filter: { topic?: string; difficulty?: string } = {},
+    filter: { categoryId?: string; subjectId?: string; isMixedCategory?: boolean; topic?: string; difficulty?: string } = {},
     options: { page?: number; limit?: number } = {}
   ): Promise<{ questions: IQuestionDocument[]; total: number }> {
-    const query: any = { isPublished: true };
-
-    if (filter.topic && filter.topic !== 'all') {
-      query.topic = filter.topic;
-    }
-    if (filter.difficulty && filter.difficulty !== 'all') {
-      query.difficulty = filter.difficulty;
-    }
+    const query = await this.buildQuestionMatchQuery(filter);
 
     const page = Math.max(1, options.page || 1);
     const limit = Math.min(100, Math.max(1, options.limit || 10));
@@ -57,23 +100,32 @@ export class QuestionRepository {
   }
 
   /**
-   * Randomly sample published questions matching topic & difficulty criteria, excluding optional questionIds.
-   * Useful for battle question generation.
+   * Randomly sample published questions matching category, subject & difficulty criteria.
+   * Supports mixed category mode (querying categoryId without filtering by subjectId).
    */
   async sampleRandomPublished(
-    topic?: string,
-    difficulty?: string,
-    count: number = 5,
+    filterOrTopic?: string | { categoryId?: string; subjectId?: string; isMixedCategory?: boolean; topic?: string; difficulty?: string },
+    difficultyParam?: string | number,
+    countParam: number = 5,
     excludeQuestionIds: string[] = []
   ): Promise<IQuestionDocument[]> {
-    const matchStage: any = { isPublished: true };
+    let filterObj: { categoryId?: string; subjectId?: string; isMixedCategory?: boolean; topic?: string; difficulty?: string } = {};
+    let count = countParam;
 
-    if (topic && topic !== 'all' && topic !== 'random') {
-      matchStage.topic = topic;
+    if (typeof filterOrTopic === 'object' && filterOrTopic !== null) {
+      filterObj = filterOrTopic;
+      if (typeof difficultyParam === 'number') {
+        count = difficultyParam;
+      }
+    } else {
+      filterObj = {
+        topic: filterOrTopic,
+        difficulty: typeof difficultyParam === 'string' ? difficultyParam : undefined,
+      };
     }
-    if (difficulty && difficulty !== 'all' && difficulty !== 'random') {
-      matchStage.difficulty = difficulty.toLowerCase();
-    }
+
+    const matchStage = await this.buildQuestionMatchQuery(filterObj);
+
     if (excludeQuestionIds.length > 0) {
       matchStage.questionId = { $nin: excludeQuestionIds };
     }
@@ -92,24 +144,24 @@ export class QuestionRepository {
   }
 
   /**
-   * Count published questions matching topic & difficulty.
+   * Count published questions matching category/subject/topic & difficulty.
    */
-  async countMatching(topic?: string, difficulty?: string): Promise<number> {
-    const query: any = { isPublished: true };
-    if (topic && topic !== 'all' && topic !== 'random') {
-      query.topic = topic;
-    }
-    if (difficulty && difficulty !== 'all' && difficulty !== 'random') {
-      query.difficulty = difficulty.toLowerCase();
-    }
+  async countMatching(
+    filter: { categoryId?: string; subjectId?: string; isMixedCategory?: boolean; topic?: string; difficulty?: string } | string,
+    difficulty?: string
+  ): Promise<number> {
+    const filterObj = typeof filter === 'string' ? { topic: filter, difficulty } : filter;
+    const query = await this.buildQuestionMatchQuery(filterObj);
     return QuestionModel.countDocuments(query);
   }
 
   /**
-   * Check if any published questions match the given topic & difficulty.
+   * Check if any published questions match the given category/subject/topic & difficulty.
    */
-  async hasMatchingQuestion(filter: { topic?: string; difficulty?: string }): Promise<boolean> {
-    const count = await this.countMatching(filter.topic, filter.difficulty);
+  async hasMatchingQuestion(
+    filter: { categoryId?: string; subjectId?: string; isMixedCategory?: boolean; topic?: string; difficulty?: string }
+  ): Promise<boolean> {
+    const count = await this.countMatching(filter);
     return count > 0;
   }
 }
