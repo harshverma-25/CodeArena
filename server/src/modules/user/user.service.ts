@@ -243,16 +243,15 @@ export class UserService {
 
     // Format recent completed battles
     const recentBattles = userBattles.map((b: any) => {
-      const p1 = b.players[0];
-      const p2 = b.players[1];
+      const myP = b.players.find((p: any) => {
+        const pUId = p?.userId && (p.userId as any)._id ? (p.userId as any)._id.toString() : p?.userId?.toString();
+        return pUId === uIdStr;
+      }) || b.players[0];
 
-      const p1UserId = p1?.userId && (p1.userId as any)._id
-        ? (p1.userId as any)._id.toString()
-        : p1?.userId?.toString();
-
-      const isP1 = p1UserId === uIdStr;
-      const myP = isP1 ? p1 : p2;
-      const oppP = isP1 ? p2 : p1;
+      const oppP = b.players.find((p: any) => {
+        const pUId = p?.userId && (p.userId as any)._id ? (p.userId as any)._id.toString() : p?.userId?.toString();
+        return pUId !== uIdStr;
+      }) || null;
 
       const oppUser = oppP?.userId && typeof oppP.userId === 'object'
         ? {

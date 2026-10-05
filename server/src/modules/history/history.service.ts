@@ -35,19 +35,15 @@ export class HistoryService {
     });
 
     const matches: IBattleHistoryItem[] = battles.map((battle) => {
-      const p1 = battle.players[0];
-      const p2 = battle.players[1];
+      const myPlayer = battle.players.find((p: any) => {
+        const pUId = p?.userId && (p.userId as any)._id ? (p.userId as any)._id.toString() : p?.userId?.toString();
+        return pUId === userId;
+      }) || battle.players[0];
 
-      const p1UserId = p1?.userId && (p1.userId as any)._id
-        ? (p1.userId as any)._id.toString()
-        : p1?.userId?.toString();
-      const p2UserId = p2?.userId && (p2.userId as any)._id
-        ? (p2.userId as any)._id.toString()
-        : p2?.userId?.toString();
-
-      const isP1 = p1UserId === userId;
-      const myPlayer = isP1 ? p1 : p2;
-      const oppPlayer = isP1 ? p2 : p1;
+      const oppPlayer = battle.players.find((p: any) => {
+        const pUId = p?.userId && (p.userId as any)._id ? (p.userId as any)._id.toString() : p?.userId?.toString();
+        return pUId !== userId;
+      }) || null;
 
       const myUser = myPlayer?.userId && typeof myPlayer.userId === 'object'
         ? {

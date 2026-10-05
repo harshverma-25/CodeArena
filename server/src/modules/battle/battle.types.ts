@@ -123,6 +123,20 @@ export interface IBattleRevealPayload {
   isLastQuestion: boolean;
 }
 
+export interface IBattleRankedPlayer {
+  userId: string;
+  username: string;
+  displayName: string;
+  avatar: string;
+  totalScore: number;
+  rank: number;
+  correctAnswers: number;
+  incorrectAnswers: number;
+  unanswered: number;
+  accuracy: number;
+  averageResponseTime: number;
+}
+
 export interface IBattleResultsPayload {
   battleId: string;
   roomCode: string;
@@ -147,4 +161,5 @@ export interface IBattleResultsPayload {
       timeTakenMs: number;
     }[];
   }[];
+  rankings?: IBattleRankedPlayer[];
 }

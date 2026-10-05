@@ -11,6 +11,7 @@ import {
   IBattleOpponentProgressPayload,
   IBattleResultsPayload,
   IBattleRevealPayload,
+  IBattleRankedPlayer,
 } from './battle.types.js';
 import { ApiError } from '../../shared/errors/api-error.js';
 import { logger } from '../../config/logger.js';
@@ -434,8 +435,20 @@ export class BattleService {
         timeTakenMs: elapsedMs,
       });
 
-      // 2. Check if all connected players in the battle have answered
-      const allAnswered = battle.players.every((p: any) => {
+      // 2. Check if all active/connected players in the battle have answered
+      const connectedSockets = await io.in(roomChannel).fetchSockets();
+      const connectedUserIds = new Set(
+        connectedSockets
+          .map((s) => s.data.user?._id?.toString())
+          .filter(Boolean)
+      );
+
+      const activePlayers = battle.players.filter((p: any) => {
+        const pUId = p.userId._id ? p.userId._id.toString() : p.userId.toString();
+        return connectedUserIds.size === 0 || connectedUserIds.has(pUId);
+      });
+
+      const allAnswered = activePlayers.length > 0 && activePlayers.every((p: any) => {
         const pUId = p.userId._id ? p.userId._id.toString() : p.userId.toString();
         return activeRound?.submissions.has(pUId);
       });
@@ -738,6 +751,44 @@ export class BattleService {
       };
     });
 
+    // Compute dynamic player rankings for 1..4 players
+    const sortedPlayers = [...battle.players].sort((a: any, b: any) => b.score - a.score);
+
+    const rankings: IBattleRankedPlayer[] = [];
+    let currentRank = 1;
+
+    for (let i = 0; i < sortedPlayers.length; i++) {
+      const p: any = sortedPlayers[i];
+      if (i > 0 && p.score < sortedPlayers[i - 1].score) {
+        currentRank = i + 1;
+      }
+
+      const uId = p.userId?._id ? p.userId._id.toString() : p.userId.toString();
+      const answers = p.answers || [];
+      const correctAnswers = answers.filter((a: any) => a.isCorrect).length;
+      const unanswered = answers.filter((a: any) => a.selectedOption === -1).length;
+      const incorrectAnswers = answers.length - correctAnswers - unanswered;
+      const totalQuestions = battle.questionCount || answers.length || 0;
+      const accuracy = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+
+      const totalTimeMs = answers.reduce((sum: number, a: any) => sum + (a.timeTakenMs || 0), 0);
+      const averageResponseTime = answers.length > 0 ? Math.round(totalTimeMs / answers.length) : 0;
+
+      rankings.push({
+        userId: uId,
+        username: p.userId?.username || '',
+        displayName: p.userId?.displayName || '',
+        avatar: p.userId?.avatar || '',
+        totalScore: p.score,
+        rank: currentRank,
+        correctAnswers,
+        incorrectAnswers,
+        unanswered,
+        accuracy,
+        averageResponseTime,
+      });
+    }
+
     const winnerIdStr = battle.winnerId
       ? (battle.winnerId as any)._id
         ? (battle.winnerId as any)._id.toString()
@@ -755,6 +806,7 @@ export class BattleService {
       startedAt: battle.startedAt,
       endedAt: battle.endedAt || new Date(),
       players: playersFormatted,
+      rankings,
     };
   }
 
