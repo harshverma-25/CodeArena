@@ -64,7 +64,10 @@ export function BattleResultsHeader({ results }: BattleResultsHeaderProps) {
     },
   };
 
-  const currentOutcome = outcomeConfig[result] || outcomeConfig.DRAW;
+  const isSolo = !opponentPlayer;
+  const currentOutcome = isSolo
+    ? outcomeConfig.COMPLETED
+    : (outcomeConfig[result] || outcomeConfig.DRAW);
 
   const formatDuration = (seconds?: number) => {
     if (!seconds) return "0s";
@@ -145,12 +148,12 @@ export function BattleResultsHeader({ results }: BattleResultsHeaderProps) {
       </div>
 
       {/* Players Score Comparison Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className={cn("grid gap-4", opponentPlayer ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 max-w-xl mx-auto")}>
         {/* User Player Scorecard */}
         <div
           className={cn(
             "rounded-2xl border p-5 bg-card/80 backdrop-blur-sm shadow-xl flex items-center justify-between gap-4 relative overflow-hidden",
-            userPlayer.isWinner ? "border-emerald-500/50 bg-emerald-950/10 shadow-emerald-500/5" : "border-border"
+            (userPlayer.isWinner || isSolo) ? "border-emerald-500/50 bg-emerald-950/10 shadow-emerald-500/5" : "border-border"
           )}
         >
           <div className="flex items-center gap-3.5 min-w-0">
@@ -189,48 +192,50 @@ export function BattleResultsHeader({ results }: BattleResultsHeaderProps) {
           </div>
         </div>
 
-        {/* Opponent Player Scorecard */}
-        <div
-          className={cn(
-            "rounded-2xl border p-5 bg-card/80 backdrop-blur-sm shadow-xl flex items-center justify-between gap-4 relative overflow-hidden",
-            opponentPlayer?.isWinner ? "border-emerald-500/50 bg-emerald-950/10 shadow-emerald-500/5" : "border-border"
-          )}
-        >
-          <div className="flex items-center gap-3.5 min-w-0">
-            {opponentPlayer?.avatar ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={opponentPlayer.avatar}
-                alt={opponentPlayer.username}
-                className="h-12 w-12 rounded-2xl border border-border bg-zinc-950 object-cover shrink-0"
-              />
-            ) : (
-              <div className="h-12 w-12 rounded-2xl border border-border bg-zinc-900 flex items-center justify-center font-mono font-bold text-zinc-400 text-sm shrink-0">
-                {(opponentPlayer?.displayName || opponentPlayer?.username || "Opponent").slice(0, 2).toUpperCase()}
-              </div>
+        {/* Opponent Player Scorecard (Multiplayer only) */}
+        {opponentPlayer && (
+          <div
+            className={cn(
+              "rounded-2xl border p-5 bg-card/80 backdrop-blur-sm shadow-xl flex items-center justify-between gap-4 relative overflow-hidden",
+              opponentPlayer.isWinner ? "border-emerald-500/50 bg-emerald-950/10 shadow-emerald-500/5" : "border-border"
             )}
-            <div className="min-w-0 space-y-0.5">
-              <span className="text-[10px] font-bold uppercase tracking-wider font-mono text-muted-foreground">
-                Opponent
+          >
+            <div className="flex items-center gap-3.5 min-w-0">
+              {opponentPlayer.avatar ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={opponentPlayer.avatar}
+                  alt={opponentPlayer.username}
+                  className="h-12 w-12 rounded-2xl border border-border bg-zinc-950 object-cover shrink-0"
+                />
+              ) : (
+                <div className="h-12 w-12 rounded-2xl border border-border bg-zinc-900 flex items-center justify-center font-mono font-bold text-zinc-400 text-sm shrink-0">
+                  {(opponentPlayer.displayName || opponentPlayer.username || "Opponent").slice(0, 2).toUpperCase()}
+                </div>
+              )}
+              <div className="min-w-0 space-y-0.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider font-mono text-muted-foreground">
+                  Opponent
+                </span>
+                <h3 className="text-base font-extrabold text-foreground truncate max-w-[150px] sm:max-w-[200px]">
+                  {opponentPlayer.displayName || opponentPlayer.username || "Challenger"}
+                </h3>
+                <p className="text-xs text-muted-foreground font-mono">
+                  {opponentPlayer.correctCount || 0} / {results.questionCount} Correct
+                </p>
+              </div>
+            </div>
+
+            <div className="text-right shrink-0">
+              <span className="text-3xl sm:text-4xl font-black font-mono text-foreground">
+                {opponentPlayer.score || 0}
               </span>
-              <h3 className="text-base font-extrabold text-foreground truncate max-w-[150px] sm:max-w-[200px]">
-                {opponentPlayer?.displayName || opponentPlayer?.username || "Challenger"}
-              </h3>
-              <p className="text-xs text-muted-foreground font-mono">
-                {opponentPlayer?.correctCount || 0} / {results.questionCount} Correct
+              <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
+                Points
               </p>
             </div>
           </div>
-
-          <div className="text-right shrink-0">
-            <span className="text-3xl sm:text-4xl font-black font-mono text-foreground">
-              {opponentPlayer?.score || 0}
-            </span>
-            <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
-              Points
-            </p>
-          </div>
-        </div>
+        )}
       </div>
 
       {/* Match Spec Cards */}

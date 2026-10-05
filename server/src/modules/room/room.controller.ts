@@ -100,6 +100,52 @@ export class RoomController {
   }
 
   /**
+   * POST /api/v1/rooms/solo
+   * Create and immediately start a dedicated solo quiz session.
+   */
+  async createSoloQuiz(req: Request, res: Response): Promise<void> {
+    if (!req.user) {
+      throw new ApiError(401, 'Unauthorized: User session not found');
+    }
+
+    const { topic, difficulty, duration, questionCount, categoryId, subjectId, isMixedCategory } = req.body;
+    let io: any = null;
+    try {
+      io = getIo();
+    } catch {
+      // socket.io may not be initialized in unit tests
+    }
+
+    const { room, battle } = await roomService.createSoloQuiz(
+      req.user._id.toString(),
+      {
+        topic,
+        difficulty,
+        duration,
+        questionCount,
+        categoryId,
+        subjectId,
+        isMixedCategory,
+      },
+      io
+    );
+
+    res.status(201).json(
+      new ApiResponse(
+        201,
+        {
+          roomCode: room.roomCode,
+          battleId: battle._id.toString(),
+          matchId: battle._id.toString(),
+          status: battle.status,
+          settings: formatRoomResponse(room).settings,
+        },
+        'Solo quiz session created and started successfully.'
+      )
+    );
+  }
+
+  /**
    * POST /api/v1/rooms/join
    * Join a room using its room code.
    */

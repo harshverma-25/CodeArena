@@ -24,6 +24,13 @@ router.post(
   asyncHandler((req, res) => roomController.createRoom(req, res))
 );
 
+// Route: POST /rooms/solo (Direct Solo Quiz)
+router.post(
+  '/solo',
+  validateRequest(createRoomSchema),
+  asyncHandler((req, res) => roomController.createSoloQuiz(req, res))
+);
+
 // Route: POST /rooms/join
 router.post(
   '/join',

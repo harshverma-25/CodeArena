@@ -11,6 +11,8 @@ import {
   DEFAULT_QUESTION_COUNT,
   getCategoryTimeLimit,
 } from '../../shared/config/quiz-config.js';
+import { battleService } from '../battle/battle.service.js';
+import { Server } from 'socket.io';
 
 export class RoomService {
   /**
@@ -137,6 +139,66 @@ export class RoomService {
     }
 
     return populated;
+  }
+
+  /**
+   * Create and immediately start a dedicated solo quiz session for a single player.
+   */
+  async createSoloQuiz(
+    userId: string,
+    settings?: Partial<IRoomSettings>,
+    io?: Server
+  ): Promise<{ room: IRoomDocument; battle: any }> {
+    const validatedSettings = await this.validateAndResolveCategorySettings(settings);
+
+    let roomCode = '';
+    let isUnique = false;
+
+    // Generate unique room code and verify it does not exist
+    while (!isUnique) {
+      roomCode = this.generateRoomCode();
+      const existingRoom = await roomRepository.findByRoomCode(roomCode);
+      if (!existingRoom) {
+        isUnique = true;
+      }
+    }
+
+    const room = await roomRepository.create({
+      roomCode,
+      hostId: userId as any,
+      players: [
+        {
+          userId: userId as any,
+          isHost: true,
+          isReady: true,
+        },
+      ],
+      settings: validatedSettings,
+      maxPlayers: 1,
+      status: RoomStatus.WAITING,
+    });
+
+    const populated = await roomRepository.findByRoomCode(room.roomCode);
+    if (!populated) {
+      throw new ApiError(500, 'Failed to retrieve created room');
+    }
+
+    // Authoritatively start battle on server (samples questions, initializes battle document, updates room to IN_PROGRESS)
+    const battle = await battleService.startBattle(userId, roomCode);
+    const updatedRoom = await roomRepository.findByRoomCode(roomCode);
+
+    if (io) {
+      // Set initial synchronized server round timer for Question 1
+      battleService.setRoundTimeout(
+        battle._id.toString(),
+        0,
+        battle.timePerQuestion * 1000 + 1000,
+        io,
+        roomCode
+      );
+    }
+
+    return { room: updatedRoom || populated, battle };
   }
 
   /**

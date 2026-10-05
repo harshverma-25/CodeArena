@@ -250,7 +250,7 @@ export default function MatchResultsPage() {
           <div className="flex items-center gap-3 shrink-0">
             <nav className="flex items-center gap-2">
               <span className="px-3.5 py-1.5 bg-[#eee7df] text-[#1d1b16] font-semibold text-xs rounded-full">
-                Multiplayer Results
+                {results.players.length === 1 ? "Solo Quiz Results" : "Multiplayer Results"}
               </span>
               <button
                 type="button"
@@ -313,7 +313,7 @@ export default function MatchResultsPage() {
               <span className="text-[#bec9c3]">•</span>
               <span className="inline-flex items-center gap-1">
                 <Users className="w-3.5 h-3.5 text-[#317a63]" />
-                <span>{results.players.length} Players</span>
+                <span>{results.players.length === 1 ? "Solo Mode" : `${results.players.length} Players`}</span>
               </span>
               <span className="text-[#bec9c3]">•</span>
               <span className="inline-flex items-center gap-1 font-mono">
@@ -322,12 +322,13 @@ export default function MatchResultsPage() {
             </div>
           </div>
 
-          {/* 3-TIER WINNERS PODIUM */}
-          <div className="w-full bg-white rounded-[24px] p-6 sm:p-8 shadow-sm mb-6 relative overflow-hidden border border-[#ede7de]">
-            {/* Ambient Glow Behind Champion */}
-            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#a8f1d5]/25 rounded-full blur-3xl pointer-events-none" />
+          {/* 3-TIER WINNERS PODIUM (Multiplayer) or SOLO COMPLETION SHOWCASE (Solo) */}
+          {results.players.length > 1 ? (
+            <div className="w-full bg-white rounded-[24px] p-6 sm:p-8 shadow-sm mb-6 relative overflow-hidden border border-[#ede7de]">
+              {/* Ambient Glow Behind Champion */}
+              <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#a8f1d5]/25 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="grid grid-cols-3 gap-2 sm:gap-4 items-end max-w-3xl mx-auto pt-6 pb-2">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 items-end max-w-3xl mx-auto pt-6 pb-2">
               {/* 2nd PLACE (Silver / Left) */}
               <div className="flex flex-col items-center">
                 {secondPlace ? (
@@ -482,6 +483,30 @@ export default function MatchResultsPage() {
               <span>Scores calculated via speed-weighted accuracy. Ties broken by millisecond response delta.</span>
             </div>
           </div>
+          ) : (
+            <div className="w-full bg-white rounded-[24px] p-6 sm:p-8 shadow-sm mb-6 relative overflow-hidden border border-[#ede7de] text-center">
+              <div className="max-w-md mx-auto space-y-3">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#a8f1d5] text-[#002117] text-xs font-bold shadow-sm">
+                  <Star className="w-3.5 h-3.5 text-[#10614b] fill-[#10614b]" />
+                  <span>Solo Quiz Completed</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1d1b16] tracking-tight">
+                  {myPlayer.displayName || myPlayer.username}
+                </h2>
+                <div className="text-4xl sm:text-5xl font-black text-[#10614b] tracking-tight font-mono">
+                  {myPlayer.score.toLocaleString()} <span className="text-lg font-normal text-[#3f4944]">PTS</span>
+                </div>
+                <div className="flex flex-wrap items-center justify-center gap-3 pt-2 text-xs font-semibold text-[#3f4944]">
+                  <span className="px-3 py-1 bg-[#f3ede4] rounded-full">
+                    {myPlayer.correctCount}/{myPlayer.totalQuestions} Correct ({myAccuracy}%)
+                  </span>
+                  <span className="px-3 py-1 bg-[#f3ede4] rounded-full">
+                    Avg Speed: {myPlayer.avgSpeedSec}s
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* 4TH PLACE SECTION (Horizontal Compact Strip for 4-Player Matches) */}
           {remainingPlayers.map((player) => {

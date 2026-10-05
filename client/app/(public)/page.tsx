@@ -67,6 +67,7 @@ export default function StitchHomePage() {
   const [loadingHistory, setLoadingHistory] = useState<boolean>(false);
 
   const [creatingRoomCardId, setCreatingRoomCardId] = useState<string | null>(null);
+  const [startingSoloCardId, setStartingSoloCardId] = useState<string | null>(null);
   const [roomError, setRoomError] = useState<string | null>(null);
 
   // Form & UI state
@@ -210,6 +211,41 @@ export default function StitchHomePage() {
   };
 
   const [selectedQuestionCount, setSelectedQuestionCount] = useState<number>(10);
+
+  // Launch direct solo quiz session without multiplayer lobby
+  const handlePlaySoloQuiz = async (quiz: {
+    cardId: string;
+    categoryId: string;
+    subjectId?: string | null;
+    isMixedCategory?: boolean;
+  }) => {
+    if (!hasAccess) {
+      setIsGuestModalOpen(true);
+      return;
+    }
+
+    setStartingSoloCardId(quiz.cardId);
+    setRoomError(null);
+
+    try {
+      const res = await api.post<{ success: boolean; data: { roomCode: string; battleId: string } }>("/rooms/solo", {
+        categoryId: quiz.categoryId,
+        subjectId: quiz.isMixedCategory ? null : quiz.subjectId,
+        isMixedCategory: Boolean(quiz.isMixedCategory),
+        questionCount: selectedQuestionCount,
+      });
+
+      if (res.data?.roomCode) {
+        router.push(`/battle/${res.data.roomCode}`);
+      } else {
+        throw new Error("Failed to start solo quiz session.");
+      }
+    } catch (err: any) {
+      setRoomError(err.message || "Failed to start solo quiz. Please try again.");
+    } finally {
+      setStartingSoloCardId(null);
+    }
+  };
 
   // Launch quiz room with real backend payload
   const handlePlayQuizCard = async (quiz: {
@@ -709,6 +745,8 @@ export default function StitchHomePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
                   {filteredQuizCards.map((quiz) => {
                     const isCreatingThis = creatingRoomCardId === quiz.cardId;
+                    const isStartingThisSolo = startingSoloCardId === quiz.cardId;
+                    const isBusy = isCreatingThis || isStartingThisSolo;
                     const hasEnoughQuestions = quiz.questionCount >= selectedQuestionCount;
 
                     return (
@@ -757,33 +795,55 @@ export default function StitchHomePage() {
                           </p>
                         </div>
 
-                        <div className="pt-space-md mt-space-sm flex items-center justify-between border-t border-surface-container-low">
-                          <span className="font-label-md text-label-md text-on-surface-variant font-medium">
-                            {quiz.questionCount} Qs Available
-                          </span>
-                          <button
-                            disabled={isCreatingThis || !hasEnoughQuestions}
-                            onClick={() => handlePlayQuizCard(quiz)}
-                            className={`px-5 py-2.5 rounded-full font-label-md text-label-md font-bold transition-all shadow-sm transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-1.5 cursor-pointer ${
-                              hasEnoughQuestions
-                                ? "bg-primary hover:bg-primary-container text-on-primary"
-                                : "bg-surface-container-high text-on-surface-variant opacity-60 cursor-not-allowed"
-                            }`}
-                            type="button"
-                          >
-                            <span>
-                              {isCreatingThis
-                                ? "Creating..."
-                                : hasEnoughQuestions
-                                ? `Play ${selectedQuestionCount} Qs`
-                                : `< ${selectedQuestionCount} Qs`}
+                        <div className="pt-space-md mt-space-sm flex flex-col gap-2.5 border-t border-surface-container-low">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="font-label-md text-label-md text-on-surface-variant font-medium">
+                              {quiz.questionCount} Qs Available
                             </span>
-                            {!isCreatingThis && hasEnoughQuestions && (
-                              <span className="material-symbols-outlined text-[16px]">
-                                play_arrow
+                            {!hasEnoughQuestions && (
+                              <span className="font-bold text-error">
+                                Requires {selectedQuestionCount} Qs
                               </span>
                             )}
-                          </button>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-2">
+                            {/* Solo Quiz (Direct Gameplay) */}
+                            <button
+                              disabled={isBusy || !hasEnoughQuestions}
+                              onClick={() => handlePlaySoloQuiz(quiz)}
+                              className={`px-3 py-2 rounded-full font-label-md text-label-md font-bold transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer ${
+                                hasEnoughQuestions
+                                  ? "bg-primary hover:bg-primary-container text-on-primary hover:-translate-y-0.5 active:translate-y-0"
+                                  : "bg-surface-container-high text-on-surface-variant opacity-60 cursor-not-allowed"
+                              }`}
+                              type="button"
+                              title="Start solo quiz directly without a lobby"
+                            >
+                              <span className="material-symbols-outlined text-[16px]">play_arrow</span>
+                              <span>
+                                {isStartingThisSolo ? "Starting..." : "Solo Quiz"}
+                              </span>
+                            </button>
+
+                            {/* Multiplayer (Room Lobby) */}
+                            <button
+                              disabled={isBusy || !hasEnoughQuestions}
+                              onClick={() => handlePlayQuizCard(quiz)}
+                              className={`px-3 py-2 rounded-full font-label-md text-label-md font-bold transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer ${
+                                hasEnoughQuestions
+                                  ? "bg-surface-container-high hover:bg-surface-container-highest text-on-surface hover:-translate-y-0.5 active:translate-y-0 border border-outline-variant/40"
+                                  : "bg-surface-container-high text-on-surface-variant opacity-60 cursor-not-allowed"
+                              }`}
+                              type="button"
+                              title="Create 1–4 player room to invite friends"
+                            >
+                              <span className="material-symbols-outlined text-[16px]">group</span>
+                              <span>
+                                {isCreatingThis ? "Creating..." : "Multiplayer"}
+                              </span>
+                            </button>
+                          </div>
                         </div>
                       </div>
                     );

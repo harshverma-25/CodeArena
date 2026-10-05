@@ -118,6 +118,25 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
 
       const battle = await battleService.getActiveBattleByRoomCode(roomCode);
       if (battle) {
+        // For solo quizzes (1 player), if round 0 has not yet received a submission,
+        // synchronize round start with the client socket connection so no time is lost during page navigation
+        if (battle.players.length === 1) {
+          const activeRound = battleService.getActiveRound(battle._id.toString());
+          if (activeRound && activeRound.roundIndex === 0 && activeRound.submissions.size === 0) {
+            const now = new Date();
+            const freshDeadline = new Date(now.getTime() + battle.timePerQuestion * 1000);
+            activeRound.startedAt = now;
+            activeRound.deadline = freshDeadline;
+            battleService.setRoundTimeout(
+              battle._id.toString(),
+              0,
+              battle.timePerQuestion * 1000 + 1000,
+              io,
+              roomCode
+            );
+          }
+        }
+
         const initPayload = await battleService.getBattleInitPayload(battle, userId);
         if (initPayload) {
           socket.emit('battle:init', initPayload);

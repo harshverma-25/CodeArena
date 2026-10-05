@@ -258,7 +258,13 @@ export function useLiveBattle(roomCode: string) {
       setErrorMessage(payload.message || "An unexpected battle error occurred.");
     };
 
+    const handleConnect = () => {
+      if (!active) return;
+      socketManager.emit("battle:reconnect", { roomCode: code });
+    };
+
     if (socket) {
+      socket.on("connect", handleConnect);
       socket.on("battle:init", handleBattleInit);
       socket.on("battle:answer_locked", handleAnswerLocked);
       socket.on("battle:player_submitted", handlePlayerSubmitted);
@@ -283,6 +289,7 @@ export function useLiveBattle(roomCode: string) {
       active = false;
       clearTimeout(fallbackTimer);
       if (socket) {
+        socket.off("connect", handleConnect);
         socket.off("battle:init", handleBattleInit);
         socket.off("battle:answer_locked", handleAnswerLocked);
         socket.off("battle:player_submitted", handlePlayerSubmitted);
