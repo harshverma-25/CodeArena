@@ -38,18 +38,14 @@ export class BattleController {
         }
       }
 
-      // Register server timers
-      for (const p of battle.players) {
-        const pUserId = (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
-        battleService.setQuestionTimeout(
-          battle._id.toString(),
-          pUserId,
-          0,
-          battle.timePerQuestion * 1000,
-          io,
-          code
-        );
-      }
+      // Register synchronized server round timer
+      battleService.setRoundTimeout(
+        battle._id.toString(),
+        0,
+        battle.timePerQuestion * 1000 + 1000,
+        io,
+        code
+      );
     } catch (socketError) {
       logger.error(socketError, 'Failed to broadcast battle socket events');
     }

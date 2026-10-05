@@ -36,18 +36,14 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
         }
       }
 
-      // 4. Register server-authoritative question deadline timers for both players
-      for (const p of battle.players) {
-        const pUserId = (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
-        battleService.setQuestionTimeout(
-          battle._id.toString(),
-          pUserId,
-          0,
-          battle.timePerQuestion * 1000,
-          io,
-          roomCode
-        );
-      }
+      // 4. Register server-authoritative question deadline timer for the synchronized round
+      battleService.setRoundTimeout(
+        battle._id.toString(),
+        0,
+        battle.timePerQuestion * 1000 + 1000,
+        io,
+        roomCode
+      );
 
       logger.info(`Battle started for room ${roomCode} (Battle ID: ${battle._id})`);
     } catch (error: any) {
@@ -71,39 +67,42 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
       }
 
       try {
-        const result = await battleService.submitAnswer(userId, roomCode, questionId, selectedOption);
-        const roomChannel = `room:${roomCode}`;
+        const result = await battleService.submitAnswer(userId, roomCode, questionId, selectedOption, io);
 
-        // 1. Emit next question (or completion state) to submitting player
-        socket.emit('battle:next_question', result.nextQuestionPayload);
-
-        // 2. Broadcast opponent progress update to room
-        io.to(roomChannel).emit('battle:opponent_progress', result.opponentProgressPayload);
-
-        // 3. Register timer for next question if player has remaining questions
-        if (!result.isCompleted && result.battle.players[result.playerIndex]) {
-          const updatedPlayer = result.battle.players[result.playerIndex];
-          battleService.setQuestionTimeout(
-            result.battle._id.toString(),
-            userId,
-            updatedPlayer.currentQuestionIndex,
-            result.battle.timePerQuestion * 1000,
-            io,
-            roomCode
-          );
-        }
-
-        // 4. If both players completed, broadcast final results payload
-        if (result.resultsPayload) {
-          io.to(roomChannel).emit('battle:completed', result.resultsPayload);
-          logger.info(`Battle completed for room ${roomCode}`);
-        }
+        // Acknowledge answer locking with frozen potential score
+        socket.emit('battle:answer_locked', {
+          selectedOption,
+          potentialScore: result.potentialScore,
+          timeTakenMs: result.timeTakenMs,
+        });
       } catch (error: any) {
         logger.error(error, `Failed to submit battle answer for player ${userId} in room ${roomCode}`);
         socket.emit('error', { success: false, message: error.message || 'Failed to submit answer' });
       }
     }
   );
+
+  // Host manually advances to next round early during reveal phase
+  socket.on('battle:advance_round', async (payload: { roomCode: string }) => {
+    const roomCode = payload?.roomCode?.toUpperCase();
+    if (!roomCode) return;
+
+    try {
+      const battle = await battleService.getActiveBattleByRoomCode(roomCode);
+      if (!battle) return;
+
+      const room = await roomService.getRoom(roomCode);
+      const hostIdStr = room?.hostId ? ((room.hostId as any)._id ? (room.hostId as any)._id.toString() : room.hostId.toString()) : null;
+      if (hostIdStr !== userId) return;
+
+      const activeRound = battleService.getActiveRound(battle._id.toString());
+      if (activeRound && activeRound.isRevealed) {
+        await battleService.advanceToNextRound(battle._id.toString(), roomCode, io);
+      }
+    } catch (err: any) {
+      logger.error(err, `Error advancing round early for room ${roomCode}`);
+    }
+  });
 
   // Player reconnects to an active or finished battle (e.g. on page refresh)
   socket.on('battle:reconnect', async (payload: { roomCode: string }) => {
@@ -124,6 +123,12 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
           socket.emit('battle:init', initPayload);
           socket.to(roomChannel).emit('player:reconnected', { userId });
           logger.info(`Player ${userId} reconnected to active battle in room ${roomCode}`);
+
+          // If round is currently revealed, also send reveal payload
+          const revealPayload = await battleService.getBattleRevealPayloadIfRevealed(battle._id.toString());
+          if (revealPayload) {
+            socket.emit('battle:reveal', revealPayload);
+          }
         }
       } else {
         const room = await roomService.getRoom(roomCode);

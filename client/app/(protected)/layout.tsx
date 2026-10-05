@@ -10,9 +10,9 @@ export default function ProtectedLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isLobby = pathname?.startsWith("/lobby");
+  const isLobbyOrBattle = pathname?.startsWith("/lobby") || pathname?.startsWith("/battle");
 
-  if (isLobby) {
+  if (isLobbyOrBattle) {
     return <>{children}</>;
   }
 

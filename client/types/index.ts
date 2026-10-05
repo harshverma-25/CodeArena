@@ -97,14 +97,16 @@ export interface BattleInitPayload {
   questionCount: number;
   timePerQuestion: number;
   currentQuestionIndex: number;
+  roundStartedAt?: number;
   questionDeadline: string | Date | null;
   currentQuestion: BattleQuestion | null;
-  players: BattlePlayer[];
+  players: (BattlePlayer & { hasAnswered?: boolean })[];
 }
 
 export interface BattleNextQuestionPayload {
   currentQuestionIndex: number;
   totalQuestions: number;
+  roundStartedAt?: number;
   questionDeadline: string | Date | null;
   timePerQuestion: number;
   question: BattleQuestion | null;
@@ -117,6 +119,44 @@ export interface BattleOpponentProgressPayload {
   totalQuestions: number;
   isCompleted: boolean;
   score: number;
+}
+
+export interface BattlePlayerSubmittedPayload {
+  userId: string;
+  roundIndex: number;
+  hasAnswered: boolean;
+  timeTakenMs: number;
+}
+
+export interface BattleAnswerLockedPayload {
+  selectedOption: number;
+  potentialScore: number;
+  timeTakenMs: number;
+}
+
+export interface BattleRevealPlayer {
+  userId: string;
+  username: string;
+  displayName: string;
+  avatar: string;
+  selectedOption: number;
+  isCorrect: boolean;
+  earnedScore: number;
+  totalScore: number;
+  timeTakenMs: number;
+}
+
+export interface BattleRevealPayload {
+  roundIndex: number;
+  questionId: string;
+  correctAnswer: number;
+  explanation: string;
+  accuracyPct: number;
+  correctCount: number;
+  totalPlayers: number;
+  revealDurationSec: number;
+  players: BattleRevealPlayer[];
+  isLastQuestion: boolean;
 }
 
 export interface BattleResultsPlayer {

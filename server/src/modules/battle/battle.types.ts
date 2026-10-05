@@ -52,6 +52,7 @@ export interface IBattleInitPayload {
   questionCount: number;
   timePerQuestion: number;
   currentQuestionIndex: number;
+  roundStartedAt?: number;
   questionDeadline: Date | null;
   currentQuestion: ISanitizedQuestion;
   players: {
@@ -62,12 +63,14 @@ export interface IBattleInitPayload {
     currentQuestionIndex: number;
     score: number;
     isCompleted: boolean;
+    hasAnswered?: boolean;
   }[];
 }
 
 export interface IBattleNextQuestionPayload {
   currentQuestionIndex: number;
   totalQuestions: number;
+  roundStartedAt?: number;
   questionDeadline: Date | null;
   timePerQuestion: number;
   question: ISanitizedQuestion | null;
@@ -80,6 +83,44 @@ export interface IBattleOpponentProgressPayload {
   totalQuestions: number;
   isCompleted: boolean;
   score: number;
+}
+
+export interface IBattlePlayerSubmittedPayload {
+  userId: string;
+  roundIndex: number;
+  hasAnswered: boolean;
+  timeTakenMs: number;
+}
+
+export interface IBattleAnswerLockedPayload {
+  selectedOption: number;
+  potentialScore: number;
+  timeTakenMs: number;
+}
+
+export interface IBattleRevealPlayer {
+  userId: string;
+  username: string;
+  displayName: string;
+  avatar: string;
+  selectedOption: number;
+  isCorrect: boolean;
+  earnedScore: number;
+  totalScore: number;
+  timeTakenMs: number;
+}
+
+export interface IBattleRevealPayload {
+  roundIndex: number;
+  questionId: string;
+  correctAnswer: number;
+  explanation: string;
+  accuracyPct: number;
+  correctCount: number;
+  totalPlayers: number;
+  revealDurationSec: number;
+  players: IBattleRevealPlayer[];
+  isLastQuestion: boolean;
 }
 
 export interface IBattleResultsPayload {

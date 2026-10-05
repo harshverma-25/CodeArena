@@ -5,14 +5,16 @@ import { useAuth } from "@clerk/nextjs";
 import { socketManager } from "@/lib/socket";
 import { useBattleStore } from "@/store/battleStore";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
+import { isGuestSessionActive } from "@/features/auth/guestAuth";
 import {
   BattleQuestion,
   BattleInitPayload,
   BattleNextQuestionPayload,
-  BattleOpponentProgressPayload,
+  BattleRevealPayload,
   BattleResultsPayload,
+  BattlePlayerSubmittedPayload,
+  BattleAnswerLockedPayload,
 } from "@/types";
-
 
 export interface LiveBattleState {
   battleId: string | null;
@@ -23,21 +25,27 @@ export interface LiveBattleState {
   timePerQuestion: number;
   currentQuestionIndex: number;
   currentQuestion: BattleQuestion | null;
+  roundStartedAt: number;
   questionDeadline: Date | null;
   myScore: number;
   isMyCompleted: boolean;
 }
 
-export interface OpponentLiveState {
+export interface LiveBattlePlayer {
   userId: string;
   username: string;
   displayName: string;
   avatar: string;
-  currentQuestionIndex: number;
   score: number;
-  isCompleted: boolean;
-  isDisconnected: boolean;
+  hasAnswered: boolean;
+  timeTakenMs?: number;
+  isHost?: boolean;
+  isDisconnected?: boolean;
+  currentQuestionIndex?: number;
+  isCompleted?: boolean;
 }
+
+export type OpponentLiveState = LiveBattlePlayer;
 
 export function useLiveBattle(roomCode: string) {
   const code = (roomCode || "").toUpperCase();
@@ -47,27 +55,34 @@ export function useLiveBattle(roomCode: string) {
   const setBattleInitData = useBattleStore((state) => state.setBattleInitData);
 
   const [battle, setBattle] = useState<LiveBattleState | null>(null);
-  const [opponent, setOpponent] = useState<OpponentLiveState | null>(null);
+  const [players, setPlayers] = useState<LiveBattlePlayer[]>([]);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isLocked, setIsLocked] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState<number>(30);
+  const [potentialScore, setPotentialScore] = useState<number>(1000);
+  const [lockedScore, setLockedScore] = useState<number | null>(null);
+  const [timeRemaining, setTimeRemaining] = useState<number>(15);
+  const [timerPercent, setTimerPercent] = useState<number>(100);
+  const [isRevealed, setIsRevealed] = useState(false);
+  const [revealData, setRevealData] = useState<BattleRevealPayload | null>(null);
+  const [revealCountdown, setRevealCountdown] = useState<number>(5);
   const [results, setResults] = useState<BattleResultsPayload | null>(null);
   const [status, setStatus] = useState<
-    "loading" | "active" | "waiting_opponent" | "completed" | "error"
+    "loading" | "active" | "reveal" | "completed" | "error"
   >("loading");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const revealTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Initialize from BattleInitPayload
   const processInitPayload = useCallback(
     (payload: BattleInitPayload, currentUserId?: string) => {
       const myId = currentUserId || currentUser?._id;
       const myPlayer = payload.players.find((p) => p.userId === myId);
-      const oppPlayer = payload.players.find((p) => p.userId !== myId);
 
       const deadline = payload.questionDeadline ? new Date(payload.questionDeadline) : null;
+      const startedAt = payload.roundStartedAt || Date.now();
 
       setBattle({
         battleId: payload.battleId,
@@ -75,33 +90,36 @@ export function useLiveBattle(roomCode: string) {
         topic: payload.topic,
         difficulty: payload.difficulty,
         questionCount: payload.questionCount,
-        timePerQuestion: payload.timePerQuestion || 30,
+        timePerQuestion: payload.timePerQuestion || 15,
         currentQuestionIndex: payload.currentQuestionIndex,
         currentQuestion: payload.currentQuestion,
+        roundStartedAt: startedAt,
         questionDeadline: deadline,
         myScore: myPlayer?.score || 0,
         isMyCompleted: myPlayer?.isCompleted || false,
       });
 
-      if (oppPlayer) {
-        setOpponent({
-          userId: oppPlayer.userId,
-          username: oppPlayer.username,
-          displayName: oppPlayer.displayName || oppPlayer.username,
-          avatar: oppPlayer.avatar,
-          currentQuestionIndex: oppPlayer.currentQuestionIndex,
-          score: oppPlayer.score || 0,
-          isCompleted: oppPlayer.isCompleted,
-          isDisconnected: false,
-        });
-      }
+      const mappedPlayers: LiveBattlePlayer[] = payload.players.map((p, idx) => ({
+        userId: p.userId,
+        username: p.username,
+        displayName: p.displayName || p.username,
+        avatar: p.avatar,
+        score: p.score || 0,
+        hasAnswered: Boolean(p.hasAnswered),
+        isHost: idx === 0, // First player is host
+        isDisconnected: false,
+      }));
+      setPlayers(mappedPlayers);
 
       setSelectedOption(null);
       setIsLocked(false);
       setIsSubmitting(false);
+      setLockedScore(null);
+      setIsRevealed(false);
+      setRevealData(null);
 
       if (myPlayer?.isCompleted) {
-        setStatus("waiting_opponent");
+        setStatus("completed");
       } else {
         setStatus("active");
       }
@@ -119,10 +137,10 @@ export function useLiveBattle(roomCode: string) {
     }
   }, [cachedInitData, battle, processInitPayload]);
 
-
   // Main Socket Listener & Reconnection
   useEffect(() => {
-    if (!isLoaded || !isSignedIn || !code) return;
+    const hasAuth = (isLoaded && Boolean(isSignedIn)) || isGuestSessionActive();
+    if (!hasAuth || !code) return;
 
     let active = true;
     const socket = socketManager.getSocket();
@@ -133,10 +151,59 @@ export function useLiveBattle(roomCode: string) {
       processInitPayload(payload, currentUser?._id);
     };
 
+    const handleAnswerLocked = (payload: BattleAnswerLockedPayload) => {
+      if (!active) return;
+      setLockedScore(payload.potentialScore);
+      setIsSubmitting(false);
+    };
+
+    const handlePlayerSubmitted = (payload: BattlePlayerSubmittedPayload) => {
+      if (!active) return;
+      setPlayers((prev) =>
+        prev.map((p) =>
+          p.userId === payload.userId
+            ? { ...p, hasAnswered: true, timeTakenMs: payload.timeTakenMs }
+            : p
+        )
+      );
+    };
+
+    const handleBattleReveal = (payload: BattleRevealPayload) => {
+      if (!active) return;
+      setIsRevealed(true);
+      setIsLocked(true);
+      setRevealData(payload);
+      setStatus("reveal");
+      setRevealCountdown(payload.revealDurationSec || 5);
+
+      // Update player scores
+      setPlayers((prev) =>
+        prev.map((p) => {
+          const match = payload.players.find((rp) => rp.userId === p.userId);
+          if (match) {
+            return {
+              ...p,
+              score: match.totalScore,
+              hasAnswered: true,
+              timeTakenMs: match.timeTakenMs,
+            };
+          }
+          return p;
+        })
+      );
+
+      // Update my score
+      const myMatch = payload.players.find((rp) => rp.userId === currentUser?._id);
+      if (myMatch) {
+        setBattle((prev) => (prev ? { ...prev, myScore: myMatch.totalScore } : prev));
+      }
+    };
+
     const handleNextQuestion = (payload: BattleNextQuestionPayload) => {
       if (!active) return;
 
       const deadline = payload.questionDeadline ? new Date(payload.questionDeadline) : null;
+      const startedAt = payload.roundStartedAt || Date.now();
 
       setBattle((prev) => {
         if (!prev) return prev;
@@ -144,6 +211,7 @@ export function useLiveBattle(roomCode: string) {
           ...prev,
           currentQuestionIndex: payload.currentQuestionIndex,
           currentQuestion: payload.question,
+          roundStartedAt: startedAt,
           questionDeadline: deadline,
           questionCount: payload.totalQuestions || prev.questionCount,
           timePerQuestion: payload.timePerQuestion || prev.timePerQuestion,
@@ -154,34 +222,14 @@ export function useLiveBattle(roomCode: string) {
       // Reset selection state for next question
       setSelectedOption(null);
       setIsSubmitting(false);
+      setIsLocked(false);
+      setLockedScore(null);
+      setIsRevealed(false);
+      setRevealData(null);
+      setStatus("active");
 
-      if (payload.completed) {
-        setIsLocked(true);
-        setStatus("waiting_opponent");
-      } else {
-        setIsLocked(false);
-        setStatus("active");
-      }
-    };
-
-    const handleOpponentProgress = (payload: BattleOpponentProgressPayload) => {
-      if (!active) return;
-
-      // Update opponent progress, but if this event was for current user, update current user's score authoritatively
-      const myId = currentUser?._id;
-      if (myId && payload.userId === myId) {
-        setBattle((prev) => (prev ? { ...prev, myScore: payload.score } : prev));
-      } else {
-        setOpponent((prev) => {
-          if (!prev) return prev;
-          return {
-            ...prev,
-            currentQuestionIndex: payload.currentQuestionIndex,
-            score: payload.score,
-            isCompleted: payload.isCompleted,
-          };
-        });
-      }
+      // Reset players' hasAnswered for next round
+      setPlayers((prev) => prev.map((p) => ({ ...p, hasAnswered: false, timeTakenMs: undefined })));
     };
 
     const handleBattleCompleted = (payload: BattleResultsPayload) => {
@@ -189,18 +237,22 @@ export function useLiveBattle(roomCode: string) {
       setResults(payload);
       setStatus("completed");
       setIsLocked(true);
+      setIsRevealed(false);
     };
 
-    const handlePlayerDisconnected = () => {
+    const handlePlayerDisconnected = (payload: { userId: string }) => {
       if (!active) return;
-      setOpponent((prev) => (prev ? { ...prev, isDisconnected: true } : prev));
+      setPlayers((prev) =>
+        prev.map((p) => (p.userId === payload.userId ? { ...p, isDisconnected: true } : p))
+      );
     };
 
-    const handlePlayerReconnected = () => {
+    const handlePlayerReconnected = (payload: { userId: string }) => {
       if (!active) return;
-      setOpponent((prev) => (prev ? { ...prev, isDisconnected: false } : prev));
+      setPlayers((prev) =>
+        prev.map((p) => (p.userId === payload.userId ? { ...p, isDisconnected: false } : p))
+      );
     };
-
 
     const handleError = (payload: { message: string }) => {
       if (!active) return;
@@ -209,8 +261,10 @@ export function useLiveBattle(roomCode: string) {
 
     if (socket) {
       socket.on("battle:init", handleBattleInit);
+      socket.on("battle:answer_locked", handleAnswerLocked);
+      socket.on("battle:player_submitted", handlePlayerSubmitted);
+      socket.on("battle:reveal", handleBattleReveal);
       socket.on("battle:next_question", handleNextQuestion);
-      socket.on("battle:opponent_progress", handleOpponentProgress);
       socket.on("battle:completed", handleBattleCompleted);
       socket.on("player:disconnected", handlePlayerDisconnected);
       socket.on("player:reconnected", handlePlayerReconnected);
@@ -220,7 +274,6 @@ export function useLiveBattle(roomCode: string) {
       socketManager.emit("battle:reconnect", { roomCode: code });
     }
 
-    // Set timeout to check if battle loaded or invalid
     const fallbackTimer = setTimeout(() => {
       if (active && status === "loading" && !battle) {
         socketManager.emit("battle:reconnect", { roomCode: code });
@@ -232,8 +285,10 @@ export function useLiveBattle(roomCode: string) {
       clearTimeout(fallbackTimer);
       if (socket) {
         socket.off("battle:init", handleBattleInit);
+        socket.off("battle:answer_locked", handleAnswerLocked);
+        socket.off("battle:player_submitted", handlePlayerSubmitted);
+        socket.off("battle:reveal", handleBattleReveal);
         socket.off("battle:next_question", handleNextQuestion);
-        socket.off("battle:opponent_progress", handleOpponentProgress);
         socket.off("battle:completed", handleBattleCompleted);
         socket.off("player:disconnected", handlePlayerDisconnected);
         socket.off("player:reconnected", handlePlayerReconnected);
@@ -242,44 +297,81 @@ export function useLiveBattle(roomCode: string) {
     };
   }, [isLoaded, isSignedIn, code, currentUser, processInitPayload, setBattleInitData, status, battle]);
 
-  // Client-Side Visual Timer
+  // Dynamic Decreasing Points & Visual Countdown Timer
   useEffect(() => {
-    if (status !== "active" || !battle?.questionDeadline || isLocked) {
+    if (status !== "active" || isRevealed || !battle) {
       if (timerRef.current) clearInterval(timerRef.current);
       return;
     }
 
-    const updateTimer = () => {
-      const now = Date.now();
-      const target = new Date(battle.questionDeadline!).getTime();
-      const remainingSecs = Math.max(0, Math.ceil((target - now) / 1000));
+    const totalDurationSec = battle.timePerQuestion || 15;
+    const totalDurationMs = totalDurationSec * 1000;
+    const startedAt = battle.roundStartedAt;
 
+    const tick = () => {
+      const now = Date.now();
+      const elapsedMs = Math.max(0, now - startedAt);
+      const elapsedSec = elapsedMs / 1000;
+
+      // Formula: 1000 pts start, drops by 30 pts/sec.
+      // 0s: 1000. 2s: ~940. 5s: ~850. Min: 100.
+      if (!isLocked) {
+        const score = Math.max(100, Math.round(1000 - elapsedSec * 30));
+        setPotentialScore(score);
+      }
+
+      const remainingMs = Math.max(0, totalDurationMs - elapsedMs);
+      const remainingSecs = Math.ceil(remainingMs / 1000);
       setTimeRemaining(remainingSecs);
 
-      // Visual timeout on client
-      if (remainingSecs <= 0) {
+      const percent = Math.max(0, Math.min(100, (remainingMs / totalDurationMs) * 100));
+      setTimerPercent(percent);
+
+      if (remainingMs <= 0 && !isLocked) {
         setIsLocked(true);
-        if (timerRef.current) clearInterval(timerRef.current);
       }
     };
 
-    updateTimer();
-    timerRef.current = setInterval(updateTimer, 500);
+    tick();
+    timerRef.current = setInterval(tick, 100);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [status, battle?.questionDeadline, isLocked]);
+  }, [status, isRevealed, isLocked, battle]);
+
+  // Reveal Phase 5-second countdown timer
+  useEffect(() => {
+    if (!isRevealed || status !== "reveal") {
+      if (revealTimerRef.current) clearInterval(revealTimerRef.current);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setRevealCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    revealTimerRef.current = interval;
+
+    return () => clearInterval(interval);
+  }, [isRevealed, status]);
 
   // Submit Answer Action
   const submitAnswer = useCallback(
     (optionIndex: number) => {
       if (isLocked || isSubmitting || !battle?.currentQuestion) return;
 
-      // 1. Immediately lock options client-side (Anti-cheat & UI lock)
+      // 1. Immediately lock options client-side (Anti-cheat & UI freeze)
       setIsLocked(true);
       setSelectedOption(optionIndex);
       setIsSubmitting(true);
+      setLockedScore(potentialScore);
 
       // 2. Authoritative submission via Socket.IO
       socketManager.emit("battle:submit_answer", {
@@ -288,20 +380,35 @@ export function useLiveBattle(roomCode: string) {
         selectedOption: optionIndex,
       });
     },
-    [isLocked, isSubmitting, battle, code]
+    [isLocked, isSubmitting, battle, code, potentialScore]
   );
+
+  // Host manually advances to next round early during reveal
+  const advanceRound = useCallback(() => {
+    socketManager.emit("battle:advance_round", { roomCode: code });
+  }, [code]);
 
   return {
     battle,
-    opponent,
+    players,
+    opponent: players.find((p) => p.userId !== currentUser?._id) || null,
+    currentUser,
     selectedOption,
     isLocked,
     isSubmitting,
+    potentialScore,
+    lockedScore,
     timeRemaining,
+    timerPercent,
+    isRevealed,
+    revealData,
+    revealCountdown,
     results,
     status,
     errorMessage,
     submitAnswer,
+    advanceRound,
   };
 }
+
 export default useLiveBattle;
