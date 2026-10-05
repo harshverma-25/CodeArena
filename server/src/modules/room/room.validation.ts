@@ -12,8 +12,8 @@ const roomDifficultySchema = z.enum([
 // Schema for POST /rooms (Create Room)
 export const createRoomSchema = z.object({
   body: z.object({
-    topic: roomTopicSchema,
-    difficulty: roomDifficultySchema,
+    topic: roomTopicSchema.optional(),
+    difficulty: roomDifficultySchema.optional(),
     duration: z.coerce
       .number({ invalid_type_error: 'Duration must be a number' })
       .int('Duration must be an integer')
@@ -29,6 +29,9 @@ export const createRoomSchema = z.object({
       .max(30, 'Question count cannot exceed 30')
       .default(10)
       .optional(),
+    categoryId: z.string().optional(),
+    subjectId: z.string().nullable().optional(),
+    isMixedCategory: z.boolean().optional(),
   }),
   query: z.object({}).optional(),
   params: z.object({}).optional(),

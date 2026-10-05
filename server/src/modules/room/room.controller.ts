@@ -48,11 +48,15 @@ export class RoomController {
       throw new ApiError(401, 'Unauthorized: User session not found');
     }
 
-    const { topic, difficulty, duration } = req.body;
+    const { topic, difficulty, duration, questionCount, categoryId, subjectId, isMixedCategory } = req.body;
     const room = await roomService.createRoom(req.user._id.toString(), {
       topic,
       difficulty,
       duration,
+      questionCount,
+      categoryId,
+      subjectId,
+      isMixedCategory,
     });
 
     res.status(201).json(

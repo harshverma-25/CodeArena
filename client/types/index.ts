@@ -29,11 +29,34 @@ export interface RoomPlayer {
   isReady: boolean;
 }
 
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  icon?: string;
+  isActive: boolean;
+  questionCount: number;
+}
+
+export interface Subject {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  categoryId: string;
+  isActive: boolean;
+  questionCount: number;
+}
+
 export interface RoomSettings {
-  topic: string;
-  difficulty: string;
-  duration: number; // in minutes
+  topic?: string;
+  difficulty?: string;
+  duration?: number; // in minutes
   questionCount?: number;
+  categoryId?: string;
+  subjectId?: string | null;
+  isMixedCategory?: boolean;
 }
 
 export type RoomStatusType =

@@ -5,227 +5,73 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { isGuestSessionActive, getGuestUser, PlayAsGuestModal } from "@/features/auth";
+import { useApiClient } from "@/hooks/useApiClient";
+import { Category, Subject } from "@/types";
 
-// Category track data matching the Stitch approved design
-const CATEGORIES = [
-  { id: "programming", name: "Programming", icon: "terminal", iconColor: "text-primary", iconBg: "bg-primary-fixed/70" },
-  { id: "aptitude", name: "Aptitude", icon: "psychology", iconColor: "text-secondary", iconBg: "bg-secondary-fixed/50" },
-  { id: "gk", name: "General Knowledge", icon: "lightbulb", iconColor: "text-on-surface-variant", iconBg: "bg-surface-container-high" },
-  { id: "art", name: "Art & Literature", icon: "palette", iconColor: "text-tertiary", iconBg: "bg-tertiary-fixed/50" },
-  { id: "entertainment", name: "Entertainment", icon: "movie", iconColor: "text-on-tertiary-fixed-variant", iconBg: "bg-tertiary-fixed-dim/40" },
-  { id: "geography", name: "Geography", icon: "public", iconColor: "text-primary", iconBg: "bg-primary-fixed/60" },
-  { id: "history", name: "History", icon: "account_balance", iconColor: "text-on-surface-variant", iconBg: "bg-surface-container" },
-  { id: "languages", name: "Languages", icon: "translate", iconColor: "text-secondary", iconBg: "bg-secondary-fixed-dim/40" },
-  { id: "science", name: "Science & Nature", icon: "biotech", iconColor: "text-surface-tint", iconBg: "bg-primary-fixed/50" },
-  { id: "sports", name: "Sports", icon: "sports_basketball", iconColor: "text-tertiary", iconBg: "bg-tertiary-fixed/40" },
-  { id: "trivia", name: "Trivia", icon: "quiz", iconColor: "text-on-surface-variant", iconBg: "bg-surface-container-highest" },
+// Category color palettes for visual richness
+const COLOR_PALETTES = [
+  { iconColor: "text-primary", iconBg: "bg-primary-fixed/70", categoryBg: "bg-primary-fixed/80", categoryText: "text-on-primary-fixed" },
+  { iconColor: "text-secondary", iconBg: "bg-secondary-fixed/50", categoryBg: "bg-secondary-fixed/80", categoryText: "text-on-secondary-fixed" },
+  { iconColor: "text-on-surface-variant", iconBg: "bg-surface-container-high", categoryBg: "bg-surface-container-high/90", categoryText: "text-on-surface" },
+  { iconColor: "text-tertiary", iconBg: "bg-tertiary-fixed/50", categoryBg: "bg-tertiary-fixed/80", categoryText: "text-on-tertiary-fixed" },
+  { iconColor: "text-on-tertiary-fixed-variant", iconBg: "bg-tertiary-fixed-dim/40", categoryBg: "bg-tertiary-fixed-dim/40", categoryText: "text-on-tertiary-fixed-variant" },
 ];
 
-// Recently Played items matching Stitch reference
-const RECENTLY_PLAYED = [
-  {
-    id: "recent-1",
-    title: "DBMS Fundamentals",
-    category: "Programming",
-    categoryColor: "text-primary",
-    timeAgo: "2h ago",
-    description: "Normalization, ACID properties, transaction concurrency, and indexing structures.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBV61m2E_JEOXJ2Sa5WW8DJFoy7XEQKnb4Xc8ZSHQRKgIdZXQ_RDcGZSBJp-vC6d93NFmcdD3MKZvUz1DTyH16ll9k3Qsyb6A3w-Iirt1ijNF3vSszsfGhgvhogopQZ6wzsOZh_5NrHCw2NObjvrgQWq57JbEMHKZhGwiCkp1lnfBHPWH7Jkf5Hm-AaV8KKPTtGon1lkcBws6g1irgz_BJ5yIqRa1CmhG8CN-MULuLVFDJNFU5i8J0",
-    progress: 75,
-    progressLabel: "75% Completed",
-    progressColor: "bg-primary",
-    progressTextColor: "text-primary",
-    questionsCount: "15 of 20 Qs",
-  },
-  {
-    id: "recent-2",
-    title: "JavaScript ES6+ Basics",
-    category: "Programming",
-    categoryColor: "text-secondary",
-    timeAgo: "Yesterday",
-    description: "Closures, prototypes, async/await mechanics, and functional array paradigms.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAryxzmDQlEL2bCJY30MspNJrfiWgG_ivSWie7iU6qZANtQVFiNkwT8wBGB_g1-U08o9LTSLZO1ptjZn7mldQ4WRFQe6GIh3smYrLX6BBkzZi00go81n0LApbrc3RDqi9jSyIRIc0v4eoosmQEfNliCrtatQeiyblMF6-P_YdkE63urlYcxK2zluVIXJk7PZZYqqw7bwZQepoHFzGD3yF4HYgUNjjrFje0g60VmXNwjCBkhwV70HQs",
-    progress: 40,
-    progressLabel: "40% Completed",
-    progressColor: "bg-tertiary",
-    progressTextColor: "text-tertiary",
-    questionsCount: "10 of 25 Qs",
-  },
-  {
-    id: "recent-3",
-    title: "World Geography & Capitals",
-    category: "Geography",
-    categoryColor: "text-primary",
-    timeAgo: "3d ago",
-    description: "National landmarks, border geometries, continental biomes, and island capitals.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBAc_mpr6eXoOYdjsh97WYl8SCE1I2kh9aX0S3zNT9sUOFErTN2pt8g5Z7Nq-uJpojU_aMffWwMsunpF67cIVevMJKrK9FPo49mJZlY0gyAYRVGqjrA92nB-GTtDtFW1z7gcYv6PBZ8ggBEPaXsDe2JWUN3zlB3ZjpV2-kIk5QQsG31FqkqcoZVKvYrv8ahRg9J_YNSPtcPCP_4_j6FG7jwzMbl8LAbkhmGb4BlejLEX_nhe-fKtq0",
-    progress: 90,
-    progressLabel: "90% Completed",
-    progressColor: "bg-secondary",
-    progressTextColor: "text-secondary",
-    questionsCount: "27 of 30 Qs",
-  },
-];
+const getCategoryIcon = (category: Category): string => {
+  if (category.icon) return category.icon;
+  const slug = (category.slug || category.name || "").toLowerCase();
+  if (slug.includes("prog") || slug.includes("code")) return "terminal";
+  if (slug.includes("apt") || slug.includes("logic")) return "psychology";
+  if (slug.includes("gk") || slug.includes("gen") || slug.includes("know")) return "lightbulb";
+  if (slug.includes("art") || slug.includes("lit")) return "palette";
+  if (slug.includes("ent") || slug.includes("mov")) return "movie";
+  if (slug.includes("geo")) return "public";
+  if (slug.includes("his")) return "account_balance";
+  if (slug.includes("lang")) return "translate";
+  if (slug.includes("sci")) return "biotech";
+  if (slug.includes("sport")) return "sports_basketball";
+  return "quiz";
+};
 
-// Popular Quizzes items matching Stitch reference
-const POPULAR_QUIZZES = [
-  {
-    id: "quiz-1",
-    title: "General Knowledge Challenge",
-    category: "General Knowledge",
-    categoryBg: "bg-surface-container-high/90",
-    categoryText: "text-on-surface",
-    rating: "4.9",
-    plays: "48.2k plays",
-    duration: "15 mins",
-    questions: "20 Questions",
-    description: "Test your grasp on global affairs, historical inventions, fine arts, and world curiosities.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAVmbYkyYSejdach0N_uMaKtaP_1PW1sKMRbZEGXp0k3Fb-lBfOPntgjFt_U1stpT-aqBqvxUR6UbZm9kopkHplNLhrdXZHjyaZMl87dEgRKn0m2gEnKmhcFa5JjJ3J0OaCT3Zg9EPUxYXMe-diwjjgmz0Wi8kAALsA0_4ejdNBxcP8KoW539a2b-jSBja2d2qcGXEApHEqee4WayZd48J9TN7-soi8wg9UpqKicbxm-A_sHMRIjPE",
-    filter: "trending",
-  },
-  {
-    id: "quiz-2",
-    title: "World Geography Masters",
-    category: "Geography",
-    categoryBg: "bg-primary-fixed/80",
-    categoryText: "text-on-primary-fixed",
-    rating: "4.8",
-    plays: "34.5k plays",
-    duration: "10 mins",
-    questions: "15 Questions",
-    description: "From mountainous archipelagoes to desert boundaries, discover how thoroughly you know the planet.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB6jka6Gx78ks3_uSl5nzhZNCQm5EAdaKMysoDqWBzVSSw6yRZg2vJYonoA0G7fjnLunvotNng6ydQRLv5TD0Ln31p3Rwk3a_O_pJrxFRCcMM-UZqfDKMnzskit_3T01v4xJzxaALbw2RFop2NnsLgu7PauZbsOtATE3N5oCbSjpMlMflBaFYHaDBZ1iNqv-ZeBk4jIwf6DUQYBqpdIJL9qleIJozWQhBAD71Q6J27-JvBT7VesvHM",
-    filter: "trending",
-  },
-  {
-    id: "quiz-3",
-    title: "Science Facts & Phenomena",
-    category: "Science & Nature",
-    categoryBg: "bg-primary-fixed-dim/50",
-    categoryText: "text-primary",
-    rating: "4.9",
-    plays: "29.1k plays",
-    duration: "12 mins",
-    questions: "18 Questions",
-    description: "Quantum quirks, astronomical marvels, and organic chemistry wonders explained simply.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuD1InTQQ_YhvuSUBrmFb1X7T31s88GbHm5QyI3Pngy8M7byxkBVhmhdq-4-cX1xduI8BiMLg5KhSBPiG3lkLFB8vscgPQfQHQViCj0AM_CFhx7EI1huwAYF1p5dCywSo35RyptRqp5SHMAJ_kUIpHheeD0DH5IstECQw0E7s-l2cgEdKp2iN2YmhVi3903eX8hlnixl14_Y3Gy9KdmRdbflKGKV4nxvcRP44u3qAvbXTeRBkBcWeu4",
-    filter: "favorites",
-  },
-  {
-    id: "quiz-4",
-    title: "Modern Web Development",
-    category: "Programming",
-    categoryBg: "bg-secondary-fixed/80",
-    categoryText: "text-on-secondary-fixed",
-    rating: "4.9",
-    plays: "22.8k plays",
-    duration: "20 mins",
-    questions: "25 Questions",
-    description: "CSS Grid layout nuances, HTTP/3 networking, React component lifecycles, and TypeScript tricks.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDfbJXTnMNsDj68ofqQIdTe2n2j6tBtv2Uuga3ntQfEPNGqTXNIltLIbhI6JYrV2rE3NmbHAWukEjeolqFAtt6ThaAdJOZURZs_hUfOg02QjQtVmvZ9_WCgBEte1g_NItFoGF4MvV_9NouyS18TgwCblF0xmkNIzlzl1DHWgbHQsTZ9Gvlg1cSiftpkBrRFwCUdWflzcEBXAl0L5GKPBgAbMmQXYO60VrqSAvMHPgxw71LXPUkEZ48",
-    filter: "trending",
-  },
-  {
-    id: "quiz-5",
-    title: "Classic Cinema & Directors",
-    category: "Entertainment",
-    categoryBg: "bg-tertiary-fixed/80",
-    categoryText: "text-on-tertiary-fixed",
-    rating: "4.7",
-    plays: "19.4k plays",
-    duration: "8 mins",
-    questions: "12 Questions",
-    description: "Recognize iconic shot compositions, auteur signatures, Oscar records, and soundtrack motifs.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAVPHE9aLYxPuPhEAYOmekPzyJh6XY3H0RbacM2g_bI2YqpYmsOa6y3tTMTlLx8z_Io7cvkEBF_cji9UxDDafhIgWYEKWzsFte1g6UkU90HmDGcQ2kXcB8ORVsWwKMzvV1SfWITHwWMLfg0MdNkt5VBbJvMRaEJAxboyYiGyCHcikTvRmAZjLSU8BxT88YKsxuLvNImP-pjdtT5EzuI7-QwVUVCPRLn2-c-wisYqzF01CkKQ9aawjA",
-    filter: "quick",
-  },
-  {
-    id: "quiz-6",
-    title: "World Sports & Olympic History",
-    category: "Sports",
-    categoryBg: "bg-tertiary-fixed-dim/40",
-    categoryText: "text-on-tertiary-fixed-variant",
-    rating: "4.8",
-    plays: "16.7k plays",
-    duration: "10 mins",
-    questions: "15 Questions",
-    description: "Historic record breakers, legendary championship showdowns, and tactical game rules.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBYHQM1PpAnyDCklfiDE892A8W5QQRsAQ7j9GpJjKMJJHkf7Ed4Qzs8Ax0JSk12FrbyG-y9Rkl767ZVdfh5pibnKUp-JufJxn4y2g-WVXJp7uqvjJNTwhHYnx1mOZpl76fuZQ6VovKBfSy4l89juYDSI1S4YFAKdqIc8AuXpL-oz6bZZWW2g1PzPEEaJAzJdTh4MgQh6Fm0MSn2zvz6EUmWRU8tBFwryy8NNCvlVr9aK_j0Q1fpuS8",
-    filter: "quick",
-  },
-];
+const formatTimeAgo = (dateInput?: string | Date): string => {
+  if (!dateInput) return "Recently";
+  const date = new Date(dateInput);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMinutes = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMinutes / 60);
+  const diffDays = Math.floor(diffHours / 24);
 
-// Explore categories matching Stitch reference
-const EXPLORE_CATEGORIES = [
-  {
-    id: "exp-1",
-    title: "Programming & Dev",
-    count: "142 Quizzes",
-    description: "Master full-stack frameworks, runtime patterns, and algorithmic optimization.",
-    tags: "Algorithms • Web Dev • Databases",
-    icon: "code",
-    cardBg: "bg-primary-fixed/30 hover:bg-primary-fixed/50",
-    iconColor: "text-primary",
-  },
-  {
-    id: "exp-2",
-    title: "Logical Aptitude",
-    count: "98 Quizzes",
-    description: "Quantitative analysis, spatial deduction, speed-math, and critical logic puzzles.",
-    tags: "Probability • Series • Venn Logic",
-    icon: "calculate",
-    cardBg: "bg-secondary-fixed/40 hover:bg-secondary-fixed/60",
-    iconColor: "text-secondary",
-  },
-  {
-    id: "exp-3",
-    title: "Science & Nature",
-    count: "115 Quizzes",
-    description: "Astrophysics, ecology, human anatomy, and groundbreaking inventions.",
-    tags: "Genetics • Astronomy • Chemistry",
-    icon: "eco",
-    cardBg: "bg-primary-fixed-dim/30 hover:bg-primary-fixed-dim/50",
-    iconColor: "text-primary",
-  },
-  {
-    id: "exp-4",
-    title: "World Geography",
-    count: "84 Quizzes",
-    description: "Explore global flags, mountain systems, territorial treaties, and major rivers.",
-    tags: "Flags • Capitals • Continental Drift",
-    icon: "explore",
-    cardBg: "bg-surface-container hover:bg-surface-container-high",
-    iconColor: "text-on-surface",
-  },
-  {
-    id: "exp-5",
-    title: "World History",
-    count: "126 Quizzes",
-    description: "Ancient dynasties, maritime revolutions, the Enlightenment, and modern diplomacy.",
-    tags: "Antiquity • Renaissance • Modernity",
-    icon: "hourglass_top",
-    cardBg: "bg-tertiary-fixed/30 hover:bg-tertiary-fixed/50",
-    iconColor: "text-tertiary",
-  },
-  {
-    id: "exp-6",
-    title: "Art & Literature",
-    count: "73 Quizzes",
-    description: "Modernist novels, Renaissance frescoes, typographic lore, and poetry movements.",
-    tags: "Sculpture • Modern Fiction • Bauhaus",
-    icon: "draw",
-    cardBg: "bg-secondary-fixed-dim/30 hover:bg-secondary-fixed-dim/50",
-    iconColor: "text-secondary",
-  },
-];
+  if (diffMinutes < 5) return "Just now";
+  if (diffMinutes < 60) return `${diffMinutes}m ago`;
+  if (diffHours < 24) return `${diffHours}h ago`;
+  if (diffDays === 1) return "Yesterday";
+  if (diffDays < 7) return `${diffDays}d ago`;
+  return date.toLocaleDateString();
+};
 
 export default function StitchHomePage() {
   const router = useRouter();
+  const api = useApiClient();
   const { isSignedIn } = useAuth();
   const { user } = useUser();
 
+  // Backend API states
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loadingCategories, setLoadingCategories] = useState<boolean>(true);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
+
+  const [subjects, setSubjects] = useState<Subject[]>([]);
+  const [loadingSubjects, setLoadingSubjects] = useState<boolean>(false);
+
+  const [recentHistory, setRecentHistory] = useState<any[]>([]);
+  const [loadingHistory, setLoadingHistory] = useState<boolean>(false);
+
+  const [creatingRoomCardId, setCreatingRoomCardId] = useState<string | null>(null);
+  const [roomError, setRoomError] = useState<string | null>(null);
+
+  // Form & UI state
   const [pinValue, setPinValue] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("programming");
   const [activeFilter, setActiveFilter] = useState("all");
   const [bookmarkedIds, setBookmarkedIds] = useState<Record<string, boolean>>({});
   const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
@@ -257,7 +103,77 @@ export default function StitchHomePage() {
     ? user?.fullName || user?.firstName || user?.username || "Player"
     : guestActive && guestUser
     ? guestUser.displayName || guestUser.username || "Guest Player"
-    : "Alex Rivera";
+    : "Player";
+
+  // 1. Fetch categories from backend API
+  useEffect(() => {
+    let isMounted = true;
+    const fetchCategories = async () => {
+      setLoadingCategories(true);
+      try {
+        const res = await api.get<{ success: boolean; data: Category[] }>("/categories");
+        if (isMounted && res.data && Array.isArray(res.data)) {
+          setCategories(res.data);
+          if (res.data.length > 0) {
+            setSelectedCategoryId(res.data[0].id || res.data[0].slug);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch categories:", err);
+      } finally {
+        if (isMounted) setLoadingCategories(false);
+      }
+    };
+    fetchCategories();
+    return () => { isMounted = false; };
+  }, []);
+
+  // 2. Fetch subjects whenever selected category changes
+  useEffect(() => {
+    if (!selectedCategoryId) return;
+    let isMounted = true;
+    const fetchSubjects = async () => {
+      setLoadingSubjects(true);
+      try {
+        const res = await api.get<{ success: boolean; data: Subject[] }>(
+          `/categories/${selectedCategoryId}/subjects`
+        );
+        if (isMounted && res.data && Array.isArray(res.data)) {
+          setSubjects(res.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch subjects:", err);
+        if (isMounted) setSubjects([]);
+      } finally {
+        if (isMounted) setLoadingSubjects(false);
+      }
+    };
+    fetchSubjects();
+    return () => { isMounted = false; };
+  }, [selectedCategoryId]);
+
+  // 3. Fetch recently played history if user is logged in
+  useEffect(() => {
+    if (!hasAccess) {
+      setRecentHistory([]);
+      return;
+    }
+    let isMounted = true;
+    const fetchHistory = async () => {
+      setLoadingHistory(true);
+      try {
+        const res = await api.get<{ success: boolean; data: { matches: any[] } }>("/history?limit=3");
+        if (isMounted && res.data?.matches) {
+          setRecentHistory(res.data.matches);
+        }
+      } catch (err) {
+        if (isMounted) setRecentHistory([]);
+      } finally {
+        if (isMounted) setLoadingHistory(false);
+      }
+    };
+    fetchHistory();
+  }, [hasAccess]);
 
   // Category horizontal scroll controls
   const handleScrollLeft = () => {
@@ -294,14 +210,79 @@ export default function StitchHomePage() {
     }));
   };
 
-  // Generic play button handler
-  const handlePlayQuiz = (quizTitle: string) => {
+  // Launch quiz room with real backend payload
+  const handlePlayQuizCard = async (quiz: {
+    cardId: string;
+    categoryId: string;
+    subjectId?: string | null;
+    isMixedCategory?: boolean;
+  }) => {
     if (!hasAccess) {
       setIsGuestModalOpen(true);
       return;
     }
-    router.push("/dashboard");
+
+    setCreatingRoomCardId(quiz.cardId);
+    setRoomError(null);
+
+    try {
+      const res = await api.post<{ success: boolean; data: { roomCode: string } }>("/rooms", {
+        categoryId: quiz.categoryId,
+        subjectId: quiz.isMixedCategory ? null : quiz.subjectId,
+        isMixedCategory: Boolean(quiz.isMixedCategory),
+      });
+
+      if (res.data?.roomCode) {
+        router.push(`/lobby/${res.data.roomCode}`);
+      } else {
+        throw new Error("Failed to retrieve valid room code from server.");
+      }
+    } catch (err: any) {
+      setRoomError(err.message || "Failed to create battle room. Please try again.");
+    } finally {
+      setCreatingRoomCardId(null);
+    }
   };
+
+  // Derive current category metadata and derived quiz cards
+  const currentCategory = categories.find(
+    (c) => c.id === selectedCategoryId || c.slug === selectedCategoryId
+  ) || (categories.length > 0 ? categories[0] : null);
+
+  const mixedQuizCard = currentCategory
+    ? {
+        cardId: `mixed-${currentCategory.id}`,
+        title: `Mixed ${currentCategory.name}`,
+        category: currentCategory.name,
+        description: `Randomized mix of questions covering all subjects in ${currentCategory.name}.`,
+        questionCount: currentCategory.questionCount || 0,
+        isMixedCategory: true,
+        categoryId: currentCategory.id,
+        subjectId: null,
+      }
+    : null;
+
+  const subjectQuizCards = subjects.map((sub) => ({
+    cardId: sub.id,
+    title: sub.name,
+    category: currentCategory?.name || "Subject",
+    description: sub.description || `Test your grasp on ${sub.name} concepts and problems.`,
+    questionCount: sub.questionCount || 0,
+    isMixedCategory: false,
+    categoryId: sub.categoryId || currentCategory?.id || selectedCategoryId,
+    subjectId: sub.id,
+  }));
+
+  const allQuizCards = [
+    ...(mixedQuizCard ? [mixedQuizCard] : []),
+    ...subjectQuizCards,
+  ];
+
+  const filteredQuizCards = allQuizCards.filter((card) => {
+    if (activeFilter === "mixed") return card.isMixedCategory;
+    if (activeFilter === "subjects") return !card.isMixedCategory;
+    return true;
+  });
 
   return (
     <div className="stitch-scope min-h-screen bg-surface font-body-md text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
@@ -435,21 +416,33 @@ export default function StitchHomePage() {
                 <div className="relative z-10 space-y-space-xs max-w-2xl">
                   <div className="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm tracking-wide uppercase">
                     <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                    Daily Brain Boost Active
+                    Live Quiz Engine Active
                   </div>
                   <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">
                     Welcome back, {displayName.split(" ")[0]}!{" "}
                     <span className="font-normal text-on-surface-variant">
-                      Ready to challenge your intellect?
+                      Ready to test your technical mastery?
                     </span>
                   </h1>
                   <p className="font-body-md text-body-md text-on-surface-variant">
-                    Explore curated topic paths, retain new knowledge, and keep your
-                    cognitive momentum running strong.
+                    Select a topic or specific subject below to start a 1–4 player multiplayer quiz room.
                   </p>
                 </div>
               </div>
             </section>
+
+            {/* Error Notification banner if room creation fails */}
+            {roomError && (
+              <div className="mb-space-md p-space-md rounded-2xl bg-error/10 border border-error/30 text-error flex items-center justify-between">
+                <span className="font-body-md text-body-md font-semibold">{roomError}</span>
+                <button
+                  onClick={() => setRoomError(null)}
+                  className="text-error font-bold text-sm px-2 py-1 hover:bg-error/20 rounded-lg"
+                >
+                  Dismiss
+                </button>
+              </div>
+            )}
 
             {/* SECTION 2: CATEGORY NAVIGATION BAR */}
             <section className="mb-space-2xl">
@@ -480,41 +473,56 @@ export default function StitchHomePage() {
                   </button>
                 </div>
               </div>
+
+              {/* Horizontal Category Pill Track */}
               <div
                 ref={categoryTrackRef}
                 className="flex items-center gap-space-sm overflow-x-auto pb-2 scroll-smooth no-scrollbar select-none"
               >
-                {CATEGORIES.map((cat) => {
-                  const isSelected = selectedCategory === cat.id;
-                  return (
-                    <button
-                      key={cat.id}
-                      onClick={() => setSelectedCategory(cat.id)}
-                      className={`shrink-0 flex items-center gap-2.5 px-4 py-2.5 rounded-full transition-all transform hover:-translate-y-0.5 cursor-pointer ${
-                        isSelected
-                          ? "bg-surface-container-lowest shadow-[0_4px_14px_-2px_rgba(49,122,99,0.18)]"
-                          : "bg-surface-container-lowest hover:bg-surface-container-low shadow-sm"
-                      }`}
-                      type="button"
-                    >
-                      {isSelected && (
-                        <span className="w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-primary-fixed animate-pulse"></span>
-                      )}
-                      <span
-                        className={`w-7 h-7 rounded-full ${cat.iconBg} ${cat.iconColor} flex items-center justify-center text-[16px] material-symbols-outlined`}
-                      >
-                        {cat.icon}
-                      </span>
-                      <span
-                        className={`font-label-md text-label-md ${
-                          isSelected ? "text-primary font-bold" : "text-on-surface font-semibold"
+                {loadingCategories ? (
+                  Array.from({ length: 6 }).map((_, idx) => (
+                    <div
+                      key={idx}
+                      className="shrink-0 h-11 w-36 rounded-full bg-surface-container-low animate-pulse"
+                    />
+                  ))
+                ) : (
+                  categories.map((cat, idx) => {
+                    const isSelected =
+                      selectedCategoryId === cat.id || selectedCategoryId === cat.slug;
+                    const palette = COLOR_PALETTES[idx % COLOR_PALETTES.length];
+                    const iconName = getCategoryIcon(cat);
+
+                    return (
+                      <button
+                        key={cat.id || cat.slug}
+                        onClick={() => setSelectedCategoryId(cat.id || cat.slug)}
+                        className={`shrink-0 flex items-center gap-2.5 px-4 py-2.5 rounded-full transition-all transform hover:-translate-y-0.5 cursor-pointer ${
+                          isSelected
+                            ? "bg-surface-container-lowest shadow-[0_4px_14px_-2px_rgba(49,122,99,0.18)]"
+                            : "bg-surface-container-lowest hover:bg-surface-container-low shadow-sm"
                         }`}
+                        type="button"
                       >
-                        {cat.name}
-                      </span>
-                    </button>
-                  );
-                })}
+                        {isSelected && (
+                          <span className="w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-primary-fixed animate-pulse"></span>
+                        )}
+                        <span
+                          className={`w-7 h-7 rounded-full ${palette.iconBg} ${palette.iconColor} flex items-center justify-center text-[16px] material-symbols-outlined`}
+                        >
+                          {iconName}
+                        </span>
+                        <span
+                          className={`font-label-md text-label-md ${
+                            isSelected ? "text-primary font-bold" : "text-on-surface font-semibold"
+                          }`}
+                        >
+                          {cat.name}
+                        </span>
+                      </button>
+                    );
+                  })
+                )}
               </div>
             </section>
 
@@ -533,89 +541,103 @@ export default function StitchHomePage() {
                   className="font-label-md text-label-md text-primary font-bold hover:text-primary-container flex items-center gap-1 transition-colors"
                   href="/history"
                 >
-                  View History
+                  View Full History
                   <span className="material-symbols-outlined text-[16px]">
                     arrow_forward
                   </span>
                 </Link>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
-                {RECENTLY_PLAYED.map((card) => (
-                  <div
-                    key={card.id}
-                    className="bg-surface-container-lowest rounded-[24px] p-space-md shadow-[0_2px_8px_-2px_rgba(60,52,42,0.04),0_1px_3px_-1px_rgba(60,52,42,0.03)] hover:shadow-[0_8px_24px_-6px_rgba(60,52,42,0.07)] transition-all flex flex-col justify-between group"
-                  >
-                    <div>
-                      <div className="relative w-full h-44 rounded-[20px] overflow-hidden bg-surface-container mb-space-md">
-                        <img
-                          alt={`${card.title} thumbnail`}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          src={card.image}
-                        />
-                        <div
-                          className={`absolute top-3 left-3 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md font-label-sm text-label-sm font-semibold ${card.categoryColor}`}
-                        >
-                          {card.category}
+
+              {loadingHistory ? (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="h-48 rounded-[24px] bg-surface-container-low animate-pulse"
+                    />
+                  ))}
+                </div>
+              ) : recentHistory.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+                  {recentHistory.map((item) => {
+                    const topicName = item.topic || "Quiz Battle";
+                    const timeStr = formatTimeAgo(item.endedAt || item.startedAt);
+                    const userScore = item.userScore ?? 0;
+                    const resultText = item.result || "COMPLETED";
+
+                    return (
+                      <div
+                        key={item._id}
+                        className="bg-surface-container-lowest rounded-[24px] p-space-md shadow-[0_2px_8px_-2px_rgba(60,52,42,0.04)] hover:shadow-[0_8px_24px_-6px_rgba(60,52,42,0.07)] transition-all flex flex-col justify-between group border border-surface-container-highest"
+                      >
+                        <div>
+                          <div className="flex items-center justify-between mb-space-xs">
+                            <span className="px-3 py-1 rounded-full bg-primary-fixed/60 text-primary font-label-sm text-label-sm font-semibold">
+                              {topicName}
+                            </span>
+                            <span className="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[14px]">
+                                schedule
+                              </span>{" "}
+                              {timeStr}
+                            </span>
+                          </div>
+                          <h3 className="font-headline-sm text-headline-sm text-on-surface tracking-tight mt-space-sm mb-space-xs group-hover:text-primary transition-colors">
+                            {topicName} Battle
+                          </h3>
+                          <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+                            Room Code: <span className="font-mono font-bold">{item.roomCode || "N/A"}</span> • {item.questionCount || 10} Questions
+                          </p>
                         </div>
-                        <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-inverse-surface/80 backdrop-blur-md text-inverse-on-surface font-label-sm text-label-sm flex items-center gap-1">
-                          <span className="material-symbols-outlined text-[14px]">
-                            schedule
-                          </span>{" "}
-                          {card.timeAgo}
+                        <div className="pt-space-sm space-y-space-md border-t border-surface-container-low">
+                          <div className="flex items-center justify-between text-label-sm font-label-sm">
+                            <span className="text-on-surface-variant">Result</span>
+                            <span className="font-bold text-primary">{userScore} Pts ({resultText})</span>
+                          </div>
+                          <div className="flex items-center justify-between pt-1">
+                            <span className="font-label-sm text-label-sm text-on-surface-variant">
+                              {item.difficulty || "Standard"}
+                            </span>
+                            <button
+                              onClick={() => router.push(`/history/battles/${item._id}`)}
+                              className="px-5 py-2 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-bold transition-all shadow-sm cursor-pointer"
+                              type="button"
+                            >
+                              Details
+                            </button>
+                          </div>
                         </div>
                       </div>
-                      <h3 className="font-headline-sm text-headline-sm text-on-surface tracking-tight mb-space-xs group-hover:text-primary transition-colors">
-                        {card.title}
-                      </h3>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-md line-clamp-2">
-                        {card.description}
-                      </p>
-                    </div>
-                    <div className="pt-space-sm space-y-space-md">
-                      <div>
-                        <div className="flex items-center justify-between text-label-sm font-label-sm mb-1.5 font-medium">
-                          <span className="text-on-surface-variant">Progress</span>
-                          <span className={`${card.progressTextColor} font-bold`}>
-                            {card.progressLabel}
-                          </span>
-                        </div>
-                        <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
-                          <div
-                            className={`h-full ${card.progressColor} rounded-full transition-all duration-700`}
-                            style={{ width: `${card.progress}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between pt-1">
-                        <span className="font-label-sm text-label-sm text-on-surface-variant">
-                          {card.questionsCount}
-                        </span>
-                        <button
-                          onClick={() => handlePlayQuiz(card.title)}
-                          className="px-5 py-2 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-bold transition-all shadow-sm transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
-                          type="button"
-                        >
-                          Resume
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="w-full bg-surface-container-lowest rounded-[24px] p-space-xl text-center border border-dashed border-surface-container-highest">
+                  <span className="material-symbols-outlined text-on-surface-variant text-[40px] mb-2 opacity-60">
+                    history_edu
+                  </span>
+                  <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold">
+                    No Recent Quiz Activity
+                  </h3>
+                  <p className="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto mt-1">
+                    Select a subject or mixed quiz below to launch your first 1–4 player quiz battle!
+                  </p>
+                </div>
+              )}
             </section>
 
-            {/* SECTION 4: POPULAR QUIZZES */}
+            {/* SECTION 4: QUIZ DISCOVERY & SUBJECT CARDS */}
             <section className="mb-space-2xl">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
                 <div>
                   <span className="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold">
-                    Community Loved
+                    Domain Discovery
                   </span>
                   <h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">
-                    Popular Quizzes
+                    {currentCategory ? `Quizzes in ${currentCategory.name}` : "Available Quizzes"}
                   </h2>
                 </div>
-                {/* Filter Segmented Pills */}
+                {/* Segmented Filter Controls */}
                 <div className="inline-flex p-1 bg-surface-container rounded-full self-start md:self-auto overflow-x-auto max-w-full">
                   <button
                     onClick={() => setActiveFilter("all")}
@@ -626,124 +648,124 @@ export default function StitchHomePage() {
                     }`}
                     type="button"
                   >
-                    All
+                    All ({allQuizCards.length})
                   </button>
                   <button
-                    onClick={() => setActiveFilter("trending")}
+                    onClick={() => setActiveFilter("subjects")}
                     className={`px-4 py-1.5 rounded-full font-label-md text-label-md transition-all cursor-pointer ${
-                      activeFilter === "trending"
+                      activeFilter === "subjects"
                         ? "bg-surface-container-lowest text-on-surface shadow-sm font-bold"
                         : "text-on-surface-variant font-semibold hover:text-on-surface"
                     }`}
                     type="button"
                   >
-                    Trending This Week
+                    Specific Subjects ({subjectQuizCards.length})
                   </button>
                   <button
-                    onClick={() => setActiveFilter("quick")}
+                    onClick={() => setActiveFilter("mixed")}
                     className={`px-4 py-1.5 rounded-full font-label-md text-label-md transition-all cursor-pointer ${
-                      activeFilter === "quick"
+                      activeFilter === "mixed"
                         ? "bg-surface-container-lowest text-on-surface shadow-sm font-bold"
                         : "text-on-surface-variant font-semibold hover:text-on-surface"
                     }`}
                     type="button"
                   >
-                    Quick 5-min
-                  </button>
-                  <button
-                    onClick={() => setActiveFilter("favorites")}
-                    className={`px-4 py-1.5 rounded-full font-label-md text-label-md transition-all cursor-pointer ${
-                      activeFilter === "favorites"
-                        ? "bg-surface-container-lowest text-on-surface shadow-sm font-bold"
-                        : "text-on-surface-variant font-semibold hover:text-on-surface"
-                    }`}
-                    type="button"
-                  >
-                    Community Favorites
+                    Mixed Mode
                   </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
-                {POPULAR_QUIZZES.map((quiz) => (
-                  <div
-                    key={quiz.id}
-                    className="bg-surface-container-lowest rounded-[28px] p-space-md shadow-[0_2px_8px_-2px_rgba(60,52,42,0.04),0_1px_3px_-1px_rgba(60,52,42,0.03)] hover:shadow-[0_8px_24px_-6px_rgba(60,52,42,0.07)] transition-all flex flex-col justify-between group"
-                  >
-                    <div>
-                      <div className="relative w-full h-48 rounded-[22px] overflow-hidden bg-surface-container mb-space-md">
-                        <img
-                          alt={`${quiz.title} thumbnail`}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          src={quiz.image}
-                        />
-                        <div
-                          className={`absolute top-3 left-3 px-3 py-1 rounded-full ${quiz.categoryBg} backdrop-blur-md ${quiz.categoryText} font-label-sm text-label-sm font-semibold`}
-                        >
-                          {quiz.category}
-                        </div>
-                        <button
-                          aria-label="Bookmark quiz"
-                          onClick={() => toggleBookmark(quiz.id)}
-                          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-md hover:bg-surface-container-lowest flex items-center justify-center text-on-surface-variant hover:text-tertiary transition-colors shadow-sm cursor-pointer"
-                          type="button"
-                        >
-                          <span
-                            className="material-symbols-outlined text-[18px]"
-                            style={{
-                              fontVariationSettings: bookmarkedIds[quiz.id] ? "'FILL' 1" : "'FILL' 0",
-                              color: bookmarkedIds[quiz.id] ? "#9f2b1d" : undefined,
-                            }}
-                          >
-                            bookmark
-                          </span>
-                        </button>
-                      </div>
-                      <div className="flex items-center gap-space-sm font-label-sm text-label-sm text-on-surface-variant mb-space-xs">
-                        <span className="flex items-center gap-0.5 text-on-surface font-bold">
-                          <span
-                            className="material-symbols-outlined text-[16px] text-tertiary"
-                            style={{ fontVariationSettings: "'FILL' 1" }}
-                          >
-                            star
-                          </span>
-                          {quiz.rating}
-                        </span>
-                        <span>•</span>
-                        <span>{quiz.plays}</span>
-                        <span>•</span>
-                        <span className="flex items-center gap-1">
-                          <span className="material-symbols-outlined text-[14px]">
-                            timer
-                          </span>{" "}
-                          {quiz.duration}
-                        </span>
-                      </div>
-                      <h3 className="font-headline-sm text-headline-sm text-on-surface tracking-tight mb-space-xs group-hover:text-primary transition-colors">
-                        {quiz.title}
-                      </h3>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
-                        {quiz.description}
-                      </p>
-                    </div>
-                    <div className="pt-space-md mt-space-sm flex items-center justify-between">
-                      <span className="font-label-md text-label-md text-on-surface-variant font-medium">
-                        {quiz.questions}
-                      </span>
-                      <button
-                        onClick={() => handlePlayQuiz(quiz.title)}
-                        className="px-5 py-2.5 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-bold transition-all shadow-sm transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-1.5 cursor-pointer"
-                        type="button"
+              {loadingSubjects ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <div key={i} className="h-56 rounded-[28px] bg-surface-container-low animate-pulse" />
+                  ))}
+                </div>
+              ) : filteredQuizCards.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+                  {filteredQuizCards.map((quiz) => {
+                    const isCreatingThis = creatingRoomCardId === quiz.cardId;
+                    const hasQuestions = quiz.questionCount > 0;
+
+                    return (
+                      <div
+                        key={quiz.cardId}
+                        className={`bg-surface-container-lowest rounded-[28px] p-space-md shadow-[0_2px_8px_-2px_rgba(60,52,42,0.04)] hover:shadow-[0_8px_24px_-6px_rgba(60,52,42,0.07)] transition-all flex flex-col justify-between group border ${
+                          quiz.isMixedCategory
+                            ? "border-primary/40 bg-gradient-to-br from-surface-container-lowest to-primary-fixed/10"
+                            : "border-surface-container-highest"
+                        }`}
                       >
-                        <span>Play Quiz</span>
-                        <span className="material-symbols-outlined text-[16px]">
-                          play_arrow
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                        <div>
+                          <div className="flex items-center justify-between mb-space-md">
+                            <span
+                              className={`px-3 py-1 rounded-full font-label-sm text-label-sm font-semibold ${
+                                quiz.isMixedCategory
+                                  ? "bg-primary text-on-primary"
+                                  : "bg-surface-container-high text-on-surface-variant"
+                              }`}
+                            >
+                              {quiz.isMixedCategory ? "Mixed Pool" : quiz.category}
+                            </span>
+                            <button
+                              aria-label="Bookmark quiz"
+                              onClick={() => toggleBookmark(quiz.cardId)}
+                              className="w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-md hover:bg-surface-container-lowest flex items-center justify-center text-on-surface-variant hover:text-tertiary transition-colors shadow-sm cursor-pointer"
+                              type="button"
+                            >
+                              <span
+                                className="material-symbols-outlined text-[18px]"
+                                style={{
+                                  fontVariationSettings: bookmarkedIds[quiz.cardId] ? "'FILL' 1" : "'FILL' 0",
+                                  color: bookmarkedIds[quiz.cardId] ? "#9f2b1d" : undefined,
+                                }}
+                              >
+                                bookmark
+                              </span>
+                            </button>
+                          </div>
+
+                          <h3 className="font-headline-sm text-headline-sm text-on-surface tracking-tight mb-space-xs group-hover:text-primary transition-colors font-bold">
+                            {quiz.title}
+                          </h3>
+                          <p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+                            {quiz.description}
+                          </p>
+                        </div>
+
+                        <div className="pt-space-md mt-space-sm flex items-center justify-between border-t border-surface-container-low">
+                          <span className="font-label-md text-label-md text-on-surface-variant font-medium">
+                            {quiz.questionCount} Qs Available
+                          </span>
+                          <button
+                            disabled={isCreatingThis || !hasQuestions}
+                            onClick={() => handlePlayQuizCard(quiz)}
+                            className={`px-5 py-2.5 rounded-full font-label-md text-label-md font-bold transition-all shadow-sm transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-1.5 cursor-pointer ${
+                              hasQuestions
+                                ? "bg-primary hover:bg-primary-container text-on-primary"
+                                : "bg-surface-container-high text-on-surface-variant opacity-60 cursor-not-allowed"
+                            }`}
+                            type="button"
+                          >
+                            <span>{isCreatingThis ? "Creating..." : hasQuestions ? "Play Quiz" : "No Questions"}</span>
+                            {!isCreatingThis && hasQuestions && (
+                              <span className="material-symbols-outlined text-[16px]">
+                                play_arrow
+                              </span>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="w-full bg-surface-container-lowest rounded-[24px] p-space-xl text-center border border-dashed border-surface-container-highest">
+                  <p className="font-body-md text-body-md text-on-surface-variant">
+                    No subjects found for this category yet. Select another category from above.
+                  </p>
+                </div>
+              )}
             </section>
 
             {/* SECTION 5: EXPLORE CATEGORIES */}
@@ -753,61 +775,71 @@ export default function StitchHomePage() {
                   Comprehensive Library
                 </span>
                 <h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">
-                  Explore Categories
+                  Explore All Categories
                 </h2>
                 <p className="font-body-md text-body-md text-on-surface-variant mt-1">
-                  Find quizzes suited to your passions, technical career growth, or
-                  trivia night readiness.
+                  Discover categories backed by live backend questions and real-time multiplayer arenas.
                 </p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-lg">
-                {EXPLORE_CATEGORIES.map((cat) => (
-                  <div
-                    key={cat.id}
-                    onClick={() => {
-                      if (!hasAccess) {
-                        setIsGuestModalOpen(true);
-                      } else {
-                        router.push("/dashboard");
-                      }
-                    }}
-                    className={`group rounded-[28px] p-space-lg ${cat.cardBg} transition-all flex flex-col justify-between shadow-[0_2px_8px_-2px_rgba(60,52,42,0.03)] transform hover:-translate-y-1 cursor-pointer`}
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-space-md">
-                        <div
-                          className={`w-12 h-12 rounded-2xl bg-surface-container-lowest ${cat.iconColor} flex items-center justify-center shadow-sm`}
-                        >
-                          <span className="material-symbols-outlined text-[26px]">
-                            {cat.icon}
+
+              {loadingCategories ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <div key={i} className="h-44 rounded-[28px] bg-surface-container-low animate-pulse" />
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+                  {categories.map((cat, idx) => {
+                    const palette = COLOR_PALETTES[idx % COLOR_PALETTES.length];
+                    const iconName = getCategoryIcon(cat);
+
+                    return (
+                      <div
+                        key={cat.id || cat.slug}
+                        onClick={() => {
+                          setSelectedCategoryId(cat.id || cat.slug);
+                          window.scrollTo({ top: 380, behavior: "smooth" });
+                        }}
+                        className={`group rounded-[28px] p-space-lg bg-surface-container-lowest hover:bg-surface-container-low transition-all flex flex-col justify-between shadow-[0_2px_8px_-2px_rgba(60,52,42,0.03)] transform hover:-translate-y-1 cursor-pointer border border-surface-container-highest`}
+                      >
+                        <div>
+                          <div className="flex items-center justify-between mb-space-md">
+                            <div
+                              className={`w-12 h-12 rounded-2xl ${palette.iconBg} ${palette.iconColor} flex items-center justify-center shadow-sm`}
+                            >
+                              <span className="material-symbols-outlined text-[26px]">
+                                {iconName}
+                              </span>
+                            </div>
+                            <span
+                              className={`px-3 py-1 rounded-full bg-surface-container-lowest font-label-sm text-label-sm font-bold ${palette.iconColor} shadow-sm border border-surface-container-highest`}
+                            >
+                              {cat.questionCount || 0} Questions
+                            </span>
+                          </div>
+                          <h3 className="font-headline-md text-headline-md text-on-surface tracking-tight group-hover:text-primary transition-colors font-bold">
+                            {cat.name}
+                          </h3>
+                          <p className="font-body-sm text-body-sm text-on-surface-variant mt-1.5 line-clamp-2">
+                            {cat.description || `Browse subjects and mixed question pools in ${cat.name}.`}
+                          </p>
+                        </div>
+                        <div className="mt-space-lg pt-space-sm flex items-center justify-between text-on-surface-variant">
+                          <span className="font-label-sm text-label-sm font-semibold text-primary">
+                            Explore Subjects
+                          </span>
+                          <span className="w-8 h-8 rounded-full bg-surface-container-lowest flex items-center justify-center group-hover:translate-x-1 transition-transform shadow-sm border border-surface-container-highest">
+                            <span className={`material-symbols-outlined text-[18px] ${palette.iconColor}`}>
+                              arrow_forward
+                            </span>
                           </span>
                         </div>
-                        <span
-                          className={`px-3 py-1 rounded-full bg-surface-container-lowest font-label-sm text-label-sm font-bold ${cat.iconColor} shadow-sm`}
-                        >
-                          {cat.count}
-                        </span>
                       </div>
-                      <h3 className="font-headline-md text-headline-md text-on-surface tracking-tight group-hover:text-primary transition-colors">
-                        {cat.title}
-                      </h3>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant mt-1.5">
-                        {cat.description}
-                      </p>
-                    </div>
-                    <div className="mt-space-lg pt-space-sm flex items-center justify-between text-on-surface-variant">
-                      <span className="font-label-sm text-label-sm font-semibold truncate pr-2">
-                        {cat.tags}
-                      </span>
-                      <span className="w-8 h-8 rounded-full bg-surface-container-lowest flex items-center justify-center group-hover:translate-x-1 transition-transform shadow-sm">
-                        <span className={`material-symbols-outlined text-[18px] ${cat.iconColor}`}>
-                          arrow_forward
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                    );
+                  })}
+                </div>
+              )}
             </section>
           </div>
         </div>
