@@ -369,6 +369,168 @@ export class RoomService {
 
     await roomRepository.delete(code);
   }
+
+  private rematchCache = new Map<string, { roomCode: string; createdAt: number }>();
+  private inFlightRematch = new Map<string, Promise<IRoomDocument>>();
+
+  /**
+   * Create a rematch room from a finished quiz session.
+   * Preserves quiz configuration (category, subject, mixed mode, question count, timer),
+   * identifies authoritative host, and broadcasts to active participants.
+   */
+  async createRematchRoom(
+    userId: string,
+    oldRoomCode: string,
+    io?: any
+  ): Promise<IRoomDocument> {
+    const code = oldRoomCode.toUpperCase();
+
+    // Check in-flight rematch creation for concurrent calls
+    const inFlight = this.inFlightRematch.get(code);
+    if (inFlight) {
+      return inFlight;
+    }
+
+    const execution = this.executeCreateRematchRoom(userId, code, io);
+    this.inFlightRematch.set(code, execution);
+    try {
+      return await execution;
+    } finally {
+      this.inFlightRematch.delete(code);
+    }
+  }
+
+  private async executeCreateRematchRoom(
+    userId: string,
+    code: string,
+    io?: any
+  ): Promise<IRoomDocument> {
+    const oldRoom = await roomRepository.findByRoomCode(code);
+    if (!oldRoom) {
+      throw new ApiError(404, 'Room not found');
+    }
+
+    // 1. Participant Authorization: Requester must be part of the room
+    const isParticipant = oldRoom.players.some((p) => {
+      const pId = p.userId && (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
+      return pId === userId;
+    });
+    if (!isParticipant) {
+      throw new ApiError(403, 'Only participants in this quiz can initiate a rematch');
+    }
+
+    // 2. Room State Validation: Match must be finished (or waiting in solo)
+    if (oldRoom.status !== RoomStatus.FINISHED && oldRoom.status !== RoomStatus.WAITING) {
+      throw new ApiError(400, 'Cannot initiate a rematch while the current match is still active');
+    }
+
+    // 3. Idempotency Check: Prevent duplicate room creation within 60s
+    const cached = this.rematchCache.get(code);
+    if (cached && Date.now() - cached.createdAt < 60000) {
+      const existingRematch = await roomRepository.findByRoomCode(cached.roomCode);
+      if (existingRematch && existingRematch.status === RoomStatus.WAITING) {
+        if (io) {
+          io.to(`room:${code}`).emit('room:play_again', {
+            oldRoomCode: code,
+            newRoomCode: existingRematch.roomCode,
+          });
+        }
+        return existingRematch;
+      }
+    }
+
+    // 4. Host determination:
+    const oldHostIdStr = oldRoom.hostId && (oldRoom.hostId as any)._id
+      ? (oldRoom.hostId as any)._id.toString()
+      : oldRoom.hostId.toString();
+
+    let newHostIdStr = oldHostIdStr;
+
+    // Check if original host is active in socket channel if io is present
+    if (io && userId !== oldHostIdStr) {
+      try {
+        const sockets = await io.in(`room:${code}`).fetchSockets();
+        const isOldHostActive = sockets.some(
+          (s: any) => s.data?.user?._id?.toString() === oldHostIdStr
+        );
+        // If original host is no longer active/present, migrate host to requester
+        if (!isOldHostActive) {
+          newHostIdStr = userId;
+        }
+      } catch {
+        // Fallback to preserving old host if socket inspect fails
+      }
+    }
+
+    // 5. Inherit previous quiz settings
+    const inheritedSettings = {
+      categoryId: oldRoom.settings?.categoryId,
+      subjectId: oldRoom.settings?.subjectId,
+      isMixedCategory: oldRoom.settings?.isMixedCategory,
+      topic: oldRoom.settings?.topic || 'random',
+      difficulty: oldRoom.settings?.difficulty || 'random',
+      duration: oldRoom.settings?.duration || 30,
+      questionCount: oldRoom.settings?.questionCount || 10,
+    };
+
+    const validatedSettings = await this.validateAndResolveCategorySettings(inheritedSettings);
+
+    // 6. Generate unique new room code
+    let newRoomCode = '';
+    let isUnique = false;
+    while (!isUnique) {
+      newRoomCode = this.generateRoomCode();
+      const existing = await roomRepository.findByRoomCode(newRoomCode);
+      if (!existing) {
+        isUnique = true;
+      }
+    }
+
+    // 7. Initial players: Host, and if requester is different from host, include requester
+    const initialPlayers: Array<{ userId: any; isHost: boolean; isReady: boolean }> = [
+      {
+        userId: newHostIdStr as any,
+        isHost: true,
+        isReady: false,
+      },
+    ];
+
+    if (userId !== newHostIdStr) {
+      initialPlayers.push({
+        userId: userId as any,
+        isHost: false,
+        isReady: false,
+      });
+    }
+
+    // 8. Create new room in MongoDB
+    await roomRepository.create({
+      roomCode: newRoomCode,
+      hostId: newHostIdStr as any,
+      players: initialPlayers,
+      settings: validatedSettings,
+      maxPlayers: oldRoom.maxPlayers || 4,
+      status: RoomStatus.WAITING,
+    });
+
+    const populated = await roomRepository.findByRoomCode(newRoomCode);
+    if (!populated) {
+      throw new ApiError(500, 'Failed to create rematch room');
+    }
+
+    // Cache the rematch room code for idempotency
+    this.rematchCache.set(code, { roomCode: newRoomCode, createdAt: Date.now() });
+
+    // Broadcast rematch event to all participants listening in old room channel
+    if (io) {
+      io.to(`room:${code}`).emit('room:play_again', {
+        oldRoomCode: code,
+        newRoomCode,
+      });
+    }
+
+    return populated;
+  }
 }
 
 export const roomService = new RoomService();

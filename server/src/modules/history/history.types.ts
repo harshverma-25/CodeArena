@@ -76,6 +76,7 @@ export interface IBattleResultPlayer {
 export interface IBattleResultDetails {
   battleId: string;
   roomCode: string;
+  hostId?: string;
   topic: string;
   difficulty: string;
   questionCount: number;

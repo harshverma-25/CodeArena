@@ -44,6 +44,11 @@ export function registerRoomHandlers(io: Server, socket: Socket) {
     }
 
     try {
+      if (socket.data.roomCode && socket.data.roomCode !== roomCode) {
+        socket.leave(`room:${socket.data.roomCode}`);
+        logger.info(`Player ${userId} left previous socket room channel room:${socket.data.roomCode}`);
+      }
+
       const room = await roomService.getRoom(roomCode);
 
       // Verify if the user is already listed as a player in this room
@@ -80,6 +85,23 @@ export function registerRoomHandlers(io: Server, socket: Socket) {
     } catch (error: any) {
       logger.error(error, `Failed to join room socket channel: ${roomCode}`);
       socket.emit('error', { success: false, message: error.message || 'Failed to join room' });
+    }
+  });
+
+  // Handle player requesting play again for the room
+  socket.on('room:play_again', async (payload: { roomCode: string }) => {
+    const roomCode = payload?.roomCode?.toUpperCase();
+    if (!roomCode) {
+      return socket.emit('error', { success: false, message: 'Room code is required' });
+    }
+
+    try {
+      const newRoom = await roomService.createRematchRoom(userId, roomCode, io);
+      socket.emit('room:play_again_created', { newRoomCode: newRoom.roomCode });
+      logger.info(`Player ${userId} initiated play again rematch for room ${roomCode} -> ${newRoom.roomCode}`);
+    } catch (error: any) {
+      logger.error(error, `Failed to handle room:play_again for ${roomCode}`);
+      socket.emit('error', { success: false, message: error.message || 'Failed to initiate rematch' });
     }
   });
 

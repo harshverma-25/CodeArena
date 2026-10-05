@@ -91,12 +91,31 @@ export function useBattleMutations() {
     },
   });
 
+  // Play Again Mutation
+  const playAgain = useMutation<Room, Error, string>({
+    mutationFn: async (roomCode) => {
+      const response = await api.post<{ success: boolean; data: Room }>(
+        `/rooms/${roomCode}/play-again`,
+        {}
+      );
+      const responseData = response as unknown as { success: boolean; data: Room };
+      if (!responseData || !responseData.success) {
+        throw new Error("Failed to create rematch room.");
+      }
+      return responseData.data;
+    },
+    onSuccess: (data) => {
+      queryClient.setQueryData(["room", data.roomCode], data);
+    },
+  });
+
   return {
     createRoom,
     joinRoom,
     updateSettings,
     leaveRoom,
     startMatch,
+    playAgain,
   };
 }
 export default useBattleMutations;

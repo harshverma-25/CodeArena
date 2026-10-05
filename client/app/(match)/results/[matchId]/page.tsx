@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useBattleResult } from "@/features/battle/hooks/useBattleResult";
 import { useBattleMutations } from "@/features/battle/hooks/useBattleMutations";
 import { useBattleStore } from "@/store/battleStore";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
+import { socketManager } from "@/lib/socket";
 import {
   Trophy,
   Award,
@@ -34,15 +35,45 @@ export default function MatchResultsPage() {
 
   const { data: currentUser } = useCurrentUser();
   const { data: results, isLoading, isError, error, refetch } = useBattleResult(matchId);
-  const { createRoom } = useBattleMutations();
+  const { createRoom, playAgain } = useBattleMutations();
   const { resetBattle } = useBattleStore();
 
   const [isCreatingRoom, setIsCreatingRoom] = useState(false);
+  const hasNavigatedRef = useRef(false);
 
   useEffect(() => {
     // Reset active live battle state when viewing report card
     resetBattle();
   }, [resetBattle]);
+
+  // Re-join socket room and listen for multiplayer play-again broadcast
+  useEffect(() => {
+    if (!results?.roomCode) return;
+    const roomCode = results.roomCode.toUpperCase();
+    const socket = socketManager.getSocket();
+
+    // Ensure player is connected to the room channel so they receive room:play_again broadcasts
+    socketManager.emit("room:join", { roomCode });
+
+    const handlePlayAgainBroadcast = (payload: { oldRoomCode: string; newRoomCode: string }) => {
+      if (payload?.oldRoomCode?.toUpperCase() === roomCode && payload?.newRoomCode) {
+        if (!hasNavigatedRef.current) {
+          hasNavigatedRef.current = true;
+          router.push(`/lobby/${payload.newRoomCode.toUpperCase()}`);
+        }
+      }
+    };
+
+    if (socket) {
+      socket.on("room:play_again", handlePlayAgainBroadcast);
+    }
+
+    return () => {
+      if (socket) {
+        socket.off("room:play_again", handlePlayAgainBroadcast);
+      }
+    };
+  }, [results?.roomCode, router]);
 
   // Loading State
   if (isLoading) {
@@ -162,25 +193,39 @@ export default function MatchResultsPage() {
       ? (fastestQuestionMs / 1000).toFixed(1)
       : "1.4";
 
-  // Check if current user is host (first player in original players list)
-  const isHost = results.players.length > 0 && results.players[0].userId === myId;
+  // Check if current user is host (authoritative hostId if present, else fallback)
+  const isHost = results.hostId
+    ? results.hostId === myId
+    : results.players.length > 0 && results.players[0].userId === myId;
 
   // Play Again action
   const handlePlayAgain = async () => {
+    if (isCreatingRoom || hasNavigatedRef.current) return;
     try {
       setIsCreatingRoom(true);
-      const newRoom = await createRoom.mutateAsync({
-        topic: results.topic,
-        categoryId: results.categoryId,
-        subjectId: results.isMixedCategory ? null : results.subjectId,
-        isMixedCategory: Boolean(results.isMixedCategory),
-        difficulty: (results.difficulty as any) || "Easy",
-        duration: results.timePerQuestion || 30,
-        questionCount: results.questionCount,
-      });
-      router.push(`/lobby/${newRoom.roomCode}`);
+      if (results.roomCode) {
+        const newRoom = await playAgain.mutateAsync(results.roomCode);
+        if (!hasNavigatedRef.current) {
+          hasNavigatedRef.current = true;
+          router.push(`/lobby/${newRoom.roomCode}`);
+        }
+      } else {
+        const newRoom = await createRoom.mutateAsync({
+          topic: results.topic,
+          categoryId: results.categoryId,
+          subjectId: results.isMixedCategory ? null : results.subjectId,
+          isMixedCategory: Boolean(results.isMixedCategory),
+          difficulty: (results.difficulty as any) || "Easy",
+          duration: results.timePerQuestion || 30,
+          questionCount: results.questionCount,
+        });
+        if (!hasNavigatedRef.current) {
+          hasNavigatedRef.current = true;
+          router.push(`/lobby/${newRoom.roomCode}`);
+        }
+      }
     } catch (err: any) {
-      alert(err.message || "Failed to create new quiz room.");
+      alert(err.message || "Failed to create rematch room.");
     } finally {
       setIsCreatingRoom(false);
     }
@@ -689,7 +734,13 @@ export default function MatchResultsPage() {
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[#10614b] text-white font-bold text-sm rounded-full shadow-md hover:bg-[#317a63] transition-all hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50"
             >
               <RotateCcw className={`w-4 h-4 ${isCreatingRoom ? "animate-spin" : ""}`} />
-              <span>{isHost ? "Play Again with Group" : "Start New Room"}</span>
+              <span>
+                {isCreatingRoom
+                  ? "Starting Rematch..."
+                  : results.players.length > 1
+                  ? "Play Again with Group"
+                  : "Play Again"}
+              </span>
             </button>
 
             {/* Secondary Action: Explore More Quizzes */}

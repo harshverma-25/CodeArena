@@ -245,6 +245,7 @@ export interface BattleResultPlayerDetails {
 export interface BattleResultDetails {
   battleId: string;
   roomCode: string;
+  hostId?: string;
   topic: string;
   difficulty: string;
   questionCount: number;

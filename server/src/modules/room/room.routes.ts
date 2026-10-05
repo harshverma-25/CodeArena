@@ -59,6 +59,13 @@ router.post(
   asyncHandler((req, res) => roomController.leaveRoom(req, res))
 );
 
+// Route: POST /rooms/:roomCode/play-again
+router.post(
+  '/:roomCode/play-again',
+  validateRequest(roomCodeParamSchema),
+  asyncHandler((req, res) => roomController.playAgain(req, res))
+);
+
 // Route: DELETE /rooms/:roomCode
 router.delete(
   '/:roomCode',

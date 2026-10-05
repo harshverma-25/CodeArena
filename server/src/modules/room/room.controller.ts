@@ -3,6 +3,7 @@ import { roomService } from './room.service.js';
 import { ApiResponse } from '../../shared/utils/api-response.js';
 import { ApiError } from '../../shared/errors/api-error.js';
 import { IRoomDocument } from './room.types.js';
+import { getIo } from '../../sockets/socket.js';
 
 /**
  * Format room details for responses without exposing internal Mongoose fields.
@@ -30,15 +31,49 @@ function formatRoomResponse(room: IRoomDocument) {
       topic: room.settings.topic,
       difficulty: room.settings.difficulty,
       duration: room.settings.duration,
+      questionCount: room.settings.questionCount || 10,
+      categoryId: room.settings.categoryId,
+      subjectId: room.settings.subjectId,
+      isMixedCategory: room.settings.isMixedCategory,
+      timeLimit: room.settings.timeLimit,
     },
     topic: room.settings.topic,
     difficulty: room.settings.difficulty,
     duration: room.settings.duration,
+    questionCount: room.settings.questionCount || 10,
+    categoryId: room.settings.categoryId,
+    subjectId: room.settings.subjectId,
+    isMixedCategory: room.settings.isMixedCategory,
+    timeLimit: room.settings.timeLimit,
     status: room.status,
   };
 }
 
 export class RoomController {
+  /**
+   * POST /api/v1/rooms/:roomCode/play-again
+   * Initiates a rematch room and notifies participants.
+   */
+  async playAgain(req: Request, res: Response): Promise<void> {
+    if (!req.user) {
+      throw new ApiError(401, 'Unauthorized: User session not found');
+    }
+
+    const { roomCode } = req.params;
+    let io: any = null;
+    try {
+      io = getIo();
+    } catch {
+      // socket.io may not be initialized in unit tests
+    }
+
+    const newRoom = await roomService.createRematchRoom(req.user._id.toString(), roomCode, io);
+
+    res.status(200).json(
+      new ApiResponse(200, formatRoomResponse(newRoom), 'Rematch room created successfully.')
+    );
+  }
+
   /**
    * POST /api/v1/rooms
    * Create a new private room.

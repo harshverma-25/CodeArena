@@ -289,9 +289,14 @@ export class HistoryService {
       };
     });
 
+    const hostIdStr = room?.hostId
+      ? ((room.hostId as any)._id ? (room.hostId as any)._id.toString() : room.hostId.toString())
+      : undefined;
+
     return {
       battleId: battle._id.toString(),
       roomCode: battle.roomCode,
+      hostId: hostIdStr,
       topic: battle.topic,
       difficulty: battle.difficulty,
       questionCount: battle.questionCount,
