@@ -100,6 +100,20 @@ export class QuestionRepository {
   }
 
   /**
+   * Count published questions matching category, subject, topic & difficulty criteria.
+   */
+  async countMatchingQuestions(filter: {
+    categoryId?: string;
+    subjectId?: string;
+    isMixedCategory?: boolean;
+    topic?: string;
+    difficulty?: string;
+  } = {}): Promise<number> {
+    const query = await this.buildQuestionMatchQuery(filter);
+    return QuestionModel.countDocuments(query);
+  }
+
+  /**
    * Randomly sample published questions matching category, subject & difficulty criteria.
    * Supports mixed category mode (querying categoryId without filtering by subjectId).
    */

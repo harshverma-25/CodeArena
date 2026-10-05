@@ -57,6 +57,7 @@ export interface RoomSettings {
   categoryId?: string;
   subjectId?: string | null;
   isMixedCategory?: boolean;
+  timeLimit?: number;
 }
 
 export type RoomStatusType =

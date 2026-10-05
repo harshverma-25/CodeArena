@@ -19,6 +19,7 @@ import { Server } from 'socket.io';
 import { UserModel } from '../user/user.model.js';
 import { BattleModel } from './battle.model.js';
 import { userRepository } from '../user/user.repository.js';
+import { getCategoryTimeLimit } from '../../shared/config/quiz-config.js';
 
 export interface IActiveRoundSubmission {
   selectedOption: number;
@@ -186,8 +187,8 @@ export class BattleService {
       targetDifficulty = 'easy';
     }
 
-    const defaultQuestionCount = (room.settings as any).questionCount || 10;
-    const totalNeeded = defaultQuestionCount;
+    const questionCount = (room.settings as any).questionCount || 10;
+    const totalNeeded = questionCount;
 
     const filterObj = {
       categoryId: room.settings.categoryId,
@@ -200,7 +201,7 @@ export class BattleService {
     // Sample distinct random published questions using Category / Subject / Mixed filter
     let sampledQuestions = await this.qRepository.sampleRandomPublished(filterObj, targetDifficulty, totalNeeded);
 
-    // Fallback 1: match category/subject with any difficulty if not enough questions
+    // Fallback: match category/subject with any difficulty if not enough questions
     if (sampledQuestions.length < totalNeeded) {
       const existingIds = sampledQuestions.map((q) => q.questionId);
       const remaining = totalNeeded - sampledQuestions.length;
@@ -208,24 +209,14 @@ export class BattleService {
       sampledQuestions = [...sampledQuestions, ...extra];
     }
 
-    // Fallback 2: match any published questions if still not enough
     if (sampledQuestions.length < totalNeeded) {
-      const existingIds = sampledQuestions.map((q) => q.questionId);
-      const remaining = totalNeeded - sampledQuestions.length;
-      const fallback = await this.qRepository.sampleRandomPublished(undefined, undefined, remaining, existingIds);
-      sampledQuestions = [...sampledQuestions, ...fallback];
-    }
-
-    if (sampledQuestions.length < 1) {
-      throw new ApiError(400, 'Not enough questions available to initiate battle');
+      throw new ApiError(400, `Not enough published questions available to initiate battle (${sampledQuestions.length} available, ${totalNeeded} requested)`);
     }
 
     const targetTopic = room.settings.topic || room.settings.subjectId || room.settings.categoryId || 'General';
+    const assignedQuestionIds = sampledQuestions.slice(0, totalNeeded).map((q) => q.questionId);
 
-    const actualQuestionCount = Math.min(defaultQuestionCount, sampledQuestions.length);
-    const assignedQuestionIds = sampledQuestions.slice(0, actualQuestionCount).map((q) => q.questionId);
-
-    const timePerQuestion = 30; // 30 seconds per question
+    const timePerQuestion = (room.settings as any).timeLimit || getCategoryTimeLimit(room.settings.categoryId);
     const initialDeadline = new Date(Date.now() + timePerQuestion * 1000);
 
     const battlePlayers = room.players.map((p) => {
@@ -249,7 +240,7 @@ export class BattleService {
       roomCode: code,
       topic: targetTopic,
       difficulty: targetDifficulty,
-      questionCount: actualQuestionCount,
+      questionCount: totalNeeded,
       timePerQuestion,
       players: battlePlayers as any,
       status: BattleStatus.IN_PROGRESS,

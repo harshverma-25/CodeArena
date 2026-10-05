@@ -624,21 +624,23 @@ export default function MultiplayerLobbyPage() {
                       category
                     </span>
                     <span>
-                      Topic:{" "}
-                      <strong className="text-on-surface uppercase">
-                        {room.settings?.topic || "Mixed"}
+                      Category:{" "}
+                      <strong className="text-on-surface capitalize">
+                        {room.settings?.categoryId || room.settings?.topic || "General"}
                       </strong>
                     </span>
                   </div>
                   <span className="text-[#d8d0c4] hidden sm:inline">•</span>
                   <div className="flex items-center gap-1.5">
                     <span className="material-symbols-outlined text-[18px] text-[#317a63]">
-                      tune
+                      subject
                     </span>
                     <span>
-                      Difficulty:{" "}
+                      Subject:{" "}
                       <strong className="text-on-surface capitalize">
-                        {room.settings?.difficulty || "Medium"}
+                        {room.settings?.isMixedCategory
+                          ? "Mixed Category Pool"
+                          : room.settings?.subjectId || "Standard Mix"}
                       </strong>
                     </span>
                   </div>
@@ -648,9 +650,21 @@ export default function MultiplayerLobbyPage() {
                       quiz
                     </span>
                     <span>
-                      Total Questions:{" "}
+                      Questions:{" "}
                       <strong className="text-on-surface">
-                        {room.settings?.questionCount || 10} Rounds
+                        {room.settings?.questionCount || 10} Questions
+                      </strong>
+                    </span>
+                  </div>
+                  <span className="text-[#d8d0c4] hidden sm:inline">•</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-[18px] text-[#317a63]">
+                      timer
+                    </span>
+                    <span>
+                      Timer:{" "}
+                      <strong className="text-on-surface">
+                        {room.settings?.timeLimit || (room as any).timePerQuestion || 30}s / question
                       </strong>
                     </span>
                   </div>

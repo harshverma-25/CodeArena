@@ -210,6 +210,8 @@ export default function StitchHomePage() {
     }));
   };
 
+  const [selectedQuestionCount, setSelectedQuestionCount] = useState<number>(10);
+
   // Launch quiz room with real backend payload
   const handlePlayQuizCard = async (quiz: {
     cardId: string;
@@ -230,6 +232,7 @@ export default function StitchHomePage() {
         categoryId: quiz.categoryId,
         subjectId: quiz.isMixedCategory ? null : quiz.subjectId,
         isMixedCategory: Boolean(quiz.isMixedCategory),
+        questionCount: selectedQuestionCount,
       });
 
       if (res.data?.roomCode) {
@@ -637,41 +640,63 @@ export default function StitchHomePage() {
                     {currentCategory ? `Quizzes in ${currentCategory.name}` : "Available Quizzes"}
                   </h2>
                 </div>
-                {/* Segmented Filter Controls */}
-                <div className="inline-flex p-1 bg-surface-container rounded-full self-start md:self-auto overflow-x-auto max-w-full">
-                  <button
-                    onClick={() => setActiveFilter("all")}
-                    className={`px-4 py-1.5 rounded-full font-label-md text-label-md transition-all cursor-pointer ${
-                      activeFilter === "all"
-                        ? "bg-surface-container-lowest text-on-surface shadow-sm font-bold"
-                        : "text-on-surface-variant font-semibold hover:text-on-surface"
-                    }`}
-                    type="button"
-                  >
-                    All ({allQuizCards.length})
-                  </button>
-                  <button
-                    onClick={() => setActiveFilter("subjects")}
-                    className={`px-4 py-1.5 rounded-full font-label-md text-label-md transition-all cursor-pointer ${
-                      activeFilter === "subjects"
-                        ? "bg-surface-container-lowest text-on-surface shadow-sm font-bold"
-                        : "text-on-surface-variant font-semibold hover:text-on-surface"
-                    }`}
-                    type="button"
-                  >
-                    Specific Subjects ({subjectQuizCards.length})
-                  </button>
-                  <button
-                    onClick={() => setActiveFilter("mixed")}
-                    className={`px-4 py-1.5 rounded-full font-label-md text-label-md transition-all cursor-pointer ${
-                      activeFilter === "mixed"
-                        ? "bg-surface-container-lowest text-on-surface shadow-sm font-bold"
-                        : "text-on-surface-variant font-semibold hover:text-on-surface"
-                    }`}
-                    type="button"
-                  >
-                    Mixed Mode
-                  </button>
+                {/* Segmented Filter Controls & Question Count Selector */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-space-sm self-start md:self-auto max-w-full">
+                  {/* Category / Subject Filter */}
+                  <div className="inline-flex p-1 bg-surface-container rounded-full overflow-x-auto max-w-full">
+                    <button
+                      onClick={() => setActiveFilter("all")}
+                      className={`px-4 py-1.5 rounded-full font-label-md text-label-md transition-all cursor-pointer ${
+                        activeFilter === "all"
+                          ? "bg-surface-container-lowest text-on-surface shadow-sm font-bold"
+                          : "text-on-surface-variant font-semibold hover:text-on-surface"
+                      }`}
+                      type="button"
+                    >
+                      All ({allQuizCards.length})
+                    </button>
+                    <button
+                      onClick={() => setActiveFilter("subjects")}
+                      className={`px-4 py-1.5 rounded-full font-label-md text-label-md transition-all cursor-pointer ${
+                        activeFilter === "subjects"
+                          ? "bg-surface-container-lowest text-on-surface shadow-sm font-bold"
+                          : "text-on-surface-variant font-semibold hover:text-on-surface"
+                      }`}
+                      type="button"
+                    >
+                      Subjects ({subjectQuizCards.length})
+                    </button>
+                    <button
+                      onClick={() => setActiveFilter("mixed")}
+                      className={`px-4 py-1.5 rounded-full font-label-md text-label-md transition-all cursor-pointer ${
+                        activeFilter === "mixed"
+                          ? "bg-surface-container-lowest text-on-surface shadow-sm font-bold"
+                          : "text-on-surface-variant font-semibold hover:text-on-surface"
+                      }`}
+                      type="button"
+                    >
+                      Mixed Mode
+                    </button>
+                  </div>
+
+                  {/* Question Count Selector (10, 15, 20) */}
+                  <div className="inline-flex items-center gap-1 p-1 bg-tertiary-fixed/30 border border-tertiary-fixed-dim/40 rounded-full">
+                    <span className="text-xs font-bold text-tertiary px-2 uppercase font-mono">Length:</span>
+                    {[10, 15, 20].map((countOption) => (
+                      <button
+                        key={countOption}
+                        onClick={() => setSelectedQuestionCount(countOption)}
+                        className={`px-3 py-1 rounded-full font-label-sm text-label-sm transition-all cursor-pointer ${
+                          selectedQuestionCount === countOption
+                            ? "bg-tertiary text-on-tertiary shadow-sm font-bold"
+                            : "text-on-surface-variant hover:text-on-surface font-semibold"
+                        }`}
+                        type="button"
+                      >
+                        {countOption} Qs
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -685,7 +710,7 @@ export default function StitchHomePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
                   {filteredQuizCards.map((quiz) => {
                     const isCreatingThis = creatingRoomCardId === quiz.cardId;
-                    const hasQuestions = quiz.questionCount > 0;
+                    const hasEnoughQuestions = quiz.questionCount >= selectedQuestionCount;
 
                     return (
                       <div
@@ -738,17 +763,23 @@ export default function StitchHomePage() {
                             {quiz.questionCount} Qs Available
                           </span>
                           <button
-                            disabled={isCreatingThis || !hasQuestions}
+                            disabled={isCreatingThis || !hasEnoughQuestions}
                             onClick={() => handlePlayQuizCard(quiz)}
                             className={`px-5 py-2.5 rounded-full font-label-md text-label-md font-bold transition-all shadow-sm transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-1.5 cursor-pointer ${
-                              hasQuestions
+                              hasEnoughQuestions
                                 ? "bg-primary hover:bg-primary-container text-on-primary"
                                 : "bg-surface-container-high text-on-surface-variant opacity-60 cursor-not-allowed"
                             }`}
                             type="button"
                           >
-                            <span>{isCreatingThis ? "Creating..." : hasQuestions ? "Play Quiz" : "No Questions"}</span>
-                            {!isCreatingThis && hasQuestions && (
+                            <span>
+                              {isCreatingThis
+                                ? "Creating..."
+                                : hasEnoughQuestions
+                                ? `Play ${selectedQuestionCount} Qs`
+                                : `< ${selectedQuestionCount} Qs`}
+                            </span>
+                            {!isCreatingThis && hasEnoughQuestions && (
                               <span className="material-symbols-outlined text-[16px]">
                                 play_arrow
                               </span>

@@ -23,6 +23,7 @@ const RoomSettingsSchema = new Schema(
     },
     duration: { type: Number, required: true, default: 30 }, // in minutes
     questionCount: { type: Number, default: 10 },
+    timeLimit: { type: Number, default: 30 },
   },
   { _id: false }
 );

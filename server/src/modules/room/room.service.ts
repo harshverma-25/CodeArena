@@ -5,6 +5,13 @@ import { ApiError } from '../../shared/errors/api-error.js';
 import { questionRepository } from '../question/question.repository.js';
 import { categoryRepository } from '../category/category.repository.js';
 
+import {
+  isValidQuestionCount,
+  QUESTION_COUNT_OPTIONS,
+  DEFAULT_QUESTION_COUNT,
+  getCategoryTimeLimit,
+} from '../../shared/config/quiz-config.js';
+
 export class RoomService {
   /**
    * Generates a unique 6-character uppercase alphanumeric room code.
@@ -28,7 +35,13 @@ export class RoomService {
     const topic = settings?.topic || 'random';
     const difficulty = settings?.difficulty || 'random';
     const duration = settings?.duration || 30;
-    const questionCount = settings?.questionCount || 10;
+
+    // 1. Question count validation (10, 15, 20)
+    const rawQuestionCount = settings?.questionCount ?? DEFAULT_QUESTION_COUNT;
+    if (!isValidQuestionCount(rawQuestionCount)) {
+      throw new ApiError(400, `Invalid question count '${rawQuestionCount}'. Allowed options: ${QUESTION_COUNT_OPTIONS.join(', ')}`);
+    }
+    const questionCount = rawQuestionCount;
 
     let resolvedCatDoc = null;
     let resolvedSubjDoc = null;
@@ -53,26 +66,31 @@ export class RoomService {
       }
     }
 
-    const hasQuestion = await questionRepository.hasMatchingQuestion({
-      categoryId: resolvedCatDoc ? resolvedCatDoc.slug : categoryId,
+    // 2. Server-authoritative category timer derivation
+    const catIdentifier = resolvedCatDoc ? resolvedCatDoc.slug : categoryId;
+    const timeLimit = getCategoryTimeLimit(catIdentifier);
+
+    // 3. Question availability count check against database
+    const matchingCount = await questionRepository.countMatchingQuestions({
+      categoryId: catIdentifier,
       subjectId: resolvedSubjDoc ? resolvedSubjDoc.slug : subjectId,
       isMixedCategory,
       topic,
-      difficulty,
     });
 
-    if (!hasQuestion) {
-      throw new ApiError(400, `No published questions match the selected category/subject/difficulty criteria`);
+    if (matchingCount < questionCount) {
+      throw new ApiError(400, `Not enough published questions available for requested question count (${matchingCount} available, ${questionCount} requested)`);
     }
 
     return {
-      categoryId: resolvedCatDoc ? resolvedCatDoc.slug : categoryId,
+      categoryId: catIdentifier,
       subjectId: resolvedSubjDoc ? resolvedSubjDoc.slug : subjectId,
       isMixedCategory,
       topic,
       difficulty,
       duration,
       questionCount,
+      timeLimit,
     };
   }
 
