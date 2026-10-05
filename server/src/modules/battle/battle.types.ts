@@ -47,6 +47,7 @@ export type IBattleDocument = IBattle & Document;
 export interface IBattleInitPayload {
   battleId: string;
   roomCode: string;
+  hostId?: string;
   topic: string;
   difficulty: string;
   questionCount: number;
@@ -60,6 +61,7 @@ export interface IBattleInitPayload {
     username: string;
     displayName: string;
     avatar: string;
+    isHost?: boolean;
     currentQuestionIndex: number;
     score: number;
     isCompleted: boolean;

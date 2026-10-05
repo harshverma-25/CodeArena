@@ -105,7 +105,7 @@ export function useLiveBattle(roomCode: string) {
         avatar: p.avatar,
         score: p.score || 0,
         hasAnswered: Boolean(p.hasAnswered),
-        isHost: idx === 0, // First player is host
+        isHost: p.isHost !== undefined ? p.isHost : (payload.hostId ? p.userId === payload.hostId : idx === 0),
         isDisconnected: false,
       }));
       setPlayers(mappedPlayers);

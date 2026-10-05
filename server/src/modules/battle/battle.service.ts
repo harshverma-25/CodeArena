@@ -294,6 +294,11 @@ export class BattleService {
       ? activeRound.deadline
       : (player.questionDeadline || new Date(Date.now() + battle.timePerQuestion * 1000));
 
+    const hostPlayer = battle.players.find((p: any) => p.isHost);
+    const hostId = hostPlayer
+      ? (hostPlayer.userId._id ? hostPlayer.userId._id.toString() : hostPlayer.userId.toString())
+      : undefined;
+
     const mappedPlayers = battle.players.map((p: any) => {
       const pUserId = p.userId._id ? p.userId._id.toString() : p.userId.toString();
       const hasAnswered = activeRound
@@ -305,6 +310,7 @@ export class BattleService {
         username: p.userId.username || '',
         displayName: p.userId.displayName || '',
         avatar: p.userId.avatar || '',
+        isHost: Boolean(p.isHost),
         currentQuestionIndex: p.currentQuestionIndex,
         score: p.score,
         isCompleted: p.status === 'COMPLETED',
@@ -315,6 +321,7 @@ export class BattleService {
     return {
       battleId: battle._id.toString(),
       roomCode: battle.roomCode,
+      hostId,
       topic: battle.topic,
       difficulty: battle.difficulty,
       questionCount: battle.questionCount,

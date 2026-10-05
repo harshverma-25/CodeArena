@@ -66,7 +66,7 @@ async function runCookieRefreshTest() {
       },
     });
 
-    const refreshData = await refreshRes.json();
+    const refreshData: any = await refreshRes.json();
     if (!refreshRes.ok) {
       throw new Error(`Refresh failed: ${JSON.stringify(refreshData)}`);
     }

@@ -130,7 +130,7 @@ export function registerRoomHandlers(io: Server, socket: Socket) {
   });
 
   // Handle host updating room settings
-  socket.on('room:update', async (payload: { roomCode: string; settings: Partial<IRoomSettings> }) => {
+  socket.on('room:update_settings', async (payload: { roomCode: string; settings: Partial<IRoomSettings> }) => {
     const roomCode = payload?.roomCode?.toUpperCase();
     const settings = payload?.settings;
 
@@ -152,9 +152,15 @@ export function registerRoomHandlers(io: Server, socket: Socket) {
   });
 
   // Handle normal socket disconnect events (e.g. tab close, connection drop)
-  socket.on('disconnect', () => {
+  socket.on('disconnect', async () => {
     const roomCode = socket.data.roomCode;
     if (roomCode) {
+      try {
+        const room = await roomService.updateReadyStatus(userId, roomCode, false);
+        io.to(`room:${roomCode}`).emit('room:update', formatRoomSocketPayload(room));
+      } catch {
+        // Player may have already left or room closed
+      }
       // Notify other room players about temporary disconnection
       socket.to(`room:${roomCode}`).emit('player:disconnected', { userId });
       logger.info(`Player ${userId} temporarily disconnected from room ${roomCode}`);

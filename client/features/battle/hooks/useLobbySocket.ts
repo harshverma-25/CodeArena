@@ -64,6 +64,7 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
     return {
       roomCode: payload.roomCode,
       host: hostPlayer ? hostPlayer.user : null,
+      hostId: payload.hostId,
       players: mappedPlayers,
       settings: {
         topic: payload.settings.topic,
@@ -204,9 +205,9 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
   );
 
   const updateLobbySettings = useCallback(
-    (settings: RoomSettings) => {
+    (settings: Partial<RoomSettings>) => {
       setError(null);
-      socketManager.emit("room:update", {
+      socketManager.emit("room:update_settings", {
         roomCode: roomCode.toUpperCase(),
         settings,
       });

@@ -81,6 +81,7 @@ export interface Room {
     displayName: string;
     avatar: string;
   } | null;
+  hostId?: string;
   players: RoomPlayer[];
   settings: RoomSettings;
   topic: string;
@@ -112,11 +113,13 @@ export interface BattlePlayer {
   currentQuestionIndex: number;
   score: number;
   isCompleted: boolean;
+  isHost?: boolean;
 }
 
 export interface BattleInitPayload {
   battleId: string;
   roomCode: string;
+  hostId?: string;
   topic: string;
   difficulty: string;
   questionCount: number;

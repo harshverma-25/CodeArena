@@ -116,7 +116,7 @@ async function runStep7Pass() {
 
   // Update Settings (Host only)
   const settingsPromise = waitForEvent(socket1, 'room:update');
-  socket1.emit('room:update', {
+  socket1.emit('room:update_settings', {
     roomCode,
     settings: { topic: 'JavaScript', difficulty: 'Easy', questionCount: 5 },
   });

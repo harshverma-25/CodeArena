@@ -9,6 +9,43 @@ import { useRoom } from "@/features/battle/hooks/useRoom";
 import { useBattleMutations } from "@/features/battle/hooks/useBattleMutations";
 import { useLobbySocket } from "@/features/battle/hooks/useLobbySocket";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
+import { useApiClient } from "@/hooks/useApiClient";
+import { Category, Subject } from "@/types";
+
+// Default categories and subjects for instant rendering and resilient fallback
+const DEFAULT_CATEGORIES = [
+  { id: "programming", slug: "programming", name: "Programming" },
+  { id: "aptitude", slug: "aptitude", name: "Aptitude" },
+  { id: "general-knowledge", slug: "general-knowledge", name: "General Knowledge" },
+];
+
+const DEFAULT_SUBJECTS: Record<string, Array<{ id: string; slug: string; name: string }>> = {
+  programming: [
+    { id: "dsa", slug: "dsa", name: "Data Structures & Algorithms" },
+    { id: "dbms", slug: "dbms", name: "Database Management Systems" },
+    { id: "operating-systems", slug: "operating-systems", name: "Operating Systems" },
+    { id: "computer-networks", slug: "computer-networks", name: "Computer Networks" },
+    { id: "oop", slug: "oop", name: "Object-Oriented Programming" },
+    { id: "javascript", slug: "javascript", name: "JavaScript" },
+    { id: "typescript", slug: "typescript", name: "TypeScript" },
+    { id: "python", slug: "python", name: "Python" },
+    { id: "react", slug: "react", name: "React" },
+    { id: "pseudocode", slug: "pseudocode", name: "Pseudocode" },
+  ],
+  aptitude: [
+    { id: "logical-reasoning", slug: "logical-reasoning", name: "Logical Reasoning" },
+    { id: "quantitative-aptitude", slug: "quantitative-aptitude", name: "Quantitative Aptitude" },
+    { id: "verbal-ability", slug: "verbal-ability", name: "Verbal Ability" },
+    { id: "data-interpretation", slug: "data-interpretation", name: "Data Interpretation" },
+  ],
+  "general-knowledge": [
+    { id: "history", slug: "history", name: "History" },
+    { id: "geography", slug: "geography", name: "Geography" },
+    { id: "science", slug: "science", name: "Science" },
+    { id: "current-affairs", slug: "current-affairs", name: "Current Affairs" },
+    { id: "general-trivia", slug: "general-trivia", name: "General Trivia" },
+  ],
+};
 
 // Slot styling presets matching the Stitch warm studio palette
 const SLOT_STYLES = [
@@ -22,6 +59,7 @@ export default function MultiplayerLobbyPage() {
   const params = useParams();
   const router = useRouter();
   const roomCode = ((params.roomCode as string) || "").toUpperCase();
+  const api = useApiClient();
 
   // 1. Authentication & Room Queries
   const { data: currentUser } = useCurrentUser();
@@ -43,6 +81,8 @@ export default function MultiplayerLobbyPage() {
     error: socketError,
     startBattle: emitStartBattle,
     clearError,
+    toggleReady,
+    updateLobbySettings,
   } = useLobbySocket(roomCode, initialRoom);
 
   const room = socketRoom || initialRoom;
@@ -53,6 +93,10 @@ export default function MultiplayerLobbyPage() {
   const [toastVisible, setToastVisible] = useState(false);
   const [joinUrl, setJoinUrl] = useState("");
   const toastTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Dynamic category and subject options
+  const [categoriesList, setCategoriesList] = useState(DEFAULT_CATEGORIES);
+  const [subjectsMap, setSubjectsMap] = useState<Record<string, Array<{ id: string; slug: string; name: string }>>>(DEFAULT_SUBJECTS);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -69,8 +113,76 @@ export default function MultiplayerLobbyPage() {
     setToastVisible(true);
     toastTimeoutRef.current = setTimeout(() => {
       setToastVisible(false);
-    }, 2500);
+    }, 3000);
   };
+
+  // Surface socket errors in UI toast
+  useEffect(() => {
+    if (socketError) {
+      showToast(socketError);
+      clearError();
+    }
+  }, [socketError, clearError]);
+
+  // Load available categories from API
+  useEffect(() => {
+    let isMounted = true;
+    const loadCategories = async () => {
+      try {
+        const res = await api.get<{ success: boolean; data: Category[] }>("/categories");
+        if (isMounted && res?.data && Array.isArray(res.data) && res.data.length > 0) {
+          setCategoriesList(
+            res.data.map((c) => ({
+              id: c.id || c.slug,
+              slug: c.slug,
+              name: c.name,
+            }))
+          );
+        }
+      } catch (e) {
+        // Retain default categories if API fetch fails
+      }
+    };
+    loadCategories();
+    return () => {
+      isMounted = false;
+    };
+  }, [api]);
+
+  // Load subjects for current category
+  const currentCategorySlug = room?.settings?.categoryId || "programming";
+  useEffect(() => {
+    let isMounted = true;
+    const loadSubjects = async () => {
+      try {
+        const res = await api.get<{
+          success: boolean;
+          data: { category?: any; subjects?: Subject[] } | Subject[];
+        }>(`/categories/${currentCategorySlug}/subjects`);
+
+        const list = Array.isArray(res?.data)
+          ? res.data
+          : (res?.data as any)?.subjects || [];
+
+        if (isMounted && list.length > 0) {
+          setSubjectsMap((prev) => ({
+            ...prev,
+            [currentCategorySlug]: list.map((s: Subject) => ({
+              id: s.id || s.slug,
+              slug: s.slug,
+              name: s.name,
+            })),
+          }));
+        }
+      } catch (e) {
+        // Retain default subjects
+      }
+    };
+    loadSubjects();
+    return () => {
+      isMounted = false;
+    };
+  }, [api, currentCategorySlug]);
 
   // Formatted PIN (e.g., "824 229" or "K8L 9M0")
   const formattedPin =
@@ -113,8 +225,8 @@ export default function MultiplayerLobbyPage() {
     }
   };
 
-  // Host determination
-  const hostId = room?.host?._id || (room as { hostId?: string })?.hostId;
+  // Host determination - authoritative check
+  const hostId = room?.host?._id || room?.hostId || (room as { hostId?: string })?.hostId;
   const currentUserId = currentUser?._id;
   const isHost = Boolean(
     hostId &&
@@ -132,11 +244,91 @@ export default function MultiplayerLobbyPage() {
     room?.host?.username ||
     "Host";
 
+  // Player readiness evaluation
+  const players = room?.players || [];
+  const playerCount = players.length;
+  const maxCapacity = 4;
+  const emptySlotsCount = Math.max(0, maxCapacity - playerCount);
+
+  const myPlayer = players.find(
+    (p) =>
+      p.user?._id &&
+      currentUserId &&
+      (p.user._id === currentUserId || p.user._id.toString() === currentUserId.toString())
+  );
+  const isMyPlayerReady = Boolean(myPlayer?.isReady);
+
+  // Non-host players must all be ready before host can start
+  const nonHostPlayers = players.filter(
+    (p) => !p.isHost && (p.user?._id?.toString() !== hostId?.toString())
+  );
+  const allNonHostsReady =
+    nonHostPlayers.length === 0 || nonHostPlayers.every((p) => p.isReady);
+  const unreadyCount = nonHostPlayers.filter((p) => !p.isReady).length;
+
+  // Settings values
+  const isMixed = Boolean(room?.settings?.isMixedCategory);
+  const currentSubjectSlug = room?.settings?.subjectId || "";
+  const currentQuestionCount = room?.settings?.questionCount || 10;
+  const currentTimeLimit =
+    room?.settings?.timeLimit || (currentCategorySlug === "aptitude" ? 60 : 30);
+
+  const availableSubjects =
+    subjectsMap[currentCategorySlug] || DEFAULT_SUBJECTS[currentCategorySlug] || [];
+
+  // Host settings modification handlers (emits room:update_settings to server)
+  const handleCategoryChange = (newCatSlug: string) => {
+    if (!isHost) return;
+    const subjs = subjectsMap[newCatSlug] || DEFAULT_SUBJECTS[newCatSlug] || [];
+    const defaultSubj = subjs.length > 0 ? subjs[0].slug : null;
+    updateLobbySettings({
+      categoryId: newCatSlug,
+      subjectId: isMixed ? null : defaultSubj,
+      isMixedCategory: isMixed,
+      questionCount: currentQuestionCount,
+    });
+  };
+
+  const handleSubjectChange = (newSubjSlug: string) => {
+    if (!isHost) return;
+    updateLobbySettings({
+      categoryId: currentCategorySlug,
+      subjectId: newSubjSlug,
+      isMixedCategory: false,
+      questionCount: currentQuestionCount,
+    });
+  };
+
+  const handleMixedToggle = (mixed: boolean) => {
+    if (!isHost) return;
+    const subjs = subjectsMap[currentCategorySlug] || DEFAULT_SUBJECTS[currentCategorySlug] || [];
+    updateLobbySettings({
+      categoryId: currentCategorySlug,
+      subjectId: mixed ? null : (subjs.length > 0 ? subjs[0].slug : null),
+      isMixedCategory: mixed,
+      questionCount: currentQuestionCount,
+    });
+  };
+
+  const handleQuestionCountChange = (count: number) => {
+    if (!isHost) return;
+    updateLobbySettings({
+      categoryId: currentCategorySlug,
+      subjectId: isMixed ? null : currentSubjectSlug,
+      isMixedCategory: isMixed,
+      questionCount: count,
+    });
+  };
+
   // Start game handler
   const isStarting = isSocketStarting || startMatch.isPending;
 
   const handleStartGame = async () => {
     if (!isHost || isStarting) return;
+    if (!allNonHostsReady) {
+      showToast("Cannot start: waiting for all players to ready up!");
+      return;
+    }
     try {
       // Call both socket and REST start to guarantee execution
       emitStartBattle();
@@ -194,12 +386,6 @@ export default function MultiplayerLobbyPage() {
       </div>
     );
   }
-
-  const players = room.players || [];
-  const playerCount = players.length;
-  const maxCapacity = 4;
-  const emptySlotsCount = Math.max(0, maxCapacity - playerCount);
-
   // Generate real QR code endpoint
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(
     joinUrl || `http://localhost:3000/lobby/${roomCode}`
@@ -484,6 +670,11 @@ export default function MultiplayerLobbyPage() {
                     const isPlayerHost =
                       player.isHost ||
                       (player.user?._id && player.user._id.toString() === hostId?.toString());
+                    const isSelf = Boolean(
+                      player.user?._id &&
+                        currentUserId &&
+                        (player.user._id === currentUserId || player.user._id.toString() === currentUserId.toString())
+                    );
                     const name =
                       player.user?.displayName || player.user?.username || `Player ${index + 1}`;
                     const style = SLOT_STYLES[index % SLOT_STYLES.length];
@@ -525,10 +716,43 @@ export default function MultiplayerLobbyPage() {
                           {isPlayerHost ? "Room Admin" : `Player #${index + 1}`}
                         </span>
 
-                        <div className="mt-auto inline-flex items-center gap-1.5 px-space-md py-1 bg-[#e8f5ee] text-[#317a63] border border-[#d2eadc] font-label-sm text-label-sm rounded-full font-bold">
-                          <span className="w-2 h-2 rounded-full bg-[#317a63]"></span>
-                          READY
-                        </div>
+                        {/* Player Readiness Status */}
+                        {isSelf && !isPlayerHost ? (
+                          <button
+                            type="button"
+                            onClick={() => toggleReady(!isMyPlayerReady)}
+                            className={`mt-auto inline-flex items-center gap-1.5 px-space-md py-1.5 rounded-full font-label-sm text-label-sm font-bold transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95 ${
+                              isMyPlayerReady
+                                ? "bg-[#e8f5ee] text-[#317a63] border border-[#d2eadc] hover:bg-[#d8efe2]"
+                                : "bg-[#fef7ea] text-[#8a5b00] border border-[#fae2ba] hover:bg-[#faeed6]"
+                            }`}
+                            title={isMyPlayerReady ? "Click to set Not Ready" : "Click to set Ready"}
+                          >
+                            <span
+                              className={`w-2 h-2 rounded-full ${
+                                isMyPlayerReady ? "bg-[#317a63]" : "bg-[#8a5b00] animate-pulse"
+                              }`}
+                            />
+                            <span>{isMyPlayerReady ? "YOU'RE READY (Cancel)" : "CLICK TO READY"}</span>
+                          </button>
+                        ) : (
+                          <div
+                            className={`mt-auto inline-flex items-center gap-1.5 px-space-md py-1 rounded-full font-label-sm text-label-sm font-bold ${
+                              isPlayerHost
+                                ? "bg-[#e8f5ee] text-[#317a63] border border-[#d2eadc]"
+                                : player.isReady
+                                ? "bg-[#e8f5ee] text-[#317a63] border border-[#d2eadc]"
+                                : "bg-[#f3ede4] text-[#7d7568] border border-[#e2dacd]"
+                            }`}
+                          >
+                            <span
+                              className={`w-2 h-2 rounded-full ${
+                                isPlayerHost || player.isReady ? "bg-[#317a63]" : "bg-[#a89f91]"
+                              }`}
+                            />
+                            <span>{isPlayerHost ? "HOST (READY)" : player.isReady ? "READY" : "WAITING"}</span>
+                          </div>
+                        )}
                       </div>
                     );
                   })}
@@ -577,98 +801,244 @@ export default function MultiplayerLobbyPage() {
                 </div>
               </section>
 
-              {/* SECTION 3: Host Game Controls & Quick Settings */}
+              {/* SECTION 3: Game Controls & Quiz Settings */}
               <section className="w-full flex flex-col items-center justify-center gap-space-md pb-space-lg">
-                {/* Start Game Primary Action Button */}
-                <button
-                  onClick={handleStartGame}
-                  disabled={!isHost || isStarting}
-                  className="w-full sm:w-auto px-12 py-4 bg-[#317a63] hover:bg-[#25604e] text-white rounded-full font-headline-sm text-headline-sm font-extrabold shadow-[0_8px_24px_-4px_rgba(49,122,99,0.35)] hover:shadow-[0_12px_32px_-4px_rgba(49,122,99,0.45)] transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 active:scale-98 flex items-center justify-center gap-space-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#317a63]"
-                  type="button"
-                >
-                  <span
-                    className="material-symbols-outlined text-[28px]"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
+                {/* Action Buttons: Host gets Start Quiz, Non-Host gets Ready Up */}
+                {isHost ? (
+                  <button
+                    onClick={handleStartGame}
+                    disabled={!isHost || isStarting || (!allNonHostsReady && playerCount > 1)}
+                    className="w-full sm:w-auto px-12 py-4 bg-[#317a63] hover:bg-[#25604e] text-white rounded-full font-headline-sm text-headline-sm font-extrabold shadow-[0_8px_24px_-4px_rgba(49,122,99,0.35)] hover:shadow-[0_12px_32px_-4px_rgba(49,122,99,0.45)] transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 active:scale-98 flex items-center justify-center gap-space-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#317a63]"
+                    type="button"
                   >
-                    play_arrow
-                  </span>
-                  <span>{isStarting ? "Launching Quiz Arena..." : "Start Quiz"}</span>
-                </button>
+                    <span
+                      className="material-symbols-outlined text-[28px]"
+                      style={{ fontVariationSettings: "'FILL' 1" }}
+                    >
+                      {isStarting ? "hourglass_top" : "play_arrow"}
+                    </span>
+                    <span>
+                      {isStarting
+                        ? "Launching Quiz Arena..."
+                        : !allNonHostsReady && playerCount > 1
+                        ? `Waiting for ${unreadyCount} player${unreadyCount > 1 ? "s" : ""} to ready up...`
+                        : "Start Quiz"}
+                    </span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => toggleReady(!isMyPlayerReady)}
+                    className={`w-full sm:w-auto px-12 py-4 rounded-full font-headline-sm text-headline-sm font-extrabold transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 active:scale-98 flex items-center justify-center gap-space-sm cursor-pointer ${
+                      isMyPlayerReady
+                        ? "bg-[#e8f5ee] hover:bg-[#d8efe2] text-[#317a63] border-2 border-[#317a63] shadow-sm"
+                        : "bg-[#317a63] hover:bg-[#25604e] text-white shadow-[0_8px_24px_-4px_rgba(49,122,99,0.35)]"
+                    }`}
+                    type="button"
+                  >
+                    <span
+                      className="material-symbols-outlined text-[28px]"
+                      style={{ fontVariationSettings: "'FILL' 1" }}
+                    >
+                      {isMyPlayerReady ? "task_alt" : "check_circle"}
+                    </span>
+                    <span>{isMyPlayerReady ? "You're Ready (Click to Cancel)" : "I'm Ready"}</span>
+                  </button>
+                )}
 
-                {/* Host Permission Notice */}
-                <div className="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md">
+                {/* Role / Permission Notice */}
+                <div className="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md text-center px-4">
                   <span className="material-symbols-outlined text-[16px] text-[#317a63]">
-                    {isHost ? "check_circle" : "lock"}
+                    {isHost ? (allNonHostsReady ? "check_circle" : "hourglass_empty") : "info"}
                   </span>
                   <span>
                     {isHost ? (
-                      <>
-                        You are the room host. Ready to start whenever you want!
-                      </>
+                      playerCount === 1 ? (
+                        "You are the room host. Ready to start whenever you want!"
+                      ) : allNonHostsReady ? (
+                        "All players in the room are ready! You can now launch the arena."
+                      ) : (
+                        `Waiting for ${unreadyCount} player${unreadyCount > 1 ? "s" : ""} to click Ready Up before starting.`
+                      )
                     ) : (
                       <>
                         Only the room host (
                         <strong className="text-on-surface font-bold">
                           {hostDisplayName}
                         </strong>
-                        ) can start the quiz
+                        ) can start the quiz once all players are ready.
                       </>
                     )}
                   </span>
                 </div>
 
-                {/* Quick Settings Indicators Bar */}
-                <div className="flex flex-wrap items-center justify-center gap-space-md mt-space-xs bg-white/90 backdrop-blur-md border border-[#ede7de] px-space-lg py-space-sm rounded-full text-on-surface-variant font-label-md text-label-md shadow-sm">
-                  <div className="flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-[18px] text-[#317a63]">
-                      category
-                    </span>
-                    <span>
-                      Category:{" "}
-                      <strong className="text-on-surface capitalize">
-                        {room.settings?.categoryId || room.settings?.topic || "General"}
-                      </strong>
-                    </span>
+                {/* Settings Panel: Interactive for Host, Synchronized Read-Only for Non-Host */}
+                {isHost ? (
+                  <div className="w-full max-w-3xl bg-white/95 backdrop-blur-md border border-[#ede7de] rounded-[24px] p-6 shadow-sm flex flex-col gap-4 mt-2">
+                    <div className="flex items-center justify-between border-b border-[#ede7de] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-[20px] text-[#317a63]">
+                          tune
+                        </span>
+                        <h3 className="font-headline-sm text-headline-sm font-bold text-on-surface">
+                          Room Quiz Settings
+                        </h3>
+                      </div>
+                      <span className="text-xs font-semibold px-2.5 py-0.5 bg-[#e8f5ee] text-[#317a63] border border-[#d2eadc] rounded-full">
+                        Host Controls
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Category Selection */}
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1.5">
+                          <span className="material-symbols-outlined text-[16px] text-[#317a63]">category</span>
+                          Category
+                        </label>
+                        <select
+                          value={currentCategorySlug}
+                          onChange={(e) => handleCategoryChange(e.target.value)}
+                          className="w-full px-3.5 py-2.5 bg-[#fcfaf7] border border-[#ede7de] rounded-xl text-sm font-semibold text-on-surface focus:outline-none focus:border-[#317a63] cursor-pointer"
+                        >
+                          {categoriesList.map((cat) => (
+                            <option key={cat.slug} value={cat.slug}>
+                              {cat.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* Subject Selection / Mixed Mode */}
+                      <div className="flex flex-col gap-1.5">
+                        <div className="flex items-center justify-between">
+                          <label className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1.5">
+                            <span className="material-symbols-outlined text-[16px] text-[#317a63]">subject</span>
+                            Subject
+                          </label>
+                          <label className="inline-flex items-center gap-1.5 cursor-pointer text-xs font-semibold text-[#317a63]">
+                            <input
+                              type="checkbox"
+                              checked={isMixed}
+                              onChange={(e) => handleMixedToggle(e.target.checked)}
+                              className="rounded border-[#d2eadc] text-[#317a63] focus:ring-[#317a63] cursor-pointer"
+                            />
+                            <span>Mixed Pool</span>
+                          </label>
+                        </div>
+                        {isMixed ? (
+                          <div className="w-full px-3.5 py-2.5 bg-[#e8f5ee] border border-[#d2eadc] rounded-xl text-sm font-semibold text-[#317a63] flex items-center gap-2">
+                            <span className="material-symbols-outlined text-[18px]">shuffle</span>
+                            <span>All {categoriesList.find(c => c.slug === currentCategorySlug)?.name || currentCategorySlug} Subjects (Mixed)</span>
+                          </div>
+                        ) : (
+                          <select
+                            value={currentSubjectSlug}
+                            onChange={(e) => handleSubjectChange(e.target.value)}
+                            className="w-full px-3.5 py-2.5 bg-[#fcfaf7] border border-[#ede7de] rounded-xl text-sm font-semibold text-on-surface focus:outline-none focus:border-[#317a63] cursor-pointer"
+                          >
+                            {availableSubjects.map((sub) => (
+                              <option key={sub.slug} value={sub.slug}>
+                                {sub.name}
+                              </option>
+                            ))}
+                          </select>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center pt-1">
+                      {/* Question Count Selector (10, 15, 20) */}
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1.5">
+                          <span className="material-symbols-outlined text-[16px] text-[#317a63]">quiz</span>
+                          Question Count
+                        </label>
+                        <div className="grid grid-cols-3 gap-2">
+                          {[10, 15, 20].map((count) => {
+                            const isActive = currentQuestionCount === count;
+                            return (
+                              <button
+                                key={count}
+                                type="button"
+                                onClick={() => handleQuestionCountChange(count)}
+                                className={`py-2 px-3 rounded-xl border text-sm font-bold transition-all cursor-pointer ${
+                                  isActive
+                                    ? "bg-[#317a63] border-[#317a63] text-white shadow-sm"
+                                    : "bg-[#fcfaf7] border-[#ede7de] hover:bg-[#f3ede4] text-on-surface"
+                                }`}
+                              >
+                                {count} Qs
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Timer Display (Server-authoritative, read-only) */}
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1.5">
+                          <span className="material-symbols-outlined text-[16px] text-[#317a63]">timer</span>
+                          Timer per Question (Server-Derived)
+                        </label>
+                        <div className="px-3.5 py-2.5 bg-[#f3ede4] border border-[#e2dacd] rounded-xl text-sm font-bold text-on-surface flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <span className="material-symbols-outlined text-[18px] text-[#317a63]">lock</span>
+                            <span>{currentTimeLimit} seconds / question</span>
+                          </div>
+                          <span className="text-[11px] font-medium text-on-surface-variant uppercase tracking-wider">
+                            Auto
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <span className="text-[#d8d0c4] hidden sm:inline">•</span>
-                  <div className="flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-[18px] text-[#317a63]">
-                      subject
-                    </span>
-                    <span>
-                      Subject:{" "}
-                      <strong className="text-on-surface capitalize">
-                        {room.settings?.isMixedCategory
-                          ? "Mixed Category Pool"
-                          : room.settings?.subjectId || "Standard Mix"}
-                      </strong>
-                    </span>
+                ) : (
+                  <div className="w-full max-w-3xl bg-white/90 backdrop-blur-md border border-[#ede7de] rounded-[24px] p-5 shadow-sm flex flex-col gap-3 mt-2">
+                    <div className="flex items-center justify-between border-b border-[#ede7de] pb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-[18px] text-[#317a63]">
+                          tune
+                        </span>
+                        <span className="font-label-md text-label-md font-bold text-on-surface">
+                          Current Quiz Configuration
+                        </span>
+                      </div>
+                      <span className="text-xs font-semibold px-2.5 py-0.5 bg-[#f3ede4] text-[#7d7568] border border-[#e2dacd] rounded-full flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[12px]">lock</span>
+                        Configured by Host
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                      <div className="p-3 bg-[#fcfaf7] border border-[#ede7de] rounded-xl flex flex-col items-center">
+                        <span className="text-[11px] uppercase font-bold text-on-surface-variant">Category</span>
+                        <span className="text-sm font-bold text-on-surface capitalize mt-0.5 truncate max-w-full">
+                          {categoriesList.find(c => c.slug === currentCategorySlug)?.name || currentCategorySlug}
+                        </span>
+                      </div>
+                      <div className="p-3 bg-[#fcfaf7] border border-[#ede7de] rounded-xl flex flex-col items-center">
+                        <span className="text-[11px] uppercase font-bold text-on-surface-variant">Subject</span>
+                        <span className="text-sm font-bold text-on-surface capitalize mt-0.5 truncate max-w-full">
+                          {isMixed
+                            ? "Mixed Pool"
+                            : availableSubjects.find(s => s.slug === currentSubjectSlug)?.name || currentSubjectSlug || "Standard"}
+                        </span>
+                      </div>
+                      <div className="p-3 bg-[#fcfaf7] border border-[#ede7de] rounded-xl flex flex-col items-center">
+                        <span className="text-[11px] uppercase font-bold text-on-surface-variant">Questions</span>
+                        <span className="text-sm font-bold text-on-surface mt-0.5">
+                          {currentQuestionCount} Qs
+                        </span>
+                      </div>
+                      <div className="p-3 bg-[#fcfaf7] border border-[#ede7de] rounded-xl flex flex-col items-center">
+                        <span className="text-[11px] uppercase font-bold text-on-surface-variant">Time Limit</span>
+                        <span className="text-sm font-bold text-on-surface mt-0.5">
+                          {currentTimeLimit}s / Q
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <span className="text-[#d8d0c4] hidden sm:inline">•</span>
-                  <div className="flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-[18px] text-[#317a63]">
-                      quiz
-                    </span>
-                    <span>
-                      Questions:{" "}
-                      <strong className="text-on-surface">
-                        {room.settings?.questionCount || 10} Questions
-                      </strong>
-                    </span>
-                  </div>
-                  <span className="text-[#d8d0c4] hidden sm:inline">•</span>
-                  <div className="flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-[18px] text-[#317a63]">
-                      timer
-                    </span>
-                    <span>
-                      Timer:{" "}
-                      <strong className="text-on-surface">
-                        {room.settings?.timeLimit || (room as any).timePerQuestion || 30}s / question
-                      </strong>
-                    </span>
-                  </div>
-                </div>
+                )}
               </section>
             </div>
           </div>
