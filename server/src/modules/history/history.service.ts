@@ -46,15 +46,6 @@ export class HistoryService {
         return pUId !== userId;
       }) || null;
 
-      const myUser = myPlayer?.userId && typeof myPlayer.userId === 'object'
-        ? {
-            _id: (myPlayer.userId as any)._id ? (myPlayer.userId as any)._id.toString() : myPlayer.userId.toString(),
-            username: (myPlayer.userId as any).username || '',
-            displayName: (myPlayer.userId as any).displayName || '',
-            avatar: (myPlayer.userId as any).avatar || '',
-          }
-        : null;
-
       const oppUser = oppPlayer?.userId && typeof oppPlayer.userId === 'object'
         ? {
             _id: (oppPlayer.userId as any)._id ? (oppPlayer.userId as any)._id.toString() : oppPlayer.userId.toString(),
@@ -64,19 +55,66 @@ export class HistoryService {
           }
         : null;
 
+      // Sort players to determine authoritative placement/rank for all 1-4 participants
+      const sorted = [...battle.players].sort((a: any, b: any) => {
+        if ((b.score || 0) !== (a.score || 0)) return (b.score || 0) - (a.score || 0);
+        const aTime = a.answers ? a.answers.reduce((sum: number, ans: any) => sum + (ans.timeTakenMs || 0), 0) : 0;
+        const bTime = b.answers ? b.answers.reduce((sum: number, ans: any) => sum + (ans.timeTakenMs || 0), 0) : 0;
+        return aTime - bTime;
+      });
+
+      let currentRank = 1;
+      const rankings = sorted.map((p: any, idx: number) => {
+        if (idx > 0 && (p.score || 0) < (sorted[idx - 1].score || 0)) {
+          currentRank = idx + 1;
+        }
+        const pUId = p?.userId && (p.userId as any)._id ? (p.userId as any)._id.toString() : p?.userId?.toString() || '';
+        const userObj = p?.userId && typeof p.userId === 'object' ? p.userId : null;
+        const pAnswers = p.answers || [];
+        const pCorrect = pAnswers.filter((ans: any) => ans.isCorrect).length;
+        const pTotal = p.assignedQuestionIds?.length || battle.questionCount || 10;
+        const pAccuracy = pTotal > 0 ? Math.round((pCorrect / pTotal) * 100) : 0;
+
+        return {
+          userId: pUId,
+          username: userObj?.username || '',
+          displayName: userObj?.displayName || userObj?.username || 'Player',
+          avatar: userObj?.avatar || '',
+          score: p.score || 0,
+          rank: currentRank,
+          correctCount: pCorrect,
+          totalQuestions: pTotal,
+          accuracy: pAccuracy,
+        };
+      });
+
+      const myRankEntry = rankings.find((r) => r.userId === userId) || rankings[0];
+      const userRank = myRankEntry ? myRankEntry.rank : 1;
+      const userScore = myRankEntry ? myRankEntry.score : (myPlayer?.score || 0);
+      const userAccuracy = myRankEntry ? myRankEntry.accuracy : 0;
+      const userCorrectCount = myRankEntry ? myRankEntry.correctCount : 0;
+      const totalPlayers = battle.players.length;
+
+      const roomSettings = battle.roomId && typeof battle.roomId === 'object' ? (battle.roomId as any).settings : null;
+      const categoryId = roomSettings?.categoryId;
+      const subjectId = roomSettings?.subjectId;
+      const isMixedCategory = roomSettings?.isMixedCategory;
+
       const winnerIdStr = battle.winnerId
         ? (battle.winnerId as any)._id
           ? (battle.winnerId as any)._id.toString()
           : battle.winnerId.toString()
         : null;
 
-      let result: 'VICTORY' | 'DEFEAT' | 'DRAW' | 'IN_PROGRESS' | 'CANCELLED' = 'IN_PROGRESS';
+      let result: 'VICTORY' | 'DEFEAT' | 'DRAW' | 'IN_PROGRESS' | 'CANCELLED' | 'COMPLETED' = 'IN_PROGRESS';
       if (battle.status === BattleStatus.CANCELLED) {
         result = 'CANCELLED';
       } else if (battle.status === BattleStatus.COMPLETED) {
-        if (battle.isDraw) {
+        if (totalPlayers === 1) {
+          result = 'COMPLETED';
+        } else if (battle.isDraw) {
           result = 'DRAW';
-        } else if (winnerIdStr === userId) {
+        } else if (userRank === 1) {
           result = 'VICTORY';
         } else {
           result = 'DEFEAT';
@@ -98,7 +136,7 @@ export class HistoryService {
 
       return {
         _id: battle._id.toString(),
-        roomId: battle.roomId ? battle.roomId.toString() : '',
+        roomId: battle.roomId ? (battle.roomId._id ? battle.roomId._id.toString() : battle.roomId.toString()) : '',
         roomCode: battle.roomCode,
         topic: battle.topic,
         difficulty: battle.difficulty,
@@ -109,20 +147,33 @@ export class HistoryService {
         startedAt: battle.startedAt,
         endedAt: battle.endedAt,
         duration,
-        players: battle.players.map((p) => ({
-          user: p.userId && typeof p.userId === 'object'
-            ? {
-                _id: (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString(),
-                username: (p.userId as any).username || '',
-                displayName: (p.userId as any).displayName || '',
-                avatar: (p.userId as any).avatar || '',
-              }
-            : null,
-          score: p.score,
-        })),
+        categoryId,
+        subjectId,
+        isMixedCategory,
+        totalPlayers,
+        userRank,
+        userScore,
+        userAccuracy,
+        userCorrectCount,
+        rankings,
+        players: battle.players.map((p) => {
+          const pId = p.userId && (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId?.toString();
+          const rEntry = rankings.find((r) => r.userId === pId);
+          return {
+            user: p.userId && typeof p.userId === 'object'
+              ? {
+                  _id: (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString(),
+                  username: (p.userId as any).username || '',
+                  displayName: (p.userId as any).displayName || '',
+                  avatar: (p.userId as any).avatar || '',
+                }
+              : null,
+            score: p.score,
+            rank: rEntry?.rank,
+          };
+        }),
         winner: formattedWinner,
         opponent: oppUser,
-        userScore: myPlayer?.score || 0,
         opponentScore: oppPlayer?.score || 0,
         result,
       };
@@ -252,8 +303,10 @@ export class HistoryService {
     const userPlayer = formattedPlayers.find((p) => p.userId === userId) || formattedPlayers[0];
     const opponentPlayer = formattedPlayers.find((p) => p.userId !== userId) || null;
 
-    let result: 'VICTORY' | 'DEFEAT' | 'DRAW' | 'IN_PROGRESS' | 'CANCELLED' = 'DRAW';
-    if (battle.isDraw) {
+    let result: 'VICTORY' | 'DEFEAT' | 'DRAW' | 'IN_PROGRESS' | 'CANCELLED' | 'COMPLETED' = 'DRAW';
+    if (battle.players.length === 1) {
+      result = 'COMPLETED';
+    } else if (battle.isDraw) {
       result = 'DRAW';
     } else if (winnerIdStr === userId) {
       result = 'VICTORY';
@@ -293,6 +346,9 @@ export class HistoryService {
       ? ((room.hostId as any)._id ? (room.hostId as any)._id.toString() : room.hostId.toString())
       : undefined;
 
+    const userRanking = rankings.find((r) => r.userId === userId);
+    const userRank = userRanking?.rank ?? 1;
+
     return {
       battleId: battle._id.toString(),
       roomCode: battle.roomCode,
@@ -311,6 +367,8 @@ export class HistoryService {
       subjectId: room?.settings?.subjectId,
       isMixedCategory: room?.settings?.isMixedCategory,
       rankings,
+      userRank,
+      totalPlayers: battle.players.length,
       players: formattedPlayers,
       userPlayer,
       opponentPlayer,

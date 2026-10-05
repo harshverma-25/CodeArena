@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Calendar, Clock, Trophy, Frown, ExternalLink, ShieldQuestion, Swords } from "lucide-react";
+import { Calendar, Clock, Trophy, Award, Users, ShieldQuestion, ExternalLink } from "lucide-react";
 
 import { useMatchHistory } from "@/features/history/hooks/useMatchHistory";
 import { cn } from "@/lib/utils";
@@ -87,9 +87,9 @@ export function RecentBattles() {
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/50 text-muted-foreground border border-border mb-4">
             <ShieldQuestion className="h-6 w-6" />
           </div>
-          <h3 className="text-lg font-bold text-foreground mb-1">No battles recorded yet</h3>
+          <h3 className="text-lg font-bold text-foreground mb-1">No quizzes played yet</h3>
           <p className="text-sm text-muted-foreground max-w-sm mb-6">
-            You haven&apos;t participated in any 1v1 quiz battles yet. Host a battle or join one to test your speed!
+            You haven&apos;t participated in any quizzes yet. Join or host a quiz room to test your speed!
           </p>
 
           <div className="flex gap-3">
@@ -97,7 +97,7 @@ export function RecentBattles() {
               href="/"
               className={buttonVariants({ variant: "primary", className: "cursor-pointer text-xs font-mono" })}
             >
-              Start Battle
+              Start a Quiz
             </Link>
           </div>
         </div>
@@ -105,17 +105,16 @@ export function RecentBattles() {
         /* Matches Table/List */
         <div className="space-y-4 flex-1">
           {matches.map((match) => {
-            const isWinner = match.result === "VICTORY";
-            const isDefeat = match.result === "DEFEAT";
-            const isDraw = match.result === "DRAW";
-            const opponentName = match.opponent?.displayName || match.opponent?.username || "Guest Challenger";
+            const totalPlayers = match.totalPlayers || match.players?.length || (match.opponent ? 2 : 1);
+            const isSolo = totalPlayers === 1 || match.result === "COMPLETED";
+            const userRank = match.userRank || (match.result === "VICTORY" ? 1 : match.result === "DEFEAT" ? 2 : 1);
 
             return (
               <div
                 key={match._id}
                 className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-border/60 bg-background/40 hover:bg-background/80 transition-all duration-200"
               >
-                {/* Left Side: Topic & Opponent */}
+                {/* Left Side: Topic & Players */}
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-bold text-foreground text-sm sm:text-base capitalize">
@@ -134,12 +133,19 @@ export function RecentBattles() {
                   </div>
                   <div className="flex items-center gap-3 text-xs text-muted-foreground">
                     <span className="flex items-center gap-1 font-medium text-foreground/80">
-                      Opponent: {opponentName}
+                      <Users className="h-3 w-3 text-zinc-400" />
+                      {isSolo ? "Solo Quiz" : `${totalPlayers} Players`}
                     </span>
                     <span className="h-1.5 w-1.5 rounded-full bg-border" />
                     <span className="flex items-center gap-1 font-mono">
-                      Score: <strong className="text-foreground">{match.userScore ?? 0}</strong> vs {match.opponentScore ?? 0}
+                      Score: <strong className="text-foreground">{match.userScore ?? 0}</strong>
                     </span>
+                    {match.userAccuracy !== undefined && (
+                      <>
+                        <span className="h-1.5 w-1.5 rounded-full bg-border" />
+                        <span className="font-mono">{match.userAccuracy}% Acc</span>
+                      </>
+                    )}
                     <span className="h-1.5 w-1.5 rounded-full bg-border" />
                     <span className="flex items-center gap-1">
                       <Clock className="h-3 w-3" /> {formatDuration(match.duration)}
@@ -154,20 +160,28 @@ export function RecentBattles() {
                 {/* Right Side: Verdict Outcome & Action */}
                 <div className="flex items-center gap-4 self-end sm:self-auto">
                   <div className="text-right">
-                    {match.status === "COMPLETED" ? (
-                      isWinner ? (
-                        <div className="inline-flex items-center gap-1 rounded-full bg-success/10 border border-success/20 px-2.5 py-0.5 text-xs font-bold text-success">
-                          <Trophy className="h-3 w-3" /> Victory
+                    {match.status === "COMPLETED" || match.status === "completed" ? (
+                      isSolo ? (
+                        <div className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 text-xs font-bold text-emerald-400 font-mono">
+                          <Award className="h-3 w-3" /> Completed
                         </div>
-                      ) : isDefeat ? (
-                        <div className="inline-flex items-center gap-1 rounded-full bg-destructive/10 border border-destructive/20 px-2.5 py-0.5 text-xs font-bold text-destructive">
-                          <Frown className="h-3 w-3" /> Defeat
+                      ) : userRank === 1 ? (
+                        <div className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 text-xs font-bold text-amber-400 font-mono">
+                          <Trophy className="h-3 w-3" /> Rank #1
                         </div>
-                      ) : isDraw ? (
-                        <div className="inline-flex items-center gap-1 rounded-full bg-secondary border border-border px-2.5 py-0.5 text-xs font-bold text-muted-foreground">
-                          Draw
+                      ) : userRank === 2 ? (
+                        <div className="inline-flex items-center gap-1 rounded-full bg-slate-400/10 border border-slate-400/20 px-2.5 py-0.5 text-xs font-bold text-slate-300 font-mono">
+                          🥈 Rank #2
                         </div>
-                      ) : null
+                      ) : userRank === 3 ? (
+                        <div className="inline-flex items-center gap-1 rounded-full bg-amber-700/10 border border-amber-700/20 px-2.5 py-0.5 text-xs font-bold text-amber-500 font-mono">
+                          🥉 Rank #3
+                        </div>
+                      ) : (
+                        <div className="inline-flex items-center gap-1 rounded-full bg-zinc-800 border border-zinc-700 px-2.5 py-0.5 text-xs font-bold text-zinc-400 font-mono">
+                          Rank #{userRank}
+                        </div>
+                      )
                     ) : (
                       <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 text-xs font-bold text-amber-500 animate-pulse">
                         In Progress

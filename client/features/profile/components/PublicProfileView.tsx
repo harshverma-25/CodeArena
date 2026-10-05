@@ -4,16 +4,15 @@ import React from "react";
 import Link from "next/link";
 import { 
   Trophy, 
-  Percent, 
-  Swords, 
   Shield, 
   Clock, 
-  Frown, 
   Award, 
   ExternalLink,
   HelpCircle,
   CheckCircle2,
-  ArrowLeft
+  ArrowLeft,
+  Activity,
+  Users
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PublicUserProfile } from "@/types";
@@ -30,6 +29,9 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
     joinedAt,
     rank,
     battlesPlayed,
+    quizzesPlayed,
+    bestScore,
+    bestRank,
     wins,
     losses,
     draws,
@@ -40,7 +42,8 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
     recentBattles,
   } = profile;
 
-  const winRate = battlesPlayed ? Math.round((wins / battlesPlayed) * 100) : 0;
+  const totalQuizzes = quizzesPlayed ?? battlesPlayed ?? 0;
+  const highestScore = bestScore ?? 0;
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return "";
@@ -160,38 +163,40 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
           </div>
         </div>
 
-        {/* Win Rate */}
+        {/* Quizzes Played */}
         <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-md">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest font-mono">
-              Win Rate
+              Quizzes Played
             </span>
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-emerald-500/20 bg-emerald-500/10 text-emerald-400">
-              <Percent className="h-4 w-4" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-purple-500/20 bg-purple-500/10 text-purple-400">
+              <Award className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-3">
-            <span className="text-3xl font-black text-foreground font-mono">{winRate}%</span>
+            <span className="text-3xl font-black text-foreground font-mono">{totalQuizzes}</span>
             <p className="text-[10px] text-muted-foreground mt-1 font-mono">
-              {wins} W / {losses} L / {draws} D
+              Completed Quizzes
             </p>
           </div>
         </div>
 
-        {/* Battles Played */}
+        {/* Best Score */}
         <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-md">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest font-mono">
-              Battles Played
+              Best Score
             </span>
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-purple-500/20 bg-purple-500/10 text-purple-400">
-              <Swords className="h-4 w-4" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-emerald-500/20 bg-emerald-500/10 text-emerald-400">
+              <Activity className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-3">
-            <span className="text-3xl font-black text-foreground font-mono">{battlesPlayed}</span>
+            <span className="text-3xl font-black text-foreground font-mono">
+              {highestScore > 0 ? highestScore : (bestRank && bestRank > 0 ? `#${bestRank}` : "-")}
+            </span>
             <p className="text-[10px] text-muted-foreground mt-1 font-mono">
-              Completed Matches
+              {highestScore > 0 ? "Highest Score" : "Best Placement"}
             </p>
           </div>
         </div>
@@ -215,12 +220,12 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
         </div>
       </div>
 
-      {/* 3. Recent Battles Section */}
+      {/* 3. Recent Quiz Activity Section */}
       <div className="rounded-2xl border border-border bg-card p-6 shadow-xl space-y-4">
         <div className="flex items-center justify-between border-b border-border pb-3">
-          <h3 className="text-lg font-bold text-foreground">Recent Battle Log</h3>
+          <h3 className="text-lg font-bold text-foreground">Recent Quiz Activity</h3>
           <span className="text-xs text-muted-foreground font-mono">
-            Showing last {recentBattles.length} completed battles
+            Showing last {recentBattles.length} completed quizzes
           </span>
         </div>
 
@@ -229,16 +234,17 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-muted-foreground mb-3">
               <HelpCircle className="h-5 w-5" />
             </div>
-            <p className="text-sm font-bold text-foreground">No completed battles recorded</p>
+            <p className="text-sm font-bold text-foreground">No completed quizzes recorded</p>
             <p className="text-xs text-muted-foreground max-w-sm mt-1">
-              This challenger has not completed any MCQ battles yet.
+              This challenger has not completed any quizzes yet.
             </p>
           </div>
         ) : (
           <div className="space-y-3">
             {recentBattles.map((battle) => {
-              const isWinner = battle.result === "VICTORY";
-              const isDefeat = battle.result === "DEFEAT";
+              const totalPlayers = battle.totalPlayers || battle.players?.length || (battle.opponent ? 2 : 1);
+              const isSolo = totalPlayers === 1 || battle.result === "COMPLETED";
+              const userRank = battle.userRank || (battle.result === "VICTORY" ? 1 : battle.result === "DEFEAT" ? 2 : 1);
 
               return (
                 <div
@@ -248,7 +254,7 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
                   <div className="space-y-1.5">
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-extrabold text-foreground text-sm">
-                        {battle.topic} Battle ({battle.questionCount} Qs)
+                        {battle.topic} ({battle.questionCount} Qs)
                       </span>
                       {battle.difficulty && (
                         <span className={cn("text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border font-mono", getDifficultyColor(battle.difficulty))}>
@@ -259,12 +265,18 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
                     
                     <div className="flex items-center gap-3 text-xs text-muted-foreground font-mono">
                       <span className="font-medium text-foreground/80 font-sans">
-                        vs {battle.opponent?.displayName || battle.opponent?.username || "Challenger"}
+                        {isSolo ? "Solo Quiz" : `${totalPlayers} Participants`}
                       </span>
                       <span>•</span>
-                      <span className="text-foreground/90 font-bold">
-                        Score: {battle.userScore} - {battle.opponentScore}
+                      <span className="text-foreground/90 font-bold font-mono">
+                        Score: {battle.userScore}
                       </span>
+                      {battle.userAccuracy !== undefined && (
+                        <>
+                          <span>•</span>
+                          <span>{battle.userAccuracy}% Accuracy</span>
+                        </>
+                      )}
                       <span>•</span>
                       <span className="flex items-center gap-1">
                         <Clock className="h-3 w-3" /> {formatDuration(battle.duration)}
@@ -273,17 +285,25 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
                   </div>
 
                   <div className="flex items-center gap-4 self-end sm:self-auto">
-                    {isWinner ? (
+                    {isSolo ? (
                       <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 px-3 py-1 text-xs font-bold text-emerald-400 font-mono">
-                        <Trophy className="h-3.5 w-3.5" /> Victory
+                        <Award className="h-3.5 w-3.5" /> Completed
                       </span>
-                    ) : isDefeat ? (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-rose-500/15 border border-rose-500/30 px-3 py-1 text-xs font-bold text-rose-400 font-mono">
-                        <Frown className="h-3.5 w-3.5" /> Defeat
+                    ) : userRank === 1 ? (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 border border-amber-500/30 px-3 py-1 text-xs font-bold text-amber-400 font-mono">
+                        <Trophy className="h-3.5 w-3.5" /> Rank #1
+                      </span>
+                    ) : userRank === 2 ? (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-slate-300/15 border border-slate-300/30 px-3 py-1 text-xs font-bold text-slate-200 font-mono">
+                        🥈 Rank #2
+                      </span>
+                    ) : userRank === 3 ? (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-amber-700/15 border border-amber-700/30 px-3 py-1 text-xs font-bold text-amber-500 font-mono">
+                        🥉 Rank #3
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-secondary border border-border px-3 py-1 text-xs font-bold text-muted-foreground font-mono">
-                        <Award className="h-3.5 w-3.5" /> Draw
+                      <span className="inline-flex items-center gap-1 rounded-full bg-zinc-800 border border-zinc-700 px-3 py-1 text-xs font-bold text-zinc-400 font-mono">
+                        Rank #{userRank}
                       </span>
                     )}
 

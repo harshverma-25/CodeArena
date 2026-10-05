@@ -6,13 +6,13 @@ import {
   Calendar, 
   Clock, 
   Trophy, 
-  Frown, 
   ChevronLeft, 
   ChevronRight, 
   ExternalLink, 
   AlertCircle,
   HelpCircle,
-  Award
+  Award,
+  Users
 } from "lucide-react";
 import { useMatchHistory } from "../hooks/useMatchHistory";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
@@ -116,9 +116,9 @@ export function MatchHistoryTable() {
       {/* Table Header Filter controls */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-border pb-4">
         <div>
-          <h2 className="text-xl font-bold tracking-tight text-foreground">Match Log</h2>
+          <h2 className="text-xl font-bold tracking-tight text-foreground">Quiz History</h2>
           <p className="text-xs text-muted-foreground mt-0.5">
-            Showing {matches.length} of {totalMatches} battles played
+            Showing {matches.length} of {totalMatches} quizzes completed
           </p>
         </div>
         <div className="flex items-center gap-2 self-stretch sm:self-auto justify-between">
@@ -145,12 +145,12 @@ export function MatchHistoryTable() {
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary border border-border text-muted-foreground mb-4">
             <HelpCircle className="h-6 w-6" />
           </div>
-          <h3 className="text-lg font-bold text-foreground mb-1">No completed battles found</h3>
+          <h3 className="text-lg font-bold text-foreground mb-1">No completed quizzes found</h3>
           <p className="text-sm text-muted-foreground max-w-sm mb-6">
-            You haven&apos;t completed any MCQ coding battles yet. Host a battle or join one to test your speed!
+            You haven&apos;t completed any quizzes yet. Join or host a quiz room to test your skills!
           </p>
           <Link href="/" className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-xs font-semibold text-primary-foreground hover:bg-primary/95 transition-colors font-mono">
-            Start a Battle
+            Start a Quiz
           </Link>
         </div>
       ) : (
@@ -158,13 +158,20 @@ export function MatchHistoryTable() {
         <div className="flex flex-col gap-4">
           <div className="rounded-2xl border border-border bg-card/40 overflow-hidden divide-y divide-border/60">
             {matches.map((match) => {
-              const opponent = match.opponent || match.players?.find(
-                (p) => p.user && p.user._id !== myId
-              )?.user || null;
+              const totalPlayers = match.totalPlayers || match.players?.length || (match.opponent ? 2 : 1);
+              const isSolo = totalPlayers === 1 || match.result === "COMPLETED";
 
-              const isWinner = match.result === "VICTORY" || match.winner?._id === myId || match.winnerId === myId;
-              const isDefeat = match.result === "DEFEAT";
-
+              // Determine rank
+              let userRank = match.userRank;
+              if (!userRank) {
+                if (match.result === "VICTORY" || match.winner?._id === myId || match.winnerId === myId) {
+                  userRank = 1;
+                } else if (match.result === "DEFEAT") {
+                  userRank = 2;
+                } else {
+                  userRank = 1;
+                }
+              }
 
               const topicName = match.topic || "MCQ Challenge";
               const difficultyName = match.difficulty || "Medium";
@@ -178,7 +185,7 @@ export function MatchHistoryTable() {
                   <div className="flex-1 min-w-0 space-y-2">
                     <div className="flex items-center gap-2.5 flex-wrap">
                       <span className="font-extrabold text-foreground text-sm sm:text-base tracking-tight truncate max-w-[280px] sm:max-w-md">
-                        {topicName} Battle ({match.questionCount || 5} Qs)
+                        {topicName} ({match.questionCount || 5} Qs)
                       </span>
                       {difficultyName && (
                         <span className={cn("text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border shrink-0 font-mono", getDifficultyColor(difficultyName))}>
@@ -188,33 +195,28 @@ export function MatchHistoryTable() {
                     </div>
                     
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground font-mono">
-                      <div className="flex items-center gap-2">
-                        {opponent?.avatar ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={opponent.avatar}
-                            alt={opponent.username}
-                            className="h-4.5 w-4.5 rounded border border-border bg-zinc-950 object-cover shrink-0"
-                          />
-                        ) : (
-                          <span className="h-4.5 w-4.5 rounded border border-border bg-zinc-950 flex items-center justify-center text-[9px] font-bold text-zinc-500 uppercase shrink-0 font-mono">
-                            {(opponent?.displayName || opponent?.username || "?").slice(0, 2)}
-                          </span>
-                        )}
-                        <span className="font-medium text-foreground/90 font-sans">
-                          vs {opponent?.displayName || opponent?.username || "Guest Challenger"}
-                        </span>
+                      <div className="flex items-center gap-1.5 font-medium text-foreground/90 font-sans">
+                        <Users className="h-3.5 w-3.5 text-zinc-400" />
+                        <span>{isSolo ? "Solo Quiz" : `${totalPlayers} Participants`}</span>
                       </div>
                       <span className="hidden sm:inline text-zinc-600">|</span>
-                      <span className="text-foreground/80 font-bold">
-                        Score: {match.userScore ?? 0} - {match.opponentScore ?? 0}
+                      <span className="text-foreground/80 font-bold font-mono">
+                        Score: {match.userScore ?? 0}
                       </span>
+                      {match.userAccuracy !== undefined && (
+                        <>
+                          <span className="hidden sm:inline text-zinc-600">|</span>
+                          <span className="text-foreground/80 font-mono">
+                            {match.userAccuracy}% Accuracy
+                          </span>
+                        </>
+                      )}
                       <span className="hidden sm:inline text-zinc-600">|</span>
-                      <span className="flex items-center gap-1">
+                      <span className="flex items-center gap-1 font-mono">
                         <Clock className="h-3.5 w-3.5 text-zinc-500" /> {formatDuration(match.duration)}
                       </span>
                       <span className="hidden sm:inline text-zinc-600">|</span>
-                      <span className="flex items-center gap-1">
+                      <span className="flex items-center gap-1 font-mono">
                         <Calendar className="h-3.5 w-3.5 text-zinc-500" /> {formatDate(match.startedAt)}
                       </span>
                     </div>
@@ -224,17 +226,25 @@ export function MatchHistoryTable() {
                   <div className="flex items-center justify-between md:justify-end gap-5 shrink-0 self-stretch md:self-auto border-t md:border-t-0 border-border/40 pt-3 md:pt-0">
                     <div className="md:text-right shrink-0">
                       {match.status === "COMPLETED" || match.status === "completed" ? (
-                        isWinner ? (
+                        isSolo ? (
                           <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 px-3 py-1 text-xs font-bold text-emerald-400 font-mono">
-                            <Trophy className="h-3.5 w-3.5" /> Victory
+                            <Award className="h-3.5 w-3.5" /> Completed
                           </span>
-                        ) : isDefeat ? (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-rose-500/15 border border-rose-500/30 px-3 py-1 text-xs font-bold text-rose-400 font-mono">
-                            <Frown className="h-3.5 w-3.5" /> Defeat
+                        ) : userRank === 1 ? (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 border border-amber-500/30 px-3 py-1 text-xs font-bold text-amber-400 font-mono">
+                            <Trophy className="h-3.5 w-3.5" /> Rank #1
+                          </span>
+                        ) : userRank === 2 ? (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-slate-300/15 border border-slate-300/30 px-3 py-1 text-xs font-bold text-slate-200 font-mono">
+                            🥈 Rank #2
+                          </span>
+                        ) : userRank === 3 ? (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-amber-700/15 border border-amber-700/30 px-3 py-1 text-xs font-bold text-amber-500 font-mono">
+                            🥉 Rank #3
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-secondary border border-border px-3 py-1 text-xs font-bold text-muted-foreground font-mono">
-                            <Award className="h-3.5 w-3.5" /> Draw
+                          <span className="inline-flex items-center gap-1 rounded-full bg-zinc-800 border border-zinc-700 px-3 py-1 text-xs font-bold text-zinc-400 font-mono">
+                            Rank #{userRank}
                           </span>
                         )
                       ) : (

@@ -271,10 +271,12 @@ export interface BattleResultDetails {
     unanswered: number;
     accuracy: number;
   }>;
+  userRank?: number;
+  totalPlayers?: number;
   players: BattleResultPlayerDetails[];
   userPlayer: BattleResultPlayerDetails;
   opponentPlayer: BattleResultPlayerDetails | null;
-  result: "VICTORY" | "DEFEAT" | "DRAW" | "IN_PROGRESS" | "CANCELLED";
+  result: "VICTORY" | "DEFEAT" | "DRAW" | "IN_PROGRESS" | "CANCELLED" | "COMPLETED";
 }
 
 export interface LeaderboardEntry {
@@ -309,6 +311,10 @@ export interface PublicUserProfile {
   joinedAt: string;
   rank: number;
   battlesPlayed: number;
+  quizzesPlayed?: number;
+  avgScore?: number;
+  bestScore?: number;
+  bestRank?: number;
   wins: number;
   losses: number;
   draws: number;
@@ -327,7 +333,18 @@ export interface PublicUserProfile {
     duration: number;
     userScore: number;
     opponentScore: number;
-    result: "VICTORY" | "DEFEAT" | "DRAW";
+    userRank?: number;
+    totalPlayers?: number;
+    userAccuracy?: number;
+    result: "VICTORY" | "DEFEAT" | "DRAW" | "COMPLETED";
+    players?: Array<{
+      userId: string;
+      username: string;
+      displayName: string;
+      avatar: string;
+      score: number;
+      rank?: number;
+    }>;
     opponent: {
       userId: string;
       username: string;

@@ -54,6 +54,14 @@ export function BattleResultsHeader({ results }: BattleResultsHeaderProps) {
       icon: <Frown className="h-10 w-10 text-zinc-400" />,
       badgeBg: "bg-zinc-500 text-zinc-950 font-black",
     },
+    COMPLETED: {
+      title: "QUIZ COMPLETED!",
+      desc: "Great job completing your quiz! Review your breakdown below.",
+      bannerBg: "from-emerald-500/15 via-teal-950/40 to-emerald-500/5 border-emerald-500/30",
+      iconBg: "bg-emerald-500/15 text-emerald-400 border-emerald-500/40 shadow-emerald-500/10",
+      icon: <Award className="h-10 w-10 text-emerald-400" />,
+      badgeBg: "bg-emerald-400 text-emerald-950 font-black",
+    },
   };
 
   const currentOutcome = outcomeConfig[result] || outcomeConfig.DRAW;

@@ -229,12 +229,48 @@ export class UserService {
 
     const [rank, userBattles] = await Promise.all([rankPromise, recentBattlesPromise]);
 
-    // Format recent completed battles
+    let totalScore = 0;
+    let bestScore = 0;
+    let bestRank = user.wins > 0 ? 1 : 0;
+
+    // Format recent completed battles with multiplayer ranking awareness
     const recentBattles = userBattles.map((b: any) => {
+      const sorted = [...b.players].sort((p1: any, p2: any) => (p2.score || 0) - (p1.score || 0));
+      let currentRank = 1;
+      const playerRankings = sorted.map((p: any, idx: number) => {
+        if (idx > 0 && (p.score || 0) < (sorted[idx - 1].score || 0)) {
+          currentRank = idx + 1;
+        }
+        const pUId = p?.userId && (p.userId as any)._id ? (p.userId as any)._id.toString() : p?.userId?.toString() || '';
+        const userObj = p?.userId && typeof p.userId === 'object' ? p.userId : null;
+        return {
+          userId: pUId,
+          username: userObj?.username || '',
+          displayName: userObj?.displayName || userObj?.username || 'Player',
+          avatar: userObj?.avatar || '',
+          score: p.score || 0,
+          rank: currentRank,
+        };
+      });
+
+      const myRankEntry = playerRankings.find((r) => r.userId === uIdStr) || playerRankings[0];
       const myP = b.players.find((p: any) => {
         const pUId = p?.userId && (p.userId as any)._id ? (p.userId as any)._id.toString() : p?.userId?.toString();
         return pUId === uIdStr;
       }) || b.players[0];
+
+      const userRank = myRankEntry ? myRankEntry.rank : 1;
+      const userScore = myP?.score || 0;
+      const totalPlayers = b.players.length;
+
+      totalScore += userScore;
+      if (userScore > bestScore) bestScore = userScore;
+      if (bestRank === 0 || userRank < bestRank) bestRank = userRank;
+
+      const pAnswers = myP?.answers || [];
+      const pCorrect = pAnswers.filter((ans: any) => ans.isCorrect).length;
+      const pTotal = myP?.assignedQuestionIds?.length || b.questionCount || 10;
+      const userAccuracy = pTotal > 0 ? Math.round((pCorrect / pTotal) * 100) : 0;
 
       const oppP = b.players.find((p: any) => {
         const pUId = p?.userId && (p.userId as any)._id ? (p.userId as any)._id.toString() : p?.userId?.toString();
@@ -250,16 +286,12 @@ export class UserService {
           }
         : null;
 
-      const winnerIdStr = b.winnerId
-        ? (b.winnerId as any)._id
-          ? (b.winnerId as any)._id.toString()
-          : b.winnerId.toString()
-        : null;
-
-      let result: 'VICTORY' | 'DEFEAT' | 'DRAW' = 'DRAW';
-      if (b.isDraw) {
+      let result: 'VICTORY' | 'DEFEAT' | 'DRAW' | 'COMPLETED' = 'COMPLETED';
+      if (totalPlayers === 1) {
+        result = 'COMPLETED';
+      } else if (b.isDraw) {
         result = 'DRAW';
-      } else if (winnerIdStr === uIdStr) {
+      } else if (userRank === 1) {
         result = 'VICTORY';
       } else {
         result = 'DEFEAT';
@@ -278,12 +310,20 @@ export class UserService {
         startedAt: b.startedAt,
         endedAt: b.endedAt,
         duration,
-        userScore: myP?.score || 0,
+        userRank,
+        totalPlayers,
+        userAccuracy,
+        userScore,
         opponentScore: oppP?.score || 0,
         result,
         opponent: oppUser,
+        players: playerRankings,
       };
     });
+
+    const avgScore = userBattles.length > 0 ? Math.round(totalScore / userBattles.length) : 0;
+    if (user.wins > 0) bestRank = 1;
+    if (bestRank === 0 && (user.matchesPlayed || 0) > 0) bestRank = 1;
 
     return {
       userId: uIdStr,
@@ -292,6 +332,10 @@ export class UserService {
       avatar: user.avatar || '',
       joinedAt: user.createdAt,
       rank,
+      quizzesPlayed: user.matchesPlayed || userBattles.length,
+      avgScore,
+      bestScore,
+      bestRank: bestRank || 1,
       battlesPlayed: user.matchesPlayed || 0,
       wins: user.wins || 0,
       losses: user.losses || 0,

@@ -24,6 +24,7 @@ export class HistoryRepository {
         .limit(limit)
         .populate('players.userId', 'username displayName avatar')
         .populate('winnerId', 'username displayName avatar')
+        .populate('roomId', 'settings roomCode')
         .exec(),
       BattleModel.countDocuments(query),
     ]);
@@ -38,6 +39,7 @@ export class HistoryRepository {
     return BattleModel.findById(battleId)
       .populate('players.userId', 'username displayName avatar')
       .populate('winnerId', 'username displayName avatar')
+      .populate('roomId', 'settings roomCode')
       .exec();
   }
 }

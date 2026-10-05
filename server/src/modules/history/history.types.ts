@@ -1,5 +1,17 @@
 import { Types } from 'mongoose';
 
+export interface IBattleHistoryRankingItem {
+  userId: string;
+  username: string;
+  displayName: string;
+  avatar: string;
+  score: number;
+  rank: number;
+  correctCount?: number;
+  totalQuestions?: number;
+  accuracy?: number;
+}
+
 export interface IBattleHistoryItem {
   _id: string;
   roomId: string;
@@ -13,6 +25,15 @@ export interface IBattleHistoryItem {
   startedAt: Date | string;
   endedAt?: Date | string;
   duration: number; // in seconds
+  categoryId?: string;
+  subjectId?: string | null;
+  isMixedCategory?: boolean;
+  totalPlayers: number;
+  userRank: number;
+  userScore: number;
+  userAccuracy?: number;
+  userCorrectCount?: number;
+  rankings: IBattleHistoryRankingItem[];
   players: Array<{
     user: {
       _id: string;
@@ -21,6 +42,7 @@ export interface IBattleHistoryItem {
       avatar: string;
     } | null;
     score: number;
+    rank?: number;
   }>;
   winner: {
     _id: string;
@@ -34,9 +56,8 @@ export interface IBattleHistoryItem {
     displayName: string;
     avatar: string;
   } | null;
-  userScore: number;
   opponentScore: number;
-  result: 'VICTORY' | 'DEFEAT' | 'DRAW' | 'IN_PROGRESS' | 'CANCELLED';
+  result: 'VICTORY' | 'DEFEAT' | 'DRAW' | 'IN_PROGRESS' | 'CANCELLED' | 'COMPLETED';
 }
 
 export interface IBattleHistoryResponse {
@@ -91,8 +112,10 @@ export interface IBattleResultDetails {
   subjectId?: string | null;
   isMixedCategory?: boolean;
   rankings?: any[];
+  userRank?: number;
+  totalPlayers?: number;
   players: IBattleResultPlayer[];
   userPlayer: IBattleResultPlayer;
   opponentPlayer: IBattleResultPlayer | null;
-  result: 'VICTORY' | 'DEFEAT' | 'DRAW' | 'IN_PROGRESS' | 'CANCELLED';
+  result: 'VICTORY' | 'DEFEAT' | 'DRAW' | 'IN_PROGRESS' | 'CANCELLED' | 'COMPLETED';
 }

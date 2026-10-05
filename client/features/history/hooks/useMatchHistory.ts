@@ -16,6 +16,26 @@ export interface MatchHistoryItem {
   startedAt: string;
   endedAt?: string;
   duration?: number;
+  categoryId?: string;
+  subjectId?: string | null;
+  isMixedCategory?: boolean;
+  totalPlayers?: number;
+  userRank?: number;
+  userScore?: number;
+  userAccuracy?: number;
+  userCorrectCount?: number;
+  rankings?: Array<{
+    userId: string;
+    username: string;
+    displayName: string;
+    avatar: string;
+    totalScore: number;
+    rank: number;
+    correctAnswers?: number;
+    incorrectAnswers?: number;
+    unanswered?: number;
+    accuracy?: number;
+  }>;
   players?: Array<{
     user: {
       _id: string;
@@ -24,6 +44,7 @@ export interface MatchHistoryItem {
       avatar: string;
     } | null;
     score?: number;
+    rank?: number;
   }>;
   winner?: {
     _id: string;
@@ -37,9 +58,8 @@ export interface MatchHistoryItem {
     displayName: string;
     avatar: string;
   } | null;
-  userScore?: number;
   opponentScore?: number;
-  result?: "VICTORY" | "DEFEAT" | "DRAW" | "IN_PROGRESS" | "CANCELLED";
+  result?: "VICTORY" | "DEFEAT" | "DRAW" | "IN_PROGRESS" | "CANCELLED" | "COMPLETED";
 }
 
 export interface MatchHistoryResponse {
