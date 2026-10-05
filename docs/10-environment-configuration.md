@@ -13,10 +13,13 @@ CodeArena employs **strict startup schema validation** for backend configuration
 | **`PORT`** | `number` | Yes | `5000` | Port on which Express and Socket.IO listen. Automatically parsed and type-cast to integer. |
 | **`NODE_ENV`** | `enum` | Yes | `development` | Runtime mode. Must be one of: `development`, `production`, `test`. Regulates stack traces and mock token acceptance. |
 | **`MONGODB_URI`** | `string` | Yes | None | Full MongoDB connection string (local or Atlas URI). |
-| **`CLERK_SECRET_KEY`** | `string` | Yes | None | Secret API key provided by Clerk Dashboard for backend token verification and user sync. |
-| **`CLERK_PUBLISHABLE_KEY`** | `string` | Yes | None | Public key for Clerk integration. |
+| **`JWT_ACCESS_SECRET`** | `string` | No | Fallback string | High-entropy secret for signing short-lived (15 min) Native JWT access tokens. |
+| **`JWT_REFRESH_SECRET`** | `string` | No | Fallback string | High-entropy secret for signing long-lived (7 days) Native JWT refresh tokens. |
 | **`GUEST_JWT_SECRET`** | `string` | No | Fallback string | High-entropy secret used for HMAC SHA-256 signing of guest session tokens. Minimum 32 bytes recommended in production. |
+| **`JWT_ACCESS_EXPIRES_IN`** | `string` | No | `900` | Access Token expiration in seconds (default: 15 minutes). |
+| **`JWT_REFRESH_EXPIRES_IN`** | `string` | No | `604800` | Refresh Token expiration in seconds (default: 7 days). |
 | **`CORS_ORIGIN`** | `string` | No | `*` | Allowed origin for Cross-Origin Resource Sharing. In production, restrict to frontend domain. |
+| **`LOG_LEVEL`** | `string` | No | `info` | Logging verbosity for Pino logger (`debug`, `info`, `warn`, `error`). |
 
 ### 2.1 Backend Schema Definition (`server/src/config/env.ts`)
 ```typescript
@@ -28,9 +31,11 @@ const envSchema = z.object({
   }),
   NODE_ENV: z.enum(['development', 'production', 'test']),
   MONGODB_URI: z.string().min(1, 'MONGODB_URI is required'),
-  CLERK_SECRET_KEY: z.string().min(1, 'CLERK_SECRET_KEY is required'),
-  CLERK_PUBLISHABLE_KEY: z.string().min(1, 'CLERK_PUBLISHABLE_KEY is required'),
-  GUEST_JWT_SECRET: z.string().default(process.env.GUEST_JWT_SECRET || process.env.CLERK_SECRET_KEY || '...'),
+  GUEST_JWT_SECRET: z.string().default(process.env.GUEST_JWT_SECRET || 'codearena_secure_guest_jwt_secret_key_32_bytes_min'),
+  JWT_ACCESS_SECRET: z.string().default(process.env.JWT_ACCESS_SECRET || 'codearena_secure_access_jwt_secret_key_32_bytes_min'),
+  JWT_REFRESH_SECRET: z.string().default(process.env.JWT_REFRESH_SECRET || 'codearena_secure_refresh_jwt_secret_key_32_bytes_min'),
+  JWT_ACCESS_EXPIRES_IN: z.string().default(process.env.JWT_ACCESS_EXPIRES_IN || '900'),
+  JWT_REFRESH_EXPIRES_IN: z.string().default(process.env.JWT_REFRESH_EXPIRES_IN || '604800'),
 });
 ```
 
@@ -40,12 +45,8 @@ const envSchema = z.object({
 
 | Variable | Exposure | Required | Example Value | Description |
 | :--- | :---: | :---: | :--- | :--- |
-| **`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`** | Browser | Yes | `pk_test_...` | Public key used by Clerk Next.js frontend SDK. |
-| **`CLERK_SECRET_KEY`** | Server | Yes | `sk_test_...` | Secret key used by Next.js middleware during SSR authentication checks. |
 | **`NEXT_PUBLIC_API_URL`** | Browser | Yes | `http://localhost:5000/api/v1` | Base REST API target URL for frontend HTTP requests. |
 | **`NEXT_PUBLIC_WS_URL`** | Browser | Yes | `http://localhost:5000` | Target URL for Socket.IO client connections. |
-| **`NEXT_PUBLIC_CLERK_SIGN_IN_URL`** | Browser | Yes | `/login` | Route redirect path for Clerk sign-in. |
-| **`NEXT_PUBLIC_CLERK_SIGN_UP_URL`** | Browser | Yes | `/register` | Route redirect path for Clerk sign-up. |
 
 ---
 
@@ -62,10 +63,13 @@ Sample `server/.env`:
 PORT=5000
 NODE_ENV=development
 MONGODB_URI=mongodb://127.0.0.1:27017/codearena
-CLERK_SECRET_KEY=sk_test_exampleKey123
-CLERK_PUBLISHABLE_KEY=pk_test_exampleKey123
+JWT_ACCESS_SECRET=your_super_secret_access_token_key_min_32_chars
+JWT_REFRESH_SECRET=your_super_secret_refresh_token_key_min_32_chars
 GUEST_JWT_SECRET=super_secret_guest_hmac_key_min_32_chars
+JWT_ACCESS_EXPIRES_IN=900
+JWT_REFRESH_EXPIRES_IN=604800
 CORS_ORIGIN=http://localhost:3000
+LOG_LEVEL=info
 ```
 
 ### 4.2 Client `.env.local` Setup
@@ -75,12 +79,8 @@ cp .env.example .env.local
 ```
 Sample `client/.env.local`:
 ```env
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_exampleKey123
-CLERK_SECRET_KEY=sk_test_exampleKey123
 NEXT_PUBLIC_API_URL=http://localhost:5000/api/v1
 NEXT_PUBLIC_WS_URL=http://localhost:5000
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/login
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/register
 ```
 
 ---
@@ -88,7 +88,7 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL=/register
 ## 5. Security & Best Practices
 
 1. **Never Commit Secrets**: Ensure `.env` and `.env.local` remain in `.gitignore`.
-2. **Environment Separation**: Maintain isolated MongoDB databases and Clerk applications for `development` versus `production`.
+2. **Environment Separation**: Maintain isolated MongoDB databases for `development` versus `production`.
 3. **No Backdoor Tokens in Production**: Setting `NODE_ENV=production` automatically disables any mock token acceptance in authentication middleware.
 
 ---

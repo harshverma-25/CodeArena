@@ -2,30 +2,33 @@
 
 ## 1. Executive Summary
 
-**CodeArena** is a real-time, competitive 1v1 technical MCQ battle platform where developers challenge each other in live head-to-head computer science and programming trivia duels. Players compete in timed rounds covering Data Structures & Algorithms (DSA), JavaScript, TypeScript, React, Python, Database Management Systems (DBMS), Operating Systems (OS), and Computer Networks.
+**CodeArena** is a real-time, competitive multiplayer (1–4 players) technical and general-purpose quiz platform where players challenge each other in live quizzes. Players compete across curated Categories (Programming, Aptitude, General Knowledge) and Subjects (Data Structures, Algorithms, DBMS, OS, Networks, Quantitative Aptitude, Logical Reasoning, Current Affairs, etc.) or Mixed Category pools, with configurable question counts (10, 15, or 20) and category-derived server-authoritative timers.
 
-The platform emphasizes **low-latency state synchronization**, **strict anti-cheat protection**, and **zero-friction entry** through a dual-authentication system supporting both verified Clerk user profiles and instant guest sessions.
+The platform emphasizes **low-latency state synchronization**, **strict anti-cheat protection**, and **zero-friction entry** through a dual-authentication system supporting registered users via Native JWT (Access + Refresh tokens) and instant cryptographic guest sessions.
 
 ```mermaid
 graph LR
-    User1[Player 1] -- WebSocket / HTTP --> LB[CodeArena Platform]
+    User1[Player 1 / Host] -- WebSocket / HTTP --> LB[CodeArena Platform]
     User2[Player 2] -- WebSocket / HTTP --> LB
-    LB --> Engine[Real-Time Battle Engine]
+    User3[Player 3] -- WebSocket / HTTP --> LB
+    User4[Player 4] -- WebSocket / HTTP --> LB
+    LB --> Engine[Real-Time 1–4 Player Quiz Engine]
     Engine --> DB[(MongoDB Database)]
-    Engine --> Clerk[Clerk Auth & Profiles]
+    Engine --> Auth[Native JWT & Guest Auth]
 ```
 
 ---
 
 ## 2. Product Evolution History
 
-CodeArena originally began as a prototype competitive coding platform (DSA tracker and sandbox execution model integrating with Judge0). During development, the platform pivoted to address the latency and high server overhead of traditional sandbox code execution by focusing on **rapid, high-intensity technical trivia battles**.
+CodeArena originally began as a prototype competitive coding platform (sandbox execution model). The platform pivoted to address the latency and high server overhead of traditional sandbox code execution by focusing on **rapid, high-intensity technical and general-purpose trivia battles**:
 
 Key milestones achieved:
-1. **Transition to MCQ Battles**: Deprecation and removal of the legacy sandbox compiler pipelines (`problem/`, `match/`) in favor of an optimized MCQ engine (`question/`, `battle/`, `room/`).
-2. **Anti-Cheat Redesign**: Moving from client-managed state to strict server-orchestrated question dispatch where clients receive only one sanitized question at a time.
-3. **Dual-Tier Authentication**: Adding secure, signed guest sessions (`guest_*`) so players can start battling immediately without registration.
-4. **Performance & Scalability Optimization**: Transitioning from collection-wide memory aggregations to MongoDB compound indexes, atomic update pipelines, and $O(\log N)$ rank calculation.
+1. **Transition to MCQ Quiz Platform**: Deprecation and removal of the legacy sandbox compiler pipelines in favor of an optimized, server-authoritative quiz engine (`question/`, `battle/`, `room/`, `category/`).
+2. **1–4 Player Dynamic Engine**: Full expansion from 1v1 assumptions to dynamic 1–4 player lobbies, solo mode, synchronized round dispatches, simultaneous answer locks, and 4-tier ranking with tie-breaking.
+3. **Category & Subject Hierarchy**: Transition from flat topics to structured `Category → Subject → Questions` with Mixed Category sampling.
+4. **Quiz Configuration**: Server-authoritative 10, 15, or 20 question counts with category-derived question timers (30s/60s).
+5. **Native JWT Authentication**: Complete elimination of third-party auth (Clerk) in favor of secure native Access Tokens (15m), Refresh Tokens (7d in HttpOnly cookie & DB hash), and cryptographic HMAC guest tokens.
 
 ---
 
@@ -33,12 +36,12 @@ Key milestones achieved:
 
 | Feature Domain | Capabilities | User Value |
 | :--- | :--- | :--- |
-| **Room Management** | Custom 6-character room codes, host privileges, topic/difficulty selection, player readiness toggles. | Fast, flexible matchmaking with friends or colleagues. |
-| **Live Battle Engine** | Server-authoritative countdowns, 30s per-question timeouts, live score calculation, opponent progress telemetry. | High-stakes competitive experience without client cheating. |
+| **Room Management** | 6-character room codes, host privileges, 1–4 player capacity, category/subject/mixed selection, 10/15/20 question selection, player readiness toggles. | Fast, flexible matchmaking with friends or solo practice. |
+| **Live Quiz Engine** | Server-authoritative countdowns, category-based question timers (30s/60s), live score calculation (up to 1000 pts), synchronized reveal. | High-stakes competitive experience without client cheating. |
 | **Anti-Cheat Protocol** | Server sanitizes questions, hides correct answers and explanations until game finish, validates submission deadlines. | Guaranteed integrity and fair match outcomes. |
-| **Leaderboard & Ranks** | Real-time global standings, 1-indexed ranks, multi-tiered tie-breaking (Wins $\rightarrow$ Accuracy $\rightarrow$ Matches $\rightarrow$ Username). | Transparent player rankings and progression. |
+| **Rankings & Results** | Real-time quiz rankings (Rank 1–4), podium display, score breakdowns, and tie handling. | Transparent player rankings and progression. |
 | **Match History & Review** | Post-match analysis, detailed question breakdown with correct answers and technical explanations. | Clear learning outcomes and knowledge retention. |
-| **Dual Authentication** | Full Clerk integration (OAuth/Email) alongside instant zero-credential Guest mode. | Zero barrier to entry with full account permanence for regulars. |
+| **Dual Authentication** | Native JWT auth (Access + Refresh tokens) alongside instant zero-credential Guest mode. | Zero barrier to entry with full account permanence for regulars. |
 
 ---
 

@@ -20,8 +20,6 @@ const envSchema = z.object({
     errorMap: () => ({ message: 'NODE_ENV must be development, production, or test' }),
   }),
   MONGODB_URI: z.string().min(1, 'MONGODB_URI is required'),
-  CLERK_SECRET_KEY: z.string().optional(),
-  CLERK_PUBLISHABLE_KEY: z.string().optional(),
   GUEST_JWT_SECRET: z.string().default(process.env.GUEST_JWT_SECRET || 'codearena_secure_guest_jwt_secret_key_32_bytes_min'),
   JWT_ACCESS_SECRET: z.string().default(process.env.JWT_ACCESS_SECRET || process.env.GUEST_JWT_SECRET || 'codearena_secure_access_jwt_secret_key_32_bytes_min'),
   JWT_REFRESH_SECRET: z.string().default(process.env.JWT_REFRESH_SECRET || 'codearena_secure_refresh_jwt_secret_key_32_bytes_min'),

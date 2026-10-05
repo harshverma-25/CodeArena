@@ -3,7 +3,7 @@ export const openApiSpec = {
   info: {
     title: 'CodeArena API Documentation',
     version: '1.0.0',
-    description: 'Detailed interactive API documentation for CodeArena platforms. Authentication requires a Clerk JWT.',
+    description: 'Detailed interactive API documentation for CodeArena platforms. Authentication requires a Native JWT Access Token or Guest Token.',
   },
   servers: [
     {
@@ -17,7 +17,7 @@ export const openApiSpec = {
         type: 'http',
         scheme: 'bearer',
         bearerFormat: 'JWT',
-        description: 'Enter your Clerk Session JWT token.',
+        description: 'Enter your Native JWT Access Token or Guest Session JWT token.',
       },
     },
     schemas: {

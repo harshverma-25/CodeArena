@@ -1,13 +1,14 @@
 # CodeArena — Agent Operating Directives
 
-Welcome to **CodeArena**, a real-time 1v1 competitive technical MCQ battle platform.
+Welcome to **CodeArena**, a real-time 1–4 player multiplayer competitive general-purpose quiz platform.
 
 ---
 
 ## 📌 Critical Directives for AI Agents
 
 1. **Product Truth**:
-   * CodeArena is a **real-time 1v1 MCQ trivia battle platform**, NOT a coding sandbox platform.
+   * CodeArena is a **real-time 1–4 player multiplayer quiz platform**, NOT a coding sandbox platform.
+   * Quizzes support **Category → Subject → Questions** hierarchy, **Mixed Category** mode, **10 / 15 / 20 questions**, and **Category-based timers** (Programming: 30s, Aptitude: 60s, GK: 30s).
    * Do NOT invent or restore legacy coding execution / Judge0 compilers.
 2. **Single Source of Truth**:
    * All architecture, API, database, and gameplay documentation is strictly organized in the [`docs/`](docs/) directory.
@@ -22,7 +23,7 @@ Welcome to **CodeArena**, a real-time 1v1 competitive technical MCQ battle platf
    * Never trust client deadlines; timers are strictly server-authoritative.
    * Battle completion and user statistics updates must remain atomic and idempotent.
 5. **Dual-Authentication**:
-   * Support both registered Clerk accounts and HMAC-signed guest sessions.
+   * Support both registered users via Native JWT (Access Token 15m + Refresh Token 7d in HttpOnly cookie & DB hash) and cryptographic HMAC/JWT guest sessions.
    * Mock test tokens are strictly restricted to `NODE_ENV === 'test'`. Never allow backdoor tokens in `development` or `production`.
 
 ---
@@ -36,9 +37,9 @@ Welcome to **CodeArena**, a real-time 1v1 competitive technical MCQ battle platf
 | **Frontend UI, Pages & Zustand State** | [`docs/03-frontend-architecture.md`](docs/03-frontend-architecture.md) |
 | **Backend Modules, Services & Error Handling** | [`docs/04-backend-architecture.md`](docs/04-backend-architecture.md) |
 | **MongoDB Collections, Schemas & Indexes** | [`docs/05-database-architecture.md`](docs/05-database-architecture.md) |
-| **Authentication, Clerk & Guest Tokens** | [`docs/06-authentication-security.md`](docs/06-authentication-security.md) |
+| **Authentication, Native JWT & Guest Tokens** | [`docs/06-authentication-security.md`](docs/06-authentication-security.md) |
 | **Socket.IO Gateway & Real-Time Events** | [`docs/07-realtime-socket-architecture.md`](docs/07-realtime-socket-architecture.md) |
-| **1v1 Battle Mechanics, Timers & Scoring** | [`docs/08-battle-engine.md`](docs/08-battle-engine.md) |
+| **1–4 Player Quiz Engine, Timers & Scoring** | [`docs/08-battle-engine.md`](docs/08-battle-engine.md) |
 | **REST API Endpoints & Schemas** | [`docs/09-api-reference.md`](docs/09-api-reference.md) |
 | **Environment Variables & Zod Validation** | [`docs/10-environment-configuration.md`](docs/10-environment-configuration.md) |
 | **Local Development & Question Seeding** | [`docs/11-development-guide.md`](docs/11-development-guide.md) |
@@ -56,10 +57,11 @@ Before concluding any task:
 # 1. Type-check backend
 cd server && npm run build
 
-# 2. Run test suites
-npm run test:security
-npm run test:guest
-npm run test:task2-1
+# 2. Run core test suites
+npm run test:native-auth
+npx tsx src/scripts/verify-multiplayer-quiz.ts
+npx tsx src/scripts/verify-category-subject-system.ts
+npx tsx src/scripts/verify-quiz-configuration.ts
 
 # 3. Type-check frontend
 cd ../client && npm run build

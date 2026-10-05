@@ -1,6 +1,6 @@
 # CodeArena — Documentation Index
 
-Welcome to the comprehensive, single-source-of-truth documentation repository for **CodeArena**, a real-time 1v1 competitive MCQ battle platform.
+Welcome to the comprehensive, single-source-of-truth documentation repository for **CodeArena**, a real-time 1–4 player multiplayer competitive general-purpose quiz platform.
 
 ---
 
@@ -13,10 +13,10 @@ Welcome to the comprehensive, single-source-of-truth documentation repository fo
 | **02** | [System Architecture](02-system-architecture.md) | High-level topology, client-server interaction models, dual transport design (HTTP/WebSocket), and fault tolerance. |
 | **03** | [Frontend Architecture](03-frontend-architecture.md) | Next.js 16 App Router hierarchy, route groups, feature modules, Zustand state management, and UI design tokens. |
 | **04** | [Backend Architecture](04-backend-architecture.md) | Layered modular monolith (Routes $\rightarrow$ Controllers $\rightarrow$ Services $\rightarrow$ Repositories), centralized error handling, and middleware pipelines. |
-| **05** | [Database Architecture](05-database-architecture.md) | MongoDB collections (`users`, `rooms`, `questions`, `battles`), Mongoose schemas, compound indexes, and atomic updates. |
-| **06** | [Authentication & Security](06-authentication-security.md) | Clerk authentication, custom guest sessions via timing-safe HMAC JWTs, RBAC policies, and rate limiting. |
+| **05** | [Database Architecture](05-database-architecture.md) | MongoDB collections (`users`, `categories`, `subjects`, `rooms`, `questions`, `battles`), Mongoose schemas, compound indexes, and atomic updates. |
+| **06** | [Authentication & Security](06-authentication-security.md) | Native JWT authentication (Access + Refresh tokens), custom guest sessions via timing-safe HMAC JWTs, RBAC policies, and rate limiting. |
 | **07** | [Real-Time Socket Architecture](07-realtime-socket-architecture.md) | Socket.IO gateway, handshake authentication, room coordination (`room:*`), live battle telemetry (`battle:*`), and connection recovery. |
-| **08** | [Battle Engine](08-battle-engine.md) | 1v1 match orchestrator, question selection with fallback, server timers, scoring logic, and atomic battle completion. |
+| **08** | [Quiz & Battle Engine](08-battle-engine.md) | 1–4 player match orchestrator, category/subject question selection, server timers, scoring logic, and atomic quiz completion. |
 | **09** | [API Reference](09-api-reference.md) | Complete REST API catalogue (`/auth`, `/users`, `/leaderboard`, `/questions`, `/rooms`, `/battles`, `/history`), payload schemas, and responses. |
 | **10** | [Environment Configuration](10-environment-configuration.md) | Client and server environment variable schemas, Zod validation rules, defaults, and secrets management. |
 | **11** | [Development Guide](11-development-guide.md) | Local development setup, prerequisite tooling, monorepo run commands, database seeding, and workflow etiquette. |
