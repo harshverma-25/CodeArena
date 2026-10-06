@@ -3,7 +3,7 @@
 ## 1. Dual-Authentication Architecture Overview
 
 CodeArena implements a **hybrid authentication model** designed to balance security with zero-friction user acquisition:
-1. **Native JWT Authentication**: Full account identity with email/username and bcrypt password hashing. Delivers an Access Token (15m expiry) and Refresh Token (7-day expiry in an HttpOnly cookie and hashed in the database).
+1. **Native JWT Authentication**: Full account identity with email/username and Node.js native cryptographic PBKDF2-SHA512 password hashing (`100,000` iterations, 64-byte key). Delivers a short-lived Access Token (15m expiry) and Refresh Token (7-day expiry in an HttpOnly cookie and hashed with SHA-256 in the database).
 2. **Secure Guest Authentication**: Zero-login, session-based access powered by backend-signed, timing-safe HMAC SHA-256 JWTs.
 
 ```mermaid
@@ -36,13 +36,13 @@ flowchart TD
 ### 2.1 Registration & Login (`server/src/modules/auth/auth.service.ts`)
 1. **Registration** (`POST /api/v1/auth/register`):
    - Validates `email`, `username`, `password`, and optional `displayName`.
-   - Hashes password using `bcryptjs` with 10 salt rounds.
+   - Hashes password using Node.js native `crypto.pbkdf2Sync(password, salt, 100000, 64, 'sha512')` storing a `${salt}:${hash}` string.
    - Creates a new `UserModel` document with `role: 'user'` and `isGuest: false`.
 2. **Login** (`POST /api/v1/auth/login`):
    - Supports logging in via either `email` or `username`.
-   - Verifies password hash using `bcryptjs.compare`.
+   - Verifies password hash using `crypto.pbkdf2Sync` and `crypto.timingSafeEqual`.
    - Generates an Access Token (15 min) and Refresh Token (7 days).
-   - Hashes the Refresh Token and stores it in `UserModel.refreshTokenHash`.
+   - Hashes the Refresh Token with SHA-256 and stores it in `UserModel.refreshTokenHash`.
    - Sets the Refresh Token in a secure `HttpOnly`, `SameSite=Lax` cookie (`refreshToken`).
    - Returns the Access Token and user payload.
 
@@ -50,7 +50,7 @@ flowchart TD
 1. **Token Refresh** (`POST /api/v1/auth/refresh`):
    - Reads Refresh Token from cookie (or request body).
    - Verifies signature against `JWT_REFRESH_SECRET`.
-   - Looks up user and verifies token against `refreshTokenHash`.
+   - Looks up user and verifies token against `refreshTokenHash` using SHA-256.
    - Issues a fresh Access Token.
 2. **Logout** (`POST /api/v1/auth/logout`):
    - Clears `refreshTokenHash` from the database.

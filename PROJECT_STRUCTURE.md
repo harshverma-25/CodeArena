@@ -1,6 +1,7 @@
 # CodeArena - Complete Repository Structural Inventory
 
-This document provides a comprehensive structural inventory of the entire **CodeArena** repository. It catalogues every directory, subdirectory, and file across the frontend, backend, configuration, scripts, documentation, and root files.
+> [!NOTE]
+> **Reference Document**: This structural inventory catalogues repository components across evolution phases. For active architecture and design, consult [`docs/INDEX.md`](docs/INDEX.md).
 
 ---
 

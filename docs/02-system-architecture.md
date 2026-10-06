@@ -22,12 +22,12 @@ flowchart TB
         MW["Auth Middleware & Rate Limiting"]
         RestAPI["REST Controllers & Services"]
         SocketGateway["Socket.IO Event Handlers"]
-        Engine["Battle Orchestrator & Timers"]
+        Engine["Quiz Orchestrator & Timers"]
     end
 
     subgraph DataLayer ["Persistence & External Services"]
         Mongo[("MongoDB Database\n(Mongoose ODM)")]
-        Clerk["Clerk Identity Cloud"]
+        AuthService["Native PBKDF2 & JWT Auth"]
         Dicebear["Dicebear Avatar Service"]
     end
 
@@ -43,7 +43,7 @@ flowchart TB
 
     RestAPI --> Mongo
     Engine --> Mongo
-    RestAPI --> Clerk
+    RestAPI --> AuthService
     RestAPI --> Dicebear
 ```
 
@@ -55,19 +55,22 @@ The platform divides responsibilities between two transport layers to maximize r
 
 ### 2.1 HTTP / REST Transport
 Used for **idempotent, cacheable, or transactional queries**:
+* Native authentication (`/api/v1/auth/register`, `/login`, `/refresh`, `/logout`, `/me`).
 * User profile resolution and authenticated settings updates (`/api/v1/users/me`).
 * Paginated global leaderboard browsing with compound database indexes (`/api/v1/leaderboard`).
-* Historical match analysis and detailed per-question reviews (`/api/v1/history/:battleId`).
-* Public question bank browsing (`/api/v1/questions`).
+* Historical match analysis and detailed per-question reviews (`/api/v1/history/:battleId` or `/api/v1/matches/:id`).
+* Category and subject discovery (`/api/v1/categories`, `/api/v1/categories/:id/subjects`).
+* Question bank browsing (`/api/v1/questions`).
 * Guest session provisioning (`/api/v1/auth/guest`).
 * Room creation (`POST /api/v1/rooms`).
 
 ### 2.2 WebSocket (Socket.IO) Transport
 Used for **low-latency, real-time bidirectional communication**:
-* Room lobby synchronization (player join notifications, readiness toggles).
-* Live countdown and battle initiation handshakes.
+* Room lobby synchronization (player join notifications, readiness toggles, settings updates).
+* Live countdown and quiz initiation handshakes (`room:start_battle`, `battle:init`).
 * Question delivery (`battle:init`, `battle:next_question`).
-* Opponent telemetry (`battle:opponent_progress`).
+* Answer submission & locks (`battle:submit_answer`, `battle:answer_locked`).
+* Synchronized round reveal telemetry (`battle:player_submitted`, `battle:reveal`).
 * Server question timeout signals.
 * Final battle conclusion broadcasting (`battle:completed`).
 
@@ -80,13 +83,13 @@ sequenceDiagram
     participant Browser as Browser Client
     participant Rest as Express REST API
     participant Socket as Socket.IO Gateway
-    participant Clerk as Clerk Cloud
     participant DB as MongoDB
 
-    Note over Browser,Clerk: 1. Authentication Handshake
+    Note over Browser,Rest: 1. Authentication Handshake
     alt Registered User
-        Browser->>Clerk: Authenticate credentials
-        Clerk-->>Browser: Session JWT
+        Browser->>Rest: POST /api/v1/auth/login
+        Rest->>DB: Verify credentials (PBKDF2-SHA512)
+        Rest-->>Browser: Access Token (JSON) + Refresh Token (HttpOnly Cookie)
     else Guest User
         Browser->>Rest: POST /api/v1/auth/guest
         Rest-->>Browser: Signed HMAC Guest Token
@@ -94,14 +97,14 @@ sequenceDiagram
 
     Note over Browser,Socket: 2. WebSocket Connection
     Browser->>Socket: Connect ws://localhost:5000 (auth: { token })
-    Socket->>Socket: Validate token (Clerk verifyToken OR Guest HMAC)
+    Socket->>Socket: Validate token (Native JWT OR Guest HMAC)
     Socket->>DB: Resolve / Sync User Document
     Socket-->>Browser: Connection Established (socket.id)
 
     Note over Browser,Socket: 3. Room & Battle Event Flow
     Browser->>Socket: emit("room:join", { roomCode })
     Socket->>Socket: Join socket to "room:{roomCode}"
-    Socket-->>Browser: emit("room:player_joined")
+    Socket-->>Browser: emit("room:update", roomPayload)
 ```
 
 ---
@@ -110,9 +113,9 @@ sequenceDiagram
 
 ### 4.1 Authoritative Server Clock & Timer Resilience
 All question countdowns run as native server-side timers (`setTimeout`) maintained in memory (`Map<string, NodeJS.Timeout>`). If a client experiences network stutter or tab throttling:
-* The server deadline timer fires independently.
+* The server deadline timer fires independently based on category duration (Programming: 30s, Aptitude: 60s, GK: 30s).
 * The server writes an unanswered entry (`-1`) to MongoDB.
-* The server advances the question queue and alerts the room.
+* The server reveals answers, advances the question queue, and alerts the room.
 
 ### 4.2 Idempotent State Transitions
 To prevent double-counting statistics under concurrent socket answer submissions:
@@ -127,15 +130,15 @@ To prevent double-counting statistics under concurrent socket answer submissions
 
 ### 4.3 Graceful Connection Recovery
 If a user disconnects mid-battle:
-1. The server notifies the remaining player via `player:disconnected`.
-2. The disconnected user can reconnect; upon sending `battle:join`, the server returns their exact current question and remaining deadline.
+1. The server notifies the room participants via `player:disconnected`.
+2. The disconnected user can reconnect; upon sending `battle:reconnect` or rejoining, the server returns their current round context and remaining deadline.
 
 ---
 
 ## 5. Security & Boundary Separation
 
 * **Network Boundary**: Express uses CORS configuration (`CORS_ORIGIN`) and custom security headers (`X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `X-XSS-Protection`).
-* **Authentication Boundary**: Routes and sockets require either a valid Clerk session token or an HMAC-signed guest token verified with `GUEST_JWT_SECRET`.
+* **Authentication Boundary**: Routes and sockets require either a valid Native JWT access token (`JWT_ACCESS_SECRET`) or an HMAC-signed guest token verified with `GUEST_JWT_SECRET`.
 * **Data Boundary**: Questions in active battles are sanitized to strip `correctAnswer` and `explanation`.
 
 ---

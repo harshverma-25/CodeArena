@@ -1,5 +1,8 @@
 # CodeArena Repository Audit & Codebase Organization Report
 
+> [!NOTE]
+> **Historical / Migration Reference**: This document reflects forensic findings and audit notes from earlier modernization phases. For current single-source-of-truth platform documentation, see [`docs/INDEX.md`](docs/INDEX.md).
+
 **Date:** October 2026  
 **Auditor:** Antigravity Pairing Agent  
 **Target Repository:** `CodeArena` (`harshverma-25/DSA-Tracker`)  

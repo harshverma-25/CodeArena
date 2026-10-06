@@ -20,10 +20,11 @@ All REST API endpoints in CodeArena are versioned under the `/api/v1` prefix (wi
 
 ## 2. Authentication Headers
 
-Protected endpoints require an `Authorization` header containing either a Clerk Session JWT or a backend-signed Guest Token:
+Protected endpoints require an `Authorization` header containing either a Native JWT Access Token or a backend-signed Guest Token:
 ```http
 Authorization: Bearer <token>
 ```
+The token refresh endpoint additionally accepts the `refreshToken` HttpOnly cookie.
 
 ---
 
@@ -54,49 +55,83 @@ Checks server uptime, environment, and MongoDB connection status.
 
 ### 3.2 Authentication (`/api/v1/auth`)
 
-#### `POST /api/v1/auth/guest`
-Creates a temporary, zero-credential guest session.
+#### `POST /api/v1/auth/register`
+Registers a new user account with cryptographic PBKDF2 password hashing.
 * **Auth**: None (Public)
+* **Request Body**:
+  ```json
+  {
+    "email": "coder@example.com",
+    "username": "codemaster",
+    "password": "StrongPassword123!",
+    "displayName": "Code Master"
+  }
+  ```
+* **Response (201 Created)**: Returns access token, user profile, and sets HttpOnly `refreshToken` cookie.
+
+#### `POST /api/v1/auth/login`
+Authenticates an existing user via email or username.
+* **Auth**: None (Public)
+* **Request Body**:
+  ```json
+  {
+    "login": "coder@example.com",
+    "password": "StrongPassword123!"
+  }
+  ```
+* **Response (200 OK)**: Returns access token, user profile, and sets HttpOnly `refreshToken` cookie.
+
+#### `POST /api/v1/auth/refresh`
+Refreshes an expired access token using the valid refresh token from cookie or body.
+* **Auth**: None (Cookie or Body)
+* **Response (200 OK)**: Returns new `accessToken`.
+
+#### `POST /api/v1/auth/logout`
+Logs out the user, invalidating the refresh token in the database and clearing the cookie.
+* **Auth**: Optional
+* **Response (200 OK)**: Confirms logout.
+
+#### `GET /api/v1/auth/me`
+Retrieves the currently authenticated user's session record.
+* **Auth**: Required (`Bearer <token>`)
+* **Response (200 OK)**: Returns current user object.
+
+#### `POST /api/v1/auth/guest`
+Creates a temporary, zero-credential guest session signed with HMAC-SHA256.
+* **Auth**: None (Public, rate limited: 20 per 15 min per IP)
 * **Request Body** (optional):
   ```json
   {
-    "displayName": "CustomNinja"
+    "displayName": "QuizNinja"
   }
   ```
-* **Response (201 Created)**:
-  ```json
-  {
-    "success": true,
-    "statusCode": 201,
-    "message": "Guest session created successfully.",
-    "data": {
-      "token": "header.payload.signature",
-      "expiresIn": 86400,
-      "user": {
-        "userId": "6a6e1d0fc4f7b7170e2a6fca",
-        "username": "guest_40a9f2",
-        "displayName": "Guest 40A9F2",
-        "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=guest_40a9f2",
-        "role": "guest",
-        "isGuest": true
-      }
-    }
-  }
-  ```
+* **Response (201 Created)**: Returns guest token and guest user profile.
 
 ---
 
-### 3.3 Users & Leaderboard (`/api/v1/users` & `/api/v1/leaderboard`)
+### 3.3 Categories & Subjects (`/api/v1/categories`)
+
+#### `GET /api/v1/categories`
+Retrieves active quiz categories (`programming`, `aptitude`, `general-knowledge`).
+* **Auth**: None (Public)
+* **Response (200 OK)**: Returns list of categories with IDs, names, slugs, and icons.
+
+#### `GET /api/v1/categories/:categoryId/subjects`
+Retrieves active subjects under a specific category.
+* **Auth**: None (Public)
+* **Response (200 OK)**: Returns array of subjects for the specified category.
+
+---
+
+### 3.4 Users & Leaderboard (`/api/v1/users` & `/api/v1/leaderboard`)
 
 #### `GET /api/v1/users/me`
 Retrieves the full authenticated user record.
 * **Auth**: Required (`Bearer <token>`)
-* **Response (200 OK)**: Returns full `IUserDocument`.
 
 #### `GET /api/v1/users/profile/me`
 Retrieves authenticated user's calculated statistics and match history.
 * **Auth**: Required (`Bearer <token>`)
-* **Response (200 OK)**: Returns [`IPublicUserProfile`](file:///h:/Project/code-arena/server/src/modules/user/user.types.ts#L46-L80).
 
 #### `PATCH /api/v1/users/me`
 Updates display fields of the user profile.
@@ -111,72 +146,39 @@ Updates display fields of the user profile.
 
 #### `GET /api/v1/leaderboard` or `GET /api/v1/users/leaderboard`
 Retrieves the paginated global leaderboard.
-* **Auth**: Required (`Bearer <token>` — Clerk or Guest). Resolves `currentUserRank` for the calling user.
-* **Query Parameters**:
-  * `page` (integer, default: 1)
-  * `limit` (integer, default: 10, max: 100)
-* **Response (200 OK)**:
-  ```json
-  {
-    "success": true,
-    "statusCode": 200,
-    "message": "Leaderboard retrieved successfully.",
-    "data": {
-      "leaderboard": [
-        {
-          "rank": 1,
-          "userId": "6a6e1d0fc4f7b7170e2a6fca",
-          "username": "alice",
-          "displayName": "Alice",
-          "avatar": "...",
-          "wins": 15,
-          "losses": 2,
-          "draws": 1,
-          "battlesPlayed": 18,
-          "totalCorrect": 82,
-          "totalQuestions": 90,
-          "accuracy": 91,
-          "isCurrentUser": false
-        }
-      ],
-      "total": 45,
-      "page": 1,
-      "limit": 10,
-      "currentUserRank": { ... }
-    }
-  }
-  ```
+* **Auth**: Optional (`Bearer <token>` resolves `currentUserRank`)
+* **Query Parameters**: `page` (default: 1), `limit` (default: 10, max: 100)
 
 #### `GET /api/v1/users/profile/:username`
 Retrieves the public profile and recent completed battles for any user.
-* **Auth**: Required (`Bearer <token>` — Clerk or Guest)
-* **Response (200 OK)**: Returns user public stats and latest 10 battles.
+* **Auth**: Optional / Required
 
 ---
 
-### 3.4 Questions (`/api/v1/questions`)
+### 3.5 Questions (`/api/v1/questions`)
 
 #### `GET /api/v1/questions`
-Retrieves a paginated list of published questions.
-* **Auth**: Required (`Bearer <token>` — Clerk or Guest)
-* **Query Parameters**: `topic`, `difficulty`, `page`, `limit`.
-* **Note**: Correct answers and explanations are stripped (`ISanitizedQuestion`).
+Retrieves a paginated list of published questions (answers and explanations stripped).
+* **Auth**: Required (`Bearer <token>`)
+* **Query Parameters**: `categoryId`, `subjectId`, `difficulty`, `page`, `limit`.
 
 #### `GET /api/v1/questions/:questionId`
 Retrieves a single sanitized question by its unique ID.
-* **Auth**: Required (`Bearer <token>` — Clerk or Guest)
+* **Auth**: Required (`Bearer <token>`)
 
 ---
 
-### 3.5 Rooms (`/api/v1/rooms`)
+### 3.6 Rooms (`/api/v1/rooms`)
 
 #### `POST /api/v1/rooms`
-Creates a new matchmaking room.
+Creates a new matchmaking room (supports 1–4 players).
 * **Auth**: Required (`Bearer <token>`)
 * **Request Body**:
   ```json
   {
-    "topic": "javascript",
+    "categoryId": "67...",
+    "subjectId": "67...",
+    "isMixedCategory": false,
     "difficulty": "Medium",
     "questionCount": 10,
     "duration": 30
@@ -193,69 +195,48 @@ Joins an existing matchmaking room.
     "roomCode": "K8L9M0"
   }
   ```
-* **Response (200 OK)**: Returns joined room with current player list.
 
 #### `GET /api/v1/rooms/:roomCode`
-Retrieves current room details and player list.
+Retrieves current room details and player list (1–4 players).
 * **Auth**: Required (`Bearer <token>`)
-* **Response (200 OK)**: Returns current `IRoomDocument`.
 
 #### `PATCH /api/v1/rooms/:roomCode/settings`
 Updates room configurations (Host only).
 * **Auth**: Required (`Bearer <token>`, must be Room Host)
-* **Request Body**:
-  ```json
-  {
-    "topic": "javascript",
-    "difficulty": "Hard",
-    "duration": 45,
-    "questionCount": 15
-  }
-  ```
-* **Response (200 OK)**: Returns updated room document and broadcasts `room:update` via Socket.IO.
 
 #### `PATCH /api/v1/rooms/:roomCode/ready`
 Toggles ready status for the authenticated player in the room.
 * **Auth**: Required (`Bearer <token>`)
-* **Request Body**:
-  ```json
-  {
-    "isReady": true
-  }
-  ```
-* **Response (200 OK)**: Returns updated room document with modified readiness status and emits `room:update`.
 
 #### `POST /api/v1/rooms/:roomCode/leave`
-Gracefully leaves a room lobby. If the host leaves, host role is transferred; if empty, the room is deleted.
+Gracefully leaves a room lobby.
 * **Auth**: Required (`Bearer <token>`)
-* **Response (200 OK)**: Returns updated room state or deletion message.
 
 #### `DELETE /api/v1/rooms/:roomCode`
 Closes and deletes the room (Host only).
 * **Auth**: Required (`Bearer <token>`, must be Room Host)
-* **Response (200 OK)**: Confirms room deletion.
 
 ---
 
-### 3.6 Battles (`/api/v1/battles` & `/api/v1/matches`)
+### 3.7 Battles (`/api/v1/battles` & `/api/v1/matches`)
 
-#### `POST /api/v1/battles/start` (Alias: `POST /api/v1/matches/start`)
+#### `POST /api/v1/battles/start` (Compatibility Alias: `POST /api/v1/matches/start`)
 Initiates and creates the real-time battle for the specified room.
-* **Auth**: Required (`Bearer <token>`, must be Room Host, room status must be `READY`, both players must be ready)
+* **Auth**: Required (`Bearer <token>`, must be Room Host)
 * **Request Body**:
   ```json
   {
     "roomCode": "K8L9M0"
   }
   ```
-* **Response (200 OK)**: Returns initialized battle document, transitions room status to `IN_PROGRESS`, and triggers `battle:init` to each connected player over Socket.IO.
+* **Response (200 OK)**: Returns initialized battle document, transitions room status to `IN_PROGRESS`, and triggers `battle:init` over Socket.IO.
 
 ---
 
-### 3.7 Match History (`/api/v1/history`)
+### 3.8 Match History (`/api/v1/history`)
 
 #### `GET /api/v1/history`
-Retrieves paginated battle history for the authenticated user.
+Retrieves paginated battle history for the authenticated user (queried from `BattleModel`).
 * **Auth**: Required (`Bearer <token>`)
 * **Query Parameters**: `page` (default: 1), `limit` (default: 10).
 
@@ -265,7 +246,7 @@ Retrieves detailed, post-match question-by-question review with correct answers 
 
 ---
 
-### 3.8 Interactive Documentation (`/api`)
+### 3.9 Interactive Documentation (`/api`)
 
 * **`GET /api/docs`**: Serves Swagger UI web interface.
 * **`GET /api/swagger.json`**: Serves raw OpenAPI 3.0 specification.

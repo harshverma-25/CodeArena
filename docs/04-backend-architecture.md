@@ -2,14 +2,15 @@
 
 ## 1. Architectural Philosophy: Layered Modular Monolith
 
-The CodeArena backend (`server/`) is structured as a **strictly layered, domain-modular monolith** written in TypeScript. Each business domain (e.g., `user`, `battle`, `room`, `question`, `history`) encapsulates its own controllers, services, repositories, and schemas while sharing standardized error handling, validation, and logging utilities.
+The CodeArena backend (`server/`) is structured as a **strictly layered, domain-modular monolith** written in TypeScript. Each business domain (e.g., `auth`, `category`, `user`, `leaderboard`, `battle`, `room`, `question`, `history`) encapsulates its own controllers, services, repositories, and schemas while sharing standardized error handling, validation, and logging utilities.
 
 ```mermaid
 graph TD
     Request["Incoming HTTP Request"] --> SecurityMW["Security Headers & Rate Limiting"]
-    SecurityMW --> ClerkMW["Clerk Middleware (Session Parsing)"]
-    ClerkMW --> Router["Module Router (e.g., room.routes.ts)"]
-    Router --> Validator["Zod Request Validation Middleware"]
+    SecurityMW --> CookieMW["Cookie Parser & Request Logger"]
+    CookieMW --> Router["Module Router (e.g., room.routes.ts)"]
+    Router --> AuthMW["Auth Middleware (authenticate / optionalAuth)"]
+    AuthMW --> Validator["Zod Request Validation Middleware"]
     Validator --> Controller["Controller Layer (e.g., RoomController)"]
     Controller --> Service["Service Layer (e.g., RoomService)"]
     Service --> Repository["Repository Layer (e.g., RoomRepository)"]
@@ -35,7 +36,7 @@ The server entrypoint handles initialization and graceful shutdown:
 
 ## 3. Express Application Configuration (`server/src/app.ts`)
 
-The Express application registers global middleware in a strict order:
+The Express application registers global middleware and domain routes in a strict order:
 
 ```typescript
 // 1. Trust proxy for reverse proxies / load balancers
@@ -55,14 +56,17 @@ app.use((req, res, next) => {
 // 3. Global Rate Limiter
 app.use(rateLimiter);
 
-// 4. CORS & Body Parsers
-app.use(cors({ origin: process.env.CORS_ORIGIN || '*', credentials: true }));
+// 4. CORS & Cookie Parser
+app.use(cors({
+  origin: process.env.CORS_ORIGIN && process.env.CORS_ORIGIN !== '*' ? process.env.CORS_ORIGIN : true,
+  credentials: true,
+}));
+app.use(cookieParser());
+
+// 5. Body Parsers & Request Logging
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// 5. Logging & Clerk Session Parsing
 app.use(requestLogger);
-app.use(clerkMiddleware());
 
 // 6. Health Checks
 app.get('/health', ...);
@@ -70,12 +74,13 @@ app.get('/api/v1/health', ...);
 
 // 7. Domain Routes Mounting
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/categories', categoryRoutes);
 app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/leaderboard', userRoutes);
+app.use('/api/v1/leaderboard', leaderboardRoutes);
 app.use('/api/v1/questions', questionRoutes);
 app.use('/api/v1/rooms', roomRoutes);
 app.use('/api/v1/battles', battleRoutes);
-app.use('/api/v1/matches', battleRoutes); // Alias
+app.use('/api/v1/matches', battleRoutes); // Compatibility alias
 app.use('/api/v1/history', historyRoutes);
 app.use('/api', docsRoutes);
 
@@ -90,12 +95,14 @@ app.use(errorHandler);
 
 | Module | Core Responsibility | Key Files |
 | :--- | :--- | :--- |
-| **`auth/`** | Manages guest session generation, timing-safe HMAC token signing, and guest role validation. | `auth.routes.ts`, `auth.controller.ts`, `auth.service.ts` |
-| **`user/`** | Syncs Clerk users to MongoDB, manages profile updates, provides indexed global leaderboard and rank calculation. | `user.routes.ts`, `user.controller.ts`, `user.service.ts`, `user.repository.ts`, `user.model.ts` |
-| **`question/`** | Maintains MCQ bank, filters by topic/difficulty, sanitizes answers, and seeds initial datasets. | `question.routes.ts`, `question.controller.ts`, `question.service.ts`, `question.repository.ts`, `question.model.ts` |
-| **`room/`** | Generates unique room codes, manages waiting lobbies, player readiness, and game initiation. | `room.routes.ts`, `room.controller.ts`, `room.service.ts`, `room.repository.ts`, `room.model.ts` |
-| **`battle/`** | Real-time battle engine, anti-cheat question dispatch, server timeout orchestration, and atomic finalization. | `battle.routes.ts`, `battle.controller.ts`, `battle.service.ts`, `battle.repository.ts`, `battle.model.ts` |
-| **`history/`** | Tracks completed match records, per-player scores, durations, and post-match question explanations. | `history.routes.ts`, `history.controller.ts`, `history.service.ts`, `history.repository.ts` |
+| **`auth/`** | Native user registration/login, PBKDF2 password verification, JWT access tokens, HttpOnly refresh cookies, and guest HMAC session provisioning. | `auth.routes.ts`, `auth.controller.ts`, `auth.service.ts` |
+| **`category/`** | Manages quiz categories (`programming`, `aptitude`, `general-knowledge`), hierarchical subjects, and seed discovery. | `category.routes.ts`, `category.controller.ts`, `category.service.ts`, `category.repository.ts`, `category.model.ts` |
+| **`user/`** | User profile retrieval and management, avatar updates, win/loss stats, and rank calculation. | `user.routes.ts`, `user.controller.ts`, `user.service.ts`, `user.repository.ts`, `user.model.ts` |
+| **`leaderboard/`** | Paginated global leaderboard browsing indexed by wins, accuracy, and battles played. | `leaderboard.routes.ts`, `leaderboard.controller.ts`, `leaderboard.service.ts` |
+| **`question/`** | Maintains MCQ bank, filters by category/subject, sanitizes answers, and seeds question datasets. | `question.routes.ts`, `question.controller.ts`, `question.service.ts`, `question.repository.ts`, `question.model.ts` |
+| **`room/`** | Generates unique 6-character room codes, manages 1–4 player lobbies, player readiness, settings updates, and game initiation. | `room.routes.ts`, `room.controller.ts`, `room.service.ts`, `room.repository.ts`, `room.model.ts` |
+| **`battle/`** | Real-time quiz battle engine, anti-cheat question dispatch, server timer orchestration, answer verification, synchronized round reveals, and atomic finalization. | `battle.routes.ts`, `battle.controller.ts`, `battle.service.ts`, `battle.repository.ts`, `battle.model.ts` |
+| **`history/`** | Queries completed match records from `BattleModel`, per-player scores/ranks, durations, and post-match question explanations. | `history.routes.ts`, `history.controller.ts`, `history.service.ts`, `history.repository.ts` |
 | **`docs/`** | Serves OpenAPI 3.0 specification JSON and interactive Swagger UI documentation. | `docs.routes.ts`, `openapi.ts` |
 
 ---

@@ -38,10 +38,9 @@ This document provides a transparent, engineering-level inventory of active tech
 * **Current Behavior**: The battle engine's 2-tier fallback algorithm gracefully relaxes difficulty and topic constraints to ensure matches always start.
 * **Remediation Plan**: Expand the question bank seed files in `server/src/scripts/questions/` to provide at least 50 questions per topic/difficulty permutation.
 
-### 2.5 Root `README.md` Inaccuracy
-* **Status**: Scheduled for rewrite.
-* **Context**: The root `README.md` still describes an obsolete competitive coding platform with Judge0 sandbox execution.
-* **Remediation Plan**: Rewrite `README.md` to reflect the 1v1 MCQ battle platform once documentation in `docs/` is verified.
+### 2.5 Documentation Synchronization (Fix Group 10)
+* **Status**: Resolved.
+* **Context**: Root `README.md` and `docs/` have been synchronized to accurately document the 1–4 player multiplayer quiz platform, native PBKDF2/JWT auth, category/subject system, and speed scoring rules. All legacy Clerk and Judge0 references have been audited.
 
 ---
 

@@ -64,19 +64,18 @@ flowchart TD
         Mongoose["Mongoose ODM v8"]
         Zod["Zod Validation"]
         Pino["Pino Logger"]
-        ClerkSDK["@clerk/express"]
+        NativeAuth["Native JWT & PBKDF2 / Guest HMAC"]
     end
 
     subgraph Infrastructure ["Infrastructure"]
         MongoDB[(MongoDB Database)]
-        ClerkService[Clerk Cloud Auth]
         Dicebear[Dicebear Avatar API]
     end
 
     Next <--> Express
     SocketClient <--> SocketServer
     Express --> Mongoose --> MongoDB
-    Express --> ClerkSDK --> ClerkService
+    Express --> NativeAuth
     Express --> Dicebear
 ```
 
@@ -91,10 +90,9 @@ flowchart TD
   * **HTTP Server**: Express.js v4.19 with custom security headers and centralized error propagation.
   * **Real-Time Gateway**: Socket.IO v4.7 with handshake JWT authentication.
   * **Database & ODM**: MongoDB with Mongoose v8.5.
-  * **Validation & Security**: Zod for environment and request schemas; crypto HMAC for guest JWT verification.
+  * **Validation & Security**: Zod for environment and request schemas; Node.js `crypto` for PBKDF2 password hashing and HMAC-SHA256 guest token verification.
 * **Third-Party Services**:
-  * **Clerk**: Identity management, user directory, and session tokens.
-  * **Dicebear**: Procedural SVG avatar generator for guest player accounts.
+  * **Dicebear**: Procedural SVG avatar generator for user and guest player accounts.
 
 ---
 

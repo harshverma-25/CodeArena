@@ -6,17 +6,18 @@ The **Quiz & Battle Engine** ([`server/src/modules/battle/battle.service.ts`](fi
 
 Its responsibilities include:
 1. **Dynamic Question Selection**: Sampling non-overlapping, balanced questions across Categories, Subjects, and Mixed pools.
-2. **Synchronized Round Flow**: Dispatches identical questions to all 1–4 players simultaneously.
+2. **Synchronized Round Flow**: Dispatches identical questions to all 1–4 players simultaneously (`battle:init` for round 1, `battle:next_question` for subsequent rounds).
 3. **Anti-Cheat Enforcement**: Sanitizing questions and managing server-side deadlines.
 4. **Category-Based Timers**: Managing per-question timeouts (Programming: 30s, Aptitude: 60s, GK: 30s) independently of client clocks.
-5. **Server-Authoritative Scoring**: Evaluating submitted answers with a speed-and-accuracy scoring model (up to 1000 points per question).
-6. **Synchronized Reveal & Rankings**: Revealing correct answers simultaneously across all players and calculating dynamic Rank 1–4 podium standings with tie-handling.
+5. **Server-Authoritative Scoring**: Evaluating submitted answers with a speed-adjusted scoring model:
+   $$\text{score} = \max(100, \text{round}(1000 - \text{elapsedSeconds} \times 30))$$
+6. **Synchronized Reveal & Rankings**: Revealing correct answers simultaneously across all players (`battle:reveal`) and calculating dynamic Rank 1–4 podium standings with tie-handling.
 7. **Idempotent Atomic Finalization**: Concluding matches and updating player statistics safely.
 
 ```mermaid
 stateDiagram-v2
-    [*] --> IN_PROGRESS: Host calls POST /api/v1/battles/start (or room:start_battle)
-    IN_PROGRESS --> QuestionLoop: Question delivered (battle:init & battle:round_start)
+    [*] --> IN_PROGRESS: Host calls room:start_battle (or POST /api/v1/battles/start)
+    IN_PROGRESS --> QuestionLoop: Question delivered (battle:init / battle:next_question)
     
     state QuestionLoop {
         [*] --> AwaitingAnswers: Synchronized timer running
@@ -38,7 +39,7 @@ stateDiagram-v2
 ## 2. Question Sampling & Hierarchy Algorithm
 
 When a quiz is created, the engine selects questions based on room configuration:
-1. **Specific Subject Mode**: Samples questions directly matching `categoryId` and `subjectId`.
+1. **Specific Subject Mode**: Samples questions directly matching `categoryId` and `subjectId` where `isPublished: true`.
 2. **Mixed Category Mode**: Samples randomly across all active subjects within the selected `categoryId`.
 3. **Question Count**: Validates availability for configured length: 10, 15, or 20 questions.
 4. **Fallback Tier**: If question pool is insufficient, pulls from broader category questions to ensure complete quiz delivery.
@@ -61,12 +62,20 @@ To eliminate client-side clock tampering and match subject complexity:
 ## 4. Answer Evaluation & Live Scoring
 
 Upon receiving `battle:submit_answer`:
-1. **Deadline Check**: Compares submission time against server authoritative deadline.
-2. **Duplicate Check**: Prevents players from modifying an already locked answer.
-3. **Scoring Formula**:
-   - Correct answer: Base score (500 pts) + Speed bonus (up to 500 pts based on elapsed time ratio). Maximum 1000 points.
-   - Incorrect or Unanswered: 0 points.
-4. **State Advancement**: Broadcasts `battle:player_submitted` progress to all players in the room.
+1. **Deadline Check**: Compares submission time against the server authoritative deadline.
+2. **Duplicate Check**: Prevents players from modifying an already locked answer (`activeRound.submissions.has(userId)`).
+3. **Question Match Check**: Validates that `questionId` matches the currently active round.
+4. **Scoring Formula**:
+   - Dynamic Server-Authoritative Formula: Starts at 1000 points and decreases by 30 points per second elapsed from round start, with a minimum floor of 100 points:
+     ```typescript
+     const potentialScore = Math.max(100, Math.round(1000 - elapsedSec * 30));
+     const awardedScore = isCorrect ? potentialScore : 0;
+     ```
+   - Incorrect answer: `0` points.
+   - Unanswered / Timeout (`selectedOption: -1`): `0` points.
+5. **State Locks & Telemetry**:
+   - The submitting player receives `battle:answer_locked` with frozen `potentialScore`.
+   - Other room participants receive `battle:player_submitted` progress indicator.
 
 ---
 
@@ -74,14 +83,14 @@ Upon receiving `battle:submit_answer`:
 
 At the end of each round:
 1. The server broadcasts `battle:reveal` containing:
-   - Correct option index.
+   - Correct option index (0–3).
    - Detailed technical explanation.
-   - Points earned by each player in the round.
+   - Round points earned by each player.
    - Updated cumulative scores and intermediate rankings.
 2. At the conclusion of the final round, the server broadcasts `battle:completed`:
    - Final scores for all 1–4 players.
    - 1-indexed rankings (Rank 1, 2, 3, 4) with support for tied ranks.
-   - Accuracy percentages and answer breakdown.
+   - Accuracy percentages and question-by-question breakdown.
 
 ---
 
@@ -90,9 +99,10 @@ At the end of each round:
 | Mechanism | Enforcement Point | Cheating Vector Prevented |
 | :--- | :--- | :--- |
 | **Question Sanitization** | `questionService.sanitizeQuestion` | Memory scraping / DevTools inspection of correct answers and explanations. |
-| **Per-Round Delivery** | `battle:round_start` socket event | Scripting answers ahead of time. |
+| **Per-Round Delivery** | `battle:init` & `battle:next_question` | Scripting answers ahead of time. |
 | **Server Timers** | Node.js timers in `battle.service.ts` | Pausing local browser execution or tampering with client system clocks. |
 | **Atomic Completion** | MongoDB conditional `$ne: COMPLETED` | Socket replay attacks to duplicate win statistics. |
+| **Single Submission Lock** | In-memory `activeRound.submissions` map | Modifying answer after selection or double-submitting. |
 
 ---
 

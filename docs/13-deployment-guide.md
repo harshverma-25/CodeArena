@@ -5,8 +5,8 @@
 In production, CodeArena operates as a **decoupled web application and API service**:
 * **Frontend**: Next.js 16 application hosted on Vercel, AWS Amplify, or a Node.js runtime.
 * **Backend**: Express + Socket.IO server running on a Node.js environment (Render, Railway, AWS ECS, or DigitalOcean Droplet).
-* **Database**: MongoDB Atlas replica set with automated backups, monitoring, and index management.
-* **Auth**: Clerk Cloud for production identity and OAuth callbacks.
+* **Database**: MongoDB Atlas replica set with automated backups, monitoring, and compound index management.
+* **Auth**: Native PBKDF2/JWT service with HttpOnly refresh cookies and HMAC-SHA256 guest sessions.
 
 ```mermaid
 flowchart LR
@@ -18,7 +18,6 @@ flowchart LR
     
     LB --> NodeCluster["Node.js Backend (server/dist/server.js)"]
     NodeCluster --> MongoAtlas[("MongoDB Atlas Cluster")]
-    NodeCluster --> ClerkService["Clerk Identity Cloud"]
 ```
 
 ---
@@ -90,10 +89,11 @@ server {
 
 Before declaring production ready:
 1. **`NODE_ENV=production`**: Ensures stack traces are omitted from API error responses and development backdoor tokens are disabled.
-2. **`GUEST_JWT_SECRET`**: Set to a cryptographically secure, high-entropy 64-character random string.
-3. **`CORS_ORIGIN`**: Explicitly set to the frontend production domain (e.g. `https://codearena.dev`), never `*`.
-4. **Database Indexes**: Verify indexes were created by running `server/src/scripts/check-indexes.ts` or monitoring via MongoDB Atlas.
-5. **Question Seeding**: Ensure the question bank is seeded via `npm run seed:questions`.
+2. **`JWT_ACCESS_SECRET` & `JWT_REFRESH_SECRET`**: Set to high-entropy 64-character random strings.
+3. **`GUEST_JWT_SECRET`**: Set to a cryptographically secure, high-entropy 64-character random string.
+4. **`CORS_ORIGIN`**: Explicitly set to the frontend production domain (e.g. `https://codearena.dev`), never `*`.
+5. **Database Indexes**: Verify compound indexes exist for leaderboard, questions, and categories.
+6. **Category & Question Seeding**: Ensure categories (`npx tsx src/scripts/seed-categories.ts`) and questions (`npm run seed:questions`) are seeded.
 
 ---
 

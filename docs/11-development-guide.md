@@ -6,7 +6,6 @@ To run and develop CodeArena locally, ensure your environment meets the followin
 * **Node.js**: `v20.0.0` or higher.
 * **npm**: `v10.0.0` or higher.
 * **MongoDB**: A running instance (local on `mongodb://127.0.0.1:27017` or MongoDB Atlas URI).
-* **Clerk Account**: Free tier developer account at [clerk.com](https://clerk.com) for authentication keys.
 
 ---
 
@@ -17,8 +16,9 @@ flowchart TD
     Clone["1. Clone Repository"] --> InstallServer["2. Install server/ Dependencies"]
     InstallServer --> InstallClient["3. Install client/ Dependencies"]
     InstallClient --> ConfigEnv["4. Setup .env & .env.local"]
-    ConfigEnv --> SeedDB["5. Seed Question Bank (npm run seed:questions)"]
-    SeedDB --> RunServers["6. Launch Dev Servers (client & server)"]
+    ConfigEnv --> SeedCategories["5. Seed Categories & Subjects"]
+    SeedCategories --> SeedQuestions["6. Seed Question Bank (npm run seed:questions)"]
+    SeedQuestions --> RunServers["7. Launch Dev Servers (client & server)"]
 ```
 
 ### Step 1: Clone Repository
@@ -48,15 +48,20 @@ cp .env.example .env
 # In client/
 cp .env.example .env.local
 ```
-*(Populate your Clerk API keys in both files. See [10 — Environment Configuration](10-environment-configuration.md) for variable definitions).*
+*(Configure `MONGODB_URI` and JWT secrets in `server/.env`. See [10 — Environment Configuration](10-environment-configuration.md) for variable definitions).*
 
-### Step 4: Seed Question Bank
-Ingest the curated questions into MongoDB:
+### Step 4: Seed Categories and Questions
+First seed the master category & subject hierarchy, then ingest questions:
 ```bash
 cd server
+# 1. Seed categories and link existing topics
+npx tsx src/scripts/seed-categories.ts
+
+# 2. Ingest questions into MongoDB
 npm run seed:questions
 ```
-This loads questions across DSA, JavaScript, DBMS, Operating Systems, and Computer Networks.
+> [!NOTE]
+> The initial question seed provides starter question banks for core subjects across Programming, Aptitude, and General Knowledge. While all master categories and subjects are defined, question availability varies per subject; test suites verify available question pools prior to match creation.
 
 ---
 
@@ -88,19 +93,7 @@ npm run dev
 
 ### 4.1 Adding Questions to the Question Bank
 1. Open or add JSON definitions in [`server/src/scripts/questions/`](file:///h:/Project/code-arena/server/src/scripts/questions/).
-2. Adhere to the question schema:
-   ```json
-   {
-     "questionId": "js_025",
-     "topic": "javascript",
-     "difficulty": "medium",
-     "question": "What is the output of typeof NaN in JavaScript?",
-     "options": ["\"number\"", "\"NaN\"", "\"undefined\"", "\"object\""],
-     "correctAnswer": 0,
-     "explanation": "In JavaScript, NaN is a numeric value representing Not-a-Number, so typeof NaN returns 'number'.",
-     "isPublished": true
-   }
-   ```
+2. Adhere to the question schema with `categoryId`, `subjectId`, `difficulty`, `options` (exactly 4), `correctAnswer` (0–3), `explanation`, and `isPublished: true`.
 3. Re-run `npm run seed:questions` to upsert the changes without duplicating existing entries.
 
 ### 4.2 Creating a New Server Feature Module
@@ -114,21 +107,24 @@ When adding a new domain to `server/src/modules/`:
 7. Mount endpoints in `[domain].routes.ts` and attach to [`server/src/app.ts`](file:///h:/Project/code-arena/server/src/app.ts).
 
 ### 4.3 User Statistics Reconciliation
-When diagnosing or rectifying out-of-sync player statistics (`wins`, `losses`, `draws`, `totalCorrect`, `totalQuestions`, `accuracy`):
-1. **Dry-Run Inspection** (Inspects completed battle logs and reports discrepancies without writing to database):
-   ```bash
-   cd server
-   npm run reconcile:dry-run
-   # Direct command: tsx src/scripts/reconcile-user-stats.ts
-   ```
-2. **Apply Reconciliation** (Atomically commits recalculated statistics to `UserModel` documents):
-   ```bash
-   cd server
-   npm run reconcile:apply
-   # Direct command: tsx src/scripts/reconcile-user-stats.ts --apply
-   ```
+When diagnosing or rectifying out-of-sync player statistics:
+```bash
+cd server
+npm run reconcile:dry-run
+npm run reconcile:apply
+```
 
-### 4.4 Type-Checking & Verification
+### 4.4 Verification Scripts
+Run targeted verification suites:
+```bash
+cd server
+npm run test:native-auth
+npx tsx src/scripts/verify-category-subject-system.ts
+npx tsx src/scripts/verify-multiplayer-quiz.ts
+npx tsx src/scripts/verify-quiz-configuration.ts
+```
+
+### 4.5 Type-Checking & Verification
 Always verify clean compilation before committing changes:
 ```bash
 # In server/
