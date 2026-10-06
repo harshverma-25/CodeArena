@@ -7,7 +7,7 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "seed": "tsx src/scripts/seed.ts",
+    "seed": "tsx src/scripts/seed-questions.ts",
     "seed:questions": "tsx src/scripts/seed-questions.ts",
     "test:security": "tsx src/scripts/verify-env-security.ts",
     "test:guest": "tsx src/scripts/verify-guest-auth.ts",

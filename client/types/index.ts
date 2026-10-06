@@ -1,7 +1,7 @@
 export interface User {
   _id: string;
   id?: string;
-  clerkId: string;
+  clerkId?: string;
   username: string;
   displayName: string;
   email?: string;
