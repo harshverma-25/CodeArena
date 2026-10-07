@@ -108,8 +108,10 @@ export default function StitchHomePage() {
   // 1. Fetch categories from backend API
   useEffect(() => {
     let isMounted = true;
-    const fetchCategories = async () => {
-      setLoadingCategories(true);
+    let timerId: ReturnType<typeof setTimeout>;
+
+    const fetchCategories = async (retryCount = 0) => {
+      if (retryCount === 0) setLoadingCategories(true);
       try {
         const res = await api.get<{ success: boolean; data: Category[] }>("/categories");
         if (isMounted && res.data && Array.isArray(res.data)) {
@@ -117,15 +119,29 @@ export default function StitchHomePage() {
           if (res.data.length > 0) {
             setSelectedCategoryId(res.data[0].id || res.data[0].slug);
           }
+          setLoadingCategories(false);
+          return;
         }
       } catch (err) {
-        console.error("Failed to fetch categories:", err);
-      } finally {
-        if (isMounted) setLoadingCategories(false);
+        if (retryCount < 3) {
+          // Retry automatically in case backend server is still booting up
+          timerId = setTimeout(() => {
+            if (isMounted) fetchCategories(retryCount + 1);
+          }, 1500);
+          return;
+        }
+        console.warn("Could not fetch categories:", err);
+      }
+      if (isMounted) {
+        setLoadingCategories(false);
       }
     };
+
     fetchCategories();
-    return () => { isMounted = false; };
+    return () => {
+      isMounted = false;
+      clearTimeout(timerId);
+    };
   }, []);
 
   // 2. Fetch subjects whenever selected category changes
@@ -142,7 +158,7 @@ export default function StitchHomePage() {
           setSubjects(res.data);
         }
       } catch (err) {
-        console.error("Failed to fetch subjects:", err);
+        console.warn("Could not fetch subjects:", err);
         if (isMounted) setSubjects([]);
       } finally {
         if (isMounted) setLoadingSubjects(false);

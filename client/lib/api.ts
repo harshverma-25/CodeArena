@@ -15,11 +15,21 @@ export async function apiRequest<T>(
     headers.set("Authorization", `Bearer ${token}`);
   }
 
-  const response = await fetch(`${API_URL}${path}`, {
-    credentials: options.credentials || "include",
-    ...options,
-    headers,
-  });
+  let response: Response;
+  try {
+    response = await fetch(`${API_URL}${path}`, {
+      credentials: options.credentials || "include",
+      ...options,
+      headers,
+    });
+  } catch (error: any) {
+    if (error instanceof TypeError && error.message.includes("fetch")) {
+      throw new Error(
+        `Unable to reach backend server at ${API_URL}${path}. Please ensure the server is running on port 5000.`
+      );
+    }
+    throw error;
+  }
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));

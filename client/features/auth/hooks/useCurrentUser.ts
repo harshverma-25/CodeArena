@@ -7,12 +7,17 @@ import { isNativeAuthActive, getNativeUser } from "@/features/auth/nativeAuth";
 
 export function useCurrentUser() {
   const api = useApiClient();
-  const [authState, setAuthState] = useState(() => ({
-    isNative: isNativeAuthActive(),
-    isGuest: isGuestSessionActive(),
-  }));
+  const [authState, setAuthState] = useState({
+    isNative: false,
+    isGuest: false,
+  });
 
   useEffect(() => {
+    setAuthState({
+      isNative: isNativeAuthActive(),
+      isGuest: isGuestSessionActive(),
+    });
+
     const handleAuthChange = () => {
       setAuthState({
         isNative: isNativeAuthActive(),

@@ -51,6 +51,13 @@ export default function LiveBattlePage() {
 
   const [soundEnabled, setSoundEnabled] = useState(true);
 
+  // Synchronized navigation to results screen on battle completion
+  React.useEffect(() => {
+    if (status === "completed" && results?.battleId) {
+      router.push(`/results/${results.battleId}`);
+    }
+  }, [status, results, router]);
+
   // 1. Loading State
   if (status === "loading" || isUserLoading) {
     return (
@@ -102,13 +109,6 @@ export default function LiveBattlePage() {
       </div>
     );
   }
-
-  // Synchronized navigation to results screen on battle completion
-  React.useEffect(() => {
-    if (status === "completed" && results?.battleId) {
-      router.push(`/results/${results.battleId}`);
-    }
-  }, [status, results, router]);
 
   const currentQIndex = battle?.currentQuestionIndex || 0;
   const currentQNumber = currentQIndex + 1;
