@@ -8,6 +8,11 @@ export class RoomRepository {
     return room.save();
   }
 
+  async existsByRoomCode(roomCode: string): Promise<boolean> {
+    const result = await RoomModel.exists({ roomCode });
+    return Boolean(result);
+  }
+
   async findByRoomCode(roomCode: string): Promise<IRoomDocument | null> {
     return RoomModel.findOne({ roomCode }).populate('hostId').populate('players.userId').exec();
   }

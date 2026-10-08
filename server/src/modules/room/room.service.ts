@@ -27,6 +27,21 @@ export class RoomService {
   }
 
   /**
+   * Generates a unique 6-character room code with a bounded attempt limit (10 attempts)
+   * using a lightweight database existence check without populates.
+   */
+  private async generateUniqueRoomCode(maxAttempts = 10): Promise<string> {
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      const roomCode = this.generateRoomCode();
+      const exists = await roomRepository.existsByRoomCode(roomCode);
+      if (!exists) {
+        return roomCode;
+      }
+    }
+    throw new ApiError(500, 'Failed to generate a unique room code. Maximum attempts exceeded.');
+  }
+
+  /**
    * Validate category and subject relationships server-side.
    */
   private async validateAndResolveCategorySettings(settings?: Partial<IRoomSettings>): Promise<IRoomSettings> {
@@ -119,32 +134,31 @@ export class RoomService {
   ): Promise<IRoomDocument> {
     const validatedSettings = await this.validateAndResolveCategorySettings(settings);
 
-    let roomCode = '';
-    let isUnique = false;
+    // Generate unique room code with bounded attempts and lightweight existence check
+    const roomCode = await this.generateUniqueRoomCode();
 
-    // Generate unique room code and verify it does not exist
-    while (!isUnique) {
-      roomCode = this.generateRoomCode();
-      const existingRoom = await roomRepository.findByRoomCode(roomCode);
-      if (!existingRoom) {
-        isUnique = true;
+    let room: IRoomDocument;
+    try {
+      room = await roomRepository.create({
+        roomCode,
+        hostId: hostUserId as any,
+        players: [
+          {
+            userId: hostUserId as any,
+            isHost: true,
+            isReady: false,
+          },
+        ],
+        settings: validatedSettings,
+        maxPlayers: 4,
+        status: RoomStatus.WAITING,
+      });
+    } catch (error: any) {
+      if (error?.code === 11000) {
+        throw new ApiError(409, 'Room code collision occurred. Please try again.');
       }
+      throw error;
     }
-
-    const room = await roomRepository.create({
-      roomCode,
-      hostId: hostUserId as any,
-      players: [
-        {
-          userId: hostUserId as any,
-          isHost: true,
-          isReady: false,
-        },
-      ],
-      settings: validatedSettings,
-      maxPlayers: 4,
-      status: RoomStatus.WAITING,
-    });
 
     // Populate and return the room details
     const populated = await roomRepository.findByRoomCode(room.roomCode);
@@ -165,32 +179,31 @@ export class RoomService {
   ): Promise<{ room: IRoomDocument; battle: any }> {
     const validatedSettings = await this.validateAndResolveCategorySettings(settings);
 
-    let roomCode = '';
-    let isUnique = false;
+    // Generate unique room code with bounded attempts and lightweight existence check
+    const roomCode = await this.generateUniqueRoomCode();
 
-    // Generate unique room code and verify it does not exist
-    while (!isUnique) {
-      roomCode = this.generateRoomCode();
-      const existingRoom = await roomRepository.findByRoomCode(roomCode);
-      if (!existingRoom) {
-        isUnique = true;
+    let room: IRoomDocument;
+    try {
+      room = await roomRepository.create({
+        roomCode,
+        hostId: userId as any,
+        players: [
+          {
+            userId: userId as any,
+            isHost: true,
+            isReady: true,
+          },
+        ],
+        settings: validatedSettings,
+        maxPlayers: 1,
+        status: RoomStatus.WAITING,
+      });
+    } catch (error: any) {
+      if (error?.code === 11000) {
+        throw new ApiError(409, 'Room code collision occurred. Please try again.');
       }
+      throw error;
     }
-
-    const room = await roomRepository.create({
-      roomCode,
-      hostId: userId as any,
-      players: [
-        {
-          userId: userId as any,
-          isHost: true,
-          isReady: true,
-        },
-      ],
-      settings: validatedSettings,
-      maxPlayers: 1,
-      status: RoomStatus.WAITING,
-    });
 
     const populated = await roomRepository.findByRoomCode(room.roomCode);
     if (!populated) {
@@ -544,16 +557,8 @@ export class RoomService {
 
     const validatedSettings = await this.validateAndResolveCategorySettings(inheritedSettings);
 
-    // 6. Generate unique new room code
-    let newRoomCode = '';
-    let isUnique = false;
-    while (!isUnique) {
-      newRoomCode = this.generateRoomCode();
-      const existing = await roomRepository.findByRoomCode(newRoomCode);
-      if (!existing) {
-        isUnique = true;
-      }
-    }
+    // 6. Generate unique new room code with bounded attempts and lightweight existence check
+    const newRoomCode = await this.generateUniqueRoomCode();
 
     // 7. Initial players: Host, and if requester is different from host, include requester
     const initialPlayers: Array<{ userId: any; isHost: boolean; isReady: boolean }> = [
@@ -573,14 +578,21 @@ export class RoomService {
     }
 
     // 8. Create new room in MongoDB
-    await roomRepository.create({
-      roomCode: newRoomCode,
-      hostId: newHostIdStr as any,
-      players: initialPlayers,
-      settings: validatedSettings,
-      maxPlayers: oldRoom.maxPlayers || 4,
-      status: RoomStatus.WAITING,
-    });
+    try {
+      await roomRepository.create({
+        roomCode: newRoomCode,
+        hostId: newHostIdStr as any,
+        players: initialPlayers,
+        settings: validatedSettings,
+        maxPlayers: oldRoom.maxPlayers || 4,
+        status: RoomStatus.WAITING,
+      });
+    } catch (error: any) {
+      if (error?.code === 11000) {
+        throw new ApiError(409, 'Room code collision occurred during rematch. Please try again.');
+      }
+      throw error;
+    }
 
     const populated = await roomRepository.findByRoomCode(newRoomCode);
     if (!populated) {
