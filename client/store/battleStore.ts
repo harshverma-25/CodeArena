@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { BattleInitPayload } from "@/types";
 
 export type BattleStatus = "idle" | "lobby" | "countdown" | "active" | "completed";
+export type QuizDifficulty = "easy" | "medium" | "hard" | "random";
 
 export interface Player {
   userId: string;
@@ -15,14 +16,16 @@ export interface Player {
 }
 
 interface BattleState {
-  // Socket Connection Status
+  // Socket Connection Status & Error States
   isSocketConnected: boolean;
+  isReconnecting: boolean;
+  socketError: string | null;
   
   // Room and Battle Info
   roomCode: string | null;
   matchId: string | null;
   status: BattleStatus;
-  difficulty: "EASY" | "MEDIUM" | "HARD" | null;
+  difficulty: QuizDifficulty | string | null;
   durationMinutes: number;
   timeRemainingSeconds: number;
   
@@ -36,7 +39,9 @@ interface BattleState {
   
   // Actions
   setSocketConnected: (connected: boolean) => void;
-  setRoomDetails: (roomCode: string, difficulty: "EASY" | "MEDIUM" | "HARD", durationMinutes: number) => void;
+  setReconnecting: (reconnecting: boolean) => void;
+  setSocketError: (error: string | null) => void;
+  setRoomDetails: (roomCode: string, difficulty: QuizDifficulty | string, durationMinutes: number) => void;
   setMatchId: (matchId: string | null) => void;
   setStatus: (status: BattleStatus) => void;
   setPlayers: (players: Player[]) => void;
@@ -48,6 +53,8 @@ interface BattleState {
 
 export const useBattleStore = create<BattleState>((set) => ({
   isSocketConnected: false,
+  isReconnecting: false,
+  socketError: null,
   roomCode: null,
   matchId: null,
   status: "idle",
@@ -60,6 +67,8 @@ export const useBattleStore = create<BattleState>((set) => ({
   myUserId: null,
 
   setSocketConnected: (connected) => set({ isSocketConnected: connected }),
+  setReconnecting: (isReconnecting) => set({ isReconnecting }),
+  setSocketError: (socketError) => set({ socketError }),
   setRoomDetails: (roomCode, difficulty, durationMinutes) => 
     set({ roomCode, difficulty, durationMinutes }),
   setMatchId: (matchId) => set({ matchId }),
@@ -78,5 +87,7 @@ export const useBattleStore = create<BattleState>((set) => ({
     durationMinutes: 30,
     timeRemainingSeconds: 0,
     players: [],
+    socketError: null,
+    isReconnecting: false,
   }),
 }));

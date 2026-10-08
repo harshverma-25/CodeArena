@@ -28,17 +28,52 @@ class SocketManager {
 
     this.socket.on("connect", () => {
       console.log("🔌 Socket.IO client connected:", this.socket?.id);
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("quizzy:socket_connected", { detail: { id: this.socket?.id } }));
+      }
     });
 
     this.socket.on("connect_error", (error) => {
       console.error("🔌 Socket.IO connection error:", error);
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("quizzy:socket_connect_error", { detail: { error } }));
+      }
     });
 
     this.socket.on("disconnect", (reason) => {
-      console.log("🔌 Socket.IO client disconnected:", reason);
+      console.warn("🔌 Socket.IO client disconnected:", reason);
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("quizzy:socket_disconnected", { detail: { reason } }));
+      }
+    });
+
+    // Reconnection lifecycle events on Manager
+    this.socket.io.on("reconnect_attempt", (attempt: number) => {
+      console.warn(`🔌 Socket.IO reconnection attempt #${attempt}...`);
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("quizzy:socket_reconnecting", { detail: { attempt } }));
+      }
+    });
+
+    this.socket.io.on("reconnect_failed", () => {
+      console.error("🔌 Socket.IO reconnection failed after maximum attempts.");
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("quizzy:socket_reconnect_failed"));
+      }
     });
 
     return this.socket;
+  }
+
+  public reconnect(token?: string) {
+    if (token) this.token = token;
+    if (this.socket) {
+      if (!this.socket.connected) {
+        this.socket.connect();
+      }
+    } else if (this.token) {
+      this.connect(this.token);
+    }
   }
 
   public disconnect() {
@@ -51,6 +86,10 @@ class SocketManager {
 
   public getSocket(): Socket | null {
     return this.socket;
+  }
+
+  public isConnected(): boolean {
+    return Boolean(this.socket?.connected);
   }
 
   public emit(event: string, ...args: unknown[]) {
@@ -73,8 +112,6 @@ class SocketManager {
     if (!this.socket) return;
     this.socket.off(event, callback as (...args: unknown[]) => void);
   }
-
-
 }
 
 export const socketManager = new SocketManager();

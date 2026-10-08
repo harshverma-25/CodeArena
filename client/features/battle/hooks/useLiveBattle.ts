@@ -70,6 +70,7 @@ export function useLiveBattle(roomCode: string) {
     "loading" | "active" | "reveal" | "completed" | "error"
   >("loading");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isSocketDisconnected, setIsSocketDisconnected] = useState<boolean>(false);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const revealTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -260,11 +261,46 @@ export function useLiveBattle(roomCode: string) {
 
     const handleConnect = () => {
       if (!active) return;
+      setIsSocketDisconnected(false);
+      useBattleStore.getState().setSocketConnected(true);
+      useBattleStore.getState().setReconnecting(false);
+      useBattleStore.getState().setSocketError(null);
       socketManager.emit("battle:reconnect", { roomCode: code });
+    };
+
+    const handleDisconnect = (reason: string) => {
+      if (!active) return;
+      console.warn("🔌 Live battle socket disconnected:", reason);
+      setIsSocketDisconnected(true);
+      useBattleStore.getState().setSocketConnected(false);
+    };
+
+    const handleReconnectAttempt = (attempt: number) => {
+      if (!active) return;
+      console.warn(`🔌 Live battle socket reconnection attempt #${attempt}...`);
+      setIsSocketDisconnected(true);
+      useBattleStore.getState().setReconnecting(true);
+    };
+
+    const handleReconnectFailed = () => {
+      if (!active) return;
+      console.error("🔌 Live battle socket reconnection failed permanently.");
+      setIsSocketDisconnected(true);
+      useBattleStore.getState().setReconnecting(false);
+      useBattleStore.getState().setSocketError(
+        "Connection to the quiz arena was lost after multiple attempts. Please check your network and reconnect."
+      );
+      setStatus("error");
+      setErrorMessage(
+        "Connection to the quiz arena was lost after multiple attempts. Please check your network and reconnect."
+      );
     };
 
     if (socket) {
       socket.on("connect", handleConnect);
+      socket.on("disconnect", handleDisconnect);
+      socket.io.on("reconnect_attempt", handleReconnectAttempt);
+      socket.io.on("reconnect_failed", handleReconnectFailed);
       socket.on("battle:init", handleBattleInit);
       socket.on("battle:answer_locked", handleAnswerLocked);
       socket.on("battle:player_submitted", handlePlayerSubmitted);
@@ -290,6 +326,9 @@ export function useLiveBattle(roomCode: string) {
       clearTimeout(fallbackTimer);
       if (socket) {
         socket.off("connect", handleConnect);
+        socket.off("disconnect", handleDisconnect);
+        socket.io.off("reconnect_attempt", handleReconnectAttempt);
+        socket.io.off("reconnect_failed", handleReconnectFailed);
         socket.off("battle:init", handleBattleInit);
         socket.off("battle:answer_locked", handleAnswerLocked);
         socket.off("battle:player_submitted", handlePlayerSubmitted);
@@ -394,6 +433,17 @@ export function useLiveBattle(roomCode: string) {
     socketManager.emit("battle:advance_round", { roomCode: code });
   }, [code]);
 
+  // Manually trigger reconnect attempt
+  const reconnectBattle = useCallback(() => {
+    setStatus("loading");
+    setErrorMessage(null);
+    setIsSocketDisconnected(false);
+    useBattleStore.getState().setSocketError(null);
+    useBattleStore.getState().setReconnecting(true);
+    socketManager.reconnect();
+    socketManager.emit("battle:reconnect", { roomCode: code });
+  }, [code]);
+
   return {
     battle,
     players,
@@ -412,8 +462,10 @@ export function useLiveBattle(roomCode: string) {
     results,
     status,
     errorMessage,
+    isSocketDisconnected,
     submitAnswer,
     advanceRound,
+    reconnectBattle,
   };
 }
 

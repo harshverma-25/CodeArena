@@ -44,8 +44,10 @@ export default function LiveBattlePage() {
     results,
     status,
     errorMessage,
+    isSocketDisconnected,
     submitAnswer,
     advanceRound,
+    reconnectBattle,
   } = useLiveBattle(roomCode);
 
   const [isLeaveModalOpen, setIsLeaveModalOpen] = useState(false);
@@ -97,11 +99,11 @@ export default function LiveBattlePage() {
               Home
             </button>
             <button
-              onClick={() => window.location.reload()}
-              className="flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#317a63] text-white hover:bg-[#25604e] font-semibold text-sm transition-all"
+              onClick={() => reconnectBattle()}
+              className="flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#317a63] text-white hover:bg-[#25604e] font-semibold text-sm transition-all cursor-pointer"
             >
               <RefreshCw className="h-4 w-4" />
-              Retry
+              Retry Connection
             </button>
           </div>
         </div>
@@ -144,15 +146,12 @@ export default function LiveBattlePage() {
         <div className="h-16 w-full max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between gap-4">
           {/* Left: Brand + Status Pill + Room PIN */}
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2 group">
+            <Link href="/" className="flex items-center group">
               <img
                 src="/images/quizzy-logo.png"
                 alt="Quizzy"
-                className="h-7 w-auto object-contain"
+                className="h-8 w-auto object-contain"
               />
-              <span className="font-extrabold text-xl text-[#317a63] tracking-tight group-hover:opacity-90">
-                Quizzy
-              </span>
             </Link>
             <div className="hidden sm:flex items-center gap-1.5 bg-[#f3ede4] px-3 py-1 rounded-full text-[#317a63] font-bold text-xs uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-[#317a63] animate-pulse" />
@@ -202,6 +201,22 @@ export default function LiveBattlePage() {
 
       {/* MAIN CONTENT AREA */}
       <main className="w-full pt-20 flex-1 max-w-7xl mx-auto px-4 lg:px-8 py-4 sm:py-6 flex flex-col">
+        {/* Reconnecting banner if socket disconnects during live match */}
+        {isSocketDisconnected && (
+          <div className="mb-4 bg-[#ffdad6] border border-[#ba1a1a]/30 text-[#ba1a1a] px-4 py-2.5 rounded-2xl flex items-center justify-between text-xs sm:text-sm font-semibold shadow-sm animate-pulse">
+            <div className="flex items-center gap-2">
+              <ShieldAlert className="w-4 h-4 shrink-0 text-[#ba1a1a]" />
+              <span>Connection lost. Attempting to reconnect to live quiz...</span>
+            </div>
+            <button
+              onClick={() => reconnectBattle()}
+              className="px-3 py-1 bg-[#ba1a1a] text-white hover:bg-[#93000a] text-xs font-bold rounded-full transition-colors cursor-pointer"
+            >
+              Reconnect Now
+            </button>
+          </div>
+        )}
+
         {/* Top Match Header & Global Progress Strip */}
         <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-[#ede7de] mb-6 flex flex-col gap-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
