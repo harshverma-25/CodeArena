@@ -30,15 +30,9 @@ export function Navbar() {
   const { data: currentUser } = useCurrentUser();
   const isSocketConnected = useBattleStore((state) => state.isSocketConnected);
 
-  const [nativeUser, setNativeUser] = useState<User | null>(() => {
-    if (typeof window === "undefined") return null;
-    return getNativeUser();
-  });
-
-  const [guestUser, setGuestUser] = useState<User | null>(() => {
-    if (typeof window === "undefined") return null;
-    return getGuestUser();
-  });
+  const [mounted, setMounted] = useState(false);
+  const [nativeUser, setNativeUser] = useState<User | null>(null);
+  const [guestUser, setGuestUser] = useState<User | null>(null);
 
   // UI state
   const [pinValue, setPinValue] = useState("");
@@ -53,6 +47,10 @@ export function Navbar() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setMounted(true);
+    setNativeUser(getNativeUser());
+    setGuestUser(getGuestUser());
+
     const handleNativeChange = () => setNativeUser(getNativeUser());
     const handleGuestChange = () => setGuestUser(getGuestUser());
 
@@ -78,7 +76,7 @@ export function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const activeUser = currentUser || nativeUser || guestUser;
+  const activeUser = mounted ? (currentUser || nativeUser || guestUser) : null;
   const isGuest = Boolean(activeUser?.isGuest || (activeUser as any)?.type === "guest");
   const displayName = activeUser
     ? activeUser.displayName || activeUser.username || "Player"
@@ -281,7 +279,9 @@ export function Navbar() {
 
             {/* 5. PROFILE SECTION (DROPDOWN / AUTH BUTTONS) */}
             <div className="relative" ref={profileMenuRef}>
-              {activeUser ? (
+              {!mounted ? (
+                <div className="h-9 w-20 rounded-full bg-[#f3ede4] animate-pulse" />
+              ) : activeUser ? (
                 <button
                   type="button"
                   onClick={() => setIsProfileMenuOpen((prev) => !prev)}

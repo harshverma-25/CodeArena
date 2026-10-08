@@ -20,6 +20,8 @@ class SocketManager {
       auth: {
         token,
       },
+      transports: ["websocket", "polling"],
+      withCredentials: true,
       autoConnect: true,
       reconnection: true,
       reconnectionAttempts: 5,
@@ -34,9 +36,13 @@ class SocketManager {
     });
 
     this.socket.on("connect_error", (error) => {
-      console.error("🔌 Socket.IO connection error:", error);
+      console.warn("🔌 Socket.IO connection error:", error?.message || error);
       if (typeof window !== "undefined") {
         window.dispatchEvent(new CustomEvent("quizzy:socket_connect_error", { detail: { error } }));
+      }
+      if (error?.message?.toLowerCase().includes("authentication error")) {
+        console.warn("🔌 Socket authentication failed. Stopping reconnect loop.");
+        this.disconnect();
       }
     });
 

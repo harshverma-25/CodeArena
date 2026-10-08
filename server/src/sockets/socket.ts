@@ -78,7 +78,8 @@ export const socketAuthMiddleware = async (socket: Socket, next: (err?: Error) =
 export function initializeSocket(httpServer: HttpServer): Server {
   io = new Server(httpServer, {
     cors: {
-      origin: '*', // Dynamic client domain fallback, matching REST CORS
+      origin: process.env.CORS_ORIGIN && process.env.CORS_ORIGIN !== '*' ? process.env.CORS_ORIGIN : true,
+      credentials: true,
       methods: ['GET', 'POST'],
     },
     pingTimeout: 60000,
