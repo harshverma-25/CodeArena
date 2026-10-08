@@ -39,9 +39,9 @@ Items are grouped into 5 core domains:
 
 ---
 
-### 1.4 Non-Functional "Ghost" Header Buttons — [RESOLVED]
+### 1.4 Non-Functional "Ghost" Header Buttons & Navbar Fragmentation — [RESOLVED]
 * **Status**: **RESOLVED**
-* **Resolution**: Removed the ghost notification bell. Implemented a fully functional real-time search bar that filters quiz cards, subjects, and categories on input with instant clearance.
+* **Resolution**: Unified navigation into a single shared `<Navbar />` across all public and protected pages. Removed the ghost notification bell. Implemented image-only Quizzy logo (no redundant text), navigation pill container (`Leaderboard`, `History`, `Profile`), PIN Join Room interface, real-time synchronized Search, and interactive Profile dropdown menu.
 
 ---
 
@@ -71,38 +71,15 @@ Items are grouped into 5 core domains:
 
 ## 2. Frontend Logic, Authentication & State Management
 
-### 2.1 Silent 401 Refresh Token Failure in `useApiClient`
-* **Severity**: **Critical** (Authentication Reliability)
-* **Impacted Files**:
-  * [`client/lib/api.ts`](file:///h:/Project/code-arena/client/lib/api.ts#L34-L38)
-  * [`client/hooks/useApiClient.ts`](file:///h:/Project/code-arena/client/hooks/useApiClient.ts#L36)
-* **Problem**:
-  In `useApiClient.ts`, automatic token refresh checks:
-  ```ts
-  if (err?.statusCode === 401 && getAccessToken())
-  ```
-  However, in `client/lib/api.ts`, errors are thrown as standard JS `Error` objects:
-  ```ts
-  throw new Error(errorData.message || `API request failed with status ${response.status}`);
-  ```
-  Standard `Error` instances **do not have** a `.statusCode` property. Thus `err?.statusCode` is always `undefined`, and the automatic 401 token refresh **never executes**. When an access token expires after 15 minutes, API calls fail indefinitely until the user manually logs in again.
-* **Remediation**:
-  Update `client/lib/api.ts` to attach `statusCode = response.status` to the error instance before throwing, or create an `ApiError` class in the client.
+### 2.1 Silent 401 Refresh Token Failure in `useApiClient` — [RESOLVED]
+* **Status**: **RESOLVED**
+* **Resolution**: Implemented custom `ApiError` class in `client/lib/api.ts` attaching `statusCode = response.status` to failed fetch responses. Automatic 401 token refresh in `useApiClient.ts` now triggers reliably on token expiration.
 
 ---
 
-### 2.2 Access Token Cookie `max-age` Mismatch
-* **Severity**: High (Session Security)
-* **Impacted Files**:
-  * [`client/features/auth/nativeAuth.ts`](file:///h:/Project/code-arena/client/features/auth/nativeAuth.ts#L29)
-* **Problem**:
-  In `setNativeSession`:
-  ```ts
-  document.cookie = `${NATIVE_COOKIE_NAME}=${accessToken}; path=/; max-age=604800; SameSite=Lax`;
-  ```
-  The cookie is set with `max-age=604800` (7 days), but the access token JWT has an expiration of only 15 minutes (`900s`). Next.js middleware relies on `req.cookies.has("codearena_access_token")` to grant route access, so the client route guard thinks the session is valid for 7 days even though the token is invalid on the server.
-* **Remediation**:
-  Align cookie `max-age` with the 15-minute access token lifespan, or manage route authentication via a distinct session flag cookie that tracks the 7-day refresh token.
+### 2.2 Access Token Cookie `max-age` Mismatch — [RESOLVED]
+* **Status**: **RESOLVED**
+* **Resolution**: Aligned `NATIVE_COOKIE_NAME` cookie `max-age` in `client/features/auth/nativeAuth.ts` with the 15-minute (`900s`) access token lifespan `NATIVE_ACCESS_TOKEN_MAX_AGE`.
 
 ---
 
@@ -266,26 +243,26 @@ Items are grouped into 5 core domains:
 
 ## 6. Consolidated Priority & Action Matrix
 
-| Item # | Issue Summary | Category | Severity | Recommended Fix Phase |
+| Item # | Issue Summary | Category | Severity | Status |
 | :---: | :--- | :--- | :---: | :---: |
-| **2.1** | Silent 401 token refresh failure in `useApiClient` | Frontend / Auth | **Critical** | Phase 1 (Immediate) |
-| **1.1** | Dual brand identity fracture ("QUIZLY" vs "CodeArena") | UI / UX | **High** | Phase 1 |
-| **1.2** | Dual-theme visual fracture (Light Stitch vs Dark Mode) | UI / UX | **High** | Phase 1 |
-| **3.1** | `BattleForm` on Dashboard missing Category/Subject hierarchy | Feature Parity | **High** | Phase 1 |
-| **4.1** | In-memory battle rounds & timers (zero fault tolerance) | Backend Architecture | **High** | Phase 2 |
-| **2.2** | Access token cookie `max-age` set to 7 days instead of 15m | Frontend / Auth | **Medium** | Phase 1 |
-| **1.3** | External hotlinked Google CDN logo dependency | UI / Assets | **Medium** | Phase 1 |
-| **3.2** | Inconsistent room code length validation (4-8 vs 6) | Validation | **Medium** | Phase 1 |
-| **4.2** | Missing stale room & abandoned battle cleanup (TTL) | Database | **Medium** | Phase 2 |
-| **4.3** | `createRoom` generation loop performs redundant populates | Database / Performance | **Medium** | Phase 2 |
-| **2.3** | Socket reconnection failure unhandled in UI | Realtime UX | **Medium** | Phase 2 |
-| **1.4** | Dead search & notification buttons in homepage header | UI / UX | **Low** | Phase 2 |
-| **1.5** | Bookmark state is in-memory only (wiped on reload) | UI / UX | **Low** | Phase 2 |
-| **1.6** | Cosmetic audio toggle in battle header (no sound engine) | Polish | **Low** | Phase 2 |
-| **1.7** | Dual icon libraries (Material Symbols + Lucide) | Bundle / Styling | **Low** | Phase 2 |
-| **1.8** | Native `window.confirm` modal when leaving live quiz | Polish | **Low** | Phase 2 |
-| **2.4** | Dead state in Zustand `uiStore` (`sidebarOpen`, `inviteModalOpen`)| Code Hygiene | **Low** | Phase 2 |
-| **2.5** | Casing mismatch in `battleStore.difficulty` (uppercase) | Type Consistency | **Low** | Phase 2 |
-| **4.4** | Legacy coding sandbox schema fields in MongoDB models | Schema Hygiene | **Low** | Phase 3 |
-| **5.1** | Next.js 16 deprecated `middleware.ts` warning | Build Hygiene | **Low** | Phase 3 |
-| **5.2** | Dead Clerk keys in `.env` files | Config Hygiene | **Low** | Phase 3 |
+| **2.1** | Silent 401 token refresh failure in `useApiClient` | Frontend / Auth | **Critical** | **RESOLVED** ✅ |
+| **1.1** | Dual brand identity fracture ("QUIZLY" vs "CodeArena") | UI / UX | **High** | **RESOLVED** ✅ |
+| **1.2** | Dual-theme visual fracture (Light Stitch vs Dark Mode) | UI / UX | **High** | **RESOLVED** ✅ |
+| **3.1** | `BattleForm` on Dashboard missing Category/Subject hierarchy | Feature Parity | **High** | Pending (Phase 1) |
+| **4.1** | In-memory battle rounds & timers (zero fault tolerance) | Backend Architecture | **High** | Pending (Phase 2) |
+| **2.2** | Access token cookie `max-age` set to 7 days instead of 15m | Frontend / Auth | **Medium** | **RESOLVED** ✅ |
+| **1.3** | External hotlinked Google CDN logo dependency | UI / Assets | **Medium** | **RESOLVED** ✅ |
+| **3.2** | Inconsistent room code length validation (4-8 vs 6) | Validation | **Medium** | Pending (Phase 1) |
+| **4.2** | Missing stale room & abandoned battle cleanup (TTL) | Database | **Medium** | Pending (Phase 2) |
+| **4.3** | `createRoom` generation loop performs redundant populates | Database / Performance | **Medium** | Pending (Phase 2) |
+| **2.3** | Socket reconnection failure unhandled in UI | Realtime UX | **Medium** | Pending (Phase 2) |
+| **1.4** | Dead search & notification buttons in homepage header | UI / UX | **Low** | **RESOLVED** ✅ |
+| **1.5** | Bookmark state is in-memory only (wiped on reload) | UI / UX | **Low** | **RESOLVED** ✅ |
+| **1.6** | Cosmetic audio toggle in battle header (no sound engine) | Polish | **Low** | **RESOLVED** ✅ |
+| **1.7** | Dual icon libraries (Material Symbols + Lucide) | Bundle / Styling | **Low** | **RESOLVED** ✅ |
+| **1.8** | Native `window.confirm` modal when leaving live quiz | Polish | **Low** | **RESOLVED** ✅ |
+| **2.4** | Dead state in Zustand `uiStore` (`sidebarOpen`, `inviteModalOpen`)| Code Hygiene | **Low** | Pending (Phase 2) |
+| **2.5** | Casing mismatch in `battleStore.difficulty` (uppercase) | Type Consistency | **Low** | Pending (Phase 2) |
+| **4.4** | Legacy coding sandbox schema fields in MongoDB models | Schema Hygiene | **Low** | Pending (Phase 3) |
+| **5.1** | Next.js 16 deprecated `middleware.ts` warning | Build Hygiene | **Low** | Pending (Phase 3) |
+| **5.2** | Dead Clerk keys in `.env` files | Config Hygiene | **Low** | Pending (Phase 3) |
