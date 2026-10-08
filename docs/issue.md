@@ -1,6 +1,6 @@
 # Comprehensive Project Audit & Issue Register
 
-**Document Version**: 3.1.0  
+**Document Version**: 3.2.0  
 **Updated**: October 2026  
 **Scope**: Frontend Client (`client/`), Backend Service (`server/`), UI/UX Design System, Database Schemas, Real-Time Architecture, and Configuration.
 
@@ -8,44 +8,49 @@
 
 ## Executive Summary
 
-This document registers the remaining open issues, edge cases, architectural bottlenecks, and technical debt across the Quizzy codebase. All items from **UI / UX Design & Styling**, **Frontend Logic, Authentication & State Management**, **Modal & Feature Parity Gaps**, and **Room Code Generation Loop Optimization** have been resolved and purged.
+This document registers the active issues, architectural bottlenecks, and technical debt across the Quizzy codebase.
 
-### Remaining Active Domains:
-1. [Backend Architecture, Database & Real-Time Engine](#1-backend-architecture-database--real-time-engine)
-2. [Configuration, Deprecations & Build Hygiene](#2-configuration-deprecations--build-hygiene)
-3. [Consolidated Priority & Action Matrix](#3-consolidated-priority--action-matrix)
+### Audit Progress to Date:
+* ✅ **UI / UX Design & Styling**: Unified brand under **Quizzy**, standardized warm light Stitch design theme, local logo assets, unified `<Navbar />` across all pages, removed ephemeral bookmarks, removed cosmetic audio toggle, standardized on `lucide-react`, and styled in-app Leave Confirmation modal.
+* ✅ **Frontend Logic & Authentication**: Fixed silent 401 token refresh in `useApiClient`, aligned cookie `max-age` (15m), implemented socket reconnection lifecycle handlers & in-game reconnection banner, pruned dead state from `uiStore`, and corrected `battleStore.difficulty` casing.
+* ✅ **Modal & Feature Parity Gaps**: Purged legacy dark dashboard modals (`CreateBattleModal`, `JoinBattleModal`, `BattleForm`, `/battle/new`) and enforced strict 6-character room PIN validation with UI error feedback.
+* ✅ **Room Code Generation**: Replaced unconstrained `while (!isUnique)` loop with bounded 10-attempt `generateUniqueRoomCode` using lightweight `RoomModel.exists()` query and MongoDB duplicate key (`11000`) race condition handling.
+* ✅ **Runtime Stability**: Resolved React SSR hydration mismatch in `Navbar.tsx` via `mounted` guard, and eliminated `xhr poll error` by prioritizing WebSocket transport (`transports: ["websocket", "polling"]`) and synchronizing Socket.IO CORS with credentials.
 
 ---
 
-## 1. Backend Architecture, Database & Real-Time Engine
+## 1. Active Open Issues
 
 ### 1.1 In-Memory Battle Rounds & Timers (Zero Fault Tolerance)
-* **Severity**: **High** (Architectural Scalability & Resilience)
+* **Domain**: Backend Architecture & Scalability
+* **Severity**: **High**
 * **Impacted Files**:
   * [`server/src/modules/battle/battle.service.ts`](file:///h:/Project/code-arena/server/src/modules/battle/battle.service.ts)
 * **Problem**:
   Active battle round states (`activeRounds`) and countdown timeouts (`activeTimers`) are stored solely in Node.js process memory via `Map`.
-  * If the server restarts, crashes, or is deployed behind a multi-container load balancer, all in-flight battle rounds and timer handles are immediately lost.
-  * Active battles remain stuck in MongoDB with `status: "IN_PROGRESS"` indefinitely.
+  * If the server restarts, crashes, or is deployed across multiple instances, all in-flight battle rounds and timer handles are immediately lost.
+  * In-progress matches remain stuck in MongoDB with `status: "IN_PROGRESS"` indefinitely.
 * **Remediation**:
-  Persist active round timestamps in the database or Redis, and introduce Redis-backed distributed pub/sub timers for multi-node deployments.
+  Persist active round timestamps in MongoDB or Redis, and introduce Redis-backed distributed pub/sub timers for multi-node deployments.
 
 ---
 
 ### 1.2 Absence of Stale Room / Abandoned Battle Garbage Collection
-* **Severity**: Medium (Database Growth & Code Space Pollution)
+* **Domain**: Database Hygiene & Storage
+* **Severity**: **Medium**
 * **Impacted Files**:
   * [`server/src/modules/room/room.model.ts`](file:///h:/Project/code-arena/server/src/modules/room/room.model.ts)
   * [`server/src/modules/battle/battle.model.ts`](file:///h:/Project/code-arena/server/src/modules/battle/battle.model.ts)
 * **Problem**:
-  Rooms that are abandoned by hosts (e.g. host closes tab while in `WAITING` status) and battles that never finish remain in the MongoDB collection forever. Because `roomCode` has a `unique: true` index, abandoned rooms permanently tie up 6-character room codes.
+  Rooms abandoned by hosts (e.g. host closes tab while in `WAITING` status) and battles that never finish remain in the MongoDB collection indefinitely. Because `roomCode` has a `unique: true` index, abandoned rooms permanently tie up 6-character room codes.
 * **Remediation**:
-  Add a MongoDB TTL index (e.g. expire `createdAt` after 24 hours for `WAITING` rooms) or implement a lightweight periodic cleaner function (`cleanStaleRooms`).
+  Add a MongoDB TTL index (e.g. expire `createdAt` after 24 hours for `WAITING` rooms) or implement a periodic cleaner job (`cleanStaleRooms`).
 
 ---
 
 ### 1.3 Legacy Coding Sandbox Schema Remnants
-* **Severity**: Low (Schema Hygiene)
+* **Domain**: Schema Hygiene
+* **Severity**: **Low**
 * **Impacted Files**:
   * [`server/src/modules/user/user.model.ts`](file:///h:/Project/code-arena/server/src/modules/user/user.model.ts)
   * [`server/src/modules/room/room.model.ts`](file:///h:/Project/code-arena/server/src/modules/room/room.model.ts)
@@ -60,10 +65,9 @@ This document registers the remaining open issues, edge cases, architectural bot
 
 ---
 
-## 2. Configuration, Deprecations & Build Hygiene
-
-### 2.1 Next.js 16 Deprecated `middleware.ts` Convention
-* **Severity**: Low (Deprecation Warning)
+### 1.4 Next.js 16 Deprecated `middleware.ts` Convention
+* **Domain**: Build & Framework Compatibility
+* **Severity**: **Low**
 * **Impacted Files**:
   * [`client/middleware.ts`](file:///h:/Project/code-arena/client/middleware.ts)
 * **Problem**:
@@ -76,8 +80,9 @@ This document registers the remaining open issues, edge cases, architectural bot
 
 ---
 
-### 2.2 Dead Clerk Secrets in Environment Files
-* **Severity**: Low (Config Cleanliness)
+### 1.5 Dead Clerk Secrets in Environment Files
+* **Domain**: Configuration Hygiene
+* **Severity**: **Low**
 * **Impacted Files**:
   * [`server/.env`](file:///h:/Project/code-arena/server/.env)
   * [`client/.env`](file:///h:/Project/code-arena/client/.env)
@@ -89,12 +94,24 @@ This document registers the remaining open issues, edge cases, architectural bot
 
 ---
 
-## 3. Consolidated Priority & Action Matrix
+## 2. Consolidated Priority & Action Matrix
 
 | Item # | Issue Summary | Category | Severity | Status |
 | :---: | :--- | :--- | :---: | :---: |
 | **1.1** | In-memory battle rounds & timers (zero fault tolerance) | Backend Architecture | **High** | Open |
 | **1.2** | Missing stale room & abandoned battle cleanup (TTL) | Database | **Medium** | Open |
 | **1.3** | Legacy coding sandbox schema fields in MongoDB models | Schema Hygiene | **Low** | Open |
-| **2.1** | Next.js 16 deprecated `middleware.ts` warning | Build Hygiene | **Low** | Open |
-| **2.2** | Dead Clerk keys in `.env` files | Config Hygiene | **Low** | Open |
+| **1.4** | Next.js 16 deprecated `middleware.ts` warning | Build Hygiene | **Low** | Open |
+| **1.5** | Dead Clerk keys in `.env` files | Config Hygiene | **Low** | Open |
+
+---
+
+## 3. Recently Resolved Changelog
+
+| Component | Resolution Description | Date |
+| :--- | :--- | :---: |
+| **Navbar.tsx** | Fixed React SSR hydration mismatch by introducing a `mounted` state guard around localStorage user checks. | Oct 2026 |
+| **Socket.IO Client & Server** | Fixed `xhr poll error` by switching to WebSocket-first transport (`transports: ["websocket", "polling"]`), adding `withCredentials: true`, and aligning server Socket CORS credentials. | Oct 2026 |
+| **Room Code Generator** | Replaced unconstrained generation loop with bounded 10-attempt `generateUniqueRoomCode` utilizing `RoomModel.exists()` without populates. | Oct 2026 |
+| **Dashboard Modals** | Purged dead legacy dark dashboard modals (`BattleForm`, `CreateBattleModal`, `JoinBattleModal`). | Oct 2026 |
+| **Room PIN Input** | Enforced strict 6-character alphanumeric PIN validation with visual feedback in `Navbar.tsx`. | Oct 2026 |
