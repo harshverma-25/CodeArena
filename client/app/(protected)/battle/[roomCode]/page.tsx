@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import {
   Sparkles,
@@ -15,8 +16,6 @@ import {
   Award,
   ArrowRight,
   ShieldAlert,
-  Volume2,
-  VolumeX,
 } from "lucide-react";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { useLiveBattle } from "@/features/battle/hooks/useLiveBattle";
@@ -49,7 +48,7 @@ export default function LiveBattlePage() {
     advanceRound,
   } = useLiveBattle(roomCode);
 
-  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [isLeaveModalOpen, setIsLeaveModalOpen] = useState(false);
 
   // Synchronized navigation to results screen on battle completion
   React.useEffect(() => {
@@ -91,11 +90,11 @@ export default function LiveBattlePage() {
           </p>
           <div className="flex gap-3 justify-center pt-2">
             <button
-              onClick={() => router.push("/dashboard")}
-              className="flex items-center gap-1.5 px-5 py-2.5 rounded-full border border-[#ede7de] text-[#1d1b16] hover:bg-[#f9f3ea] font-semibold text-sm transition-all"
+              onClick={() => router.push("/")}
+              className="flex items-center gap-1.5 px-5 py-2.5 rounded-full border border-[#ede7de] text-[#1d1b16] hover:bg-[#f9f3ea] font-semibold text-sm transition-all cursor-pointer"
             >
               <Home className="h-4 w-4" />
-              Dashboard
+              Home
             </button>
             <button
               onClick={() => window.location.reload()}
@@ -145,9 +144,16 @@ export default function LiveBattlePage() {
         <div className="h-16 w-full max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between gap-4">
           {/* Left: Brand + Status Pill + Room PIN */}
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-xl text-[#317a63] tracking-tight">QUIZLY</span>
-            </div>
+            <Link href="/" className="flex items-center gap-2 group">
+              <img
+                src="/images/quizzy-logo.png"
+                alt="Quizzy"
+                className="h-7 w-auto object-contain"
+              />
+              <span className="font-extrabold text-xl text-[#317a63] tracking-tight group-hover:opacity-90">
+                Quizzy
+              </span>
+            </Link>
             <div className="hidden sm:flex items-center gap-1.5 bg-[#f3ede4] px-3 py-1 rounded-full text-[#317a63] font-bold text-xs uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-[#317a63] animate-pulse" />
               <span>Live Quiz</span>
@@ -173,29 +179,12 @@ export default function LiveBattlePage() {
             </div>
           </div>
 
-          {/* Right: Sound toggle + Leave button + User Avatar */}
+          {/* Right: Leave button + User Avatar */}
           <div className="flex items-center gap-3">
             <button
               type="button"
-              onClick={() => setSoundEnabled(!soundEnabled)}
-              className="w-9 h-9 rounded-full bg-white hover:bg-[#f9f3ea] border border-[#ede7de] text-[#3f4944] hover:text-[#317a63] flex items-center justify-center transition-all shadow-sm"
-              title={soundEnabled ? "Mute audio" : "Unmute audio"}
-            >
-              {soundEnabled ? (
-                <Volume2 className="w-4 h-4" />
-              ) : (
-                <VolumeX className="w-4 h-4 text-[#ba1a1a]" />
-              )}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                if (window.confirm("Leave this active quiz? Your progress will be forfeited.")) {
-                  router.push("/dashboard");
-                }
-              }}
-              className="flex items-center gap-1 bg-[#fbeae7] hover:bg-[#f8ded8] text-[#9f2b1d] border border-[#f4c8c0] px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 shadow-sm"
+              onClick={() => setIsLeaveModalOpen(true)}
+              className="flex items-center gap-1.5 bg-[#fbeae7] hover:bg-[#f8ded8] text-[#9f2b1d] border border-[#f4c8c0] px-3.5 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 shadow-sm cursor-pointer"
               title="Leave Quiz"
             >
               <LogOut className="w-3.5 h-3.5" />
@@ -723,6 +712,44 @@ export default function LiveBattlePage() {
           </div>
         </div>
       </footer>
+
+      {/* Quizzy Leave Confirmation Modal */}
+      {isLeaveModalOpen && (
+        <div className="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#fff8f0] border border-[#ede7de] rounded-[28px] p-6 max-w-sm w-full shadow-2xl space-y-4 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-[#ffdad6] text-[#9f2b1d] flex items-center justify-center mx-auto shadow-sm">
+              <LogOut className="w-7 h-7" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-[#1d1b16] tracking-tight">
+                Leave Quizzy Match?
+              </h3>
+              <p className="text-xs text-[#3f4944] mt-2 leading-relaxed">
+                If you leave now, your active quiz progress will be abandoned and your match will be forfeited.
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsLeaveModalOpen(false);
+                  router.push("/");
+                }}
+                className="w-full py-2.5 px-4 rounded-full bg-[#9f2b1d] hover:bg-[#852216] text-white font-bold text-xs shadow-sm transition-all cursor-pointer"
+              >
+                Yes, Leave Match
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsLeaveModalOpen(false)}
+                className="w-full py-2.5 px-4 rounded-full bg-white hover:bg-[#f3ede4] text-[#1d1b16] border border-[#ede7de] font-bold text-xs transition-all cursor-pointer"
+              >
+                Stay &amp; Keep Playing
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

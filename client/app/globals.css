@@ -94,58 +94,30 @@
 
 @layer base {
   :root {
-    /* Dark Theme Default Palette */
-    --background: 0 0% 6.7%;        /* #111111 */
-    --card: 0 0% 9.4%;              /* #181818 */
-    --card-foreground: 0 0% 100%;   /* #FFFFFF */
-    --popover: 0 0% 9.4%;           /* #181818 */
-    --popover-foreground: 0 0% 100%;/* #FFFFFF */
-    --foreground: 0 0% 100%;        /* #FFFFFF Primary Text */
-    --primary: 0 0% 100%;           /* Monochrome White Accent */
-    --primary-foreground: 0 0% 6.7%;/* Black on White */
-    --secondary: 0 0% 12.5%;        /* #202020 Elevated Surface */
-    --secondary-foreground: 240 5% 64.9%; /* #A1A1AA Secondary Text */
-    --muted: 0 0% 12.5%;            /* #202020 */
-    --muted-foreground: 0 0% 45.1%; /* #737373 Muted Text */
-    --accent: 0 0% 12.5%;           /* #202020 */
-    --accent-foreground: 0 0% 100%; /* #FFFFFF */
-    --destructive: 0 84.2% 60.2%;   /* #ef4444 */
+    /* Stitch Warm Light Theme Default Palette */
+    --background: 33 100% 97%;       /* #fff8f0 Warm stitch surface */
+    --foreground: 40 14% 10%;        /* #1d1b16 Dark warm charcoal */
+    --card: 0 0% 100%;               /* #ffffff White card surface */
+    --card-foreground: 40 14% 10%;   /* #1d1b16 */
+    --popover: 0 0% 100%;            /* #ffffff */
+    --popover-foreground: 40 14% 10%;/* #1d1b16 */
+    --primary: 162 43% 34%;          /* #317a63 Stitch signature deep emerald green */
+    --primary-foreground: 0 0% 100%; /* #ffffff */
+    --secondary: 35 33% 92%;         /* #f3ede4 Warm beige elevated surface */
+    --secondary-foreground: 40 14% 10%; /* #1d1b16 */
+    --muted: 35 33% 92%;             /* #f3ede4 */
+    --muted-foreground: 154 5% 42%;  /* #6f7974 Warm muted text */
+    --accent: 35 33% 92%;            /* #f3ede4 */
+    --accent-foreground: 162 43% 34%;/* #317a63 */
+    --destructive: 6 68% 37%;        /* #9f2b1d Deep brick red */
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 18.8%;           /* #303030 Thin Border */
-    --input: 0 0% 18.8%;            /* #303030 Input Border */
-    --ring: 0 0% 100%;              /* White focus ring */
-    --radius: 0.375rem;             /* 6px moderate corner radius */
-    --success: 158 64% 52%;         /* #10b981 Functional Green */
+    --border: 34 22% 88%;            /* #e8e2d9 Soft warm border */
+    --input: 34 22% 88%;             /* #e8e2d9 */
+    --ring: 162 43% 34%;             /* #317a63 */
+    --radius: 0.75rem;               /* 12px playful rounded radius */
+    --success: 162 43% 34%;          /* #317a63 */
     --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;          /* #f59e0b Functional Amber */
-    --warning-foreground: 0 0% 100%;
-  }
-
-  .light {
-    /* Light Theme Palette */
-    --background: 0 0% 100%;        /* #FFFFFF */
-    --card: 0 0% 97.3%;             /* #F8F8F8 */
-    --card-foreground: 0 0% 6.7%;   /* #111111 */
-    --popover: 0 0% 97.3%;          /* #F8F8F8 */
-    --popover-foreground: 0 0% 6.7%;/* #111111 */
-    --foreground: 0 0% 6.7%;        /* #111111 Primary Text */
-    --primary: 0 0% 6.7%;           /* Monochrome Black Accent */
-    --primary-foreground: 0 0% 100%;/* White on Black */
-    --secondary: 0 0% 94.5%;        /* #F1F1F1 Elevated Surface */
-    --secondary-foreground: 0 0% 32.2%; /* #525252 Secondary Text */
-    --muted: 0 0% 94.5%;            /* #F1F1F1 */
-    --muted-foreground: 0 0% 45.1%; /* #737373 Muted Text */
-    --accent: 0 0% 94.5%;           /* #F1F1F1 */
-    --accent-foreground: 0 0% 6.7%; /* #111111 */
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 89.8%;           /* #E5E5E5 Border */
-    --input: 0 0% 89.8%;            /* #E5E5E5 Input Border */
-    --ring: 0 0% 6.7%;              /* Black focus ring */
-    --radius: 0.375rem;             /* 6px radius */
-    --success: 158 64% 52%;
-    --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
+    --warning: 38 92% 50%;           /* #f59e0b */
     --warning-foreground: 0 0% 100%;
   }
 }
@@ -157,7 +129,7 @@
   }
 
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
   
   body {
@@ -229,20 +201,6 @@
   color: #225bb8 !important;
 }
 
-.material-symbols-outlined {
-  font-family: 'Material Symbols Outlined';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-}
 
 /* Stitch Typography Utility Classes */
 .font-headline-lg {

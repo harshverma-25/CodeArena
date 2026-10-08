@@ -44,7 +44,7 @@ export default function UserPublicProfilePage() {
         <div>
           <h3 className="text-xl font-bold text-foreground mb-1">Player Profile Not Found</h3>
           <p className="text-sm text-muted-foreground font-mono">
-            {error?.message || `User '${username}' does not exist on CodeArena.`}
+            {error?.message || `User '${username}' does not exist on Quizzy.`}
           </p>
         </div>
         <div className="flex gap-3 pt-2 font-mono text-xs">

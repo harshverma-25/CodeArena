@@ -21,103 +21,51 @@ Items are grouped into 5 core domains:
 
 ## 1. UI / UX Design & Styling Discrepancies
 
-### 1.1 Brand Identity Fracture ("QUIZLY" vs "CodeArena")
-* **Severity**: High (Brand Inconsistency)
-* **Impacted Files**:
-  * [`client/app/(public)/page.tsx`](file:///h:/Project/code-arena/client/app/(public)/page.tsx#L396) — Uses **"QUIZLY"**
-  * [`client/app/(protected)/lobby/[roomCode]/page.tsx`](file:///h:/Project/code-arena/client/app/(protected)/lobby/[roomCode]/page.tsx#L450) — Uses **"QUIZLY"**
-  * [`client/app/(protected)/battle/[roomCode]/page.tsx`](file:///h:/Project/code-arena/client/app/(protected)/battle/[roomCode]/page.tsx#L149) — Uses **"QUIZLY"**
-  * [`client/components/shared/Navbar.tsx`](file:///h:/Project/code-arena/client/components/shared/Navbar.tsx#L76) — Uses **"CodeArena"**
-  * [`client/app/(public)/login/page.tsx`](file:///h:/Project/code-arena/client/app/(public)/login/page.tsx#L205) — Uses **"CodeArena"**
-  * [`client/app/(public)/register/page.tsx`](file:///h:/Project/code-arena/client/app/(public)/register/page.tsx#L108) — Uses **"CodeArena"**
-  * [`client/app/(match)/results/[matchId]/page.tsx`](file:///h:/Project/code-arena/client/app/(match)/results/[matchId]/page.tsx#L240) — Uses **"CodeArena"**
-* **Problem**:
-  The application switches between two completely different brand names depending on which page the user is viewing. A visitor lands on "QUIZLY", logs in to "CodeArena", enters a "QUIZLY" waiting room, battles in "QUIZLY", and finishes on a "CodeArena" results page.
-* **Remediation**:
-  Unify the platform under a single chosen brand name (or sub-brand e.g., "CodeArena Quizly") consistently across headers, logos, document titles, footers, and modal titles.
+### 1.1 Brand Identity Fracture ("QUIZLY" vs "CodeArena") — [RESOLVED]
+* **Status**: **RESOLVED**
+* **Resolution**: Unified the entire platform under the brand name **Quizzy** across all headers, footers, auth pages, battle engine, lobby, modals, and metadata.
 
 ---
 
-### 1.2 Dual-Theme Visual Fracture (Light Stitch vs Dark Mode)
-* **Severity**: High (Visual Cohesion)
-* **Impacted Files**:
-  * [`client/app/globals.css`](file:///h:/Project/code-arena/client/app/globals.css#L96-L105) (`:root` defined as Dark Mode `--background: #111111`)
-  * [`client/app/(public)/page.tsx`](file:///h:/Project/code-arena/client/app/(public)/page.tsx#L383) (Light Stitch theme `bg-surface` / `#fff8f0`)
-  * [`client/app/(protected)/battle/[roomCode]/page.tsx`](file:///h:/Project/code-arena/client/app/(protected)/battle/[roomCode]/page.tsx#L142) (Light Stitch theme `bg-[#fff8f0]`)
-  * [`client/app/(protected)/dashboard/page.tsx`](file:///h:/Project/code-arena/client/app/(protected)/dashboard/page.tsx#L8) (Dark Mode `bg-background` / `text-muted-foreground`)
-  * [`client/components/shared/Navbar.tsx`](file:///h:/Project/code-arena/client/components/shared/Navbar.tsx#L67) (Dark Mode `bg-background` / border-border)
-* **Problem**:
-  The app lacks a unified theme provider. The Landing, Lobby, Battle, and Results screens use custom light cream/beige colors (`#fff8f0`, `#f3ede4`, `#317a63`), while the Dashboard, Leaderboard, History, Profile, Login, and Register screens inherit a pitch-black dark theme (`#111111`). Navigating between pages creates an uncomfortable flash of contrast.
-* **Remediation**:
-  Standardize on one primary design language (preferably the warm Stitch aesthetic or an intentional, toggleable Dark/Light Theme with NextThemes).
+### 1.2 Dual-Theme Visual Fracture (Light Stitch vs Dark Mode) — [RESOLVED]
+* **Status**: **RESOLVED**
+* **Resolution**: Standardized the entire project on the warm light Stitch design theme (`#fff8f0` surface, `#f3ede4` containers, `#317a63` green primary, `#1d1b16` text). Completely retired `/dashboard` and the pitch-black dark theme.
 
 ---
 
-### 1.3 External Hotlinked Image Dependency
-* **Severity**: Medium (Reliability & Offline Support)
-* **Impacted Files**:
-  * [`client/app/(public)/page.tsx`](file:///h:/Project/code-arena/client/app/(public)/page.tsx#L393)
-  * [`client/app/(protected)/lobby/[roomCode]/page.tsx`](file:///h:/Project/code-arena/client/app/(protected)/lobby/[roomCode]/page.tsx#L446)
-* **Problem**:
-  The logo `src` points to a temporary/external Google CDN link (`https://lh3.googleusercontent.com/aida-public/...`). If this asset is rotated, deleted, or blocked by firewalls/adblockers, the brand logo appears as a broken image icon.
-* **Remediation**:
-  Download the SVG/PNG asset directly into `client/public/images/logo.png` (or SVG) and reference it locally via Next.js `<Image />`.
+### 1.3 External Hotlinked Image Dependency — [RESOLVED]
+* **Status**: **RESOLVED**
+* **Resolution**: Replaced temporary Google CDN hotlinks with local high-resolution Quizzy logo assets at `/images/quizzy-logo.png` and `/logo.png`.
 
 ---
 
-### 1.4 Non-Functional "Ghost" Header Buttons
-* **Severity**: Low / Medium (User Experience)
-* **Impacted Files**:
-  * [`client/app/(public)/page.tsx`](file:///h:/Project/code-arena/client/app/(public)/page.tsx#L437-L453)
-* **Problem**:
-  The public homepage header features a Search button (`search`) and a Notification bell with an active badge (`notifications`), but neither has an `onClick` handler, state, modal, or input trigger. They click without any visual or functional feedback.
-* **Remediation**:
-  Either attach a functional search filter overlay / notification center, or remove these placeholder icons until Phase 3.
+### 1.4 Non-Functional "Ghost" Header Buttons — [RESOLVED]
+* **Status**: **RESOLVED**
+* **Resolution**: Removed the ghost notification bell. Implemented a fully functional real-time search bar that filters quiz cards, subjects, and categories on input with instant clearance.
 
 ---
 
-### 1.5 Ephemeral Bookmark Feature
-* **Severity**: Low (Functional Polish)
-* **Impacted Files**:
-  * [`client/app/(public)/page.tsx`](file:///h:/Project/code-arena/client/app/(public)/page.tsx#L222-L227), [`L850-L865`](file:///h:/Project/code-arena/client/app/(public)/page.tsx#L850-L865)
-* **Problem**:
-  The bookmark icon on quiz cards toggles local component state `bookmarkedIds`. It does not persist to `localStorage` or the backend user profile. Refreshing the page wipes all bookmarks, and there is no "Bookmarked Quizzes" tab to view saved cards.
-* **Remediation**:
-  Persist bookmark selections to `localStorage` (for guests) or User profile metadata (for registered users) and add a "Saved" filter tab.
+### 1.5 Ephemeral Bookmark Feature — [RESOLVED]
+* **Status**: **RESOLVED**
+* **Resolution**: Completely removed unpersisted ephemeral bookmark state and buttons from quiz cards.
 
 ---
 
-### 1.6 Cosmetic Audio Toggle
-* **Severity**: Low (Polish)
-* **Impacted Files**:
-  * [`client/app/(protected)/battle/[roomCode]/page.tsx`](file:///h:/Project/code-arena/client/app/(protected)/battle/[roomCode]/page.tsx#L178-L189)
-* **Problem**:
-  A sound toggle (`Volume2` / `VolumeX`) exists in the battle header, toggling `soundEnabled`. However, there are no audio files, Web Audio synthesis, or sound effects implemented anywhere in the quiz flow.
-* **Remediation**:
-  Integrate subtle countdown tick and answer result chimes via lightweight Web Audio synth, or omit the toggle until audio assets are integrated.
+### 1.6 Cosmetic Audio Toggle — [RESOLVED]
+* **Status**: **RESOLVED**
+* **Resolution**: Completely removed the non-functional sound toggle button from the battle header.
 
 ---
 
-### 1.7 Dual Icon System Overhead
-* **Severity**: Low (Bundle Size & Visual Consistency)
-* **Impacted Files**:
-  * [`client/app/layout.tsx`](file:///h:/Project/code-arena/client/app/layout.tsx#L42-L45)
-  * Various component pages using both `lucide-react` and Google Material Symbols Outlined.
-* **Problem**:
-  The client imports `lucide-react` while also loading Google Material Symbols font via a CDN `<link>`. This creates two competing icon visual weights and adds extra network font requests.
-* **Remediation**:
-  Standardize on one icon library (e.g. `lucide-react`) across all components.
+### 1.7 Dual Icon System Overhead — [RESOLVED]
+* **Status**: **RESOLVED**
+* **Resolution**: Standardized exclusively on `lucide-react`. Removed the Google Material Symbols CDN `<link>` and font stylesheets, replacing every `<span className="material-symbols-outlined">...</span>` across all pages.
 
 ---
 
-### 1.8 Browser-Native `window.confirm` Modal
-* **Severity**: Low (UX Consistency)
-* **Impacted Files**:
-  * [`client/app/(protected)/battle/[roomCode]/page.tsx`](file:///h:/Project/code-arena/client/app/(protected)/battle/[roomCode]/page.tsx#L194)
-* **Problem**:
-  Leaving an active quiz triggers a standard browser `window.confirm(...)` alert dialog, which freezes UI rendering and clashes with the application design.
-* **Remediation**:
-  Replace `window.confirm` with an in-app confirmation modal or dialog.
+### 1.8 Browser-Native `window.confirm` Modal — [RESOLVED]
+* **Status**: **RESOLVED**
+* **Resolution**: Replaced browser `window.confirm` in the battle engine with an in-app custom styled Quizzy Leave Confirmation Modal matching the warm Stitch design language.
 
 ---
 

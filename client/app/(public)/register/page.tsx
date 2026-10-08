@@ -58,7 +58,7 @@ export default function RegisterPage() {
 
       if (res?.data?.accessToken) {
         setNativeSession(res.data.accessToken, res.data.user, res.data.expiresIn);
-        router.push("/dashboard");
+        router.push("/");
       } else {
         throw new Error("Invalid response from server.");
       }
@@ -83,7 +83,7 @@ export default function RegisterPage() {
 
       if (res?.data?.token) {
         setGuestSession(res.data.token, res.data.user, res.data.user.expiresIn || 86400);
-        router.push("/dashboard");
+        router.push("/");
       } else {
         throw new Error("Failed to create guest session.");
       }
@@ -102,18 +102,20 @@ export default function RegisterPage() {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center z-10 mb-6">
         <Link href="/" className="inline-flex items-center gap-2.5 mb-3 group">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-foreground text-background shadow-lg group-hover:scale-105 transition-transform">
-            <Shield className="h-5 w-5 fill-current" />
-          </span>
-          <span className="text-2xl font-black tracking-tight text-foreground">
-            CodeArena
+          <img
+            src="/images/quizzy-logo.png"
+            alt="Quizzy Logo"
+            className="h-10 w-auto object-contain"
+          />
+          <span className="text-2xl font-bold tracking-tight text-[#1d1b16]">
+            Quizzy
           </span>
         </Link>
-        <h2 className="text-2xl font-bold tracking-tight text-foreground">
-          Create your CodeArena Account
+        <h2 className="text-2xl font-bold tracking-tight text-[#1d1b16]">
+          Create your Quizzy Account
         </h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Join 1–4 player multiplayer quizzes, test your knowledge, and track your progress
+        <p className="mt-1 text-sm text-[#3f4944]">
+          Join live 1–4 player quiz battles and test your speed & knowledge
         </p>
       </div>
 

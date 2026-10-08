@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
+import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useBattleResult } from "@/features/battle/hooks/useBattleResult";
 import { useBattleMutations } from "@/features/battle/hooks/useBattleMutations";
@@ -116,11 +117,11 @@ export default function MatchResultsPage() {
           </div>
           <div className="flex gap-3 justify-center pt-2 text-xs font-semibold">
             <button
-              onClick={() => router.push("/dashboard")}
-              className="flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-[#ede7de] text-[#1d1b16] hover:bg-[#f9f3ea] transition-all"
+              onClick={() => router.push("/")}
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-[#ede7de] text-[#1d1b16] hover:bg-[#f9f3ea] transition-all cursor-pointer"
             >
               <Home className="h-4 w-4" />
-              Dashboard
+              Home
             </button>
             <button
               onClick={() => refetch()}
@@ -237,7 +238,16 @@ export default function MatchResultsPage() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#fff8f0]/85 backdrop-blur-xl border-b border-[#ede7de] shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
         <div className="h-16 max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
-            <span className="font-extrabold text-xl text-[#317a63] tracking-tight">CodeArena</span>
+            <Link href="/" className="flex items-center gap-2 group">
+              <img
+                src="/images/quizzy-logo.png"
+                alt="Quizzy"
+                className="h-7 w-auto object-contain"
+              />
+              <span className="font-extrabold text-xl text-[#317a63] tracking-tight group-hover:opacity-90">
+                Quizzy
+              </span>
+            </Link>
             <div className="h-4 w-px bg-[#ede7de] shrink-0" />
             <div className="flex items-center gap-2 truncate">
               <span className="text-sm font-bold text-[#1d1b16] truncate">{results.topic}</span>
@@ -795,14 +805,14 @@ export default function MatchResultsPage() {
       <footer className="w-full bg-[#f9f3ea] border-t border-[#ede7de] mt-12 py-4">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#3f4944]">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-[#1d1b16]">CodeArena Multiplayer</span>
+            <span className="font-bold text-[#1d1b16]">Quizzy Multiplayer</span>
             <span>•</span>
             <span>Room PIN: {results.roomCode}</span>
           </div>
           <div className="flex items-center gap-2">
             <span>All {results.questionCount} questions scored</span>
             <span>•</span>
-            <span>© 2026 CodeArena. Multiplayer Quiz Platform.</span>
+            <span>© 2026 Quizzy. Real-time Multiplayer Quiz Platform.</span>
           </div>
         </div>
       </footer>

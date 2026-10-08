@@ -14,7 +14,7 @@ import { setGuestSession } from "@/features/auth/guestAuth";
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectPath = searchParams.get("redirect") || "/dashboard";
+  const redirectPath = searchParams.get("redirect") || "/";
   const api = useApiClient();
 
   const [emailOrUsername, setEmailOrUsername] = useState("");
@@ -199,18 +199,20 @@ export default function LoginPage() {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center z-10 mb-6">
         <Link href="/" className="inline-flex items-center gap-2.5 mb-3 group">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-foreground text-background shadow-lg group-hover:scale-105 transition-transform">
-            <Shield className="h-5 w-5 fill-current" />
-          </span>
-          <span className="text-2xl font-black tracking-tight text-foreground">
-            CodeArena
+          <img
+            src="/images/quizzy-logo.png"
+            alt="Quizzy Logo"
+            className="h-10 w-auto object-contain"
+          />
+          <span className="text-2xl font-bold tracking-tight text-[#1d1b16]">
+            Quizzy
           </span>
         </Link>
-        <h2 className="text-2xl font-bold tracking-tight text-foreground">
-          Welcome back to CodeArena
+        <h2 className="text-2xl font-bold tracking-tight text-[#1d1b16]">
+          Welcome back to Quizzy
         </h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Log in to play real-time quizzes and test your knowledge
+        <p className="mt-1 text-sm text-[#3f4944]">
+          Log in to jump into live trivia battles and track your progress
         </p>
       </div>
 

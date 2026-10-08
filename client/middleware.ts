@@ -1,7 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 
 const PROTECTED_PREFIXES = [
-  "/dashboard",
   "/battle",
   "/profile",
   "/settings",
@@ -16,6 +15,10 @@ const AUTH_PREFIXES = ["/login", "/register"];
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
+  if (pathname === "/dashboard" || pathname.startsWith("/dashboard/")) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
   const hasAccessToken = req.cookies.has("codearena_access_token") || req.cookies.has("refreshToken");
   const hasGuestToken = req.cookies.has("codearena_guest_token");
   const isAuthenticated = hasAccessToken || hasGuestToken;
@@ -24,7 +27,7 @@ export function middleware(req: NextRequest) {
   const isProtectedRoute = PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 
   if (isAuthenticated && isAuthRoute) {
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+    return NextResponse.redirect(new URL("/", req.url));
   }
 
   if (isProtectedRoute && !isAuthenticated) {

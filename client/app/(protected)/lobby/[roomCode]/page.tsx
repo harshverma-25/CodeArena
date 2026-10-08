@@ -3,7 +3,34 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { Sparkles, WifiOff } from "lucide-react";
+import {
+  Sparkles,
+  WifiOff,
+  AlertTriangle,
+  Copy,
+  Users,
+  LogOut,
+  User,
+  Link as LinkIcon,
+  QrCode,
+  Shield,
+  Award,
+  Gamepad2,
+  UserPlus,
+  Check,
+  Loader2,
+  Settings,
+  SlidersHorizontal,
+  Layers,
+  BookOpen,
+  Shuffle,
+  HelpCircle,
+  Clock,
+  Lock,
+  Info,
+  Eye,
+  EyeOff,
+} from "lucide-react";
 
 import { useRoom } from "@/features/battle/hooks/useRoom";
 import { useBattleMutations } from "@/features/battle/hooks/useBattleMutations";
@@ -221,7 +248,7 @@ export default function MultiplayerLobbyPage() {
     } catch (err) {
       console.error("Failed to leave room", err);
     } finally {
-      router.push("/dashboard");
+      router.push("/");
     }
   };
 
@@ -358,9 +385,7 @@ export default function MultiplayerLobbyPage() {
     return (
       <div className="stitch-scope min-h-screen bg-[#fff8f0] flex items-center justify-center p-4">
         <div className="max-w-md w-full text-center p-8 bg-white border border-[#ede7de] rounded-[28px] shadow-xl space-y-4">
-          <span className="material-symbols-outlined text-[48px] text-[#9f2b1d]">
-            error
-          </span>
+          <AlertTriangle className="h-12 w-12 text-[#9f2b1d] mx-auto" />
           <h2 className="font-headline-sm text-headline-sm text-on-surface font-bold">
             Room Not Found
           </h2>
@@ -370,10 +395,10 @@ export default function MultiplayerLobbyPage() {
           </p>
           <div className="flex gap-3 justify-center pt-2">
             <button
-              onClick={() => router.push("/dashboard")}
+              onClick={() => router.push("/")}
               className="px-5 py-2 rounded-full border border-[#ede7de] bg-[#f9f3ea] hover:bg-[#f3ede4] text-on-surface font-label-md text-label-md font-semibold cursor-pointer"
             >
-              Dashboard
+              Home
             </button>
             <button
               onClick={() => refetch()}
@@ -429,9 +454,7 @@ export default function MultiplayerLobbyPage() {
         }`}
         id="toast"
       >
-        <span className="material-symbols-outlined text-[18px] text-[#317a63]">
-          check_circle
-        </span>
+        <Check className="h-4.5 w-4.5 text-[#317a63]" />
         <span>{toastMessage}</span>
       </div>
 
@@ -442,12 +465,12 @@ export default function MultiplayerLobbyPage() {
           <div className="flex items-center gap-space-lg">
             <Link href="/" className="flex items-center gap-space-sm group">
               <img
-                alt="QUIZLY"
+                alt="Quizzy"
                 className="h-8 w-auto object-contain"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgDEsPLQBloC1SCsTjeMY8iNfAntP-gtvWG7vrtWlb0wHUwicLrhHmojhzyqRWIYO35NkBi3uMb_akJemMNbzLSEFN7mU0bDfz8EePPJ_eW_PUC10ZZeJz1eM-5YG5Ml4g3N_KUgQzBOj9xL31lbZA6NRoD66cQUZ2v2JboFw6zc4Eu5HkYc0In59NmCtV8lOEt3gQrCKxHkFHFeQn3BqD1ru9s18jHp_gw4KE9KtOpiPBnUWhmBU"
+                src="/images/quizzy-logo.png"
               />
               <span className="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold group-hover:text-primary transition-colors">
-                QUIZLY
+                Quizzy
               </span>
             </Link>
 
@@ -464,9 +487,7 @@ export default function MultiplayerLobbyPage() {
                 title="Copy PIN"
                 type="button"
               >
-                <span className="material-symbols-outlined text-[16px]">
-                  content_copy
-                </span>
+                <Copy className="h-4 w-4" />
               </button>
             </div>
           </div>
@@ -482,9 +503,7 @@ export default function MultiplayerLobbyPage() {
           <div className="flex items-center gap-space-md">
             {/* Live Player Count */}
             <div className="flex items-center gap-space-xs bg-[#ffffff] border border-[#ede7de] px-space-md py-1.5 rounded-full shadow-sm">
-              <span className="material-symbols-outlined text-[18px] text-[#317a63]">
-                group
-              </span>
+              <Users className="h-4.5 w-4.5 text-[#317a63]" />
               <span className="font-label-md text-label-md text-on-surface font-semibold tabular-nums">
                 {playerCount}/{maxCapacity} Players
               </span>
@@ -499,7 +518,7 @@ export default function MultiplayerLobbyPage() {
               title="Leave Lobby"
               type="button"
             >
-              <span className="material-symbols-outlined text-[18px]">logout</span>
+              <LogOut className="h-4.5 w-4.5" />
               <span className="font-label-md text-label-md hidden sm:inline font-semibold">
                 {leaveRoom.isPending ? "Leaving..." : "Leave"}
               </span>
@@ -514,9 +533,7 @@ export default function MultiplayerLobbyPage() {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <span className="material-symbols-outlined text-white text-[18px]">
-                  person
-                </span>
+                <User className="h-4.5 w-4.5 text-white" />
               )}
             </div>
           </div>
@@ -549,17 +566,17 @@ export default function MultiplayerLobbyPage() {
                 {/* Left: Dynamic Join URL & Copy Button */}
                 <div className="flex-1 w-full flex flex-col items-start gap-space-sm relative z-10">
                   <div className="flex items-center gap-space-xs text-[#317a63] uppercase tracking-wider font-label-sm text-label-sm font-bold">
-                    <span className="material-symbols-outlined text-[16px]">link</span>
+                    <LinkIcon className="h-4 w-4" />
                     <span>Join at</span>
                   </div>
                   <div className="flex items-center gap-space-sm flex-wrap">
                     <img
-                      alt="QUIZLY"
+                      alt="Quizzy"
                       className="h-9 w-auto object-contain bg-white p-1.5 rounded-xl border border-[#ede7de] shadow-sm"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgDEsPLQBloC1SCsTjeMY8iNfAntP-gtvWG7vrtWlb0wHUwicLrhHmojhzyqRWIYO35NkBi3uMb_akJemMNbzLSEFN7mU0bDfz8EePPJ_eW_PUC10ZZeJz1eM-5YG5Ml4g3N_KUgQzBOj9xL31lbZA6NRoD66cQUZ2v2JboFw6zc4Eu5HkYc0In59NmCtV8lOEt3gQrCKxHkFHFeQn3BqD1ru9s18jHp_gw4KE9KtOpiPBnUWhmBU"
+                      src="/images/quizzy-logo.png"
                     />
                     <span className="font-headline-md text-headline-md text-on-surface font-extrabold tracking-tight">
-                      {typeof window !== "undefined" ? window.location.host : "quizly"}
+                      {typeof window !== "undefined" ? window.location.host : "quizzy"}
                     </span>
                   </div>
                   <p className="font-body-sm text-body-sm text-on-surface-variant max-w-xs">
@@ -571,9 +588,7 @@ export default function MultiplayerLobbyPage() {
                     onClick={handleCopyInviteLink}
                     type="button"
                   >
-                    <span className="material-symbols-outlined text-[16px]">
-                      open_in_new
-                    </span>
+                    <Copy className="h-4 w-4" />
                     <span>Copy invite link</span>
                   </button>
                 </div>
@@ -598,9 +613,7 @@ export default function MultiplayerLobbyPage() {
                       onClick={handleCopyPin}
                       type="button"
                     >
-                      <span className="material-symbols-outlined text-[15px] text-[#317a63]">
-                        content_copy
-                      </span>
+                      <Copy className="h-3.5 w-3.5 text-[#317a63]" />
                       <span>Copy PIN</span>
                     </button>
                     <button
@@ -608,9 +621,11 @@ export default function MultiplayerLobbyPage() {
                       onClick={togglePinVisibility}
                       type="button"
                     >
-                      <span className="material-symbols-outlined text-[15px] text-[#317a63]">
-                        {pinHidden ? "visibility_off" : "visibility"}
-                      </span>
+                      {pinHidden ? (
+                        <EyeOff className="h-3.5 w-3.5 text-[#317a63]" />
+                      ) : (
+                        <Eye className="h-3.5 w-3.5 text-[#317a63]" />
+                      )}
                       <span>{pinHidden ? "Show PIN" : "Hide PIN"}</span>
                     </button>
                   </div>
@@ -653,9 +668,7 @@ export default function MultiplayerLobbyPage() {
                   </div>
                   {/* Lobby Slot Count Status Pill */}
                   <div className="flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-white border border-[#ede7de] text-on-surface font-label-md text-label-md self-start sm:self-auto shadow-sm">
-                    <span className="material-symbols-outlined text-[18px] text-[#317a63]">
-                      group
-                    </span>
+                    <Users className="h-4.5 w-4.5 text-[#317a63]" />
                     <span className="font-bold text-[#317a63]">
                       {playerCount} of {maxCapacity}
                     </span>
@@ -703,9 +716,7 @@ export default function MultiplayerLobbyPage() {
                               className="w-full h-full object-cover"
                             />
                           ) : (
-                            <span className="material-symbols-outlined text-[44px]">
-                              {style.icon}
-                            </span>
+                            <User className="h-10 w-10 text-[#317a63]" />
                           )}
                         </div>
 
@@ -766,9 +777,7 @@ export default function MultiplayerLobbyPage() {
                         className="relative bg-[#f9f3ea]/70 border-2 border-dashed border-[#d8d0c4] rounded-[24px] p-space-lg flex flex-col items-center justify-center text-center min-h-[220px]"
                       >
                         <div className="w-16 h-16 rounded-full bg-white text-[#317a63] flex items-center justify-center mb-space-sm animate-pulse border border-[#ede7de]">
-                          <span className="material-symbols-outlined text-[32px]">
-                            person_add
-                          </span>
+                          <UserPlus className="h-8 w-8 text-[#317a63]" />
                         </div>
                         <span className="font-label-lg text-label-lg text-on-surface font-semibold max-w-[150px]">
                           Waiting for next player...
@@ -811,12 +820,11 @@ export default function MultiplayerLobbyPage() {
                     className="w-full sm:w-auto px-12 py-4 bg-[#317a63] hover:bg-[#25604e] text-white rounded-full font-headline-sm text-headline-sm font-extrabold shadow-[0_8px_24px_-4px_rgba(49,122,99,0.35)] hover:shadow-[0_12px_32px_-4px_rgba(49,122,99,0.45)] transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 active:scale-98 flex items-center justify-center gap-space-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#317a63]"
                     type="button"
                   >
-                    <span
-                      className="material-symbols-outlined text-[28px]"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      {isStarting ? "hourglass_top" : "play_arrow"}
-                    </span>
+                    {isStarting ? (
+                      <Clock className="h-6 w-6 animate-spin" />
+                    ) : (
+                      <Sparkles className="h-6 w-6" />
+                    )}
                     <span>
                       {isStarting
                         ? "Launching Quiz..."
@@ -835,21 +843,18 @@ export default function MultiplayerLobbyPage() {
                     }`}
                     type="button"
                   >
-                    <span
-                      className="material-symbols-outlined text-[28px]"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      {isMyPlayerReady ? "task_alt" : "check_circle"}
-                    </span>
+                    <Check className="h-6 w-6" />
                     <span>{isMyPlayerReady ? "You're Ready (Click to Cancel)" : "I'm Ready"}</span>
                   </button>
                 )}
 
                 {/* Role / Permission Notice */}
                 <div className="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md text-center px-4">
-                  <span className="material-symbols-outlined text-[16px] text-[#317a63]">
-                    {isHost ? (allNonHostsReady ? "check_circle" : "hourglass_empty") : "info"}
-                  </span>
+                  {isHost ? (
+                    <Check className="h-4 w-4 text-[#317a63]" />
+                  ) : (
+                    <Info className="h-4 w-4 text-[#317a63]" />
+                  )}
                   <span>
                     {isHost ? (
                       playerCount === 1 ? (
@@ -876,9 +881,7 @@ export default function MultiplayerLobbyPage() {
                   <div className="w-full max-w-3xl bg-white/95 backdrop-blur-md border border-[#ede7de] rounded-[24px] p-6 shadow-sm flex flex-col gap-4 mt-2">
                     <div className="flex items-center justify-between border-b border-[#ede7de] pb-3">
                       <div className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-[20px] text-[#317a63]">
-                          tune
-                        </span>
+                        <SlidersHorizontal className="w-5 h-5 text-[#317a63]" />
                         <h3 className="font-headline-sm text-headline-sm font-bold text-on-surface">
                           Room Quiz Settings
                         </h3>
@@ -892,7 +895,7 @@ export default function MultiplayerLobbyPage() {
                       {/* Category Selection */}
                       <div className="flex flex-col gap-1.5">
                         <label className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1.5">
-                          <span className="material-symbols-outlined text-[16px] text-[#317a63]">category</span>
+                          <Layers className="w-4 h-4 text-[#317a63]" />
                           Category
                         </label>
                         <select
@@ -912,7 +915,7 @@ export default function MultiplayerLobbyPage() {
                       <div className="flex flex-col gap-1.5">
                         <div className="flex items-center justify-between">
                           <label className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1.5">
-                            <span className="material-symbols-outlined text-[16px] text-[#317a63]">subject</span>
+                            <BookOpen className="w-4 h-4 text-[#317a63]" />
                             Subject
                           </label>
                           <label className="inline-flex items-center gap-1.5 cursor-pointer text-xs font-semibold text-[#317a63]">
@@ -927,7 +930,7 @@ export default function MultiplayerLobbyPage() {
                         </div>
                         {isMixed ? (
                           <div className="w-full px-3.5 py-2.5 bg-[#e8f5ee] border border-[#d2eadc] rounded-xl text-sm font-semibold text-[#317a63] flex items-center gap-2">
-                            <span className="material-symbols-outlined text-[18px]">shuffle</span>
+                            <Shuffle className="w-4 h-4 text-[#317a63]" />
                             <span>All {categoriesList.find(c => c.slug === currentCategorySlug)?.name || currentCategorySlug} Subjects (Mixed)</span>
                           </div>
                         ) : (
@@ -950,7 +953,7 @@ export default function MultiplayerLobbyPage() {
                       {/* Question Count Selector (10, 15, 20) */}
                       <div className="flex flex-col gap-1.5">
                         <label className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1.5">
-                          <span className="material-symbols-outlined text-[16px] text-[#317a63]">quiz</span>
+                          <HelpCircle className="w-4 h-4 text-[#317a63]" />
                           Question Count
                         </label>
                         <div className="grid grid-cols-3 gap-2">
@@ -977,12 +980,12 @@ export default function MultiplayerLobbyPage() {
                       {/* Timer Display (Server-authoritative, read-only) */}
                       <div className="flex flex-col gap-1.5">
                         <label className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1.5">
-                          <span className="material-symbols-outlined text-[16px] text-[#317a63]">timer</span>
+                          <Clock className="w-4 h-4 text-[#317a63]" />
                           Timer per Question (Server-Derived)
                         </label>
                         <div className="px-3.5 py-2.5 bg-[#f3ede4] border border-[#e2dacd] rounded-xl text-sm font-bold text-on-surface flex items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <span className="material-symbols-outlined text-[18px] text-[#317a63]">lock</span>
+                            <Lock className="w-4 h-4 text-[#317a63]" />
                             <span>{currentTimeLimit} seconds / question</span>
                           </div>
                           <span className="text-[11px] font-medium text-on-surface-variant uppercase tracking-wider">
@@ -996,15 +999,13 @@ export default function MultiplayerLobbyPage() {
                   <div className="w-full max-w-3xl bg-white/90 backdrop-blur-md border border-[#ede7de] rounded-[24px] p-5 shadow-sm flex flex-col gap-3 mt-2">
                     <div className="flex items-center justify-between border-b border-[#ede7de] pb-2">
                       <div className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-[18px] text-[#317a63]">
-                          tune
-                        </span>
+                        <SlidersHorizontal className="w-4 h-4 text-[#317a63]" />
                         <span className="font-label-md text-label-md font-bold text-on-surface">
                           Current Quiz Configuration
                         </span>
                       </div>
                       <span className="text-xs font-semibold px-2.5 py-0.5 bg-[#f3ede4] text-[#7d7568] border border-[#e2dacd] rounded-full flex items-center gap-1">
-                        <span className="material-symbols-outlined text-[12px]">lock</span>
+                        <Lock className="w-3 h-3" />
                         Configured by Host
                       </span>
                     </div>
@@ -1050,14 +1051,14 @@ export default function MultiplayerLobbyPage() {
         <div className="max-w-7xl mx-auto px-margin flex flex-col sm:flex-row items-center justify-between gap-space-md text-on-surface-variant">
           <div className="flex items-center gap-space-sm">
             <span className="font-headline-sm text-headline-sm font-bold text-[#317a63]">
-              QUIZLY
+              Quizzy
             </span>
             <span className="font-body-sm text-body-sm">
-              • Social trivia made tactical &amp; ambient
+              • Real-Time Multiplayer Quiz Arena
             </span>
           </div>
           <div className="font-body-sm text-body-sm">
-            © 2025 Quizly Multiplayer. Waiting Room Protocol.
+            © 2025 Quizzy. All rights reserved.
           </div>
         </div>
       </footer>

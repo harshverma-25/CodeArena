@@ -10,11 +10,11 @@ export default function CreateBattlePage() {
     <div className="mx-auto max-w-xl space-y-6 pb-12">
       {/* Back Link */}
       <Link
-        href="/dashboard"
+        href="/"
         className="inline-flex items-center gap-1 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors font-mono"
       >
         <ChevronLeft className="h-4 w-4" />
-        Back to Dashboard
+        Back to Quizzes
       </Link>
 
       {/* Header */}

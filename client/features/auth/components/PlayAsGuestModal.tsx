@@ -46,10 +46,10 @@ export function PlayAsGuestModal({ isOpen, onClose }: PlayAsGuestModalProps) {
       setGuestSession(token, user, user.expiresIn || 86400);
 
       onClose();
-      // Navigate to dashboard
-      router.push("/dashboard");
+      // Navigate to homepage
+      router.push("/");
       // Hard refresh so all providers pick up the new session cleanly
-      window.location.href = "/dashboard";
+      window.location.href = "/";
     } catch (err: any) {
       setError(err.message || "An unexpected error occurred. Please try again.");
       setIsLoading(false);

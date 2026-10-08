@@ -24,8 +24,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CodeArena | Real-Time Multiplayer Quiz Platform",
-  description: "A real-time 1–4 player multiplayer quiz platform for students, developers, and trivia enthusiasts.",
+  title: "Quizzy | Real-Time Multiplayer Quiz Platform",
+  description: "Quizzy — fast, fun 1–4 player multiplayer trivia & quiz platform.",
 };
 
 export default function RootLayout({
@@ -38,12 +38,6 @@ export default function RootLayout({
       lang="en"
       className={`${plusJakartaSans.variable} ${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        />
-      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <AppProviders>{children}</AppProviders>
       </body>

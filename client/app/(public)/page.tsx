@@ -3,33 +3,65 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { isGuestSessionActive, getGuestUser, PlayAsGuestModal, useCurrentUser } from "@/features/auth";
+import {
+  Gamepad2,
+  ArrowRight,
+  Search,
+  X,
+  User,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+  History,
+  Hourglass,
+  AlertCircle,
+  Play,
+  Users,
+  Trophy,
+  Layers,
+  Code2,
+  Brain,
+  Lightbulb,
+  Palette,
+  Film,
+  Globe,
+  Landmark,
+  Languages,
+  Atom,
+  HelpCircle,
+  LogOut,
+  Shield,
+  Check,
+  Sparkles,
+} from "lucide-react";
+
+import { isGuestSessionActive, getGuestUser, clearGuestSession, PlayAsGuestModal, useCurrentUser } from "@/features/auth";
+import { clearNativeSession, getNativeUser } from "@/features/auth/nativeAuth";
 import { useApiClient } from "@/hooks/useApiClient";
 import { Category, Subject } from "@/types";
 
 // Category color palettes for visual richness
 const COLOR_PALETTES = [
-  { iconColor: "text-primary", iconBg: "bg-primary-fixed/70", categoryBg: "bg-primary-fixed/80", categoryText: "text-on-primary-fixed" },
-  { iconColor: "text-secondary", iconBg: "bg-secondary-fixed/50", categoryBg: "bg-secondary-fixed/80", categoryText: "text-on-secondary-fixed" },
-  { iconColor: "text-on-surface-variant", iconBg: "bg-surface-container-high", categoryBg: "bg-surface-container-high/90", categoryText: "text-on-surface" },
-  { iconColor: "text-tertiary", iconBg: "bg-tertiary-fixed/50", categoryBg: "bg-tertiary-fixed/80", categoryText: "text-on-tertiary-fixed" },
-  { iconColor: "text-on-tertiary-fixed-variant", iconBg: "bg-tertiary-fixed-dim/40", categoryBg: "bg-tertiary-fixed-dim/40", categoryText: "text-on-tertiary-fixed-variant" },
+  { iconColor: "text-[#317a63]", iconBg: "bg-[#e8f5ee]", categoryBg: "bg-[#e8f5ee]/80", categoryText: "text-[#1e6a54]" },
+  { iconColor: "text-[#d97706]", iconBg: "bg-[#fef3c7]", categoryBg: "bg-[#fef3c7]/80", categoryText: "text-[#92400e]" },
+  { iconColor: "text-[#4f46e5]", iconBg: "bg-[#e0e7ff]", categoryBg: "bg-[#e0e7ff]/80", categoryText: "text-[#3730a3]" },
+  { iconColor: "text-[#db2777]", iconBg: "bg-[#fce7f3]", categoryBg: "bg-[#fce7f3]/80", categoryText: "text-[#9d174d]" },
+  { iconColor: "text-[#0284c7]", iconBg: "bg-[#e0f2fe]", categoryBg: "bg-[#e0f2fe]/80", categoryText: "text-[#0369a1]" },
 ];
 
-const getCategoryIcon = (category: Category): string => {
-  if (category.icon) return category.icon;
+const getCategoryLucideIcon = (category: Category) => {
   const slug = (category.slug || category.name || "").toLowerCase();
-  if (slug.includes("prog") || slug.includes("code")) return "terminal";
-  if (slug.includes("apt") || slug.includes("logic")) return "psychology";
-  if (slug.includes("gk") || slug.includes("gen") || slug.includes("know")) return "lightbulb";
-  if (slug.includes("art") || slug.includes("lit")) return "palette";
-  if (slug.includes("ent") || slug.includes("mov")) return "movie";
-  if (slug.includes("geo")) return "public";
-  if (slug.includes("his")) return "account_balance";
-  if (slug.includes("lang")) return "translate";
-  if (slug.includes("sci")) return "biotech";
-  if (slug.includes("sport")) return "sports_basketball";
-  return "quiz";
+  if (slug.includes("prog") || slug.includes("code")) return Code2;
+  if (slug.includes("apt") || slug.includes("logic")) return Brain;
+  if (slug.includes("gk") || slug.includes("gen") || slug.includes("know")) return Lightbulb;
+  if (slug.includes("art") || slug.includes("lit")) return Palette;
+  if (slug.includes("ent") || slug.includes("mov")) return Film;
+  if (slug.includes("geo")) return Globe;
+  if (slug.includes("his")) return Landmark;
+  if (slug.includes("lang")) return Languages;
+  if (slug.includes("sci")) return Atom;
+  if (slug.includes("sport")) return Trophy;
+  return HelpCircle;
 };
 
 const formatTimeAgo = (dateInput?: string | Date): string => {
@@ -73,10 +105,17 @@ export default function StitchHomePage() {
   // Form & UI state
   const [pinValue, setPinValue] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
-  const [bookmarkedIds, setBookmarkedIds] = useState<Record<string, boolean>>({});
   const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
   const [guestActive, setGuestActive] = useState<boolean>(false);
   const [guestUser, setGuestUser] = useState<any>(null);
+
+  // Search state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchActive, setIsSearchActive] = useState(false);
+
+  // Profile menu dropdown state
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
 
   const categoryTrackRef = useRef<HTMLDivElement>(null);
 
@@ -98,12 +137,36 @@ export default function StitchHomePage() {
     };
   }, []);
 
+  // Close profile menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(e.target as Node)) {
+        setIsProfileMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const hasAccess = Boolean(isUserAuthenticated || guestActive);
   const displayName = isUserAuthenticated && currentUser
     ? currentUser.displayName || currentUser.username || "Player"
     : guestActive && guestUser
     ? guestUser.displayName || guestUser.username || "Guest Player"
     : "Player";
+
+  // Handle Logout
+  const handleLogout = async () => {
+    try {
+      await api.post("/auth/logout");
+    } catch {
+      // Ignore errors
+    }
+    clearNativeSession();
+    clearGuestSession();
+    setIsProfileMenuOpen(false);
+    router.push("/");
+  };
 
   // 1. Fetch categories from backend API
   useEffect(() => {
@@ -124,7 +187,6 @@ export default function StitchHomePage() {
         }
       } catch (err) {
         if (retryCount < 3) {
-          // Retry automatically in case backend server is still booting up
           timerId = setTimeout(() => {
             if (isMounted) fetchCategories(retryCount + 1);
           }, 1500);
@@ -216,14 +278,6 @@ export default function StitchHomePage() {
     }
 
     router.push(`/lobby/${cleanPin}`);
-  };
-
-  // Toggle bookmark icon
-  const toggleBookmark = (id: string) => {
-    setBookmarkedIds((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
   };
 
   const [selectedQuestionCount, setSelectedQuestionCount] = useState<number>(10);
@@ -344,9 +398,19 @@ export default function StitchHomePage() {
     ...subjectQuizCards,
   ];
 
+  // Apply filters (type filter + real-time search query)
   const filteredQuizCards = allQuizCards.filter((card) => {
-    if (activeFilter === "mixed") return card.isMixedCategory;
-    if (activeFilter === "subjects") return !card.isMixedCategory;
+    if (activeFilter === "mixed" && !card.isMixedCategory) return false;
+    if (activeFilter === "subjects" && card.isMixedCategory) return false;
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      const matchTitle = card.title.toLowerCase().includes(q);
+      const matchDesc = card.description.toLowerCase().includes(q);
+      const matchCat = card.category.toLowerCase().includes(q);
+      return matchTitle || matchDesc || matchCat;
+    }
+
     return true;
   });
 
@@ -373,7 +437,6 @@ export default function StitchHomePage() {
       }
       return;
     }
-    // If < 10 questions are available, default to 10 (all options disabled)
     if (selectedQuestionCount !== 10) {
       setSelectedQuestionCount(10);
     }
@@ -382,53 +445,66 @@ export default function StitchHomePage() {
   return (
     <div className="stitch-scope min-h-screen bg-surface font-body-md text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
       {/* 1. FIXED NAVBAR WITH BLUR */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-surface/85 backdrop-blur-xl border-b border-surface-container-highest shadow-[0_2px_8px_-2px_rgba(60,52,42,0.04),0_1px_3px_-1px_rgba(60,52,42,0.03)]">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#fff8f0]/90 backdrop-blur-xl border-b border-[#ede7de] shadow-[0_2px_8px_-2px_rgba(60,52,42,0.04)]">
         <div className="h-20 w-full max-w-[1240px] mx-auto px-margin-sm lg:px-margin flex items-center justify-between gap-space-md">
           {/* Logo & Navigation */}
           <div className="flex items-center gap-space-md shrink-0">
-            <Link className="flex items-center gap-space-sm group" href="/">
+            <Link className="flex items-center gap-2 group" href="/">
               <img
-                alt="QUIZLY Logo"
-                className="h-8 w-auto object-contain"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgDEsPLQBloC1SCsTjeMY8iNfAntP-gtvWG7vrtWlb0wHUwicLrhHmojhzyqRWIYO35NkBi3uMb_akJemMNbzLSEFN7mU0bDfz8EePPJ_eW_PUC10ZZeJz1eM-5YG5Ml4g3N_KUgQzBOj9xL31lbZA6NRoD66cQUZ2v2JboFw6zc4Eu5HkYc0In59NmCtV8lOEt3gQrCKxHkFHFeQn3BqD1ru9s18jHp_gw4KE9KtOpiPBnUWhmBU"
+                alt="Quizzy Logo"
+                className="h-9 w-auto object-contain"
+                src="/images/quizzy-logo.png"
               />
               <span className="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight group-hover:text-primary transition-colors">
-                QUIZLY
+                Quizzy
               </span>
             </Link>
 
-            <nav className="hidden xl:flex items-center gap-space-xs ml-space-md p-1 bg-surface-container-low rounded-full">
-              <span
-                aria-current="page"
-                className="px-space-md py-1.5 transition-colors bg-surface-container-high text-on-surface font-semibold rounded-full select-none cursor-default"
+            <nav className="hidden lg:flex items-center gap-1.5 ml-space-md p-1 bg-surface-container-low rounded-full">
+              <Link
+                href="/"
+                className="px-3.5 py-1.5 transition-colors bg-[#317a63] text-white font-bold text-xs rounded-full shadow-sm flex items-center gap-1.5"
               >
-                Explore
-              </span>
+                <Layers className="w-3.5 h-3.5" />
+                Quizzes
+              </Link>
+              <Link
+                href="/leaderboard"
+                className="px-3.5 py-1.5 transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-bold text-xs rounded-full flex items-center gap-1.5"
+              >
+                <Trophy className="w-3.5 h-3.5" />
+                Leaderboard
+              </Link>
+              <Link
+                href="/history"
+                className="px-3.5 py-1.5 transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-bold text-xs rounded-full flex items-center gap-1.5"
+              >
+                <History className="w-3.5 h-3.5" />
+                History
+              </Link>
             </nav>
           </div>
 
           {/* Center: PIN Joining Interface */}
-          <div className="hidden md:flex items-center justify-center flex-1 max-w-[440px]">
+          <div className="hidden md:flex items-center justify-center flex-1 max-w-[380px]">
             <form
               onSubmit={handleJoinPin}
-              className="w-full flex items-center justify-between bg-tertiary-fixed/40 border border-tertiary-fixed-dim/60 rounded-full pl-space-md pr-1.5 py-1.5 shadow-[0_2px_8px_-2px_rgba(60,52,42,0.04)]"
+              className="w-full flex items-center justify-between bg-tertiary-fixed/40 border border-tertiary-fixed-dim/60 rounded-full pl-3.5 pr-1.5 py-1.5 shadow-[0_2px_8px_-2px_rgba(60,52,42,0.04)]"
             >
-              <div className="flex items-center gap-space-sm overflow-hidden">
-                <span className="material-symbols-outlined text-tertiary text-[20px] shrink-0">
-                  sports_esports
-                </span>
-                <div className="flex flex-col">
-                  <span className="font-label-sm text-label-sm text-on-tertiary-fixed-variant leading-none uppercase tracking-wider font-bold">
-                    Join Quiz
+              <div className="flex items-center gap-2 overflow-hidden">
+                <Gamepad2 className="w-5 h-5 text-tertiary shrink-0" />
+                <div className="flex flex-col text-left">
+                  <span className="text-[10px] text-on-tertiary-fixed-variant leading-none uppercase tracking-wider font-bold">
+                    Join Room
                   </span>
-                  <span className="font-label-md text-label-md text-on-surface leading-tight font-semibold">
+                  <span className="text-xs text-on-surface leading-tight font-semibold">
                     Enter PIN
                   </span>
                 </div>
               </div>
-              <div className="flex items-center gap-space-xs">
+              <div className="flex items-center gap-1.5">
                 <input
-                  className="w-24 px-space-sm py-1 bg-surface-container-lowest rounded-full font-label-md text-label-md text-on-surface placeholder:text-outline text-center tracking-wider focus:outline-none focus:ring-2 focus:ring-primary shadow-inner border border-surface-container-highest uppercase"
+                  className="w-24 px-2.5 py-1 bg-surface-container-lowest rounded-full text-xs text-on-surface placeholder:text-outline text-center tracking-wider focus:outline-none focus:ring-2 focus:ring-primary shadow-inner border border-surface-container-highest uppercase font-bold"
                   maxLength={6}
                   placeholder="123 456"
                   type="text"
@@ -437,64 +513,137 @@ export default function StitchHomePage() {
                 />
                 <button
                   aria-label="Join Quiz by PIN"
-                  className="h-9 w-9 rounded-full bg-primary hover:bg-primary-container text-on-primary flex items-center justify-center transition-all transform hover:-translate-y-0.5 shadow-sm active:translate-y-0 cursor-pointer"
+                  className="h-8 w-8 rounded-full bg-primary hover:bg-primary-container text-on-primary flex items-center justify-center transition-all transform hover:-translate-y-0.5 shadow-sm active:translate-y-0 cursor-pointer"
                   type="submit"
                 >
-                  <span className="material-symbols-outlined text-[18px]">
-                    arrow_forward
-                  </span>
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </form>
           </div>
 
-          {/* Right: Search, Notifications & Profile */}
+          {/* Right: Functional Search & Profile Section */}
           <div className="flex items-center gap-space-sm shrink-0">
-            <button
-              aria-label="Search quizzes"
-              className="h-10 w-10 rounded-full bg-surface-container-lowest border border-surface-container-highest flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:border-outline-variant transition-colors cursor-pointer"
-              type="button"
-            >
-              <span className="material-symbols-outlined text-[20px]">search</span>
-            </button>
-            <button
-              aria-label="Notifications"
-              className="relative h-10 w-10 rounded-full bg-surface-container-lowest border border-surface-container-highest flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:border-outline-variant transition-colors cursor-pointer"
-              type="button"
-            >
-              <span className="material-symbols-outlined text-[20px]">
-                notifications
-              </span>
-              <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-tertiary ring-2 ring-surface"></span>
-            </button>
-            <div
-              onClick={() => {
-                if (!hasAccess) {
-                  setIsGuestModalOpen(true);
-                } else {
-                  router.push("/profile");
-                }
-              }}
-              className="flex items-center gap-space-sm pl-1 pr-3 py-1 bg-surface-container-lowest border border-surface-container-highest rounded-full shadow-[0_1px_3px_-1px_rgba(60,52,42,0.03)] cursor-pointer hover:border-outline-variant transition-colors"
-            >
-              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center overflow-hidden">
-                {isUserAuthenticated && currentUser?.avatar ? (
-                  <img
-                    src={currentUser.avatar}
-                    alt={displayName}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <span className="material-symbols-outlined text-on-primary text-[18px]">
-                    person
+            {/* Functional Real-Time Search Bar / Toggle */}
+            {isSearchActive ? (
+              <div className="flex items-center gap-1.5 bg-surface-container-lowest border border-primary/50 rounded-full px-3 py-1 shadow-sm transition-all animate-in fade-in duration-150">
+                <Search className="w-4 h-4 text-primary shrink-0" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search quizzes..."
+                  className="w-32 sm:w-44 bg-transparent text-xs text-on-surface focus:outline-none font-medium"
+                  autoFocus
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setIsSearchActive(false);
+                  }}
+                  className="text-on-surface-variant hover:text-on-surface cursor-pointer p-0.5"
+                  aria-label="Close search"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              <button
+                aria-label="Search quizzes"
+                onClick={() => setIsSearchActive(true)}
+                className="h-10 w-10 rounded-full bg-surface-container-lowest border border-surface-container-highest flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:border-outline-variant transition-colors cursor-pointer shadow-sm"
+                type="button"
+              >
+                <Search className="w-4 h-4" />
+              </button>
+            )}
+
+            {/* Profile Section & Dropdown Menu */}
+            <div className="relative" ref={profileMenuRef}>
+              <button
+                type="button"
+                onClick={() => {
+                  if (!hasAccess) {
+                    setIsGuestModalOpen(true);
+                  } else {
+                    setIsProfileMenuOpen((prev) => !prev);
+                  }
+                }}
+                className="flex items-center gap-2 pl-1 pr-3 py-1 bg-surface-container-lowest border border-surface-container-highest rounded-full shadow-sm cursor-pointer hover:border-primary/50 transition-colors"
+              >
+                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center overflow-hidden">
+                  {isUserAuthenticated && currentUser?.avatar ? (
+                    <img
+                      src={currentUser.avatar}
+                      alt={displayName}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <User className="w-4 h-4 text-on-primary" />
+                  )}
+                </div>
+                <div className="hidden sm:flex flex-col text-left pr-1">
+                  <span className="font-label-md text-label-md text-on-surface leading-none font-semibold truncate max-w-[120px]">
+                    {displayName}
                   </span>
-                )}
-              </div>
-              <div className="hidden sm:flex flex-col text-left pr-1">
-                <span className="font-label-md text-label-md text-on-surface leading-none font-semibold truncate max-w-[120px]">
-                  {displayName}
-                </span>
-              </div>
+                  {guestActive && (
+                    <span className="text-[10px] text-amber-600 font-bold uppercase tracking-wider">
+                      Guest
+                    </span>
+                  )}
+                </div>
+              </button>
+
+              {/* Profile Dropdown Popover */}
+              {isProfileMenuOpen && hasAccess && (
+                <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-white border border-[#ede7de] shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="px-4 py-2 border-b border-[#ede7de]">
+                    <p className="text-xs font-bold text-on-surface truncate">{displayName}</p>
+                    <p className="text-[11px] text-on-surface-variant truncate">
+                      {isUserAuthenticated ? currentUser?.email || "Registered Player" : "Guest Session Active"}
+                    </p>
+                  </div>
+
+                  <div className="py-1">
+                    <Link
+                      href="/profile"
+                      onClick={() => setIsProfileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-on-surface hover:bg-[#f9f3ea] transition-colors"
+                    >
+                      <User className="w-4 h-4 text-[#317a63]" />
+                      My Profile
+                    </Link>
+                    <Link
+                      href="/history"
+                      onClick={() => setIsProfileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-on-surface hover:bg-[#f9f3ea] transition-colors"
+                    >
+                      <History className="w-4 h-4 text-[#317a63]" />
+                      Match History
+                    </Link>
+                    <Link
+                      href="/leaderboard"
+                      onClick={() => setIsProfileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-on-surface hover:bg-[#f9f3ea] transition-colors"
+                    >
+                      <Trophy className="w-4 h-4 text-[#317a63]" />
+                      Leaderboard
+                    </Link>
+                  </div>
+
+                  <div className="pt-1 border-t border-[#ede7de]">
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-[#9f2b1d] hover:bg-[#ffdad6]/40 transition-colors text-left cursor-pointer"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      {guestActive ? "Exit Guest Mode" : "Log Out"}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -506,21 +655,18 @@ export default function StitchHomePage() {
           <div className="w-full max-w-[1240px] mx-auto px-margin-sm lg:px-margin pb-space-2xl">
             {/* SECTION 1: TOP HERO / WELCOME BANNER */}
             <section className="mt-space-md mb-space-xl">
-              <div className="bg-surface-container-lowest rounded-[28px] p-space-lg lg:p-space-xl shadow-[0_2px_12px_-3px_rgba(60,52,42,0.04)] flex flex-col md:flex-row md:items-center justify-between gap-space-lg relative overflow-hidden">
+              <div className="bg-surface-container-lowest rounded-[28px] p-space-lg lg:p-space-xl shadow-[0_2px_12px_-3px_rgba(60,52,42,0.04)] flex flex-col md:flex-row md:items-center justify-between gap-space-lg relative overflow-hidden border border-surface-container-highest">
                 <div className="absolute -right-16 -top-16 w-64 h-64 bg-primary-fixed/30 rounded-full blur-3xl pointer-events-none"></div>
                 <div className="relative z-10 space-y-space-xs max-w-2xl">
                   <div className="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm tracking-wide uppercase">
                     <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                    Live Quiz Engine Active
+                    ⚡ Real-Time Multiplayer Trivia
                   </div>
-                  <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">
-                    Welcome back, {displayName.split(" ")[0]}!{" "}
-                    <span className="font-normal text-on-surface-variant">
-                      Ready to test your technical mastery?
-                    </span>
+                  <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold">
+                    Welcome to Quizzy, {displayName.split(" ")[0]}! 🎮
                   </h1>
                   <p className="font-body-md text-body-md text-on-surface-variant">
-                    Select a topic or specific subject below to start a 1–4 player multiplayer quiz room.
+                    Pick a category, test yourself solo, or challenge friends to an instant quiz showdown!
                   </p>
                 </div>
               </div>
@@ -532,7 +678,7 @@ export default function StitchHomePage() {
                 <span className="font-body-md text-body-md font-semibold">{roomError}</span>
                 <button
                   onClick={() => setRoomError(null)}
-                  className="text-error font-bold text-sm px-2 py-1 hover:bg-error/20 rounded-lg"
+                  className="text-error font-bold text-sm px-2 py-1 hover:bg-error/20 rounded-lg cursor-pointer"
                 >
                   Dismiss
                 </button>
@@ -543,28 +689,24 @@ export default function StitchHomePage() {
             <section className="mb-space-2xl">
               <div className="flex items-center justify-between gap-space-md mb-space-sm">
                 <span className="font-label-md text-label-md font-bold uppercase tracking-wider text-on-surface-variant">
-                  Top Knowledge Domains
+                  Categories
                 </span>
                 <div className="flex items-center gap-1 text-on-surface-variant">
                   <button
                     aria-label="Scroll categories left"
-                    className="w-8 h-8 rounded-full bg-surface-container-lowest hover:bg-surface-container-high flex items-center justify-center transition-colors shadow-sm cursor-pointer"
+                    className="w-8 h-8 rounded-full bg-surface-container-lowest hover:bg-surface-container-high flex items-center justify-center transition-colors shadow-sm cursor-pointer border border-surface-container-highest"
                     onClick={handleScrollLeft}
                     type="button"
                   >
-                    <span className="material-symbols-outlined text-[18px]">
-                      chevron_left
-                    </span>
+                    <ChevronLeft className="w-4 h-4" />
                   </button>
                   <button
                     aria-label="Scroll categories right"
-                    className="w-8 h-8 rounded-full bg-surface-container-lowest hover:bg-surface-container-high flex items-center justify-center transition-colors shadow-sm cursor-pointer"
+                    className="w-8 h-8 rounded-full bg-surface-container-lowest hover:bg-surface-container-high flex items-center justify-center transition-colors shadow-sm cursor-pointer border border-surface-container-highest"
                     onClick={handleScrollRight}
                     type="button"
                   >
-                    <span className="material-symbols-outlined text-[18px]">
-                      chevron_right
-                    </span>
+                    <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -586,7 +728,7 @@ export default function StitchHomePage() {
                     const isSelected =
                       selectedCategoryId === cat.id || selectedCategoryId === cat.slug;
                     const palette = COLOR_PALETTES[idx % COLOR_PALETTES.length];
-                    const iconName = getCategoryIcon(cat);
+                    const IconComponent = getCategoryLucideIcon(cat);
 
                     return (
                       <button
@@ -594,8 +736,8 @@ export default function StitchHomePage() {
                         onClick={() => setSelectedCategoryId(cat.id || cat.slug)}
                         className={`shrink-0 flex items-center gap-2.5 px-4 py-2.5 rounded-full transition-all transform hover:-translate-y-0.5 cursor-pointer ${
                           isSelected
-                            ? "bg-surface-container-lowest shadow-[0_4px_14px_-2px_rgba(49,122,99,0.18)]"
-                            : "bg-surface-container-lowest hover:bg-surface-container-low shadow-sm"
+                            ? "bg-surface-container-lowest shadow-[0_4px_14px_-2px_rgba(49,122,99,0.18)] border border-primary/40"
+                            : "bg-surface-container-lowest hover:bg-surface-container-low shadow-sm border border-surface-container-highest"
                         }`}
                         type="button"
                       >
@@ -603,9 +745,9 @@ export default function StitchHomePage() {
                           <span className="w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-primary-fixed animate-pulse"></span>
                         )}
                         <span
-                          className={`w-7 h-7 rounded-full ${palette.iconBg} ${palette.iconColor} flex items-center justify-center text-[16px] material-symbols-outlined`}
+                          className={`w-7 h-7 rounded-full ${palette.iconBg} ${palette.iconColor} flex items-center justify-center`}
                         >
-                          {iconName}
+                          <IconComponent className="w-4 h-4" />
                         </span>
                         <span
                           className={`font-label-md text-label-md ${
@@ -628,8 +770,8 @@ export default function StitchHomePage() {
                   <span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">
                     Pick up where you left off
                   </span>
-                  <h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">
-                    Recently Played
+                  <h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5 font-bold">
+                    Recent Games
                   </h2>
                 </div>
                 <Link
@@ -637,9 +779,7 @@ export default function StitchHomePage() {
                   href="/history"
                 >
                   View Full History
-                  <span className="material-symbols-outlined text-[16px]">
-                    arrow_forward
-                  </span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
 
@@ -671,17 +811,14 @@ export default function StitchHomePage() {
                               {topicName}
                             </span>
                             <span className="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1">
-                              <span className="material-symbols-outlined text-[14px]">
-                                schedule
-                              </span>{" "}
-                              {timeStr}
+                              <Clock className="w-3.5 h-3.5" /> {timeStr}
                             </span>
                           </div>
-                          <h3 className="font-headline-sm text-headline-sm text-on-surface tracking-tight mt-space-sm mb-space-xs group-hover:text-primary transition-colors">
+                          <h3 className="font-headline-sm text-headline-sm text-on-surface tracking-tight mt-space-sm mb-space-xs group-hover:text-primary transition-colors font-bold">
                             {topicName} Quiz
                           </h3>
                           <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
-                            Room Code: <span className="font-mono font-bold">{item.roomCode || "N/A"}</span> • {item.questionCount || 10} Questions
+                            Room: <span className="font-mono font-bold">{item.roomCode || "N/A"}</span> • {item.questionCount || 10} Questions
                           </p>
                         </div>
                         <div className="pt-space-sm space-y-space-md border-t border-surface-container-low">
@@ -708,14 +845,12 @@ export default function StitchHomePage() {
                 </div>
               ) : (
                 <div className="w-full bg-surface-container-lowest rounded-[24px] p-space-xl text-center border border-dashed border-surface-container-highest">
-                  <span className="material-symbols-outlined text-on-surface-variant text-[40px] mb-2 opacity-60">
-                    history_edu
-                  </span>
+                  <History className="w-10 h-10 text-on-surface-variant mb-2 opacity-60 mx-auto" />
                   <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold">
-                    No Recent Quiz Activity
+                    No Recent Games
                   </h3>
                   <p className="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto mt-1">
-                    Select a subject or mixed quiz below to launch your first 1–4 player quiz!
+                    Select a quiz below to start your first game!
                   </p>
                 </div>
               )}
@@ -726,10 +861,14 @@ export default function StitchHomePage() {
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
                 <div>
                   <span className="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold">
-                    Domain Discovery
+                    Choose a Quiz
                   </span>
-                  <h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">
-                    {currentCategory ? `Quizzes in ${currentCategory.name}` : "Available Quizzes"}
+                  <h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5 font-bold">
+                    {searchQuery.trim()
+                      ? `Search Results for "${searchQuery}"`
+                      : currentCategory
+                      ? `Quizzes in ${currentCategory.name}`
+                      : "Available Quizzes"}
                   </h2>
                 </div>
                 {/* Segmented Filter Controls & Question Count Selector */}
@@ -745,7 +884,7 @@ export default function StitchHomePage() {
                       }`}
                       type="button"
                     >
-                      All ({allQuizCards.length})
+                      All ({filteredQuizCards.length})
                     </button>
                     <button
                       onClick={() => setActiveFilter("subjects")}
@@ -847,22 +986,6 @@ export default function StitchHomePage() {
                                 ? "Mixed Pool"
                                 : quiz.category}
                             </span>
-                            <button
-                              aria-label="Bookmark quiz"
-                              onClick={() => toggleBookmark(quiz.cardId)}
-                              className="w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-md hover:bg-surface-container-lowest flex items-center justify-center text-on-surface-variant hover:text-tertiary transition-colors shadow-sm cursor-pointer"
-                              type="button"
-                            >
-                              <span
-                                className="material-symbols-outlined text-[18px]"
-                                style={{
-                                  fontVariationSettings: bookmarkedIds[quiz.cardId] ? "'FILL' 1" : "'FILL' 0",
-                                  color: bookmarkedIds[quiz.cardId] ? "#9f2b1d" : undefined,
-                                }}
-                              >
-                                bookmark
-                              </span>
-                            </button>
                           </div>
 
                           <h3 className="font-headline-sm text-headline-sm text-on-surface tracking-tight mb-space-xs group-hover:text-primary transition-colors font-bold">
@@ -878,7 +1001,7 @@ export default function StitchHomePage() {
                             {quiz.questionCount === 0 ? (
                               <>
                                 <span className="font-label-md text-label-md text-on-surface-variant font-medium flex items-center gap-1">
-                                  <span className="material-symbols-outlined text-[15px]">hourglass_empty</span>
+                                  <Hourglass className="w-3.5 h-3.5" />
                                   Coming Soon
                                 </span>
                                 <span className="font-semibold text-on-surface-variant">
@@ -888,7 +1011,7 @@ export default function StitchHomePage() {
                             ) : quiz.questionCount < 10 ? (
                               <>
                                 <span className="font-label-md text-label-md text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1">
-                                  <span className="material-symbols-outlined text-[15px]">info</span>
+                                  <AlertCircle className="w-3.5 h-3.5" />
                                   Not enough questions yet
                                 </span>
                                 <span className="font-semibold text-on-surface-variant">
@@ -951,7 +1074,7 @@ export default function StitchHomePage() {
                                     : `This quiz has only ${quiz.questionCount} questions. Select a smaller quiz length (${quiz.availableLengths.join(' or ')})`
                                 }
                               >
-                                <span className="material-symbols-outlined text-[16px]">play_arrow</span>
+                                <Play className="w-4 h-4 fill-current" />
                                 <span>
                                   {isStartingThisSolo ? "Starting..." : "Solo Quiz"}
                                 </span>
@@ -973,7 +1096,7 @@ export default function StitchHomePage() {
                                     : `This quiz has only ${quiz.questionCount} questions. Select a smaller quiz length (${quiz.availableLengths.join(' or ')})`
                                 }
                               >
-                                <span className="material-symbols-outlined text-[16px]">group</span>
+                                <Users className="w-4 h-4" />
                                 <span>
                                   {isCreatingThis ? "Creating..." : "Multiplayer"}
                                 </span>
@@ -988,23 +1111,25 @@ export default function StitchHomePage() {
               ) : (
                 <div className="w-full bg-surface-container-lowest rounded-[24px] p-space-xl text-center border border-dashed border-surface-container-highest">
                   <p className="font-body-md text-body-md text-on-surface-variant">
-                    No subjects found for this category yet. Select another category from above.
+                    {searchQuery.trim()
+                      ? `No quizzes matched "${searchQuery}". Try a different keyword.`
+                      : "No subjects found for this category yet. Select another category from above."}
                   </p>
                 </div>
               )}
             </section>
 
-            {/* SECTION 5: EXPLORE CATEGORIES */}
+            {/* SECTION 5: EXPLORE ALL CATEGORIES */}
             <section>
               <div className="mb-space-lg">
                 <span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">
-                  Comprehensive Library
+                  All Topics
                 </span>
-                <h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">
-                  Explore All Categories
+                <h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5 font-bold">
+                  Explore Categories
                 </h2>
                 <p className="font-body-md text-body-md text-on-surface-variant mt-1">
-                  Discover categories backed by live backend questions and real-time multiplayer quizzes.
+                  Choose a category to browse individual subjects and play live quiz rooms.
                 </p>
               </div>
 
@@ -1018,7 +1143,7 @@ export default function StitchHomePage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-lg">
                   {categories.map((cat, idx) => {
                     const palette = COLOR_PALETTES[idx % COLOR_PALETTES.length];
-                    const iconName = getCategoryIcon(cat);
+                    const IconComponent = getCategoryLucideIcon(cat);
 
                     return (
                       <div
@@ -1034,9 +1159,7 @@ export default function StitchHomePage() {
                             <div
                               className={`w-12 h-12 rounded-2xl ${palette.iconBg} ${palette.iconColor} flex items-center justify-center shadow-sm`}
                             >
-                              <span className="material-symbols-outlined text-[26px]">
-                                {iconName}
-                              </span>
+                              <IconComponent className="w-6 h-6" />
                             </div>
                             <span
                               className={`px-3 py-1 rounded-full bg-surface-container-lowest font-label-sm text-label-sm font-bold ${palette.iconColor} shadow-sm border border-surface-container-highest`}
@@ -1056,9 +1179,7 @@ export default function StitchHomePage() {
                             Explore Subjects
                           </span>
                           <span className="w-8 h-8 rounded-full bg-surface-container-lowest flex items-center justify-center group-hover:translate-x-1 transition-transform shadow-sm border border-surface-container-highest">
-                            <span className={`material-symbols-outlined text-[18px] ${palette.iconColor}`}>
-                              arrow_forward
-                            </span>
+                            <ArrowRight className={`w-4 h-4 ${palette.iconColor}`} />
                           </span>
                         </div>
                       </div>
@@ -1077,37 +1198,34 @@ export default function StitchHomePage() {
           <div className="flex items-center gap-space-md">
             <div className="flex items-center gap-space-xs">
               <img
-                alt="QUIZLY Logo"
-                className="h-6 w-auto object-contain"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgDEsPLQBloC1SCsTjeMY8iNfAntP-gtvWG7vrtWlb0wHUwicLrhHmojhzyqRWIYO35NkBi3uMb_akJemMNbzLSEFN7mU0bDfz8EePPJ_eW_PUC10ZZeJz1eM-5YG5Ml4g3N_KUgQzBOj9xL31lbZA6NRoD66cQUZ2v2JboFw6zc4Eu5HkYc0In59NmCtV8lOEt3gQrCKxHkFHFeQn3BqD1ru9s18jHp_gw4KE9KtOpiPBnUWhmBU"
+                alt="Quizzy Logo"
+                className="h-7 w-auto object-contain"
+                src="/images/quizzy-logo.png"
               />
               <span className="font-headline-sm text-headline-sm font-bold text-on-surface">
-                QUIZLY
+                Quizzy
               </span>
             </div>
             <p className="font-body-sm text-body-sm text-on-surface-variant hidden sm:block">
-              — Intellectual curiosity meets playful competition.
+              — Fast, fun multiplayer quizzes with friends.
             </p>
           </div>
           <nav className="flex flex-wrap items-center justify-center gap-space-lg text-on-surface-variant font-label-md text-label-md">
-            <a className="hover:text-on-surface transition-colors" href="#">
-              Browse Categories
-            </a>
-            <a className="hover:text-on-surface transition-colors" href="#">
-              Quiz Schedule
-            </a>
-            <a className="hover:text-on-surface transition-colors" href="#">
-              Rankings
-            </a>
-            <a className="hover:text-on-surface transition-colors" href="#">
-              Honor Code
-            </a>
-            <a className="hover:text-on-surface transition-colors" href="#">
-              Privacy &amp; Terms
-            </a>
+            <Link className="hover:text-on-surface transition-colors" href="/">
+              Quizzes
+            </Link>
+            <Link className="hover:text-on-surface transition-colors" href="/leaderboard">
+              Leaderboard
+            </Link>
+            <Link className="hover:text-on-surface transition-colors" href="/history">
+              History
+            </Link>
+            <Link className="hover:text-on-surface transition-colors" href="/profile">
+              Profile
+            </Link>
           </nav>
           <div className="font-body-sm text-body-sm text-on-surface-variant">
-            © 2025 QUIZLY Inc. All rights reserved.
+            © 2025 Quizzy. All rights reserved.
           </div>
         </div>
       </footer>

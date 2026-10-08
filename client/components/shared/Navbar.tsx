@@ -57,43 +57,45 @@ export function Navbar() {
   };
 
   const navLinks = [
-    { href: "/dashboard", label: "Quizzes", icon: Layers },
+    { href: "/", label: "Quizzes", icon: Layers, exact: true },
     { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
     { href: "/history", label: "History", icon: HistoryIcon },
     { href: "/profile", label: "Profile", icon: UserIcon },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background">
+    <header className="sticky top-0 z-50 w-full border-b border-[#e8e2d9] bg-[#fff8f0]/90 backdrop-blur-xl shadow-[0_2px_8px_-2px_rgba(60,52,42,0.04)]">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-2.5 font-mono text-lg font-bold tracking-tight text-foreground hover:opacity-90 transition-opacity">
-            <span className="flex h-8 w-8 items-center justify-center rounded-md bg-foreground text-background">
-              <Shield className="h-4.5 w-4.5 fill-current" />
-            </span>
-            <span className="tracking-tight text-foreground font-sans text-xl font-black">
-              CodeArena
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <img
+              src="/images/quizzy-logo.png"
+              alt="Quizzy Logo"
+              className="h-8 w-auto object-contain"
+            />
+            <span className="tracking-tight text-[#1d1b16] font-bold text-xl group-hover:text-[#317a63] transition-colors">
+              Quizzy
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1.5 p-1 bg-[#f3ede4] rounded-full">
             {navLinks.map((link) => {
               const Icon = link.icon;
-              const isActive = pathname.startsWith(link.href);
+              const isActive = link.exact ? pathname === "/" : pathname.startsWith(link.href);
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "flex items-center gap-2 px-3 h-9 rounded-md text-sm font-medium transition-colors",
+                    "flex items-center gap-2 px-3.5 h-8 rounded-full text-xs font-bold transition-all",
                     isActive 
-                      ? "bg-secondary text-foreground font-semibold" 
-                      : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
+                      ? "bg-[#317a63] text-white shadow-sm" 
+                      : "text-[#3f4944] hover:bg-[#e8e2d9]/60 hover:text-[#1d1b16]"
                   )}
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-3.5 w-3.5" />
                   {link.label}
                 </Link>
               );
@@ -106,10 +108,10 @@ export function Navbar() {
           {/* Socket Connection Badge */}
           <div
             className={cn(
-              "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-mono border transition-colors",
+              "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold border transition-colors",
               isSocketConnected
-                ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
-                : "bg-amber-500/10 text-amber-400 border-amber-500/20"
+                ? "bg-[#e8f5ee] text-[#1e6a54] border-[#8cd5ba]/50"
+                : "bg-[#fef3c7] text-[#92400e] border-[#fde68a]"
             )}
             title={isSocketConnected ? "Real-time socket server active" : "Connecting to real-time socket server..."}
           >
@@ -121,48 +123,46 @@ export function Navbar() {
 
           {/* Authentication State */}
           {activeUser && !isGuest ? (
-            <div className="flex items-center gap-3">
-              <Link href="/profile" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <div className="flex items-center gap-2.5">
+              <Link href="/profile" className="flex items-center gap-2 bg-[#ffffff] border border-[#e8e2d9] rounded-full py-1 pl-1 pr-3 shadow-sm hover:border-[#317a63]/50 transition-colors">
                 <img
                   src={activeUser.avatar || `https://api.dicebear.com/7.x/bottts/svg?seed=${activeUser.username}`}
                   alt={activeUser.displayName || activeUser.username}
-                  className="h-9 w-9 rounded-full border border-border object-cover bg-muted"
+                  className="h-7 w-7 rounded-full border border-[#e8e2d9] object-cover bg-[#f3ede4]"
                 />
-                <span className="hidden sm:inline-block text-sm font-semibold max-w-[120px] truncate">
+                <span className="hidden sm:inline-block text-xs font-bold text-[#1d1b16] max-w-[120px] truncate">
                   {activeUser.displayName || activeUser.username}
                 </span>
               </Link>
-              <Button
-                variant="ghost"
-                size="sm"
+              <button
+                type="button"
                 onClick={handleLogout}
-                className="h-8 text-xs text-muted-foreground hover:text-foreground cursor-pointer"
+                className="h-8 px-2.5 rounded-full text-xs font-bold text-[#9f2b1d] hover:bg-[#ffdad6]/40 transition-colors cursor-pointer inline-flex items-center gap-1"
                 title="Log out"
               >
-                <LogOut className="h-3.5 w-3.5 mr-1" />
-                Logout
-              </Button>
+                <LogOut className="h-3.5 w-3.5" />
+                <span className="hidden sm:inline">Logout</span>
+              </button>
             </div>
           ) : activeUser && isGuest ? (
             <div className="flex items-center gap-2 sm:gap-3">
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-500 text-xs font-semibold">
-                <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#fde68a] bg-[#fffbeb] text-[#92400e] text-xs font-semibold shadow-sm">
+                <span className="h-2 w-2 rounded-full bg-[#f59e0b] animate-pulse" />
                 <span className="max-w-[110px] truncate">{activeUser.displayName || activeUser.username}</span>
-                <span className="text-[10px] uppercase font-mono px-1 py-0.5 bg-amber-500/20 rounded text-amber-400">Guest</span>
+                <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 bg-[#fde68a] rounded-full text-[#78350f]">Guest</span>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
+              <button
+                type="button"
                 onClick={handleLogout}
-                className="h-8 text-xs text-muted-foreground hover:text-foreground cursor-pointer"
+                className="h-8 px-2.5 rounded-full text-xs font-bold text-[#9f2b1d] hover:bg-[#ffdad6]/40 transition-colors cursor-pointer inline-flex items-center gap-1"
                 title="Exit guest mode"
               >
-                <LogOut className="h-3.5 w-3.5 mr-1" />
-                Exit
-              </Button>
+                <LogOut className="h-3.5 w-3.5" />
+                <span>Exit</span>
+              </button>
               <Link
                 href="/register"
-                className={cn(buttonVariants({ variant: "primary", size: "sm" }), "h-8 text-xs font-semibold")}
+                className="h-8 px-3.5 rounded-full bg-[#317a63] hover:bg-[#25604e] text-white text-xs font-bold transition-all shadow-sm flex items-center justify-center"
               >
                 Sign Up
               </Link>
@@ -171,13 +171,13 @@ export function Navbar() {
             <div className="flex items-center gap-2">
               <Link
                 href="/login"
-                className={buttonVariants({ variant: "ghost", size: "sm", className: "font-mono text-xs" })}
+                className="h-8 px-3.5 rounded-full text-xs font-bold text-[#1d1b16] hover:bg-[#f3ede4] transition-colors flex items-center justify-center"
               >
                 Log In
               </Link>
               <Link
                 href="/register"
-                className={buttonVariants({ variant: "primary", size: "sm", className: "font-mono text-xs font-semibold" })}
+                className="h-8 px-3.5 rounded-full bg-[#317a63] hover:bg-[#25604e] text-white text-xs font-bold transition-all shadow-sm flex items-center justify-center"
               >
                 Sign Up
               </Link>
