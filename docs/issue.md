@@ -1,6 +1,6 @@
 # Comprehensive Project Audit & Issue Register
 
-**Document Version**: 2.0.0  
+**Document Version**: 3.0.0  
 **Updated**: October 2026  
 **Scope**: Frontend Client (`client/`), Backend Service (`server/`), UI/UX Design System, Database Schemas, Real-Time Architecture, and Configuration.
 
@@ -8,49 +8,18 @@
 
 ## Executive Summary
 
-This document registers the remaining open issues, edge cases, architectural bottlenecks, and technical debt across the Quizzy codebase. All items from **Section 1 (UI / UX Design & Styling)** and **Section 2 (Frontend Logic, Authentication & State Management)** have been resolved.
+This document registers the remaining open issues, edge cases, architectural bottlenecks, and technical debt across the Quizzy codebase. All items from **UI / UX Design & Styling**, **Frontend Logic, Authentication & State Management**, and **Modal & Feature Parity Gaps** have been resolved and purged.
 
 ### Remaining Active Domains:
-1. [Modal & Feature Parity Gaps](#1-modal--feature-parity-gaps)
-2. [Backend Architecture, Database & Real-Time Engine](#2-backend-architecture-database--real-time-engine)
-3. [Configuration, Deprecations & Build Hygiene](#3-configuration-deprecations--build-hygiene)
-4. [Consolidated Priority & Action Matrix](#4-consolidated-priority--action-matrix)
+1. [Backend Architecture, Database & Real-Time Engine](#1-backend-architecture-database--real-time-engine)
+2. [Configuration, Deprecations & Build Hygiene](#2-configuration-deprecations--build-hygiene)
+3. [Consolidated Priority & Action Matrix](#3-consolidated-priority--action-matrix)
 
 ---
 
-## 1. Modal & Feature Parity Gaps
+## 1. Backend Architecture, Database & Real-Time Engine
 
-### 1.1 `BattleForm` on Dashboard Lacks Category & Subject Hierarchy
-* **Severity**: **High** (Feature Inconsistency)
-* **Impacted Files**:
-  * [`client/features/battle/components/BattleForm.tsx`](file:///h:/Project/code-arena/client/features/battle/components/BattleForm.tsx)
-  * [`client/features/dashboard/components/CreateBattleModal.tsx`](file:///h:/Project/code-arena/client/features/dashboard/components/CreateBattleModal.tsx)
-* **Problem**:
-  When creating a quiz room from the Dashboard via `CreateBattleModal`, the modal renders `BattleForm.tsx`. `BattleForm.tsx` still uses hardcoded legacy topics (`DSA`, `DBMS`, `JavaScript`, `OS`, `CN`, `OOP`, `Java`, `CPP`, `SQL`) and has **zero options** for the Category/Subject system (`Aptitude`, `General Knowledge`, `Programming`), nor does it support Mixed Category mode. Users can only choose dynamic Categories from the public homepage, creating a split feature experience.
-* **Remediation**:
-  Refactor `BattleForm.tsx` to fetch active categories and subjects dynamically via `/categories`, matching the landing page engine.
-
----
-
-### 1.2 Inconsistent Room Code Validation Constraints
-* **Severity**: Medium (Input Validation)
-* **Impacted Files**:
-  * [`client/features/dashboard/components/JoinBattleModal.tsx`](file:///h:/Project/code-arena/client/features/dashboard/components/JoinBattleModal.tsx)
-  * [`client/app/(public)/page.tsx`](file:///h:/Project/code-arena/client/app/(public)/page.tsx)
-* **Problem**:
-  `JoinBattleModal.tsx` validates room codes between **4 and 8 characters**:
-  ```ts
-  if (trimmedCode.length < 4 || trimmedCode.length > 8)
-  ```
-  However, the backend engine exclusively generates 6-character uppercase alphanumeric room codes (`generateRoomCode()`), and the homepage enforces `maxLength={6}`. Allowing 4, 5, 7, or 8 characters confuses users.
-* **Remediation**:
-  Enforce exact 6-character validation (`length !== 6`) in `JoinBattleModal.tsx`.
-
----
-
-## 2. Backend Architecture, Database & Real-Time Engine
-
-### 2.1 In-Memory Battle Rounds & Timers (Zero Fault Tolerance)
+### 1.1 In-Memory Battle Rounds & Timers (Zero Fault Tolerance)
 * **Severity**: **High** (Architectural Scalability & Resilience)
 * **Impacted Files**:
   * [`server/src/modules/battle/battle.service.ts`](file:///h:/Project/code-arena/server/src/modules/battle/battle.service.ts)
@@ -63,7 +32,7 @@ This document registers the remaining open issues, edge cases, architectural bot
 
 ---
 
-### 2.2 Absence of Stale Room / Abandoned Battle Garbage Collection
+### 1.2 Absence of Stale Room / Abandoned Battle Garbage Collection
 * **Severity**: Medium (Database Growth & Code Space Pollution)
 * **Impacted Files**:
   * [`server/src/modules/room/room.model.ts`](file:///h:/Project/code-arena/server/src/modules/room/room.model.ts)
@@ -75,7 +44,7 @@ This document registers the remaining open issues, edge cases, architectural bot
 
 ---
 
-### 2.3 Room Code Generation Loop Performs Expensive Populates
+### 1.3 Room Code Generation Loop Performs Expensive Populates
 * **Severity**: Medium (Performance Bottleneck)
 * **Impacted Files**:
   * [`server/src/modules/room/room.service.ts`](file:///h:/Project/code-arena/server/src/modules/room/room.service.ts)
@@ -95,7 +64,7 @@ This document registers the remaining open issues, edge cases, architectural bot
 
 ---
 
-### 2.4 Legacy Coding Sandbox Schema Remnants
+### 1.4 Legacy Coding Sandbox Schema Remnants
 * **Severity**: Low (Schema Hygiene)
 * **Impacted Files**:
   * [`server/src/modules/user/user.model.ts`](file:///h:/Project/code-arena/server/src/modules/user/user.model.ts)
@@ -111,9 +80,9 @@ This document registers the remaining open issues, edge cases, architectural bot
 
 ---
 
-## 3. Configuration, Deprecations & Build Hygiene
+## 2. Configuration, Deprecations & Build Hygiene
 
-### 3.1 Next.js 16 Deprecated `middleware.ts` Convention
+### 2.1 Next.js 16 Deprecated `middleware.ts` Convention
 * **Severity**: Low (Deprecation Warning)
 * **Impacted Files**:
   * [`client/middleware.ts`](file:///h:/Project/code-arena/client/middleware.ts)
@@ -127,7 +96,7 @@ This document registers the remaining open issues, edge cases, architectural bot
 
 ---
 
-### 3.2 Dead Clerk Secrets in Environment Files
+### 2.2 Dead Clerk Secrets in Environment Files
 * **Severity**: Low (Config Cleanliness)
 * **Impacted Files**:
   * [`server/.env`](file:///h:/Project/code-arena/server/.env)
@@ -140,15 +109,13 @@ This document registers the remaining open issues, edge cases, architectural bot
 
 ---
 
-## 4. Consolidated Priority & Action Matrix
+## 3. Consolidated Priority & Action Matrix
 
 | Item # | Issue Summary | Category | Severity | Status |
 | :---: | :--- | :--- | :---: | :---: |
-| **1.1** | `BattleForm` on Dashboard missing Category/Subject hierarchy | Feature Parity | **High** | Open |
-| **2.1** | In-memory battle rounds & timers (zero fault tolerance) | Backend Architecture | **High** | Open |
-| **1.2** | Inconsistent room code length validation (4-8 vs 6) | Validation | **Medium** | Open |
-| **2.2** | Missing stale room & abandoned battle cleanup (TTL) | Database | **Medium** | Open |
-| **2.3** | `createRoom` generation loop performs redundant populates | Database / Performance | **Medium** | Open |
-| **2.4** | Legacy coding sandbox schema fields in MongoDB models | Schema Hygiene | **Low** | Open |
-| **3.1** | Next.js 16 deprecated `middleware.ts` warning | Build Hygiene | **Low** | Open |
-| **3.2** | Dead Clerk keys in `.env` files | Config Hygiene | **Low** | Open |
+| **1.1** | In-memory battle rounds & timers (zero fault tolerance) | Backend Architecture | **High** | Open |
+| **1.2** | Missing stale room & abandoned battle cleanup (TTL) | Database | **Medium** | Open |
+| **1.3** | `createRoom` generation loop performs redundant populates | Database / Performance | **Medium** | Open |
+| **1.4** | Legacy coding sandbox schema fields in MongoDB models | Schema Hygiene | **Low** | Open |
+| **2.1** | Next.js 16 deprecated `middleware.ts` warning | Build Hygiene | **Low** | Open |
+| **2.2** | Dead Clerk keys in `.env` files | Config Hygiene | **Low** | Open |

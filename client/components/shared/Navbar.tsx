@@ -42,6 +42,7 @@ export function Navbar() {
 
   // UI state
   const [pinValue, setPinValue] = useState("");
+  const [pinError, setPinError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -101,11 +102,18 @@ export function Navbar() {
     const cleanPin = pinValue.trim().toUpperCase();
     if (!cleanPin) return;
 
+    if (cleanPin.length !== 6 || !/^[A-Z0-9]{6}$/.test(cleanPin)) {
+      setPinError("PIN must be 6 alphanumeric characters");
+      setTimeout(() => setPinError(null), 3000);
+      return;
+    }
+
     if (!activeUser) {
       setIsGuestModalOpen(true);
       return;
     }
 
+    setPinError(null);
     router.push(`/lobby/${cleanPin}`);
   };
 
@@ -190,12 +198,21 @@ export function Navbar() {
               </div>
               <div className="flex items-center gap-1.5">
                 <input
-                  className="w-20 px-2 py-0.5 bg-white rounded-full text-xs text-[#1d1b16] placeholder:text-[#9e9587] text-center tracking-wider focus:outline-none focus:ring-2 focus:ring-[#317a63] shadow-inner border border-[#ede7de] uppercase font-bold"
+                  className={cn(
+                    "w-20 px-2 py-0.5 bg-white rounded-full text-xs text-[#1d1b16] placeholder:text-[#9e9587] text-center tracking-wider focus:outline-none focus:ring-2 shadow-inner border uppercase font-bold transition-all",
+                    pinError
+                      ? "border-red-500 focus:ring-red-400 text-red-600 bg-red-50"
+                      : "border-[#ede7de] focus:ring-[#317a63]"
+                  )}
                   maxLength={6}
                   placeholder="123 456"
                   type="text"
                   value={pinValue}
-                  onChange={(e) => setPinValue(e.target.value)}
+                  onChange={(e) => {
+                    setPinValue(e.target.value);
+                    if (pinError) setPinError(null);
+                  }}
+                  title={pinError || "Enter 6-character room PIN"}
                 />
                 <button
                   aria-label="Join Room by PIN"
@@ -414,8 +431,16 @@ export function Navbar() {
                         maxLength={6}
                         placeholder="123 456"
                         value={pinValue}
-                        onChange={(e) => setPinValue(e.target.value)}
-                        className="w-full px-2 py-1 bg-white rounded-lg text-xs font-bold text-center tracking-wider uppercase border border-[#ede7de] focus:outline-none focus:border-[#317a63]"
+                        onChange={(e) => {
+                          setPinValue(e.target.value);
+                          if (pinError) setPinError(null);
+                        }}
+                        className={cn(
+                          "w-full px-2 py-1 bg-white rounded-lg text-xs font-bold text-center tracking-wider uppercase border focus:outline-none transition-all",
+                          pinError
+                            ? "border-red-500 focus:border-red-500 text-red-600 bg-red-50"
+                            : "border-[#ede7de] focus:border-[#317a63]"
+                        )}
                       />
                       <button
                         type="submit"
