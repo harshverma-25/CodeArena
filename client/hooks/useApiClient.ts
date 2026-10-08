@@ -26,20 +26,26 @@ const processQueue = (error: Error | null = null) => {
  */
 export function useApiClient() {
   return useMemo(() => {
-    const request = async <T>(path: string, options: RequestInit = {}): Promise<T> => {
+    const request = async <T>(path: string, options: RequestInit = {}, isRetry = false): Promise<T> => {
       let token = getAccessToken() || getGuestToken();
 
       try {
         return await apiRequest<T>(path, options, token);
       } catch (err: any) {
         // If 401 Unauthorized and we have a native access token, attempt token refresh once
-        if (err?.statusCode === 401 && getAccessToken()) {
+        if (
+          !isRetry &&
+          err?.statusCode === 401 &&
+          getAccessToken() &&
+          !path.includes("/auth/refresh") &&
+          !path.includes("/auth/login")
+        ) {
           if (isRefreshing) {
             return new Promise<T>((resolve, reject) => {
               failedQueue.push({
                 resolve: () => {
                   const newToken = getAccessToken() || getGuestToken();
-                  resolve(apiRequest<T>(path, options, newToken));
+                  apiRequest<T>(path, options, newToken).then(resolve).catch(reject);
                 },
                 reject: (error) => reject(error),
               });
@@ -48,16 +54,17 @@ export function useApiClient() {
 
           isRefreshing = true;
 
+          let newAccessToken: string;
           try {
             const refreshRes = await apiRequest<{
               data: { accessToken: string; refreshToken: string; user: any };
             }>("/auth/refresh", { method: "POST" });
 
             if (refreshRes?.data?.accessToken) {
-              setNativeSession(refreshRes.data.accessToken, refreshRes.data.user);
+              newAccessToken = refreshRes.data.accessToken;
+              setNativeSession(newAccessToken, refreshRes.data.user);
               isRefreshing = false;
               processQueue(null);
-              return apiRequest<T>(path, options, refreshRes.data.accessToken);
             } else {
               throw new Error("Refresh token invalid");
             }
@@ -67,6 +74,8 @@ export function useApiClient() {
             clearNativeSession();
             throw err;
           }
+
+          return apiRequest<T>(path, options, newAccessToken);
         }
         throw err;
       }

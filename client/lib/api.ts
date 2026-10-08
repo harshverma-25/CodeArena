@@ -1,5 +1,18 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
+export class ApiError extends Error {
+  statusCode: number;
+  data?: any;
+
+  constructor(statusCode: number, message: string, data?: any) {
+    super(message);
+    this.name = "ApiError";
+    this.statusCode = statusCode;
+    this.data = data;
+    Object.setPrototypeOf(this, ApiError.prototype);
+  }
+}
+
 export async function apiRequest<T>(
   path: string,
   options: RequestInit = {},
@@ -18,13 +31,14 @@ export async function apiRequest<T>(
   let response: Response;
   try {
     response = await fetch(`${API_URL}${path}`, {
-      credentials: options.credentials || "include",
       ...options,
+      credentials: options.credentials || "include",
       headers,
     });
   } catch (error: any) {
     if (error instanceof TypeError && error.message.includes("fetch")) {
-      throw new Error(
+      throw new ApiError(
+        0,
         `Unable to reach backend server at ${API_URL}${path}. Please ensure the server is running on port 5000.`
       );
     }
@@ -33,7 +47,11 @@ export async function apiRequest<T>(
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || `API request failed with status ${response.status}`);
+    throw new ApiError(
+      response.status,
+      errorData.message || `API request failed with status ${response.status}`,
+      errorData
+    );
   }
 
   // Handle empty responses

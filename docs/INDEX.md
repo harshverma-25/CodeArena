@@ -24,6 +24,7 @@ Welcome to the comprehensive, single-source-of-truth documentation repository fo
 | **13** | [Deployment Guide](13-deployment-guide.md) | Production build preparation, process lifecycle, reverse proxy configuration, health diagnostics, and containerization. |
 | **14** | [Coding Standards](14-coding-standards.md) | TypeScript conventions, strict naming rules, API response wrappers, error propagation, and architectural guidelines. |
 | **15** | [Known Issues & Technical Debt](15-known-issues-and-technical-debt.md) | Audit findings, rate limiter cleanup requirements (Task 2.2), legacy artifacts, and optimization backlog. |
+| **Audit** | [Project Issues Register](issue.md) | Comprehensive audit register of UI/UX, authentication, real-time, database, and feature issues. |
 
 ---
 
