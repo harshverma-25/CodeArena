@@ -9,17 +9,10 @@ export default function PublicLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const isHomePage = pathname === "/";
-
-  if (isHomePage) {
-    return <>{children}</>;
-  }
-
   return (
-    <div className="relative flex min-h-screen flex-col">
+    <div className="relative flex min-h-screen flex-col bg-[#fff8f0]">
       <Navbar />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 pt-20">{children}</main>
     </div>
   );
 }

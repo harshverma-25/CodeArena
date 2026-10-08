@@ -103,19 +103,13 @@ export default function StitchHomePage() {
   const [roomError, setRoomError] = useState<string | null>(null);
 
   // Form & UI state
-  const [pinValue, setPinValue] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
   const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
   const [guestActive, setGuestActive] = useState<boolean>(false);
   const [guestUser, setGuestUser] = useState<any>(null);
 
-  // Search state
+  // Real-time search state (synchronized with Unified Navbar)
   const [searchQuery, setSearchQuery] = useState("");
-  const [isSearchActive, setIsSearchActive] = useState(false);
-
-  // Profile menu dropdown state
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-  const profileMenuRef = useRef<HTMLDivElement>(null);
 
   const categoryTrackRef = useRef<HTMLDivElement>(null);
 
@@ -137,15 +131,22 @@ export default function StitchHomePage() {
     };
   }, []);
 
-  // Close profile menu on outside click
+  // Synchronize search with Navbar
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (profileMenuRef.current && !profileMenuRef.current.contains(e.target as Node)) {
-        setIsProfileMenuOpen(false);
-      }
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const q = params.get("search");
+      if (q) setSearchQuery(q);
+    }
+
+    const handleNavbarSearch = (e: any) => {
+      setSearchQuery(e.detail || "");
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+
+    window.addEventListener("quizzy:search", handleNavbarSearch as EventListener);
+    return () => {
+      window.removeEventListener("quizzy:search", handleNavbarSearch as EventListener);
+    };
   }, []);
 
   const hasAccess = Boolean(isUserAuthenticated || guestActive);
@@ -154,19 +155,6 @@ export default function StitchHomePage() {
     : guestActive && guestUser
     ? guestUser.displayName || guestUser.username || "Guest Player"
     : "Player";
-
-  // Handle Logout
-  const handleLogout = async () => {
-    try {
-      await api.post("/auth/logout");
-    } catch {
-      // Ignore errors
-    }
-    clearNativeSession();
-    clearGuestSession();
-    setIsProfileMenuOpen(false);
-    router.push("/");
-  };
 
   // 1. Fetch categories from backend API
   useEffect(() => {
@@ -264,20 +252,6 @@ export default function StitchHomePage() {
     if (categoryTrackRef.current) {
       categoryTrackRef.current.scrollBy({ left: 260, behavior: "smooth" });
     }
-  };
-
-  // Join quiz by PIN form submission
-  const handleJoinPin = (e: React.FormEvent) => {
-    e.preventDefault();
-    const cleanPin = pinValue.trim().toUpperCase();
-    if (!cleanPin) return;
-
-    if (!hasAccess) {
-      setIsGuestModalOpen(true);
-      return;
-    }
-
-    router.push(`/lobby/${cleanPin}`);
   };
 
   const [selectedQuestionCount, setSelectedQuestionCount] = useState<number>(10);
@@ -444,213 +418,8 @@ export default function StitchHomePage() {
 
   return (
     <div className="stitch-scope min-h-screen bg-surface font-body-md text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
-      {/* 1. FIXED NAVBAR WITH BLUR */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#fff8f0]/90 backdrop-blur-xl border-b border-[#ede7de] shadow-[0_2px_8px_-2px_rgba(60,52,42,0.04)]">
-        <div className="h-20 w-full max-w-[1240px] mx-auto px-margin-sm lg:px-margin flex items-center justify-between gap-space-md">
-          {/* Logo & Navigation */}
-          <div className="flex items-center gap-space-md shrink-0">
-            <Link className="flex items-center gap-2 group" href="/">
-              <img
-                alt="Quizzy Logo"
-                className="h-9 w-auto object-contain"
-                src="/images/quizzy-logo.png"
-              />
-              <span className="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight group-hover:text-primary transition-colors">
-                Quizzy
-              </span>
-            </Link>
-
-            <nav className="hidden lg:flex items-center gap-1.5 ml-space-md p-1 bg-surface-container-low rounded-full">
-              <Link
-                href="/"
-                className="px-3.5 py-1.5 transition-colors bg-[#317a63] text-white font-bold text-xs rounded-full shadow-sm flex items-center gap-1.5"
-              >
-                <Layers className="w-3.5 h-3.5" />
-                Quizzes
-              </Link>
-              <Link
-                href="/leaderboard"
-                className="px-3.5 py-1.5 transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-bold text-xs rounded-full flex items-center gap-1.5"
-              >
-                <Trophy className="w-3.5 h-3.5" />
-                Leaderboard
-              </Link>
-              <Link
-                href="/history"
-                className="px-3.5 py-1.5 transition-colors text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-bold text-xs rounded-full flex items-center gap-1.5"
-              >
-                <History className="w-3.5 h-3.5" />
-                History
-              </Link>
-            </nav>
-          </div>
-
-          {/* Center: PIN Joining Interface */}
-          <div className="hidden md:flex items-center justify-center flex-1 max-w-[380px]">
-            <form
-              onSubmit={handleJoinPin}
-              className="w-full flex items-center justify-between bg-tertiary-fixed/40 border border-tertiary-fixed-dim/60 rounded-full pl-3.5 pr-1.5 py-1.5 shadow-[0_2px_8px_-2px_rgba(60,52,42,0.04)]"
-            >
-              <div className="flex items-center gap-2 overflow-hidden">
-                <Gamepad2 className="w-5 h-5 text-tertiary shrink-0" />
-                <div className="flex flex-col text-left">
-                  <span className="text-[10px] text-on-tertiary-fixed-variant leading-none uppercase tracking-wider font-bold">
-                    Join Room
-                  </span>
-                  <span className="text-xs text-on-surface leading-tight font-semibold">
-                    Enter PIN
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <input
-                  className="w-24 px-2.5 py-1 bg-surface-container-lowest rounded-full text-xs text-on-surface placeholder:text-outline text-center tracking-wider focus:outline-none focus:ring-2 focus:ring-primary shadow-inner border border-surface-container-highest uppercase font-bold"
-                  maxLength={6}
-                  placeholder="123 456"
-                  type="text"
-                  value={pinValue}
-                  onChange={(e) => setPinValue(e.target.value)}
-                />
-                <button
-                  aria-label="Join Quiz by PIN"
-                  className="h-8 w-8 rounded-full bg-primary hover:bg-primary-container text-on-primary flex items-center justify-center transition-all transform hover:-translate-y-0.5 shadow-sm active:translate-y-0 cursor-pointer"
-                  type="submit"
-                >
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </form>
-          </div>
-
-          {/* Right: Functional Search & Profile Section */}
-          <div className="flex items-center gap-space-sm shrink-0">
-            {/* Functional Real-Time Search Bar / Toggle */}
-            {isSearchActive ? (
-              <div className="flex items-center gap-1.5 bg-surface-container-lowest border border-primary/50 rounded-full px-3 py-1 shadow-sm transition-all animate-in fade-in duration-150">
-                <Search className="w-4 h-4 text-primary shrink-0" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search quizzes..."
-                  className="w-32 sm:w-44 bg-transparent text-xs text-on-surface focus:outline-none font-medium"
-                  autoFocus
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSearchQuery("");
-                    setIsSearchActive(false);
-                  }}
-                  className="text-on-surface-variant hover:text-on-surface cursor-pointer p-0.5"
-                  aria-label="Close search"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            ) : (
-              <button
-                aria-label="Search quizzes"
-                onClick={() => setIsSearchActive(true)}
-                className="h-10 w-10 rounded-full bg-surface-container-lowest border border-surface-container-highest flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:border-outline-variant transition-colors cursor-pointer shadow-sm"
-                type="button"
-              >
-                <Search className="w-4 h-4" />
-              </button>
-            )}
-
-            {/* Profile Section & Dropdown Menu */}
-            <div className="relative" ref={profileMenuRef}>
-              <button
-                type="button"
-                onClick={() => {
-                  if (!hasAccess) {
-                    setIsGuestModalOpen(true);
-                  } else {
-                    setIsProfileMenuOpen((prev) => !prev);
-                  }
-                }}
-                className="flex items-center gap-2 pl-1 pr-3 py-1 bg-surface-container-lowest border border-surface-container-highest rounded-full shadow-sm cursor-pointer hover:border-primary/50 transition-colors"
-              >
-                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center overflow-hidden">
-                  {isUserAuthenticated && currentUser?.avatar ? (
-                    <img
-                      src={currentUser.avatar}
-                      alt={displayName}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <User className="w-4 h-4 text-on-primary" />
-                  )}
-                </div>
-                <div className="hidden sm:flex flex-col text-left pr-1">
-                  <span className="font-label-md text-label-md text-on-surface leading-none font-semibold truncate max-w-[120px]">
-                    {displayName}
-                  </span>
-                  {guestActive && (
-                    <span className="text-[10px] text-amber-600 font-bold uppercase tracking-wider">
-                      Guest
-                    </span>
-                  )}
-                </div>
-              </button>
-
-              {/* Profile Dropdown Popover */}
-              {isProfileMenuOpen && hasAccess && (
-                <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-white border border-[#ede7de] shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div className="px-4 py-2 border-b border-[#ede7de]">
-                    <p className="text-xs font-bold text-on-surface truncate">{displayName}</p>
-                    <p className="text-[11px] text-on-surface-variant truncate">
-                      {isUserAuthenticated ? currentUser?.email || "Registered Player" : "Guest Session Active"}
-                    </p>
-                  </div>
-
-                  <div className="py-1">
-                    <Link
-                      href="/profile"
-                      onClick={() => setIsProfileMenuOpen(false)}
-                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-on-surface hover:bg-[#f9f3ea] transition-colors"
-                    >
-                      <User className="w-4 h-4 text-[#317a63]" />
-                      My Profile
-                    </Link>
-                    <Link
-                      href="/history"
-                      onClick={() => setIsProfileMenuOpen(false)}
-                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-on-surface hover:bg-[#f9f3ea] transition-colors"
-                    >
-                      <History className="w-4 h-4 text-[#317a63]" />
-                      Match History
-                    </Link>
-                    <Link
-                      href="/leaderboard"
-                      onClick={() => setIsProfileMenuOpen(false)}
-                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-on-surface hover:bg-[#f9f3ea] transition-colors"
-                    >
-                      <Trophy className="w-4 h-4 text-[#317a63]" />
-                      Leaderboard
-                    </Link>
-                  </div>
-
-                  <div className="pt-1 border-t border-[#ede7de]">
-                    <button
-                      type="button"
-                      onClick={handleLogout}
-                      className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-[#9f2b1d] hover:bg-[#ffdad6]/40 transition-colors text-left cursor-pointer"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      {guestActive ? "Exit Guest Mode" : "Log Out"}
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* 2. MAIN PAGE CONTENT */}
-      <main className="w-full pt-20 bg-surface min-h-[calc(100vh-180px)]">
+      {/* MAIN PAGE CONTENT */}
+      <div className="w-full bg-surface min-h-[calc(100vh-180px)]">
         <div className="flex flex-col w-full">
           <div className="w-full max-w-[1240px] mx-auto px-margin-sm lg:px-margin pb-space-2xl">
             {/* SECTION 1: TOP HERO / WELCOME BANNER */}
@@ -1190,7 +959,7 @@ export default function StitchHomePage() {
             </section>
           </div>
         </div>
-      </main>
+      </div>
 
       {/* 3. FOOTER */}
       <footer className="w-full bg-surface-container-low border-t border-surface-container-highest py-space-xl mt-space-2xl">
