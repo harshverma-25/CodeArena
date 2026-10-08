@@ -57,12 +57,12 @@ export function useApiClient() {
           let newAccessToken: string;
           try {
             const refreshRes = await apiRequest<{
-              data: { accessToken: string; refreshToken: string; user: any };
+              data: { accessToken: string; refreshToken: string; user: any; expiresIn?: number };
             }>("/auth/refresh", { method: "POST" });
 
             if (refreshRes?.data?.accessToken) {
               newAccessToken = refreshRes.data.accessToken;
-              setNativeSession(newAccessToken, refreshRes.data.user);
+              setNativeSession(newAccessToken, refreshRes.data.user, refreshRes.data.expiresIn);
               isRefreshing = false;
               processQueue(null);
             } else {

@@ -47,6 +47,7 @@ export default function RegisterPage() {
           accessToken: string;
           refreshToken: string;
           user: any;
+          expiresIn?: number;
         };
       }>("/auth/register", {
         email,
@@ -56,7 +57,7 @@ export default function RegisterPage() {
       });
 
       if (res?.data?.accessToken) {
-        setNativeSession(res.data.accessToken, res.data.user);
+        setNativeSession(res.data.accessToken, res.data.user, res.data.expiresIn);
         router.push("/dashboard");
       } else {
         throw new Error("Invalid response from server.");

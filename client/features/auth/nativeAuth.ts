@@ -4,6 +4,8 @@ export const NATIVE_ACCESS_TOKEN_KEY = 'codearena_access_token';
 export const NATIVE_USER_KEY = 'codearena_user_profile';
 export const NATIVE_COOKIE_NAME = 'codearena_access_token';
 
+export const NATIVE_ACCESS_TOKEN_MAX_AGE = 900; // 15 minutes in seconds (matches JWT_ACCESS_EXPIRES_IN)
+
 export function getAccessToken(): string | null {
   if (typeof window === 'undefined') return null;
   return localStorage.getItem(NATIVE_ACCESS_TOKEN_KEY);
@@ -19,14 +21,20 @@ export function getNativeUser(): User | null {
   }
 }
 
-export function setNativeSession(accessToken: string, user: User): void {
+export function setNativeSession(
+  accessToken: string,
+  user: User,
+  expiresInSeconds: number = NATIVE_ACCESS_TOKEN_MAX_AGE
+): void {
   if (typeof window === 'undefined') return;
 
   localStorage.setItem(NATIVE_ACCESS_TOKEN_KEY, accessToken);
   localStorage.setItem(NATIVE_USER_KEY, JSON.stringify(user));
 
-  // Set non-httponly cookie for middleware routing checks
-  document.cookie = `${NATIVE_COOKIE_NAME}=${accessToken}; path=/; max-age=604800; SameSite=Lax`;
+  const maxAge = expiresInSeconds || NATIVE_ACCESS_TOKEN_MAX_AGE;
+
+  // Set non-httponly cookie for middleware routing checks (aligned to 15m access token lifespan)
+  document.cookie = `${NATIVE_COOKIE_NAME}=${accessToken}; path=/; max-age=${maxAge}; SameSite=Lax`;
 
   window.dispatchEvent(new Event('codearena:native-auth-change'));
 }

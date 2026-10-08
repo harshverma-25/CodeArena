@@ -39,6 +39,7 @@ function LoginForm() {
           accessToken: string;
           refreshToken: string;
           user: any;
+          expiresIn?: number;
         };
       }>("/auth/login", {
         emailOrUsername,
@@ -46,7 +47,7 @@ function LoginForm() {
       });
 
       if (res?.data?.accessToken) {
-        setNativeSession(res.data.accessToken, res.data.user);
+        setNativeSession(res.data.accessToken, res.data.user, res.data.expiresIn);
         router.push(redirectPath);
       } else {
         throw new Error("Invalid response from server.");
