@@ -14,8 +14,10 @@ import {
   ArrowRight,
   Search,
   X,
-  Activity,
   Menu,
+  ChevronDown,
+  Home as HomeIcon,
+  BookOpen,
 } from "lucide-react";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { getGuestUser, clearGuestSession, PlayAsGuestModal } from "@/features/auth";
@@ -133,6 +135,8 @@ export function Navbar() {
   };
 
   const navLinks = [
+    { href: "/", label: "Home", icon: HomeIcon, isHome: true },
+    { href: "/#categories", label: "Quizzes", icon: BookOpen },
     { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
     { href: "/history", label: "History", icon: HistoryIcon },
     { href: "/profile", label: "Profile", icon: UserIcon },
@@ -140,36 +144,52 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 h-20 w-full border-b border-[#ede7de] bg-[#fff8f0]/95 backdrop-blur-xl shadow-[0_2px_8px_-2px_rgba(60,52,42,0.04)]">
-        <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 gap-3 sm:gap-4">
+      <header className="fixed top-0 left-0 right-0 z-50 h-20 w-full border-b-[2.5px] border-black bg-[#FAF7EE] shadow-[0_3px_0px_0px_rgba(0,0,0,0.05)]">
+        <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-3 sm:px-6 lg:px-8 gap-2 sm:gap-4">
           
-          {/* LEFT: 1. QUIZZY LOGO (IMAGE ONLY, NO TEXT NEXT TO IT) */}
-          <div className="flex items-center gap-4 sm:gap-6 shrink-0">
-            <Link href="/" className="flex items-center hover:opacity-90 transition-opacity" title="Quizzy Home">
-              <img
-                src="/images/quizzy-logo.png"
-                alt="Quizzy"
-                className="h-9 sm:h-10 w-auto object-contain"
-              />
+          {/* LEFT: QUIZZY LOGO & NAVIGATION PILL */}
+          <div className="flex items-center gap-3 sm:gap-5 shrink-0">
+            {/* Logo matching screenshot arcade aesthetic */}
+            <Link href="/" className="flex items-center hover:scale-105 transition-transform" title="Quizzy Home">
+              <div className="relative flex items-center">
+                <img
+                  src="/images/quizzy-hero-logo.jpg"
+                  alt="Quizzy"
+                  className="h-10 sm:h-11 w-auto object-contain rounded-xl"
+                />
+              </div>
             </Link>
 
-            {/* 2. DIV WITH: LEADERBOARD, HISTORY, PROFILE (QUIZZES REMOVED) */}
-            <nav className="hidden md:flex items-center gap-1 p-1 bg-[#f3ede4] rounded-full border border-[#ede7de]">
+            {/* NAV LINKS PILL: Home, Quizzes, Leaderboard, History, Profile */}
+            <nav className="hidden lg:flex items-center gap-1 p-1 bg-[#F4EFE6] rounded-full border-2 border-black shadow-[2px_2px_0px_#000]">
               {navLinks.map((link) => {
-                const Icon = link.icon;
-                const isActive = pathname === link.href || pathname?.startsWith(link.href + "/");
+                const isHome = link.isHome;
+                const isActive = isHome ? pathname === "/" : pathname === link.href || (pathname?.startsWith(link.href) && link.href !== "/");
+                
+                if (isHome && isActive) {
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs sm:text-sm font-black bg-[#FFE600] text-black border-2 border-black shadow-[2px_2px_0px_#000] transition-transform active:translate-x-[1px] active:translate-y-[1px]"
+                    >
+                      <HomeIcon className="h-3.5 w-3.5 fill-black stroke-black" />
+                      Home
+                    </Link>
+                  );
+                }
+
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
                     className={cn(
-                      "flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all",
+                      "flex items-center gap-1 px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold transition-all",
                       isActive
-                        ? "bg-[#317a63] text-white shadow-sm"
-                        : "text-[#3f4944] hover:bg-[#e8e2d9]/60 hover:text-[#1d1b16]"
+                        ? "bg-[#FFE600] text-black border-2 border-black shadow-[2px_2px_0px_#000]"
+                        : "text-stone-800 hover:text-black hover:bg-stone-200/60"
                     )}
                   >
-                    <Icon className="h-3.5 w-3.5" />
                     {link.label}
                   </Link>
                 );
@@ -177,19 +197,19 @@ export function Navbar() {
             </nav>
           </div>
 
-          {/* CENTER: 3. JOIN ROOM (PIN INPUT INTERFACE) */}
-          <div className="hidden lg:flex items-center justify-center max-w-[320px] flex-1">
+          {/* CENTER / RIGHT: JOIN ROOM (PIN INPUT INTERFACE) */}
+          <div className="hidden md:flex items-center justify-center">
             <form
               onSubmit={handleJoinPin}
-              className="flex items-center justify-between bg-[#fbf6ee] border border-[#ebd8c5] rounded-full pl-3.5 pr-1.5 py-1.5 shadow-[0_2px_6px_-2px_rgba(60,52,42,0.04)]"
+              className="flex items-center bg-[#FFFDF5] border-2 border-black rounded-full pl-3 pr-1 py-1 shadow-[2px_2px_0px_#000]"
             >
-              <div className="flex items-center gap-2 overflow-hidden pr-2">
-                <Gamepad2 className="w-4 h-4 text-[#d97706] shrink-0" />
+              <div className="flex items-center gap-2 pr-2">
+                <Gamepad2 className="w-4 h-4 text-amber-600 shrink-0" />
                 <div className="flex flex-col text-left">
-                  <span className="text-[9px] text-[#92400e] leading-none uppercase tracking-wider font-bold">
+                  <span className="text-[9px] text-amber-700 leading-none uppercase tracking-wider font-extrabold">
                     Join Room
                   </span>
-                  <span className="text-[11px] text-[#1d1b16] leading-tight font-semibold">
+                  <span className="text-[11px] text-stone-900 leading-tight font-extrabold">
                     Enter PIN
                   </span>
                 </div>
@@ -197,10 +217,10 @@ export function Navbar() {
               <div className="flex items-center gap-1.5">
                 <input
                   className={cn(
-                    "w-20 px-2 py-0.5 bg-white rounded-full text-xs text-[#1d1b16] placeholder:text-[#9e9587] text-center tracking-wider focus:outline-none focus:ring-2 shadow-inner border uppercase font-bold transition-all",
+                    "w-20 px-2 py-0.5 bg-white rounded-full text-xs text-stone-900 placeholder:text-stone-400 text-center tracking-wider focus:outline-none border-2 border-black uppercase font-black transition-all",
                     pinError
-                      ? "border-red-500 focus:ring-red-400 text-red-600 bg-red-50"
-                      : "border-[#ede7de] focus:ring-[#317a63]"
+                      ? "border-red-500 text-red-600 bg-red-50"
+                      : "border-black"
                   )}
                   maxLength={6}
                   placeholder="123 456"
@@ -214,44 +234,47 @@ export function Navbar() {
                 />
                 <button
                   aria-label="Join Room by PIN"
-                  className="h-7 w-7 rounded-full bg-[#317a63] hover:bg-[#25604e] text-white flex items-center justify-center transition-all shadow-sm cursor-pointer"
+                  className="h-7 w-7 rounded-full bg-[#0D9488] hover:bg-[#0F766E] text-white border-2 border-black flex items-center justify-center transition-all shadow-[1px_1px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
                   type="submit"
                 >
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
                 </button>
               </div>
             </form>
           </div>
 
-          {/* RIGHT: 4. SEARCH & 5. PROFILE SECTION */}
+          {/* RIGHT: LIVE INDICATOR, SEARCH & USER PROFILE */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Live Socket Status Dot */}
+            {/* Live Socket Status Badge */}
             <div
               className={cn(
-                "hidden sm:inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold border",
+                "hidden sm:inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-black border-2 border-black shadow-[2px_2px_0px_#000]",
                 isSocketConnected
-                  ? "bg-[#e8f5ee] text-[#1e6a54] border-[#8cd5ba]/50"
-                  : "bg-[#fef3c7] text-[#92400e] border-[#fde68a]"
+                  ? "bg-[#D1FAE5] text-[#065F46]"
+                  : "bg-[#FEF3C7] text-[#92400E]"
               )}
-              title={isSocketConnected ? "Real-time socket connected" : "Syncing with real-time socket..."}
+              title={isSocketConnected ? "Real-time socket live" : "Connecting..."}
             >
-              <Activity className="h-2.5 w-2.5 shrink-0" />
-              <span>{isSocketConnected ? "LIVE" : "SYNC"}</span>
+              <span className={cn(
+                "h-2 w-2 rounded-full",
+                isSocketConnected ? "bg-[#10B981] animate-pulse" : "bg-amber-500"
+              )} />
+              <span>LIVE</span>
             </div>
 
-            {/* 4. SEARCH BUTTON / EXPANDABLE INPUT */}
+            {/* SEARCH BUTTON / EXPANDABLE INPUT */}
             {isSearchActive ? (
               <form
                 onSubmit={handleSearchSubmit}
-                className="flex items-center gap-1.5 bg-white border border-[#317a63]/50 rounded-full px-3 py-1 shadow-sm transition-all animate-in fade-in duration-150"
+                className="flex items-center gap-1.5 bg-white border-2 border-black rounded-full px-3 py-1 shadow-[2px_2px_0px_#000] transition-all"
               >
-                <Search className="w-3.5 h-3.5 text-[#317a63] shrink-0" />
+                <Search className="w-3.5 h-3.5 text-black shrink-0 stroke-[2.5]" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => handleSearchChange(e.target.value)}
                   placeholder="Search quizzes..."
-                  className="w-28 sm:w-40 bg-transparent text-xs text-[#1d1b16] focus:outline-none font-medium"
+                  className="w-28 sm:w-40 bg-transparent text-xs text-black focus:outline-none font-bold"
                   autoFocus
                 />
                 <button
@@ -260,34 +283,34 @@ export function Navbar() {
                     handleSearchChange("");
                     setIsSearchActive(false);
                   }}
-                  className="text-[#7d7568] hover:text-[#1d1b16] cursor-pointer p-0.5"
+                  className="text-stone-500 hover:text-black cursor-pointer p-0.5"
                   aria-label="Close search"
                 >
-                  <X className="w-3.5 h-3.5" />
+                  <X className="w-3.5 h-3.5 stroke-[2.5]" />
                 </button>
               </form>
             ) : (
               <button
                 aria-label="Search quizzes"
                 onClick={() => setIsSearchActive(true)}
-                className="h-9 w-9 rounded-full bg-white border border-[#ede7de] flex items-center justify-center text-[#7d7568] hover:text-[#1d1b16] hover:border-[#317a63]/40 transition-colors cursor-pointer shadow-sm"
+                className="h-9 w-9 rounded-full bg-white border-2 border-black flex items-center justify-center text-black hover:bg-stone-100 transition-colors cursor-pointer shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px]"
                 type="button"
               >
-                <Search className="w-4 h-4" />
+                <Search className="w-4 h-4 stroke-[2.5]" />
               </button>
             )}
 
-            {/* 5. PROFILE SECTION (DROPDOWN / AUTH BUTTONS) */}
+            {/* PROFILE SECTION / GUEST PILL */}
             <div className="relative" ref={profileMenuRef}>
               {!mounted ? (
-                <div className="h-9 w-20 rounded-full bg-[#f3ede4] animate-pulse" />
+                <div className="h-9 w-24 rounded-full bg-stone-200 border-2 border-black animate-pulse" />
               ) : activeUser ? (
                 <button
                   type="button"
                   onClick={() => setIsProfileMenuOpen((prev) => !prev)}
-                  className="flex items-center gap-2 pl-1 pr-3 py-1 bg-white border border-[#ede7de] rounded-full shadow-sm cursor-pointer hover:border-[#317a63]/50 transition-colors"
+                  className="flex items-center gap-2 pl-1 pr-2.5 py-1 bg-white border-2 border-black rounded-full shadow-[2px_2px_0px_#000] hover:bg-stone-50 cursor-pointer active:translate-x-[1px] active:translate-y-[1px] transition-all"
                 >
-                  <div className="w-8 h-8 rounded-full bg-[#317a63] flex items-center justify-center overflow-hidden">
+                  <div className="w-7 h-7 rounded-full bg-[#8B5CF6] border-2 border-black flex items-center justify-center overflow-hidden shrink-0">
                     {activeUser.avatar ? (
                       <img
                         src={activeUser.avatar}
@@ -295,38 +318,37 @@ export function Navbar() {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <UserIcon className="w-4 h-4 text-white" />
+                      <UserIcon className="w-3.5 h-3.5 text-white" />
                     )}
                   </div>
-                  <div className="hidden sm:flex flex-col text-left pr-1">
-                    <span className="text-xs text-[#1d1b16] leading-none font-bold truncate max-w-[110px]">
+                  <div className="flex flex-col text-left">
+                    <span className="text-xs text-black leading-none font-black truncate max-w-[90px] sm:max-w-[120px]">
                       {displayName}
                     </span>
-                    {isGuest && (
-                      <span className="text-[9px] text-[#d97706] font-extrabold uppercase tracking-wider mt-0.5">
-                        Guest
-                      </span>
-                    )}
+                    <span className="text-[9px] text-[#DC2626] font-black uppercase tracking-wider leading-none mt-0.5">
+                      {isGuest ? "GUEST" : "ONLINE"}
+                    </span>
                   </div>
+                  <ChevronDown className="w-3.5 h-3.5 text-stone-700 stroke-[2.5]" />
                 </button>
               ) : (
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   <button
                     type="button"
                     onClick={() => setIsGuestModalOpen(true)}
-                    className="hidden sm:inline-flex px-3 py-1.5 rounded-full text-xs font-bold text-[#7d7568] hover:text-[#1d1b16] hover:bg-[#f3ede4] transition-colors cursor-pointer"
+                    className="hidden sm:inline-flex px-3 py-1.5 rounded-full text-xs font-black text-stone-800 hover:text-black bg-stone-100 border-2 border-black shadow-[2px_2px_0px_#000] transition-colors cursor-pointer"
                   >
                     Guest
                   </button>
                   <Link
                     href="/login"
-                    className="px-3.5 py-1.5 rounded-full text-xs font-bold text-[#1d1b16] hover:bg-[#f3ede4] transition-colors flex items-center justify-center border border-[#ede7de]"
+                    className="px-3.5 py-1.5 rounded-full text-xs font-black text-black bg-white hover:bg-stone-100 transition-colors flex items-center justify-center border-2 border-black shadow-[2px_2px_0px_#000]"
                   >
                     Log In
                   </Link>
                   <Link
                     href="/register"
-                    className="px-3.5 py-1.5 rounded-full bg-[#317a63] hover:bg-[#25604e] text-white text-xs font-bold transition-all shadow-sm flex items-center justify-center"
+                    className="px-3.5 py-1.5 rounded-full bg-[#FFE600] hover:bg-[#FACC15] text-black text-xs font-black transition-all border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-center"
                   >
                     Sign Up
                   </Link>
@@ -335,11 +357,11 @@ export function Navbar() {
 
               {/* Profile Dropdown Popover */}
               {isProfileMenuOpen && activeUser && (
-                <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-white border border-[#ede7de] shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div className="px-4 py-2 border-b border-[#ede7de]">
-                    <p className="text-xs font-bold text-[#1d1b16] truncate">{displayName}</p>
-                    <p className="text-[11px] text-[#7d7568] truncate">
-                      {!isGuest ? activeUser.email || "Registered Player" : "Temporary Guest Session"}
+                <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-white border-2 border-black shadow-[4px_4px_0px_#000] py-2 z-50 animate-in fade-in duration-100">
+                  <div className="px-4 py-2 border-b-2 border-stone-200">
+                    <p className="text-xs font-black text-black truncate">{displayName}</p>
+                    <p className="text-[10px] text-stone-500 font-bold truncate">
+                      {!isGuest ? activeUser.email || "Registered Player" : "Guest Mode"}
                     </p>
                   </div>
 
@@ -347,34 +369,34 @@ export function Navbar() {
                     <Link
                       href="/profile"
                       onClick={() => setIsProfileMenuOpen(false)}
-                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-[#1d1b16] hover:bg-[#f9f3ea] transition-colors"
+                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-black hover:bg-[#FFE600]/30 transition-colors"
                     >
-                      <UserIcon className="w-4 h-4 text-[#317a63]" />
+                      <UserIcon className="w-4 h-4 text-black" />
                       My Profile
                     </Link>
                     <Link
                       href="/history"
                       onClick={() => setIsProfileMenuOpen(false)}
-                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-[#1d1b16] hover:bg-[#f9f3ea] transition-colors"
+                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-black hover:bg-[#FFE600]/30 transition-colors"
                     >
-                      <HistoryIcon className="w-4 h-4 text-[#317a63]" />
+                      <HistoryIcon className="w-4 h-4 text-black" />
                       Match History
                     </Link>
                     <Link
                       href="/leaderboard"
                       onClick={() => setIsProfileMenuOpen(false)}
-                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-[#1d1b16] hover:bg-[#f9f3ea] transition-colors"
+                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-black hover:bg-[#FFE600]/30 transition-colors"
                     >
-                      <Trophy className="w-4 h-4 text-[#317a63]" />
+                      <Trophy className="w-4 h-4 text-black" />
                       Leaderboard
                     </Link>
                   </div>
 
-                  <div className="pt-1 border-t border-[#ede7de]">
+                  <div className="pt-1 border-t-2 border-stone-200">
                     <button
                       type="button"
                       onClick={handleLogout}
-                      className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-[#9f2b1d] hover:bg-[#ffdad6]/40 transition-colors text-left cursor-pointer"
+                      className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-black text-red-600 hover:bg-red-50 transition-colors text-left cursor-pointer"
                     >
                       <LogOut className="w-4 h-4" />
                       {isGuest ? "Exit Guest Mode" : "Log Out"}
@@ -385,32 +407,32 @@ export function Navbar() {
             </div>
 
             {/* Mobile Hamburger Menu Toggle */}
-            <div className="md:hidden relative" ref={mobileMenuRef}>
+            <div className="lg:hidden relative" ref={mobileMenuRef}>
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-                className="h-9 w-9 rounded-full bg-white border border-[#ede7de] flex items-center justify-center text-[#1d1b16] hover:bg-[#f3ede4] transition-colors shadow-sm cursor-pointer"
+                className="h-9 w-9 rounded-full bg-white border-2 border-black flex items-center justify-center text-black hover:bg-stone-100 transition-colors shadow-[2px_2px_0px_#000] cursor-pointer"
                 aria-label="Open mobile menu"
               >
-                <Menu className="w-4 h-4" />
+                <Menu className="w-4 h-4 stroke-[2.5]" />
               </button>
 
               {isMobileMenuOpen && (
-                <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-white border border-[#ede7de] shadow-xl p-3 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div className="space-y-1 mb-3">
+                <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-[#FAF7EE] border-2 border-black shadow-[4px_4px_0px_#000] p-3 z-50 animate-in fade-in duration-100">
+                  <div className="space-y-1.5 mb-3">
                     {navLinks.map((link) => {
                       const Icon = link.icon;
-                      const isActive = pathname === link.href;
+                      const isActive = link.isHome ? pathname === "/" : pathname === link.href;
                       return (
                         <Link
                           key={link.href}
                           href={link.href}
                           onClick={() => setIsMobileMenuOpen(false)}
                           className={cn(
-                            "flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold transition-all",
+                            "flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-black border-2 transition-all",
                             isActive
-                              ? "bg-[#317a63] text-white"
-                              : "text-[#1d1b16] hover:bg-[#f9f3ea]"
+                              ? "bg-[#FFE600] text-black border-black shadow-[2px_2px_0px_#000]"
+                              : "text-black border-transparent hover:border-black hover:bg-white"
                           )}
                         >
                           <Icon className="h-4 w-4" />
@@ -421,8 +443,8 @@ export function Navbar() {
                   </div>
 
                   {/* Mobile PIN Form */}
-                  <form onSubmit={handleJoinPin} className="p-2 bg-[#f9f3ea] rounded-xl mb-2">
-                    <span className="text-[10px] font-bold text-[#92400e] uppercase tracking-wider block mb-1">
+                  <form onSubmit={handleJoinPin} className="p-2.5 bg-white border-2 border-black rounded-xl mb-2 shadow-[2px_2px_0px_#000]">
+                    <span className="text-[10px] font-black text-amber-700 uppercase tracking-wider block mb-1">
                       Join Room by PIN
                     </span>
                     <div className="flex gap-1.5">
@@ -436,15 +458,15 @@ export function Navbar() {
                           if (pinError) setPinError(null);
                         }}
                         className={cn(
-                          "w-full px-2 py-1 bg-white rounded-lg text-xs font-bold text-center tracking-wider uppercase border focus:outline-none transition-all",
+                          "w-full px-2 py-1 bg-stone-50 rounded-lg text-xs font-black text-center tracking-wider uppercase border-2 focus:outline-none transition-all",
                           pinError
-                            ? "border-red-500 focus:border-red-500 text-red-600 bg-red-50"
-                            : "border-[#ede7de] focus:border-[#317a63]"
+                            ? "border-red-500 text-red-600 bg-red-50"
+                            : "border-black focus:border-amber-600"
                         )}
                       />
                       <button
                         type="submit"
-                        className="px-3 bg-[#317a63] text-white rounded-lg text-xs font-bold cursor-pointer"
+                        className="px-3 bg-[#0D9488] text-white rounded-lg text-xs font-black border-2 border-black shadow-[1px_1px_0px_#000] cursor-pointer"
                       >
                         Join
                       </button>

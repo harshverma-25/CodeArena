@@ -4,84 +4,53 @@ import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  Gamepad2,
   ArrowRight,
-  Search,
-  X,
-  User,
-  ChevronLeft,
-  ChevronRight,
-  Clock,
-  History,
-  Hourglass,
-  AlertCircle,
   Play,
   Users,
-  Trophy,
-  Layers,
-  Code2,
-  Brain,
-  Lightbulb,
-  Palette,
-  Film,
-  Globe,
-  Landmark,
-  Languages,
-  Atom,
-  HelpCircle,
-  LogOut,
-  Shield,
-  Check,
+  Clock,
   Sparkles,
+  Zap,
+  Flame,
+  Crown,
+  Check,
+  X,
+  SlidersHorizontal,
+  ChevronRight,
+  Award,
 } from "lucide-react";
 
-import { isGuestSessionActive, getGuestUser, clearGuestSession, PlayAsGuestModal, useCurrentUser } from "@/features/auth";
-import { clearNativeSession, getNativeUser } from "@/features/auth/nativeAuth";
+import {
+  ArcadeBrainIcon,
+  ArcadeLightbulbIcon,
+  ArcadeCodeIcon,
+  ArcadeFlaskIcon,
+  ArcadeGlobeIcon,
+  ArcadeNewsIcon,
+  ArcadeCrownIcon,
+  ArcadeLightningIcon,
+  ArcadeFlameIcon,
+  ArcadeStarIcon,
+} from "@/components/ui/ArcadeIcons";
+
+import { isGuestSessionActive, getGuestUser, PlayAsGuestModal, useCurrentUser } from "@/features/auth";
 import { useApiClient } from "@/hooks/useApiClient";
 import { Category, Subject } from "@/types";
 
-// Category color palettes for visual richness
-const COLOR_PALETTES = [
-  { iconColor: "text-[#317a63]", iconBg: "bg-[#e8f5ee]", categoryBg: "bg-[#e8f5ee]/80", categoryText: "text-[#1e6a54]" },
-  { iconColor: "text-[#d97706]", iconBg: "bg-[#fef3c7]", categoryBg: "bg-[#fef3c7]/80", categoryText: "text-[#92400e]" },
-  { iconColor: "text-[#4f46e5]", iconBg: "bg-[#e0e7ff]", categoryBg: "bg-[#e0e7ff]/80", categoryText: "text-[#3730a3]" },
-  { iconColor: "text-[#db2777]", iconBg: "bg-[#fce7f3]", categoryBg: "bg-[#fce7f3]/80", categoryText: "text-[#9d174d]" },
-  { iconColor: "text-[#0284c7]", iconBg: "bg-[#e0f2fe]", categoryBg: "bg-[#e0f2fe]/80", categoryText: "text-[#0369a1]" },
-];
+interface FeaturedQuiz {
+  id: string;
+  rank: number;
+  badgeColor: string;
+  title: string;
+  description: string;
+  categorySlug: string;
+  subjectSlug?: string | null;
+  isMixedCategory: boolean;
+  iconType: "brain" | "globe" | "code" | "flask" | "news";
+  buttonColor: string;
+  playedCount: string;
+}
 
-const getCategoryLucideIcon = (category: Category) => {
-  const slug = (category.slug || category.name || "").toLowerCase();
-  if (slug.includes("prog") || slug.includes("code")) return Code2;
-  if (slug.includes("apt") || slug.includes("logic")) return Brain;
-  if (slug.includes("gk") || slug.includes("gen") || slug.includes("know")) return Lightbulb;
-  if (slug.includes("art") || slug.includes("lit")) return Palette;
-  if (slug.includes("ent") || slug.includes("mov")) return Film;
-  if (slug.includes("geo")) return Globe;
-  if (slug.includes("his")) return Landmark;
-  if (slug.includes("lang")) return Languages;
-  if (slug.includes("sci")) return Atom;
-  if (slug.includes("sport")) return Trophy;
-  return HelpCircle;
-};
-
-const formatTimeAgo = (dateInput?: string | Date): string => {
-  if (!dateInput) return "Recently";
-  const date = new Date(dateInput);
-  const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffMinutes = Math.floor(diffMs / 60000);
-  const diffHours = Math.floor(diffMinutes / 60);
-  const diffDays = Math.floor(diffHours / 24);
-
-  if (diffMinutes < 5) return "Just now";
-  if (diffMinutes < 60) return `${diffMinutes}m ago`;
-  if (diffHours < 24) return `${diffHours}h ago`;
-  if (diffDays === 1) return "Yesterday";
-  if (diffDays < 7) return `${diffDays}d ago`;
-  return date.toLocaleDateString();
-};
-
-export default function StitchHomePage() {
+export default function QuizzyHomePage() {
   const router = useRouter();
   const api = useApiClient();
   const { data: currentUser } = useCurrentUser();
@@ -89,31 +58,36 @@ export default function StitchHomePage() {
 
   // Backend API states
   const [categories, setCategories] = useState<Category[]>([]);
+  const [gkSubjects, setGkSubjects] = useState<Subject[]>([]);
   const [loadingCategories, setLoadingCategories] = useState<boolean>(true);
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
 
-  const [subjects, setSubjects] = useState<Subject[]>([]);
-  const [loadingSubjects, setLoadingSubjects] = useState<boolean>(false);
+  // Interactive Quiz Configuration
+  const [selectedQuestionCount, setSelectedQuestionCount] = useState<number>(10);
+  const [activePlayModalQuiz, setActivePlayModalQuiz] = useState<{
+    title: string;
+    categorySlug: string;
+    subjectSlug?: string | null;
+    isMixedCategory: boolean;
+    description: string;
+    availableQuestions?: number;
+  } | null>(null);
 
-  const [recentHistory, setRecentHistory] = useState<any[]>([]);
-  const [loadingHistory, setLoadingHistory] = useState<boolean>(false);
-
-  const [creatingRoomCardId, setCreatingRoomCardId] = useState<string | null>(null);
   const [startingSoloCardId, setStartingSoloCardId] = useState<string | null>(null);
+  const [creatingRoomCardId, setCreatingRoomCardId] = useState<string | null>(null);
   const [roomError, setRoomError] = useState<string | null>(null);
 
-  // Form & UI state
-  const [activeFilter, setActiveFilter] = useState("all");
+  // Auth and Guest State
   const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
   const [guestActive, setGuestActive] = useState<boolean>(false);
   const [guestUser, setGuestUser] = useState<any>(null);
 
-  // Real-time search state (synchronized with Unified Navbar)
+  // Search state
   const [searchQuery, setSearchQuery] = useState("");
 
-  const categoryTrackRef = useRef<HTMLDivElement>(null);
+  const categoriesSectionRef = useRef<HTMLDivElement>(null);
+  const mostPlayedSectionRef = useRef<HTMLDivElement>(null);
 
-  // Synchronize authentication status
+  // Synchronize guest auth
   useEffect(() => {
     const updateGuest = () => {
       const active = isGuestSessionActive();
@@ -131,18 +105,11 @@ export default function StitchHomePage() {
     };
   }, []);
 
-  // Synchronize search with Navbar
+  // Listen for Navbar search events
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const q = params.get("search");
-      if (q) setSearchQuery(q);
-    }
-
     const handleNavbarSearch = (e: any) => {
       setSearchQuery(e.detail || "");
     };
-
     window.addEventListener("quizzy:search", handleNavbarSearch as EventListener);
     return () => {
       window.removeEventListener("quizzy:search", handleNavbarSearch as EventListener);
@@ -150,854 +117,759 @@ export default function StitchHomePage() {
   }, []);
 
   const hasAccess = Boolean(isUserAuthenticated || guestActive);
-  const displayName = isUserAuthenticated && currentUser
-    ? currentUser.displayName || currentUser.username || "Player"
-    : guestActive && guestUser
-    ? guestUser.displayName || guestUser.username || "Guest Player"
-    : "Player";
 
-  // 1. Fetch categories from backend API
+  // Fetch real categories from backend API
   useEffect(() => {
     let isMounted = true;
-    let timerId: ReturnType<typeof setTimeout>;
-
-    const fetchCategories = async (retryCount = 0) => {
-      if (retryCount === 0) setLoadingCategories(true);
+    const fetchCategoriesData = async () => {
       try {
         const res = await api.get<{ success: boolean; data: Category[] }>("/categories");
         if (isMounted && res.data && Array.isArray(res.data)) {
           setCategories(res.data);
-          if (res.data.length > 0) {
-            setSelectedCategoryId(res.data[0].id || res.data[0].slug);
-          }
-          setLoadingCategories(false);
-          return;
         }
       } catch (err) {
-        if (retryCount < 3) {
-          timerId = setTimeout(() => {
-            if (isMounted) fetchCategories(retryCount + 1);
-          }, 1500);
-          return;
-        }
         console.warn("Could not fetch categories:", err);
-      }
-      if (isMounted) {
-        setLoadingCategories(false);
+      } finally {
+        if (isMounted) setLoadingCategories(false);
       }
     };
 
-    fetchCategories();
+    const fetchGkSubjects = async () => {
+      try {
+        const res = await api.get<{ success: boolean; data: { category: any; subjects: Subject[] } }>(
+          "/categories/general-knowledge/subjects"
+        );
+        if (isMounted && res.data?.subjects) {
+          setGkSubjects(res.data.subjects);
+        }
+      } catch (err) {
+        console.warn("Could not fetch GK subjects:", err);
+      }
+    };
+
+    fetchCategoriesData();
+    fetchGkSubjects();
+
     return () => {
       isMounted = false;
-      clearTimeout(timerId);
     };
   }, []);
 
-  // 2. Fetch subjects whenever selected category changes
-  useEffect(() => {
-    if (!selectedCategoryId) return;
-    let isMounted = true;
-    const fetchSubjects = async () => {
-      setLoadingSubjects(true);
-      try {
-        const res = await api.get<{ success: boolean; data: Subject[] }>(
-          `/categories/${selectedCategoryId}/subjects`
-        );
-        if (isMounted && res.data && Array.isArray(res.data)) {
-          setSubjects(res.data);
-        }
-      } catch (err) {
-        console.warn("Could not fetch subjects:", err);
-        if (isMounted) setSubjects([]);
-      } finally {
-        if (isMounted) setLoadingSubjects(false);
-      }
-    };
-    fetchSubjects();
-    return () => { isMounted = false; };
-  }, [selectedCategoryId]);
+  // Question counts from live backend (or fallback to accurate defaults)
+  const aptitudeCount = categories.find((c) => c.slug === "aptitude")?.questionCount ?? 130;
+  const gkCount = categories.find((c) => c.slug === "general-knowledge")?.questionCount ?? 320;
+  const programmingCount = categories.find((c) => c.slug === "programming")?.questionCount ?? 406;
+  const scienceCount = gkSubjects.find((s) => s.slug === "science")?.questionCount ?? 280;
+  const currentAffairsCount = gkSubjects.find((s) => s.slug === "current-affairs")?.questionCount ?? 150;
 
-  // 3. Fetch recently played history if user is logged in
-  useEffect(() => {
-    if (!hasAccess) {
-      setRecentHistory([]);
-      return;
-    }
-    let isMounted = true;
-    const fetchHistory = async () => {
-      setLoadingHistory(true);
-      try {
-        const res = await api.get<{ success: boolean; data: { matches: any[] } }>("/history?limit=3");
-        if (isMounted && res.data?.matches) {
-          setRecentHistory(res.data.matches);
-        }
-      } catch (err) {
-        if (isMounted) setRecentHistory([]);
-      } finally {
-        if (isMounted) setLoadingHistory(false);
-      }
-    };
-    fetchHistory();
-  }, [hasAccess]);
+  // 5 Explore Categories matching the screenshot layout
+  const exploreCategoriesList = [
+    {
+      id: "aptitude",
+      name: "Aptitude",
+      description: "Logical reasoning, quantitative analysis, verbal skills, and data interpretation",
+      questionCount: aptitudeCount,
+      bgColor: "bg-[#DCFCE7]", // Pastel mint green
+      hoverBg: "hover:bg-[#BBF7D0]",
+      buttonColor: "bg-[#0D9488]", // Teal
+      buttonHover: "hover:bg-[#0F766E]",
+      icon: <ArcadeBrainIcon className="w-12 h-12" />,
+      categorySlug: "aptitude",
+      subjectSlug: null,
+      isMixedCategory: true,
+    },
+    {
+      id: "general-knowledge",
+      name: "General Knowledge",
+      description: "History, geography, science, current affairs, and more",
+      questionCount: gkCount,
+      bgColor: "bg-[#FEF9C3]", // Pastel yellow
+      hoverBg: "hover:bg-[#FEF08A]",
+      buttonColor: "bg-[#F59E0B]", // Orange
+      buttonHover: "hover:bg-[#D97706]",
+      icon: <ArcadeLightbulbIcon className="w-12 h-12" />,
+      categorySlug: "general-knowledge",
+      subjectSlug: null,
+      isMixedCategory: true,
+    },
+    {
+      id: "programming",
+      name: "Programming",
+      description: "DSA, web development, databases, and more",
+      questionCount: programmingCount,
+      bgColor: "bg-[#EDE9FE]", // Pastel lavender / purple
+      hoverBg: "hover:bg-[#DDD6FE]",
+      buttonColor: "bg-[#7C3AED]", // Purple
+      buttonHover: "hover:bg-[#6D28D9]",
+      icon: <ArcadeCodeIcon className="w-12 h-12" />,
+      categorySlug: "programming",
+      subjectSlug: null,
+      isMixedCategory: true,
+    },
+    {
+      id: "science",
+      name: "Science",
+      description: "Physics, chemistry, biology, and more",
+      questionCount: scienceCount,
+      bgColor: "bg-[#FFE4E6]", // Pastel soft coral / pink
+      hoverBg: "hover:bg-[#FECDD3]",
+      buttonColor: "bg-[#EC4899]", // Magenta / Pink
+      buttonHover: "hover:bg-[#DB2777]",
+      icon: <ArcadeFlaskIcon className="w-12 h-12" />,
+      categorySlug: "general-knowledge",
+      subjectSlug: "science",
+      isMixedCategory: false,
+    },
+    {
+      id: "current-affairs",
+      name: "Current Affairs",
+      description: "Latest news and global events",
+      questionCount: currentAffairsCount,
+      bgColor: "bg-[#CFFAFE]", // Pastel sky blue
+      hoverBg: "hover:bg-[#BAE6FD]",
+      buttonColor: "bg-[#0284C7]", // Sky blue
+      buttonHover: "hover:bg-[#0369A1]",
+      icon: <ArcadeGlobeIcon className="w-12 h-12" />,
+      categorySlug: "general-knowledge",
+      subjectSlug: "current-affairs",
+      isMixedCategory: false,
+    },
+  ];
 
-  // Category horizontal scroll controls
-  const handleScrollLeft = () => {
-    if (categoryTrackRef.current) {
-      categoryTrackRef.current.scrollBy({ left: -260, behavior: "smooth" });
-    }
-  };
+  // 5 Most Played Quizzes matching the screenshot
+  const mostPlayedQuizzes: FeaturedQuiz[] = [
+    {
+      id: "mixed-aptitude",
+      rank: 1,
+      badgeColor: "bg-[#FFE600] text-black", // Yellow banner #1
+      title: "Mixed Aptitude",
+      description: "A mix of questions covering all aptitude topics.",
+      categorySlug: "aptitude",
+      subjectSlug: null,
+      isMixedCategory: true,
+      iconType: "brain",
+      buttonColor: "bg-[#10B981] hover:bg-[#059669]", // Green circle play button
+      playedCount: "1.2K played",
+    },
+    {
+      id: "general-knowledge-mix",
+      rank: 2,
+      badgeColor: "bg-[#2DD4BF] text-black", // Teal banner #2
+      title: "General Knowledge",
+      description: "Test your knowledge about the world around you.",
+      categorySlug: "general-knowledge",
+      subjectSlug: null,
+      isMixedCategory: true,
+      iconType: "globe",
+      buttonColor: "bg-[#F59E0B] hover:bg-[#D97706]", // Yellow/Amber circle play button
+      playedCount: "980 played",
+    },
+    {
+      id: "programming-basics",
+      rank: 3,
+      badgeColor: "bg-[#FB923C] text-black", // Orange banner #3
+      title: "Programming Basics",
+      description: "Fundamentals of programming and computer science.",
+      categorySlug: "programming",
+      subjectSlug: "dsa",
+      isMixedCategory: false,
+      iconType: "code",
+      buttonColor: "bg-[#7C3AED] hover:bg-[#6D28D9]", // Purple circle play button
+      playedCount: "860 played",
+    },
+    {
+      id: "science-mix",
+      rank: 4,
+      badgeColor: "bg-[#F472B6] text-black", // Pink banner #4
+      title: "Science Mix",
+      description: "Physics, chemistry and biology questions.",
+      categorySlug: "general-knowledge",
+      subjectSlug: "science",
+      isMixedCategory: false,
+      iconType: "flask",
+      buttonColor: "bg-[#EC4899] hover:bg-[#DB2777]", // Pink circle play button
+      playedCount: "720 played",
+    },
+    {
+      id: "current-affairs-2026",
+      rank: 5,
+      badgeColor: "bg-[#38BDF8] text-black", // Sky blue banner #5
+      title: "Current Affairs 2026",
+      description: "Latest news and global events.",
+      categorySlug: "general-knowledge",
+      subjectSlug: "current-affairs",
+      isMixedCategory: false,
+      iconType: "news",
+      buttonColor: "bg-[#0284C7] hover:bg-[#0369A1]", // Blue circle play button
+      playedCount: "650 played",
+    },
+  ];
 
-  const handleScrollRight = () => {
-    if (categoryTrackRef.current) {
-      categoryTrackRef.current.scrollBy({ left: 260, behavior: "smooth" });
-    }
-  };
-
-  const [selectedQuestionCount, setSelectedQuestionCount] = useState<number>(10);
-
-  // Launch direct solo quiz session without multiplayer lobby
-  const handlePlaySoloQuiz = async (quiz: {
-    cardId: string;
-    categoryId: string;
-    subjectId?: string | null;
+  // Launch Solo Quiz
+  const handlePlaySolo = async (quiz: {
+    categorySlug: string;
+    subjectSlug?: string | null;
     isMixedCategory?: boolean;
+    questionCount?: number;
   }) => {
     if (!hasAccess) {
       setIsGuestModalOpen(true);
       return;
     }
 
-    setStartingSoloCardId(quiz.cardId);
+    const key = `${quiz.categorySlug}-${quiz.subjectSlug || "mixed"}`;
+    setStartingSoloCardId(key);
     setRoomError(null);
 
     try {
       const res = await api.post<{ success: boolean; data: { roomCode: string; battleId: string } }>("/rooms/solo", {
-        categoryId: quiz.categoryId,
-        subjectId: quiz.isMixedCategory ? null : quiz.subjectId,
+        categoryId: quiz.categorySlug,
+        subjectId: quiz.isMixedCategory ? null : quiz.subjectSlug,
         isMixedCategory: Boolean(quiz.isMixedCategory),
-        questionCount: selectedQuestionCount,
+        questionCount: quiz.questionCount || selectedQuestionCount,
       });
 
       if (res.data?.roomCode) {
         router.push(`/battle/${res.data.roomCode}`);
       } else {
-        throw new Error("Failed to start solo quiz session.");
+        throw new Error("Could not initialize solo battle.");
       }
     } catch (err: any) {
-      setRoomError(err.message || "Failed to start solo quiz. Please try again.");
+      setRoomError(err.message || "Failed to start solo quiz session.");
     } finally {
       setStartingSoloCardId(null);
     }
   };
 
-  // Launch quiz room with real backend payload
-  const handlePlayQuizCard = async (quiz: {
-    cardId: string;
-    categoryId: string;
-    subjectId?: string | null;
+  // Launch Multiplayer Quiz Room
+  const handlePlayMultiplayer = async (quiz: {
+    categorySlug: string;
+    subjectSlug?: string | null;
     isMixedCategory?: boolean;
+    questionCount?: number;
   }) => {
     if (!hasAccess) {
       setIsGuestModalOpen(true);
       return;
     }
 
-    setCreatingRoomCardId(quiz.cardId);
+    const key = `${quiz.categorySlug}-${quiz.subjectSlug || "mixed"}`;
+    setCreatingRoomCardId(key);
     setRoomError(null);
 
     try {
       const res = await api.post<{ success: boolean; data: { roomCode: string } }>("/rooms", {
-        categoryId: quiz.categoryId,
-        subjectId: quiz.isMixedCategory ? null : quiz.subjectId,
+        categoryId: quiz.categorySlug,
+        subjectId: quiz.isMixedCategory ? null : quiz.subjectSlug,
         isMixedCategory: Boolean(quiz.isMixedCategory),
-        questionCount: selectedQuestionCount,
+        questionCount: quiz.questionCount || selectedQuestionCount,
       });
 
       if (res.data?.roomCode) {
         router.push(`/lobby/${res.data.roomCode}`);
       } else {
-        throw new Error("Failed to retrieve valid room code from server.");
+        throw new Error("Could not create multiplayer lobby.");
       }
     } catch (err: any) {
-      setRoomError(err.message || "Failed to create quiz room. Please try again.");
+      setRoomError(err.message || "Failed to create multiplayer room.");
     } finally {
       setCreatingRoomCardId(null);
     }
   };
 
-  // Derive current category metadata and derived quiz cards
-  const currentCategory = categories.find(
-    (c) => c.id === selectedCategoryId || c.slug === selectedCategoryId
-  ) || (categories.length > 0 ? categories[0] : null);
-
-  const getAvailableLengths = (count: number) => {
-    const lengths: number[] = [];
-    if (count >= 10) lengths.push(10);
-    if (count >= 15) lengths.push(15);
-    if (count >= 20) lengths.push(20);
-    return lengths;
+  const renderQuizIcon = (type: string) => {
+    switch (type) {
+      case "brain":
+        return <ArcadeBrainIcon className="w-8 h-8" />;
+      case "globe":
+        return <ArcadeGlobeIcon className="w-8 h-8" />;
+      case "code":
+        return <ArcadeCodeIcon className="w-8 h-8" />;
+      case "flask":
+        return <ArcadeFlaskIcon className="w-8 h-8" />;
+      case "news":
+        return <ArcadeNewsIcon className="w-8 h-8" />;
+      default:
+        return <ArcadeBrainIcon className="w-8 h-8" />;
+    }
   };
 
-  const mixedQuizCard = currentCategory
-    ? {
-        cardId: `mixed-${currentCategory.id}`,
-        title: `Mixed ${currentCategory.name}`,
-        category: currentCategory.name,
-        description: `Randomized mix of questions covering all subjects in ${currentCategory.name}.`,
-        questionCount: currentCategory.questionCount || 0,
-        availableLengths: currentCategory.availableLengths ?? getAvailableLengths(currentCategory.questionCount || 0),
-        isPlayable: currentCategory.isPlayable ?? ((currentCategory.questionCount || 0) >= 10),
-        isMixedCategory: true,
-        categoryId: currentCategory.id,
-        subjectId: null,
-      }
-    : null;
-
-  const subjectQuizCards = subjects.map((sub) => ({
-    cardId: sub.id,
-    title: sub.name,
-    category: currentCategory?.name || "Subject",
-    description: sub.description || `Test your grasp on ${sub.name} concepts and problems.`,
-    questionCount: sub.questionCount || 0,
-    availableLengths: sub.availableLengths ?? getAvailableLengths(sub.questionCount || 0),
-    isPlayable: sub.isPlayable ?? ((sub.questionCount || 0) >= 10),
-    isMixedCategory: false,
-    categoryId: sub.categoryId || currentCategory?.id || selectedCategoryId,
-    subjectId: sub.id,
-  }));
-
-  const allQuizCards = [
-    ...(mixedQuizCard ? [mixedQuizCard] : []),
-    ...subjectQuizCards,
-  ];
-
-  // Apply filters (type filter + real-time search query)
-  const filteredQuizCards = allQuizCards.filter((card) => {
-    if (activeFilter === "mixed" && !card.isMixedCategory) return false;
-    if (activeFilter === "subjects" && card.isMixedCategory) return false;
-
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase().trim();
-      const matchTitle = card.title.toLowerCase().includes(q);
-      const matchDesc = card.description.toLowerCase().includes(q);
-      const matchCat = card.category.toLowerCase().includes(q);
-      return matchTitle || matchDesc || matchCat;
-    }
-
-    return true;
-  });
-
-  // Calculate highest question count available in currently filtered view
-  const maxQuestionsInView = filteredQuizCards.reduce(
-    (max, card) => Math.max(max, card.questionCount),
-    0
-  );
-
-  // Auto-correct selectedQuestionCount when category, subjects, or filter changes
-  useEffect(() => {
-    if (maxQuestionsInView >= 20) {
-      return;
-    }
-    if (maxQuestionsInView >= 15) {
-      if (selectedQuestionCount > 15) {
-        setSelectedQuestionCount(15);
-      }
-      return;
-    }
-    if (maxQuestionsInView >= 10) {
-      if (selectedQuestionCount > 10) {
-        setSelectedQuestionCount(10);
-      }
-      return;
-    }
-    if (selectedQuestionCount !== 10) {
-      setSelectedQuestionCount(10);
-    }
-  }, [maxQuestionsInView, selectedQuestionCount]);
-
   return (
-    <div className="stitch-scope min-h-screen bg-surface font-body-md text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
-      {/* MAIN PAGE CONTENT */}
-      <div className="w-full bg-surface min-h-[calc(100vh-180px)]">
-        <div className="flex flex-col w-full">
-          <div className="w-full max-w-[1240px] mx-auto px-margin-sm lg:px-margin pb-space-2xl">
-            {/* SECTION 1: TOP HERO / WELCOME BANNER */}
-            <section className="mt-space-md mb-space-xl">
-              <div className="bg-surface-container-lowest rounded-[28px] p-space-lg lg:p-space-xl shadow-[0_2px_12px_-3px_rgba(60,52,42,0.04)] flex flex-col md:flex-row md:items-center justify-between gap-space-lg relative overflow-hidden border border-surface-container-highest">
-                <div className="absolute -right-16 -top-16 w-64 h-64 bg-primary-fixed/30 rounded-full blur-3xl pointer-events-none"></div>
-                <div className="relative z-10 space-y-space-xs max-w-2xl">
-                  <div className="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm tracking-wide uppercase">
-                    <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                    ⚡ Real-Time Multiplayer Trivia
-                  </div>
-                  <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold">
-                    Welcome to Quizzy, {displayName.split(" ")[0]}! 🎮
-                  </h1>
-                  <p className="font-body-md text-body-md text-on-surface-variant">
-                    Pick a category, test yourself solo, or challenge friends to an instant quiz showdown!
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            {/* Error Notification banner if room creation fails */}
-            {roomError && (
-              <div className="mb-space-md p-space-md rounded-2xl bg-error/10 border border-error/30 text-error flex items-center justify-between">
-                <span className="font-body-md text-body-md font-semibold">{roomError}</span>
-                <button
-                  onClick={() => setRoomError(null)}
-                  className="text-error font-bold text-sm px-2 py-1 hover:bg-error/20 rounded-lg cursor-pointer"
-                >
-                  Dismiss
-                </button>
-              </div>
-            )}
-
-            {/* SECTION 2: CATEGORY NAVIGATION BAR */}
-            <section className="mb-space-2xl">
-              <div className="flex items-center justify-between gap-space-md mb-space-sm">
-                <span className="font-label-md text-label-md font-bold uppercase tracking-wider text-on-surface-variant">
-                  Categories
-                </span>
-                <div className="flex items-center gap-1 text-on-surface-variant">
-                  <button
-                    aria-label="Scroll categories left"
-                    className="w-8 h-8 rounded-full bg-surface-container-lowest hover:bg-surface-container-high flex items-center justify-center transition-colors shadow-sm cursor-pointer border border-surface-container-highest"
-                    onClick={handleScrollLeft}
-                    type="button"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <button
-                    aria-label="Scroll categories right"
-                    className="w-8 h-8 rounded-full bg-surface-container-lowest hover:bg-surface-container-high flex items-center justify-center transition-colors shadow-sm cursor-pointer border border-surface-container-highest"
-                    onClick={handleScrollRight}
-                    type="button"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Horizontal Category Pill Track */}
-              <div
-                ref={categoryTrackRef}
-                className="flex items-center gap-space-sm overflow-x-auto pb-2 scroll-smooth no-scrollbar select-none"
-              >
-                {loadingCategories ? (
-                  Array.from({ length: 6 }).map((_, idx) => (
-                    <div
-                      key={idx}
-                      className="shrink-0 h-11 w-36 rounded-full bg-surface-container-low animate-pulse"
-                    />
-                  ))
-                ) : (
-                  categories.map((cat, idx) => {
-                    const isSelected =
-                      selectedCategoryId === cat.id || selectedCategoryId === cat.slug;
-                    const palette = COLOR_PALETTES[idx % COLOR_PALETTES.length];
-                    const IconComponent = getCategoryLucideIcon(cat);
-
-                    return (
-                      <button
-                        key={cat.id || cat.slug}
-                        onClick={() => setSelectedCategoryId(cat.id || cat.slug)}
-                        className={`shrink-0 flex items-center gap-2.5 px-4 py-2.5 rounded-full transition-all transform hover:-translate-y-0.5 cursor-pointer ${
-                          isSelected
-                            ? "bg-surface-container-lowest shadow-[0_4px_14px_-2px_rgba(49,122,99,0.18)] border border-primary/40"
-                            : "bg-surface-container-lowest hover:bg-surface-container-low shadow-sm border border-surface-container-highest"
-                        }`}
-                        type="button"
-                      >
-                        {isSelected && (
-                          <span className="w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-primary-fixed animate-pulse"></span>
-                        )}
-                        <span
-                          className={`w-7 h-7 rounded-full ${palette.iconBg} ${palette.iconColor} flex items-center justify-center`}
-                        >
-                          <IconComponent className="w-4 h-4" />
-                        </span>
-                        <span
-                          className={`font-label-md text-label-md ${
-                            isSelected ? "text-primary font-bold" : "text-on-surface font-semibold"
-                          }`}
-                        >
-                          {cat.name}
-                        </span>
-                      </button>
-                    );
-                  })
-                )}
-              </div>
-            </section>
-
-            {/* SECTION 3: RECENTLY PLAYED */}
-            <section className="mb-space-2xl">
-              <div className="flex items-end justify-between mb-space-lg">
-                <div>
-                  <span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">
-                    Pick up where you left off
-                  </span>
-                  <h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5 font-bold">
-                    Recent Games
-                  </h2>
-                </div>
-                <Link
-                  className="font-label-md text-label-md text-primary font-bold hover:text-primary-container flex items-center gap-1 transition-colors"
-                  href="/history"
-                >
-                  View Full History
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-
-              {loadingHistory ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
-                  {Array.from({ length: 3 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="h-48 rounded-[24px] bg-surface-container-low animate-pulse"
-                    />
-                  ))}
-                </div>
-              ) : recentHistory.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
-                  {recentHistory.map((item) => {
-                    const topicName = item.topic || "Quiz";
-                    const timeStr = formatTimeAgo(item.endedAt || item.startedAt);
-                    const userScore = item.userScore ?? 0;
-                    const resultText = item.result || "COMPLETED";
-
-                    return (
-                      <div
-                        key={item._id}
-                        className="bg-surface-container-lowest rounded-[24px] p-space-md shadow-[0_2px_8px_-2px_rgba(60,52,42,0.04)] hover:shadow-[0_8px_24px_-6px_rgba(60,52,42,0.07)] transition-all flex flex-col justify-between group border border-surface-container-highest"
-                      >
-                        <div>
-                          <div className="flex items-center justify-between mb-space-xs">
-                            <span className="px-3 py-1 rounded-full bg-primary-fixed/60 text-primary font-label-sm text-label-sm font-semibold">
-                              {topicName}
-                            </span>
-                            <span className="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1">
-                              <Clock className="w-3.5 h-3.5" /> {timeStr}
-                            </span>
-                          </div>
-                          <h3 className="font-headline-sm text-headline-sm text-on-surface tracking-tight mt-space-sm mb-space-xs group-hover:text-primary transition-colors font-bold">
-                            {topicName} Quiz
-                          </h3>
-                          <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
-                            Room: <span className="font-mono font-bold">{item.roomCode || "N/A"}</span> • {item.questionCount || 10} Questions
-                          </p>
-                        </div>
-                        <div className="pt-space-sm space-y-space-md border-t border-surface-container-low">
-                          <div className="flex items-center justify-between text-label-sm font-label-sm">
-                            <span className="text-on-surface-variant">Result</span>
-                            <span className="font-bold text-primary">{userScore} Pts ({resultText})</span>
-                          </div>
-                          <div className="flex items-center justify-between pt-1">
-                            <span className="font-label-sm text-label-sm text-on-surface-variant">
-                              {item.difficulty || "Standard"}
-                            </span>
-                            <button
-                              onClick={() => router.push(`/results/${item._id}`)}
-                              className="px-5 py-2 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-bold transition-all shadow-sm cursor-pointer"
-                              type="button"
-                            >
-                              Details
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="w-full bg-surface-container-lowest rounded-[24px] p-space-xl text-center border border-dashed border-surface-container-highest">
-                  <History className="w-10 h-10 text-on-surface-variant mb-2 opacity-60 mx-auto" />
-                  <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold">
-                    No Recent Games
-                  </h3>
-                  <p className="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto mt-1">
-                    Select a quiz below to start your first game!
-                  </p>
-                </div>
-              )}
-            </section>
-
-            {/* SECTION 4: QUIZ DISCOVERY & SUBJECT CARDS */}
-            <section className="mb-space-2xl">
-              <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
-                <div>
-                  <span className="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold">
-                    Choose a Quiz
-                  </span>
-                  <h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5 font-bold">
-                    {searchQuery.trim()
-                      ? `Search Results for "${searchQuery}"`
-                      : currentCategory
-                      ? `Quizzes in ${currentCategory.name}`
-                      : "Available Quizzes"}
-                  </h2>
-                </div>
-                {/* Segmented Filter Controls & Question Count Selector */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-space-sm self-start md:self-auto max-w-full">
-                  {/* Category / Subject Filter */}
-                  <div className="inline-flex p-1 bg-surface-container rounded-full overflow-x-auto max-w-full">
-                    <button
-                      onClick={() => setActiveFilter("all")}
-                      className={`px-4 py-1.5 rounded-full font-label-md text-label-md transition-all cursor-pointer ${
-                        activeFilter === "all"
-                          ? "bg-surface-container-lowest text-on-surface shadow-sm font-bold"
-                          : "text-on-surface-variant font-semibold hover:text-on-surface"
-                      }`}
-                      type="button"
-                    >
-                      All ({filteredQuizCards.length})
-                    </button>
-                    <button
-                      onClick={() => setActiveFilter("subjects")}
-                      className={`px-4 py-1.5 rounded-full font-label-md text-label-md transition-all cursor-pointer ${
-                        activeFilter === "subjects"
-                          ? "bg-surface-container-lowest text-on-surface shadow-sm font-bold"
-                          : "text-on-surface-variant font-semibold hover:text-on-surface"
-                      }`}
-                      type="button"
-                    >
-                      Subjects ({subjectQuizCards.length})
-                    </button>
-                    <button
-                      onClick={() => setActiveFilter("mixed")}
-                      className={`px-4 py-1.5 rounded-full font-label-md text-label-md transition-all cursor-pointer ${
-                        activeFilter === "mixed"
-                          ? "bg-surface-container-lowest text-on-surface shadow-sm font-bold"
-                          : "text-on-surface-variant font-semibold hover:text-on-surface"
-                      }`}
-                      type="button"
-                    >
-                      Mixed Mode
-                    </button>
-                  </div>
-
-                  {/* Question Count Selector (10, 15, 20) */}
-                  <div className="inline-flex items-center gap-1 p-1 bg-tertiary-fixed/30 border border-tertiary-fixed-dim/40 rounded-full">
-                    <span className="text-xs font-bold text-tertiary px-2 uppercase font-mono">Length:</span>
-                    {[10, 15, 20].map((countOption) => {
-                      const isOptionAvailable = maxQuestionsInView >= countOption;
-                      return (
-                        <button
-                          key={countOption}
-                          disabled={!isOptionAvailable}
-                          onClick={() => isOptionAvailable && setSelectedQuestionCount(countOption)}
-                          className={`px-3 py-1 rounded-full font-label-sm text-label-sm transition-all ${
-                            !isOptionAvailable
-                              ? "opacity-40 cursor-not-allowed text-on-surface-variant line-through"
-                              : selectedQuestionCount === countOption
-                              ? "bg-tertiary text-on-tertiary shadow-sm font-bold cursor-pointer"
-                              : "text-on-surface-variant hover:text-on-surface font-semibold cursor-pointer"
-                          }`}
-                          title={
-                            !isOptionAvailable
-                              ? `Requires at least ${countOption} published questions (max available: ${maxQuestionsInView})`
-                              : `Set quiz length to ${countOption} questions`
-                          }
-                          type="button"
-                        >
-                          {countOption} Qs
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              {loadingSubjects ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
-                  {Array.from({ length: 6 }).map((_, i) => (
-                    <div key={i} className="h-56 rounded-[28px] bg-surface-container-low animate-pulse" />
-                  ))}
-                </div>
-              ) : filteredQuizCards.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
-                  {filteredQuizCards.map((quiz) => {
-                    const isCreatingThis = creatingRoomCardId === quiz.cardId;
-                    const isStartingThisSolo = startingSoloCardId === quiz.cardId;
-                    const isBusy = isCreatingThis || isStartingThisSolo;
-                    const hasEnoughQuestions = quiz.questionCount >= selectedQuestionCount;
-
-                    return (
-                      <div
-                        key={quiz.cardId}
-                        className={`bg-surface-container-lowest rounded-[28px] p-space-md shadow-[0_2px_8px_-2px_rgba(60,52,42,0.04)] hover:shadow-[0_8px_24px_-6px_rgba(60,52,42,0.07)] transition-all flex flex-col justify-between group border ${
-                          quiz.isMixedCategory
-                            ? "border-primary/40 bg-gradient-to-br from-surface-container-lowest to-primary-fixed/10"
-                            : "border-surface-container-highest"
-                        }`}
-                      >
-                        <div>
-                          <div className="flex items-center justify-between mb-space-md">
-                            <span
-                              className={`px-3 py-1 rounded-full font-label-sm text-label-sm font-semibold ${
-                                quiz.questionCount === 0
-                                  ? "bg-surface-container-high text-on-surface-variant/80 border border-surface-container-highest"
-                                  : quiz.questionCount < 10
-                                  ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20"
-                                  : quiz.isMixedCategory
-                                  ? "bg-primary text-on-primary"
-                                  : "bg-surface-container-high text-on-surface-variant"
-                              }`}
-                            >
-                              {quiz.questionCount === 0
-                                ? "Coming Soon"
-                                : quiz.questionCount < 10
-                                ? "Not Enough Questions"
-                                : quiz.isMixedCategory
-                                ? "Mixed Pool"
-                                : quiz.category}
-                            </span>
-                          </div>
-
-                          <h3 className="font-headline-sm text-headline-sm text-on-surface tracking-tight mb-space-xs group-hover:text-primary transition-colors font-bold">
-                            {quiz.title}
-                          </h3>
-                          <p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
-                            {quiz.description}
-                          </p>
-                        </div>
-
-                        <div className="pt-space-md mt-space-sm flex flex-col gap-2.5 border-t border-surface-container-low">
-                          <div className="flex items-center justify-between text-xs">
-                            {quiz.questionCount === 0 ? (
-                              <>
-                                <span className="font-label-md text-label-md text-on-surface-variant font-medium flex items-center gap-1">
-                                  <Hourglass className="w-3.5 h-3.5" />
-                                  Coming Soon
-                                </span>
-                                <span className="font-semibold text-on-surface-variant">
-                                  0 Questions
-                                </span>
-                              </>
-                            ) : quiz.questionCount < 10 ? (
-                              <>
-                                <span className="font-label-md text-label-md text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1">
-                                  <AlertCircle className="w-3.5 h-3.5" />
-                                  Not enough questions yet
-                                </span>
-                                <span className="font-semibold text-on-surface-variant">
-                                  {quiz.questionCount}/10 Qs
-                                </span>
-                              </>
-                            ) : (
-                              <>
-                                <span className="font-label-md text-label-md text-on-surface-variant font-medium">
-                                  {quiz.questionCount} Qs Available
-                                </span>
-                                {!hasEnoughQuestions ? (
-                                  <span className="font-bold text-error">
-                                    Requires {selectedQuestionCount} Qs
-                                  </span>
-                                ) : (
-                                  <span className="font-medium text-primary text-xs">
-                                    Supports {quiz.availableLengths.join('/')} Qs
-                                  </span>
-                                )}
-                              </>
-                            )}
-                          </div>
-
-                          {quiz.questionCount === 0 ? (
-                            <div className="grid grid-cols-1">
-                              <button
-                                disabled
-                                className="w-full px-3 py-2 rounded-full font-label-md text-label-md font-semibold bg-surface-container-high text-on-surface-variant/60 cursor-not-allowed text-center"
-                                type="button"
-                              >
-                                Coming Soon (0 Questions)
-                              </button>
-                            </div>
-                          ) : quiz.questionCount < 10 ? (
-                            <div className="grid grid-cols-1">
-                              <button
-                                disabled
-                                className="w-full px-3 py-2 rounded-full font-label-md text-label-md font-semibold bg-surface-container-high text-on-surface-variant/60 cursor-not-allowed text-center"
-                                type="button"
-                              >
-                                Not enough questions yet ({quiz.questionCount}/10 Qs)
-                              </button>
-                            </div>
-                          ) : (
-                            <div className="grid grid-cols-2 gap-2">
-                              {/* Solo Quiz (Direct Gameplay) */}
-                              <button
-                                disabled={isBusy || !hasEnoughQuestions}
-                                onClick={() => handlePlaySoloQuiz(quiz)}
-                                className={`px-3 py-2 rounded-full font-label-md text-label-md font-bold transition-all shadow-sm flex items-center justify-center gap-1.5 ${
-                                  hasEnoughQuestions
-                                    ? "bg-primary hover:bg-primary-container text-on-primary hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
-                                    : "bg-surface-container-high text-on-surface-variant opacity-60 cursor-not-allowed"
-                                }`}
-                                type="button"
-                                title={
-                                  hasEnoughQuestions
-                                    ? "Start solo quiz directly without a lobby"
-                                    : `This quiz has only ${quiz.questionCount} questions. Select a smaller quiz length (${quiz.availableLengths.join(' or ')})`
-                                }
-                              >
-                                <Play className="w-4 h-4 fill-current" />
-                                <span>
-                                  {isStartingThisSolo ? "Starting..." : "Solo Quiz"}
-                                </span>
-                              </button>
-
-                              {/* Multiplayer (Room Lobby) */}
-                              <button
-                                disabled={isBusy || !hasEnoughQuestions}
-                                onClick={() => handlePlayQuizCard(quiz)}
-                                className={`px-3 py-2 rounded-full font-label-md text-label-md font-bold transition-all shadow-sm flex items-center justify-center gap-1.5 ${
-                                  hasEnoughQuestions
-                                    ? "bg-surface-container-high hover:bg-surface-container-highest text-on-surface hover:-translate-y-0.5 active:translate-y-0 border border-outline-variant/40 cursor-pointer"
-                                    : "bg-surface-container-high text-on-surface-variant opacity-60 cursor-not-allowed"
-                                }`}
-                                type="button"
-                                title={
-                                  hasEnoughQuestions
-                                    ? "Create 1–4 player room to invite friends"
-                                    : `This quiz has only ${quiz.questionCount} questions. Select a smaller quiz length (${quiz.availableLengths.join(' or ')})`
-                                }
-                              >
-                                <Users className="w-4 h-4" />
-                                <span>
-                                  {isCreatingThis ? "Creating..." : "Multiplayer"}
-                                </span>
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="w-full bg-surface-container-lowest rounded-[24px] p-space-xl text-center border border-dashed border-surface-container-highest">
-                  <p className="font-body-md text-body-md text-on-surface-variant">
-                    {searchQuery.trim()
-                      ? `No quizzes matched "${searchQuery}". Try a different keyword.`
-                      : "No subjects found for this category yet. Select another category from above."}
-                  </p>
-                </div>
-              )}
-            </section>
-
-            {/* SECTION 5: EXPLORE ALL CATEGORIES */}
-            <section>
-              <div className="mb-space-lg">
-                <span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">
-                  All Topics
-                </span>
-                <h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5 font-bold">
-                  Explore Categories
-                </h2>
-                <p className="font-body-md text-body-md text-on-surface-variant mt-1">
-                  Choose a category to browse individual subjects and play live quiz rooms.
-                </p>
-              </div>
-
-              {loadingCategories ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-lg">
-                  {Array.from({ length: 6 }).map((_, i) => (
-                    <div key={i} className="h-44 rounded-[28px] bg-surface-container-low animate-pulse" />
-                  ))}
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-lg">
-                  {categories.map((cat, idx) => {
-                    const palette = COLOR_PALETTES[idx % COLOR_PALETTES.length];
-                    const IconComponent = getCategoryLucideIcon(cat);
-
-                    return (
-                      <div
-                        key={cat.id || cat.slug}
-                        onClick={() => {
-                          setSelectedCategoryId(cat.id || cat.slug);
-                          window.scrollTo({ top: 380, behavior: "smooth" });
-                        }}
-                        className={`group rounded-[28px] p-space-lg bg-surface-container-lowest hover:bg-surface-container-low transition-all flex flex-col justify-between shadow-[0_2px_8px_-2px_rgba(60,52,42,0.03)] transform hover:-translate-y-1 cursor-pointer border border-surface-container-highest`}
-                      >
-                        <div>
-                          <div className="flex items-center justify-between mb-space-md">
-                            <div
-                              className={`w-12 h-12 rounded-2xl ${palette.iconBg} ${palette.iconColor} flex items-center justify-center shadow-sm`}
-                            >
-                              <IconComponent className="w-6 h-6" />
-                            </div>
-                            <span
-                              className={`px-3 py-1 rounded-full bg-surface-container-lowest font-label-sm text-label-sm font-bold ${palette.iconColor} shadow-sm border border-surface-container-highest`}
-                            >
-                              {cat.questionCount || 0} Questions
-                            </span>
-                          </div>
-                          <h3 className="font-headline-md text-headline-md text-on-surface tracking-tight group-hover:text-primary transition-colors font-bold">
-                            {cat.name}
-                          </h3>
-                          <p className="font-body-sm text-body-sm text-on-surface-variant mt-1.5 line-clamp-2">
-                            {cat.description || `Browse subjects and mixed question pools in ${cat.name}.`}
-                          </p>
-                        </div>
-                        <div className="mt-space-lg pt-space-sm flex items-center justify-between text-on-surface-variant">
-                          <span className="font-label-sm text-label-sm font-semibold text-primary">
-                            Explore Subjects
-                          </span>
-                          <span className="w-8 h-8 rounded-full bg-surface-container-lowest flex items-center justify-center group-hover:translate-x-1 transition-transform shadow-sm border border-surface-container-highest">
-                            <ArrowRight className={`w-4 h-4 ${palette.iconColor}`} />
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </section>
+    <div className="w-full min-h-screen bg-[#FAF7EE] text-stone-900 pb-20 select-none">
+      <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8 pt-2">
+        
+        {/* Error notification banner if room creation encounters an issue */}
+        {roomError && (
+          <div className="p-4 rounded-2xl bg-red-100 border-[2.5px] border-black text-red-900 shadow-[4px_4px_0px_#000] flex items-center justify-between">
+            <span className="font-extrabold text-sm sm:text-base">{roomError}</span>
+            <button
+              onClick={() => setRoomError(null)}
+              className="bg-red-200 hover:bg-red-300 border-2 border-black rounded-lg px-3 py-1 font-black text-xs cursor-pointer shadow-[2px_2px_0px_#000]"
+            >
+              Dismiss
+            </button>
           </div>
-        </div>
+        )}
+
+        {/* ========================================================================= */}
+        {/* SECTION B: HERO SECTION (CLOSELY MATCHING REFERENCE SCREENSHOT) */}
+        {/* ========================================================================= */}
+        <section className="w-full bg-[#FAF7EE] border-[2.5px] border-black rounded-[32px] p-4 sm:p-6 lg:p-8 relative overflow-hidden shadow-[6px_6px_0px_#000]">
+          
+          {/* Comic background decorative bursts & doodles */}
+          <div className="absolute top-4 left-6 pointer-events-none opacity-80 hidden sm:block">
+            <ArcadeStarIcon className="w-8 h-8 text-[#FFE600] animate-pulse" />
+          </div>
+          <div className="absolute bottom-6 left-12 pointer-events-none opacity-70 hidden sm:block">
+            <ArcadeLightningIcon className="w-7 h-7 text-[#0D9488]" />
+          </div>
+          <div className="absolute top-6 right-8 pointer-events-none opacity-80 hidden sm:block">
+            <ArcadeStarIcon className="w-8 h-8 text-[#FFE600]" />
+          </div>
+          <div className="absolute bottom-8 right-12 pointer-events-none opacity-70 hidden sm:block">
+            <ArcadeLightningIcon className="w-7 h-7 text-[#EC4899]" />
+          </div>
+
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8">
+            
+            {/* HERO LEFT: Illustrated Gamer Boy with Console & Headphones */}
+            <div className="flex flex-col items-center lg:items-start shrink-0 relative order-2 lg:order-1">
+              <div className="relative">
+                {/* Comic Speech Bubble */}
+                <div className="absolute -top-6 -right-6 sm:-top-8 sm:-right-8 z-20 bg-[#FF4D85] text-white border-[2.5px] border-black rounded-2xl px-3.5 py-1.5 shadow-[3px_3px_0px_#000] -rotate-6 transform hover:rotate-0 transition-transform">
+                  <span className="font-black text-xs sm:text-sm tracking-wider uppercase leading-none block">
+                    KNOW PLAY COMPETE!
+                  </span>
+                </div>
+
+                {/* Gamer Boy Avatar Frame */}
+                <div className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full border-[3px] border-black overflow-hidden bg-[#FEF08A] shadow-[4px_4px_0px_#000] relative">
+                  <img
+                    src="/images/gamer-boy.jpg"
+                    alt="Quizzy Boy Player"
+                    className="w-full h-full object-cover object-top scale-110"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* HERO CENTER: QUIZZY 3D LOGO, HEADLINE & CTA BUTTONS */}
+            <div className="flex-1 text-center flex flex-col items-center justify-center max-w-2xl px-2 order-1 lg:order-2">
+              
+              {/* Crown Icon above QUIZZY */}
+              <div className="mb-[-12px] sm:mb-[-18px] relative z-20 hover:scale-110 transition-transform cursor-pointer">
+                <ArcadeCrownIcon className="w-12 h-10 sm:w-16 sm:h-12" />
+              </div>
+
+              {/* Central QUIZZY 3D Logo */}
+              <div className="relative mb-3 sm:mb-4">
+                <img
+                  src="/images/quizzy-hero-logo.jpg"
+                  alt="QUIZZY"
+                  className="h-20 sm:h-28 lg:h-32 w-auto object-contain mx-auto drop-shadow-sm select-none"
+                />
+              </div>
+
+              {/* Headline */}
+              <h1 className="font-black text-lg sm:text-2xl lg:text-3xl tracking-[0.2em] text-black uppercase mb-2">
+                PLAY · LEARN · COMPETE
+              </h1>
+
+              {/* Short Description */}
+              <p className="text-stone-800 font-bold text-xs sm:text-sm lg:text-base max-w-lg mb-6 leading-relaxed">
+                Real-time multiplayer trivia for curious minds. Pick a category, test yourself solo, or challenge friends to an instant quiz showdown!
+              </p>
+
+              {/* Two Prominent CTA Buttons matching the screenshot */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md sm:max-w-lg">
+                
+                {/* 1. PLAY SOLO CTA BUTTON */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    handlePlaySolo({
+                      categorySlug: "aptitude",
+                      isMixedCategory: true,
+                      questionCount: selectedQuestionCount,
+                    });
+                  }}
+                  className="w-full sm:w-1/2 bg-[#FFE600] hover:bg-[#FACC15] active:translate-x-[2px] active:translate-y-[2px] border-[2.5px] border-black rounded-full px-5 py-3 shadow-[4px_4px_0px_#000] flex items-center justify-center gap-3 transition-all cursor-pointer group"
+                >
+                  <div className="w-7 h-7 rounded-full bg-black flex items-center justify-center shrink-0">
+                    <Play className="w-3.5 h-3.5 fill-[#FFE600] text-[#FFE600] ml-0.5" />
+                  </div>
+                  <div className="text-left flex flex-col leading-tight">
+                    <span className="font-black text-sm sm:text-base text-black tracking-wide uppercase">
+                      {startingSoloCardId ? "STARTING..." : "PLAY SOLO"}
+                    </span>
+                    <span className="text-[11px] font-bold text-stone-800">
+                      Test your knowledge
+                    </span>
+                  </div>
+                </button>
+
+                {/* 2. PLAY MULTIPLAYER CTA BUTTON */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    handlePlayMultiplayer({
+                      categorySlug: "general-knowledge",
+                      isMixedCategory: true,
+                      questionCount: selectedQuestionCount,
+                    });
+                  }}
+                  className="w-full sm:w-1/2 bg-[#FF4D85] hover:bg-[#F43F5E] active:translate-x-[2px] active:translate-y-[2px] border-[2.5px] border-black rounded-full px-5 py-3 shadow-[4px_4px_0px_#000] flex items-center justify-center gap-3 transition-all cursor-pointer group"
+                >
+                  <div className="w-7 h-7 rounded-full bg-white border-2 border-black flex items-center justify-center shrink-0">
+                    <Users className="w-3.5 h-3.5 text-black stroke-[2.5]" />
+                  </div>
+                  <div className="text-left flex flex-col leading-tight">
+                    <span className="font-black text-sm sm:text-base text-white tracking-wide uppercase">
+                      {creatingRoomCardId ? "CREATING..." : "PLAY MULTIPLAYER"}
+                    </span>
+                    <span className="text-[11px] font-bold text-pink-100">
+                      Challenge your friends
+                    </span>
+                  </div>
+                </button>
+
+              </div>
+
+            </div>
+
+            {/* HERO RIGHT: Illustrated Gamer Girl with Fist Pump, Headphones & Trophy */}
+            <div className="flex flex-col items-center lg:items-end shrink-0 relative order-3">
+              <div className="relative">
+                {/* Comic Speech Bubble */}
+                <div className="absolute -top-6 -left-6 sm:-top-8 sm:-left-8 z-20 bg-[#2DD4BF] text-black border-[2.5px] border-black rounded-2xl px-3.5 py-1.5 shadow-[3px_3px_0px_#000] rotate-6 transform hover:rotate-0 transition-transform">
+                  <span className="font-black text-xs sm:text-sm tracking-wider uppercase leading-none block">
+                    TRIVIA WITH FRIENDS!
+                  </span>
+                </div>
+
+                {/* Gamer Girl Avatar Frame */}
+                <div className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full border-[3px] border-black overflow-hidden bg-[#DDD6FE] shadow-[4px_4px_0px_#000] relative">
+                  <img
+                    src="/images/gamer-girl.jpg"
+                    alt="Quizzy Girl Player"
+                    className="w-full h-full object-cover object-top scale-110"
+                  />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* SECTION C: EXPLORE CATEGORIES (FULL WIDTH, 5 CARDS ON DESKTOP) */}
+        {/* ========================================================================= */}
+        <section
+          id="categories"
+          ref={categoriesSectionRef}
+          className="w-full bg-[#FAF7EE] border-[2.5px] border-black rounded-[32px] p-5 sm:p-7 lg:p-8 shadow-[6px_6px_0px_#000]"
+        >
+          {/* Header Row */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            
+            {/* Left Header with Lightning & Crown */}
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <ArcadeLightningIcon className="w-7 h-7 text-[#FFE600] shrink-0" />
+              <h2 className="font-black text-xl sm:text-2xl text-black tracking-wide uppercase flex items-center gap-2">
+                EXPLORE CATEGORIES
+                <ArcadeCrownIcon className="w-6 h-5 inline-block" />
+              </h2>
+            </div>
+
+            {/* Right Subtitle & Action Button */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <span className="text-xs sm:text-sm font-bold text-stone-700 hidden md:inline">
+                Choose a category to browse subjects and play live quiz rooms.
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  mostPlayedSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="inline-flex items-center gap-1.5 self-start sm:self-auto bg-[#FFE600] hover:bg-[#FACC15] active:translate-x-[1px] active:translate-y-[1px] text-black font-black text-xs sm:text-sm px-4 py-2 rounded-full border-2 border-black shadow-[3px_3px_0px_#000] transition-all cursor-pointer"
+              >
+                <span>View All Categories</span>
+                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+              </button>
+            </div>
+
+          </div>
+
+          {/* 5 Full-Width Category Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {exploreCategoriesList.map((cat) => (
+              <div
+                key={cat.id}
+                onClick={() => {
+                  setActivePlayModalQuiz({
+                    title: cat.name,
+                    categorySlug: cat.categorySlug,
+                    subjectSlug: cat.subjectSlug,
+                    isMixedCategory: cat.isMixedCategory,
+                    description: cat.description,
+                    availableQuestions: cat.questionCount,
+                  });
+                }}
+                className={`group relative rounded-[24px] border-[2.5px] border-black p-4 flex flex-col justify-between ${cat.bgColor} ${cat.hoverBg} shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:shadow-[6px_6px_0px_#000] transition-all cursor-pointer`}
+              >
+                <div>
+                  {/* Top: Illustrated Icon and Question Count Pill */}
+                  <div className="flex items-start justify-between gap-2 mb-3">
+                    <div className="shrink-0 p-1">
+                      {cat.icon}
+                    </div>
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-black bg-white border-2 border-black text-stone-900 shadow-[1px_1px_0px_#000] whitespace-nowrap">
+                      {cat.questionCount} Questions
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-black text-base sm:text-lg text-black mb-1 group-hover:text-black leading-snug">
+                    {cat.name}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-[12px] font-bold text-stone-700 leading-snug line-clamp-3">
+                    {cat.description}
+                  </p>
+                </div>
+
+                {/* Bottom Row: Circular Action Button */}
+                <div className="mt-4 pt-2 flex items-center justify-end">
+                  <button
+                    aria-label={`Select ${cat.name} Category`}
+                    type="button"
+                    className={`w-8 h-8 rounded-full ${cat.buttonColor} ${cat.buttonHover} text-white border-2 border-black flex items-center justify-center shadow-[2px_2px_0px_#000] group-hover:scale-110 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer`}
+                  >
+                    <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* SECTION D: MOST PLAYED QUIZZES (DIRECTLY BELOW EXPLORE CATEGORIES) */}
+        {/* ========================================================================= */}
+        <section
+          id="quizzes"
+          ref={mostPlayedSectionRef}
+          className="w-full bg-[#FAF7EE] border-[2.5px] border-black rounded-[32px] p-5 sm:p-7 lg:p-8 shadow-[6px_6px_0px_#000]"
+        >
+          {/* Header Row */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            
+            {/* Left Header with Flame & Crown */}
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <ArcadeFlameIcon className="w-7 h-7 text-[#F97316] shrink-0" />
+              <h2 className="font-black text-xl sm:text-2xl text-black tracking-wide uppercase flex items-center gap-2">
+                MOST PLAYED QUIZZES
+                <ArcadeCrownIcon className="w-6 h-5 inline-block" />
+              </h2>
+            </div>
+
+            {/* Right Subtitle & Action Button */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <span className="text-xs sm:text-sm font-bold text-stone-700 hidden md:inline">
+                See what others are playing — join a quiz and compete now!
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  categoriesSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="inline-flex items-center gap-1.5 self-start sm:self-auto bg-[#FFE600] hover:bg-[#FACC15] active:translate-x-[1px] active:translate-y-[1px] text-black font-black text-xs sm:text-sm px-4 py-2 rounded-full border-2 border-black shadow-[3px_3px_0px_#000] transition-all cursor-pointer"
+              >
+                <span>View All Quizzes</span>
+                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+              </button>
+            </div>
+
+          </div>
+
+          {/* 5 Quiz Cards matching the screenshot */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {mostPlayedQuizzes.map((quiz) => {
+              const key = `${quiz.categorySlug}-${quiz.subjectSlug || "mixed"}`;
+              const isStartingThisSolo = startingSoloCardId === key;
+              const isCreatingThisRoom = creatingRoomCardId === key;
+              const isBusy = isStartingThisSolo || isCreatingThisRoom;
+
+              return (
+                <div
+                  key={quiz.id}
+                  className="group relative rounded-[24px] border-[2.5px] border-black bg-white p-4 flex flex-col justify-between shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:shadow-[6px_6px_0px_#000] transition-all"
+                >
+                  {/* Top-left Rank Bookmark / Badge (#1, #2, #3, #4, #5) */}
+                  <div className="flex items-center justify-between mb-2">
+                    <span
+                      className={`inline-flex items-center px-2 py-0.5 rounded-md border-2 border-black font-black text-xs shadow-[1px_1px_0px_#000] ${quiz.badgeColor}`}
+                    >
+                      #{quiz.rank}
+                    </span>
+
+                    {/* Small category / subject icon badge */}
+                    <div className="w-9 h-9 rounded-full bg-[#FAF7EE] border-2 border-black flex items-center justify-center p-1 shadow-[1px_1px_0px_#000]">
+                      {renderQuizIcon(quiz.iconType)}
+                    </div>
+                  </div>
+
+                  {/* Quiz Details */}
+                  <div className="my-1">
+                    <h3 className="font-black text-base text-black mb-1 leading-snug group-hover:text-black">
+                      {quiz.title}
+                    </h3>
+                    <p className="text-[12px] font-bold text-stone-600 leading-snug line-clamp-2">
+                      {quiz.description}
+                    </p>
+                  </div>
+
+                  {/* Bottom Row: Play Count & Circular Play Button */}
+                  <div className="mt-4 pt-2 border-t-2 border-stone-100 flex items-center justify-between">
+                    <div className="flex items-center gap-1.5 text-stone-700 font-bold text-xs">
+                      <Users className="w-3.5 h-3.5 text-stone-900 stroke-[2.5]" />
+                      <span>{quiz.playedCount}</span>
+                    </div>
+
+                    {/* Play Button Circle */}
+                    <button
+                      type="button"
+                      disabled={isBusy}
+                      onClick={() => {
+                        handlePlaySolo({
+                          categorySlug: quiz.categorySlug,
+                          subjectSlug: quiz.subjectSlug,
+                          isMixedCategory: quiz.isMixedCategory,
+                          questionCount: selectedQuestionCount,
+                        });
+                      }}
+                      title={`Play ${quiz.title} (Solo)`}
+                      className={`w-9 h-9 rounded-full ${quiz.buttonColor} text-white border-2 border-black flex items-center justify-center shadow-[2px_2px_0px_#000] group-hover:scale-110 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer`}
+                    >
+                      <Play className="w-4 h-4 fill-white stroke-white ml-0.5" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
       </div>
 
-      {/* 3. FOOTER */}
-      <footer className="w-full bg-surface-container-low border-t border-surface-container-highest py-space-xl mt-space-2xl">
-        <div className="max-w-[1240px] mx-auto px-margin-sm lg:px-margin flex flex-col md:flex-row items-center justify-between gap-space-lg">
-          <div className="flex items-center gap-space-md">
-            <div className="flex items-center gap-space-xs">
-              <img
-                alt="Quizzy Logo"
-                className="h-7 w-auto object-contain"
-                src="/images/quizzy-logo.png"
-              />
-              <span className="font-headline-sm text-headline-sm font-bold text-on-surface">
-                Quizzy
-              </span>
+      {/* ========================================================================= */}
+      {/* QUICK LAUNCH & MATCH CONFIGURATION MODAL */}
+      {/* ========================================================================= */}
+      {activePlayModalQuiz && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="w-full max-w-lg bg-[#FAF7EE] border-[3px] border-black rounded-[28px] p-6 shadow-[8px_8px_0px_#000] relative">
+            
+            {/* Close Button */}
+            <button
+              onClick={() => setActivePlayModalQuiz(null)}
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white border-2 border-black flex items-center justify-center text-black hover:bg-stone-100 shadow-[2px_2px_0px_#000] cursor-pointer"
+            >
+              <X className="w-4 h-4 stroke-[2.5]" />
+            </button>
+
+            {/* Modal Header */}
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFE600] border-2 border-black flex items-center justify-center shadow-[2px_2px_0px_#000]">
+                <ArcadeCrownIcon className="w-7 h-7" />
+              </div>
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-wider text-amber-700 bg-amber-100 border border-amber-300 px-2 py-0.5 rounded-full">
+                  Quiz Configuration
+                </span>
+                <h3 className="text-xl font-black text-black leading-tight mt-0.5">
+                  {activePlayModalQuiz.title}
+                </h3>
+              </div>
             </div>
-            <p className="font-body-sm text-body-sm text-on-surface-variant hidden sm:block">
-              — Fast, fun multiplayer quizzes with friends.
+
+            <p className="text-xs sm:text-sm font-bold text-stone-700 mb-5 leading-relaxed">
+              {activePlayModalQuiz.description}
             </p>
-          </div>
-          <nav className="flex flex-wrap items-center justify-center gap-space-lg text-on-surface-variant font-label-md text-label-md">
-            <Link className="hover:text-on-surface transition-colors" href="/">
-              Quizzes
-            </Link>
-            <Link className="hover:text-on-surface transition-colors" href="/leaderboard">
-              Leaderboard
-            </Link>
-            <Link className="hover:text-on-surface transition-colors" href="/history">
-              History
-            </Link>
-            <Link className="hover:text-on-surface transition-colors" href="/profile">
-              Profile
-            </Link>
-          </nav>
-          <div className="font-body-sm text-body-sm text-on-surface-variant">
-            © 2025 Quizzy. All rights reserved.
+
+            {/* Quiz Length Selector (10, 15, 20 questions) */}
+            <div className="mb-6 bg-white border-2 border-black rounded-2xl p-4 shadow-[3px_3px_0px_#000]">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-black uppercase text-stone-900 flex items-center gap-1.5">
+                  <SlidersHorizontal className="w-3.5 h-3.5" />
+                  Select Questions Count
+                </span>
+                <span className="text-[11px] font-bold text-stone-500">
+                  Available: {activePlayModalQuiz.availableQuestions || 10}+ Qs
+                </span>
+              </div>
+
+              <div className="grid grid-cols-3 gap-2">
+                {[10, 15, 20].map((count) => {
+                  const isSelected = selectedQuestionCount === count;
+                  return (
+                    <button
+                      key={count}
+                      type="button"
+                      onClick={() => setSelectedQuestionCount(count)}
+                      className={`py-2 px-3 rounded-xl border-2 font-black text-xs sm:text-sm transition-all cursor-pointer ${
+                        isSelected
+                          ? "bg-[#FFE600] text-black border-black shadow-[2px_2px_0px_#000]"
+                          : "bg-[#FAF7EE] text-stone-800 border-stone-300 hover:border-black"
+                      }`}
+                    >
+                      {count} Questions
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Action Buttons: Play Solo or Play Multiplayer */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  handlePlaySolo({
+                    categorySlug: activePlayModalQuiz.categorySlug,
+                    subjectSlug: activePlayModalQuiz.subjectSlug,
+                    isMixedCategory: activePlayModalQuiz.isMixedCategory,
+                    questionCount: selectedQuestionCount,
+                  });
+                  setActivePlayModalQuiz(null);
+                }}
+                className="w-full bg-[#FFE600] hover:bg-[#FACC15] active:translate-x-[1px] active:translate-y-[1px] text-black font-black text-sm py-3 px-4 rounded-full border-2 border-black shadow-[3px_3px_0px_#000] flex items-center justify-center gap-2 cursor-pointer transition-all"
+              >
+                <Play className="w-4 h-4 fill-black text-black" />
+                <span>Play Solo Now</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  handlePlayMultiplayer({
+                    categorySlug: activePlayModalQuiz.categorySlug,
+                    subjectSlug: activePlayModalQuiz.subjectSlug,
+                    isMixedCategory: activePlayModalQuiz.isMixedCategory,
+                    questionCount: selectedQuestionCount,
+                  });
+                  setActivePlayModalQuiz(null);
+                }}
+                className="w-full bg-[#FF4D85] hover:bg-[#F43F5E] active:translate-x-[1px] active:translate-y-[1px] text-white font-black text-sm py-3 px-4 rounded-full border-2 border-black shadow-[3px_3px_0px_#000] flex items-center justify-center gap-2 cursor-pointer transition-all"
+              >
+                <Users className="w-4 h-4 text-white" />
+                <span>Host Multiplayer</span>
+              </button>
+            </div>
+
           </div>
         </div>
-      </footer>
+      )}
 
       {/* Guest Authentication Modal integration */}
       <PlayAsGuestModal

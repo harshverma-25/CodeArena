@@ -279,3 +279,21 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Arcade Neo-Brutalist utility classes */
+.arcade-border {
+  border: 2.5px solid #18181b;
+}
+.arcade-shadow-sm {
+  box-shadow: 2px 2px 0px #18181b;
+}
+.arcade-shadow {
+  box-shadow: 4px 4px 0px #18181b;
+}
+.arcade-shadow-lg {
+  box-shadow: 6px 6px 0px #18181b;
+}
+.arcade-shadow-xl {
+  box-shadow: 8px 8px 0px #18181b;
+}
+
