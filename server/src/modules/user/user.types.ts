@@ -1,10 +1,18 @@
 import { Document } from 'mongoose';
 
+export interface IRefreshTokenFamily {
+  familyId: string;
+  tokenHash: string;
+  usedHashes: string[];
+  expiresAt: Date;
+  createdAt: Date;
+}
+
 export interface IUser {
-  clerkId?: string;
   email?: string;
   passwordHash?: string;
   refreshTokenHash?: string;
+  refreshTokenFamilies?: IRefreshTokenFamily[];
   username: string;
   displayName: string;
   avatar: string;
@@ -16,7 +24,6 @@ export interface IUser {
   totalQuestions: number;
   accuracy: number;
   highestWinStreak: number;
-  preferredLanguage: string;
   isGuest?: boolean;
   role?: 'user' | 'guest' | 'admin';
   createdAt: Date;

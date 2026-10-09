@@ -26,11 +26,12 @@ graph TD
 
 ## 2. Server Bootstrapping & Lifecycle (`server/src/server.ts`)
 
-The server entrypoint handles initialization and graceful shutdown:
+The server entrypoint handles initialization, background jobs, and graceful shutdown:
 1. **Database Connection**: Calls `connectDatabase()` to establish a connection to MongoDB with retry logic and error logging.
-2. **HTTP & WebSocket Attachment**: Creates a Node.js `http.Server` wrapping the Express `app` and binds the Socket.IO server to the same port.
-3. **Socket Gateway Registration**: Registers authentication middleware and event listeners (`roomSocketHandlers`, `battleSocketHandlers`).
-4. **Process Signal Handlers**: Listens for `SIGTERM` and `SIGINT`, cleanly terminating socket connections, closing the HTTP listener, and invoking `disconnectDatabase()`.
+2. **Background Garbage Collection**: Calls `roomService.startGarbageCollector()` running on startup and every 10 minutes to purge stale `WAITING`/`READY` rooms older than 2 hours and cancel abandoned battles.
+3. **HTTP & WebSocket Attachment**: Creates a Node.js `http.Server` wrapping the Express `app` and binds the Socket.IO server via `initializeSocket(server)`.
+4. **Socket Gateway & Sweeper**: Registers auth middleware, module socket handlers, launches the 1-second persistent battle round sweeper (`battleService.startSweeper(io)`), and recovers legacy in-progress matches.
+5. **Process Signal Handlers**: Listens for `SIGTERM` and `SIGINT`, stopping `battleService.stopSweeper()`, stopping `roomService.stopGarbageCollector()`, closing HTTP server connections, draining MongoDB via `disconnectDatabase()`, with a 10-second fallback termination timeout.
 
 ---
 

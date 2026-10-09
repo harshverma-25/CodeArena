@@ -30,7 +30,6 @@ function formatRoomResponse(room: IRoomDocument) {
     settings: {
       topic: room.settings.topic,
       difficulty: room.settings.difficulty,
-      duration: room.settings.duration,
       questionCount: room.settings.questionCount || 10,
       categoryId: room.settings.categoryId,
       subjectId: room.settings.subjectId,
@@ -39,7 +38,6 @@ function formatRoomResponse(room: IRoomDocument) {
     },
     topic: room.settings.topic,
     difficulty: room.settings.difficulty,
-    duration: room.settings.duration,
     questionCount: room.settings.questionCount || 10,
     categoryId: room.settings.categoryId,
     subjectId: room.settings.subjectId,
@@ -83,11 +81,10 @@ export class RoomController {
       throw new ApiError(401, 'Unauthorized: User session not found');
     }
 
-    const { topic, difficulty, duration, questionCount, categoryId, subjectId, isMixedCategory } = req.body;
+    const { topic, difficulty, questionCount, categoryId, subjectId, isMixedCategory } = req.body;
     const room = await roomService.createRoom(req.user._id.toString(), {
       topic,
       difficulty,
-      duration,
       questionCount,
       categoryId,
       subjectId,
@@ -108,7 +105,7 @@ export class RoomController {
       throw new ApiError(401, 'Unauthorized: User session not found');
     }
 
-    const { topic, difficulty, duration, questionCount, categoryId, subjectId, isMixedCategory } = req.body;
+    const { topic, difficulty, questionCount, categoryId, subjectId, isMixedCategory } = req.body;
     let io: any = null;
     try {
       io = getIo();
@@ -121,7 +118,6 @@ export class RoomController {
       {
         topic,
         difficulty,
-        duration,
         questionCount,
         categoryId,
         subjectId,
@@ -185,11 +181,14 @@ export class RoomController {
     }
 
     const { roomCode } = req.params;
-    const { topic, difficulty, duration } = req.body;
+    const { topic, difficulty, categoryId, subjectId, isMixedCategory, questionCount } = req.body;
     const room = await roomService.updateSettings(req.user._id.toString(), roomCode, {
       topic,
       difficulty,
-      duration,
+      categoryId,
+      subjectId,
+      isMixedCategory,
+      questionCount,
     });
 
     res.status(200).json(

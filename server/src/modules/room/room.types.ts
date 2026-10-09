@@ -20,7 +20,6 @@ export interface IRoomSettings {
   isMixedCategory?: boolean;
   topic?: string; // QuestionTopic, subject slug, or 'random'
   difficulty: 'Easy' | 'Medium' | 'Hard' | 'random' | 'easy' | 'medium' | 'hard';
-  duration: number; // in minutes
   questionCount?: number;
   timeLimit?: number; // in seconds per question (derived from category)
 }

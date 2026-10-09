@@ -25,6 +25,27 @@ export interface IBattlePlayer {
   status: 'IN_PROGRESS' | 'COMPLETED';
 }
 
+export interface IBattleRoundSubmission {
+  userId: string;
+  selectedOption: number;
+  potentialScore: number;
+  timeTakenMs: number;
+  isCorrect: boolean;
+  submittedAt: Date;
+}
+
+export type BattleRoundStatus = 'QUESTION' | 'REVEAL' | 'COMPLETED';
+
+export interface IBattleCurrentRound {
+  roundIndex: number;
+  questionId: string;
+  startedAt: Date;
+  deadline: Date;
+  status: BattleRoundStatus;
+  revealExpiresAt: Date | null;
+  submissions: IBattleRoundSubmission[];
+}
+
 export interface IBattle {
   roomId: Types.ObjectId;
   roomCode: string;
@@ -38,6 +59,7 @@ export interface IBattle {
   isDraw: boolean;
   startedAt: Date;
   endedAt?: Date;
+  currentRound?: IBattleCurrentRound | null;
 }
 
 export type IBattleDocument = IBattle & Document;

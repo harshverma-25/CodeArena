@@ -52,19 +52,20 @@ To eliminate client-side clock tampering and match subject complexity:
 * **Programming**: 30 seconds per question.
 * **Aptitude**: 60 seconds per question.
 * **General Knowledge**: 30 seconds per question.
-* When each round starts, the server records an absolute deadline:
-  `roundDeadline = new Date(Date.now() + timePerQuestion * 1000);`
+* When each round starts, the server stores an authoritative timestamp deadline in MongoDB:
+  `deadline = new Date(Date.now() + timePerQuestion * 1000)` inside `BattleModel.currentRound`.
 * If all connected players submit answers before expiry, the round concludes early and triggers reveal.
-* If the timer expires before all players submit, unanswered players are assigned `selectedOption: -1` and awarded 0 points.
+* A 1-second server background sweeper queries for expired deadlines and triggers round reveal automatically.
+* Unanswered players when the deadline expires are assigned `selectedOption: -1` and awarded 0 points.
 
 ---
 
 ## 4. Answer Evaluation & Live Scoring
 
 Upon receiving `battle:submit_answer`:
-1. **Deadline Check**: Compares submission time against the server authoritative deadline.
-2. **Duplicate Check**: Prevents players from modifying an already locked answer (`activeRound.submissions.has(userId)`).
-3. **Question Match Check**: Validates that `questionId` matches the currently active round.
+1. **Deadline Check**: Compares submission time against the server authoritative `battle.currentRound.deadline`.
+2. **Duplicate Check**: Prevents players from modifying an already locked answer (`battle.currentRound.submissions.some((s) => s.userId === userId)`).
+3. **Question Match Check**: Validates that `questionId` matches `battle.currentRound.questionId`.
 4. **Scoring Formula**:
    - Dynamic Server-Authoritative Formula: Starts at 1000 points and decreases by 30 points per second elapsed from round start, with a minimum floor of 100 points:
      ```typescript
@@ -76,6 +77,7 @@ Upon receiving `battle:submit_answer`:
 5. **State Locks & Telemetry**:
    - The submitting player receives `battle:answer_locked` with frozen `potentialScore`.
    - Other room participants receive `battle:player_submitted` progress indicator.
+   - Submission is appended to `battle.currentRound.submissions` in MongoDB.
 
 ---
 
@@ -100,9 +102,9 @@ At the end of each round:
 | :--- | :--- | :--- |
 | **Question Sanitization** | `questionService.sanitizeQuestion` | Memory scraping / DevTools inspection of correct answers and explanations. |
 | **Per-Round Delivery** | `battle:init` & `battle:next_question` | Scripting answers ahead of time. |
-| **Server Timers** | Node.js timers in `battle.service.ts` | Pausing local browser execution or tampering with client system clocks. |
+| **Server Timers & Sweeper** | MongoDB `currentRound.deadline` & 1s Sweeper | Pausing local browser execution or tampering with client system clocks. |
 | **Atomic Completion** | MongoDB conditional `$ne: COMPLETED` | Socket replay attacks to duplicate win statistics. |
-| **Single Submission Lock** | In-memory `activeRound.submissions` map | Modifying answer after selection or double-submitting. |
+| **Single Submission Lock** | MongoDB `currentRound.submissions` array | Modifying answer after selection or double-submitting. |
 
 ---
 

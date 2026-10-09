@@ -30,10 +30,6 @@ export const resolveUserFromToken = async (req: Request): Promise<any> => {
       const user = await userRepository.findById(guestPayload.sub);
       if (user) return user;
     }
-    if (guestPayload.guestId) {
-      const user = await userService.getUserByClerkId(guestPayload.guestId);
-      if (user && user.isGuest) return user;
-    }
   }
 
   // 3. Automated test suite bypass strictly in NODE_ENV === 'test'

@@ -99,6 +99,14 @@ npx tsx src/scripts/verify-quiz-configuration.ts
 ```
 * **Script**: [`server/src/scripts/verify-quiz-configuration.ts`](file:///h:/Project/code-arena/server/src/scripts/verify-quiz-configuration.ts)
 
+### 2.7 Stale Room & Abandoned Battle Garbage Collection Verification
+Validates that rooms in `WAITING` or `READY` status older than 2 hours are pruned, abandoned battles are marked `CANCELLED`, room codes are immediately freed for reuse, and active/completed entities are safely preserved.
+```bash
+cd server
+npx tsx src/scripts/verify-stale-garbage-collection.ts
+```
+* **Script**: [`server/src/scripts/verify-stale-garbage-collection.ts`](file:///h:/Project/code-arena/server/src/scripts/verify-stale-garbage-collection.ts)
+
 ---
 
 ## 3. Data Integrity & Reconciliation Tools

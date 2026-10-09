@@ -12,7 +12,7 @@ const PROTECTED_PREFIXES = [
 
 const AUTH_PREFIXES = ["/login", "/register"];
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (pathname === "/dashboard" || pathname.startsWith("/dashboard/")) {

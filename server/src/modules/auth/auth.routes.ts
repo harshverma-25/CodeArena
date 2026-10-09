@@ -13,10 +13,24 @@ import { authenticate, optionalAuthenticate } from '../../middleware/auth.middle
 
 const router = Router();
 
-// In-memory rate limiting map for guest session creation & auth endpoints
 const guestCreationCounts = new Map<string, { count: number; resetTime: number }>();
 const GUEST_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 const MAX_GUEST_CREATIONS = 20; // 20 guest registrations per 15 min per IP
+
+// Periodically purge expired IP records to prevent memory leak
+const GUEST_SWEEPER_INTERVAL_MS = 5 * 60 * 1000;
+const guestSweeper = setInterval(() => {
+  const now = Date.now();
+  for (const [ip, record] of guestCreationCounts.entries()) {
+    if (now > record.resetTime) {
+      guestCreationCounts.delete(ip);
+    }
+  }
+}, GUEST_SWEEPER_INTERVAL_MS);
+
+if (guestSweeper.unref) {
+  guestSweeper.unref();
+}
 
 function guestRateLimiter(req: Request, res: Response, next: NextFunction) {
   const ip = req.ip || req.socket.remoteAddress || 'unknown';

@@ -18,14 +18,15 @@
 
 ### 2.2 Room Creation & Lobby
 * **US-2.1 (Create Room)**: The host creates a room specifying category (`programming`, `aptitude`, `general-knowledge`, or `mixed`), subject, and question count (`10`, `15`, or `20`).
-* **US-2.2 (Invite via Code / PIN)**: The host receives a unique 6-character room code (e.g. `AB12CD`) to share with friends.
-* **US-2.3 (Join Room)**: Players can join via `/lobby/[roomCode]` or by entering the code in the dashboard.
+* **US-2.2 (Invite via Code / PIN)**: The host receives a unique 6-character room code (e.g. `AB12CD`) generated through a bounded 10-attempt algorithm using lightweight `RoomModel.exists()` and MongoDB duplicate key (`11000`) race condition handling.
+* **US-2.3 (Join Room)**: Players can join via direct URL (`/lobby/[roomCode]`) or by entering the 6-character alphanumeric PIN in the top navigation bar with real-time UI validation.
 * **US-2.4 (Readiness Toggle)**: All non-host players must toggle their status to "Ready" before the host can initiate the match.
 * **US-2.5 (Player Capacity)**: Rooms support 1 to 4 players (`maxPlayers: 4`). Attempts to join full rooms are rejected.
+* **US-2.6 (Stale Room Garbage Collection)**: Unstarted rooms abandoned in `WAITING` or `READY` status for over 2 hours are automatically cleaned up to release room codes for reuse.
 
 ### 2.3 Quiz Engine & Real-Time Gameplay
 * **US-3.1 (Anti-Cheat Question Delivery)**: Players never receive the full question list upfront. The server dispatches questions one by one (`battle:next_question`).
-* **US-3.2 (Authoritative Server Timers)**: Each question has an absolute category-based server deadline (Programming: 30s, Aptitude: 60s, General Knowledge: 30s). Client timers serve strictly as UI representations.
+* **US-3.2 (Authoritative Server Timers & Persistent Deadlines)**: Each question has an absolute category-based server deadline (Programming: 30s, Aptitude: 60s, General Knowledge: 30s) persisted in `BattleModel.currentRound`. A 1-second server background sweeper advances expired rounds and catch-up triggers synchronize reconnecting players. Client timers serve strictly as UI representations.
 * **US-3.3 (Answer Submission & Reveal)**: Players submit one of 4 options (0–3 index). The server validates if the submission arrived before the deadline, calculates correctness and speed-adjusted points, locks the answer (`battle:answer_locked`), announces submissions to peers (`battle:player_submitted`), and reveals answers at round end (`battle:reveal`).
 * **US-3.4 (Multiplayer Telemetry)**: Whenever any player submits an answer or completes a round, real-time telemetry broadcasts live scores and status to all room participants.
 * **US-3.5 (Timeout Handling)**: If the deadline passes without an answer, the server records an unanswered timeout (`-1`), awards 0 points, and advances the round.

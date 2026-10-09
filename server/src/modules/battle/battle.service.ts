@@ -1,4 +1,5 @@
 import { battleRepository, BattleRepository } from './battle.repository.js';
+import { BattleModel } from './battle.model.js';
 import { questionRepository, QuestionRepository } from '../question/question.repository.js';
 import { questionService } from '../question/question.service.js';
 import { roomRepository } from '../room/room.repository.js';
@@ -12,6 +13,7 @@ import {
   IBattleResultsPayload,
   IBattleRevealPayload,
   IBattleRankedPlayer,
+  IBattleRoundSubmission,
 } from './battle.types.js';
 import { ApiError } from '../../shared/errors/api-error.js';
 import { logger } from '../../config/logger.js';
@@ -21,28 +23,8 @@ import { formatRoomSocketPayload } from '../../sockets/room.socket.js';
 import { userRepository } from '../user/user.repository.js';
 import { getCategoryTimeLimit } from '../../shared/config/quiz-config.js';
 
-export interface IActiveRoundSubmission {
-  selectedOption: number;
-  potentialScore: number;
-  timeTakenMs: number;
-  isCorrect: boolean;
-  submittedAt: Date;
-}
-
-export interface IActiveRoundState {
-  battleId: string;
-  roomCode: string;
-  roundIndex: number;
-  questionId: string;
-  startedAt: Date;
-  deadline: Date;
-  isRevealed: boolean;
-  submissions: Map<string, IActiveRoundSubmission>;
-}
-
 export class BattleService {
-  private activeTimers = new Map<string, NodeJS.Timeout>();
-  private activeRounds = new Map<string, IActiveRoundState>();
+  private sweeperTimer: NodeJS.Timeout | null = null;
 
   constructor(
     private repository: BattleRepository = battleRepository,
@@ -50,97 +32,150 @@ export class BattleService {
   ) {}
 
   /**
-   * Initialize in-memory round state for synchronized gameplay.
+   * Start the background sweeper to process expired question deadlines and reveals.
    */
-  public initRoundState(
-    battleId: string,
-    roomCode: string,
-    roundIndex: number,
-    questionId: string,
-    timePerQuestion: number,
-    deadline: Date
-  ) {
-    this.activeRounds.set(battleId, {
-      battleId,
-      roomCode,
-      roundIndex,
-      questionId,
-      startedAt: new Date(),
-      deadline,
-      isRevealed: false,
-      submissions: new Map(),
-    });
-  }
-
-  /**
-   * Get active round state for a battle.
-   */
-  public getActiveRound(battleId: string): IActiveRoundState | undefined {
-    return this.activeRounds.get(battleId);
-  }
-
-  /**
-   * Set server deadline timer for the current synchronized round.
-   */
-  public setRoundTimeout(
-    battleId: string,
-    roundIndex: number,
-    delayMs: number,
-    io: Server,
-    roomCode: string
-  ) {
-    const timerKey = `${battleId}:ROUND`;
-    this.clearQuestionTimeout(battleId, 'ROUND');
-
-    const timer = setTimeout(async () => {
-      this.activeTimers.delete(timerKey);
+  public startSweeper(io?: Server) {
+    if (this.sweeperTimer) return;
+    this.sweeperTimer = setInterval(async () => {
       try {
-        await this.executeRoundReveal(battleId, roomCode, io);
+        await this.sweepActiveBattles(io);
       } catch (err) {
-        logger.error(err, `Error executing round reveal on timeout for battle ${battleId}`);
+        logger.error(err, 'Error running battle sweeper');
       }
-    }, Math.max(delayMs, 100));
+    }, 1000);
 
-    this.activeTimers.set(timerKey, timer);
-  }
-
-  /**
-   * Legacy compatibility: Set server deadline timer for a player's current question.
-   */
-  public setQuestionTimeout(
-    battleId: string,
-    _userId: string,
-    expectedIndex: number,
-    delayMs: number,
-    io: Server,
-    roomCode: string
-  ) {
-    // Synchronized round timer
-    this.setRoundTimeout(battleId, expectedIndex, delayMs, io, roomCode);
-  }
-
-  /**
-   * Clear active server timer for a player or round.
-   */
-  public clearQuestionTimeout(battleId: string, userIdOrKey: string) {
-    const timerKey = `${battleId}:${userIdOrKey}`;
-    const existing = this.activeTimers.get(timerKey);
-    if (existing) {
-      clearTimeout(existing);
-      this.activeTimers.delete(timerKey);
+    if (this.sweeperTimer.unref) {
+      this.sweeperTimer.unref();
     }
   }
 
   /**
-   * Clear all active timers for a battle.
+   * Stop the background sweeper on graceful shutdown.
    */
-  public clearAllBattleTimers(battleId: string, playerUserIds: string[]) {
-    this.clearQuestionTimeout(battleId, 'ROUND');
-    this.clearQuestionTimeout(battleId, 'REVEAL');
-    for (const uId of playerUserIds) {
-      this.clearQuestionTimeout(battleId, uId);
+  public stopSweeper() {
+    if (this.sweeperTimer) {
+      clearInterval(this.sweeperTimer);
+      this.sweeperTimer = null;
     }
-    this.activeRounds.delete(battleId);
+  }
+
+  /**
+   * Periodically check for expired rounds and advance them.
+   */
+  public async sweepActiveBattles(ioParam?: Server) {
+    let io = ioParam;
+    if (!io) {
+      try {
+        io = getIo();
+      } catch {
+        // Socket.IO not initialized
+      }
+    }
+
+    const now = new Date();
+    const expiredBattles = await this.repository.findExpiredRounds(now);
+    for (const battle of expiredBattles) {
+      try {
+        if (!battle.currentRound) continue;
+        if (battle.currentRound.status === 'QUESTION' && battle.currentRound.deadline <= now) {
+          await this.executeRoundReveal(battle._id.toString(), battle.roomCode, io);
+        } else if (
+          battle.currentRound.status === 'REVEAL' &&
+          battle.currentRound.revealExpiresAt &&
+          battle.currentRound.revealExpiresAt <= now
+        ) {
+          await this.advanceToNextRound(battle._id.toString(), battle.roomCode, io);
+        }
+      } catch (err) {
+        logger.error(err, `Error processing expired battle ${battle._id} in sweeper`);
+      }
+    }
+  }
+
+  /**
+   * Check if a reconnecting battle has expired and catch it up if needed.
+   */
+  public async checkAndCatchUpBattle(battleId: string, roomCode: string, io?: Server) {
+    const battle = await this.repository.findById(battleId);
+    if (!battle || battle.status !== BattleStatus.IN_PROGRESS || !battle.currentRound) {
+      return;
+    }
+
+    const now = new Date();
+    if (battle.currentRound.status === 'QUESTION' && now.getTime() >= battle.currentRound.deadline.getTime()) {
+      await this.executeRoundReveal(battleId, roomCode, io);
+      const rechecked = await this.repository.findById(battleId);
+      if (
+        rechecked &&
+        rechecked.currentRound?.status === 'REVEAL' &&
+        rechecked.currentRound.revealExpiresAt &&
+        now.getTime() >= rechecked.currentRound.revealExpiresAt.getTime()
+      ) {
+        await this.advanceToNextRound(battleId, roomCode, io);
+      }
+    } else if (
+      battle.currentRound.status === 'REVEAL' &&
+      battle.currentRound.revealExpiresAt &&
+      now.getTime() >= battle.currentRound.revealExpiresAt.getTime()
+    ) {
+      await this.advanceToNextRound(battleId, roomCode, io);
+    }
+  }
+
+  /**
+   * Synchronize solo round 0 start time upon client socket connect.
+   */
+  public async synchronizeSoloRoundStart(battleId: string): Promise<void> {
+    const battle = await this.repository.findById(battleId);
+    if (
+      battle &&
+      battle.players.length === 1 &&
+      battle.currentRound &&
+      battle.currentRound.roundIndex === 0 &&
+      battle.currentRound.submissions.length === 0 &&
+      battle.currentRound.status === 'QUESTION'
+    ) {
+      const now = new Date();
+      const freshDeadline = new Date(now.getTime() + battle.timePerQuestion * 1000);
+      await this.repository.updateSoloRoundStartTime(battleId, now, freshDeadline);
+    }
+  }
+
+  /**
+   * Clean up or recover legacy in-progress battles left behind without currentRound.
+   */
+  public async recoverLegacyInProgressBattles(): Promise<void> {
+    const legacyBattles = await BattleModel.find({
+      status: BattleStatus.IN_PROGRESS,
+      currentRound: null,
+    });
+
+    const now = Date.now();
+    for (const battle of legacyBattles) {
+      const maxDurationMs = (battle.questionCount * battle.timePerQuestion + 120) * 1000;
+      const battleAge = now - new Date(battle.startedAt).getTime();
+      if (battleAge > maxDurationMs) {
+        logger.info(`Cleaning up abandoned legacy battle ${battle._id} (${battle.roomCode})`);
+        battle.status = BattleStatus.CANCELLED;
+        battle.endedAt = new Date();
+        await battle.save();
+        await roomRepository.update(battle.roomCode, { status: RoomStatus.FINISHED });
+      } else {
+        const initialQId = battle.players[0]?.assignedQuestionIds[0];
+        if (initialQId) {
+          battle.currentRound = {
+            roundIndex: 0,
+            questionId: initialQId,
+            startedAt: new Date(),
+            deadline: new Date(Date.now() + battle.timePerQuestion * 1000),
+            status: 'QUESTION',
+            revealExpiresAt: null,
+            submissions: [],
+          };
+          await battle.save();
+        }
+      }
+    }
   }
 
   /**
@@ -258,6 +293,15 @@ export class BattleService {
       players: battlePlayers as any,
       status: BattleStatus.IN_PROGRESS,
       startedAt: new Date(),
+      currentRound: {
+        roundIndex: 0,
+        questionId: assignedQuestionIds[0],
+        startedAt: new Date(),
+        deadline: initialDeadline,
+        status: 'QUESTION',
+        revealExpiresAt: null,
+        submissions: [],
+      },
     });
 
     // 7. Update Room Status to IN_PROGRESS
@@ -266,13 +310,11 @@ export class BattleService {
       matchId: battle._id as any,
     });
 
-    this.initRoundState(battle._id.toString(), code, 0, assignedQuestionIds[0], timePerQuestion, initialDeadline);
-
     return battle;
   }
 
   /**
-   * Broadcast battle start events across room sockets and initiate round 0 server timer.
+   * Broadcast battle start events across room sockets.
    */
   async broadcastBattleStart(battle: IBattleDocument, ioInstance?: Server): Promise<void> {
     let io = ioInstance;
@@ -303,15 +345,6 @@ export class BattleService {
         }
       }
     }
-
-    // Register synchronized server round timer
-    this.setRoundTimeout(
-      battle._id.toString(),
-      0,
-      battle.timePerQuestion * 1000 + 1000,
-      io,
-      code
-    );
   }
 
   /**
@@ -337,17 +370,20 @@ export class BattleService {
     );
     if (!player) return null;
 
-    const currentQId = player.assignedQuestionIds[player.currentQuestionIndex];
+    const currentRound = battle.currentRound;
+    const currentRoundIndex = currentRound ? currentRound.roundIndex : player.currentQuestionIndex;
+    const currentQId = currentRound
+      ? currentRound.questionId
+      : player.assignedQuestionIds[currentRoundIndex];
     if (!currentQId) return null;
 
     const questionDoc = await questionService.getQuestionByQuestionId(currentQId);
 
-    const activeRound = this.activeRounds.get(battle._id.toString());
-    const roundStartedAt = activeRound
-      ? activeRound.startedAt.getTime()
+    const roundStartedAt = currentRound
+      ? currentRound.startedAt.getTime()
       : (battle.startedAt ? new Date(battle.startedAt).getTime() : Date.now());
-    const deadline = activeRound
-      ? activeRound.deadline
+    const deadline = currentRound
+      ? currentRound.deadline
       : (player.questionDeadline || new Date(Date.now() + battle.timePerQuestion * 1000));
 
     const hostPlayer = battle.players.find((p: any) => p.isHost);
@@ -355,10 +391,12 @@ export class BattleService {
       ? (hostPlayer.userId._id ? hostPlayer.userId._id.toString() : hostPlayer.userId.toString())
       : undefined;
 
+    const submittedUserIds = new Set(currentRound?.submissions?.map((s) => s.userId) || []);
+
     const mappedPlayers = battle.players.map((p: any) => {
       const pUserId = p.userId._id ? p.userId._id.toString() : p.userId.toString();
-      const hasAnswered = activeRound
-        ? activeRound.submissions.has(pUserId)
+      const hasAnswered = currentRound
+        ? submittedUserIds.has(pUserId)
         : (p.answers && p.answers.length > p.currentQuestionIndex);
 
       return {
@@ -382,7 +420,7 @@ export class BattleService {
       difficulty: battle.difficulty,
       questionCount: battle.questionCount,
       timePerQuestion: battle.timePerQuestion,
-      currentQuestionIndex: player.currentQuestionIndex,
+      currentQuestionIndex: currentRoundIndex,
       roundStartedAt,
       questionDeadline: deadline,
       currentQuestion: questionDoc,
@@ -424,38 +462,35 @@ export class BattleService {
       throw new ApiError(400, 'Player has already completed all questions');
     }
 
-    let activeRound = this.activeRounds.get(battle._id.toString());
-    if (!activeRound) {
-      const currentQId = player.assignedQuestionIds[player.currentQuestionIndex] || questionId;
-      const initialDeadline = player.questionDeadline || new Date(Date.now() + battle.timePerQuestion * 1000);
-      this.initRoundState(
-        battle._id.toString(),
-        roomCode,
-        player.currentQuestionIndex,
-        currentQId,
-        battle.timePerQuestion,
-        initialDeadline
-      );
-      activeRound = this.activeRounds.get(battle._id.toString())!;
+    if (!battle.currentRound) {
+      throw new ApiError(400, 'No active round found for this battle');
     }
 
-    if (activeRound.isRevealed) {
+    if (battle.currentRound.status === 'REVEAL') {
       throw new ApiError(400, 'Question round has already ended. Waiting for next round.');
     }
 
-    if (activeRound.submissions.has(userId)) {
+    const now = new Date();
+    if (now.getTime() > battle.currentRound.deadline.getTime()) {
+      if (io) {
+        await this.executeRoundReveal(battle._id.toString(), roomCode, io);
+      }
+      throw new ApiError(400, 'Question round has expired.');
+    }
+
+    const hasSubmitted = battle.currentRound.submissions.some((s) => s.userId === userId);
+    if (hasSubmitted) {
       throw new ApiError(400, 'You have already submitted an answer for this question.');
     }
 
-    if (questionId !== activeRound.questionId) {
+    if (questionId !== battle.currentRound.questionId) {
       throw new ApiError(400, 'Invalid question submission: Question ID does not match current turn');
     }
 
     // Dynamic Server-Authoritative Scoring Formula:
     // Starts at 1000 points. Decreases by 30 pts/sec.
     // 0s: 1000 pts. 2s: ~940 pts. 5s: ~850 pts. Minimum floor: 100 pts.
-    const now = Date.now();
-    const elapsedMs = Math.max(0, now - activeRound.startedAt.getTime());
+    const elapsedMs = Math.max(0, now.getTime() - battle.currentRound.startedAt.getTime());
     const elapsedSec = elapsedMs / 1000;
     const potentialScore = Math.max(100, Math.round(1000 - elapsedSec * 30));
 
@@ -469,14 +504,24 @@ export class BattleService {
       ? questionDoc.correctAnswer === selectedOption
       : false;
 
-    // Record submission in memory
-    activeRound.submissions.set(userId, {
+    const submission: IBattleRoundSubmission = {
+      userId,
       selectedOption,
       potentialScore,
       timeTakenMs: elapsedMs,
       isCorrect,
-      submittedAt: new Date(),
-    });
+      submittedAt: now,
+    };
+
+    const updatedBattle = await this.repository.recordRoundSubmission(
+      battle._id.toString(),
+      battle.currentRound.roundIndex,
+      submission
+    );
+
+    if (!updatedBattle || !updatedBattle.currentRound) {
+      throw new ApiError(400, 'Unable to submit answer: round has ended or answer was already recorded.');
+    }
 
     const roomChannel = `room:${roomCode}`;
 
@@ -484,7 +529,7 @@ export class BattleService {
       // 1. Notify room that this player has submitted their answer (without revealing correct option)
       io.to(roomChannel).emit('battle:player_submitted', {
         userId,
-        roundIndex: activeRound.roundIndex,
+        roundIndex: updatedBattle.currentRound.roundIndex,
         hasAnswered: true,
         timeTakenMs: elapsedMs,
       });
@@ -497,25 +542,26 @@ export class BattleService {
           .filter(Boolean)
       );
 
-      const activePlayers = battle.players.filter((p: any) => {
+      const activePlayers = updatedBattle.players.filter((p: any) => {
         const pUId = p.userId._id ? p.userId._id.toString() : p.userId.toString();
         return connectedUserIds.size === 0 || connectedUserIds.has(pUId);
       });
 
+      const submittedUserIds = new Set(updatedBattle.currentRound.submissions.map((s) => s.userId));
+
       const allAnswered = activePlayers.length > 0 && activePlayers.every((p: any) => {
         const pUId = p.userId._id ? p.userId._id.toString() : p.userId.toString();
-        return activeRound?.submissions.has(pUId);
+        return submittedUserIds.has(pUId);
       });
 
       if (allAnswered) {
-        this.clearQuestionTimeout(battle._id.toString(), 'ROUND');
         // Synchronized reveal immediately
-        await this.executeRoundReveal(battle._id.toString(), roomCode, io);
+        await this.executeRoundReveal(updatedBattle._id.toString(), roomCode, io);
       }
     }
 
     return {
-      battle,
+      battle: updatedBattle,
       potentialScore,
       timeTakenMs: elapsedMs,
       isCorrect,
@@ -525,27 +571,26 @@ export class BattleService {
   /**
    * Execute synchronized round reveal across all players in the room.
    */
-  async executeRoundReveal(battleId: string, roomCode: string, io: Server) {
-    const activeRound = this.activeRounds.get(battleId);
-    if (!activeRound || activeRound.isRevealed) return;
+  async executeRoundReveal(battleId: string, roomCode: string, io?: Server) {
+    const revealExpiresAt = new Date(Date.now() + 5000);
 
-    activeRound.isRevealed = true;
-    this.clearQuestionTimeout(battleId, 'ROUND');
+    const battle = await this.repository.transitionRoundToReveal(battleId, revealExpiresAt);
+    if (!battle || !battle.currentRound) return;
 
-    const battle = await this.repository.findById(battleId);
-    if (!battle || battle.status !== BattleStatus.IN_PROGRESS) return;
+    const currentRound = battle.currentRound;
+    const submissionsMap = new Map(currentRound.submissions.map((s) => [s.userId, s]));
 
     // Apply scores and record answers for all players
     for (const p of battle.players) {
       const pUId = (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
-      const sub = activeRound.submissions.get(pUId);
+      const sub = submissionsMap.get(pUId);
 
       if (sub) {
         if (sub.isCorrect) {
           p.score += sub.potentialScore;
         }
         p.answers.push({
-          questionId: activeRound.questionId,
+          questionId: currentRound.questionId,
           selectedOption: sub.selectedOption,
           isCorrect: sub.isCorrect,
           submittedAt: sub.submittedAt,
@@ -554,7 +599,7 @@ export class BattleService {
       } else {
         // Player did not answer in time (timed out)
         p.answers.push({
-          questionId: activeRound.questionId,
+          questionId: currentRound.questionId,
           selectedOption: -1,
           isCorrect: false,
           submittedAt: new Date(),
@@ -566,19 +611,19 @@ export class BattleService {
     await this.repository.save(battle);
 
     // Fetch original question for correctAnswer and explanation
-    const questionDoc = await this.qRepository.findByQuestionId(activeRound.questionId);
+    const questionDoc = await this.qRepository.findByQuestionId(currentRound.questionId);
 
-    const correctCount = Array.from(activeRound.submissions.values()).filter((s) => s.isCorrect).length;
+    const correctCount = currentRound.submissions.filter((s) => s.isCorrect).length;
     const accuracyPct = battle.players.length > 0
       ? Math.round((correctCount / battle.players.length) * 100)
       : 0;
 
-    const isLast = activeRound.roundIndex >= battle.questionCount - 1;
+    const isLast = currentRound.roundIndex >= battle.questionCount - 1;
     const roomChannel = `room:${roomCode}`;
 
     const revealPayload: IBattleRevealPayload = {
-      roundIndex: activeRound.roundIndex,
-      questionId: activeRound.questionId,
+      roundIndex: currentRound.roundIndex,
+      questionId: currentRound.questionId,
       correctAnswer: questionDoc ? questionDoc.correctAnswer : 0,
       explanation: questionDoc ? questionDoc.explanation : '',
       accuracyPct,
@@ -587,7 +632,7 @@ export class BattleService {
       revealDurationSec: 5,
       players: battle.players.map((p: any) => {
         const uId = p.userId._id ? p.userId._id.toString() : p.userId.toString();
-        const sub = activeRound.submissions.get(uId);
+        const sub = submissionsMap.get(uId);
         return {
           userId: uId,
           username: p.userId.username || '',
@@ -603,90 +648,91 @@ export class BattleService {
       isLastQuestion: isLast,
     };
 
-    io.to(roomChannel).emit('battle:reveal', revealPayload);
-
-    // Schedule synchronized progression to next round in 5 seconds
-    const revealTimer = setTimeout(async () => {
-      this.activeTimers.delete(`${battleId}:REVEAL`);
-      if (isLast) {
-        const results = await this.finalizeBattle(battle);
-        io.to(roomChannel).emit('battle:completed', results);
-      } else {
-        await this.advanceToNextRound(battleId, roomCode, io);
-      }
-    }, 5000);
-
-    this.activeTimers.set(`${battleId}:REVEAL`, revealTimer);
+    if (io) {
+      io.to(roomChannel).emit('battle:reveal', revealPayload);
+    }
   }
 
   /**
    * Advance entire room synchronously to the next question.
    */
-  async advanceToNextRound(battleId: string, roomCode: string, io: Server) {
-    this.clearQuestionTimeout(battleId, 'REVEAL');
-
+  async advanceToNextRound(battleId: string, roomCode: string, io?: Server) {
     const battle = await this.repository.findById(battleId);
-    if (!battle || battle.status !== BattleStatus.IN_PROGRESS) return;
+    if (!battle || battle.status !== BattleStatus.IN_PROGRESS || !battle.currentRound) return;
 
-    const activeRound = this.activeRounds.get(battleId);
-    const nextRoundIndex = (activeRound ? activeRound.roundIndex : 0) + 1;
-
+    const currentRoundIndex = battle.currentRound.roundIndex;
+    const nextRoundIndex = currentRoundIndex + 1;
     const roomChannel = `room:${roomCode}`;
 
     if (nextRoundIndex >= battle.questionCount) {
-      const results = await this.finalizeBattle(battle);
-      io.to(roomChannel).emit('battle:completed', results);
+      const locked = await BattleModel.findOneAndUpdate(
+        {
+          _id: battleId,
+          status: BattleStatus.IN_PROGRESS,
+          'currentRound.status': 'REVEAL',
+          'currentRound.roundIndex': currentRoundIndex,
+        },
+        {
+          $set: {
+            'currentRound.status': 'COMPLETED',
+          },
+        },
+        { new: true }
+      ).populate('players.userId', 'username displayName avatar');
+
+      if (!locked) return;
+
+      const results = await this.finalizeBattle(locked);
+      if (io) {
+        io.to(roomChannel).emit('battle:completed', results);
+      }
       return;
     }
 
-    // Update each player's question index and deadline
-    const nextDeadline = new Date(Date.now() + battle.timePerQuestion * 1000);
-    for (const p of battle.players) {
-      p.currentQuestionIndex = nextRoundIndex;
-      p.questionDeadline = nextDeadline;
-    }
-    await this.repository.save(battle);
-
     const nextQId = battle.players[0].assignedQuestionIds[nextRoundIndex];
-    this.initRoundState(
-      battleId,
-      roomCode,
-      nextRoundIndex,
-      nextQId,
-      battle.timePerQuestion,
-      nextDeadline
-    );
+    const now = new Date();
+    const nextDeadline = new Date(now.getTime() + battle.timePerQuestion * 1000);
 
-    // Set server deadline timer
-    this.setRoundTimeout(battleId, nextRoundIndex, battle.timePerQuestion * 1000 + 1000, io, roomCode);
+    const updatedBattle = await BattleModel.findOneAndUpdate(
+      {
+        _id: battleId,
+        status: BattleStatus.IN_PROGRESS,
+        'currentRound.status': 'REVEAL',
+        'currentRound.roundIndex': currentRoundIndex,
+      },
+      {
+        $set: {
+          'currentRound.roundIndex': nextRoundIndex,
+          'currentRound.questionId': nextQId,
+          'currentRound.startedAt': now,
+          'currentRound.deadline': nextDeadline,
+          'currentRound.status': 'QUESTION',
+          'currentRound.revealExpiresAt': null,
+          'currentRound.submissions': [],
+          'players.$[].currentQuestionIndex': nextRoundIndex,
+          'players.$[].questionDeadline': nextDeadline,
+        },
+      },
+      { new: true }
+    ).populate('players.userId', 'username displayName avatar');
 
-    // Fetch next sanitized question
+    if (!updatedBattle) return;
+
     const nextQDoc = await questionService.getQuestionByQuestionId(nextQId);
 
     const nextPayload: IBattleNextQuestionPayload = {
       currentQuestionIndex: nextRoundIndex,
       totalQuestions: battle.questionCount,
-      roundStartedAt: Date.now(),
+      roundStartedAt: now.getTime(),
       questionDeadline: nextDeadline,
       timePerQuestion: battle.timePerQuestion,
       question: nextQDoc,
       completed: false,
     };
 
-    io.to(roomChannel).emit('battle:next_question', nextPayload);
-  }
-
-  /**
-   * Handle server-side question timeout fallback.
-   */
-  async handleQuestionTimeout(
-    battleId: string,
-    _userId: string,
-    _expectedIndex: number,
-    io: Server,
-    roomCode: string
-  ) {
-    await this.executeRoundReveal(battleId, roomCode, io);
+    if (io) {
+      io.to(roomChannel).emit('battle:next_question', nextPayload);
+    }
   }
 
   /**
@@ -729,13 +775,6 @@ export class BattleService {
       const existing = await this.repository.findById(battle._id.toString());
       return this.formatResultsPayload(existing || battle);
     }
-
-    const playerUserIds = battle.players.map((p) =>
-      (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString()
-    );
-
-    // Clear active timeouts
-    this.clearAllBattleTimers(battle._id.toString(), playerUserIds);
 
     // Update Room status to FINISHED
     await roomRepository.update(battle.roomCode, {
@@ -857,24 +896,25 @@ export class BattleService {
   /**
    * Get reveal payload if battle is currently in reveal phase.
    */
-  async getBattleRevealPayloadIfRevealed(battleId: string): Promise<any | null> {
-    const activeRound = this.activeRounds.get(battleId);
-    if (!activeRound || !activeRound.isRevealed) return null;
-
+  async getBattleRevealPayloadIfRevealed(battleId: string): Promise<IBattleRevealPayload | null> {
     const battle = await this.repository.findById(battleId);
-    if (!battle) return null;
+    if (!battle || !battle.currentRound || battle.currentRound.status !== 'REVEAL') {
+      return null;
+    }
 
-    const questionDoc = await this.qRepository.findByQuestionId(activeRound.questionId);
-    const correctCount = Array.from(activeRound.submissions.values()).filter((s) => s.isCorrect).length;
+    const currentRound = battle.currentRound;
+    const questionDoc = await this.qRepository.findByQuestionId(currentRound.questionId);
+    const correctCount = currentRound.submissions.filter((s) => s.isCorrect).length;
     const accuracyPct = battle.players.length > 0
       ? Math.round((correctCount / battle.players.length) * 100)
       : 0;
 
-    const isLast = activeRound.roundIndex >= battle.questionCount - 1;
+    const isLast = currentRound.roundIndex >= battle.questionCount - 1;
+    const submissionsMap = new Map(currentRound.submissions.map((s) => [s.userId, s]));
 
     return {
-      roundIndex: activeRound.roundIndex,
-      questionId: activeRound.questionId,
+      roundIndex: currentRound.roundIndex,
+      questionId: currentRound.questionId,
       correctAnswer: questionDoc ? questionDoc.correctAnswer : 0,
       explanation: questionDoc ? questionDoc.explanation : '',
       accuracyPct,
@@ -883,12 +923,12 @@ export class BattleService {
       revealDurationSec: 5,
       players: battle.players.map((p: any) => {
         const uId = p.userId._id ? p.userId._id.toString() : p.userId.toString();
-        const sub = activeRound.submissions.get(uId);
+        const sub = submissionsMap.get(uId);
         return {
           userId: uId,
-          username: p.userId.username || '',
-          displayName: p.userId.displayName || '',
-          avatar: p.userId.avatar || '',
+          username: p.userId?.username || '',
+          displayName: p.userId?.displayName || '',
+          avatar: p.userId?.avatar || '',
           selectedOption: sub ? sub.selectedOption : -1,
           isCorrect: sub ? sub.isCorrect : false,
           earnedScore: sub && sub.isCorrect ? sub.potentialScore : 0,
@@ -898,6 +938,30 @@ export class BattleService {
       }),
       isLastQuestion: isLast,
     };
+  }
+
+  /**
+   * Garbage collection: Clean abandoned IN_PROGRESS battles older than cutoff date.
+   * Default threshold: 2 hours (7,200,000 ms).
+   */
+  async cleanAbandonedBattles(staleThresholdMs: number = 2 * 60 * 60 * 1000): Promise<{ cancelledBattlesCount: number }> {
+    const cutoff = new Date(Date.now() - staleThresholdMs);
+    const abandonedBattles = await this.repository.findAbandonedBattles(cutoff);
+    let cancelledBattlesCount = 0;
+
+    for (const battle of abandonedBattles) {
+      const updated = await this.repository.cancelAbandonedBattle(battle._id);
+      if (updated) {
+        cancelledBattlesCount++;
+        await roomRepository.update(battle.roomCode, { status: RoomStatus.CANCELLED });
+      }
+    }
+
+    if (cancelledBattlesCount > 0) {
+      logger.info(`[GC] Cancelled ${cancelledBattlesCount} abandoned IN_PROGRESS battles older than ${cutoff.toISOString()}`);
+    }
+
+    return { cancelledBattlesCount };
   }
 }
 

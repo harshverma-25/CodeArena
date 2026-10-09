@@ -21,7 +21,6 @@ const RoomSettingsSchema = new Schema(
       required: true,
       default: 'random',
     },
-    duration: { type: Number, required: true, default: 30 }, // in minutes
     questionCount: { type: Number, default: 10 },
     timeLimit: { type: Number, default: 30 },
   },
@@ -50,7 +49,7 @@ const RoomSchema = new Schema<IRoomDocument>(
 
 // Indexes
 RoomSchema.index({ hostId: 1 });
-RoomSchema.index({ status: 1 });
+RoomSchema.index({ status: 1, updatedAt: 1 });
 
 export const RoomModel = model<IRoomDocument>('Room', RoomSchema);
 export default RoomModel;

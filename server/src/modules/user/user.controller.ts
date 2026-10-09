@@ -44,7 +44,7 @@ export class UserController {
     if (req.user.isGuest || req.user.role === 'guest') {
       throw new AppError('Forbidden: Guest users cannot modify persistent profile settings. Please create an account.', 403);
     }
-    const userId = req.user._id ? req.user._id.toString() : req.user.clerkId || '';
+    const userId = req.user._id ? req.user._id.toString() : '';
     const updatedUser = await userService.updateUserProfile(userId, req.body);
     res.status(200).json(
       new ApiResponse(200, updatedUser, 'Profile updated successfully.')

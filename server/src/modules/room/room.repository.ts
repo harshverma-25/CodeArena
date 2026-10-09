@@ -1,5 +1,5 @@
 import { RoomModel } from './room.model.js';
-import { IRoom, IRoomDocument, IRoomPlayer } from './room.types.js';
+import { IRoom, IRoomDocument, IRoomPlayer, RoomStatus } from './room.types.js';
 import { Types } from 'mongoose';
 
 export class RoomRepository {
@@ -60,6 +60,18 @@ export class RoomRepository {
       .populate('hostId')
       .populate('players.userId')
       .exec();
+  }
+
+  /**
+   * Atomically delete abandoned WAITING or READY rooms updated before the given cutoff date.
+   * Frees occupied room codes for reuse without breaking active matches or completed historical data.
+   */
+  async deleteStaleWaitingRooms(cutoff: Date): Promise<number> {
+    const result = await RoomModel.deleteMany({
+      status: { $in: [RoomStatus.WAITING, RoomStatus.READY] },
+      updatedAt: { $lte: cutoff },
+    }).exec();
+    return result.deletedCount || 0;
   }
 }
 

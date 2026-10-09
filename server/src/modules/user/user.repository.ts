@@ -17,7 +17,7 @@ export class UserRepository {
   }
 
   async findByIdWithRefreshToken(userId: string): Promise<IUserDocument | null> {
-    return UserModel.findById(userId).select('+refreshTokenHash');
+    return UserModel.findById(userId).select('+refreshTokenHash +refreshTokenFamilies');
   }
 
   async updateRefreshToken(userId: string, refreshTokenHash: string): Promise<void> {
@@ -25,7 +25,16 @@ export class UserRepository {
   }
 
   async clearRefreshToken(userId: string): Promise<void> {
-    await UserModel.findByIdAndUpdate(userId, { $unset: { refreshTokenHash: 1 } });
+    await UserModel.findByIdAndUpdate(userId, {
+      $unset: { refreshTokenHash: 1 },
+      $set: { refreshTokenFamilies: [] },
+    });
+  }
+
+  async clearRefreshTokenFamily(userId: string, familyId: string): Promise<void> {
+    await UserModel.findByIdAndUpdate(userId, {
+      $pull: { refreshTokenFamilies: { familyId } },
+    });
   }
 
   async updateById(userId: string, updateData: Partial<IUser>): Promise<IUserDocument | null> {
@@ -58,10 +67,6 @@ export class UserRepository {
     return { users: users as any, total };
   }
 
-  async findByClerkId(clerkId: string): Promise<IUserDocument | null> {
-    return UserModel.findOne({ clerkId });
-  }
-
   async findByUsername(username: string): Promise<IUserDocument | null> {
     return UserModel.findOne({ username });
   }
@@ -69,23 +74,6 @@ export class UserRepository {
   async create(userData: Partial<IUser>): Promise<IUserDocument> {
     const user = new UserModel(userData);
     return user.save();
-  }
-
-  async updateByClerkId(clerkId: string, updateData: Partial<IUser>): Promise<IUserDocument | null> {
-    return UserModel.findOneAndUpdate({ clerkId }, updateData, { new: true });
-  }
-
-  async incrementStats(
-    clerkId: string,
-    stats: { matchesPlayed?: number; wins?: number; losses?: number; draws?: number }
-  ): Promise<IUserDocument | null> {
-    const update: any = { $inc: {} };
-    if (stats.matchesPlayed) update.$inc.matchesPlayed = stats.matchesPlayed;
-    if (stats.wins) update.$inc.wins = stats.wins;
-    if (stats.losses) update.$inc.losses = stats.losses;
-    if (stats.draws) update.$inc.draws = stats.draws;
-
-    return UserModel.findOneAndUpdate({ clerkId }, update, { new: true });
   }
 
   async incrementStatsById(

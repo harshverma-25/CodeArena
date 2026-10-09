@@ -1,6 +1,6 @@
-# CodeArena — Documentation Index
+# Quizzy (CodeArena) — Documentation Index
 
-Welcome to the comprehensive, single-source-of-truth documentation repository for **CodeArena**, a real-time 1–4 player multiplayer competitive general-purpose quiz platform.
+Welcome to the comprehensive, single-source-of-truth documentation repository for **Quizzy** (formerly CodeArena), a real-time 1–4 player multiplayer competitive general-purpose quiz platform.
 
 ---
 

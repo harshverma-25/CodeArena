@@ -1,7 +1,6 @@
 export interface User {
   _id: string;
   id?: string;
-  clerkId?: string;
   username: string;
   displayName: string;
   email?: string;
@@ -11,7 +10,6 @@ export interface User {
   losses: number;
   draws: number;
   highestWinStreak: number;
-  preferredLanguage: string;
   isGuest?: boolean;
   role?: string;
   createdAt: string;
@@ -57,7 +55,6 @@ export interface Subject {
 export interface RoomSettings {
   topic?: string;
   difficulty?: string;
-  duration?: number; // in minutes
   questionCount?: number;
   categoryId?: string;
   subjectId?: string | null;
@@ -90,7 +87,6 @@ export interface Room {
   settings: RoomSettings;
   topic: string;
   difficulty: string;
-  duration: number;
   questionCount?: number;
   status: RoomStatusType;
 }

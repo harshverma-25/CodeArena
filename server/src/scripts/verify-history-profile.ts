@@ -17,7 +17,6 @@ async function runHistoryProfileVerificationSuite() {
 
   const createTestUser = async (name: string) => {
     const user = await UserModel.create({
-      clerkId: `clerk_hp_${name}_${timestamp}`,
       username: `hp_${name}_${timestamp}`,
       displayName: `Player ${name}`,
       email: `hp_${name}_${timestamp}@test.local`,
@@ -51,8 +50,7 @@ async function runHistoryProfileVerificationSuite() {
         categoryId: 'programming',
         subjectId: 'dsa',
         isMixedCategory: false,
-        duration: 10,
-        questionCount: 5,
+        questionCount: 10,
       },
       status: 'FINISHED',
     });
@@ -62,7 +60,7 @@ async function runHistoryProfileVerificationSuite() {
       roomCode: roomSolo.roomCode,
       topic: 'DSA Basics',
       difficulty: 'medium',
-      questionCount: 5,
+      questionCount: 10,
       timePerQuestion: 30,
       status: 'COMPLETED',
       startedAt: new Date(Date.now() - 60000),
@@ -115,8 +113,7 @@ async function runHistoryProfileVerificationSuite() {
         categoryId: 'programming',
         subjectId: 'javascript',
         isMixedCategory: false,
-        duration: 10,
-        questionCount: 5,
+        questionCount: 10,
       },
       status: 'FINISHED',
     });
@@ -126,7 +123,7 @@ async function runHistoryProfileVerificationSuite() {
       roomCode: room2P.roomCode,
       topic: 'JavaScript Fundamentals',
       difficulty: 'easy',
-      questionCount: 5,
+      questionCount: 10,
       timePerQuestion: 30,
       status: 'COMPLETED',
       startedAt: new Date(Date.now() - 50000),
@@ -182,7 +179,6 @@ async function runHistoryProfileVerificationSuite() {
         categoryId: 'aptitude',
         subjectId: null,
         isMixedCategory: true,
-        duration: 15,
         questionCount: 10,
       },
       status: 'FINISHED',
@@ -254,7 +250,6 @@ async function runHistoryProfileVerificationSuite() {
         categoryId: 'gk',
         subjectId: 'general',
         isMixedCategory: false,
-        duration: 15,
         questionCount: 15,
       },
       status: 'FINISHED',

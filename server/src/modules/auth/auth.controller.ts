@@ -20,8 +20,11 @@ export class AuthController {
       path: '/api/v1/auth',
     });
 
+    // Strip refreshToken from JSON body — it is delivered only via the HttpOnly cookie
+    const { refreshToken: _rt, ...safeResult } = result;
+
     res.status(201).json(
-      new ApiResponse(201, result, 'User registered successfully.')
+      new ApiResponse(201, safeResult, 'User registered successfully.')
     );
   }
 
@@ -41,8 +44,11 @@ export class AuthController {
       path: '/api/v1/auth',
     });
 
+    // Strip refreshToken from JSON body — it is delivered only via the HttpOnly cookie
+    const { refreshToken: _rt, ...safeResult } = result;
+
     res.status(200).json(
-      new ApiResponse(200, result, 'Logged in successfully.')
+      new ApiResponse(200, safeResult, 'Logged in successfully.')
     );
   }
 
@@ -67,8 +73,11 @@ export class AuthController {
       path: '/api/v1/auth',
     });
 
+    // Strip refreshToken from JSON body — it is delivered only via the HttpOnly cookie
+    const { refreshToken: _rt, ...safeResult } = result;
+
     res.status(200).json(
-      new ApiResponse(200, result, 'Token refreshed successfully.')
+      new ApiResponse(200, safeResult, 'Token refreshed successfully.')
     );
   }
 
@@ -78,11 +87,15 @@ export class AuthController {
    */
   async logout(req: Request, res: Response): Promise<void> {
     const userId = req.user?._id?.toString() || req.user?.id?.toString();
+    const token = req.cookies?.refreshToken || req.body?.refreshToken;
     if (userId) {
-      await authService.logout(userId);
+      await authService.logout(userId, token);
     }
 
     res.clearCookie('refreshToken', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
       path: '/api/v1/auth',
     });
 

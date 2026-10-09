@@ -7,6 +7,7 @@ import { UserModel } from '../modules/user/user.model.js';
 import { authService } from '../modules/auth/auth.service.js';
 import { registerRoomHandlers } from './room.socket.js';
 import { registerBattleHandlers } from './battle.socket.js';
+import { battleService } from '../modules/battle/battle.service.js';
 
 let io: Server | null = null;
 
@@ -48,19 +49,12 @@ export const socketAuthMiddleware = async (socket: Socket, next: (err?: Error) =
           return next();
         }
       }
-      if (guestPayload.guestId) {
-        const guestUser = await userService.getUserByClerkId(guestPayload.guestId);
-        if (guestUser && guestUser.isGuest) {
-          socket.data.user = guestUser;
-          return next();
-        }
-      }
     }
 
     // 3. Automated test suite bypass strictly in NODE_ENV === 'test'
     if (env.NODE_ENV === 'test' && token.startsWith('mock_test_token_')) {
-      const clerkId = token.replace('mock_test_token_', '');
-      const dbUser = await userService.getOrCreateUser(clerkId);
+      const testUserId = token.replace('mock_test_token_', '');
+      const dbUser = await userService.getOrCreateUser(testUserId);
       socket.data.user = dbUser;
       return next();
     }
@@ -100,6 +94,14 @@ export function initializeSocket(httpServer: HttpServer): Server {
     socket.on('disconnect', () => {
       logger.info(`Socket disconnected: ${socket.id} for user ${userId}`);
     });
+  });
+
+  // Start persistent battle background sweeper
+  battleService.startSweeper(io);
+
+  // Auto-recover any legacy in-progress battles left without currentRound
+  battleService.recoverLegacyInProgressBattles().catch((err) => {
+    logger.error(err, 'Failed to recover legacy in-progress battles on startup');
   });
 
   logger.info('🔌 Socket.IO server initialized successfully');

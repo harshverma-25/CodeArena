@@ -45,7 +45,7 @@ export default function RegisterPage() {
       const res = await api.post<{
         data: {
           accessToken: string;
-          refreshToken: string;
+          refreshToken?: string;
           user: any;
           expiresIn?: number;
         };

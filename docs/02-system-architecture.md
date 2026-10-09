@@ -111,11 +111,13 @@ sequenceDiagram
 
 ## 4. Fault Tolerance & Data Consistency
 
-### 4.1 Authoritative Server Clock & Timer Resilience
-All question countdowns run as native server-side timers (`setTimeout`) maintained in memory (`Map<string, NodeJS.Timeout>`). If a client experiences network stutter or tab throttling:
-* The server deadline timer fires independently based on category duration (Programming: 30s, Aptitude: 60s, GK: 30s).
-* The server writes an unanswered entry (`-1`) to MongoDB.
-* The server reveals answers, advances the question queue, and alerts the room.
+### 4.1 Authoritative Server Clock & Persistent Round Deadlines
+All question countdowns and round states are stored directly in MongoDB within the `BattleModel.currentRound` subdocument (`questionIndex`, `startedAt`, `deadline`, `revealExpiresAt`, `submissions`). Instead of fragile in-memory process timers:
+* The server computes an absolute timestamp deadline upon round start based on category duration (Programming: 30s, Aptitude: 60s, GK: 30s).
+* If all active players submit answers before the deadline, the server executes round reveal immediately.
+* A background sweeper running every second (`battleService.sweepActiveBattles`) queries expired deadlines and triggers synchronized reveals (`battle:reveal`) or next round transitions (`battle:next_question`).
+* If a player disconnects or encounters lag, reconnect catch-up logic (`checkAndCatchUpBattle`) verifies whether deadlines expired while they were away and catches up their state.
+* Unanswered players at the expiration of the deadline are awarded 0 points (`selectedOption: -1`).
 
 ### 4.2 Idempotent State Transitions
 To prevent double-counting statistics under concurrent socket answer submissions:
@@ -131,7 +133,13 @@ To prevent double-counting statistics under concurrent socket answer submissions
 ### 4.3 Graceful Connection Recovery
 If a user disconnects mid-battle:
 1. The server notifies the room participants via `player:disconnected`.
-2. The disconnected user can reconnect; upon sending `battle:reconnect` or rejoining, the server returns their current round context and remaining deadline.
+2. The disconnected user can reconnect; upon sending `battle:reconnect` or rejoining, the server returns their current round context, questions, and remaining deadline.
+
+### 4.4 Stale Room & Abandoned Battle Garbage Collection
+To prevent orphaned database records and permanently locked 6-character room codes:
+1. **Periodic Background GC**: `roomService.startGarbageCollector()` runs every 10 minutes on server startup.
+2. **Stale Room Pruning**: Deletes rooms in `WAITING` or `READY` status untouched for $>2\text{ hours}$ via `RoomModel.deleteMany({ status: { $in: ['WAITING', 'READY'] }, updatedAt: { $lte: twoHoursAgo } })`.
+3. **Abandoned Battle Pruning**: Automatically cancels `IN_PROGRESS` battles older than 2 hours via `BattleModel.findOneAndUpdate(..., { status: BattleStatus.CANCELLED })`, freeing the associated `roomCode` for reuse.
 
 ---
 

@@ -3,6 +3,8 @@ import crypto from 'crypto';
 export interface ITokenPayload {
   sub: string; // userId (_id)
   type: 'access' | 'refresh' | 'guest';
+  familyId?: string;
+  jti?: string;
   username?: string;
   isGuest?: boolean;
   guestId?: string;
@@ -16,6 +18,8 @@ export function signJwtToken(
   payload: {
     sub: string;
     type: 'access' | 'refresh' | 'guest';
+    familyId?: string;
+    jti?: string;
     username?: string;
     isGuest?: boolean;
     guestId?: string;
@@ -27,9 +31,11 @@ export function signJwtToken(
 ): string {
   const iat = Math.floor(Date.now() / 1000);
   const exp = iat + expiresInSeconds;
+  const jti = payload.jti || crypto.randomUUID();
 
   const fullPayload: ITokenPayload = {
     ...payload,
+    jti,
     iat,
     exp,
   };
@@ -61,8 +67,8 @@ export function verifyJwtToken(token: string, secret: string): ITokenPayload | n
       .update(signatureInput)
       .digest('base64url');
 
-    const signatureBuffer = Buffer.from(signature);
-    const expectedBuffer = Buffer.from(expectedSignature);
+    const signatureBuffer = Buffer.from(signature, 'base64url');
+    const expectedBuffer = Buffer.from(expectedSignature, 'base64url');
 
     if (
       signatureBuffer.length !== expectedBuffer.length ||

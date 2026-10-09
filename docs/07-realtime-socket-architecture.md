@@ -2,7 +2,7 @@
 
 ## 1. Socket.IO Gateway Overview
 
-CodeArena uses **Socket.IO (v4.7)** for low-latency, event-driven communication between players and the server. The WebSocket gateway shares the underlying HTTP port (5000), using room-based channels (`room:${roomCode}`) to partition game telemetry for 1–4 players.
+CodeArena uses **Socket.IO (v4.7)** for low-latency, event-driven communication between players and the server. The WebSocket gateway shares the underlying HTTP port (5000), configured with WebSocket-first transport (`transports: ["websocket", "polling"]`), credentials, and room-based channels (`room:${roomCode}`) to partition game telemetry for 1–4 players.
 
 ```mermaid
 graph TD
@@ -30,6 +30,7 @@ Every incoming connection is validated before the socket connection is granted:
 2. **Verification**: Validates Native JWT Access Token (`JWT_ACCESS_SECRET`) or timing-safe backend-signed Guest HMAC token (`GUEST_JWT_SECRET`).
 3. **Context Injection**: Successful validation binds the database user record to `socket.data.user`.
 4. **Lifecycle Hooks**: Sockets subscribe to connection drop handlers (`disconnect`), updating readiness and alerting room peers via `player:disconnected`.
+5. **Transport Alignment**: Both client and server support WebSocket upgrades with fallback to polling and aligned CORS credentials (`withCredentials: true`).
 
 ---
 
@@ -65,10 +66,10 @@ Once a battle starts, gameplay routes through synchronized round events.
 ### 4.1 Inbound Events (Client $\rightarrow$ Server)
 | Event | Payload | Description |
 | :--- | :--- | :--- |
-| **`room:start_battle`** | `{ roomCode: string }` | Host initiates the quiz battle. Server initializes battle, starts round timer, and dispatches `battle:init`. |
-| **`battle:submit_answer`** | `{ roomCode: string, questionId: string, selectedOption: number }` | Submits player answer (0–3 index). Server locks answer, records submission, checks if all answered, or awaits round timeout. |
+| **`room:start_battle`** | `{ roomCode: string }` | Host initiates the quiz battle. Server initializes battle, records `currentRound.deadline` in MongoDB, and dispatches `battle:init`. |
+| **`battle:submit_answer`** | `{ roomCode: string, questionId: string, selectedOption: number }` | Submits player answer (0–3 index). Server locks answer in DB, checks if all answered, and triggers early reveal or awaits deadline. |
 | **`battle:advance_round`** | `{ roomCode: string }` | Host manually advances to next round early during the reveal phase. |
-| **`battle:reconnect`** | `{ roomCode: string }` | Re-subscribes a reconnecting client to the battle room channel and re-emits active round/completed battle state. |
+| **`battle:reconnect`** | `{ roomCode: string }` | Re-subscribes a reconnecting client to the battle room channel, performs catch-up checks, and re-emits active round/completed state. |
 
 ### 4.2 Outbound Events (Server $\rightarrow$ Client)
 | Event | Payload | Description |
@@ -92,24 +93,30 @@ sequenceDiagram
     actor Host as Player 1 (Host)
     actor Peers as Players 2-4
     participant S as Socket.IO Server
-    participant T as Server Timer
+    participant DB as MongoDB (currentRound)
+    participant SW as Background Sweeper (1s)
 
     Host->>S: room:start_battle { roomCode }
+    S->>DB: Persist currentRound (startedAt, deadline = +30s)
     S-->>Host: battle:init (Sanitized Q1, Deadline: +30s)
     S-->>Peers: battle:init (Sanitized Q1, Deadline: +30s)
-    S->>T: Start 30s Server Round Timer
 
     Peers->>S: battle:submit_answer { questionId, selectedOption: 2 }
+    S->>DB: Atomic record submission in currentRound.submissions
     S-->>Peers: battle:answer_locked { selectedOption: 2, potentialScore: 820 }
     S-->>Host: battle:player_submitted { playerId: PeerId }
 
-    Note over Host,T: Host does not submit before 30s expires
-    T->>S: Server Round Deadline Expired!
-    S->>S: Record Host submission as timeout (-1, 0 pts)
+    Note over Host,SW: Host does not submit before 30s expires
+    SW->>DB: Query expired deadlines (status: QUESTION, deadline <= now)
+    SW->>S: Deadline expired for battle
+    S->>DB: Atomic transition status -> REVEAL, revealExpiresAt = +5s
     S-->>Host: battle:reveal { correctOption, explanations, scores }
     S-->>Peers: battle:reveal { correctOption, explanations, scores }
 
-    Note over S: Brief reveal duration (e.g. 5s) or early host advance
+    Note over S,SW: Reveal expires (5s) or early host advance
+    SW->>DB: Query expired reveals (status: REVEAL, revealExpiresAt <= now)
+    SW->>S: Trigger advanceToNextRound
+    S->>DB: Update currentRound to Q2, deadline = +30s
     S-->>Host: battle:next_question { Sanitized Q2, Deadline: +30s }
     S-->>Peers: battle:next_question { Sanitized Q2, Deadline: +30s }
 ```

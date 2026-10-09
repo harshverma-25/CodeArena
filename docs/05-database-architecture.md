@@ -52,7 +52,6 @@ erDiagram
         string email UK "Sparse, registered users"
         string passwordHash "PBKDF2-SHA512 hash"
         string refreshTokenHash "SHA-256 hash"
-        string clerkId UK "Sparse compatibility field"
         string username UK "Unique Handle"
         string displayName
         string avatar
@@ -107,6 +106,7 @@ erDiagram
         int questionCount
         int timePerQuestion "30s or 60s"
         array players "Embedded battle players (1-4)"
+        object currentRound "Persistent round state & deadlines"
         string status "IN_PROGRESS | COMPLETED | CANCELLED"
         ObjectId winnerId FK "References User"
         boolean isDraw
@@ -125,7 +125,6 @@ Stores identity, authentication credentials, and persistent competition statisti
 ```typescript
 const UserSchema = new Schema<IUserDocument>(
   {
-    clerkId: { type: String, unique: true, sparse: true, index: true },
     email: { type: String, unique: true, sparse: true, index: true, lowercase: true, trim: true },
     passwordHash: { type: String, select: false },
     refreshTokenHash: { type: String, select: false },
@@ -139,7 +138,6 @@ const UserSchema = new Schema<IUserDocument>(
     totalCorrect: { type: Number, default: 0 },
     totalQuestions: { type: Number, default: 0 },
     accuracy: { type: Number, default: 0 },
-    preferredLanguage: { type: String, default: 'javascript' },
     isGuest: { type: Boolean, default: false, index: true },
     role: { type: String, enum: ['user', 'guest', 'admin'], default: 'user' },
   },
@@ -199,7 +197,6 @@ const RoomSettingsSchema = new Schema(
     isMixedCategory: { type: Boolean, default: false },
     topic: { type: String, default: 'random' },
     difficulty: { type: String, required: true, default: 'random' },
-    duration: { type: Number, required: true, default: 30 },
     questionCount: { type: Number, default: 10 },
     timeLimit: { type: Number, default: 30 },
   },
@@ -218,6 +215,10 @@ const RoomSchema = new Schema<IRoomDocument>(
   },
   { timestamps: true }
 );
+
+// Indexes
+RoomSchema.index({ hostId: 1 });
+RoomSchema.index({ status: 1, updatedAt: 1 });
 ```
 
 ### 3.4 `QuestionModel` (`server/src/modules/question/question.model.ts`)
@@ -246,7 +247,7 @@ const QuestionSchema = new Schema<IQuestionDocument>(
 ```
 
 ### 3.5 `BattleModel` (`server/src/modules/battle/battle.model.ts`)
-Records active game telemetry, per-player answer arrays, deadlines, and final outcomes.
+Records active game telemetry, per-player answer arrays, deadlines, persistent current round state, and final outcomes.
 
 ```typescript
 const BattleAnswerSchema = new Schema(
@@ -273,13 +274,43 @@ const BattlePlayerSchema = new Schema(
   { _id: false }
 );
 
+const BattleRoundSubmissionSchema = new Schema(
+  {
+    userId: { type: String, required: true },
+    selectedOption: { type: Number, required: true },
+    potentialScore: { type: Number, required: true, default: 0 },
+    timeTakenMs: { type: Number, required: true, default: 0 },
+    isCorrect: { type: Boolean, required: true, default: false },
+    submittedAt: { type: Date, required: true, default: Date.now },
+  },
+  { _id: false }
+);
+
+const BattleCurrentRoundSchema = new Schema(
+  {
+    roundIndex: { type: Number, required: true },
+    questionId: { type: String, required: true },
+    startedAt: { type: Date, required: true },
+    deadline: { type: Date, required: true },
+    status: {
+      type: String,
+      enum: ['QUESTION', 'REVEAL', 'COMPLETED'],
+      required: true,
+      default: 'QUESTION',
+    },
+    revealExpiresAt: { type: Date, default: null },
+    submissions: { type: [BattleRoundSubmissionSchema], default: [] },
+  },
+  { _id: false }
+);
+
 const BattleSchema = new Schema<IBattleDocument>(
   {
     roomId: { type: Schema.Types.ObjectId, ref: 'Room', required: true },
     roomCode: { type: String, required: true, index: true },
     topic: { type: String, required: true },
     difficulty: { type: String, required: true },
-    questionCount: { type: Number, required: true, default: 5 },
+    questionCount: { type: Number, required: true, default: 10, enum: [10, 15, 20] },
     timePerQuestion: { type: Number, required: true, default: 30 },
     players: { type: [BattlePlayerSchema], required: true },
     status: { type: String, required: true, enum: Object.values(BattleStatus), default: BattleStatus.IN_PROGRESS },
@@ -287,9 +318,18 @@ const BattleSchema = new Schema<IBattleDocument>(
     isDraw: { type: Boolean, default: false },
     startedAt: { type: Date, required: true, default: Date.now },
     endedAt: { type: Date },
+    currentRound: { type: BattleCurrentRoundSchema, default: null },
   },
   { timestamps: true, versionKey: false }
 );
+
+// Indexes
+BattleSchema.index({ roomId: 1 });
+BattleSchema.index({ roomCode: 1, status: 1 });
+BattleSchema.index({ status: 1, 'players.userId': 1 });
+BattleSchema.index({ 'players.userId': 1, status: 1, endedAt: -1 });
+BattleSchema.index({ status: 1, 'currentRound.status': 1, 'currentRound.deadline': 1 });
+BattleSchema.index({ status: 1, 'currentRound.status': 1, 'currentRound.revealExpiresAt': 1 });
 ```
 
 ### 3.6 Match History Model Note
@@ -307,6 +347,9 @@ To guarantee scalability without loading entire collections into Node.js memory:
 | **`User`** | `{ isGuest: 1, wins: -1, accuracy: -1, matchesPlayed: -1, username: 1 }` | Powers the paginated global leaderboard and $O(\log N)$ rank calculation (`countDocuments`). |
 | **`Battle`** | `{ 'players.userId': 1, status: 1, endedAt: -1 }` | Powers user profile recent matches (`limit(10)`) and match history. |
 | **`Battle`** | `{ roomCode: 1, status: 1 }` | Used for instant lookup of active matches by room code. |
+| **`Battle`** | `{ status: 1, 'currentRound.status': 1, 'currentRound.deadline': 1 }` | High-frequency background sweeper query to advance expired question rounds. |
+| **`Battle`** | `{ status: 1, 'currentRound.status': 1, 'currentRound.revealExpiresAt': 1 }` | High-frequency background sweeper query to transition expired reveal periods to next round. |
+| **`Room`** | `{ status: 1, updatedAt: 1 }` | Used by background garbage collector to purge stale unstarted waiting rooms older than 2 hours. |
 | **`Question`** | `{ categoryId: 1, subjectId: 1, isPublished: 1 }` | Efficient querying of published questions within a subject. |
 | **`Question`** | `{ categoryId: 1, subjectId: 1, difficulty: 1, isPublished: 1 }` | Question sampling for specific subject and difficulty. |
 | **`Question`** | `{ categoryId: 1, isPublished: 1 }` | Question sampling for category / mixed modes. |

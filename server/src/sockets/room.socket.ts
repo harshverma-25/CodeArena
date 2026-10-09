@@ -21,7 +21,6 @@ export function formatRoomSocketPayload(room: any) {
     settings: {
       topic: room.settings.topic,
       difficulty: room.settings.difficulty,
-      duration: room.settings.duration,
       questionCount: room.settings.questionCount || 10,
       categoryId: room.settings.categoryId,
       subjectId: room.settings.subjectId,

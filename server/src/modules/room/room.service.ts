@@ -12,8 +12,10 @@ import {
 } from '../../shared/config/quiz-config.js';
 import { battleService } from '../battle/battle.service.js';
 import { Server } from 'socket.io';
+import { logger } from '../../config/logger.js';
 
 export class RoomService {
+  private gcIntervalTimer: NodeJS.Timeout | null = null;
   /**
    * Generates a unique 6-character uppercase alphanumeric room code.
    */
@@ -50,7 +52,6 @@ export class RoomService {
     const isMixedCategory = !!settings?.isMixedCategory;
     const topic = settings?.topic || 'random';
     const difficulty = settings?.difficulty || 'random';
-    const duration = settings?.duration || 30;
 
     // 1. Question count validation (10, 15, 20)
     const rawQuestionCount = settings?.questionCount ?? DEFAULT_QUESTION_COUNT;
@@ -119,7 +120,6 @@ export class RoomService {
       isMixedCategory,
       topic,
       difficulty,
-      duration,
       questionCount,
       timeLimit,
     };
@@ -214,17 +214,6 @@ export class RoomService {
     const battle = await battleService.startBattle(userId, roomCode);
     const updatedRoom = await roomRepository.findByRoomCode(roomCode);
 
-    if (io) {
-      // Set initial synchronized server round timer for Question 1
-      battleService.setRoundTimeout(
-        battle._id.toString(),
-        0,
-        battle.timePerQuestion * 1000 + 1000,
-        io,
-        roomCode
-      );
-    }
-
     return { room: updatedRoom || populated, battle };
   }
 
@@ -312,7 +301,6 @@ export class RoomService {
       isMixedCategory: settings.isMixedCategory !== undefined ? settings.isMixedCategory : room.settings.isMixedCategory,
       topic: settings.topic !== undefined ? settings.topic : room.settings.topic,
       difficulty: settings.difficulty !== undefined ? settings.difficulty : room.settings.difficulty,
-      duration: settings.duration !== undefined ? settings.duration : room.settings.duration,
       questionCount: settings.questionCount !== undefined ? settings.questionCount : (room.settings.questionCount || 10),
     };
 
@@ -551,7 +539,6 @@ export class RoomService {
       isMixedCategory: oldRoom.settings?.isMixedCategory,
       topic: oldRoom.settings?.topic || 'random',
       difficulty: oldRoom.settings?.difficulty || 'random',
-      duration: oldRoom.settings?.duration || 30,
       questionCount: oldRoom.settings?.questionCount || 10,
     };
 
@@ -611,6 +598,64 @@ export class RoomService {
     }
 
     return populated;
+  }
+
+  /**
+   * Start periodic background garbage collector for stale rooms and abandoned battles.
+   * Runs immediately on boot, then periodically every intervalMs (default: 10 mins).
+   */
+  public startGarbageCollector(intervalMs: number = 10 * 60 * 1000) {
+    if (this.gcIntervalTimer) return;
+
+    // Run immediately on boot to clear any rooms left over from previous downtime
+    this.runGarbageCollection().catch((err) => {
+      logger.error(err, '[GC] Initial garbage collection run failed');
+    });
+
+    this.gcIntervalTimer = setInterval(async () => {
+      try {
+        await this.runGarbageCollection();
+      } catch (err) {
+        logger.error(err, '[GC] Periodic garbage collection run failed');
+      }
+    }, intervalMs);
+
+    if (this.gcIntervalTimer.unref) {
+      this.gcIntervalTimer.unref();
+    }
+  }
+
+  /**
+   * Stop periodic garbage collection on graceful shutdown.
+   */
+  public stopGarbageCollector() {
+    if (this.gcIntervalTimer) {
+      clearInterval(this.gcIntervalTimer);
+      this.gcIntervalTimer = null;
+    }
+  }
+
+  /**
+   * Clean stale WAITING and READY rooms older than threshold.
+   * Default threshold: 2 hours (7,200,000 ms).
+   * Safe across restarts and multi-instance environments.
+   */
+  async cleanStaleRooms(staleThresholdMs: number = 2 * 60 * 60 * 1000): Promise<{ deletedRoomsCount: number }> {
+    const cutoff = new Date(Date.now() - staleThresholdMs);
+    const deletedRoomsCount = await roomRepository.deleteStaleWaitingRooms(cutoff);
+    if (deletedRoomsCount > 0) {
+      logger.info(`[GC] Deleted ${deletedRoomsCount} abandoned WAITING/READY rooms older than ${cutoff.toISOString()}`);
+    }
+    return { deletedRoomsCount };
+  }
+
+  /**
+   * Execute full garbage collection pass across rooms and battles.
+   */
+  async runGarbageCollection(staleThresholdMs?: number): Promise<{ deletedRoomsCount: number; cancelledBattlesCount: number }> {
+    const { deletedRoomsCount } = await this.cleanStaleRooms(staleThresholdMs);
+    const { cancelledBattlesCount } = await battleService.cleanAbandonedBattles(staleThresholdMs);
+    return { deletedRoomsCount, cancelledBattlesCount };
   }
 }
 

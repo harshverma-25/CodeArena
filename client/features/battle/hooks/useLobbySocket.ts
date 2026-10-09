@@ -69,7 +69,6 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
       settings: {
         topic: payload.settings.topic,
         difficulty: payload.settings.difficulty,
-        duration: payload.settings.duration,
         questionCount: payload.settings.questionCount || 10,
         categoryId: payload.settings.categoryId,
         subjectId: payload.settings.subjectId,
@@ -78,7 +77,6 @@ export function useLobbySocket(roomCode: string, initialRoomData?: Room | null) 
       },
       topic: payload.settings.topic,
       difficulty: payload.settings.difficulty,
-      duration: payload.settings.duration,
       questionCount: payload.settings.questionCount || 10,
       status: payload.status,
     };

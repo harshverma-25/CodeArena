@@ -21,10 +21,9 @@ async function runVerification() {
 
   try {
     // Setup test user
-    let testUser = await UserModel.findOne({ clerkId: 'test_phase4_user' });
+    let testUser = await UserModel.findOne({ username: 'phase4_host' });
     if (!testUser) {
       testUser = await UserModel.create({
-        clerkId: 'test_phase4_user',
         username: 'phase4_host',
         displayName: 'Phase 4 Host',
         avatar: 'https://example.com/avatar.png',
@@ -122,10 +121,9 @@ async function runVerification() {
     // Create 4 test players
     const playerUsers = [];
     for (let i = 1; i <= 4; i++) {
-      let u = await UserModel.findOne({ clerkId: `test_phase4_p${i}` });
+      let u = await UserModel.findOne({ username: `phase4_p${i}` });
       if (!u) {
         u = await UserModel.create({
-          clerkId: `test_phase4_p${i}`,
           username: `phase4_p${i}`,
           displayName: `Phase 4 Player ${i}`,
           avatar: `https://example.com/avatar${i}.png`,

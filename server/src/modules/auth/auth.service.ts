@@ -58,6 +58,7 @@ export class AuthService {
     const accessExpiry = parseInt(env.JWT_ACCESS_EXPIRES_IN, 10) || 900; // 15 mins
     const refreshExpiry = parseInt(env.JWT_REFRESH_EXPIRES_IN, 10) || 604800; // 7 days
 
+    const familyId = crypto.randomUUID();
     const accessToken = signJwtToken(
       { sub: user._id.toString(), type: 'access', username: user.username, isGuest: false },
       env.JWT_ACCESS_SECRET,
@@ -65,12 +66,22 @@ export class AuthService {
     );
 
     const refreshToken = signJwtToken(
-      { sub: user._id.toString(), type: 'refresh' },
+      { sub: user._id.toString(), type: 'refresh', familyId },
       env.JWT_REFRESH_SECRET,
       refreshExpiry
     );
 
-    user.refreshTokenHash = hashToken(refreshToken);
+    const tokenHash = hashToken(refreshToken);
+    user.refreshTokenHash = tokenHash;
+    user.refreshTokenFamilies = [
+      {
+        familyId,
+        tokenHash,
+        usedHashes: [],
+        expiresAt: new Date(Date.now() + refreshExpiry * 1000),
+        createdAt: new Date(),
+      },
+    ];
     await user.save();
 
     logger.info(`Native user registered: ${user.username} (${user._id})`);
@@ -117,6 +128,7 @@ export class AuthService {
     const accessExpiry = parseInt(env.JWT_ACCESS_EXPIRES_IN, 10) || 900;
     const refreshExpiry = parseInt(env.JWT_REFRESH_EXPIRES_IN, 10) || 604800;
 
+    const familyId = crypto.randomUUID();
     const accessToken = signJwtToken(
       { sub: user._id.toString(), type: 'access', username: user.username, isGuest: false },
       env.JWT_ACCESS_SECRET,
@@ -124,12 +136,29 @@ export class AuthService {
     );
 
     const refreshToken = signJwtToken(
-      { sub: user._id.toString(), type: 'refresh' },
+      { sub: user._id.toString(), type: 'refresh', familyId },
       env.JWT_REFRESH_SECRET,
       refreshExpiry
     );
 
-    user.refreshTokenHash = hashToken(refreshToken);
+    const tokenHash = hashToken(refreshToken);
+    user.refreshTokenHash = tokenHash;
+
+    const now = new Date();
+    const activeFamilies = (user.refreshTokenFamilies || [])
+      .filter((f) => f.expiresAt > now)
+      .slice(-4); // retain at most 4 active families so new one caps at 5
+
+    user.refreshTokenFamilies = [
+      ...activeFamilies,
+      {
+        familyId,
+        tokenHash,
+        usedHashes: [],
+        expiresAt: new Date(Date.now() + refreshExpiry * 1000),
+        createdAt: new Date(),
+      },
+    ];
     await user.save();
 
     logger.info(`Native user logged in: ${user.username} (${user._id})`);
@@ -153,6 +182,7 @@ export class AuthService {
 
   /**
    * Refresh an access token using a valid refresh token.
+   * Enforces refresh token rotation and family-based reuse detection (RFC 6749 §10.4).
    */
   async refresh(refreshToken: string) {
     if (!refreshToken) {
@@ -169,16 +199,82 @@ export class AuthService {
       throw new ApiError(401, 'User not found');
     }
 
-    if (!user.refreshTokenHash) {
-      throw new ApiError(401, 'Invalid or revoked refresh token');
-    }
     const incomingHash = hashToken(refreshToken);
-    if (incomingHash !== user.refreshTokenHash) {
-      throw new ApiError(401, 'Invalid or revoked refresh token');
-    }
-
+    const familyId = payload.familyId;
     const accessExpiry = parseInt(env.JWT_ACCESS_EXPIRES_IN, 10) || 900;
     const refreshExpiry = parseInt(env.JWT_REFRESH_EXPIRES_IN, 10) || 604800;
+
+    // Check token family if familyId exists in token
+    if (familyId && user.refreshTokenFamilies && user.refreshTokenFamilies.length > 0) {
+      const familyIndex = user.refreshTokenFamilies.findIndex((f) => f.familyId === familyId);
+
+      if (familyIndex !== -1) {
+        const family = user.refreshTokenFamilies[familyIndex];
+
+        // REUSE DETECTION: If incoming token has already been rotated/used, revoke entire family!
+        if (family.usedHashes && family.usedHashes.includes(incomingHash)) {
+          user.refreshTokenFamilies.splice(familyIndex, 1);
+          if (user.refreshTokenFamilies.length === 0) {
+            user.refreshTokenHash = undefined;
+          }
+          await user.save();
+          logger.warn(
+            `Refresh token reuse detected for user ${user._id}, family ${familyId}. Entire family revoked.`
+          );
+          throw new ApiError(401, 'Refresh token reuse detected. All sessions in this family have been revoked.');
+        }
+
+        // Validate that token matches currently active token in this family
+        if (family.tokenHash !== incomingHash) {
+          throw new ApiError(401, 'Invalid or revoked refresh token');
+        }
+
+        // Token is valid! Rotate token within same family:
+        const newAccessToken = signJwtToken(
+          { sub: user._id.toString(), type: 'access', username: user.username, isGuest: user.isGuest },
+          env.JWT_ACCESS_SECRET,
+          accessExpiry
+        );
+
+        const newRefreshToken = signJwtToken(
+          { sub: user._id.toString(), type: 'refresh', familyId },
+          env.JWT_REFRESH_SECRET,
+          refreshExpiry
+        );
+
+        const newHash = hashToken(newRefreshToken);
+        family.usedHashes.push(incomingHash);
+        if (family.usedHashes.length > 10) {
+          family.usedHashes = family.usedHashes.slice(-10);
+        }
+        family.tokenHash = newHash;
+        family.expiresAt = new Date(Date.now() + refreshExpiry * 1000);
+        user.refreshTokenHash = newHash;
+
+        await user.save();
+
+        return {
+          accessToken: newAccessToken,
+          refreshToken: newRefreshToken,
+          expiresIn: accessExpiry,
+          user: {
+            _id: user._id.toString(),
+            id: user._id.toString(),
+            email: user.email,
+            username: user.username,
+            displayName: user.displayName,
+            avatar: user.avatar,
+            isGuest: user.isGuest || false,
+            role: user.role,
+          },
+        };
+      }
+    }
+
+    // Fallback for legacy tokens without familyId or if family record was cleared
+    if (!user.refreshTokenHash || incomingHash !== user.refreshTokenHash) {
+      throw new ApiError(401, 'Invalid or revoked refresh token');
+    }
 
     const newAccessToken = signJwtToken(
       { sub: user._id.toString(), type: 'access', username: user.username, isGuest: user.isGuest },
@@ -186,13 +282,25 @@ export class AuthService {
       accessExpiry
     );
 
+    const newFamilyId = crypto.randomUUID();
     const newRefreshToken = signJwtToken(
-      { sub: user._id.toString(), type: 'refresh' },
+      { sub: user._id.toString(), type: 'refresh', familyId: newFamilyId },
       env.JWT_REFRESH_SECRET,
       refreshExpiry
     );
 
-    user.refreshTokenHash = hashToken(newRefreshToken);
+    const newHash = hashToken(newRefreshToken);
+    user.refreshTokenHash = newHash;
+    user.refreshTokenFamilies = [
+      ...(user.refreshTokenFamilies || []),
+      {
+        familyId: newFamilyId,
+        tokenHash: newHash,
+        usedHashes: [incomingHash],
+        expiresAt: new Date(Date.now() + refreshExpiry * 1000),
+        createdAt: new Date(),
+      },
+    ];
     await user.save();
 
     return {
@@ -215,8 +323,19 @@ export class AuthService {
   /**
    * Revoke session on logout.
    */
-  async logout(userId: string) {
+  async logout(userId: string, refreshToken?: string) {
     if (userId) {
+      if (refreshToken) {
+        try {
+          const payload = verifyJwtToken(refreshToken, env.JWT_REFRESH_SECRET);
+          if (payload?.familyId) {
+            await userRepository.clearRefreshTokenFamily(userId, payload.familyId);
+            return;
+          }
+        } catch {
+          // Fall through to clear all if verification fails
+        }
+      }
       await userRepository.clearRefreshToken(userId);
     }
   }
@@ -277,8 +396,8 @@ export class AuthService {
         .update(signatureInput)
         .digest('base64url');
 
-      const signatureBuffer = Buffer.from(signature);
-      const expectedBuffer = Buffer.from(expectedSignature);
+      const signatureBuffer = Buffer.from(signature, 'base64url');
+      const expectedBuffer = Buffer.from(expectedSignature, 'base64url');
 
       if (
         signatureBuffer.length !== expectedBuffer.length ||
@@ -313,7 +432,6 @@ export class AuthService {
     const avatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${username}`;
 
     const user = await userRepository.create({
-      clerkId: guestId,
       username,
       displayName,
       avatar,
@@ -327,14 +445,13 @@ export class AuthService {
       totalQuestions: 0,
       accuracy: 0,
       highestWinStreak: 0,
-      preferredLanguage: 'javascript',
     });
 
     const expiresIn = 86400; // 24 hours
     const token = this.signGuestToken(
       {
         sub: user._id.toString(),
-        guestId: user.clerkId || guestId,
+        guestId,
         displayName: user.displayName,
       },
       expiresIn
@@ -346,7 +463,7 @@ export class AuthService {
       token,
       user: {
         _id: user._id.toString(),
-        clerkId: user.clerkId || guestId,
+        guestId,
         username: user.username,
         displayName: user.displayName,
         avatar: user.avatar,

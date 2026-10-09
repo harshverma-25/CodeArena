@@ -55,7 +55,6 @@ async function runPlayAgainVerificationSuite() {
 
     const createTestUser = async (name: string) => {
       const user = await UserModel.create({
-        clerkId: `clerk_pa_${name}_${timestamp}`,
         username: `pa_${name}_${timestamp}`,
         displayName: `Player ${name}`,
         isGuest: false,
@@ -82,7 +81,6 @@ async function runPlayAgainVerificationSuite() {
     const room1 = await roomService.createRoom(host._id.toString(), {
       topic: 'Programming',
       difficulty: 'Easy',
-      duration: 30,
       questionCount: 10,
     });
     const battle1 = await battleService.startBattle(host._id.toString(), room1.roomCode);
@@ -109,7 +107,6 @@ async function runPlayAgainVerificationSuite() {
     const room2 = await roomService.createRoom(host._id.toString(), {
       topic: 'Programming',
       difficulty: 'Easy',
-      duration: 30,
       questionCount: 10,
     });
     await roomService.joinRoom(p2._id.toString(), room2.roomCode);
@@ -151,7 +148,6 @@ async function runPlayAgainVerificationSuite() {
     const room4 = await roomService.createRoom(host._id.toString(), {
       topic: 'Programming',
       difficulty: 'Easy',
-      duration: 30,
       questionCount: 10,
     });
     await roomService.joinRoom(p2._id.toString(), room4.roomCode);
@@ -229,7 +225,6 @@ async function runPlayAgainVerificationSuite() {
     const roomSettingsTest = await roomService.createRoom(host._id.toString(), {
       topic: 'Programming',
       difficulty: 'Easy',
-      duration: 30,
       questionCount: 10,
     });
     const battleSettingsTest = await battleService.startBattle(host._id.toString(), roomSettingsTest.roomCode);
@@ -272,7 +267,6 @@ async function runPlayAgainVerificationSuite() {
     const rapidRoom = await roomService.createRoom(host._id.toString(), {
       topic: 'Programming',
       difficulty: 'Easy',
-      duration: 30,
       questionCount: 10,
     });
     const rapidBattle = await battleService.startBattle(host._id.toString(), rapidRoom.roomCode);
@@ -295,7 +289,6 @@ async function runPlayAgainVerificationSuite() {
     const discRoom = await roomService.createRoom(host._id.toString(), {
       topic: 'Programming',
       difficulty: 'Easy',
-      duration: 30,
       questionCount: 10,
     });
     await roomService.joinRoom(p2._id.toString(), discRoom.roomCode);

@@ -37,7 +37,6 @@ async function runMultiplayerQuizVerificationSuite() {
     // Helper to create test users
     const createTestUser = async (name: string) => {
       const user = await UserModel.create({
-        clerkId: `clerk_${name}_${timestamp}`,
         username: `user_${name}_${timestamp}`,
         displayName: `Display ${name}`,
         isGuest: false,
@@ -239,10 +238,10 @@ async function runMultiplayerQuizVerificationSuite() {
     const revealP3 = revealState.players.find((p: any) => p.userId === player3._id.toString());
     const revealP4 = revealState.players.find((p: any) => p.userId === player4._id.toString());
 
-    if (revealP3.selectedOption !== -1 || revealP3.earnedScore !== 0) {
+    if (!revealP3 || revealP3.selectedOption !== -1 || revealP3.earnedScore !== 0) {
       throw new Error(`Unanswered player 3 was not marked -1/0 pts. Got: ${JSON.stringify(revealP3)}`);
     }
-    if (revealP4.selectedOption !== -1 || revealP4.earnedScore !== 0) {
+    if (!revealP4 || revealP4.selectedOption !== -1 || revealP4.earnedScore !== 0) {
       throw new Error(`Unanswered player 4 was not marked -1/0 pts. Got: ${JSON.stringify(revealP4)}`);
     }
     console.log('  Unanswered/timeout players 3 & 4 cleanly evaluated as -1 option & 0 points ✅\n');

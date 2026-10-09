@@ -36,15 +36,6 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
         }
       }
 
-      // 4. Register server-authoritative question deadline timer for the synchronized round
-      battleService.setRoundTimeout(
-        battle._id.toString(),
-        0,
-        battle.timePerQuestion * 1000 + 1000,
-        io,
-        roomCode
-      );
-
       logger.info(`Battle started for room ${roomCode} (Battle ID: ${battle._id})`);
     } catch (error: any) {
       logger.error(error, `Failed to start battle for room ${roomCode}`);
@@ -95,8 +86,7 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
       const hostIdStr = room?.hostId ? ((room.hostId as any)._id ? (room.hostId as any)._id.toString() : room.hostId.toString()) : null;
       if (hostIdStr !== userId) return;
 
-      const activeRound = battleService.getActiveRound(battle._id.toString());
-      if (activeRound && activeRound.isRevealed) {
+      if (battle.currentRound && battle.currentRound.status === 'REVEAL') {
         await battleService.advanceToNextRound(battle._id.toString(), roomCode, io);
       }
     } catch (err: any) {
@@ -118,33 +108,34 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
 
       const battle = await battleService.getActiveBattleByRoomCode(roomCode);
       if (battle) {
-        // For solo quizzes (1 player), if round 0 has not yet received a submission,
-        // synchronize round start with the client socket connection so no time is lost during page navigation
-        if (battle.players.length === 1) {
-          const activeRound = battleService.getActiveRound(battle._id.toString());
-          if (activeRound && activeRound.roundIndex === 0 && activeRound.submissions.size === 0) {
-            const now = new Date();
-            const freshDeadline = new Date(now.getTime() + battle.timePerQuestion * 1000);
-            activeRound.startedAt = now;
-            activeRound.deadline = freshDeadline;
-            battleService.setRoundTimeout(
-              battle._id.toString(),
-              0,
-              battle.timePerQuestion * 1000 + 1000,
-              io,
-              roomCode
-            );
+        // Catch up battle if expired while disconnected
+        await battleService.checkAndCatchUpBattle(battle._id.toString(), roomCode, io);
+
+        const currentBattle = await battleService.getActiveBattleByRoomCode(roomCode);
+        if (!currentBattle) {
+          const finishedBattle = await battleService.getBattleById(battle._id.toString());
+          if (finishedBattle && finishedBattle.status === 'COMPLETED') {
+            socket.emit('battle:completed', battleService.formatResultsPayload(finishedBattle));
           }
+          return;
         }
 
-        const initPayload = await battleService.getBattleInitPayload(battle, userId);
+        // For solo quizzes (1 player), if round 0 has not yet received a submission,
+        // synchronize round start with the client socket connection so no time is lost during page navigation
+        if (currentBattle.players.length === 1) {
+          await battleService.synchronizeSoloRoundStart(currentBattle._id.toString());
+        }
+
+        const refreshedBattle = (await battleService.getActiveBattleByRoomCode(roomCode)) || currentBattle;
+
+        const initPayload = await battleService.getBattleInitPayload(refreshedBattle, userId);
         if (initPayload) {
           socket.emit('battle:init', initPayload);
           socket.to(roomChannel).emit('player:reconnected', { userId });
           logger.info(`Player ${userId} reconnected to active battle in room ${roomCode}`);
 
           // If round is currently revealed, also send reveal payload
-          const revealPayload = await battleService.getBattleRevealPayloadIfRevealed(battle._id.toString());
+          const revealPayload = await battleService.getBattleRevealPayloadIfRevealed(refreshedBattle._id.toString());
           if (revealPayload) {
             socket.emit('battle:reveal', revealPayload);
           }

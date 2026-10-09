@@ -57,7 +57,7 @@ export function useApiClient() {
           let newAccessToken: string;
           try {
             const refreshRes = await apiRequest<{
-              data: { accessToken: string; refreshToken: string; user: any; expiresIn?: number };
+              data: { accessToken: string; refreshToken?: string; user: any; expiresIn?: number };
             }>("/auth/refresh", { method: "POST" });
 
             if (refreshRes?.data?.accessToken) {

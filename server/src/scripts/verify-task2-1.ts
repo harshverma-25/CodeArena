@@ -47,7 +47,6 @@ async function runTask21TestSuite() {
     console.log('▶️ Test 2: Guest User Exclusion');
     // Create temporary guest in DB
     const guestUser = await UserModel.create({
-      clerkId: `guest_test_${Date.now()}`,
       username: `guest_${Date.now()}`,
       displayName: 'Guest Player',
       isGuest: true,
@@ -82,7 +81,6 @@ async function runTask21TestSuite() {
     // 4. username (a.username.localeCompare(b.username))
     const prefix = `tb_${Date.now()}`;
     const userA = await UserModel.create({
-      clerkId: `c_${prefix}_a`,
       username: `${prefix}_user_alpha`,
       displayName: 'Alpha',
       isGuest: false,
@@ -91,7 +89,6 @@ async function runTask21TestSuite() {
       matchesPlayed: 15,
     });
     const userB = await UserModel.create({
-      clerkId: `c_${prefix}_b`,
       username: `${prefix}_user_beta`,
       displayName: 'Beta',
       isGuest: false,
@@ -100,7 +97,6 @@ async function runTask21TestSuite() {
       matchesPlayed: 20,
     });
     const userC = await UserModel.create({
-      clerkId: `c_${prefix}_c`,
       username: `${prefix}_user_charlie`,
       displayName: 'Charlie',
       isGuest: false,
@@ -109,7 +105,6 @@ async function runTask21TestSuite() {
       matchesPlayed: 18, // lower matchesPlayed than beta
     });
     const userD1 = await UserModel.create({
-      clerkId: `c_${prefix}_d1`,
       username: `${prefix}_user_delta_1`,
       displayName: 'Delta 1',
       isGuest: false,
@@ -118,7 +113,6 @@ async function runTask21TestSuite() {
       matchesPlayed: 18,
     });
     const userD2 = await UserModel.create({
-      clerkId: `c_${prefix}_d2`,
       username: `${prefix}_user_delta_2`,
       displayName: 'Delta 2',
       isGuest: false,
@@ -157,7 +151,6 @@ async function runTask21TestSuite() {
     // -------------------------------------------------------------
     console.log('▶️ Test 4: Zero Match Users & Fast Profile Retrieval');
     const zeroUser = await UserModel.create({
-      clerkId: `c_zero_${Date.now()}`,
       username: `zero_user_${Date.now()}`,
       displayName: 'Zero Matches Player',
       isGuest: false,
@@ -196,7 +189,6 @@ async function runTask21TestSuite() {
     // -------------------------------------------------------------
     console.log('▶️ Test 5: Atomic Battle Finalization & Idempotency');
     const p1 = await UserModel.create({
-      clerkId: `c_sim_1_${Date.now()}`,
       username: `sim_p1_${Date.now()}`,
       displayName: 'Sim Player 1',
       isGuest: false,
@@ -209,7 +201,6 @@ async function runTask21TestSuite() {
       accuracy: 0,
     });
     const p2 = await UserModel.create({
-      clerkId: `c_sim_2_${Date.now()}`,
       username: `sim_p2_${Date.now()}`,
       displayName: 'Sim Player 2',
       isGuest: false,
@@ -233,8 +224,7 @@ async function runTask21TestSuite() {
       settings: {
         topic: 'javascript',
         difficulty: 'Medium',
-        duration: 30,
-        questionCount: 5,
+        questionCount: 10,
       },
       status: 'IN_PROGRESS',
     });
@@ -244,7 +234,7 @@ async function runTask21TestSuite() {
       roomCode: mockRoom.roomCode,
       topic: 'javascript',
       difficulty: 'medium',
-      questionCount: 5,
+      questionCount: 10,
       timePerQuestion: 15,
       status: BattleStatus.IN_PROGRESS,
       players: [

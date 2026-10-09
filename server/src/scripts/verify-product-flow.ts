@@ -319,7 +319,6 @@ async function runEndToEndProductFlowVerification() {
       subjectId: results4p.subjectId || undefined,
       isMixedCategory: results4p.isMixedCategory,
       questionCount: results4p.questionCount,
-      duration: results4p.timePerQuestion,
     });
     if (
       rematchRoom.settings.categoryId?.toString() !== results4p.categoryId?.toString() ||

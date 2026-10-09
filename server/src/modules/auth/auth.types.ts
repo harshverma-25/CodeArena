@@ -16,7 +16,7 @@ export interface IGuestSessionResponse {
   token: string;
   user: {
     _id: string;
-    clerkId: string;
+    guestId: string;
     username: string;
     displayName: string;
     avatar: string;

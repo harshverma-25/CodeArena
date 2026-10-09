@@ -47,40 +47,39 @@ client/
 │   │   └── layout.tsx
 │   ├── (protected)/
 │   │   ├── battle/[roomCode]/page.tsx      <-- Real-time 1–4 player quiz arena
-│   │   ├── battle/new/page.tsx             <-- Quiz room creation & category config
-│   │   ├── dashboard/page.tsx              <-- User dashboard & quick play
+│   │   ├── dashboard/page.tsx              <-- User dashboard & quick play (redirects to /)
 │   │   ├── history/page.tsx                <-- Paginated match history
 │   │   ├── leaderboard/page.tsx            <-- Global rankings table
 │   │   ├── lobby/[roomCode]/page.tsx       <-- Match waiting room & readiness (1–4 players)
 │   │   ├── profile/page.tsx                <-- Authenticated profile & stats
 │   │   ├── profile/[username]/page.tsx     <-- Public profile view
-│   │   └── layout.tsx                      <-- Protected layout with Navbar
+│   │   └── layout.tsx                      <-- Protected layout with unified Navbar
 │   ├── (public)/
 │   │   ├── login/page.tsx                  <-- Native credentials sign-in & Guest button
 │   │   ├── register/page.tsx               <-- Native user registration
 │   │   ├── page.tsx                        <-- Landing page with hero & CTA
 │   │   └── layout.tsx                      <-- Public layout with LandingNav
-│   ├── globals.css                         <-- Global Tailwind styles & tokens
+│   ├── globals.css                         <-- Global Tailwind styles & Stitch tokens
 │   └── layout.tsx                          <-- Root layout with AppProviders & Google Fonts
-├── components/                             <-- Shared and landing UI components
+├── components/                             <-- Shared UI components (Navbar, modals)
 ├── features/                               <-- Domain-specific components & hooks
 ├── hooks/                                  <-- Utility React hooks
 ├── lib/                                    <-- Singletons (api.ts, socket.ts)
+├── proxy.ts                                <-- Next.js 16 route protection proxy
 ├── store/                                  <-- Zustand stores (battleStore, uiStore)
 └── types/                                  <-- TypeScript domain interfaces
 ```
 
 ---
 
-## 3. Route Protection & Middleware
+## 3. Route Protection & Next.js 16 Proxy Convention
 
-Client-side route access is regulated by [`client/middleware.ts`](file:///h:/Project/code-arena/client/middleware.ts) using standard Next.js `NextResponse` cookies inspection:
+Client-side route access is regulated by [`client/proxy.ts`](file:///h:/Project/code-arena/client/proxy.ts) using the Next.js 16 `proxy(req: NextRequest)` convention:
 
 ```typescript
 import { NextResponse, NextRequest } from "next/server";
 
 const PROTECTED_PREFIXES = [
-  "/dashboard",
   "/battle",
   "/profile",
   "/settings",
@@ -92,8 +91,13 @@ const PROTECTED_PREFIXES = [
 
 const AUTH_PREFIXES = ["/login", "/register"];
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
+  // Legacy dashboard route redirects cleanly to home
+  if (pathname === "/dashboard" || pathname.startsWith("/dashboard/")) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
 
   const hasAccessToken = req.cookies.has("codearena_access_token") || req.cookies.has("refreshToken");
   const hasGuestToken = req.cookies.has("codearena_guest_token");
@@ -103,7 +107,7 @@ export function middleware(req: NextRequest) {
   const isProtectedRoute = PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 
   if (isAuthenticated && isAuthRoute) {
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+    return NextResponse.redirect(new URL("/", req.url));
   }
 
   if (isProtectedRoute && !isAuthenticated) {
@@ -143,21 +147,22 @@ The application bifurcates state into **Ephemeral Real-Time State** (Zustand) an
 ## 5. Real-Time Socket Manager (`client/lib/socket.ts`)
 
 WebSocket connections are managed through a centralized `SocketManager` singleton:
+* **WebSocket-First Transport**: Configured with `transports: ["websocket", "polling"]` and `withCredentials: true` to eliminate unnecessary polling round-trips.
 * **Token Synchronization**: Ensures the socket reconnects automatically with the active bearer token (native JWT access token or HMAC guest token).
-* **Lifecycle Methods**: Exposes `.connect(token)`, `.disconnect()`, `.emit(event, payload)`, and `.on(event, callback)`.
-* **Auto-Reconnection**: Configured with reconnection attempts and backoff delays to survive temporary network interruptions.
+* **Lifecycle Handlers**: Subscribes to `connect`, `disconnect`, `connect_error`, and handles auto-reconnection and in-game reconnection banners.
 
 ---
 
 ## 6. UI Design System & Theming
 
-* **Palette**: Dark-mode-first aesthetic with deep obsidian/zinc backgrounds (`#09090b`), high-contrast foreground typography, and vibrant primary accents (`emerald` / `violet` / `amber`).
-* **Micro-Animations**: Progress meters for live multiplayer score tracking, smooth countdown timer radial progress, and pulse indicators on active sockets.
+* **Stitch Design System Theme**: Standardized on a warm light surface palette (`--color-surface: #fff8f0`, `--color-surface-container: #f3ede4`, `--color-on-surface: #1d1b16`) paired with deep pine accents (`--color-primary-container: #317a63`).
+* **Unified Navigation**: `<Navbar />` is unified across all landing and internal pages, featuring dynamic user state, authentication toggles, and an integrated 6-character room PIN input with client-side format validation.
+* **Micro-Animations & Progress**: Circular timer rings and multiplayer answer status indicators provide immediate visual cues.
 * **Rank Badges**: Distinct visual badges for top-tier players:
   * 🥇 Rank 1: Amber gold badge with soft glowing border.
   * 🥈 Rank 2: Slate silver badge with metallic sheen.
   * 🥉 Rank 3: Bronze copper badge.
-  * `#4+`: Clean monospace badges.
+  * `#4`: Clean monospace badge.
 
 ---
 

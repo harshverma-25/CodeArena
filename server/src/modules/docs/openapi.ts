@@ -25,10 +25,9 @@ export const openApiSpec = {
         type: 'object',
         properties: {
           _id: { type: 'string', example: '60d0fe4f5311236168a109ca' },
-          clerkId: { type: 'string', example: 'user_2Nn1uE9...' },
           username: { type: 'string', example: 'johndoe' },
           displayName: { type: 'string', example: 'John Doe' },
-          avatar: { type: 'string', example: 'https://images.clerk.com/...' },
+          avatar: { type: 'string', example: 'https://api.dicebear.com/7.x/bottts/svg?seed=johndoe' },
           wins: { type: 'integer', example: 10 },
           losses: { type: 'integer', example: 5 },
           matchesPlayed: { type: 'integer', example: 15 },

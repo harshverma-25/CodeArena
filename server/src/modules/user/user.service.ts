@@ -8,24 +8,23 @@ import { battleRepository } from '../battle/battle.repository.js';
 import { BattleStatus } from '../battle/battle.types.js';
 
 export class UserService {
-  async getOrCreateUser(clerkId: string): Promise<IUserDocument> {
-    if (Types.ObjectId.isValid(clerkId)) {
-      const byId = await userRepository.findById(clerkId);
+  async getOrCreateUser(identifier: string): Promise<IUserDocument> {
+    if (Types.ObjectId.isValid(identifier)) {
+      const byId = await userRepository.findById(identifier);
       if (byId) return byId;
     }
 
-    let user = await userRepository.findByClerkId(clerkId);
+    const username = identifier.startsWith('user_') ? identifier : `user_${identifier.slice(-8)}`;
+    let user = await userRepository.findByUsername(username);
     if (user) {
       return user;
     }
 
     try {
-      const username = `user_${clerkId.slice(-8)}`;
-      const displayName = `User ${clerkId.slice(-4)}`;
+      const displayName = `User ${identifier.slice(-4)}`;
       const avatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${username}`;
 
       user = await userRepository.create({
-        clerkId,
         username,
         displayName,
         avatar,
@@ -42,7 +41,7 @@ export class UserService {
       return user;
     } catch (error: any) {
       if (error.code === 11000 || error.message?.includes('E11000')) {
-        const existingUser = await userRepository.findByClerkId(clerkId);
+        const existingUser = await userRepository.findByUsername(username);
         if (existingUser) {
           return existingUser;
         }
@@ -51,8 +50,8 @@ export class UserService {
     }
   }
 
-  async getUserByClerkId(clerkId: string): Promise<IUserDocument> {
-    const user = await userRepository.findByClerkId(clerkId);
+  async getUserById(userId: string): Promise<IUserDocument> {
+    const user = await userRepository.findById(userId);
     if (!user) {
       throw new AppError('User not found', 404);
     }
@@ -67,19 +66,13 @@ export class UserService {
     return user;
   }
 
-  async updateUserProfile(userIdOrClerkId: string, updateData: Partial<IUser>): Promise<IUserDocument> {
+  async updateUserProfile(userId: string, updateData: Partial<IUser>): Promise<IUserDocument> {
     // Only allow updating specific non-statistic profile fields
     const allowedUpdates: Partial<IUser> = {};
     if (updateData.displayName !== undefined) allowedUpdates.displayName = updateData.displayName;
     if (updateData.avatar !== undefined) allowedUpdates.avatar = updateData.avatar;
 
-    let user: IUserDocument | null = null;
-    if (Types.ObjectId.isValid(userIdOrClerkId)) {
-      user = await userRepository.updateById(userIdOrClerkId, allowedUpdates);
-    }
-    if (!user) {
-      user = await userRepository.updateByClerkId(userIdOrClerkId, allowedUpdates);
-    }
+    const user = await userRepository.updateById(userId, allowedUpdates);
     if (!user) {
       throw new AppError('User not found', 404);
     }

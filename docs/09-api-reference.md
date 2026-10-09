@@ -180,8 +180,7 @@ Creates a new matchmaking room (supports 1–4 players).
     "subjectId": "67...",
     "isMixedCategory": false,
     "difficulty": "Medium",
-    "questionCount": 10,
-    "duration": 30
+    "questionCount": 10
   }
   ```
 * **Response (201 Created)**: Returns created room with unique `roomCode`.

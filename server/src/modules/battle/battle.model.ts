@@ -25,13 +25,43 @@ const BattlePlayerSchema = new Schema(
   { _id: false }
 );
 
+const BattleRoundSubmissionSchema = new Schema(
+  {
+    userId: { type: String, required: true },
+    selectedOption: { type: Number, required: true },
+    potentialScore: { type: Number, required: true, default: 0 },
+    timeTakenMs: { type: Number, required: true, default: 0 },
+    isCorrect: { type: Boolean, required: true, default: false },
+    submittedAt: { type: Date, required: true, default: Date.now },
+  },
+  { _id: false }
+);
+
+const BattleCurrentRoundSchema = new Schema(
+  {
+    roundIndex: { type: Number, required: true },
+    questionId: { type: String, required: true },
+    startedAt: { type: Date, required: true },
+    deadline: { type: Date, required: true },
+    status: {
+      type: String,
+      enum: ['QUESTION', 'REVEAL', 'COMPLETED'],
+      required: true,
+      default: 'QUESTION',
+    },
+    revealExpiresAt: { type: Date, default: null },
+    submissions: { type: [BattleRoundSubmissionSchema], default: [] },
+  },
+  { _id: false }
+);
+
 const BattleSchema = new Schema<IBattleDocument>(
   {
     roomId: { type: Schema.Types.ObjectId, ref: 'Room', required: true },
     roomCode: { type: String, required: true, index: true },
     topic: { type: String, required: true },
     difficulty: { type: String, required: true },
-    questionCount: { type: Number, required: true, default: 5 },
+    questionCount: { type: Number, required: true, default: 10, enum: [10, 15, 20] },
     timePerQuestion: { type: Number, required: true, default: 30 },
     players: { type: [BattlePlayerSchema], required: true },
     status: {
@@ -44,6 +74,7 @@ const BattleSchema = new Schema<IBattleDocument>(
     isDraw: { type: Boolean, default: false },
     startedAt: { type: Date, required: true, default: Date.now },
     endedAt: { type: Date },
+    currentRound: { type: BattleCurrentRoundSchema, default: null },
   },
   {
     timestamps: true,
@@ -56,6 +87,8 @@ BattleSchema.index({ roomId: 1 });
 BattleSchema.index({ roomCode: 1, status: 1 });
 BattleSchema.index({ status: 1, 'players.userId': 1 });
 BattleSchema.index({ 'players.userId': 1, status: 1, endedAt: -1 });
+BattleSchema.index({ status: 1, 'currentRound.status': 1, 'currentRound.deadline': 1 });
+BattleSchema.index({ status: 1, 'currentRound.status': 1, 'currentRound.revealExpiresAt': 1 });
 
 export const BattleModel = model<IBattleDocument>('Battle', BattleSchema);
 export default BattleModel;

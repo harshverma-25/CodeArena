@@ -196,7 +196,6 @@ async function runCategorySubjectVerificationSuite() {
     
     const createTestUser = async (name: string) => {
       const u = await UserModel.create({
-        clerkId: `c_${name}_${timestamp}`,
         username: `u_${name}_${timestamp}`,
         displayName: name,
       });

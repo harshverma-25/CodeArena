@@ -110,7 +110,7 @@ The Express application registers defense-in-depth HTTP headers in [`app.ts`](fi
 * `X-Frame-Options: DENY`: Protects against clickjacking.
 * `X-XSS-Protection: 1; mode=block`: Activates browser XSS filtering.
 * `Strict-Transport-Security`: Enforced in production (`max-age=31536000; includeSubDomains`).
-* **Rate Limiting**: Protects all API endpoints against brute-force and denial-of-service attempts.
+* **Rate Limiting (`server/src/middleware/rate-limiter.middleware.ts`)**: In-memory sliding-window limiter enforcing a maximum of 500 requests per 15-minute window per IP. Excludes `/api/docs` and `/api/swagger.json` (see [15 — Known Issues](15-known-issues-and-technical-debt.md) for health probe exclusion and Redis clustering backlog).
 
 ---
 

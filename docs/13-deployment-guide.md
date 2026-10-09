@@ -125,15 +125,30 @@ Configure your infrastructure load balancer to ping the health check endpoint:
 The backend handles `SIGTERM` and `SIGINT` signals:
 ```typescript
 const gracefulShutdown = async (signal: string) => {
-  logger.info(`Received ${signal}. Starting graceful shutdown...`);
-  io.close(); // Disconnects all active sockets cleanly
+  logger.info(`Received ${signal}. Shutting down gracefully...`);
+  
+  // Stop background sweeper and garbage collector
+  battleService.stopSweeper();
+  roomService.stopGarbageCollector();
+
   server.close(async () => {
-    await disconnectDatabase(); // Drains and closes Mongoose connections
+    logger.info('HTTP server closed.');
+    
+    // Disconnect from MongoDB
+    await disconnectDatabase();
+    
+    logger.info('Graceful shutdown completed successfully.');
     process.exit(0);
   });
+
+  // Set a fallback timeout to force exit if connections don't close in 10s
+  setTimeout(() => {
+    logger.error('Shutdown timed out, forcefully terminating process.');
+    process.exit(1);
+  }, 10000);
 };
 ```
-This ensures in-flight database writes complete before the container terminates.
+This ensures background jobs stop cleanly, sockets disconnect, and in-flight database writes complete before the process terminates.
 
 ---
 

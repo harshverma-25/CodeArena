@@ -217,7 +217,6 @@ export default function MatchResultsPage() {
           subjectId: results.isMixedCategory ? null : results.subjectId,
           isMixedCategory: Boolean(results.isMixedCategory),
           difficulty: (results.difficulty as any) || "Easy",
-          duration: results.timePerQuestion || 30,
           questionCount: results.questionCount,
         });
         if (!hasNavigatedRef.current) {

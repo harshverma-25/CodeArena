@@ -3,10 +3,22 @@ import { IUserDocument } from './user.types.js';
 
 const UserSchema = new Schema<IUserDocument>(
   {
-    clerkId: { type: String, unique: true, sparse: true, index: true },
     email: { type: String, unique: true, sparse: true, index: true, lowercase: true, trim: true },
     passwordHash: { type: String, select: false },
     refreshTokenHash: { type: String, select: false },
+    refreshTokenFamilies: {
+      type: [
+        {
+          familyId: { type: String, required: true },
+          tokenHash: { type: String, required: true },
+          usedHashes: { type: [String], default: [] },
+          expiresAt: { type: Date, required: true },
+          createdAt: { type: Date, default: Date.now },
+        },
+      ],
+      select: false,
+      default: [],
+    },
     username: { type: String, required: true, unique: true, trim: true },
     displayName: { type: String, required: true, trim: true },
     avatar: { type: String, default: '' },
@@ -17,7 +29,6 @@ const UserSchema = new Schema<IUserDocument>(
     totalCorrect: { type: Number, default: 0 },
     totalQuestions: { type: Number, default: 0 },
     accuracy: { type: Number, default: 0 },
-    preferredLanguage: { type: String, default: 'javascript' },
     isGuest: { type: Boolean, default: false, index: true },
     role: { type: String, enum: ['user', 'guest', 'admin'], default: 'user' },
   },
@@ -28,6 +39,15 @@ const UserSchema = new Schema<IUserDocument>(
 
 // Compound index for optimized global leaderboard sorting & rank calculation
 UserSchema.index({ isGuest: 1, wins: -1, accuracy: -1, matchesPlayed: -1, username: 1 });
+
+// TTL index to automatically purge guest users after 7 days (604800s)
+UserSchema.index(
+  { createdAt: 1 },
+  {
+    expireAfterSeconds: 7 * 24 * 60 * 60,
+    partialFilterExpression: { isGuest: true },
+  }
+);
 
 export const UserModel = model<IUserDocument>('User', UserSchema);
 export default UserModel;

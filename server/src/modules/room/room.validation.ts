@@ -15,14 +15,6 @@ export const createRoomSchema = z.object({
     .object({
       topic: roomTopicSchema.optional(),
       difficulty: roomDifficultySchema.optional(),
-      duration: z.coerce
-        .number({ invalid_type_error: 'Duration must be a number' })
-        .int('Duration must be an integer')
-        .positive('Duration must be positive')
-        .min(5, 'Duration must be at least 5 minutes')
-        .max(180, 'Duration cannot exceed 180 minutes')
-        .default(30)
-        .optional(),
       questionCount: z.coerce
         .number({ invalid_type_error: 'Question count must be a number' })
         .int('Question count must be an integer')
@@ -65,13 +57,6 @@ export const updateSettingsSchema = z.object({
     .object({
       topic: roomTopicSchema.optional(),
       difficulty: roomDifficultySchema.optional(),
-      duration: z.coerce
-        .number({ invalid_type_error: 'Duration must be a number' })
-        .int('Duration must be an integer')
-        .positive('Duration must be positive')
-        .min(5, 'Duration must be at least 5 minutes')
-        .max(180, 'Duration cannot exceed 180 minutes')
-        .optional(),
       questionCount: z.coerce
         .number({ invalid_type_error: 'Question count must be a number' })
         .int('Question count must be an integer')

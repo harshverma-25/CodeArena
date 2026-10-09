@@ -2,13 +2,13 @@
 
 ## 1. Executive Summary
 
-**CodeArena** is a real-time, competitive multiplayer (1–4 players) technical and general-purpose quiz platform where players challenge each other in live quizzes. Players compete across curated Categories (Programming, Aptitude, General Knowledge) and Subjects (Data Structures, Algorithms, DBMS, OS, Networks, Quantitative Aptitude, Logical Reasoning, Current Affairs, etc.) or Mixed Category pools, with configurable question counts (10, 15, or 20) and category-derived server-authoritative timers.
+**Quizzy** (formerly CodeArena) is a real-time, competitive multiplayer (1–4 players) technical and general-purpose quiz platform where players challenge each other in live quizzes. Players compete across curated Categories (Programming, Aptitude, General Knowledge) and Subjects (Data Structures, Algorithms, DBMS, OS, Networks, Quantitative Aptitude, Logical Reasoning, Current Affairs, etc.) or Mixed Category pools, with configurable question counts (10, 15, or 20) and category-derived server-authoritative timers.
 
 The platform emphasizes **low-latency state synchronization**, **strict anti-cheat protection**, and **zero-friction entry** through a dual-authentication system supporting registered users via Native JWT (Access + Refresh tokens) and instant cryptographic guest sessions.
 
 ```mermaid
 graph LR
-    User1[Player 1 / Host] -- WebSocket / HTTP --> LB[CodeArena Platform]
+    User1[Player 1 / Host] -- WebSocket / HTTP --> LB[Quizzy Platform]
     User2[Player 2] -- WebSocket / HTTP --> LB
     User3[Player 3] -- WebSocket / HTTP --> LB
     User4[Player 4] -- WebSocket / HTTP --> LB
@@ -21,7 +21,7 @@ graph LR
 
 ## 2. Product Evolution History
 
-CodeArena originally began as a prototype competitive coding platform (sandbox execution model). The platform pivoted to address the latency and high server overhead of traditional sandbox code execution by focusing on **rapid, high-intensity technical and general-purpose trivia battles**:
+The platform originally began as a prototype competitive coding platform (sandbox execution model). The platform pivoted to address the latency and high server overhead of traditional sandbox code execution by focusing on **rapid, high-intensity technical and general-purpose trivia battles**:
 
 Key milestones achieved:
 1. **Transition to MCQ Quiz Platform**: Deprecation and removal of the legacy sandbox compiler pipelines in favor of an optimized, server-authoritative quiz engine (`question/`, `battle/`, `room/`, `category/`).
@@ -29,6 +29,8 @@ Key milestones achieved:
 3. **Category & Subject Hierarchy**: Transition from flat topics to structured `Category → Subject → Questions` with Mixed Category sampling.
 4. **Quiz Configuration**: Server-authoritative 10, 15, or 20 question counts with category-derived question timers (30s/60s).
 5. **Native JWT Authentication**: Complete elimination of third-party auth (Clerk) in favor of secure native Access Tokens (15m), Refresh Tokens (7d in HttpOnly cookie & DB hash), and cryptographic HMAC guest tokens.
+6. **Persistent Battle State & Timers**: Migration from volatile in-memory timer Maps to persistent MongoDB `BattleModel.currentRound` subdocuments, server-authoritative timestamps, and automated background sweeping for crash-resilient matches.
+7. **Automated Garbage Collection**: Implemented atomic MongoDB-driven garbage collection for abandoned rooms and stale battles to reclaim resources and free 6-character room codes.
 
 ---
 
@@ -50,9 +52,9 @@ Key milestones achieved:
 ```mermaid
 flowchart TD
     subgraph Client ["Client (client/)"]
-        Next["Next.js 16 (App Router)"]
+        Next["Next.js 16 (App Router & Proxy)"]
         React["React 19"]
-        Tailwind["TailwindCSS v4"]
+        Tailwind["TailwindCSS v4 (Stitch Theme)"]
         Zustand["Zustand v5 (State)"]
         Query["TanStack React Query v5"]
         SocketClient["Socket.IO Client v4"]
@@ -81,10 +83,10 @@ flowchart TD
 
 ### Technology Breakdown
 * **Frontend**:
-  * **Framework**: Next.js 16.2.10 (React 19.2.4) utilizing the App Router.
-  * **Styling**: TailwindCSS v4 with PostCSS.
+  * **Framework**: Next.js 16.2.10 (React 19.2.4) utilizing the App Router and Next.js 16 `proxy.ts` routing convention.
+  * **Styling**: TailwindCSS v4 with warm light Stitch Design System tokens.
   * **State Management**: Zustand v5 for client/socket session state; TanStack Query v5 for server state caching.
-  * **Real-time Client**: `socket.io-client` v4.8.3.
+  * **Real-time Client**: `socket.io-client` v4.8.3 with WebSocket-first transport and credentials.
 * **Backend**:
   * **Runtime**: Node.js v20+ with TypeScript v5.5.
   * **HTTP Server**: Express.js v4.19 with custom security headers and centralized error propagation.

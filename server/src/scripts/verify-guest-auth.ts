@@ -6,10 +6,9 @@ import { userService } from '../modules/user/user.service.js';
 import { env } from '../config/env.js';
 import { connectDatabase, disconnectDatabase } from '../config/database.js';
 
-function createMockReq(authHeader?: string, clerkUserId?: string): any {
+function createMockReq(authHeader?: string): any {
   return {
     headers: authHeader ? { authorization: authHeader } : {},
-    auth: clerkUserId ? { userId: clerkUserId } : undefined,
     user: undefined,
   };
 }
@@ -40,10 +39,10 @@ async function runGuestAuthSuite() {
       customSession.user.displayName === 'CyberNinja' &&
       customSession.user.isGuest === true &&
       customSession.user.role === 'guest' &&
-      customSession.user.clerkId.startsWith('guest_')
+      customSession.user.guestId.startsWith('guest_')
     ) {
       console.log('  Custom guest session generated correctly ✅');
-      console.log(`  Guest ID: ${customSession.user.clerkId}, Username: ${customSession.user.username}`);
+      console.log(`  Guest ID: ${customSession.user.guestId}, Username: ${customSession.user.username}`);
     } else {
       throw new Error(`Failed to create custom guest session: ${JSON.stringify(customSession)}`);
     }
@@ -67,7 +66,7 @@ async function runGuestAuthSuite() {
     if (
       verifiedPayload &&
       verifiedPayload.sub === customSession.user._id &&
-      verifiedPayload.guestId === customSession.user.clerkId &&
+      verifiedPayload.guestId === customSession.user.guestId &&
       verifiedPayload.role === 'guest' &&
       verifiedPayload.type === 'guest'
     ) {
@@ -80,7 +79,7 @@ async function runGuestAuthSuite() {
     // 3. Expired Token Verification
     console.log('\n▶️ Test 3: Expired Token Rejection');
     const expiredToken = authService.signGuestToken(
-      { sub: customSession.user._id, guestId: customSession.user.clerkId, displayName: 'ExpiredGuest' },
+      { sub: customSession.user._id, guestId: customSession.user.guestId, displayName: 'ExpiredGuest' },
       -10 // Expired 10 seconds ago
     );
     const expiredResult = authService.verifyGuestToken(expiredToken);
@@ -95,7 +94,7 @@ async function runGuestAuthSuite() {
     const [header, payload, signature] = customSession.token.split('.');
     const tamperedPayload = Buffer.from(JSON.stringify({
       sub: customSession.user._id,
-      guestId: customSession.user.clerkId,
+      guestId: customSession.user.guestId,
       role: 'admin', // Attacker trying to elevate role to admin
       type: 'guest',
       exp: Math.floor(Date.now() / 1000) + 3600,
@@ -123,7 +122,7 @@ async function runGuestAuthSuite() {
     await authenticate(reqGuest, {} as any, (err) => { restGuestErr = err; });
 
     if (!restGuestErr && reqGuest.user) {
-      if (reqGuest.user.isGuest === true && reqGuest.user.role === 'guest' && reqGuest.user.clerkId === customSession.user.clerkId) {
+      if (reqGuest.user.isGuest === true && reqGuest.user.role === 'guest' && reqGuest.user._id.toString() === customSession.user._id) {
         console.log(`  REST authenticate middleware successfully resolved guest user (${reqGuest.user.displayName}) ✅`);
       } else {
         throw new Error('Guest user was attached but properties do not match!');
@@ -147,7 +146,7 @@ async function runGuestAuthSuite() {
     // 7. Leaderboard Query Excludes Guests
     console.log('\n▶️ Test 7: Public Leaderboard Excludes Guests');
     const leaderboardData = await userService.getLeaderboard({ page: 1, limit: 10 });
-    const guestInLeaderboard = leaderboardData.leaderboard.some((u: any) => u.isGuest === true || u.clerkId?.startsWith('guest_') || u.username.startsWith('guest_'));
+    const guestInLeaderboard = leaderboardData.leaderboard.some((u: any) => u.isGuest === true || u.username.startsWith('guest_'));
     if (!guestInLeaderboard) {
       console.log(`  Leaderboard queried successfully (${leaderboardData.leaderboard.length} entries). No guests included ✅`);
     } else {
@@ -161,7 +160,7 @@ async function runGuestAuthSuite() {
     await socketAuthMiddleware(socketGuest, (err) => { socketGuestErr = err; });
 
     if (!socketGuestErr && socketGuest.data?.user) {
-      if (socketGuest.data.user.isGuest === true && socketGuest.data.user.clerkId === customSession.user.clerkId) {
+      if (socketGuest.data.user.isGuest === true && socketGuest.data.user._id.toString() === customSession.user._id) {
         console.log(`  Socket.IO handshake authenticated guest user (${socketGuest.data.user.displayName}) ✅`);
       } else {
         throw new Error('Socket.IO user was attached but properties do not match!');
@@ -182,22 +181,23 @@ async function runGuestAuthSuite() {
       throw new Error('Socket.IO accepted expired guest token!');
     }
 
-    // 10. Existing Clerk Authentication Preserved
-    console.log('\n▶️ Test 10: Existing Clerk Authentication Preservation');
-    const origEnv = env.NODE_ENV;
-    try {
-      (env as any).NODE_ENV = 'test';
-      let restClerkErr: any = null;
-      const reqClerk = createMockReq('Bearer verified_clerk_header', 'user_clerk_regression_test_456');
-      await authenticate(reqClerk, {} as any, (err) => { restClerkErr = err; });
+    // 10. Existing Native JWT Authentication Preserved
+    console.log('\n▶️ Test 10: Existing Native JWT Authentication Preservation');
+    const timestamp = Date.now();
+    const nativeRegUser = await authService.register({
+      username: `guest_native_${timestamp}`,
+      email: `guest_native_${timestamp}@test.local`,
+      password: 'SecurePassword123!',
+      displayName: 'Native Verification User',
+    });
+    let restNativeErr: any = null;
+    const reqNative = createMockReq(`Bearer ${nativeRegUser.accessToken}`);
+    await authenticate(reqNative, {} as any, (err) => { restNativeErr = err; });
 
-      if (!restClerkErr && reqClerk.user && !reqClerk.user.isGuest) {
-        console.log(`  Registered Clerk user correctly authenticated and synced (${reqClerk.user.username}) ✅`);
-      } else {
-        throw new Error(`Clerk authentication regression! Failed: ${restClerkErr}`);
-      }
-    } finally {
-      (env as any).NODE_ENV = origEnv;
+    if (!restNativeErr && reqNative.user && !reqNative.user.isGuest) {
+      console.log(`  Registered Native JWT user correctly authenticated and verified (${reqNative.user.username}) ✅`);
+    } else {
+      throw new Error(`Native JWT authentication regression! Failed: ${restNativeErr}`);
     }
 
     console.log('\n====================================================');

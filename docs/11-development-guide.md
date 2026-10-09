@@ -122,6 +122,7 @@ npm run test:native-auth
 npx tsx src/scripts/verify-category-subject-system.ts
 npx tsx src/scripts/verify-multiplayer-quiz.ts
 npx tsx src/scripts/verify-quiz-configuration.ts
+npx tsx src/scripts/verify-stale-garbage-collection.ts
 ```
 
 ### 4.5 Type-Checking & Verification
