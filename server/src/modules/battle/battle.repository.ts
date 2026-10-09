@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import { BattleModel } from './battle.model.js';
 import { IBattle, IBattleDocument, BattleStatus } from './battle.types.js';
 
@@ -146,7 +147,33 @@ export class BattleRepository {
           'currentRound.revealExpiresAt': { $lte: now },
         },
       ],
-    }).populate('players.userId', 'username displayName avatar');
+    }).select('_id roomCode currentRound');
+  }
+
+  /**
+   * Atomically increment player score and push answer for each player without full document save.
+   */
+  async updatePlayerRoundResults(
+    battleId: string | Types.ObjectId,
+    playerUpdates: Array<{
+      userId: string;
+      scoreDelta: number;
+      answer: any;
+    }>
+  ): Promise<void> {
+    const bulkOps = playerUpdates.map((u) => ({
+      updateOne: {
+        filter: { _id: battleId, 'players.userId': u.userId },
+        update: {
+          $inc: { 'players.$.score': u.scoreDelta },
+          $push: { 'players.$.answers': u.answer },
+        },
+      },
+    }));
+
+    if (bulkOps.length > 0) {
+      await BattleModel.bulkWrite(bulkOps);
+    }
   }
 
   /**

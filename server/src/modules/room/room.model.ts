@@ -41,6 +41,7 @@ const RoomSchema = new Schema<IRoomDocument>(
       default: RoomStatus.WAITING,
     },
     matchId: { type: Schema.Types.ObjectId, ref: 'Battle', default: null },
+    rematchRoomCode: { type: String, default: null },
   },
   {
     timestamps: true,

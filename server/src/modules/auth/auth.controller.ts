@@ -57,9 +57,16 @@ export class AuthController {
    * Obtains a new access token using a refresh token.
    */
   async refresh(req: Request, res: Response): Promise<void> {
-    const token = req.cookies?.refreshToken || req.body?.refreshToken;
+    const token =
+      req.cookies?.refreshToken ||
+      (process.env.NODE_ENV !== 'production' ? req.body?.refreshToken : undefined);
     if (!token) {
-      throw new ApiError(401, 'Refresh token is required');
+      throw new ApiError(
+        401,
+        process.env.NODE_ENV === 'production'
+          ? 'Refresh token cookie is required'
+          : 'Refresh token is required'
+      );
     }
 
     const result = await authService.refresh(token);
@@ -87,7 +94,9 @@ export class AuthController {
    */
   async logout(req: Request, res: Response): Promise<void> {
     const userId = req.user?._id?.toString() || req.user?.id?.toString();
-    const token = req.cookies?.refreshToken || req.body?.refreshToken;
+    const token =
+      req.cookies?.refreshToken ||
+      (process.env.NODE_ENV !== 'production' ? req.body?.refreshToken : undefined);
     if (userId) {
       await authService.logout(userId, token);
     }

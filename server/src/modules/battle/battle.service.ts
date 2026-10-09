@@ -42,7 +42,7 @@ export class BattleService {
       } catch (err) {
         logger.error(err, 'Error running battle sweeper');
       }
-    }, 1000);
+    }, 2000);
 
     if (this.sweeperTimer.unref) {
       this.sweeperTimer.unref();
@@ -582,7 +582,13 @@ export class BattleService {
     const currentRound = battle.currentRound;
     const submissionsMap = new Map(currentRound.submissions.map((s) => [s.userId, s]));
 
-    // Apply scores and record answers for all players
+    // Apply scores and record answers for all players atomically
+    const playerUpdates: Array<{
+      userId: string;
+      scoreDelta: number;
+      answer: any;
+    }> = [];
+
     for (const p of battle.players) {
       const pUId = (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
       const sub = submissionsMap.get(pUId);
@@ -591,26 +597,38 @@ export class BattleService {
         if (sub.isCorrect) {
           p.score += sub.potentialScore;
         }
-        p.answers.push({
+        const answerRecord = {
           questionId: currentRound.questionId,
           selectedOption: sub.selectedOption,
           isCorrect: sub.isCorrect,
           submittedAt: sub.submittedAt,
           timeTakenMs: sub.timeTakenMs,
+        };
+        p.answers.push(answerRecord);
+        playerUpdates.push({
+          userId: pUId,
+          scoreDelta: sub.isCorrect ? sub.potentialScore : 0,
+          answer: answerRecord,
         });
       } else {
         // Player did not answer in time (timed out)
-        p.answers.push({
+        const answerRecord = {
           questionId: currentRound.questionId,
           selectedOption: -1,
           isCorrect: false,
           submittedAt: new Date(),
           timeTakenMs: battle.timePerQuestion * 1000,
+        };
+        p.answers.push(answerRecord);
+        playerUpdates.push({
+          userId: pUId,
+          scoreDelta: 0,
+          answer: answerRecord,
         });
       }
     }
 
-    await this.repository.save(battle);
+    await this.repository.updatePlayerRoundResults(battle._id, playerUpdates);
 
     // Fetch original question for correctAnswer and explanation
     const questionDoc = await this.qRepository.findByQuestionId(currentRound.questionId);

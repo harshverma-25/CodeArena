@@ -32,6 +32,7 @@ export interface IRoom {
   maxPlayers: number;
   status: RoomStatus;
   matchId?: Types.ObjectId | null;
+  rematchRoomCode?: string | null;
   createdAt: Date;
   updatedAt: Date;
 }

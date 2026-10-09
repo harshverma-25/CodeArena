@@ -120,7 +120,17 @@ export class UserRepository {
             accuracy: {
               $cond: [
                 { $gt: ['$totalQuestions', 0] },
-                { $round: [{ $multiply: [{ $divide: ['$totalCorrect', '$totalQuestions'] }, 100] }, 0] },
+                {
+                  $min: [
+                    100,
+                    {
+                      $max: [
+                        0,
+                        { $round: [{ $multiply: [{ $divide: ['$totalCorrect', '$totalQuestions'] }, 100] }, 0] },
+                      ],
+                    },
+                  ],
+                },
                 0,
               ],
             },

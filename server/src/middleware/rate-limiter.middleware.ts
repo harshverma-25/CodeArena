@@ -34,3 +34,30 @@ export function rateLimiter(req: Request, res: Response, next: NextFunction) {
 
   next();
 }
+
+// Periodic cleanup to evict expired IP tracking entries and prevent unbounded memory growth
+const CLEANUP_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
+const cleanupTimer = setInterval(() => {
+  const now = Date.now();
+  for (const [ip, record] of ipRequestCounts.entries()) {
+    if (now > record.resetTime) {
+      ipRequestCounts.delete(ip);
+    }
+  }
+}, CLEANUP_INTERVAL_MS);
+
+if (cleanupTimer.unref) {
+  cleanupTimer.unref();
+}
+
+/**
+ * Exposed for unit tests or manual memory eviction.
+ */
+export function purgeExpiredRateLimits(): void {
+  const now = Date.now();
+  for (const [ip, record] of ipRequestCounts.entries()) {
+    if (now > record.resetTime) {
+      ipRequestCounts.delete(ip);
+    }
+  }
+}

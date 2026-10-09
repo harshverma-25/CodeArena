@@ -13,17 +13,18 @@ import {
 import { battleService } from '../battle/battle.service.js';
 import { Server } from 'socket.io';
 import { logger } from '../../config/logger.js';
+import crypto from 'crypto';
 
 export class RoomService {
   private gcIntervalTimer: NodeJS.Timeout | null = null;
   /**
-   * Generates a unique 6-character uppercase alphanumeric room code.
+   * Generates a unique 6-character uppercase alphanumeric room code using cryptographically secure random integers.
    */
   private generateRoomCode(): string {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let code = '';
     for (let i = 0; i < 6; i++) {
-      code += chars.charAt(Math.floor(Math.random() * chars.length));
+      code += chars.charAt(crypto.randomInt(0, chars.length));
     }
     return code;
   }
@@ -495,6 +496,7 @@ export class RoomService {
     }
 
     // 3. Idempotency Check: Prevent duplicate room creation within 60s
+    this.purgeExpiredRematchCache();
     const cached = this.rematchCache.get(code);
     if (cached && Date.now() - cached.createdAt < 60000) {
       const existingRematch = await roomRepository.findByRoomCode(cached.roomCode);
@@ -506,6 +508,21 @@ export class RoomService {
           });
         }
         return existingRematch;
+      }
+    }
+
+    // 3b. Distributed Idempotency Check via Database (for multi-instance scalability)
+    if (oldRoom.rematchRoomCode) {
+      const dbRematch = await roomRepository.findByRoomCode(oldRoom.rematchRoomCode);
+      if (dbRematch && dbRematch.status === RoomStatus.WAITING) {
+        this.rematchCache.set(code, { roomCode: dbRematch.roomCode, createdAt: Date.now() });
+        if (io) {
+          io.to(`room:${code}`).emit('room:play_again', {
+            oldRoomCode: code,
+            newRoomCode: dbRematch.roomCode,
+          });
+        }
+        return dbRematch;
       }
     }
 
@@ -586,8 +603,9 @@ export class RoomService {
       throw new ApiError(500, 'Failed to create rematch room');
     }
 
-    // Cache the rematch room code for idempotency
+    // Cache the rematch room code for idempotency both in-memory and in DB
     this.rematchCache.set(code, { roomCode: newRoomCode, createdAt: Date.now() });
+    await roomRepository.update(code, { rematchRoomCode: newRoomCode } as any);
 
     // Broadcast rematch event to all participants listening in old room channel
     if (io) {
@@ -650,9 +668,22 @@ export class RoomService {
   }
 
   /**
+   * Evict expired entries from rematchCache older than 60 seconds to prevent unbounded memory growth.
+   */
+  public purgeExpiredRematchCache(): void {
+    const now = Date.now();
+    for (const [c, entry] of this.rematchCache.entries()) {
+      if (now - entry.createdAt > 60000) {
+        this.rematchCache.delete(c);
+      }
+    }
+  }
+
+  /**
    * Execute full garbage collection pass across rooms and battles.
    */
   async runGarbageCollection(staleThresholdMs?: number): Promise<{ deletedRoomsCount: number; cancelledBattlesCount: number }> {
+    this.purgeExpiredRematchCache();
     const { deletedRoomsCount } = await this.cleanStaleRooms(staleThresholdMs);
     const { cancelledBattlesCount } = await battleService.cleanAbandonedBattles(staleThresholdMs);
     return { deletedRoomsCount, cancelledBattlesCount };

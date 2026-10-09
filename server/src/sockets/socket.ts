@@ -13,7 +13,7 @@ import { socketRateLimiter } from './socket.limiter.js';
 let io: Server | null = null;
 
 /**
- * Socket.IO authentication middleware utilizing Clerk JWT verifyToken.
+ * Socket.IO authentication middleware utilizing Native JWT and Guest session verification.
  */
 export const socketAuthMiddleware = async (socket: Socket, next: (err?: Error) => void) => {
   try {
