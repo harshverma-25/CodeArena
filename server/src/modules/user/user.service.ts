@@ -258,9 +258,9 @@ export class UserService {
       let result: 'VICTORY' | 'DEFEAT' | 'DRAW' | 'COMPLETED' = 'COMPLETED';
       if (totalPlayers === 1) {
         result = 'COMPLETED';
-      } else if (b.isDraw) {
+      } else if (b.isDraw && userRank === 1) {
         result = 'DRAW';
-      } else if (userRank === 1) {
+      } else if (!b.isDraw && userRank === 1) {
         result = 'VICTORY';
       } else {
         result = 'DEFEAT';
@@ -312,6 +312,8 @@ export class UserService {
       totalCorrect: user.totalCorrect || 0,
       totalQuestions: user.totalQuestions || 0,
       accuracy: user.accuracy || 0,
+      currentStreak: user.currentStreak || 0,
+      highestWinStreak: user.highestWinStreak || 0,
       isCurrentUser: currentUserId ? uIdStr === currentUserId : false,
       recentBattles,
     };

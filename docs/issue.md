@@ -135,4 +135,8 @@ This document registers the active issues, architectural bottlenecks, and techni
 | **Guest Rate Limiter (A-5)** | Added periodic 5-minute background interval sweeper to evict expired IP records from `guestCreationCounts` map, preventing memory leaks. | Oct 2026 |
 | **Buffer Encoding (A-6)** | Switched signature buffer conversion to `Buffer.from(sig, 'base64url')` in `jwt.ts` and `auth.service.ts` for efficient timing-safe comparison. | Oct 2026 |
 | **Room Settings DTO (E-1)** | Updated REST `updateSettings` controller to forward `categoryId`, `subjectId`, `isMixedCategory`, and `questionCount` alongside `topic` and `difficulty`. | Oct 2026 |
+| **Multiplayer Draw Stats (B-1)** | Fixed draw detection for multi-way ties in 3–4 player games; only players specifically tied for 1st place receive `isDraw: true`, while lower-scoring players receive `isLoss: true`. | Oct 2026 |
+| **Score Formula Guard (B-2)** | Clamped elapsed time (`0` to `roundDuration`) and potential score (`100` to `1000`) against clock skew and negative timestamp exploits. | Oct 2026 |
+| **Sampling Uniqueness (B-3)** | Added over-sampling buffer and MongoDB aggregation `$group` by `$questionId` in `sampleRandomPublished` to guarantee 100% duplicate-free question sampling. | Oct 2026 |
+| **Win Streak Tracking (B-4)** | Added `currentStreak` and `highestWinStreak` to `UserModel` schema, and implemented atomic `$set` / `$max` aggregation pipeline in `recordBattleStatsById` to accurately track win streaks and historical peaks. | Oct 2026 |
 

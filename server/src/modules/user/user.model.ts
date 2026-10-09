@@ -29,6 +29,8 @@ const UserSchema = new Schema<IUserDocument>(
     totalCorrect: { type: Number, default: 0 },
     totalQuestions: { type: Number, default: 0 },
     accuracy: { type: Number, default: 0 },
+    currentStreak: { type: Number, default: 0 },
+    highestWinStreak: { type: Number, default: 0 },
     isGuest: { type: Boolean, default: false, index: true },
     role: { type: String, enum: ['user', 'guest', 'admin'], default: 'user' },
   },

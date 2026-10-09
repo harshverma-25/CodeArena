@@ -490,9 +490,11 @@ export class BattleService {
     // Dynamic Server-Authoritative Scoring Formula:
     // Starts at 1000 points. Decreases by 30 pts/sec.
     // 0s: 1000 pts. 2s: ~940 pts. 5s: ~850 pts. Minimum floor: 100 pts.
-    const elapsedMs = Math.max(0, now.getTime() - battle.currentRound.startedAt.getTime());
+    const rawElapsedMs = now.getTime() - battle.currentRound.startedAt.getTime();
+    // Guard against clock skew or negative elapsed time, bounded to round duration
+    const elapsedMs = Math.max(0, Math.min(rawElapsedMs, battle.timePerQuestion * 1000));
     const elapsedSec = elapsedMs / 1000;
-    const potentialScore = Math.max(100, Math.round(1000 - elapsedSec * 30));
+    const potentialScore = Math.max(100, Math.min(1000, Math.round(1000 - elapsedSec * 30)));
 
     // Validate correct answer on server
     const questionDoc = await this.qRepository.findByQuestionId(questionId);
@@ -747,9 +749,10 @@ export class BattleService {
       winnerId = battle.players[0].userId;
       isDraw = false;
     } else {
-      const sorted = [...battle.players].sort((a, b) => b.score - a.score);
-      if (sorted[0].score > sorted[1].score) {
-        winnerId = sorted[0].userId;
+      const maxScore = Math.max(...battle.players.map((p) => p.score));
+      const topPlayers = battle.players.filter((p) => p.score === maxScore);
+      if (topPlayers.length === 1) {
+        winnerId = topPlayers[0].userId;
         isDraw = false;
       } else {
         winnerId = null;
@@ -787,15 +790,26 @@ export class BattleService {
         ? ((winnerId as any)._id ? (winnerId as any)._id.toString() : winnerId.toString())
         : null;
 
+      const maxScore = Math.max(...battle.players.map((p) => p.score));
+      const topPlayers = battle.players.filter((p) => p.score === maxScore);
+      const isMultiWayTieForFirst = topPlayers.length > 1;
+
       await Promise.all(
         battle.players.map((p) => {
           const pUId = (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
           const pCorrect = p.answers ? p.answers.filter((a) => a.isCorrect).length : 0;
           const pQuestions = battle.questionCount || p.assignedQuestionIds?.length || 0;
+
+          // Single winner: only winner gets win; all others get loss.
+          // Multi-way tie for 1st place: only players specifically tied for 1st get isDraw; lower-scoring players get isLoss!
+          const isPlayerWin = !isMultiWayTieForFirst && winnerIdStr === pUId;
+          const isPlayerDraw = isMultiWayTieForFirst && p.score === maxScore;
+          const isPlayerLoss = !isPlayerWin && !isPlayerDraw;
+
           return userRepository.recordBattleStatsById(p.userId, {
-            isWin: !isDraw && winnerIdStr === pUId,
-            isLoss: !isDraw && winnerIdStr !== null && winnerIdStr !== pUId,
-            isDraw,
+            isWin: isPlayerWin,
+            isLoss: isPlayerLoss,
+            isDraw: isPlayerDraw,
             correctCount: pCorrect,
             questionCount: pQuestions,
           });

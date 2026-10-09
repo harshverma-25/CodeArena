@@ -144,9 +144,22 @@ export class QuestionRepository {
       matchStage.questionId = { $nin: excludeQuestionIds };
     }
 
+    // Over-sample with a safety multiplier (Math.max(count * 2, count + 10))
+    // and deduplicate by questionId within the aggregation pipeline to guarantee
+    // that MongoDB's pseudo-random $sample draws never return duplicate questions.
+    const sampleSize = Math.max(count * 2, count + 10);
+
     return QuestionModel.aggregate([
       { $match: matchStage },
-      { $sample: { size: count } },
+      { $sample: { size: sampleSize } },
+      {
+        $group: {
+          _id: '$questionId',
+          doc: { $first: '$$ROOT' },
+        },
+      },
+      { $replaceRoot: { newRoot: '$doc' } },
+      { $limit: count },
     ]);
   }
 

@@ -104,10 +104,19 @@ export class UserRepository {
             draws: { $add: [{ $ifNull: ['$draws', 0] }, stats.isDraw ? 1 : 0] },
             totalCorrect: { $add: [{ $ifNull: ['$totalCorrect', 0] }, stats.correctCount] },
             totalQuestions: { $add: [{ $ifNull: ['$totalQuestions', 0] }, stats.questionCount] },
+            currentStreak: stats.isWin
+              ? { $add: [{ $ifNull: ['$currentStreak', 0] }, 1] }
+              : 0,
           },
         },
         {
           $set: {
+            highestWinStreak: {
+              $max: [
+                { $ifNull: ['$highestWinStreak', 0] },
+                { $ifNull: ['$currentStreak', 0] },
+              ],
+            },
             accuracy: {
               $cond: [
                 { $gt: ['$totalQuestions', 0] },

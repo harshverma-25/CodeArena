@@ -23,7 +23,8 @@ export interface IUser {
   totalCorrect: number;
   totalQuestions: number;
   accuracy: number;
-  highestWinStreak: number;
+  currentStreak?: number;
+  highestWinStreak?: number;
   isGuest?: boolean;
   role?: 'user' | 'guest' | 'admin';
   createdAt: Date;
@@ -75,6 +76,8 @@ export interface IPublicUserProfile {
   wins: number;
   losses: number;
   draws: number;
+  currentStreak?: number;
+  highestWinStreak?: number;
   isCurrentUser: boolean;
   recentBattles: Array<{
     _id: string;
