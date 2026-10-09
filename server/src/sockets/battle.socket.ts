@@ -3,6 +3,13 @@ import { battleService } from '../modules/battle/battle.service.js';
 import { formatRoomSocketPayload } from './room.socket.js';
 import { roomService } from '../modules/room/room.service.js';
 import { logger } from '../config/logger.js';
+import { socketRateLimiter } from './socket.limiter.js';
+import {
+  roomStartBattlePayloadSchema,
+  battleSubmitAnswerPayloadSchema,
+  battleAdvanceRoundPayloadSchema,
+  battleReconnectPayloadSchema,
+} from './socket.validator.js';
 
 export function registerBattleHandlers(io: Server, socket: Socket) {
   const user = socket.data.user;
@@ -10,10 +17,15 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
 
   // Host initiates battle in room
   socket.on('room:start_battle', async (payload: { roomCode: string }) => {
-    const roomCode = payload?.roomCode?.toUpperCase();
-    if (!roomCode) {
-      return socket.emit('error', { success: false, message: 'Room code is required' });
+    if (socketRateLimiter.isEventRateLimited(socket.id, 'room:start_battle', 3)) {
+      return socket.emit('error', { success: false, message: 'Too many requests. Please wait a moment.' });
     }
+
+    const parsed = roomStartBattlePayloadSchema.safeParse(payload);
+    if (!parsed.success) {
+      return socket.emit('error', { success: false, message: parsed.error.issues[0].message });
+    }
+    const roomCode = parsed.data.roomCode;
 
     try {
       // 1. Create and initialize battle logic on server
@@ -47,15 +59,19 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
   socket.on(
     'battle:submit_answer',
     async (payload: { roomCode: string; questionId: string; selectedOption: number }) => {
-      const roomCode = payload?.roomCode?.toUpperCase();
-      const { questionId, selectedOption } = payload || {};
+      // Rate limit answer submissions to 3 per second to prevent connection spam
+      if (socketRateLimiter.isEventRateLimited(socket.id, 'battle:submit_answer', 3)) {
+        return socket.emit('error', { success: false, message: 'Too many submissions. Please slow down.' });
+      }
 
-      if (!roomCode || !questionId || selectedOption === undefined) {
+      const parsed = battleSubmitAnswerPayloadSchema.safeParse(payload);
+      if (!parsed.success) {
         return socket.emit('error', {
           success: false,
-          message: 'Room code, question ID, and selected option are required',
+          message: parsed.error.issues[0].message,
         });
       }
+      const { roomCode, questionId, selectedOption } = parsed.data;
 
       try {
         const result = await battleService.submitAnswer(userId, roomCode, questionId, selectedOption, io);
@@ -75,31 +91,55 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
 
   // Host manually advances to next round early during reveal phase
   socket.on('battle:advance_round', async (payload: { roomCode: string }) => {
-    const roomCode = payload?.roomCode?.toUpperCase();
-    if (!roomCode) return;
+    if (socketRateLimiter.isEventRateLimited(socket.id, 'battle:advance_round', 3)) {
+      return socket.emit('battle:advance_acknowledged', { success: false, message: 'Too many advance requests.' });
+    }
+
+    const parsed = battleAdvanceRoundPayloadSchema.safeParse(payload);
+    if (!parsed.success) {
+      return socket.emit('battle:advance_acknowledged', { success: false, message: parsed.error.issues[0].message });
+    }
+    const roomCode = parsed.data.roomCode;
 
     try {
       const battle = await battleService.getActiveBattleByRoomCode(roomCode);
-      if (!battle) return;
+      if (!battle) {
+        return socket.emit('battle:advance_acknowledged', { success: false, message: 'No active battle found for this room' });
+      }
 
       const room = await roomService.getRoom(roomCode);
       const hostIdStr = room?.hostId ? ((room.hostId as any)._id ? (room.hostId as any)._id.toString() : room.hostId.toString()) : null;
-      if (hostIdStr !== userId) return;
+      if (hostIdStr !== userId) {
+        return socket.emit('battle:advance_acknowledged', { success: false, message: 'Only the room host can advance rounds' });
+      }
 
       if (battle.currentRound && battle.currentRound.status === 'REVEAL') {
         await battleService.advanceToNextRound(battle._id.toString(), roomCode, io);
+        socket.emit('battle:advance_acknowledged', { success: true });
+        logger.info(`Host ${userId} advanced round early for room ${roomCode}`);
+      } else {
+        socket.emit('battle:advance_acknowledged', {
+          success: false,
+          message: 'Round is no longer in reveal phase or already advanced',
+        });
       }
     } catch (err: any) {
       logger.error(err, `Error advancing round early for room ${roomCode}`);
+      socket.emit('battle:advance_acknowledged', { success: false, message: err.message || 'Failed to advance round' });
     }
   });
 
   // Player reconnects to an active or finished battle (e.g. on page refresh)
   socket.on('battle:reconnect', async (payload: { roomCode: string }) => {
-    const roomCode = payload?.roomCode?.toUpperCase();
-    if (!roomCode) {
-      return socket.emit('error', { success: false, message: 'Room code is required' });
+    if (socketRateLimiter.isEventRateLimited(socket.id, 'battle:reconnect', 5)) {
+      return socket.emit('error', { success: false, message: 'Too many reconnect attempts. Please slow down.' });
     }
+
+    const parsed = battleReconnectPayloadSchema.safeParse(payload);
+    if (!parsed.success) {
+      return socket.emit('error', { success: false, message: parsed.error.issues[0].message });
+    }
+    const roomCode = parsed.data.roomCode;
 
     try {
       const roomChannel = `room:${roomCode}`;

@@ -139,4 +139,8 @@ This document registers the active issues, architectural bottlenecks, and techni
 | **Score Formula Guard (B-2)** | Clamped elapsed time (`0` to `roundDuration`) and potential score (`100` to `1000`) against clock skew and negative timestamp exploits. | Oct 2026 |
 | **Sampling Uniqueness (B-3)** | Added over-sampling buffer and MongoDB aggregation `$group` by `$questionId` in `sampleRandomPublished` to guarantee 100% duplicate-free question sampling. | Oct 2026 |
 | **Win Streak Tracking (B-4)** | Added `currentStreak` and `highestWinStreak` to `UserModel` schema, and implemented atomic `$set` / `$max` aggregation pipeline in `recordBattleStatsById` to accurately track win streaks and historical peaks. | Oct 2026 |
+| **Socket Rate Limiting & Validation (C-1)** | Implemented per-socket sliding-window rate limiting on all room & battle events; added strict Zod validation schemas for all event payloads to protect database integrity. | Oct 2026 |
+| **Room Code Join Protection (C-2)** | Enforced 6-character alphanumeric validation and added brute-force join attempt throttling (max 5 failed joins per 60s per user) to safeguard rooms. | Oct 2026 |
+| **Safe Disconnect State (C-3)** | Updated socket disconnect handler to only mutate ready state in `WAITING`/`READY` rooms, preventing silenced exceptions during active in-progress battles. | Oct 2026 |
+| **Advance Round Acknowledgment (C-4)** | Added host authorization checks and explicit `battle:advance_acknowledged` socket feedback with `{ success: true/false }` status. | Oct 2026 |
 

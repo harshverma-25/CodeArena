@@ -8,6 +8,7 @@ import { authService } from '../modules/auth/auth.service.js';
 import { registerRoomHandlers } from './room.socket.js';
 import { registerBattleHandlers } from './battle.socket.js';
 import { battleService } from '../modules/battle/battle.service.js';
+import { socketRateLimiter } from './socket.limiter.js';
 
 let io: Server | null = null;
 
@@ -92,6 +93,7 @@ export function initializeSocket(httpServer: HttpServer): Server {
     registerBattleHandlers(io!, socket);
 
     socket.on('disconnect', () => {
+      socketRateLimiter.cleanup(socket.id);
       logger.info(`Socket disconnected: ${socket.id} for user ${userId}`);
     });
   });

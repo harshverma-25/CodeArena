@@ -1,7 +1,15 @@
 import { Server, Socket } from 'socket.io';
 import { roomService } from '../modules/room/room.service.js';
 import { logger } from '../config/logger.js';
-import { IRoomSettings } from '../modules/room/room.types.js';
+import { IRoomSettings, RoomStatus } from '../modules/room/room.types.js';
+import { socketRateLimiter } from './socket.limiter.js';
+import {
+  roomJoinPayloadSchema,
+  roomReadyPayloadSchema,
+  roomUpdateSettingsPayloadSchema,
+  roomPlayAgainPayloadSchema,
+  roomLeavePayloadSchema,
+} from './socket.validator.js';
 
 /**
  * Format room details for WebSocket payloads, stripping internal database fields.
@@ -37,10 +45,20 @@ export function registerRoomHandlers(io: Server, socket: Socket) {
 
   // Handle player joining a room channel
   socket.on('room:join', async (payload: { roomCode: string }) => {
-    const roomCode = payload?.roomCode?.toUpperCase();
-    if (!roomCode) {
-      return socket.emit('error', { success: false, message: 'Room code is required' });
+    // Rate limit checks
+    if (socketRateLimiter.isEventRateLimited(socket.id, 'room:join', 5)) {
+      return socket.emit('error', { success: false, message: 'Too many join requests. Please slow down.' });
     }
+
+    if (socketRateLimiter.isJoinThrottled(userId)) {
+      return socket.emit('error', { success: false, message: 'Too many failed join attempts. Please wait 1 minute before trying again.' });
+    }
+
+    const parsed = roomJoinPayloadSchema.safeParse(payload);
+    if (!parsed.success) {
+      return socket.emit('error', { success: false, message: parsed.error.issues[0].message });
+    }
+    const roomCode = parsed.data.roomCode;
 
     try {
       if (socket.data.roomCode && socket.data.roomCode !== roomCode) {
@@ -49,6 +67,7 @@ export function registerRoomHandlers(io: Server, socket: Socket) {
       }
 
       const room = await roomService.getRoom(roomCode);
+      socketRateLimiter.resetFailedJoins(userId);
 
       // Verify if the user is already listed as a player in this room
       const isAlreadyPlayer = room.players.some(
@@ -68,6 +87,11 @@ export function registerRoomHandlers(io: Server, socket: Socket) {
 
         logger.info(`Player ${userId} reconnected to socket room ${roomCode}`);
       } else {
+        // Prevent joining matches already started
+        if (room.status !== RoomStatus.WAITING && room.status !== RoomStatus.READY) {
+          return socket.emit('error', { success: false, message: 'Cannot join room after the match has started' });
+        }
+
         // Player is new; add to database room via RoomService
         const updatedRoom = await roomService.joinRoom(userId, roomCode);
         socket.join(`room:${roomCode}`);
@@ -82,6 +106,7 @@ export function registerRoomHandlers(io: Server, socket: Socket) {
         logger.info(`Player ${userId} joined socket room ${roomCode}`);
       }
     } catch (error: any) {
+      socketRateLimiter.recordFailedJoin(userId);
       logger.error(error, `Failed to join room socket channel: ${roomCode}`);
       socket.emit('error', { success: false, message: error.message || 'Failed to join room' });
     }
@@ -89,10 +114,15 @@ export function registerRoomHandlers(io: Server, socket: Socket) {
 
   // Handle player requesting play again for the room
   socket.on('room:play_again', async (payload: { roomCode: string }) => {
-    const roomCode = payload?.roomCode?.toUpperCase();
-    if (!roomCode) {
-      return socket.emit('error', { success: false, message: 'Room code is required' });
+    if (socketRateLimiter.isEventRateLimited(socket.id, 'room:play_again', 5)) {
+      return socket.emit('error', { success: false, message: 'Too many rematch requests. Please slow down.' });
     }
+
+    const parsed = roomPlayAgainPayloadSchema.safeParse(payload);
+    if (!parsed.success) {
+      return socket.emit('error', { success: false, message: parsed.error.issues[0].message });
+    }
+    const roomCode = parsed.data.roomCode;
 
     try {
       const newRoom = await roomService.createRematchRoom(userId, roomCode, io);
@@ -106,10 +136,15 @@ export function registerRoomHandlers(io: Server, socket: Socket) {
 
   // Handle player leaving a room channel
   socket.on('room:leave', async (payload: { roomCode: string }) => {
-    const roomCode = payload?.roomCode?.toUpperCase();
-    if (!roomCode) {
-      return socket.emit('error', { success: false, message: 'Room code is required' });
+    if (socketRateLimiter.isEventRateLimited(socket.id, 'room:leave', 5)) {
+      return socket.emit('error', { success: false, message: 'Too many leave requests. Please slow down.' });
     }
+
+    const parsed = roomLeavePayloadSchema.safeParse(payload);
+    if (!parsed.success) {
+      return socket.emit('error', { success: false, message: parsed.error.issues[0].message });
+    }
+    const roomCode = parsed.data.roomCode;
 
     try {
       const room = await roomService.leaveRoom(userId, roomCode);
@@ -130,12 +165,15 @@ export function registerRoomHandlers(io: Server, socket: Socket) {
 
   // Handle player toggling ready status
   socket.on('room:ready', async (payload: { roomCode: string; isReady: boolean }) => {
-    const roomCode = payload?.roomCode?.toUpperCase();
-    const isReady = payload?.isReady;
-
-    if (!roomCode || isReady === undefined) {
-      return socket.emit('error', { success: false, message: 'Room code and ready status are required' });
+    if (socketRateLimiter.isEventRateLimited(socket.id, 'room:ready', 5)) {
+      return socket.emit('error', { success: false, message: 'Too many ready toggle requests. Please slow down.' });
     }
+
+    const parsed = roomReadyPayloadSchema.safeParse(payload);
+    if (!parsed.success) {
+      return socket.emit('error', { success: false, message: parsed.error.issues[0].message });
+    }
+    const { roomCode, isReady } = parsed.data;
 
     try {
       const room = await roomService.updateReadyStatus(userId, roomCode, isReady);
@@ -152,12 +190,15 @@ export function registerRoomHandlers(io: Server, socket: Socket) {
 
   // Handle host updating room settings
   socket.on('room:update_settings', async (payload: { roomCode: string; settings: Partial<IRoomSettings> }) => {
-    const roomCode = payload?.roomCode?.toUpperCase();
-    const settings = payload?.settings;
-
-    if (!roomCode || !settings) {
-      return socket.emit('error', { success: false, message: 'Room code and settings are required' });
+    if (socketRateLimiter.isEventRateLimited(socket.id, 'room:update_settings', 5)) {
+      return socket.emit('error', { success: false, message: 'Too many setting updates. Please slow down.' });
     }
+
+    const parsed = roomUpdateSettingsPayloadSchema.safeParse(payload);
+    if (!parsed.success) {
+      return socket.emit('error', { success: false, message: parsed.error.issues[0].message });
+    }
+    const { roomCode, settings } = parsed.data;
 
     try {
       const room = await roomService.updateSettings(userId, roomCode, settings);
@@ -175,10 +216,16 @@ export function registerRoomHandlers(io: Server, socket: Socket) {
   // Handle normal socket disconnect events (e.g. tab close, connection drop)
   socket.on('disconnect', async () => {
     const roomCode = socket.data.roomCode;
+    socketRateLimiter.cleanup(socket.id);
+
     if (roomCode) {
       try {
-        const room = await roomService.updateReadyStatus(userId, roomCode, false);
-        io.to(`room:${roomCode}`).emit('room:update', formatRoomSocketPayload(room));
+        const room = await roomService.getRoom(roomCode);
+        // Only attempt ready state modification if room is waiting/ready (not in-progress/finished)
+        if (room && (room.status === RoomStatus.WAITING || room.status === RoomStatus.READY)) {
+          const updated = await roomService.updateReadyStatus(userId, roomCode, false);
+          io.to(`room:${roomCode}`).emit('room:update', formatRoomSocketPayload(updated));
+        }
       } catch {
         // Player may have already left or room closed
       }
