@@ -83,8 +83,8 @@ export default function MultiplayerLobbyPage() {
   const [selectedTimeLimit, setSelectedTimeLimit] = useState<number>(30);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setJoinUrl(`${window.location.origin}/lobby/${roomCode}`);
+    if (typeof window !== "undefined" && roomCode) {
+      setJoinUrl(`${window.location.origin}/lobby/${encodeURIComponent(roomCode)}`);
     }
   }, [roomCode]);
 
@@ -111,13 +111,21 @@ export default function MultiplayerLobbyPage() {
     }, 3000);
   };
 
-  // Surface socket errors
+  // Surface socket errors and restore server-authoritative settings
   useEffect(() => {
     if (socketError) {
       showToast(socketError);
+      if (room?.settings) {
+        if (room.settings.questionCount) {
+          setSelectedQuestionCount(room.settings.questionCount);
+        }
+        if (room.settings.timeLimit) {
+          setSelectedTimeLimit(room.settings.timeLimit);
+        }
+      }
       clearError();
     }
-  }, [socketError, clearError]);
+  }, [socketError, clearError, room?.settings]);
 
   // Auto-redirect if room is in progress
   useEffect(() => {
@@ -137,8 +145,13 @@ export default function MultiplayerLobbyPage() {
 
   // Copy Invite URL action
   const handleCopyInviteLink = () => {
-    if (!joinUrl) return;
-    navigator.clipboard?.writeText(joinUrl);
+    const urlToCopy =
+      joinUrl ||
+      (typeof window !== "undefined" && roomCode
+        ? `${window.location.origin}/lobby/${encodeURIComponent(roomCode)}`
+        : "");
+    if (!urlToCopy) return;
+    navigator.clipboard?.writeText(urlToCopy);
     setCopiedLink(true);
     showToast("Invite link copied to clipboard!");
     setTimeout(() => setCopiedLink(false), 2000);
@@ -607,7 +620,12 @@ export default function MultiplayerLobbyPage() {
                 <input
                   type="text"
                   readOnly
-                  value={joinUrl || `https://quizzy.app/join/${roomCode}`}
+                  value={
+                    joinUrl ||
+                    (typeof window !== "undefined" && roomCode
+                      ? `${window.location.origin}/lobby/${encodeURIComponent(roomCode)}`
+                      : `/lobby/${encodeURIComponent(roomCode || '')}`)
+                  }
                   className="w-full bg-[#FAF7EE] border-2 border-stone-300 rounded-xl px-3.5 py-2 font-bold text-xs sm:text-sm text-stone-800 select-all focus:outline-none"
                 />
                 <button

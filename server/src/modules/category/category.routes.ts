@@ -12,6 +12,19 @@ router.get(
   asyncHandler((req, res) => categoryController.getCategories(req, res))
 );
 
+// Route: GET /api/v1/categories/popular
+router.get(
+  '/popular',
+  asyncHandler((req, res) => categoryController.getPopularQuizzes(req, res))
+);
+
+// Route: GET /api/v1/categories/:categoryId
+router.get(
+  '/:categoryId',
+  validateRequest(categoryParamSchema),
+  asyncHandler((req, res) => categoryController.getCategoryById(req, res))
+);
+
 // Route: GET /api/v1/categories/:categoryId/subjects
 router.get(
   '/:categoryId/subjects',

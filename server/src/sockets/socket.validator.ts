@@ -25,7 +25,9 @@ export const roomUpdateSettingsPayloadSchema = z.object({
     categoryId: z.string().trim().optional(),
     subjectId: z.string().trim().optional(),
     isMixedCategory: z.boolean().optional(),
-    timeLimit: z.number().positive().optional(),
+    timeLimit: z.union([z.literal(10), z.literal(20), z.literal(30)], {
+      errorMap: () => ({ message: 'Time limit must be 10, 20, or 30 seconds' }),
+    }).optional(),
   }),
 });
 

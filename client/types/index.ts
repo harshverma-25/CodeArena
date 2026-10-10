@@ -52,6 +52,19 @@ export interface Subject {
   isPlayable?: boolean;
 }
 
+export interface PopularQuiz {
+  id: string;
+  rank: number;
+  title: string;
+  description: string;
+  categorySlug: string;
+  subjectSlug?: string | null;
+  isMixedCategory: boolean;
+  icon?: string;
+  questionCount: number;
+  playedCount: number;
+}
+
 export interface RoomSettings {
   topic?: string;
   difficulty?: string;

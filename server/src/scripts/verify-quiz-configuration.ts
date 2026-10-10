@@ -66,13 +66,14 @@ async function runVerification() {
       }
     }
 
-    // 7-9. Test Category Timer Rules
-    console.log('\n▶️ Checkpoints 7, 8, 9: Category Timer Rules');
+    // 7-9. Test Category Timer Rules (including explicit Science configuration HD-009)
+    console.log('\n▶️ Checkpoints 7, 8, 9: Category Timer Rules (HD-009 Explicit Science)');
     const timerChecks = [
       { category: 'programming', expectedTimer: 30 },
       { category: 'aptitude', expectedTimer: 60 },
       { category: 'general-knowledge', expectedTimer: 30 },
       { category: 'gk', expectedTimer: 30 },
+      { category: 'science', expectedTimer: 30 },
     ];
 
     for (const check of timerChecks) {
@@ -83,18 +84,34 @@ async function runVerification() {
       console.log(`  Category '${check.category}' derived timer = ${timer}s ✅`);
     }
 
-    // 10. Client Timer Override Rejection/Override Test
-    console.log('\n▶️ Checkpoint 10: Server Authoritative Timer (Client Override Ignored)');
-    const roomWithOverride = await roomService.createRoom(hostId, {
-      categoryId: 'programming',
-      questionCount: 10,
-      timeLimit: 999,
-    } as any);
-
-    if (roomWithOverride.settings.timeLimit !== 30) {
-      throw new Error(`Server failed to enforce category timer! Got ${roomWithOverride.settings.timeLimit} instead of 30`);
+    // 10. Client Custom Timer Validation & Precedence Test (HD-004)
+    console.log('\n▶️ Checkpoint 10: Client Custom Timer Validation & Precedence (HD-004)');
+    try {
+      await roomService.createRoom(hostId, {
+        categoryId: 'programming',
+        questionCount: 10,
+        timeLimit: 999 as any,
+      });
+      throw new Error('Room creation should have failed for invalid timeLimit 999');
+    } catch (err: any) {
+      if (err instanceof ApiError && err.statusCode === 400) {
+        console.log('  Invalid timeLimit 999s correctly rejected with 400 Bad Request ✅');
+      } else {
+        throw err;
+      }
     }
-    console.log('  Client attempt to override timeLimit to 999s was authoritatively overridden to 30s ✅');
+
+    for (const validSeconds of [10, 20, 30]) {
+      const customRoom = await roomService.createRoom(hostId, {
+        categoryId: 'programming',
+        questionCount: 10,
+        timeLimit: validSeconds,
+      });
+      if (customRoom.settings.timeLimit !== validSeconds) {
+        throw new Error(`Expected timeLimit ${validSeconds}s, got ${customRoom.settings.timeLimit}s`);
+      }
+      console.log(`  Valid custom timeLimit ${validSeconds}s accepted and persisted (Code: ${customRoom.roomCode}) ✅`);
+    }
 
     // 11-12. Question Availability Validation
     console.log('\n▶️ Checkpoints 11 & 12: Question Availability Validation');

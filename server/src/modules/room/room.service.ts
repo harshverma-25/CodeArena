@@ -9,6 +9,9 @@ import {
   QUESTION_COUNT_OPTIONS,
   DEFAULT_QUESTION_COUNT,
   getCategoryTimeLimit,
+  isValidMultiplayerTimeLimit,
+  MULTIPLAYER_TIMER_OPTIONS,
+  DEFAULT_MULTIPLAYER_TIME_LIMIT,
 } from '../../shared/config/quiz-config.js';
 import { battleService } from '../battle/battle.service.js';
 import { Server } from 'socket.io';
@@ -47,7 +50,10 @@ export class RoomService {
   /**
    * Validate category and subject relationships server-side.
    */
-  private async validateAndResolveCategorySettings(settings?: Partial<IRoomSettings>): Promise<IRoomSettings> {
+  private async validateAndResolveCategorySettings(
+    settings?: Partial<IRoomSettings>,
+    options?: { isSolo?: boolean }
+  ): Promise<IRoomSettings> {
     const categoryId = settings?.categoryId;
     const subjectId = settings?.subjectId;
     const isMixedCategory = !!settings?.isMixedCategory;
@@ -84,9 +90,25 @@ export class RoomService {
       }
     }
 
-    // 2. Server-authoritative category timer derivation
+    // 2. Server-authoritative category timer derivation & custom multiplayer timer validation
     const catIdentifier = resolvedCatDoc ? resolvedCatDoc.slug : categoryId;
-    const timeLimit = getCategoryTimeLimit(catIdentifier);
+    let timeLimit: number;
+
+    if (settings?.timeLimit !== undefined) {
+      if (!isValidMultiplayerTimeLimit(settings.timeLimit)) {
+        throw new ApiError(
+          400,
+          `Invalid time limit '${settings.timeLimit}'. Allowed options: ${MULTIPLAYER_TIMER_OPTIONS.join(', ')} seconds`
+        );
+      }
+      timeLimit = settings.timeLimit;
+    } else if (options?.isSolo) {
+      timeLimit = getCategoryTimeLimit(catIdentifier);
+    } else {
+      // Multiplayer room without explicit timeLimit: use category default if within allowed multiplayer options, else DEFAULT_MULTIPLAYER_TIME_LIMIT (30s)
+      const catDefault = getCategoryTimeLimit(catIdentifier);
+      timeLimit = isValidMultiplayerTimeLimit(catDefault) ? catDefault : DEFAULT_MULTIPLAYER_TIME_LIMIT;
+    }
 
     // 3. Question availability count check against database
     const matchingCount = await questionRepository.countMatchingQuestions({
@@ -178,7 +200,7 @@ export class RoomService {
     settings?: Partial<IRoomSettings>,
     io?: Server
   ): Promise<{ room: IRoomDocument; battle: any }> {
-    const validatedSettings = await this.validateAndResolveCategorySettings(settings);
+    const validatedSettings = await this.validateAndResolveCategorySettings(settings, { isSolo: true });
 
     // Generate unique room code with bounded attempts and lightweight existence check
     const roomCode = await this.generateUniqueRoomCode();
@@ -303,6 +325,11 @@ export class RoomService {
       topic: settings.topic !== undefined ? settings.topic : room.settings.topic,
       difficulty: settings.difficulty !== undefined ? settings.difficulty : room.settings.difficulty,
       questionCount: settings.questionCount !== undefined ? settings.questionCount : (room.settings.questionCount || 10),
+      timeLimit: settings.timeLimit !== undefined
+        ? settings.timeLimit
+        : (isValidMultiplayerTimeLimit(room.settings?.timeLimit)
+          ? room.settings.timeLimit
+          : DEFAULT_MULTIPLAYER_TIME_LIMIT),
     };
 
     const validatedSettings = await this.validateAndResolveCategorySettings(updatedSettingsCandidate);

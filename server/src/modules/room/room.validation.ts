@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { roomCodeSchema, topicSchema, difficultySchema } from '../../shared/validators/index.js';
+import { MULTIPLAYER_TIMER_OPTIONS } from '../../shared/config/quiz-config.js';
 
 // Allowed topic schema: QuestionTopic string, legacy topicSchema, or 'random'
 const roomTopicSchema = z.string().min(1).default('random');
@@ -9,26 +10,31 @@ const roomDifficultySchema = z.enum([
   'random'
 ]).default('random');
 
+const roomTimeLimitSchema = z.coerce
+  .number({ invalid_type_error: 'Time limit must be a number' })
+  .int('Time limit must be an integer')
+  .refine((val) => (MULTIPLAYER_TIMER_OPTIONS as readonly number[]).includes(val), {
+    message: 'Time limit must be 10, 20, or 30 seconds',
+  })
+  .optional();
+
 // Schema for POST /rooms (Create Room)
 export const createRoomSchema = z.object({
-  body: z
-    .object({
-      topic: roomTopicSchema.optional(),
-      difficulty: roomDifficultySchema.optional(),
-      questionCount: z.coerce
-        .number({ invalid_type_error: 'Question count must be a number' })
-        .int('Question count must be an integer')
-        .min(5, 'Question count must be at least 5')
-        .max(30, 'Question count cannot exceed 30')
-        .default(10)
-        .optional(),
-      categoryId: z.string().optional(),
-      subjectId: z.string().nullable().optional(),
-      isMixedCategory: z.boolean().optional(),
-    })
-    .refine((data) => !('timeLimit' in data), {
-      message: 'Arbitrary timeLimit cannot be set by client',
-    }),
+  body: z.object({
+    topic: roomTopicSchema.optional(),
+    difficulty: roomDifficultySchema.optional(),
+    questionCount: z.coerce
+      .number({ invalid_type_error: 'Question count must be a number' })
+      .int('Question count must be an integer')
+      .min(5, 'Question count must be at least 5')
+      .max(30, 'Question count cannot exceed 30')
+      .default(10)
+      .optional(),
+    categoryId: z.string().optional(),
+    subjectId: z.string().nullable().optional(),
+    isMixedCategory: z.boolean().optional(),
+    timeLimit: roomTimeLimitSchema,
+  }),
   query: z.object({}).optional(),
   params: z.object({}).optional(),
 });
@@ -53,23 +59,20 @@ export const roomCodeParamSchema = z.object({
 
 // Schema for PATCH /rooms/:roomCode/settings (Update Settings)
 export const updateSettingsSchema = z.object({
-  body: z
-    .object({
-      topic: roomTopicSchema.optional(),
-      difficulty: roomDifficultySchema.optional(),
-      questionCount: z.coerce
-        .number({ invalid_type_error: 'Question count must be a number' })
-        .int('Question count must be an integer')
-        .min(5, 'Question count must be at least 5')
-        .max(30, 'Question count cannot exceed 30')
-        .optional(),
-      categoryId: z.string().optional(),
-      subjectId: z.string().nullable().optional(),
-      isMixedCategory: z.boolean().optional(),
-    })
-    .refine((data) => !('timeLimit' in data), {
-      message: 'Arbitrary timeLimit cannot be set by client',
-    }),
+  body: z.object({
+    topic: roomTopicSchema.optional(),
+    difficulty: roomDifficultySchema.optional(),
+    questionCount: z.coerce
+      .number({ invalid_type_error: 'Question count must be a number' })
+      .int('Question count must be an integer')
+      .min(5, 'Question count must be at least 5')
+      .max(30, 'Question count cannot exceed 30')
+      .optional(),
+    categoryId: z.string().optional(),
+    subjectId: z.string().nullable().optional(),
+    isMixedCategory: z.boolean().optional(),
+    timeLimit: roomTimeLimitSchema,
+  }),
   query: z.object({}).optional(),
   params: z.object({
     roomCode: roomCodeSchema,

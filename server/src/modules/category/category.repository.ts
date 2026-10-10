@@ -64,6 +64,13 @@ export class CategoryRepository {
       { new: true, upsert: true, runValidators: true }
     );
   }
+
+  /**
+   * Find all active subjects across all categories.
+   */
+  async findAllActiveSubjects(): Promise<ISubjectDocument[]> {
+    return SubjectModel.find({ isActive: true }).sort({ name: 1 });
+  }
 }
 
 export const categoryRepository = new CategoryRepository();

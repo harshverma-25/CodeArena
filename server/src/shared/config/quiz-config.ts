@@ -19,9 +19,24 @@ export const CATEGORY_TIMER_MAP: Record<string, number> = {
   aptitude: 60,
   'general-knowledge': 30,
   gk: 30,
+  science: 30,
 };
 
 export const DEFAULT_TIME_LIMIT = 30;
+
+/**
+ * Supported Multiplayer Timer Options (in seconds per question)
+ */
+export const MULTIPLAYER_TIMER_OPTIONS = [10, 20, 30] as const;
+export type MultiplayerTimerOption = typeof MULTIPLAYER_TIMER_OPTIONS[number];
+export const DEFAULT_MULTIPLAYER_TIME_LIMIT: MultiplayerTimerOption = 30;
+
+/**
+ * Validates whether a given value is one of the allowed multiplayer time limits (10, 20, 30 seconds).
+ */
+export function isValidMultiplayerTimeLimit(val: unknown): val is MultiplayerTimerOption {
+  return typeof val === 'number' && (MULTIPLAYER_TIMER_OPTIONS as readonly number[]).includes(val);
+}
 
 /**
  * Derives the server-authoritative timer limit for a given category slug or ID.
