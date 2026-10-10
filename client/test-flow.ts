@@ -1,18 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-
-const BACKEND_URL = 'http://localhost:5000';
-
-const USER_1 = {
-  clerkId: 'user_3HIxvzCofKPVuwGi0EMZbK3dUvO',
-  token: 'mock_test_token_user_3HIxvzCofKPVuwGi0EMZbK3dUvO',
-  username: 'AliceHost',
-};
-
-const USER_2 = {
-  clerkId: 'user_3HJivSFmHVygpLuuBo9IkwxsCti',
-  token: 'mock_test_token_user_3HJivSFmHVygpLuuBo9IkwxsCti',
-  username: 'BobChallenger',
-};
+import { BACKEND_URL, createTestGuest } from './test-auth-helper';
 
 async function postJSON(url: string, data: any, token: string) {
   const res = await fetch(`${BACKEND_URL}${url}`, {
@@ -53,11 +40,15 @@ function waitForEvent<T = any>(socket: Socket, event: string, timeoutMs = 5000):
 async function runTest() {
   console.log('🧪 Starting Automated Live Battle Flow Integration Test...');
 
+  const USER_1 = await createTestGuest('AliceHost');
+  const USER_2 = await createTestGuest('BobChallenger');
+  console.log(`✅ Dynamically authenticated test users: ${USER_1.username}, ${USER_2.username}`);
+
   // Step 1: Host creates room via REST
-  console.log('\n1. Host creating battle room (topic: random, difficulty: random, questionCount: 10)...');
+  console.log('\n1. Host creating battle room (topic: random, difficulty: random, questionCount: 10, timeLimit: 30)...');
   const createRes = await postJSON(
     '/api/v1/rooms',
-    { topic: 'random', difficulty: 'random', questionCount: 10, duration: 30 },
+    { topic: 'random', difficulty: 'random', questionCount: 10, timeLimit: 30 },
     USER_1.token
   );
   if (!createRes.success || !createRes.data) {
@@ -90,7 +81,7 @@ async function runTest() {
   console.log('\n5. Readying up both players...');
   const readyPromise = new Promise((resolve) => {
     const checkReady = (room: any) => {
-      if (room.status === 'READY' && room.players.every((p: any) => p.isReady)) {
+      if (room.players.length >= 2 && room.players.every((p: any) => p.isReady)) {
         socket1.off('room:update', checkReady);
         resolve(room);
       }
@@ -102,7 +93,7 @@ async function runTest() {
   socket2.emit('room:ready', { roomCode, isReady: true });
 
   const finalReadyRoom: any = await readyPromise;
-  console.log(`✅ Both players ready! Room status: ${finalReadyRoom.status}`);
+  console.log(`✅ Both players ready! Players count: ${finalReadyRoom.players.length}`);
 
   // Step 6: Start Battle
   console.log('\n6. Host initiating battle (room:start_battle)...');
@@ -117,10 +108,10 @@ async function runTest() {
   console.log(`   Player 2 Q1: "${p2Init.currentQuestion.question}"`);
   console.log(`   Total Questions: ${p1Init.questionCount}, Time per question: ${p1Init.timePerQuestion}s`);
 
-  // Step 7: Answer Question
+  // Step 7: Answer Question (Synchronized Round Lifecycle)
   console.log('\n7. Player 1 answering question 1...');
-  const p1NextPromise = waitForEvent(socket1, 'battle:next_question');
-  const p2OppProgressPromise = waitForEvent(socket2, 'battle:opponent_progress');
+  const p1LockedPromise = waitForEvent(socket1, 'battle:answer_locked');
+  const p2SubmittedPromise = waitForEvent(socket2, 'battle:player_submitted');
 
   socket1.emit('battle:submit_answer', {
     roomCode,
@@ -128,9 +119,23 @@ async function runTest() {
     selectedOption: 0,
   });
 
-  const [p1Next, p2OppProgress] = await Promise.all([p1NextPromise, p2OppProgressPromise]);
-  console.log(`✅ Player 1 advanced to question index ${p1Next.currentQuestionIndex}`);
-  console.log(`✅ Player 2 received opponent progress: Index ${p2OppProgress.currentQuestionIndex}, Score: ${p2OppProgress.score}`);
+  const [p1Locked, p2Submitted] = await Promise.all([p1LockedPromise, p2SubmittedPromise]);
+  console.log(`✅ Player 1 answer locked (potential score: ${p1Locked.potentialScore}, time: ${p1Locked.timeTakenMs}ms)`);
+  console.log(`✅ Player 2 received opponent submission notification (userId: ${p2Submitted.userId})`);
+
+  // Player 2 answers question 1 -> all players answered, server triggers round reveal
+  console.log('\n7b. Player 2 answering question 1 (all players answered -> round reveal)...');
+  const p1RevealPromise = waitForEvent(socket1, 'battle:reveal');
+  const p2RevealPromise = waitForEvent(socket2, 'battle:reveal');
+
+  socket2.emit('battle:submit_answer', {
+    roomCode,
+    questionId: p2Init.currentQuestion.questionId,
+    selectedOption: 0,
+  });
+
+  const [p1Reveal, p2Reveal] = await Promise.all([p1RevealPromise, p2RevealPromise]);
+  console.log(`✅ Both players received battle:reveal! Correct answer index: ${p1Reveal.correctAnswer}`);
 
   // Step 8: Reconnection test
   console.log('\n8. Testing reconnection during battle (battle:reconnect)...');

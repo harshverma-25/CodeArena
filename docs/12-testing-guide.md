@@ -133,9 +133,9 @@ npm run reconcile:apply
 Standalone integration scripts simulating browser clients communicating with the backend over WebSockets and HTTP:
 ```bash
 cd client
-npx tsx test-complete-game.ts
+npx tsx test-flow.ts
+npx tsx test-timeout.ts
 npx tsx test-step6-leaderboard-profile.ts
-npx tsx test-step7-comprehensive.ts
 ```
 
 ---

@@ -1,18 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-
-const BACKEND_URL = 'http://localhost:5000';
-
-const USER_1 = {
-  clerkId: 'user_3HIxvzCofKPVuwGi0EMZbK3dUvO',
-  token: 'mock_test_token_user_3HIxvzCofKPVuwGi0EMZbK3dUvO',
-  username: 'AliceHost',
-};
-
-const USER_2 = {
-  clerkId: 'user_3HJivSFmHVygpLuuBo9IkwxsCti',
-  token: 'mock_test_token_user_3HJivSFmHVygpLuuBo9IkwxsCti',
-  username: 'BobChallenger',
-};
+import { BACKEND_URL, createTestGuest } from './test-auth-helper';
 
 async function postJSON(url: string, data: any, token: string) {
   const res = await fetch(`${BACKEND_URL}${url}`, {
@@ -37,7 +24,7 @@ function connectSocket(token: string): Promise<Socket> {
   });
 }
 
-function waitForEvent<T = any>(socket: Socket, event: string, timeoutMs = 45000): Promise<T> {
+function waitForEvent<T = any>(socket: Socket, event: string, timeoutMs = 25000): Promise<T> {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
       reject(new Error(`Timeout waiting for event '${event}' (${timeoutMs}ms)`));
@@ -53,14 +40,21 @@ function waitForEvent<T = any>(socket: Socket, event: string, timeoutMs = 45000)
 async function runTimeoutTest() {
   console.log('⏰ Starting Question Timeout Server Handling Test...');
 
-  // 1. Create Room
+  const USER_1 = await createTestGuest('TimeoutHost');
+  const USER_2 = await createTestGuest('TimeoutGuest');
+  console.log(`✅ Created test users: ${USER_1.username}, ${USER_2.username}`);
+
+  // 1. Create Room with timeLimit = 10s for fast timeout verification
   const createRes = await postJSON(
     '/api/v1/rooms',
-    { topic: 'random', difficulty: 'random', questionCount: 10, duration: 30 },
+    { topic: 'random', difficulty: 'random', questionCount: 10, timeLimit: 10 },
     USER_1.token
   );
+  if (!createRes.success || !createRes.data) {
+    throw new Error(`Failed to create room: ${JSON.stringify(createRes)}`);
+  }
   const roomCode = createRes.data.roomCode;
-  console.log(`✅ Room created: ${roomCode}`);
+  console.log(`✅ Room created: ${roomCode} (timeLimit: 10s)`);
 
   const socket1 = await connectSocket(USER_1.token);
   const socket2 = await connectSocket(USER_2.token);
@@ -76,7 +70,7 @@ async function runTimeoutTest() {
 
   const readyPromise = new Promise((resolve) => {
     const checkReady = (room: any) => {
-      if (room.status === 'READY' && room.players.every((p: any) => p.isReady)) {
+      if (room.players.length >= 2 && room.players.every((p: any) => p.isReady)) {
         socket1.off('room:update', checkReady);
         resolve(room);
       }
@@ -86,21 +80,23 @@ async function runTimeoutTest() {
   socket1.emit('room:ready', { roomCode, isReady: true });
   socket2.emit('room:ready', { roomCode, isReady: true });
   await readyPromise;
+  console.log(`✅ Both players ready.`);
 
   // 3. Start Battle
   const p1InitPromise = waitForEvent(socket1, 'battle:init');
   socket1.emit('room:start_battle', { roomCode });
   const p1Init = await p1InitPromise;
-  console.log(`✅ Battle started! Q1 deadline is ${p1Init.timePerQuestion}s. We will NOT submit an answer and wait for server timeout...`);
+  console.log(`✅ Battle started! Q1 deadline is ${p1Init.timePerQuestion}s. Neither player will submit an answer, awaiting authoritative server timeout sweeper...`);
 
-  // 4. Wait for server-authoritative timeout (30 seconds)
-  console.log('⏳ Waiting for server-side question timeout (approx 30s)...');
-  const timeoutNextPromise = waitForEvent(socket1, 'battle:next_question', 35000);
-  const nextQ = await timeoutNextPromise;
+  // 4. Wait for server-authoritative timeout (10 seconds + sweeper cycle)
+  console.log(`⏳ Waiting for server-side question timeout (approx 10s)...`);
+  const timeoutRevealPromise = waitForEvent(socket1, 'battle:reveal', 20000);
+  const reveal = await timeoutRevealPromise;
 
-  console.log(`✅ Server successfully triggered question timeout!`);
-  console.log(`   Player automatically advanced to Q index ${nextQ.currentQuestionIndex}`);
-  console.log(`   Next question: "${nextQ.question.question.slice(0, 40)}..."`);
+  console.log(`✅ Server sweeper successfully triggered question timeout!`);
+  console.log(`   battle:reveal received for round ${reveal.roundIndex}`);
+  console.log(`   Correct answer: index ${reveal.correctAnswer}`);
+  console.log(`   Accuracy across players: ${reveal.accuracyPct}% (${reveal.correctCount}/${reveal.totalPlayers})`);
 
   socket1.disconnect();
   socket2.disconnect();

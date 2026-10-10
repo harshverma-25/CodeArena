@@ -26,7 +26,6 @@ interface BattleState {
   matchId: string | null;
   status: BattleStatus;
   difficulty: QuizDifficulty | string | null;
-  durationMinutes: number;
   timeRemainingSeconds: number;
   
   // MCQ Battle Init Cache
@@ -41,7 +40,7 @@ interface BattleState {
   setSocketConnected: (connected: boolean) => void;
   setReconnecting: (reconnecting: boolean) => void;
   setSocketError: (error: string | null) => void;
-  setRoomDetails: (roomCode: string, difficulty: QuizDifficulty | string, durationMinutes: number) => void;
+  setRoomDetails: (roomCode: string, difficulty: QuizDifficulty | string) => void;
   setMatchId: (matchId: string | null) => void;
   setStatus: (status: BattleStatus) => void;
   setPlayers: (players: Player[]) => void;
@@ -59,7 +58,6 @@ export const useBattleStore = create<BattleState>((set) => ({
   matchId: null,
   status: "idle",
   difficulty: null,
-  durationMinutes: 30,
   timeRemainingSeconds: 0,
   battleInitData: null,
   setBattleInitData: (battleInitData) => set({ battleInitData }),
@@ -69,8 +67,8 @@ export const useBattleStore = create<BattleState>((set) => ({
   setSocketConnected: (connected) => set({ isSocketConnected: connected }),
   setReconnecting: (isReconnecting) => set({ isReconnecting }),
   setSocketError: (socketError) => set({ socketError }),
-  setRoomDetails: (roomCode, difficulty, durationMinutes) => 
-    set({ roomCode, difficulty, durationMinutes }),
+  setRoomDetails: (roomCode, difficulty) => 
+    set({ roomCode, difficulty }),
   setMatchId: (matchId) => set({ matchId }),
   setStatus: (status) => set({ status }),
   setPlayers: (players) => set({ players }),
@@ -84,7 +82,6 @@ export const useBattleStore = create<BattleState>((set) => ({
     matchId: null,
     status: "idle",
     difficulty: null,
-    durationMinutes: 30,
     timeRemainingSeconds: 0,
     players: [],
     socketError: null,

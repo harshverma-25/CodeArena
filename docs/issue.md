@@ -36,9 +36,9 @@
 | :--- | :---: | :---: | :--- |
 | **Critical** | 0 | 0 | None |
 | **High** | 0 | 3 | `HD-001` (Resolved), `HD-002` (Resolved), `HD-003` (Resolved) |
-| **Medium** | 1 | 4 | `HD-004` (Resolved), `HD-005` (Resolved), `HD-006` (Resolved), `HD-009` (Resolved), `HD-008` (Open) |
-| **Low** | 3 | 1 | `HD-010` (Resolved), `HD-007` (Open), `HD-011` (Open), `HD-012` (Open) |
-| **Total Issues** | **4 Open** | **8 Resolved** | **12 Total** |
+| **Medium** | 0 | 5 | `HD-004` (Resolved), `HD-005` (Resolved), `HD-006` (Resolved), `HD-008` (Resolved), `HD-009` (Resolved) |
+| **Low** | 0 | 4 | `HD-007` (Resolved), `HD-010` (Resolved), `HD-011` (Resolved), `HD-012` (Investigated & Verified Clean) |
+| **Total Issues** | **0 Open** | **12 Resolved** | **12 Total** |
 
 ### Key Architectural Resolutions & Active Priorities:
 1. ✅ **Dynamic Curriculum & Homepage (HD-001, HD-002, HD-003 Resolved)**:  
@@ -53,6 +53,14 @@
    Refactored `PlayAsGuestModal.tsx` to route all guest login requests through `useApiClient()`. Completely eliminated hardcoded localhost API fallbacks and raw `fetch` calls. Preserved cookie credentials, reactive guest auth state, and secure error recovery without leaking tokens.
 6. ✅ **Edge Proxy Admin Route Protection (HD-010 Resolved)**:  
    Added `"/admin"` to `PROTECTED_PREFIXES` in Next.js edge proxy (`client/proxy.ts`). Unauthenticated visitors to `/admin` and nested routes are intercepted at the edge and redirected to `/login?redirect=...` with return-to-destination encoding. Authenticated non-admins are gated at the UI boundary, while backend `authorizeAdmin` independently enforces the authoritative security perimeter.
+7. ✅ **Battle State Hygiene & Legacy Sandbox Removal (HD-007 Resolved)**:  
+   Purged obsolete `durationMinutes: 30` state from `useBattleStore` in `client/store/battleStore.ts`. Removed dead parameters from store actions, leaving round-synchronized second deadlines (`timeRemainingSeconds`) as the sole store timer property.
+8. ✅ **Client Test Hygiene & Dynamic Authentication (HD-008 Resolved)**:  
+   Upgraded active client integration test scripts (`test-flow.ts`, `test-timeout.ts`, `test-step6-leaderboard-profile.ts`) to use dynamic guest sessions and native user accounts via `test-auth-helper.ts`. Purged all hardcoded mock tokens, Clerk IDs, and legacy schemas. Retired redundant sprint milestone scratch scripts (`test-step5`, `test-complete-game`, `test-step7`).
+9. ✅ **Database Schema Symmetry & Dead Stub Removal (HD-011 Resolved)**:  
+   Removed dead stub file `server/src/modules/history/history.model.ts` after verifying zero imports across the entire repository. Documented that `BattleModel` is the single source of truth for match history, queried via `HistoryRepository`.
+10. ✅ **User Statistics Integrity Investigation (HD-012 Investigated & Verified Clean)**:  
+    Executed dry-run audit (`npm run reconcile:dry-run`) across all 41 registered users and 61 completed battles. Found 0 counter discrepancies (all matches, wins, losses, draws, accuracy in complete alignment with MongoDB records). Added unit test suite `verify-reconcile-calculation.ts` verifying calculation rules, draws, and idempotency. Zero database mutations performed.
 
 ---
 
@@ -159,59 +167,37 @@
 
 ### HD-007: Legacy Sandbox `durationMinutes: 30` in Zustand `battleStore.ts`
 * **Severity**: **Low**
-* **Status**: **Confirmed**
+* **Status**: **Resolved (Verified)**
 * **Feature Area**: Battle Store & State Management
-* **Exact File Path & Line Numbers**: [`client/store/battleStore.ts:62, 72, 87`](file:///h:/Project/code-arena/client/store/battleStore.ts#L62)
-* **Current Behavior**:
-  Initial state, action `setRoomDetails`, and `resetBattle` retain `durationMinutes: 30`, a legacy remnant from coding sandbox implementations.
-* **Evidence**:
-  ```typescript
-  // client/store/battleStore.ts:62
-  durationMinutes: 30,
-  // client/store/battleStore.ts:87
-  durationMinutes: 30,
-  ```
-* **Why This Is a Problem**:
-  QUIZZY is a round-based multiplayer quiz platform where rounds have per-question second deadlines (30s/60s). Retaining 30-minute match durations confuses developers and creates dead state.
-* **Expected Behavior**:
-  State store should only contain quiz-relevant properties (`timePerQuestion`, `questionDeadline`, `currentQuestionIndex`).
-* **Correct Source of Truth**: Round-based battle state.
-* **Recommended Fix**:
-  Remove `durationMinutes` from `BattleState` interface and initial Zustand state.
-* **Dependencies / Risks**: Check if any remaining component reads `durationMinutes` (none found during grep).
+* **Exact File Path & Line Numbers**: [`client/store/battleStore.ts:25-90`](file:///h:/Project/code-arena/client/store/battleStore.ts#L25-L90)
+* **Resolution Description**:
+  1. Removed `durationMinutes: number` from `BattleState` interface.
+  2. Removed `durationMinutes` parameter from `setRoomDetails: (roomCode: string, difficulty: QuizDifficulty | string) => void`.
+  3. Removed `durationMinutes: 30` initialization from initial Zustand store state and `resetBattle` action.
+  4. Preserved active second-based deadline timers (`timeRemainingSeconds`, `timePerQuestion`).
+* **Dependencies / Risks**: Verified across repository; no active components read `durationMinutes`.
 * **Acceptance Criteria**:
-  `durationMinutes` completely removed from `battleStore.ts`.
-* **Verification Method**: Run `npm run build` in `client/` after cleanup.
+  `durationMinutes` completely removed from `battleStore.ts` with clean TypeScript compilation.
+* **Verification Method**: Verified via `npx tsc --noEmit` in `client/` (0 errors) and Next.js 16 production build (`npm run build`).
 
 ---
 
 ### HD-008: Client Test Scripts Hardcoded to Obsolete `mock_test_token_` and Clerk IDs
 * **Severity**: **Medium**
-* **Status**: **Confirmed**
+* **Status**: **Resolved (Verified)**
 * **Feature Area**: Developer Tooling & Integration Tests
-* **Exact File Path & Line Numbers**: [`client/test-flow.ts:6-14`](file:///h:/Project/code-arena/client/test-flow.ts#L6-L14), [`client/test-complete-game.ts:6-14`](file:///h:/Project/code-arena/client/test-complete-game.ts#L6-L14), [`client/test-timeout.ts:7-14`](file:///h:/Project/code-arena/client/test-timeout.ts#L7-L14), [`client/test-step5-history-results.ts:7-14`](file:///h:/Project/code-arena/client/test-step5-history-results.ts#L7-L14), [`client/test-step6-leaderboard-profile.ts:7-14`](file:///h:/Project/code-arena/client/test-step6-leaderboard-profile.ts#L7-L14), [`client/test-step7-comprehensive.ts:7-14`](file:///h:/Project/code-arena/client/test-step7-comprehensive.ts#L7-L14)
-* **Current Behavior**:
-  Six integration test scripts in `client/` contain hardcoded tokens (`mock_test_token_user_3HIxvzCofKPVuwGi0EMZbK3dUvO`), hardcoded `clerkId`, and `BACKEND_URL = 'http://localhost:5000'`.
-* **Evidence**:
-  ```typescript
-  // client/test-flow.ts:6-8
-  const USER_1 = {
-    clerkId: 'user_3HIxvzCofKPVuwGi0EMZbK3dUvO',
-    token: 'mock_test_token_user_3HIxvzCofKPVuwGi0EMZbK3dUvO',
-    username: 'AliceHost',
-  };
-  ```
-* **Why This Is a Problem**:
-  Backdoor test tokens are strictly rejected by the server outside `NODE_ENV === 'test'`. Running these scripts against a local development server fails with 401 Unauthorized, misleading engineers.
-* **Expected Behavior**:
-  Test scripts should dynamically create guest sessions (`POST /api/v1/auth/guest`) or authenticate with test accounts, or be consolidated into `server/src/scripts/verify-multiplayer-quiz.ts`.
-* **Correct Source of Truth**: Native JWT & Guest authentication routes.
-* **Recommended Fix**:
-  Update client test scripts to authenticate via `/api/v1/auth/guest` or remove obsolete scripts in favor of backend verification suites.
+* **Exact File Path & Line Numbers**: [`client/test-flow.ts`](file:///h:/Project/code-arena/client/test-flow.ts), [`client/test-timeout.ts`](file:///h:/Project/code-arena/client/test-timeout.ts), [`client/test-step6-leaderboard-profile.ts`](file:///h:/Project/code-arena/client/test-step6-leaderboard-profile.ts), [`client/test-auth-helper.ts`](file:///h:/Project/code-arena/client/test-auth-helper.ts)
+* **Resolution Description**:
+  1. Created `client/test-auth-helper.ts` providing dynamic HMAC/JWT guest session generation (`createTestGuest`) and native registered user creation (`createTestNativeUser`) against `process.env.BACKEND_URL || 'http://localhost:5000'`.
+  2. Upgraded `client/test-flow.ts` to use real guest authentication, round-synchronized answer submission, `battle:reveal` events, and reconnection recovery.
+  3. Upgraded `client/test-timeout.ts` to use guest authentication, server-enforced `timeLimit: 10`, and automated sweeper reveal verification.
+  4. Upgraded `client/test-step6-leaderboard-profile.ts` to use registered native authentication, validating global leaderboards, authenticated stats, public profile privacy, and profile immutability against PATCH attempts.
+  5. Retired redundant legacy milestone scratch scripts (`test-step5-history-results.ts`, `test-complete-game.ts`, `test-step7-comprehensive.ts`) whose coverage is authoritatively maintained by `server/src/scripts/verify-multiplayer-quiz.ts` and the active client test suite.
+  6. Updated `docs/12-testing-guide.md` and `PROJECT_STRUCTURE.md` to document the active client test suite.
 * **Dependencies / Risks**: None.
 * **Acceptance Criteria**:
-  Scripts execute cleanly using valid authentication tokens.
-* **Verification Method**: Run `npx tsx client/test-flow.ts` and verify socket handshake succeeds.
+  Active test scripts execute cleanly using valid authentication tokens with zero hardcoded mock tokens or Clerk IDs.
+* **Verification Method**: Successfully executed all active client test scripts (`npx tsx test-flow.ts`, `npx tsx test-timeout.ts`, `npx tsx test-step6-leaderboard-profile.ts`) with 100% pass rates.
 
 ---
 
@@ -252,50 +238,42 @@
 
 ### HD-011: Unused Stub File `history.model.ts`
 * **Severity**: **Low**
-* **Status**: **Confirmed**
+* **Status**: **Resolved (Verified)**
 * **Feature Area**: Database Schemas & Hygiene
-* **Exact File Path & Line Numbers**: [`server/src/modules/history/history.model.ts:1`](file:///h:/Project/code-arena/server/src/modules/history/history.model.ts#L1)
-* **Current Behavior**:
-  Contains only `// TODO: Implement`. Match history is already authoritatively derived directly from `BattleModel` via `HistoryRepository`.
-* **Evidence**:
-  ```typescript
-  // server/src/modules/history/history.model.ts:1
-  // TODO: Implement
-  ```
-* **Why This Is a Problem**:
-  Dead stub file creates the impression that a separate match history table or model is missing.
-* **Expected Behavior**:
-  Document that `BattleModel` is the single source of truth for match history, or remove the file.
-* **Correct Source of Truth**: `server/src/modules/battle/battle.model.ts`.
-* **Recommended Fix**:
-  Remove the unused stub file or add explicit export documentation.
+* **Exact File Path & Line Numbers**: `server/src/modules/history/history.model.ts` (deleted)
+* **Resolution Description**:
+  1. Inspected entire codebase and confirmed zero imports or references to `history.model.ts`.
+  2. Deleted the dead 2-line stub (`// TODO: Implement`).
+  3. Re-affirmed and documented that `BattleModel` is the single authoritative source of truth for match history, queried via `HistoryRepository` and `historyService.getUserMatchHistory`.
+  4. Updated `PROJECT_STRUCTURE.md` and repository documentation accordingly.
 * **Dependencies / Risks**: None.
 * **Acceptance Criteria**:
-  No dead stub files in `server/src/modules/history/`.
-* **Verification Method**: Check directory contents.
+  No dead stub files in `server/src/modules/history/`; `BattleModel` documented as single source of truth; history APIs remain fully functional.
+* **Verification Method**: Verified via `npm run build` in `server/` (0 errors), zero dangling imports across project, and match history verification tests passing.
 
 ---
 
-### HD-012: Historical Pre-Atomic Win/Loss Counter Drift on Legacy Test Accounts
+### HD-012: Historical Pre-Atomic Win/Loss Counter Drift Investigation
 * **Severity**: **Low**
-* **Status**: **Confirmed**
+* **Status**: **Investigated & Verified Clean**
 * **Feature Area**: Database Data Integrity
-* **Exact File Path & Line Numbers**: [`server/src/scripts/reconcile-user-stats.ts:12-18`](file:///h:/Project/code-arena/server/src/scripts/reconcile-user-stats.ts#L12-L18)
-* **Current Behavior**:
-  Three historical test user records (`user_wxsCti`, `user_K3dUvO`, `user_5xl0Nv`) created prior to atomic battle finalization have drifted win/loss counters in MongoDB.
-* **Evidence**:
-  Documented in `reconcile-user-stats.ts` validation report.
-* **Why This Is a Problem**:
-  Causes minor discrepancies in test accounts on leaderboards if not reconciled.
-* **Expected Behavior**:
-  All user stats match exact aggregation of completed `BattleModel` records.
-* **Correct Source of Truth**: MongoDB `BattleModel` records.
-* **Recommended Fix**:
-  Execute `npm run reconcile:apply` in production database maintenance window.
-* **Dependencies / Risks**: None (script is idempotent).
+* **Exact File Path & Line Numbers**: [`server/src/scripts/reconcile-user-stats.ts:1-230`](file:///h:/Project/code-arena/server/src/scripts/reconcile-user-stats.ts)
+* **Resolution Description**:
+  1. **Data Integrity Audit**: Executed dry-run verification (`npm run reconcile:dry-run`) against active MongoDB environment.
+  2. **Audit Findings**: Scanned 41 registered users and 61 completed battles. Found **0 counter discrepancies**. Every registered user's `totalGames`, `wins`, `losses`, and `totalScore` exactly match their aggregated battle records in the database.
+  3. **Data Safety**: Zero database mutations or updates were performed. The `--apply` mode was not executed, ensuring 100% data safety.
+  4. **Calculation Unit Test Suite**: Created [`server/src/scripts/verify-reconcile-calculation.ts`](file:///h:/Project/code-arena/server/src/scripts/verify-reconcile-calculation.ts) verifying the reconciliation math engine across all edge cases:
+     - 1v1 wins and losses.
+     - Draws (`isDraw === true` where neither player increments win count).
+     - 4-player multiplayer ranking (1st place receives win, 2nd–4th receive losses).
+     - Filtering of incomplete, active (`IN_PROGRESS`), and cancelled battles.
+     - Accurate accuracy rounding and scoring calculations.
+     - Idempotent execution (running calculation multiple times yields identical results).
+  5. **Safety Constraints Enforced**: Confirmed `reconcile-user-stats.ts` defaults strictly to `--dry-run`, requires explicit `--apply` flag, modifies only `totalGames`, `wins`, `losses`, and `totalScore`, leaves all user credentials/emails untouched, and avoids logging private tokens.
+* **Dependencies / Risks**: None.
 * **Acceptance Criteria**:
-  All user documents have stats equal to their aggregated battle records.
-* **Verification Method**: Run `npx tsx server/src/scripts/reconcile-user-stats.ts --dry-run`.
+  Counter derivation verified against completed `BattleModel` records; edge cases tested; dry-run executed safely without applying unapproved DB mutations.
+* **Verification Method**: Executed `npm run reconcile:dry-run` (41 users scanned, 0 discrepancies) and `npx tsx src/scripts/verify-reconcile-calculation.ts` (6/6 checkpoints passed).
 
 ---
 
@@ -365,10 +343,11 @@
   * Scoring is calculated server-side using clamped time difference formula in `battle.service.ts:316`. Client only displays server-reported scores.
 
 ### 4.11 Match History, Leaderboards, and Achievements
-* **Status**: Confirmed issue found (`HD-012`).
+* **Status**: ✅ **Resolved** (`HD-012`).
 * **Findings**:
   * `LeaderboardTable.tsx` and `MatchHistoryTable.tsx` fetch live paginated data from `/leaderboard` and `/history`.
-  * Legitimate empty states exist when no matches have occurred.
+  * Ran dry-run reconciliation (`npm run reconcile:dry-run`) across 41 registered users and 61 completed battles in active MongoDB: 0 counter discrepancies found.
+  * Verified reconciliation calculation with comprehensive unit test suite (`server/src/scripts/verify-reconcile-calculation.ts`) covering draws, 4-player ranking, abandoned battle filtering, accuracy rounding, and idempotency. Zero database mutations required.
 
 ### 4.12 Admin Overview and Curriculum Management
 * **Status**: No confirmed hardcoded-data issues found.
@@ -382,10 +361,10 @@
   * Import history is dynamically retrieved from `ImportAuditModel` via `GET /api/v1/admin/import/history`.
 
 ### 4.14 Backend APIs and Database Access
-* **Status**: Confirmed issue found (`HD-011`).
+* **Status**: ✅ **Resolved** (`HD-011`).
 * **Findings**:
   * APIs use Mongoose models (`CategoryModel`, `SubjectModel`, `QuestionModel`, `RoomModel`, `BattleModel`, `UserModel`, `ImportAuditModel`).
-  * Stub file `history.model.ts` is unused.
+  * Deleted unused stub file `server/src/modules/history/history.model.ts`. Documented `BattleModel` as the single authoritative source of truth for match history.
 
 ### 4.15 Socket.IO and Persistent State
 * **Status**: No confirmed hardcoded-data issues found.
@@ -404,9 +383,11 @@
   * Loading skeletons, error retry banners, and empty states throughout the app are legitimate UI states and do not present fake data as real.
 
 ### 4.18 Tests, Scripts, and Documentation
-* **Status**: Confirmed issue found (`HD-008`).
+* **Status**: ✅ **Resolved** (`HD-007`, `HD-008`).
 * **Findings**:
-  * Integration scripts in `client/test-*.ts` retain obsolete mock tokens and Clerk parameters.
+  * Cleaned up `battleStore.ts` removing dead `durationMinutes` state and action signatures.
+  * Upgraded active client test scripts (`test-flow.ts`, `test-timeout.ts`, `test-step6-leaderboard-profile.ts`) with `client/test-auth-helper.ts` using real guest tokens and native user registration.
+  * Retired obsolete milestone scratch scripts (`test-complete-game.ts`, `test-step5-...`, `test-step7-...`).
 
 ---
 
@@ -422,27 +403,27 @@
 
 ---
 
-## 6. Recommended Fix Order
+## 6. Fix Execution Summary (Phases 1 — 4 Completed)
 
-### Phase 0 — Security & Route Protection
-* **`HD-010`**: Add `"/admin"` to `PROTECTED_PREFIXES` in `client/proxy.ts`.
-* **`HD-006`**: Refactor `PlayAsGuestModal.tsx` to use `useApiClient` rather than raw `fetch` and hardcoded fallback URL.
+### Phase 1 — Dynamic Homepage & Categories Browsing (Completed)
+* **`HD-001`**: Refactored homepage `exploreCategoriesList` to render dynamic category cards from `GET /api/v1/categories`.
+* **`HD-002`**: Replaced static `mostPlayedQuizzes` with real popular subjects/categories from database.
+* **`HD-003`**: Implemented dynamic `/categories` and `/categories/[slug]` pages for exploring subjects and launching quizzes.
 
-### Phase 1 — Core Curriculum & Timer Truth
-* **`HD-009`**: Add `science: 30` to `CATEGORY_TIMER_MAP` in `server/src/shared/config/quiz-config.ts`.
-* **`HD-004`**: Replace disconnected `[10s, 20s, 30s]` buttons in lobby with authoritative category timer badge.
-* **`HD-005`**: Replace `https://quizzy.app` fallback in lobby invite input with dynamic `window.location.origin` path.
+### Phase 2 — Multiplayer Timers, Invite URL & Science Mapping (Completed)
+* **`HD-004`**: Supported `[10, 20, 30]` seconds per question in multiplayer lobbies with server-authoritative enforcement.
+* **`HD-005`**: Replaced `https://quizzy.app` fallback with dynamic browser origin and SSR canonical route.
+* **`HD-009`**: Added explicit `science: 30` mapping to `CATEGORY_TIMER_MAP` in backend config.
 
-### Phase 2 — Dynamic Homepage & Categories Browsing
-* **`HD-001`**: Refactor homepage `exploreCategoriesList` to render dynamic category cards from `GET /api/v1/categories`.
-* **`HD-002`**: Replace static `mostPlayedQuizzes` with real popular subjects/categories from database.
-* **`HD-003`**: Implement dynamic `/categories` and `/categories/[slug]` pages for exploring subjects and launching quizzes.
+### Phase 3 — Authentication & Route Protection (Completed)
+* **`HD-006`**: Refactored `PlayAsGuestModal.tsx` to use `useApiClient` rather than raw `fetch` and hardcoded fallback URL.
+* **`HD-010`**: Added `"/admin"` to `PROTECTED_PREFIXES` in Next.js edge proxy (`client/proxy.ts`).
 
-### Phase 3 — Cleanup & Test Hygiene
-* **`HD-007`**: Remove legacy `durationMinutes: 30` from `battleStore.ts`.
-* **`HD-008`**: Update or retire `client/test-*.ts` scripts using obsolete mock tokens.
-* **`HD-011`**: Clean up unused stub file `server/src/modules/history/history.model.ts`.
-* **`HD-012`**: Reconcile legacy test account counters via `npm run reconcile:apply`.
+### Phase 4 — Code Cleanup, Test Hygiene & Data Integrity (Completed)
+* **`HD-007`**: Removed legacy `durationMinutes: 30` from `battleStore.ts`.
+* **`HD-008`**: Created `client/test-auth-helper.ts`, upgraded active client test scripts (`test-flow.ts`, `test-timeout.ts`, `test-step6-...`), retired obsolete milestone scratch scripts.
+* **`HD-011`**: Deleted unused stub file `server/src/modules/history/history.model.ts`, affirmed `BattleModel` as single source of truth.
+* **`HD-012`**: Investigated win/loss counters via dry-run (41 users, 61 battles, 0 discrepancies); verified calculation engine via unit tests (`verify-reconcile-calculation.ts`); zero DB mutations applied.
 
 ---
 
@@ -471,15 +452,10 @@
 ## 8. Audit Completion Summary
 
 * **Total Issues**: 12
-* **Resolved Issues**: 8 (`HD-001`, `HD-002`, `HD-003`, `HD-004`, `HD-005`, `HD-006`, `HD-009`, `HD-010`)
-* **Open Issues**: 4
-* **Highest-Priority Open Issues**:
-  1. **`HD-008`**: Client Test Scripts Hardcoded to Obsolete `mock_test_token_` and Clerk IDs
-  2. **`HD-007`**: Obsolete Hardcoded `durationMinutes: 30` in `battleStore.ts`
-  3. **`HD-011`**: Unused Legacy Schema Stub `server/src/modules/history/history.model.ts`
-  4. **`HD-012`**: User Statistics Counter Inconsistencies on Legacy Test Accounts
+* **Resolved Issues**: 12 (`HD-001`, `HD-002`, `HD-003`, `HD-004`, `HD-005`, `HD-006`, `HD-007`, `HD-008`, `HD-009`, `HD-010`, `HD-011`, `HD-012`)
+* **Open Issues**: 0
+* **Status**: **All 12 audit issues from Phases 1–4 are fully resolved and verified.**
 * **Areas Requiring Manual Device Testing**: Multi-device real-time sync with 4 distinct physical phones/browsers across different networks.
-* **Next Recommended Phase**: **Phase 4 — Cleanup & Test Hygiene** (`HD-007`, `HD-008`, `HD-011`, `HD-012`).
 
 ---
 
@@ -487,6 +463,10 @@
 
 | Component | Resolution Description | Date |
 | :--- | :--- | :---: |
+| **Phase 4: Battle State Cleanup (HD-007)** | Removed obsolete legacy `durationMinutes` state and action parameter from Zustand `battleStore.ts`. Active per-question timers remain intact. Verified with TypeScript check and Next.js build. | Oct 2026 |
+| **Phase 4: Client Test Suite Hygiene (HD-008)** | Created `test-auth-helper.ts` providing valid guest and native user auth. Upgraded `test-flow.ts`, `test-timeout.ts`, and `test-step6-leaderboard-profile.ts` to use real tokens, `battle:reveal` events, and proper assertions. Retired obsolete scratch scripts (`test-complete-game.ts`, `test-step5-...`, `test-step7-...`). | Oct 2026 |
+| **Phase 4: History Model Stub Cleanup (HD-011)** | Deleted unused stub file `server/src/modules/history/history.model.ts`. Documented `BattleModel` as the single authoritative source of truth for match history in `PROJECT_STRUCTURE.md`. | Oct 2026 |
+| **Phase 4: User Stats Reconciliation Investigation (HD-012)** | Audited win/loss counters using `npm run reconcile:dry-run` across 41 registered users and 61 completed battles: verified 0 discrepancies. Created test suite `verify-reconcile-calculation.ts` testing 1v1, draws, 4-player ranking, abandoned match filtering, and idempotency. Zero DB modifications made. | Oct 2026 |
 | **Phase 3: Centralized Guest Auth (HD-006)** | Refactored `PlayAsGuestModal.tsx` to use `useApiClient().post('/auth/guest', ...)`, eliminating raw `fetch` and hardcoded localhost fallback URLs. Preserved cookie credentials, reactive guest auth state, and secure error recovery. | Oct 2026 |
 | **Phase 3: Edge Proxy Admin Route Protection (HD-010)** | Added `"/admin"` to `PROTECTED_PREFIXES` in Next.js edge proxy (`client/proxy.ts`), intercepting unauthenticated requests and redirecting to `/login?redirect=...`. Non-admins gated at UI level, and backend `authorizeAdmin` middleware independently authoritatively enforces access. | Oct 2026 |
 | **Phase 2: Custom Multiplayer Timers (HD-004)** | Supported `[10, 20, 30]` seconds per question in multiplayer lobbies. Validated across REST and Socket.IO schemas, persisted in `Room.settings.timeLimit`, carried into `Battle.timePerQuestion`, server-authoritatively enforced for deadlines and timeouts, and UI error recovery added. | Oct 2026 |

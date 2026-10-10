@@ -1,18 +1,4 @@
-import { io, Socket } from 'socket.io-client';
-
-const BACKEND_URL = 'http://localhost:5000';
-
-const USER_1 = {
-  clerkId: 'user_3HIxvzCofKPVuwGi0EMZbK3dUvO',
-  token: 'mock_test_token_user_3HIxvzCofKPVuwGi0EMZbK3dUvO',
-  username: 'AliceHost',
-};
-
-const USER_2 = {
-  clerkId: 'user_3HJivSFmHVygpLuuBo9IkwxsCti',
-  token: 'mock_test_token_user_3HJivSFmHVygpLuuBo9IkwxsCti',
-  username: 'BobChallenger',
-};
+import { BACKEND_URL, createTestNativeUser } from './test-auth-helper';
 
 async function getJSON(url: string, token: string) {
   const res = await fetch(`${BACKEND_URL}${url}`, {
@@ -38,6 +24,9 @@ async function patchJSON(url: string, data: any, token: string) {
 
 async function runStep6Test() {
   console.log('🚀 Starting Step 6 Leaderboard & Player Profile Integration Test...\n');
+
+  const USER_1 = await createTestNativeUser('step6_alice');
+  console.log(`✅ Authenticated test user: @${USER_1.username}`);
 
   // 1. Test GET /api/v1/leaderboard
   console.log('1. Testing GET /api/v1/leaderboard...');

@@ -183,11 +183,9 @@ CodeArena/
 │   ├── package.json
 │   ├── postcss.config.mjs
 │   ├── README.md
-│   ├── test-complete-game.ts
+│   ├── test-auth-helper.ts
 │   ├── test-flow.ts
-│   ├── test-step5-history-results.ts
 │   ├── test-step6-leaderboard-profile.ts
-│   ├── test-step7-comprehensive.ts
 │   ├── test-timeout.ts
 │   └── tsconfig.json
 ├── docs/
@@ -223,7 +221,6 @@ CodeArena/
 │   │   │   │   └── openapi.ts
 │   │   │   ├── history/
 │   │   │   │   ├── history.controller.ts
-│   │   │   │   ├── history.model.ts
 │   │   │   │   ├── history.repository.ts
 │   │   │   │   ├── history.routes.ts
 │   │   │   │   ├── history.service.ts
@@ -420,7 +417,6 @@ Every file in the repository is catalogued below with its relative path, extensi
 | `server/src/modules/user/user.types.ts` | `.ts` | 78 | No | Standard Source | TypeScript interfaces for user documents, public profile statistics, and leaderboard entries. |
 | `server/src/modules/user/user.validation.ts` | `.ts` | 39 | No | Standard Source | Zod schemas validating user profile update payloads and leaderboard query params. |
 | `server/src/modules/history/history.controller.ts` | `.ts` | 49 | No | Standard Source | HTTP controller handling match history retrieval and detailed battle review requests. |
-| `server/src/modules/history/history.model.ts` | `.ts` | 2 | No | Very Small / Placeholder | Placeholder stub file kept for module symmetry; history delegates to BattleModel. |
 | `server/src/modules/history/history.repository.ts` | `.ts` | 47 | No | Standard Source | Queries completed Battle documents from MongoDB for paginated user match histories. |
 | `server/src/modules/history/history.routes.ts` | `.ts` | 37 | No | Standard Source | Express routes exposing GET /api/v1/history and GET /api/v1/history/:battleId. |
 | `server/src/modules/history/history.service.ts` | `.ts` | 286 | No | Standard Source | Formats battle records into user match history summaries and question reviews. |
@@ -451,15 +447,13 @@ Every file in the repository is catalogued below with its relative path, extensi
 | `client/tsconfig.json` | `.json` | 42 | No | Configuration | TypeScript compiler configuration for Next.js App Router and @/* path aliases. |
 
 
-### 3.11 Client Test Scripts (client/test-*.ts) (6 files)
+### 3.11 Client Test Scripts (client/test-*.ts) (4 files)
 | Relative Path | Ext | Lines | Empty? | Special Tags | Responsibility Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `client/test-complete-game.ts` | `.ts` | 150 | No | Test File | Automated test script simulating a complete end-to-end 2-player battle flow via sockets. |
-| `client/test-flow.ts` | `.ts` | 153 | No | Test File | Automated integration test verifying lobby creation, joining, settings changes, and readiness. |
-| `client/test-step5-history-results.ts` | `.ts` | 250 | No | Test File | Integration test verifying match completion, score recording, and history review endpoints. |
-| `client/test-step6-leaderboard-profile.ts` | `.ts` | 137 | No | Test File | Integration test verifying dynamic leaderboard ranking calculations and player profile stats. |
-| `client/test-step7-comprehensive.ts` | `.ts` | 313 | No | Test File | Comprehensive test suite executing edge-case scenarios, disconnections, and rate limiting. |
-| `client/test-timeout.ts` | `.ts` | 114 | No | Test File | Test script verifying server-enforced question timer expirations and automatic question advancement. |
+| `client/test-auth-helper.ts` | `.ts` | 65 | No | Test Helper | Dynamic test authentication helper providing guest sessions and native user registration. |
+| `client/test-flow.ts` | `.ts` | 148 | No | Test File | Automated integration test verifying lobby creation, joining, readiness, answer submission, round reveal, and reconnection. |
+| `client/test-timeout.ts` | `.ts` | 95 | No | Test File | Test script verifying server-enforced question timer expirations and automatic sweeper transition. |
+| `client/test-step6-leaderboard-profile.ts` | `.ts` | 125 | No | Test File | Integration test verifying dynamic leaderboard ranking calculations, player profile stats, and PATCH immutability. |
 
 
 ### 3.12 Client App Router Pages (client/app/) (18 files)
