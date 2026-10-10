@@ -6,6 +6,7 @@ import { X, Zap, Shield, Loader2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { setGuestSession } from "../guestAuth";
+import { useApiClient } from "@/hooks/useApiClient";
 
 interface PlayAsGuestModalProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ interface PlayAsGuestModalProps {
 
 export function PlayAsGuestModal({ isOpen, onClose }: PlayAsGuestModalProps) {
   const router = useRouter();
+  const api = useApiClient();
   const [displayName, setDisplayName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -26,23 +28,22 @@ export function PlayAsGuestModal({ isOpen, onClose }: PlayAsGuestModalProps) {
     setError(null);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
-      const res = await fetch(`${apiUrl}/auth/guest`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          displayName: displayName.trim() || undefined,
-        }),
+      const res = await api.post<{
+        success: boolean;
+        data: {
+          token: string;
+          user: any;
+        };
+        message?: string;
+      }>("/auth/guest", {
+        displayName: displayName.trim() || undefined,
       });
 
-      const json = await res.json();
-      if (!res.ok || !json.success) {
-        throw new Error(json.message || "Failed to create guest session.");
+      if (!res?.data?.token) {
+        throw new Error(res?.message || "Failed to create guest session.");
       }
 
-      const { token, user } = json.data;
+      const { token, user } = res.data;
       setGuestSession(token, user, user.expiresIn || 86400);
 
       onClose();
@@ -51,7 +52,7 @@ export function PlayAsGuestModal({ isOpen, onClose }: PlayAsGuestModalProps) {
       // Hard refresh so all providers pick up the new session cleanly
       window.location.href = "/";
     } catch (err: any) {
-      setError(err.message || "An unexpected error occurred. Please try again.");
+      setError(err?.message || "An unexpected error occurred. Please try again.");
       setIsLoading(false);
     }
   };

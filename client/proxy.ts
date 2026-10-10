@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 
 const PROTECTED_PREFIXES = [
+  "/admin",
   "/battle",
   "/profile",
   "/settings",

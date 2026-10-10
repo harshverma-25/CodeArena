@@ -36,9 +36,9 @@
 | :--- | :---: | :---: | :--- |
 | **Critical** | 0 | 0 | None |
 | **High** | 0 | 3 | `HD-001` (Resolved), `HD-002` (Resolved), `HD-003` (Resolved) |
-| **Medium** | 2 | 3 | `HD-004` (Resolved), `HD-005` (Resolved), `HD-009` (Resolved), `HD-006` (Open), `HD-008` (Open) |
-| **Low** | 4 | 0 | `HD-007`, `HD-010`, `HD-011`, `HD-012` |
-| **Total Issues** | **6 Open** | **6 Resolved** | **12 Total** |
+| **Medium** | 1 | 4 | `HD-004` (Resolved), `HD-005` (Resolved), `HD-006` (Resolved), `HD-009` (Resolved), `HD-008` (Open) |
+| **Low** | 3 | 1 | `HD-010` (Resolved), `HD-007` (Open), `HD-011` (Open), `HD-012` (Open) |
+| **Total Issues** | **4 Open** | **8 Resolved** | **12 Total** |
 
 ### Key Architectural Resolutions & Active Priorities:
 1. ✅ **Dynamic Curriculum & Homepage (HD-001, HD-002, HD-003 Resolved)**:  
@@ -49,6 +49,10 @@
    Purged hardcoded placeholder `https://quizzy.app/join/${roomCode}`. Lobby invite links now dynamically resolve from `window.location.origin` targeting `/lobby/${encodeURIComponent(roomCode)}` safely across SSR, preview, and production.
 4. ✅ **Explicit Science Category Timer (HD-009 Resolved)**:  
    Added declarative `science: 30` entry to `CATEGORY_TIMER_MAP` in `server/src/shared/config/quiz-config.ts` alongside helper functions and tests ensuring category timers never override valid custom multiplayer selections.
+5. ✅ **Centralized Guest Authentication Client (HD-006 Resolved)**:  
+   Refactored `PlayAsGuestModal.tsx` to route all guest login requests through `useApiClient()`. Completely eliminated hardcoded localhost API fallbacks and raw `fetch` calls. Preserved cookie credentials, reactive guest auth state, and secure error recovery without leaking tokens.
+6. ✅ **Edge Proxy Admin Route Protection (HD-010 Resolved)**:  
+   Added `"/admin"` to `PROTECTED_PREFIXES` in Next.js edge proxy (`client/proxy.ts`). Unauthenticated visitors to `/admin` and nested routes are intercepted at the edge and redirected to `/login?redirect=...` with return-to-destination encoding. Authenticated non-admins are gated at the UI boundary, while backend `authorizeAdmin` independently enforces the authoritative security perimeter.
 
 ---
 
@@ -136,28 +140,20 @@
 
 ### HD-006: Hardcoded Fallback URL & Raw Fetch in `PlayAsGuestModal.tsx`
 * **Severity**: **Medium**
-* **Status**: **Confirmed**
+* **Status**: **Resolved (Verified)**
 * **Feature Area**: Authentication
-* **Exact File Path & Line Numbers**: [`client/features/auth/components/PlayAsGuestModal.tsx:29-30`](file:///h:/Project/code-arena/client/features/auth/components/PlayAsGuestModal.tsx#L29-L30)
-* **Current Behavior**:
-  Constructs `const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1"` and invokes raw `fetch`, bypassing the centralized `apiRequest` / `useApiClient` pipeline.
-* **Evidence**:
-  ```typescript
-  // client/features/auth/components/PlayAsGuestModal.tsx:29-31
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
-  const res = await fetch(`${apiUrl}/auth/guest`, { ... });
-  ```
-* **Why This Is a Problem**:
-  Bypasses centralized error formatting, token refresh logic, and network error handling provided by `useApiClient`. In deployments where `NEXT_PUBLIC_API_URL` is omitted or proxied, it will fail by targeting `http://localhost:5000`.
-* **Expected Behavior**:
-  Use `useApiClient` or `apiRequest('/auth/guest', ...)` like the rest of the frontend client.
-* **Correct Source of Truth**: `client/lib/api.ts` (`apiRequest`).
-* **Recommended Fix**:
-  Refactor `handleGuestLogin` to use `useApiClient().post('/auth/guest', ...)`.
+* **Exact File Path & Line Numbers**: [`client/features/auth/components/PlayAsGuestModal.tsx:3, 15, 29-37`](file:///h:/Project/code-arena/client/features/auth/components/PlayAsGuestModal.tsx#L29-L37)
+* **Resolution Description**:
+  1. Refactored `PlayAsGuestModal.tsx` to use the centralized `useApiClient` hook instead of raw `fetch`.
+  2. Completely eliminated inline `process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1"` fallback.
+  3. Uses `api.post<{ data: { token: string; user: any } }>("/auth/guest", { displayName: displayName.trim() || undefined })`, adhering to the centralized `API_URL` configuration in `client/lib/api.ts`.
+  4. Automatically benefits from centralized error parsing, headers, and `credentials: "include"`.
+  5. Preserves cookie storage, reactive guest session state (`setGuestSession`), and UI loading states.
+  6. On failure, catches and displays user-friendly errors via `toast.error` without leaking tokens, cookies, or sensitive headers, and without treating failed requests as successful authentication.
 * **Dependencies / Risks**: None.
 * **Acceptance Criteria**:
-  Guest login route goes through centralized API transport.
-* **Verification Method**: Log in as guest; observe request handled through `useApiClient`.
+  Guest login route goes through centralized API transport with zero hardcoded localhost URLs.
+* **Verification Method**: Verified via `server/src/scripts/verify-phase3-fixes.ts` (guest auth contract & validation), full `client` Next.js production build (`npm run build`), and automated regex audit across the client codebase confirming zero remaining raw `localhost:5000` fetches.
 
 ---
 
@@ -237,35 +233,20 @@
 
 ### HD-010: Missing `/admin` in Next.js Edge Proxy Protected Prefixes
 * **Severity**: **Low**
-* **Status**: **Confirmed**
+* **Status**: **Resolved (Verified)**
 * **Feature Area**: Route Guards & Edge Proxy
-* **Exact File Path & Line Numbers**: [`client/proxy.ts:3-11`](file:///h:/Project/code-arena/client/proxy.ts#L3-L11)
-* **Current Behavior**:
-  `PROTECTED_PREFIXES` guards `/battle`, `/profile`, `/settings`, `/lobby`, `/leaderboard`, `/history`, `/results`, but does not list `/admin`.
-* **Evidence**:
-  ```typescript
-  // client/proxy.ts:3-11
-  const PROTECTED_PREFIXES = [
-    "/battle",
-    "/profile",
-    "/settings",
-    "/lobby",
-    "/leaderboard",
-    "/history",
-    "/results",
-  ];
-  ```
-* **Why This Is a Problem**:
-  Unauthenticated visitors attempting to access `/admin` are not immediately redirected to `/login?redirect=/admin` by the Next.js edge proxy, relying instead on client-side React rendering in `admin/layout.tsx` to handle the redirection.
-* **Expected Behavior**:
-  The Next.js edge proxy should intercept unauthenticated requests to `/admin` before rendering any page components.
-* **Correct Source of Truth**: `client/proxy.ts`.
-* **Recommended Fix**:
-  Add `"/admin"` to `PROTECTED_PREFIXES` in `client/proxy.ts`.
-* **Dependencies / Risks**: Ensure guest tokens are either handled or redirected appropriately.
+* **Exact File Path & Line Numbers**: [`client/proxy.ts:3-12`](file:///h:/Project/code-arena/client/proxy.ts#L3-L12)
+* **Resolution Description**:
+  1. Added `"/admin"` as the first prefix in `PROTECTED_PREFIXES` in `client/proxy.ts`.
+  2. The Next.js edge proxy intercepts unauthenticated requests to `/admin` and all sub-routes (`/admin/categories`, `/admin/import`, `/admin/history`) before rendering any page components.
+  3. Edge proxy preserves the intended destination in the redirect URL (`/login?redirect=/admin...`).
+  4. Once logged in, `client/app/(auth)/login/page.tsx` honors the `redirect` query parameter via `router.push(redirectUrl)`.
+  5. Guests and signed-in non-admin users reach the client where `AdminLayout` evaluates user role and renders the "Admin Clearance Required" boundary without exposing admin data or mutating permissions.
+  6. Backend admin endpoints (`/api/v1/admin/*`) remain authoritatively secured via `authenticate` and `authorizeAdmin` middleware, rejecting unauthorized requests with 401 Unauthorized or 403 Forbidden independent of frontend proxy status.
+* **Dependencies / Risks**: None. Public routes, guest lobbies, and standard user routes are unaffected.
 * **Acceptance Criteria**:
-  Unauthenticated requests to `/admin` redirect to `/login?redirect=/admin`.
-* **Verification Method**: Open `/admin` in an incognito window; verify immediate redirect to `/login?redirect=%2Fadmin`.
+  Unauthenticated requests to `/admin` and nested routes redirect to `/login?redirect=...`; authorized admins can access; non-admins blocked; backend API remains authoritative.
+* **Verification Method**: Verified via automated proxy test suite (`client/verify-proxy-phase3.ts`, 8 test scenarios passed), backend security script (`server/src/scripts/verify-phase3-fixes.ts`), admin integration verification (`server/src/scripts/verify-admin-system.ts`), and client Next.js production build (`npm run build`).
 
 ---
 
@@ -330,9 +311,9 @@
   * Category cards navigate dynamically to `/categories/[slug]`.
 
 ### 4.2 Authentication and User Profile
-* **Status**: Confirmed issue found (`HD-006`).
+* **Status**: ✅ **Resolved** (`HD-006`).
 * **Findings**:
-  * `PlayAsGuestModal.tsx` hardcodes fallback API URL and uses raw `fetch`.
+  * `PlayAsGuestModal.tsx` now calls centralized `useApiClient()` without hardcoded localhost fallback URLs.
   * Real user profile, display name editing, stats, and match history in `ProfileStats.tsx` correctly consume backend APIs (`/users/me` and `/users/me/profile`). No hardcoded mock users.
 
 ### 4.3 Dashboard and User Statistics
@@ -342,17 +323,17 @@
   * Real stats are rendered dynamically on the `/profile` and `/leaderboard` pages.
 
 ### 4.4 Categories and Subjects
-* **Status**: ✅ **Resolved** (`HD-001`, `HD-003`); Open item (`HD-009`).
+* **Status**: ✅ **Resolved** (`HD-001`, `HD-003`, `HD-009`).
 * **Findings**:
   * Created `/categories` page rendering all active categories with search filtering and question counts.
   * Created dynamic `/categories/[slug]` page rendering category details, subjects, question counts, and quick-launch Solo / Multiplayer quiz actions.
   * Backend `GET /api/v1/categories` and `GET /api/v1/categories/:categoryId/subjects` are fully consumed by frontend routes.
 
 ### 4.5 Quiz Configuration and Question Selection
-* **Status**: Confirmed issue found (`HD-009`).
+* **Status**: ✅ **Resolved** (`HD-009`).
 * **Findings**:
   * Single source of truth is `server/src/shared/config/quiz-config.ts` enforcing `[10, 15, 20]` question counts.
-  * Missing explicit `science: 30` entry in `CATEGORY_TIMER_MAP`.
+  * Explicit `science: 30` entry configured in `CATEGORY_TIMER_MAP`.
   * Question sampler (`sampleRandomPublished`) uses MongoDB `$sample` aggregation with 2-tier fallback; no hardcoded question lists.
 
 ### 4.6 Learn and Practice Mode
@@ -373,10 +354,10 @@
   * Solo mode renders only the player's real score and speed; multiplayer renders only actual connected players. No fabricated opponents.
 
 ### 4.9 Multiplayer Lobby and Room Management
-* **Status**: Confirmed issues found (`HD-004`, `HD-005`).
+* **Status**: ✅ **Resolved** (`HD-004`, `HD-005`).
 * **Findings**:
-  * Lobby has non-functional `[10s, 20s, 30s]` buttons that conflict with server-authoritative timers.
-  * Invite URL input falls back to `https://quizzy.app/join/${roomCode}`.
+  * Lobby timer selector allows selecting 10s, 20s, or 30s per question, validated and enforced server-authoritatively.
+  * Invite URL input dynamically resolves from `window.location.origin` to `/lobby/[roomCode]`.
 
 ### 4.10 Real-Time Gameplay and Scoring
 * **Status**: No confirmed hardcoded-data issues found.
@@ -412,10 +393,10 @@
   * Active round deadlines (`startedAt`, `deadline`, `revealExpiresAt`) are persistently stored in MongoDB `BattleModel.currentRound` with automated background sweepers.
 
 ### 4.16 Environment Configuration and Security
-* **Status**: Confirmed issue found (`HD-010`).
+* **Status**: ✅ **Resolved** (`HD-010`).
 * **Findings**:
   * Zod schema in `server/src/config/env.ts` enforces 32-byte secrets in production.
-  * Next.js proxy in `client/proxy.ts` protects sensitive routes but omits `/admin`.
+  * Next.js edge proxy in `client/proxy.ts` includes `"/admin"` in `PROTECTED_PREFIXES`, guarding `/admin` and nested routes.
 
 ### 4.17 Error Handling, Loading States, and Empty States
 * **Status**: No confirmed hardcoded-data issues found.
@@ -490,17 +471,15 @@
 ## 8. Audit Completion Summary
 
 * **Total Issues**: 12
-* **Resolved Issues**: 6 (`HD-001`, `HD-002`, `HD-003`, `HD-004`, `HD-005`, `HD-009`)
-* **Open Issues**: 6
+* **Resolved Issues**: 8 (`HD-001`, `HD-002`, `HD-003`, `HD-004`, `HD-005`, `HD-006`, `HD-009`, `HD-010`)
+* **Open Issues**: 4
 * **Highest-Priority Open Issues**:
-  1. **`HD-006`**: Hardcoded Fallback URL & Raw Fetch in `PlayAsGuestModal.tsx`
-  2. **`HD-010`**: Missing `/admin` in Next.js Edge Proxy Protected Prefixes
-  3. **`HD-008`**: Client Test Scripts Hardcoded to Obsolete `mock_test_token_` and Clerk IDs
-  4. **`HD-007`**: Obsolete Hardcoded `durationMinutes: 30` in `battleStore.ts`
-  5. **`HD-011`**: Unused Legacy Schema Stub `server/src/modules/history/history.model.ts`
-  6. **`HD-012`**: User Statistics Counter Inconsistencies on Legacy Test Accounts
+  1. **`HD-008`**: Client Test Scripts Hardcoded to Obsolete `mock_test_token_` and Clerk IDs
+  2. **`HD-007`**: Obsolete Hardcoded `durationMinutes: 30` in `battleStore.ts`
+  3. **`HD-011`**: Unused Legacy Schema Stub `server/src/modules/history/history.model.ts`
+  4. **`HD-012`**: User Statistics Counter Inconsistencies on Legacy Test Accounts
 * **Areas Requiring Manual Device Testing**: Multi-device real-time sync with 4 distinct physical phones/browsers across different networks.
-* **Next Recommended Phase**: **Phase 3** (`HD-006`, `HD-010`, `HD-007`, `HD-008`, `HD-011`, `HD-012`).
+* **Next Recommended Phase**: **Phase 4 — Cleanup & Test Hygiene** (`HD-007`, `HD-008`, `HD-011`, `HD-012`).
 
 ---
 
@@ -508,6 +487,8 @@
 
 | Component | Resolution Description | Date |
 | :--- | :--- | :---: |
+| **Phase 3: Centralized Guest Auth (HD-006)** | Refactored `PlayAsGuestModal.tsx` to use `useApiClient().post('/auth/guest', ...)`, eliminating raw `fetch` and hardcoded localhost fallback URLs. Preserved cookie credentials, reactive guest auth state, and secure error recovery. | Oct 2026 |
+| **Phase 3: Edge Proxy Admin Route Protection (HD-010)** | Added `"/admin"` to `PROTECTED_PREFIXES` in Next.js edge proxy (`client/proxy.ts`), intercepting unauthenticated requests and redirecting to `/login?redirect=...`. Non-admins gated at UI level, and backend `authorizeAdmin` middleware independently authoritatively enforces access. | Oct 2026 |
 | **Phase 2: Custom Multiplayer Timers (HD-004)** | Supported `[10, 20, 30]` seconds per question in multiplayer lobbies. Validated across REST and Socket.IO schemas, persisted in `Room.settings.timeLimit`, carried into `Battle.timePerQuestion`, server-authoritatively enforced for deadlines and timeouts, and UI error recovery added. | Oct 2026 |
 | **Phase 2: Dynamic Lobby Invite URL (HD-005)** | Replaced hardcoded `https://quizzy.app/join/${roomCode}` fallback with safe dynamic browser origin `${window.location.origin}/lobby/${encodeURIComponent(roomCode)}` and SSR fallback to relative canonical path. | Oct 2026 |
 | **Phase 2: Explicit Science Timer (HD-009)** | Added declarative `science: 30` to `CATEGORY_TIMER_MAP` in `quiz-config.ts`. Verified category defaults never override user-selected multiplayer durations while keeping solo mode intact. | Oct 2026 |
