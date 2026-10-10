@@ -354,4 +354,128 @@ export interface PublicUserProfile {
   }>;
 }
 
+// ------------------------------
+// Admin Module Types
+// ------------------------------
 
+export interface AdminOverviewStats {
+  metrics: {
+    totalCategories: number;
+    activeCategories: number;
+    totalSubjects: number;
+    activeSubjects: number;
+    totalQuestions: number;
+    publishedQuestions: number;
+    totalUsers: number;
+    totalAdmins: number;
+    totalImports: number;
+  };
+  categoryBreakdown: Array<{
+    id: string;
+    name: string;
+    slug: string;
+    isActive: boolean;
+    icon: string;
+    subjectCount: number;
+    questionCount: number;
+  }>;
+  recentImports: ImportHistoryItem[];
+}
+
+export interface AdminSubjectItem {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  icon: string;
+  isActive: boolean;
+  questionCount: number;
+}
+
+export interface AdminCategoryTreeItem {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  icon: string;
+  isActive: boolean;
+  questionCount: number;
+  subjects: AdminSubjectItem[];
+}
+
+export interface ImportRowError {
+  row: number;
+  externalId?: string;
+  question?: string;
+  reason: string;
+}
+
+export interface ImportPreviewResponse {
+  destination: {
+    categoryId: string;
+    categoryName: string;
+    subjectId: string;
+    subjectName: string;
+  };
+  fileSummary: {
+    fileName: string;
+    fileSize: number;
+    totalQuestionsInFile: number;
+    validCount: number;
+    invalidCount: number;
+    existingDuplicatesCount: number;
+    inBatchDuplicatesCount: number;
+    difficultyCounts: {
+      easy: number;
+      medium: number;
+      hard: number;
+    };
+  };
+  previewRows: Array<{
+    row: number;
+    questionId: string;
+    question: string;
+    options: string[];
+    correctAnswer: number;
+    difficulty: string;
+    isExistingDuplicate: boolean;
+  }>;
+  errors: ImportRowError[];
+}
+
+export interface ImportExecuteResponse {
+  importId: string;
+  summary: {
+    totalInFile: number;
+    importedCount: number;
+    updatedCount: number;
+    skippedCount: number;
+    failedCount: number;
+    status: 'completed' | 'partial' | 'failed';
+  };
+  historyId: string;
+  errors: ImportRowError[];
+}
+
+export interface ImportHistoryItem {
+  _id: string;
+  importId: string;
+  fileName: string;
+  fileSize: number;
+  categoryId: string;
+  categoryName: string;
+  subjectId: string;
+  subjectName: string;
+  adminId: string;
+  adminUsername: string;
+  totalQuestions: number;
+  importedCount: number;
+  updatedCount: number;
+  skippedCount: number;
+  failedCount: number;
+  duplicateStrategy: 'skip' | 'update';
+  status: 'completed' | 'partial' | 'failed';
+  validationErrors: ImportRowError[];
+  createdAt: string;
+  updatedAt: string;
+}

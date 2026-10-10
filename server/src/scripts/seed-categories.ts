@@ -25,6 +25,12 @@ export const MASTER_CATEGORIES = [
     description: 'History, geography, science, current affairs, and general trivia',
     icon: 'globe',
   },
+  {
+    name: 'Science',
+    slug: 'science',
+    description: 'Physics, chemistry, biology, natural sciences, and scientific laws',
+    icon: 'flask',
+  },
 ];
 
 export const MASTER_SUBJECTS: Record<string, Array<{ name: string; slug: string; description?: string }>> = {
@@ -52,6 +58,11 @@ export const MASTER_SUBJECTS: Record<string, Array<{ name: string; slug: string;
     { name: 'Science', slug: 'science', description: 'Physics, chemistry, biology, and scientific discoveries' },
     { name: 'Current Affairs', slug: 'current-affairs', description: 'Recent global developments, news, and events' },
     { name: 'General Trivia', slug: 'general-trivia', description: 'General facts, culture, and trivia' },
+  ],
+  science: [
+    { name: 'Physics', slug: 'physics', description: 'Mechanics, electricity, optics, thermodynamics, and modern physics' },
+    { name: 'Chemistry', slug: 'chemistry', description: 'Organic, inorganic, physical chemistry, and chemical reactions' },
+    { name: 'Biology', slug: 'biology', description: 'Cell biology, genetics, human anatomy, ecology, and physiology' },
   ],
 };
 

@@ -17,7 +17,7 @@ import {
   Menu,
   ChevronDown,
   Home as HomeIcon,
-  BookOpen,
+  ShieldCheck,
 } from "lucide-react";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { getGuestUser, clearGuestSession, PlayAsGuestModal } from "@/features/auth";
@@ -136,7 +136,6 @@ export function Navbar() {
 
   const navLinks = [
     { href: "/", label: "Home", icon: HomeIcon, isHome: true },
-    { href: "/#categories", label: "Quizzes", icon: BookOpen },
     { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
     { href: "/history", label: "History", icon: HistoryIcon },
     { href: "/profile", label: "Profile", icon: UserIcon },
@@ -145,7 +144,7 @@ export function Navbar() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 h-20 w-full border-b-[2.5px] border-black bg-[#FAF7EE] shadow-[0_3px_0px_0px_rgba(0,0,0,0.05)]">
-        <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-3 sm:px-6 lg:px-8 gap-2 sm:gap-4">
+        <div className="mx-auto flex h-full max-w-[1600px] items-center justify-between px-3 sm:px-6 lg:px-8 xl:px-12 gap-2 sm:gap-4">
           
           {/* LEFT: QUIZZY LOGO & NAVIGATION PILL */}
           <div className="flex items-center gap-3 sm:gap-5 shrink-0">
@@ -160,7 +159,7 @@ export function Navbar() {
               </div>
             </Link>
 
-            {/* NAV LINKS PILL: Home, Quizzes, Leaderboard, History, Profile */}
+            {/* NAV LINKS PILL: Home, Leaderboard, History, Profile */}
             <nav className="hidden lg:flex items-center gap-1 p-1 bg-[#F4EFE6] rounded-full border-2 border-black shadow-[2px_2px_0px_#000]">
               {navLinks.map((link) => {
                 const isHome = link.isHome;
@@ -390,6 +389,16 @@ export function Navbar() {
                       <Trophy className="w-4 h-4 text-black" />
                       Leaderboard
                     </Link>
+                    {activeUser.role === "admin" && (
+                      <Link
+                        href="/admin"
+                        onClick={() => setIsProfileMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2 text-xs font-black text-amber-900 bg-amber-50 hover:bg-amber-100 transition-colors border-t border-b border-amber-200"
+                      >
+                        <ShieldCheck className="w-4 h-4 text-amber-700 stroke-[2.5]" />
+                        Admin Panel
+                      </Link>
+                    )}
                   </div>
 
                   <div className="pt-1 border-t-2 border-stone-200">
@@ -440,6 +449,16 @@ export function Navbar() {
                         </Link>
                       );
                     })}
+                    {activeUser?.role === "admin" && (
+                      <Link
+                        href="/admin"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-black border-2 bg-amber-300 text-black border-black shadow-[2px_2px_0px_#000]"
+                      >
+                        <ShieldCheck className="h-4 w-4 stroke-[2.5]" />
+                        Admin Panel
+                      </Link>
+                    )}
                   </div>
 
                   {/* Mobile PIN Form */}

@@ -13,6 +13,7 @@ import { authRoutes } from './modules/auth/auth.routes.js';
 import { categoryRoutes } from './modules/category/category.routes.js';
 import { leaderboardRoutes } from './modules/leaderboard/leaderboard.routes.js';
 import { docsRoutes } from './modules/docs/docs.routes.js';
+import { adminRoutes } from './modules/admin/admin.routes.js';
 
 import mongoose from 'mongoose';
 import { rateLimiter } from './middleware/rate-limiter.middleware.js';
@@ -46,10 +47,10 @@ app.use(cors({
 app.use(cookieParser());
 
 // Parse incoming JSON payloads
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 // Parse URL-encoded payloads
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Request logging middleware
 app.use(requestLogger);
@@ -99,6 +100,7 @@ app.use('/api/v1/rooms', roomRoutes);
 app.use('/api/v1/battles', battleRoutes);
 app.use('/api/v1/matches', battleRoutes);
 app.use('/api/v1/history', historyRoutes);
+app.use('/api/v1/admin', adminRoutes);
 app.use('/api', docsRoutes);
 
 // Unmatched route handler (404)

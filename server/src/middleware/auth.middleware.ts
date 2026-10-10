@@ -73,3 +73,18 @@ export const optionalAuthenticate = async (
     next();
   }
 };
+
+export const authorizeAdmin = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
+  if (!req.user) {
+    throw new ApiError(401, 'Unauthorized: Authentication required');
+  }
+  if (req.user.role !== 'admin') {
+    throw new ApiError(403, 'Forbidden: Admin access required');
+  }
+  next();
+};
+

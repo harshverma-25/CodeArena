@@ -17,6 +17,7 @@ import {
   SlidersHorizontal,
   ChevronRight,
   Award,
+  Trophy,
 } from "lucide-react";
 
 import {
@@ -395,8 +396,8 @@ export default function QuizzyHomePage() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#FAF7EE] text-stone-900 pb-20 select-none">
-      <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8 pt-2">
+    <div className="w-full min-h-screen bg-[#FAF7EE] text-stone-900 pb-20 select-none overflow-x-hidden">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 space-y-6 sm:space-y-8 pt-4">
         
         {/* Error notification banner if room creation encounters an issue */}
         {roomError && (
@@ -410,156 +411,6 @@ export default function QuizzyHomePage() {
             </button>
           </div>
         )}
-
-        {/* ========================================================================= */}
-        {/* SECTION B: HERO SECTION (CLOSELY MATCHING REFERENCE SCREENSHOT) */}
-        {/* ========================================================================= */}
-        <section className="w-full bg-[#FAF7EE] border-[2.5px] border-black rounded-[32px] p-4 sm:p-6 lg:p-8 relative overflow-hidden shadow-[6px_6px_0px_#000]">
-          
-          {/* Comic background decorative bursts & doodles */}
-          <div className="absolute top-4 left-6 pointer-events-none opacity-80 hidden sm:block">
-            <ArcadeStarIcon className="w-8 h-8 text-[#FFE600] animate-pulse" />
-          </div>
-          <div className="absolute bottom-6 left-12 pointer-events-none opacity-70 hidden sm:block">
-            <ArcadeLightningIcon className="w-7 h-7 text-[#0D9488]" />
-          </div>
-          <div className="absolute top-6 right-8 pointer-events-none opacity-80 hidden sm:block">
-            <ArcadeStarIcon className="w-8 h-8 text-[#FFE600]" />
-          </div>
-          <div className="absolute bottom-8 right-12 pointer-events-none opacity-70 hidden sm:block">
-            <ArcadeLightningIcon className="w-7 h-7 text-[#EC4899]" />
-          </div>
-
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8">
-            
-            {/* HERO LEFT: Illustrated Gamer Boy with Console & Headphones */}
-            <div className="flex flex-col items-center lg:items-start shrink-0 relative order-2 lg:order-1">
-              <div className="relative">
-                {/* Comic Speech Bubble */}
-                <div className="absolute -top-6 -right-6 sm:-top-8 sm:-right-8 z-20 bg-[#FF4D85] text-white border-[2.5px] border-black rounded-2xl px-3.5 py-1.5 shadow-[3px_3px_0px_#000] -rotate-6 transform hover:rotate-0 transition-transform">
-                  <span className="font-black text-xs sm:text-sm tracking-wider uppercase leading-none block">
-                    KNOW PLAY COMPETE!
-                  </span>
-                </div>
-
-                {/* Gamer Boy Avatar Frame */}
-                <div className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full border-[3px] border-black overflow-hidden bg-[#FEF08A] shadow-[4px_4px_0px_#000] relative">
-                  <img
-                    src="/images/gamer-boy.jpg"
-                    alt="Quizzy Boy Player"
-                    className="w-full h-full object-cover object-top scale-110"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* HERO CENTER: QUIZZY 3D LOGO, HEADLINE & CTA BUTTONS */}
-            <div className="flex-1 text-center flex flex-col items-center justify-center max-w-2xl px-2 order-1 lg:order-2">
-              
-              {/* Crown Icon above QUIZZY */}
-              <div className="mb-[-12px] sm:mb-[-18px] relative z-20 hover:scale-110 transition-transform cursor-pointer">
-                <ArcadeCrownIcon className="w-12 h-10 sm:w-16 sm:h-12" />
-              </div>
-
-              {/* Central QUIZZY 3D Logo */}
-              <div className="relative mb-3 sm:mb-4">
-                <img
-                  src="/images/quizzy-hero-logo.jpg"
-                  alt="QUIZZY"
-                  className="h-20 sm:h-28 lg:h-32 w-auto object-contain mx-auto drop-shadow-sm select-none"
-                />
-              </div>
-
-              {/* Headline */}
-              <h1 className="font-black text-lg sm:text-2xl lg:text-3xl tracking-[0.2em] text-black uppercase mb-2">
-                PLAY · LEARN · COMPETE
-              </h1>
-
-              {/* Short Description */}
-              <p className="text-stone-800 font-bold text-xs sm:text-sm lg:text-base max-w-lg mb-6 leading-relaxed">
-                Real-time multiplayer trivia for curious minds. Pick a category, test yourself solo, or challenge friends to an instant quiz showdown!
-              </p>
-
-              {/* Two Prominent CTA Buttons matching the screenshot */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md sm:max-w-lg">
-                
-                {/* 1. PLAY SOLO CTA BUTTON */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    handlePlaySolo({
-                      categorySlug: "aptitude",
-                      isMixedCategory: true,
-                      questionCount: selectedQuestionCount,
-                    });
-                  }}
-                  className="w-full sm:w-1/2 bg-[#FFE600] hover:bg-[#FACC15] active:translate-x-[2px] active:translate-y-[2px] border-[2.5px] border-black rounded-full px-5 py-3 shadow-[4px_4px_0px_#000] flex items-center justify-center gap-3 transition-all cursor-pointer group"
-                >
-                  <div className="w-7 h-7 rounded-full bg-black flex items-center justify-center shrink-0">
-                    <Play className="w-3.5 h-3.5 fill-[#FFE600] text-[#FFE600] ml-0.5" />
-                  </div>
-                  <div className="text-left flex flex-col leading-tight">
-                    <span className="font-black text-sm sm:text-base text-black tracking-wide uppercase">
-                      {startingSoloCardId ? "STARTING..." : "PLAY SOLO"}
-                    </span>
-                    <span className="text-[11px] font-bold text-stone-800">
-                      Test your knowledge
-                    </span>
-                  </div>
-                </button>
-
-                {/* 2. PLAY MULTIPLAYER CTA BUTTON */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    handlePlayMultiplayer({
-                      categorySlug: "general-knowledge",
-                      isMixedCategory: true,
-                      questionCount: selectedQuestionCount,
-                    });
-                  }}
-                  className="w-full sm:w-1/2 bg-[#FF4D85] hover:bg-[#F43F5E] active:translate-x-[2px] active:translate-y-[2px] border-[2.5px] border-black rounded-full px-5 py-3 shadow-[4px_4px_0px_#000] flex items-center justify-center gap-3 transition-all cursor-pointer group"
-                >
-                  <div className="w-7 h-7 rounded-full bg-white border-2 border-black flex items-center justify-center shrink-0">
-                    <Users className="w-3.5 h-3.5 text-black stroke-[2.5]" />
-                  </div>
-                  <div className="text-left flex flex-col leading-tight">
-                    <span className="font-black text-sm sm:text-base text-white tracking-wide uppercase">
-                      {creatingRoomCardId ? "CREATING..." : "PLAY MULTIPLAYER"}
-                    </span>
-                    <span className="text-[11px] font-bold text-pink-100">
-                      Challenge your friends
-                    </span>
-                  </div>
-                </button>
-
-              </div>
-
-            </div>
-
-            {/* HERO RIGHT: Illustrated Gamer Girl with Fist Pump, Headphones & Trophy */}
-            <div className="flex flex-col items-center lg:items-end shrink-0 relative order-3">
-              <div className="relative">
-                {/* Comic Speech Bubble */}
-                <div className="absolute -top-6 -left-6 sm:-top-8 sm:-left-8 z-20 bg-[#2DD4BF] text-black border-[2.5px] border-black rounded-2xl px-3.5 py-1.5 shadow-[3px_3px_0px_#000] rotate-6 transform hover:rotate-0 transition-transform">
-                  <span className="font-black text-xs sm:text-sm tracking-wider uppercase leading-none block">
-                    TRIVIA WITH FRIENDS!
-                  </span>
-                </div>
-
-                {/* Gamer Girl Avatar Frame */}
-                <div className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full border-[3px] border-black overflow-hidden bg-[#DDD6FE] shadow-[4px_4px_0px_#000] relative">
-                  <img
-                    src="/images/gamer-girl.jpg"
-                    alt="Quizzy Girl Player"
-                    className="w-full h-full object-cover object-top scale-110"
-                  />
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </section>
 
         {/* ========================================================================= */}
         {/* SECTION C: EXPLORE CATEGORIES (FULL WIDTH, 5 CARDS ON DESKTOP) */}
