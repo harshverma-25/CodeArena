@@ -1,4 +1,4 @@
-import { io as ClientSocket, Socket as ClientSocketType } from '../../../client/node_modules/socket.io-client/build/esm/index.js';
+import { io as ClientSocket, Socket as ClientSocketType } from 'socket.io-client';
 import http from 'http';
 import express from 'express';
 import { Server as SocketIOServer } from 'socket.io';
