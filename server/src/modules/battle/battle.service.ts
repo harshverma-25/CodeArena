@@ -77,6 +77,22 @@ export class BattleService {
     for (const battle of expiredBattles) {
       try {
         if (!battle.currentRound) continue;
+        // Solo quiz grace: do not expire round 0 before the player has had a chance to connect
+        const playersCount = battle.players?.length ?? 0;
+        const submissionsCount = battle.currentRound?.submissions?.length ?? 0;
+        if (
+          playersCount === 1 &&
+          battle.currentRound.roundIndex === 0 &&
+          submissionsCount === 0 &&
+          battle.currentRound.status === 'QUESTION'
+        ) {
+          const startedAt = battle.startedAt ? new Date(battle.startedAt).getTime() : now.getTime();
+          const timePerQuestion = battle.timePerQuestion || 30;
+          const ageMs = now.getTime() - startedAt;
+          if (ageMs < (timePerQuestion + 45) * 1000) {
+            continue;
+          }
+        }
         if (battle.currentRound.status === 'QUESTION' && battle.currentRound.deadline <= now) {
           await this.executeRoundReveal(battle._id.toString(), battle.roomCode, io);
         } else if (
@@ -98,6 +114,18 @@ export class BattleService {
   public async checkAndCatchUpBattle(battleId: string, roomCode: string, io?: Server) {
     const battle = await this.repository.findById(battleId);
     if (!battle || battle.status !== BattleStatus.IN_PROGRESS || !battle.currentRound) {
+      return;
+    }
+
+    // Solo Quiz Protection: if round 0 has not received a submission yet,
+    // synchronize start time instead of prematurely expiring round 0 during page navigation
+    if (
+      battle.players.length === 1 &&
+      battle.currentRound.roundIndex === 0 &&
+      battle.currentRound.submissions.length === 0 &&
+      battle.currentRound.status === 'QUESTION'
+    ) {
+      await this.synchronizeSoloRoundStart(battleId);
       return;
     }
 
@@ -466,6 +494,12 @@ export class BattleService {
       throw new ApiError(400, 'No active round found for this battle');
     }
 
+    // Prevent duplicate submissions at service layer
+    const existingSubmission = battle.currentRound.submissions.find((s) => s.userId === userId);
+    if (existingSubmission) {
+      throw new ApiError(400, 'You have already submitted an answer for this question.');
+    }
+
     if (battle.currentRound.status === 'REVEAL') {
       throw new ApiError(400, 'Question round has already ended. Waiting for next round.');
     }
@@ -478,12 +512,11 @@ export class BattleService {
       throw new ApiError(400, 'Question round has expired.');
     }
 
-    const hasSubmitted = battle.currentRound.submissions.some((s) => s.userId === userId);
-    if (hasSubmitted) {
-      throw new ApiError(400, 'You have already submitted an answer for this question.');
-    }
-
     if (questionId !== battle.currentRound.questionId) {
+      const pastRoundIdx = player.assignedQuestionIds.indexOf(questionId);
+      logger.warn(
+        `[submitAnswer] Turn mismatch for player ${userId} in room ${roomCode}: submitted questionId=${questionId} (assigned index ${pastRoundIdx}), current turn questionId=${battle.currentRound.questionId} (roundIndex ${battle.currentRound.roundIndex})`
+      );
       throw new ApiError(400, 'Invalid question submission: Question ID does not match current turn');
     }
 
@@ -994,6 +1027,100 @@ export class BattleService {
     }
 
     return { cancelledBattlesCount };
+  }
+
+  /**
+   * Forfeit/Exit an active battle for a player.
+   * - Solo mode: Immediately finalizes the battle session, calculates scores, and persists results.
+   * - Multiplayer mode: Marks exiting player as completed/forfeited, notifies room,
+   *   and finalizes the match if all players have departed.
+   */
+  async forfeitBattle(
+    userId: string,
+    roomCode: string,
+    io?: Server
+  ): Promise<{ success: boolean; finalized: boolean; message: string }> {
+    const code = roomCode.toUpperCase();
+    const battle = await this.getActiveBattleByRoomCode(code);
+    if (!battle) {
+      return { success: true, finalized: true, message: 'Battle is already completed or inactive.' };
+    }
+
+    const playerIndex = battle.players.findIndex((p) =>
+      (p.userId as any)._id ? (p.userId as any)._id.toString() === userId : p.userId.toString() === userId
+    );
+    if (playerIndex === -1) {
+      throw new ApiError(403, 'Player is not part of this battle');
+    }
+
+    const player = battle.players[playerIndex];
+    if (player.status === 'COMPLETED') {
+      return { success: true, finalized: false, message: 'Player has already completed or forfeited this battle.' };
+    }
+
+    const roomChannel = `room:${code}`;
+
+    // 1. SOLO MODE: Single player quiz
+    if (battle.players.length === 1) {
+      player.status = 'COMPLETED';
+      if (battle.currentRound) {
+        battle.currentRound.status = 'COMPLETED';
+      }
+      const results = await this.finalizeBattle(battle);
+      if (io) {
+        io.to(roomChannel).emit('battle:completed', results);
+      }
+      logger.info(`Solo battle for room ${code} forfeited and finalized by user ${userId}`);
+      return { success: true, finalized: true, message: 'Solo quiz session forfeited and finalized.' };
+    }
+
+    // 2. MULTIPLAYER MODE (2-4 players)
+    player.status = 'COMPLETED';
+    await BattleModel.updateOne(
+      { _id: battle._id, 'players.userId': player.userId },
+      { $set: { 'players.$.status': 'COMPLETED' } }
+    );
+
+    if (io) {
+      const username = (player.userId as any).username || '';
+      io.to(roomChannel).emit('player:forfeited', { userId, username });
+      io.to(roomChannel).emit('player:disconnected', { userId });
+    }
+
+    // Check remaining active players in this battle
+    const remainingActivePlayers = battle.players.filter((p) => {
+      const pId = (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
+      return p.status !== 'COMPLETED' && pId !== userId;
+    });
+
+    if (remainingActivePlayers.length === 0) {
+      // All players have completed or forfeited -> finalize battle
+      if (battle.currentRound) {
+        battle.currentRound.status = 'COMPLETED';
+      }
+      const results = await this.finalizeBattle(battle);
+      if (io) {
+        io.to(roomChannel).emit('battle:completed', results);
+      }
+      logger.info(`Multiplayer battle for room ${code} finalized after all players departed`);
+      return { success: true, finalized: true, message: 'Battle finalized after all players forfeited.' };
+    }
+
+    // Check if remaining active players have all already answered the current round
+    if (battle.currentRound && battle.currentRound.status === 'QUESTION') {
+      const submittedUserIds = new Set(battle.currentRound.submissions.map((s) => s.userId));
+      const allRemainingAnswered = remainingActivePlayers.every((p) => {
+        const pId = (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
+        return submittedUserIds.has(pId);
+      });
+
+      if (allRemainingAnswered && io) {
+        await this.executeRoundReveal(battle._id.toString(), code, io);
+      }
+    }
+
+    logger.info(`Player ${userId} forfeited active multiplayer battle in room ${code}`);
+    return { success: true, finalized: false, message: 'Player participation ended successfully.' };
   }
 }
 

@@ -59,8 +59,6 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
       active = false;
       socket.off("connect", handleConnect);
       socket.off("disconnect", handleDisconnect);
-      socketManager.disconnect();
-      setSocketConnected(false);
     };
   }, [authed, setSocketConnected]);
 

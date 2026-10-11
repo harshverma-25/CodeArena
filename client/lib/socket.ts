@@ -5,7 +5,7 @@ class SocketManager {
   private token: string | null = null;
 
   public connect(token: string): Socket {
-    if (this.socket?.connected && this.token === token) {
+    if (this.socket && !this.socket.disconnected && this.token === token) {
       return this.socket;
     }
 

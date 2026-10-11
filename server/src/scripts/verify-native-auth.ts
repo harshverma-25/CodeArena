@@ -183,6 +183,9 @@ async function runVerification() {
         totalQuestions: 15,
         isActive: true,
       });
+    } else if (!category.isActive) {
+      category.isActive = true;
+      await category.save();
     }
 
     let subject = await SubjectModel.findOne({ slug: 'javascript' });

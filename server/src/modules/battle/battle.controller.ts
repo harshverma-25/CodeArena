@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { battleService } from './battle.service.js';
 import { ApiResponse } from '../../shared/utils/api-response.js';
 import { logger } from '../../config/logger.js';
+import { getIo } from '../../sockets/socket.js';
 
 export class BattleController {
   /**
@@ -26,6 +27,27 @@ export class BattleController {
         roomCode: battle.roomCode,
         status: battle.status,
       }, 'Battle started successfully')
+    );
+  }
+
+  /**
+   * Forfeit/Exit an active battle.
+   * POST /api/v1/battles/:roomCode/forfeit
+   */
+  async forfeitBattle(req: Request, res: Response) {
+    const userId = req.user!._id.toString();
+    const { roomCode } = req.params;
+    let io: any = null;
+    try {
+      io = getIo();
+    } catch {
+      // Ignore if socket.io not initialized
+    }
+
+    const result = await battleService.forfeitBattle(userId, roomCode, io);
+
+    return res.status(200).json(
+      new ApiResponse(200, result, 'Quiz session ended successfully.')
     );
   }
 }

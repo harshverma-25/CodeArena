@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { socketManager } from "@/lib/socket";
 import { useBattleStore } from "@/store/battleStore";
+import { useApiClient } from "@/hooks/useApiClient";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { isGuestSessionActive } from "@/features/auth/guestAuth";
 import { isNativeAuthActive } from "@/features/auth/nativeAuth";
@@ -49,6 +50,7 @@ export type OpponentLiveState = LiveBattlePlayer;
 
 export function useLiveBattle(roomCode: string) {
   const code = (roomCode || "").toUpperCase();
+  const api = useApiClient();
   const { data: currentUser } = useCurrentUser();
   const cachedInitData = useBattleStore((state) => state.battleInitData);
   const setBattleInitData = useBattleStore((state) => state.setBattleInitData);
@@ -271,6 +273,17 @@ export function useLiveBattle(roomCode: string) {
       );
     };
 
+    const handlePlayerForfeited = (payload: { userId: string }) => {
+      if (!active) return;
+      setPlayers((prev) =>
+        prev.map((p) =>
+          p.userId === payload.userId
+            ? { ...p, isCompleted: true, isDisconnected: true }
+            : p
+        )
+      );
+    };
+
     const handlePlayerReconnected = (payload: { userId: string }) => {
       if (!active) return;
       setPlayers((prev) =>
@@ -278,9 +291,43 @@ export function useLiveBattle(roomCode: string) {
       );
     };
 
+    const handleSubmitRejected = (payload: {
+      reason: string;
+      currentRoundIndex?: number;
+      currentQuestionId?: string;
+      status?: string;
+    }) => {
+      if (!active) return;
+      console.warn("⚠️ Battle answer submission rejected:", payload.reason);
+      setIsSubmitting(false);
+      setIsLocked(true);
+
+      // If client question does not match the authoritative server question, resynchronize
+      if (
+        payload.currentQuestionId &&
+        battleRef.current?.currentQuestion?.questionId !== payload.currentQuestionId
+      ) {
+        socketManager.emit("battle:reconnect", { roomCode: code });
+      }
+    };
+
     const handleError = (payload: { message: string }) => {
       if (!active) return;
-      setErrorMessage(payload.message || "An unexpected battle error occurred.");
+      const msg = payload.message || "";
+      // Intercept non-fatal submission warnings so the quiz arena does not shut down
+      if (
+        msg.includes("Question ID does not match") ||
+        msg.includes("already submitted") ||
+        msg.includes("round has expired") ||
+        msg.includes("round has already ended")
+      ) {
+        console.warn("⚠️ Non-fatal battle error intercepted:", msg);
+        setIsSubmitting(false);
+        setIsLocked(true);
+        socketManager.emit("battle:reconnect", { roomCode: code });
+        return;
+      }
+      setErrorMessage(msg || "An unexpected battle error occurred.");
     };
 
     const handleConnect = () => {
@@ -338,11 +385,14 @@ export function useLiveBattle(roomCode: string) {
       socket.on("battle:next_question", handleNextQuestion);
       socket.on("battle:completed", handleBattleCompleted);
       socket.on("player:disconnected", handlePlayerDisconnected);
+      socket.on("player:forfeited", handlePlayerForfeited);
       socket.on("player:reconnected", handlePlayerReconnected);
+      socket.on("battle:submit_rejected", handleSubmitRejected);
       socket.on("error", handleError);
 
       // If we do NOT have cached init data for this room, sync once on initial mount
-      const hasCachedData = cachedInitData && cachedInitData.roomCode === code;
+      const storeInitData = useBattleStore.getState().battleInitData;
+      const hasCachedData = storeInitData && storeInitData.roomCode === code;
       if (!hasCachedData && !battleRef.current) {
         socketManager.emit("battle:reconnect", { roomCode: code });
       }
@@ -369,11 +419,13 @@ export function useLiveBattle(roomCode: string) {
         socket.off("battle:next_question", handleNextQuestion);
         socket.off("battle:completed", handleBattleCompleted);
         socket.off("player:disconnected", handlePlayerDisconnected);
+        socket.off("player:forfeited", handlePlayerForfeited);
         socket.off("player:reconnected", handlePlayerReconnected);
+        socket.off("battle:submit_rejected", handleSubmitRejected);
         socket.off("error", handleError);
       }
     };
-  }, [code, processInitPayload, setBattleInitData, cachedInitData]);
+  }, [code, processInitPayload]);
 
   // Dynamic Decreasing Points & Visual Countdown Timer
   useEffect(() => {
@@ -443,7 +495,8 @@ export function useLiveBattle(roomCode: string) {
   // Submit Answer Action
   const submitAnswer = useCallback(
     (optionIndex: number) => {
-      if (isLocked || isSubmitting || !battle?.currentQuestion) return;
+      const currentBattle = battleRef.current;
+      if (isLocked || isSubmitting || !currentBattle?.currentQuestion) return;
 
       // 1. Immediately lock options client-side (Anti-cheat & UI freeze)
       setIsLocked(true);
@@ -454,11 +507,11 @@ export function useLiveBattle(roomCode: string) {
       // 2. Authoritative submission via Socket.IO
       socketManager.emit("battle:submit_answer", {
         roomCode: code,
-        questionId: battle.currentQuestion.questionId,
+        questionId: currentBattle.currentQuestion.questionId,
         selectedOption: optionIndex,
       });
     },
-    [isLocked, isSubmitting, battle, code, potentialScore]
+    [isLocked, isSubmitting, code, potentialScore]
   );
 
   // Host manually advances to next round early during reveal
@@ -476,6 +529,24 @@ export function useLiveBattle(roomCode: string) {
     socketManager.reconnect();
     socketManager.emit("battle:reconnect", { roomCode: code });
   }, [code]);
+
+  // Explicitly forfeit and exit active battle
+  const forfeitBattle = useCallback(async () => {
+    if (!code) return;
+    try {
+      socketManager.emit("battle:forfeit", { roomCode: code });
+    } catch (err) {
+      console.warn("Socket forfeit emit error:", err);
+    }
+
+    try {
+      await api.post(`/battles/${code}/forfeit`, {});
+    } catch (err) {
+      console.warn("REST forfeit error (session may already be ended):", err);
+    }
+
+    useBattleStore.getState().resetBattle();
+  }, [code, api]);
 
   return {
     battle,
@@ -499,6 +570,7 @@ export function useLiveBattle(roomCode: string) {
     submitAnswer,
     advanceRound,
     reconnectBattle,
+    forfeitBattle,
   };
 }
 

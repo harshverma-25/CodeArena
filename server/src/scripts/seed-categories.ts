@@ -12,24 +12,28 @@ export const MASTER_CATEGORIES = [
     slug: 'programming',
     description: 'Software development, algorithms, databases, and computer science fundamentals',
     icon: 'code',
+    isActive: true,
   },
   {
     name: 'Aptitude',
     slug: 'aptitude',
     description: 'Logical reasoning, quantitative analysis, verbal skills, and data interpretation',
     icon: 'brain',
+    isActive: true,
   },
   {
     name: 'General Knowledge',
     slug: 'general-knowledge',
     description: 'History, geography, science, current affairs, and general trivia',
     icon: 'globe',
+    isActive: true,
   },
   {
     name: 'Science',
     slug: 'science',
     description: 'Physics, chemistry, biology, natural sciences, and scientific laws',
     icon: 'flask',
+    isActive: true,
   },
 ];
 
@@ -115,6 +119,7 @@ export async function seedCategoriesAndMigrateQuestions(): Promise<{
     for (const subjData of subjectsList) {
       const subjectDoc = await categoryRepository.upsertSubject({
         categoryId: categoryDoc._id,
+        isActive: true,
         ...subjData,
       });
       subjectMap.set(subjData.slug, subjectDoc);

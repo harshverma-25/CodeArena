@@ -147,7 +147,7 @@ export class BattleRepository {
           'currentRound.revealExpiresAt': { $lte: now },
         },
       ],
-    }).select('_id roomCode currentRound');
+    }).select('_id roomCode currentRound players startedAt timePerQuestion');
   }
 
   /**

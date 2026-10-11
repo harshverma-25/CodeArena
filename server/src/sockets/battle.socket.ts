@@ -83,8 +83,54 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
           timeTakenMs: result.timeTakenMs,
         });
       } catch (error: any) {
-        logger.error(error, `Failed to submit battle answer for player ${userId} in room ${roomCode}`);
-        socket.emit('error', { success: false, message: error.message || 'Failed to submit answer' });
+        logger.warn(`Battle answer submission rejected for player ${userId} in room ${roomCode}: ${error.message}`);
+
+        const battle = await battleService.getActiveBattleByRoomCode(roomCode);
+        if (battle && battle.currentRound) {
+          // If already submitted, re-acknowledge answer locking idempotently
+          if (error.message?.includes('already submitted')) {
+            const existing = battle.currentRound.submissions.find((s) => s.userId === userId);
+            if (existing) {
+              socket.emit('battle:answer_locked', {
+                selectedOption: existing.selectedOption,
+                potentialScore: existing.potentialScore,
+                timeTakenMs: existing.timeTakenMs,
+              });
+              return;
+            }
+          }
+
+          socket.emit('battle:submit_rejected', {
+            reason: error.message,
+            currentRoundIndex: battle.currentRound.roundIndex,
+            currentQuestionId: battle.currentRound.questionId,
+            status: battle.currentRound.status,
+          });
+
+          // Resynchronize client with the current battle state
+          if (battle.currentRound.status === 'REVEAL') {
+            const revealPayload = await battleService.getBattleRevealPayloadIfRevealed(battle._id.toString());
+            if (revealPayload) {
+              socket.emit('battle:reveal', revealPayload);
+            }
+          } else if (battle.currentRound.status === 'QUESTION') {
+            const initPayload = await battleService.getBattleInitPayload(battle, userId);
+            if (initPayload) {
+              socket.emit('battle:init', initPayload);
+            }
+          }
+        } else {
+          // If battle is no longer active, check if finished
+          const room = await roomService.getRoom(roomCode);
+          if (room?.matchId) {
+            const finishedBattle = await battleService.getBattleById(room.matchId.toString());
+            if (finishedBattle && finishedBattle.status === 'COMPLETED') {
+              socket.emit('battle:completed', battleService.formatResultsPayload(finishedBattle));
+              return;
+            }
+          }
+          socket.emit('error', { success: false, message: error.message || 'Failed to submit answer' });
+        }
       }
     }
   );
@@ -202,6 +248,27 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
       }
     } catch (error: any) {
       logger.error(error, `Failed to handle battle reconnect for player ${userId} in room ${roomCode}`);
+    }
+  });
+
+  // Player explicitly forfeits/leaves an active battle
+  socket.on('battle:forfeit', async (payload: { roomCode: string }, callback?: (res: any) => void) => {
+    try {
+      const roomCode = payload?.roomCode?.toUpperCase();
+      if (!roomCode) {
+        if (callback) callback({ success: false, message: 'Room code is required' });
+        return;
+      }
+      const result = await battleService.forfeitBattle(userId, roomCode, io);
+      const roomChannel = `room:${roomCode}`;
+      socket.leave(roomChannel);
+      socket.emit('battle:forfeit_acknowledged', result);
+      if (callback) callback(result);
+      logger.info(`Player ${userId} explicitly forfeited and left battle in room ${roomCode}`);
+    } catch (err: any) {
+      logger.error(err, `Error processing battle:forfeit for player ${userId} in room ${payload?.roomCode}`);
+      socket.emit('error', { success: false, message: err.message || 'Failed to forfeit quiz' });
+      if (callback) callback({ success: false, message: err.message });
     }
   });
 }

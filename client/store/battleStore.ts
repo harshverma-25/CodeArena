@@ -86,5 +86,6 @@ export const useBattleStore = create<BattleState>((set) => ({
     players: [],
     socketError: null,
     isReconnecting: false,
+    battleInitData: null,
   }),
 }));

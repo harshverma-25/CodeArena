@@ -17,5 +17,11 @@ router.post(
   asyncHandler((req, res) => battleController.startBattle(req, res))
 );
 
+// Route: POST /battles/:roomCode/forfeit
+router.post(
+  '/:roomCode/forfeit',
+  asyncHandler((req, res) => battleController.forfeitBattle(req, res))
+);
+
 export const battleRoutes = router;
 export default battleRoutes;

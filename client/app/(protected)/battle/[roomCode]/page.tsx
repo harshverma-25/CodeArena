@@ -38,6 +38,8 @@ import {
 
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { useLiveBattle, LiveBattlePlayer } from "@/features/battle/hooks/useLiveBattle";
+import { useQuizExitGuard } from "@/features/battle/hooks/useQuizExitGuard";
+import { ExitQuizModal } from "@/features/battle/components/ExitQuizModal";
 
 const OPTION_LETTERS = ["A", "B", "C", "D"];
 
@@ -136,9 +138,22 @@ export default function LiveQuizArenaPage() {
     submitAnswer,
     advanceRound,
     reconnectBattle,
+    forfeitBattle,
   } = useLiveBattle(roomCode);
 
-  const [isLeaveModalOpen, setIsLeaveModalOpen] = useState(false);
+  const isQuizActive = (status === "active" || status === "reveal") && !battle?.isMyCompleted;
+
+  const {
+    isExitModalOpen,
+    isExiting,
+    openExitModal,
+    closeExitModal,
+    confirmExit,
+  } = useQuizExitGuard({
+    isQuizActive,
+    onExitQuiz: forfeitBattle,
+    defaultExitPath: "/",
+  });
 
   // Synchronized navigation to results screen on battle completion
   useEffect(() => {
@@ -387,17 +402,30 @@ export default function LiveQuizArenaPage() {
                 <span className="font-black text-9xl text-stone-900 font-mono">?</span>
               </div>
 
-              {/* Category / Subject Badge + Crown Doodle */}
-              <div className="flex items-center gap-2 mb-3">
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#DDD6FE] border-2 border-black shadow-[2px_2px_0px_#000]">
-                  <span className="font-mono font-black text-xs text-black">
-                    &lt;/&gt;
-                  </span>
-                  <span className="font-black text-xs uppercase tracking-wider text-black">
-                    {categoryTopic}
-                  </span>
+              {/* Category / Subject Badge + Exit Quiz Action Button */}
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#DDD6FE] border-2 border-black shadow-[2px_2px_0px_#000]">
+                    <span className="font-mono font-black text-xs text-black">
+                      &lt;/&gt;
+                    </span>
+                    <span className="font-black text-xs uppercase tracking-wider text-black">
+                      {categoryTopic}
+                    </span>
+                  </div>
+                  <ArcadeCrownIcon className="w-6 h-5" />
                 </div>
-                <ArcadeCrownIcon className="w-6 h-5" />
+
+                <button
+                  type="button"
+                  id="header-exit-quiz-button"
+                  onClick={() => openExitModal()}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white hover:bg-red-50 text-stone-700 hover:text-red-600 border-2 border-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] text-xs font-black transition-all cursor-pointer"
+                  title="Exit this quiz"
+                >
+                  <LogOut className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <span>Exit Quiz</span>
+                </button>
               </div>
 
               {/* Core Question Typography */}
@@ -696,43 +724,13 @@ export default function LiveQuizArenaPage() {
 
       </main>
 
-      {/* Leave Quiz Confirmation Modal */}
-      {isLeaveModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#FAF7EE] border-[3px] border-black rounded-[28px] p-6 max-w-sm w-full shadow-[8px_8px_0px_#000] space-y-4 text-center">
-            <div className="w-14 h-14 rounded-2xl bg-[#FEE2E2] border-2 border-black text-red-600 flex items-center justify-center mx-auto shadow-[2px_2px_0px_#000]">
-              <LogOut className="w-7 h-7 stroke-[2.5]" />
-            </div>
-            <div>
-              <h3 className="text-xl font-black text-black">
-                Forfeit Quiz Session?
-              </h3>
-              <p className="text-xs font-bold text-stone-600 mt-2 leading-relaxed">
-                Leaving now will abandon your active round and forfeit any points accumulated in this match.
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 pt-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsLeaveModalOpen(false);
-                  router.push("/");
-                }}
-                className="w-full py-3 px-4 rounded-full bg-[#EF4444] hover:bg-red-600 text-white font-black text-sm border-2 border-black shadow-[3px_3px_0px_#000] cursor-pointer"
-              >
-                Yes, Leave Quiz
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsLeaveModalOpen(false)}
-                className="w-full py-3 px-4 rounded-full bg-white hover:bg-stone-100 text-black border-2 border-black font-black text-sm shadow-[2px_2px_0px_#000] cursor-pointer"
-              >
-                Stay &amp; Keep Playing
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Exit Quiz Confirmation Modal */}
+      <ExitQuizModal
+        isOpen={isExitModalOpen}
+        isExiting={isExiting}
+        onStay={closeExitModal}
+        onExit={confirmExit}
+      />
 
     </div>
   );
