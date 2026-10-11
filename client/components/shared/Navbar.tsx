@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useBattleStore } from "@/store/battleStore";
 import { cn } from "@/lib/utils";
 import {
   Trophy,
@@ -32,7 +31,6 @@ export function Navbar() {
   const api = useApiClient();
   const queryClient = useQueryClient();
   const { data: currentUser } = useCurrentUser();
-  const isSocketConnected = useBattleStore((state) => state.isSocketConnected);
 
   const [mounted, setMounted] = useState(false);
   const [nativeUser, setNativeUser] = useState<User | null>(null);
@@ -249,25 +247,8 @@ export function Navbar() {
             </form>
           </div>
 
-          {/* RIGHT: LIVE INDICATOR, SEARCH & USER PROFILE */}
+          {/* RIGHT: SEARCH & USER PROFILE / AUTH */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Live Socket Status Badge */}
-            <div
-              className={cn(
-                "hidden sm:inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-black border-2 border-black shadow-[2px_2px_0px_#000]",
-                isSocketConnected
-                  ? "bg-[#D1FAE5] text-[#065F46]"
-                  : "bg-[#FEF3C7] text-[#92400E]"
-              )}
-              title={isSocketConnected ? "Real-time socket live" : "Connecting..."}
-            >
-              <span className={cn(
-                "h-2 w-2 rounded-full",
-                isSocketConnected ? "bg-[#10B981] animate-pulse" : "bg-amber-500"
-              )} />
-              <span>LIVE</span>
-            </div>
-
             {/* SEARCH BUTTON / EXPANDABLE INPUT */}
             {isSearchActive ? (
               <form
@@ -306,7 +287,7 @@ export function Navbar() {
               </button>
             )}
 
-            {/* PROFILE SECTION / GUEST PILL */}
+            {/* PROFILE SECTION / UNIFIED AUTH CONTROLS */}
             <div className="relative" ref={profileMenuRef}>
               {!mounted ? (
                 <div className="h-9 w-24 rounded-full bg-stone-200 border-2 border-black animate-pulse" />
@@ -339,24 +320,34 @@ export function Navbar() {
                 </button>
               ) : (
                 <div className="flex items-center gap-1.5 sm:gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsGuestModalOpen(true)}
-                    className="hidden sm:inline-flex px-3 py-1.5 rounded-full text-xs font-black text-stone-800 hover:text-black bg-stone-100 border-2 border-black shadow-[2px_2px_0px_#000] transition-colors cursor-pointer"
-                  >
-                    Guest
-                  </button>
-                  <Link
-                    href="/login"
-                    className="px-3.5 py-1.5 rounded-full text-xs font-black text-black bg-white hover:bg-stone-100 transition-colors flex items-center justify-center border-2 border-black shadow-[2px_2px_0px_#000]"
-                  >
-                    Log In
-                  </Link>
+                  {/* Subtle Guest / Log In Capsule */}
+                  <div className="flex items-center bg-[#F4EFE6] border-2 border-black rounded-full p-0.5 shadow-[2px_2px_0px_#000]">
+                    <button
+                      type="button"
+                      onClick={() => setIsGuestModalOpen(true)}
+                      className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black text-stone-700 hover:text-black hover:bg-white/90 transition-all cursor-pointer"
+                      title="Play as Guest without creating an account"
+                    >
+                      <UserIcon className="w-3.5 h-3.5 text-stone-600 stroke-[2.5]" />
+                      <span className="hidden xs:inline">Guest</span>
+                      <span className="xs:hidden">Guest</span>
+                    </button>
+                    <div className="w-[1.5px] h-3.5 bg-stone-300 mx-0.5" />
+                    <Link
+                      href="/login"
+                      className="px-3 py-1 rounded-full text-xs font-black text-stone-700 hover:text-black hover:bg-white/90 transition-all"
+                    >
+                      Log In
+                    </Link>
+                  </div>
+
+                  {/* Primary High-Impact Sign Up CTA Button */}
                   <Link
                     href="/register"
-                    className="px-3.5 py-1.5 rounded-full bg-[#FFE600] hover:bg-[#FACC15] text-black text-xs font-black transition-all border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-center"
+                    className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#FFE600] hover:bg-[#FACC15] text-black text-xs font-black border-2 border-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all shrink-0"
                   >
-                    Sign Up
+                    <span>Sign Up</span>
+                    <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
                   </Link>
                 </div>
               )}
@@ -498,6 +489,39 @@ export function Navbar() {
                       </button>
                     </div>
                   </form>
+
+                  {/* Mobile Auth Actions when unauthenticated */}
+                  {!activeUser && (
+                    <div className="pt-2 border-t-2 border-stone-200 space-y-1.5">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          setIsGuestModalOpen(true);
+                        }}
+                        className="w-full flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-black bg-stone-100 text-stone-900 border-2 border-black hover:bg-stone-200 transition-colors shadow-[1px_1px_0px_#000]"
+                      >
+                        <UserIcon className="w-3.5 h-3.5" />
+                        Play as Guest
+                      </button>
+                      <div className="flex gap-2">
+                        <Link
+                          href="/login"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="flex-1 text-center py-2 rounded-xl text-xs font-black bg-white text-black border-2 border-black shadow-[2px_2px_0px_#000]"
+                        >
+                          Log In
+                        </Link>
+                        <Link
+                          href="/register"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="flex-1 text-center py-2 rounded-xl text-xs font-black bg-[#FFE600] text-black border-2 border-black shadow-[2px_2px_0px_#000]"
+                        >
+                          Sign Up
+                        </Link>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
