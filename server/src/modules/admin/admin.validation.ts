@@ -85,3 +85,32 @@ export const listImportHistorySchema = z.object({
     search: z.string().optional(),
   }),
 });
+
+export const deleteCategorySchema = z.object({
+  params: z.object({
+    id: z.string().min(1, 'Category ID is required'),
+  }),
+});
+
+export const deleteSubjectSchema = z.object({
+  params: z.object({
+    id: z.string().min(1, 'Subject ID is required'),
+  }),
+});
+
+export const deleteQuestionSchema = z.object({
+  params: z.object({
+    id: z.string().min(1, 'Question ID is required'),
+  }),
+});
+
+export const getSubjectQuestionsSchema = z.object({
+  params: z.object({
+    id: z.string().min(1, 'Subject ID is required'),
+  }),
+  query: z.object({
+    page: z.union([z.string().regex(/^\d+$/).transform(Number), z.number()]).optional().default(1),
+    limit: z.union([z.string().regex(/^\d+$/).transform(Number), z.number()]).optional().default(50),
+  }).optional(),
+});
+

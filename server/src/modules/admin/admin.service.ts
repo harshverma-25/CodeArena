@@ -238,6 +238,165 @@ export class AdminService {
   }
 
   /**
+   * Delete category and cascade delete all its subjects and questions.
+   */
+  async deleteCategory(id: string) {
+    const category = Types.ObjectId.isValid(id)
+      ? await CategoryModel.findById(id)
+      : await CategoryModel.findOne({ slug: id.toLowerCase() });
+
+    if (!category) {
+      throw new ApiError(404, 'Category not found');
+    }
+
+    // 1. Find all subjects belonging to this category
+    const subjects = await SubjectModel.find({ categoryId: category._id }).select('_id');
+    const subjectIds = subjects.map((s) => s._id);
+
+    // 2. Cascade delete all questions for this category or any of its subjects
+    const deletedQuestions = await QuestionModel.deleteMany({
+      $or: [
+        { categoryId: category._id },
+        { subjectId: { $in: subjectIds } },
+      ],
+    });
+
+    // 3. Delete all subjects under this category
+    const deletedSubjects = await SubjectModel.deleteMany({ categoryId: category._id });
+
+    // 4. Delete the category itself
+    await CategoryModel.findByIdAndDelete(category._id);
+
+    return {
+      categoryId: category._id.toString(),
+      name: category.name,
+      slug: category.slug,
+      deletedSubjectsCount: deletedSubjects.deletedCount || 0,
+      deletedQuestionsCount: deletedQuestions.deletedCount || 0,
+    };
+  }
+
+  /**
+   * Delete a subject (quiz) and cascade delete all its questions.
+   */
+  async deleteSubject(id: string) {
+    const subject = Types.ObjectId.isValid(id)
+      ? await SubjectModel.findById(id)
+      : await SubjectModel.findOne({ slug: id.toLowerCase() });
+
+    if (!subject) {
+      throw new ApiError(404, 'Subject / Quiz not found');
+    }
+
+    // 1. Delete all questions belonging to this subject
+    const deletedQuestions = await QuestionModel.deleteMany({ subjectId: subject._id });
+
+    // 2. Delete the subject itself
+    await SubjectModel.findByIdAndDelete(subject._id);
+
+    return {
+      subjectId: subject._id.toString(),
+      name: subject.name,
+      slug: subject.slug,
+      deletedQuestionsCount: deletedQuestions.deletedCount || 0,
+    };
+  }
+
+  /**
+   * Clear all questions belonging to a subject / quiz without deleting the subject definition.
+   */
+  async deleteSubjectQuestions(id: string) {
+    const subject = Types.ObjectId.isValid(id)
+      ? await SubjectModel.findById(id)
+      : await SubjectModel.findOne({ slug: id.toLowerCase() });
+
+    if (!subject) {
+      throw new ApiError(404, 'Subject / Quiz not found');
+    }
+
+    const deletedQuestions = await QuestionModel.deleteMany({ subjectId: subject._id });
+
+    return {
+      subjectId: subject._id.toString(),
+      name: subject.name,
+      slug: subject.slug,
+      deletedQuestionsCount: deletedQuestions.deletedCount || 0,
+    };
+  }
+
+  /**
+   * Fetch paginated list of questions belonging to a specific subject / quiz.
+   */
+  async getSubjectQuestions(id: string, page: number = 1, limit: number = 50) {
+    const subject = Types.ObjectId.isValid(id)
+      ? await SubjectModel.findById(id)
+      : await SubjectModel.findOne({ slug: id.toLowerCase() });
+
+    if (!subject) {
+      throw new ApiError(404, 'Subject / Quiz not found');
+    }
+
+    const safePage = Math.max(1, page);
+    const safeLimit = Math.min(100, Math.max(1, limit));
+    const skip = (safePage - 1) * safeLimit;
+
+    const [questions, total] = await Promise.all([
+      QuestionModel.find({ subjectId: subject._id })
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(safeLimit)
+        .lean(),
+      QuestionModel.countDocuments({ subjectId: subject._id }),
+    ]);
+
+    return {
+      subject: {
+        id: subject._id.toString(),
+        name: subject.name,
+        slug: subject.slug,
+      },
+      questions: questions.map((q) => ({
+        id: q._id.toString(),
+        questionId: q.questionId,
+        question: q.question,
+        options: q.options,
+        correctAnswer: q.correctAnswer,
+        difficulty: q.difficulty,
+        explanation: q.explanation,
+        isPublished: q.isPublished,
+        createdAt: q.createdAt,
+      })),
+      pagination: {
+        page: safePage,
+        limit: safeLimit,
+        total,
+        totalPages: Math.ceil(total / safeLimit) || 1,
+      },
+    };
+  }
+
+  /**
+   * Delete an individual question.
+   */
+  async deleteQuestion(id: string) {
+    const question = Types.ObjectId.isValid(id)
+      ? await QuestionModel.findById(id)
+      : await QuestionModel.findOne({ questionId: id });
+
+    if (!question) {
+      throw new ApiError(404, 'Question not found');
+    }
+
+    await QuestionModel.findByIdAndDelete(question._id);
+
+    return {
+      id: question._id.toString(),
+      questionId: question.questionId,
+      deleted: true,
+    };
+  }
+
+  /**
    * Parse and normalize a single raw question row.
    */
   private normalizeQuestionRow(rowNumber: number, raw: RawQuestion, subjectSlug: string) {

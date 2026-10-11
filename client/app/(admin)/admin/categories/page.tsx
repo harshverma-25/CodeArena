@@ -6,6 +6,7 @@ import {
   BookOpen,
   Plus,
   Edit2,
+  Trash2,
   Search,
   CheckCircle2,
   XCircle,
@@ -18,9 +19,11 @@ import {
   X,
   Layers,
   ArrowRight,
+  AlertTriangle,
+  Loader2,
 } from "lucide-react";
 import { useApiClient } from "@/hooks/useApiClient";
-import { AdminCategoryTreeItem, AdminSubjectItem } from "@/types";
+import { AdminCategoryTreeItem, AdminSubjectItem, AdminQuestionItem } from "@/types";
 
 export default function AdminCategoriesPage() {
   const api = useApiClient();
@@ -40,7 +43,18 @@ export default function AdminCategoriesPage() {
   const [editingSubject, setEditingSubject] = useState<{ subject: AdminSubjectItem; categoryId: string } | null>(null);
   const [subjectForm, setSubjectForm] = useState({ categoryId: "", name: "", slug: "", description: "", icon: "" });
 
+  // Delete Confirmation Modals state
+  const [deleteCategoryTarget, setDeleteCategoryTarget] = useState<AdminCategoryTreeItem | null>(null);
+  const [deleteSubjectTarget, setDeleteSubjectTarget] = useState<{ subject: AdminSubjectItem; categoryName: string } | null>(null);
+
+  // Questions Viewer Modal state
+  const [managingQuestionsSubject, setManagingQuestionsSubject] = useState<{ subject: AdminSubjectItem; categoryName: string } | null>(null);
+  const [subjectQuestions, setSubjectQuestions] = useState<AdminQuestionItem[]>([]);
+  const [questionsLoading, setQuestionsLoading] = useState(false);
+  const [deleteQuestionTarget, setDeleteQuestionTarget] = useState<AdminQuestionItem | null>(null);
+
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [actionMessage, setActionMessage] = useState<string | null>(null);
 
   const fetchCategories = async () => {
@@ -189,6 +203,98 @@ export default function AdminCategoriesPage() {
       await fetchCategories();
     } catch (err: any) {
       alert(err?.message || "Failed to toggle subject status");
+    }
+  };
+
+  // Delete Category
+  const handleDeleteCategory = async () => {
+    if (!deleteCategoryTarget) return;
+    try {
+      setDeleting(true);
+      const res = await api.delete<{ data: { deletedSubjectsCount: number; deletedQuestionsCount: number } }>(
+        `/admin/categories/${deleteCategoryTarget.id}`
+      );
+      setActionMessage(
+        `Deleted category "${deleteCategoryTarget.name}" (${res.data?.deletedSubjectsCount || 0} quizzes, ${res.data?.deletedQuestionsCount || 0} questions removed).`
+      );
+      setDeleteCategoryTarget(null);
+      await fetchCategories();
+    } catch (err: any) {
+      alert(err?.message || "Failed to delete category");
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  // Delete Subject / Quiz
+  const handleDeleteSubject = async () => {
+    if (!deleteSubjectTarget) return;
+    try {
+      setDeleting(true);
+      const res = await api.delete<{ data: { deletedQuestionsCount: number } }>(
+        `/admin/subjects/${deleteSubjectTarget.subject.id}`
+      );
+      setActionMessage(
+        `Deleted quiz "${deleteSubjectTarget.subject.name}" and its ${res.data?.deletedQuestionsCount || 0} questions.`
+      );
+      setDeleteSubjectTarget(null);
+      await fetchCategories();
+    } catch (err: any) {
+      alert(err?.message || "Failed to delete quiz");
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  // Fetch Questions for a Subject / Quiz
+  const fetchSubjectQuestions = async (subjectId: string) => {
+    try {
+      setQuestionsLoading(true);
+      const res = await api.get<{ data: { questions: AdminQuestionItem[] } }>(
+        `/admin/subjects/${subjectId}/questions?limit=100`
+      );
+      setSubjectQuestions(res.data?.questions || []);
+    } catch (err: any) {
+      alert(err?.message || "Failed to load questions");
+    } finally {
+      setQuestionsLoading(false);
+    }
+  };
+
+  // Delete an Individual Question
+  const handleDeleteQuestion = async () => {
+    if (!deleteQuestionTarget) return;
+    try {
+      setDeleting(true);
+      await api.delete(`/admin/questions/${deleteQuestionTarget.id}`);
+      setSubjectQuestions((prev) => prev.filter((q) => q.id !== deleteQuestionTarget.id));
+      setActionMessage(`Question "${deleteQuestionTarget.questionId}" deleted successfully.`);
+      setDeleteQuestionTarget(null);
+      await fetchCategories();
+    } catch (err: any) {
+      alert(err?.message || "Failed to delete question");
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  // Clear All Questions of a Subject / Quiz
+  const handleClearSubjectQuestions = async (subjectId: string, subjectName: string) => {
+    if (!confirm(`Are you sure you want to clear all questions for quiz "${subjectName}"? The quiz itself will remain.`)) {
+      return;
+    }
+    try {
+      setDeleting(true);
+      const res = await api.delete<{ data: { deletedQuestionsCount: number } }>(
+        `/admin/subjects/${subjectId}/questions`
+      );
+      setActionMessage(`Cleared ${res.data?.deletedQuestionsCount || 0} questions from "${subjectName}".`);
+      setSubjectQuestions([]);
+      await fetchCategories();
+    } catch (err: any) {
+      alert(err?.message || "Failed to clear questions");
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -357,11 +463,20 @@ export default function AdminCategoriesPage() {
                       onClick={() => handleToggleCategoryActive(cat)}
                       className={`px-2.5 py-1 rounded-xl text-xs font-black border-2 border-black shadow-[2px_2px_0px_#000] transition-colors ${
                         cat.isActive
-                          ? "bg-red-100 text-red-800 hover:bg-red-200"
+                          ? "bg-stone-100 text-stone-700 hover:bg-stone-200"
                           : "bg-emerald-100 text-emerald-800 hover:bg-emerald-200"
                       }`}
                     >
                       {cat.isActive ? "Deactivate" : "Activate"}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setDeleteCategoryTarget(cat)}
+                      className="p-1.5 rounded-xl bg-red-100 hover:bg-red-200 text-red-700 border-2 border-black shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all"
+                      title={`Delete Category "${cat.name}"`}
+                    >
+                      <Trash2 className="w-3.5 h-3.5 stroke-[2.5]" />
                     </button>
                   </div>
                 </div>
@@ -404,9 +519,19 @@ export default function AdminCategoriesPage() {
                           </div>
 
                           <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
-                            <span className="px-2.5 py-1 rounded-lg bg-stone-100 border border-black text-[11px] font-black text-black">
-                              {sub.questionCount} Questions
-                            </span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setManagingQuestionsSubject({ subject: sub, categoryName: cat.name });
+                                fetchSubjectQuestions(sub.id);
+                              }}
+                              className="px-2.5 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 border border-black text-[11px] font-black text-amber-950 shadow-[1px_1px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all flex items-center gap-1.5 cursor-pointer"
+                              title="View & manage questions"
+                            >
+                              <Layers className="w-3 h-3 stroke-[2.5]" />
+                              <span>{sub.questionCount} Questions</span>
+                            </button>
+
                             <button
                               type="button"
                               onClick={() => handleOpenEditSubject(sub, cat.id)}
@@ -415,16 +540,26 @@ export default function AdminCategoriesPage() {
                             >
                               <Edit2 className="w-3.5 h-3.5" />
                             </button>
+
                             <button
                               type="button"
                               onClick={() => handleToggleSubjectActive(sub)}
                               className={`px-2 py-1 rounded-lg text-[10px] font-black border-2 border-black shadow-[1px_1px_0px_#000] transition-colors ${
                                 sub.isActive
-                                  ? "bg-red-50 text-red-800 hover:bg-red-100"
+                                  ? "bg-stone-100 text-stone-700 hover:bg-stone-200"
                                   : "bg-emerald-50 text-emerald-800 hover:bg-emerald-100"
                               }`}
                             >
                               {sub.isActive ? "Deactivate" : "Activate"}
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => setDeleteSubjectTarget({ subject: sub, categoryName: cat.name })}
+                              className="p-1.5 rounded-lg bg-red-100 hover:bg-red-200 text-red-700 border-2 border-black shadow-[1px_1px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all"
+                              title={`Delete Quiz "${sub.name}"`}
+                            >
+                              <Trash2 className="w-3.5 h-3.5 stroke-[2.5]" />
                             </button>
                           </div>
                         </div>
@@ -614,6 +749,324 @@ export default function AdminCategoriesPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* DELETE CATEGORY CONFIRMATION MODAL */}
+      {deleteCategoryTarget && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#FAF7EE] border-[3px] border-black rounded-[28px] max-w-md w-full p-6 sm:p-7 shadow-[8px_8px_0px_#000] space-y-4 animate-in fade-in duration-150 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-[#FEE2E2] border-2 border-black text-red-600 flex items-center justify-center mx-auto shadow-[3px_3px_0px_#000]">
+              <AlertTriangle className="w-7 h-7 stroke-[2.5]" />
+            </div>
+
+            <div>
+              <h3 className="text-xl sm:text-2xl font-black text-black tracking-tight">
+                Delete Category?
+              </h3>
+              <p className="text-xs sm:text-sm font-bold text-stone-600 mt-2 leading-relaxed">
+                Are you sure you want to delete <span className="text-black font-black">"{deleteCategoryTarget.name}"</span>?
+                This will permanently delete the category, its{" "}
+                <span className="text-red-600 font-black">{deleteCategoryTarget.subjects.length} quizzes</span>, and all{" "}
+                <span className="text-red-600 font-black">{deleteCategoryTarget.questionCount} questions</span>.
+              </p>
+            </div>
+
+            <div className="p-3 bg-red-50 border-2 border-black rounded-xl text-[11px] font-black text-red-800 text-left">
+              ⚠️ Warning: This action is permanent and cannot be undone.
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setDeleteCategoryTarget(null)}
+                disabled={deleting}
+                className="w-full sm:flex-1 py-3 px-4 rounded-full bg-white hover:bg-stone-100 text-black border-2 border-black font-black text-xs shadow-[3px_3px_0px_#000] cursor-pointer disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteCategory}
+                disabled={deleting}
+                className="w-full sm:flex-1 py-3 px-4 rounded-full bg-[#EF4444] hover:bg-red-600 text-white border-2 border-black font-black text-xs shadow-[3px_3px_0px_#000] cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
+              >
+                {deleting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Deleting...</span>
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="w-4 h-4" />
+                    <span>Delete Category</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* DELETE QUIZ (SUBJECT) CONFIRMATION MODAL */}
+      {deleteSubjectTarget && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#FAF7EE] border-[3px] border-black rounded-[28px] max-w-md w-full p-6 sm:p-7 shadow-[8px_8px_0px_#000] space-y-4 animate-in fade-in duration-150 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-[#FEE2E2] border-2 border-black text-red-600 flex items-center justify-center mx-auto shadow-[3px_3px_0px_#000]">
+              <AlertTriangle className="w-7 h-7 stroke-[2.5]" />
+            </div>
+
+            <div>
+              <h3 className="text-xl sm:text-2xl font-black text-black tracking-tight">
+                Delete Quiz?
+              </h3>
+              <p className="text-xs sm:text-sm font-bold text-stone-600 mt-2 leading-relaxed">
+                Are you sure you want to delete the quiz{" "}
+                <span className="text-black font-black">"{deleteSubjectTarget.subject.name}"</span> under{" "}
+                <span className="text-black font-black">{deleteSubjectTarget.categoryName}</span>?
+                This will permanently delete this quiz and its{" "}
+                <span className="text-red-600 font-black">{deleteSubjectTarget.subject.questionCount} questions</span>.
+              </p>
+            </div>
+
+            <div className="p-3 bg-red-50 border-2 border-black rounded-xl text-[11px] font-black text-red-800 text-left">
+              ⚠️ Warning: This will remove the quiz from matchmaking and delete all its questions.
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setDeleteSubjectTarget(null)}
+                disabled={deleting}
+                className="w-full sm:flex-1 py-3 px-4 rounded-full bg-white hover:bg-stone-100 text-black border-2 border-black font-black text-xs shadow-[3px_3px_0px_#000] cursor-pointer disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteSubject}
+                disabled={deleting}
+                className="w-full sm:flex-1 py-3 px-4 rounded-full bg-[#EF4444] hover:bg-red-600 text-white border-2 border-black font-black text-xs shadow-[3px_3px_0px_#000] cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
+              >
+                {deleting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Deleting...</span>
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="w-4 h-4" />
+                    <span>Delete Quiz</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MANAGE QUESTIONS MODAL FOR A SUBJECT / QUIZ */}
+      {managingQuestionsSubject && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#FAF7EE] border-[3px] border-black rounded-[28px] max-w-3xl w-full max-h-[88vh] flex flex-col shadow-[8px_8px_0px_#000] animate-in fade-in duration-150 overflow-hidden">
+            {/* Modal Header */}
+            <div className="p-5 bg-white border-b-2 border-black flex items-center justify-between gap-3 shrink-0">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-[#DDD6FE] border border-black uppercase">
+                    {managingQuestionsSubject.categoryName}
+                  </span>
+                  <h2 className="text-lg font-black text-black">
+                    {managingQuestionsSubject.subject.name} — Questions ({subjectQuestions.length})
+                  </h2>
+                </div>
+                <p className="text-xs text-stone-500 font-bold mt-0.5">
+                  Browse questions in this quiz or delete individual questions.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {subjectQuestions.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleClearSubjectQuestions(
+                        managingQuestionsSubject.subject.id,
+                        managingQuestionsSubject.subject.name
+                      )
+                    }
+                    disabled={deleting}
+                    className="px-3 py-1.5 rounded-xl bg-red-100 hover:bg-red-200 text-red-800 border-2 border-black text-xs font-black shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all flex items-center gap-1.5 cursor-pointer"
+                    title="Clear all questions in this quiz"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Clear All</span>
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setManagingQuestionsSubject(null);
+                    setSubjectQuestions([]);
+                  }}
+                  className="p-1.5 rounded-xl border-2 border-black bg-stone-100 hover:bg-stone-200 shadow-[1px_1px_0px_#000] cursor-pointer"
+                >
+                  <X className="w-4 h-4 text-black" />
+                </button>
+              </div>
+            </div>
+
+            {/* Questions Body List */}
+            <div className="p-5 overflow-y-auto space-y-3.5 flex-1 bg-[#FAF7EE]">
+              {questionsLoading ? (
+                <div className="p-12 text-center bg-white border-2 border-black rounded-2xl shadow-[3px_3px_0px_#000]">
+                  <div className="w-8 h-8 border-4 border-black border-t-[#FFE600] rounded-full animate-spin mx-auto mb-2" />
+                  <p className="text-xs font-black text-stone-700">Loading quiz questions...</p>
+                </div>
+              ) : subjectQuestions.length === 0 ? (
+                <div className="p-12 text-center bg-white border-2 border-black rounded-2xl shadow-[3px_3px_0px_#000] space-y-2">
+                  <p className="text-xs font-bold text-stone-500">
+                    No questions found for this quiz.
+                  </p>
+                  <p className="text-[11px] font-bold text-stone-400">
+                    Use the "Import Questions" page to upload questions into this quiz.
+                  </p>
+                </div>
+              ) : (
+                subjectQuestions.map((q, idx) => (
+                  <div
+                    key={q.id || q.questionId}
+                    className="bg-white border-2 border-black rounded-2xl p-4 shadow-[3px_3px_0px_#000] space-y-2.5 relative"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-[10px] font-black bg-stone-100 border border-black/30 px-2 py-0.5 rounded">
+                          #{idx + 1} • {q.questionId}
+                        </span>
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-[9px] font-black border border-black uppercase ${
+                            q.difficulty === "easy"
+                              ? "bg-emerald-100 text-emerald-800"
+                              : q.difficulty === "hard"
+                              ? "bg-red-100 text-red-800"
+                              : "bg-amber-100 text-amber-800"
+                          }`}
+                        >
+                          {q.difficulty}
+                        </span>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => setDeleteQuestionTarget(q)}
+                        className="p-1.5 rounded-lg bg-red-100 hover:bg-red-200 text-red-700 border-2 border-black shadow-[1px_1px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
+                        title="Delete this question"
+                      >
+                        <Trash2 className="w-3.5 h-3.5 stroke-[2.5]" />
+                      </button>
+                    </div>
+
+                    <p className="text-xs sm:text-sm font-black text-black leading-snug">
+                      {q.question}
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 pt-1">
+                      {q.options.map((opt, optIdx) => {
+                        const isCorrect = optIdx === q.correctAnswer;
+                        return (
+                          <div
+                            key={optIdx}
+                            className={`p-2 rounded-xl text-xs font-bold border ${
+                              isCorrect
+                                ? "bg-emerald-100 border-emerald-600 text-emerald-950 font-black"
+                                : "bg-stone-50 border-black/20 text-stone-700"
+                            } flex items-center justify-between gap-1`}
+                          >
+                            <span className="truncate">
+                              <span className="font-mono mr-1.5">{String.fromCharCode(65 + optIdx)}.</span>
+                              {opt}
+                            </span>
+                            {isCorrect && (
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {q.explanation && (
+                      <p className="text-[11px] font-semibold text-stone-600 bg-stone-50 p-2 rounded-xl border border-black/10">
+                        <span className="font-bold text-black">Explanation: </span>
+                        {q.explanation}
+                      </p>
+                    )}
+                  </div>
+                ))
+              )}
+            </div>
+
+            <div className="p-4 bg-white border-t-2 border-black flex justify-end">
+              <button
+                type="button"
+                onClick={() => {
+                  setManagingQuestionsSubject(null);
+                  setSubjectQuestions([]);
+                }}
+                className="px-5 py-2 rounded-full border-2 border-black text-xs font-black bg-stone-100 hover:bg-stone-200 shadow-[2px_2px_0px_#000] cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* DELETE SINGLE QUESTION CONFIRMATION MODAL */}
+      {deleteQuestionTarget && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#FAF7EE] border-[3px] border-black rounded-[28px] max-w-sm w-full p-6 shadow-[8px_8px_0px_#000] space-y-4 animate-in fade-in duration-150 text-center">
+            <div className="w-12 h-12 rounded-2xl bg-[#FEE2E2] border-2 border-black text-red-600 flex items-center justify-center mx-auto shadow-[2px_2px_0px_#000]">
+              <AlertTriangle className="w-6 h-6 stroke-[2.5]" />
+            </div>
+
+            <div>
+              <h3 className="text-xl font-black text-black">
+                Delete Question?
+              </h3>
+              <p className="text-xs font-bold text-stone-600 mt-1 line-clamp-3 leading-relaxed">
+                "{deleteQuestionTarget.question}"
+              </p>
+            </div>
+
+            <div className="flex gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setDeleteQuestionTarget(null)}
+                disabled={deleting}
+                className="flex-1 py-2.5 px-3 rounded-full bg-white hover:bg-stone-100 text-black border-2 border-black font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteQuestion}
+                disabled={deleting}
+                className="flex-1 py-2.5 px-3 rounded-full bg-[#EF4444] hover:bg-red-600 text-white border-2 border-black font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
+              >
+                {deleting ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Deleting...</span>
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Delete</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       )}

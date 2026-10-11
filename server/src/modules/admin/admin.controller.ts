@@ -24,6 +24,12 @@ export class AdminController {
     return res.status(200).json(new ApiResponse(200, category, 'Category updated successfully'));
   }
 
+  async deleteCategory(req: Request, res: Response) {
+    const { id } = req.params;
+    const result = await adminService.deleteCategory(id);
+    return res.status(200).json(new ApiResponse(200, result, 'Category deleted successfully'));
+  }
+
   async createSubject(req: Request, res: Response) {
     const subject = await adminService.createSubject(req.body);
     return res.status(201).json(new ApiResponse(201, subject, 'Subject created successfully'));
@@ -33,6 +39,32 @@ export class AdminController {
     const { id } = req.params;
     const subject = await adminService.updateSubject(id, req.body);
     return res.status(200).json(new ApiResponse(200, subject, 'Subject updated successfully'));
+  }
+
+  async deleteSubject(req: Request, res: Response) {
+    const { id } = req.params;
+    const result = await adminService.deleteSubject(id);
+    return res.status(200).json(new ApiResponse(200, result, 'Quiz deleted successfully'));
+  }
+
+  async deleteSubjectQuestions(req: Request, res: Response) {
+    const { id } = req.params;
+    const result = await adminService.deleteSubjectQuestions(id);
+    return res.status(200).json(new ApiResponse(200, result, 'Quiz questions deleted successfully'));
+  }
+
+  async getSubjectQuestions(req: Request, res: Response) {
+    const { id } = req.params;
+    const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
+    const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : 50;
+    const data = await adminService.getSubjectQuestions(id, page, limit);
+    return res.status(200).json(new ApiResponse(200, data, 'Subject questions retrieved'));
+  }
+
+  async deleteQuestion(req: Request, res: Response) {
+    const { id } = req.params;
+    const result = await adminService.deleteQuestion(id);
+    return res.status(200).json(new ApiResponse(200, result, 'Question deleted successfully'));
   }
 
   async previewImport(req: Request, res: Response) {

@@ -416,6 +416,18 @@ export interface AdminCategoryTreeItem {
   subjects: AdminSubjectItem[];
 }
 
+export interface AdminQuestionItem {
+  id: string;
+  questionId: string;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  difficulty: string;
+  explanation: string;
+  isPublished: boolean;
+  createdAt?: string;
+}
+
 export interface ImportRowError {
   row: number;
   externalId?: string;

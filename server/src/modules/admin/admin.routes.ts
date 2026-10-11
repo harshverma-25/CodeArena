@@ -6,8 +6,12 @@ import { asyncHandler } from '../../shared/utils/async-handler.js';
 import {
   createCategorySchema,
   updateCategorySchema,
+  deleteCategorySchema,
   createSubjectSchema,
   updateSubjectSchema,
+  deleteSubjectSchema,
+  deleteQuestionSchema,
+  getSubjectQuestionsSchema,
   previewImportSchema,
   executeImportSchema,
   listImportHistorySchema,
@@ -43,6 +47,12 @@ router.patch(
   asyncHandler((req, res) => adminController.updateCategory(req, res))
 );
 
+router.delete(
+  '/categories/:id',
+  validateRequest(deleteCategorySchema),
+  asyncHandler((req, res) => adminController.deleteCategory(req, res))
+);
+
 router.post(
   '/subjects',
   validateRequest(createSubjectSchema),
@@ -53,6 +63,30 @@ router.patch(
   '/subjects/:id',
   validateRequest(updateSubjectSchema),
   asyncHandler((req, res) => adminController.updateSubject(req, res))
+);
+
+router.delete(
+  '/subjects/:id',
+  validateRequest(deleteSubjectSchema),
+  asyncHandler((req, res) => adminController.deleteSubject(req, res))
+);
+
+router.delete(
+  '/subjects/:id/questions',
+  validateRequest(deleteSubjectSchema),
+  asyncHandler((req, res) => adminController.deleteSubjectQuestions(req, res))
+);
+
+router.get(
+  '/subjects/:id/questions',
+  validateRequest(getSubjectQuestionsSchema),
+  asyncHandler((req, res) => adminController.getSubjectQuestions(req, res))
+);
+
+router.delete(
+  '/questions/:id',
+  validateRequest(deleteQuestionSchema),
+  asyncHandler((req, res) => adminController.deleteQuestion(req, res))
 );
 
 // 3. Question JSON Import
