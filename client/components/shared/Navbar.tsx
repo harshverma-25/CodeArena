@@ -19,9 +19,10 @@ import {
   Home as HomeIcon,
   ShieldCheck,
 } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
-import { getGuestUser, clearGuestSession, PlayAsGuestModal } from "@/features/auth";
-import { clearNativeSession, getNativeUser } from "@/features/auth/nativeAuth";
+import { getGuestUser, clearGuestSession, PlayAsGuestModal, isGuestSessionActive } from "@/features/auth";
+import { clearNativeSession, getNativeUser, isNativeAuthActive } from "@/features/auth/nativeAuth";
 import { useApiClient } from "@/hooks/useApiClient";
 import { User } from "@/types";
 
@@ -29,6 +30,7 @@ export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const api = useApiClient();
+  const queryClient = useQueryClient();
   const { data: currentUser } = useCurrentUser();
   const isSocketConnected = useBattleStore((state) => state.isSocketConnected);
 
@@ -78,7 +80,8 @@ export function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const activeUser = mounted ? (currentUser || nativeUser || guestUser) : null;
+  const hasAuth = Boolean(nativeUser || guestUser || isNativeAuthActive() || isGuestSessionActive());
+  const activeUser = mounted && hasAuth ? (currentUser || nativeUser || guestUser) : null;
   const isGuest = Boolean(activeUser?.isGuest || (activeUser as any)?.type === "guest");
   const displayName = activeUser
     ? activeUser.displayName || activeUser.username || "Player"
@@ -92,9 +95,13 @@ export function Navbar() {
     }
     clearNativeSession();
     clearGuestSession();
+    queryClient.clear();
+    setNativeUser(null);
+    setGuestUser(null);
     setIsProfileMenuOpen(false);
     setIsMobileMenuOpen(false);
     router.push("/");
+    router.refresh();
   };
 
   const handleJoinPin = (e: React.FormEvent) => {

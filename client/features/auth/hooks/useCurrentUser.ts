@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useApiClient } from "@/hooks/useApiClient";
 import { User } from "@/types";
 import { isGuestSessionActive, getGuestUser } from "@/features/auth/guestAuth";
@@ -7,35 +7,39 @@ import { isNativeAuthActive, getNativeUser } from "@/features/auth/nativeAuth";
 
 export function useCurrentUser() {
   const api = useApiClient();
+  const queryClient = useQueryClient();
   const [authState, setAuthState] = useState({
     isNative: false,
     isGuest: false,
   });
 
   useEffect(() => {
-    setAuthState({
-      isNative: isNativeAuthActive(),
-      isGuest: isGuestSessionActive(),
-    });
-
-    const handleAuthChange = () => {
+    const syncState = () => {
+      const isNative = isNativeAuthActive();
+      const isGuest = isGuestSessionActive();
       setAuthState({
-        isNative: isNativeAuthActive(),
-        isGuest: isGuestSessionActive(),
+        isNative,
+        isGuest,
       });
+
+      if (!isNative && !isGuest) {
+        queryClient.removeQueries({ queryKey: ["currentUser"] });
+      }
     };
 
-    window.addEventListener("codearena:native-auth-change", handleAuthChange);
-    window.addEventListener("codearena:guest-auth-change", handleAuthChange);
+    syncState();
+
+    window.addEventListener("codearena:native-auth-change", syncState);
+    window.addEventListener("codearena:guest-auth-change", syncState);
     return () => {
-      window.removeEventListener("codearena:native-auth-change", handleAuthChange);
-      window.removeEventListener("codearena:guest-auth-change", handleAuthChange);
+      window.removeEventListener("codearena:native-auth-change", syncState);
+      window.removeEventListener("codearena:guest-auth-change", syncState);
     };
-  }, []);
+  }, [queryClient]);
 
   const isEnabled = authState.isNative || authState.isGuest;
 
-  return useQuery<User, Error>({
+  const query = useQuery<User, Error>({
     queryKey: ["currentUser", authState.isNative ? "native" : "guest"],
     queryFn: async () => {
       try {
@@ -62,5 +66,16 @@ export function useCurrentUser() {
     retry: 1,
     staleTime: 5 * 60 * 1000,
   });
+
+  if (!isEnabled) {
+    return {
+      ...query,
+      data: undefined,
+      isLoading: false,
+      isFetching: false,
+    };
+  }
+
+  return query;
 }
 export default useCurrentUser;
