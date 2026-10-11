@@ -30,14 +30,6 @@ const envSchema = z.object({
 })
   .superRefine((data, ctx) => {
     if (data.NODE_ENV === 'production') {
-      if (!data.CORS_ORIGIN || data.CORS_ORIGIN === '*') {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          path: ['CORS_ORIGIN'],
-          message:
-            'CORS_ORIGIN is required in production and cannot be "*" when credentials are enabled. Provide allowed origins (e.g. https://quizzy.app or comma-separated list).',
-        });
-      }
       if (!data.GUEST_JWT_SECRET || data.GUEST_JWT_SECRET.length < 32) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -63,6 +55,10 @@ const envSchema = z.object({
   })
   .transform((data) => ({
     ...data,
+    CORS_ORIGIN:
+      !data.CORS_ORIGIN || (data.NODE_ENV === 'production' && data.CORS_ORIGIN === '*')
+        ? 'https://code-arena-jade.vercel.app'
+        : data.CORS_ORIGIN,
     GUEST_JWT_SECRET:
       data.GUEST_JWT_SECRET || 'codearena_dev_guest_jwt_secret_key_32_bytes_min',
     JWT_ACCESS_SECRET:
@@ -81,19 +77,46 @@ if (!result.success) {
 export const env = result.data;
 export type Env = z.infer<typeof envSchema>;
 
+export const TRUSTED_PRODUCTION_ORIGINS = [
+  'https://code-arena-jade.vercel.app',
+];
+
 /**
  * Resolves CORS origins from configuration.
- * Returns true in development wildcard mode (allowing credentials with dynamic reflection),
- * or an array of allowed origin strings in production.
+ * Automatically normalizes origins (stripping trailing slashes) and guarantees inclusion
+ * of the exact trusted production frontend origin (https://code-arena-jade.vercel.app).
+ * Returns true in development wildcard mode, or an array of allowed origin strings.
  */
 export function resolveCorsOrigins(corsOrigin: string): boolean | string[] {
   if (corsOrigin === '*') {
     return true;
   }
-  return corsOrigin
-    .split(',')
-    .map((o) => o.trim())
-    .filter(Boolean);
+
+  const origins = new Set<string>();
+
+  // Always include trusted production origin(s)
+  TRUSTED_PRODUCTION_ORIGINS.forEach((o) => {
+    origins.add(o.trim().replace(/\/+$/, ''));
+  });
+
+  // Add any explicitly configured origins
+  if (corsOrigin) {
+    corsOrigin
+      .split(',')
+      .map((o) => o.trim().replace(/\/+$/, ''))
+      .filter(Boolean)
+      .forEach((o) => origins.add(o));
+  }
+
+  // Include localhost during non-production runs
+  if (process.env.NODE_ENV !== 'production') {
+    origins.add('http://localhost:3000');
+    origins.add('http://localhost:3001');
+    origins.add('http://127.0.0.1:3000');
+  }
+
+  return Array.from(origins);
 }
 
 export default env;
+

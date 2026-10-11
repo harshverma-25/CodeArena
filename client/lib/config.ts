@@ -10,7 +10,7 @@
 function resolveApiUrl(): string {
   const envUrl = process.env.NEXT_PUBLIC_API_URL;
   if (envUrl && envUrl.trim().length > 0) {
-    return envUrl.trim();
+    return envUrl.trim().replace(/\/+$/, "");
   }
 
   if (process.env.NODE_ENV === "production") {
@@ -29,7 +29,7 @@ function resolveApiUrl(): string {
 function resolveWsUrl(): string {
   const envUrl = process.env.NEXT_PUBLIC_WS_URL;
   if (envUrl && envUrl.trim().length > 0) {
-    return envUrl.trim();
+    return envUrl.trim().replace(/\/+$/, "");
   }
 
   if (process.env.NODE_ENV === "production") {

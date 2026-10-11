@@ -28,31 +28,61 @@ export async function apiRequest<T>(
     headers.set("Authorization", `Bearer ${token}`);
   }
 
-  const apiUrl = clientConfig.apiUrl;
+  const baseUrl = clientConfig.apiUrl.replace(/\/+$/, "");
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  const fullUrl = `${baseUrl}${cleanPath}`;
+
   let response: Response;
   try {
-    response = await fetch(`${apiUrl}${path}`, {
+    response = await fetch(fullUrl, {
       ...options,
       credentials: options.credentials || "include",
       headers,
     });
   } catch (error: any) {
-    if (error instanceof TypeError && error.message.includes("fetch")) {
+    if (error.name === "AbortError" || error.name === "TimeoutError") {
       throw new ApiError(
-        0,
-        `Unable to reach backend server at ${apiUrl}${path}. Please verify server network connectivity and environment settings.`
+        408,
+        `Request to backend at ${fullUrl} timed out. The server may be starting up or under heavy load.`
       );
     }
-    throw error;
+
+    if (error instanceof TypeError && error.message.toLowerCase().includes("fetch")) {
+      throw new ApiError(
+        0,
+        `Network or CORS error connecting to ${fullUrl}. Please verify server availability and CORS configuration.`
+      );
+    }
+
+    if (error instanceof ApiError) {
+      throw error;
+    }
+
+    throw new ApiError(
+      0,
+      `Network request failed: ${error?.message || "Unknown error"}`
+    );
   }
 
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new ApiError(
-      response.status,
-      errorData.message || `API request failed with status ${response.status}`,
-      errorData
-    );
+    let errorData: any = {};
+    try {
+      const text = await response.text();
+      try {
+        errorData = JSON.parse(text);
+      } catch {
+        errorData = { message: text.trim() || `HTTP ${response.status} ${response.statusText}` };
+      }
+    } catch {
+      errorData = { message: `HTTP ${response.status} ${response.statusText}` };
+    }
+
+    const message =
+      errorData.message ||
+      errorData.error ||
+      `API request failed with status ${response.status} (${response.statusText || "Error"})`;
+
+    throw new ApiError(response.status, message, errorData);
   }
 
   // Handle empty responses
@@ -60,5 +90,12 @@ export async function apiRequest<T>(
     return {} as T;
   }
 
-  return response.json() as Promise<T>;
+  try {
+    return (await response.json()) as T;
+  } catch (parseError: any) {
+    throw new ApiError(
+      response.status,
+      `Malformed JSON response from backend: ${parseError.message}`
+    );
+  }
 }

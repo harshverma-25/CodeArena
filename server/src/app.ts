@@ -18,6 +18,7 @@ import { adminRoutes } from './modules/admin/admin.routes.js';
 import mongoose from 'mongoose';
 import { rateLimiter } from './middleware/rate-limiter.middleware.js';
 import { env, resolveCorsOrigins } from './config/env.js';
+import { logger } from './config/logger.js';
 
 const app = express();
 
@@ -38,9 +39,28 @@ app.use((req, res, next) => {
 // Apply rate limiting to all requests
 app.use(rateLimiter);
 
-// Enable Cross-Origin Resource Sharing
+// Enable Cross-Origin Resource Sharing with normalization and safe diagnostics
+const allowedOrigins = resolveCorsOrigins(env.CORS_ORIGIN);
+
 app.use(cors({
-  origin: resolveCorsOrigins(env.CORS_ORIGIN),
+  origin: (requestOrigin, callback) => {
+    // Allow non-browser requests (e.g. mobile apps, curl, server-to-server health checks) where origin is omitted
+    if (!requestOrigin) {
+      return callback(null, true);
+    }
+
+    if (allowedOrigins === true) {
+      return callback(null, true);
+    }
+
+    const normalized = requestOrigin.trim().replace(/\/+$/, '');
+    if (Array.isArray(allowedOrigins) && allowedOrigins.includes(normalized)) {
+      return callback(null, true);
+    }
+
+    logger.warn({ origin: requestOrigin }, '⚠️ Blocked CORS request from unauthorized origin');
+    return callback(null, false);
+  },
   credentials: true,
 }));
 
