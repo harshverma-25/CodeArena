@@ -17,6 +17,7 @@ import { adminRoutes } from './modules/admin/admin.routes.js';
 
 import mongoose from 'mongoose';
 import { rateLimiter } from './middleware/rate-limiter.middleware.js';
+import { env, resolveCorsOrigins } from './config/env.js';
 
 const app = express();
 
@@ -39,7 +40,7 @@ app.use(rateLimiter);
 
 // Enable Cross-Origin Resource Sharing
 app.use(cors({
-  origin: process.env.CORS_ORIGIN && process.env.CORS_ORIGIN !== '*' ? process.env.CORS_ORIGIN : true,
+  origin: resolveCorsOrigins(env.CORS_ORIGIN),
   credentials: true,
 }));
 

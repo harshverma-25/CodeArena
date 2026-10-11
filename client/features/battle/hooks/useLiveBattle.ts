@@ -398,6 +398,34 @@ export function useLiveBattle(roomCode: string) {
       }
     }
 
+    // Mobile OS screen-lock and background tab wake-up listener
+    const handleMobileWakeup = () => {
+      if (!active) return;
+      if (document.visibilityState === "visible") {
+        console.log("📱 Mobile device foregrounded: syncing turn with server...");
+        if (socketManager.getSocket()?.disconnected) {
+          socketManager.reconnect();
+        } else {
+          socketManager.emit("battle:reconnect", { roomCode: code });
+        }
+      }
+    };
+
+    const handleOnline = () => {
+      if (!active) return;
+      console.log("🌐 Network connection restored: syncing battle...");
+      if (socketManager.getSocket()?.disconnected) {
+        socketManager.reconnect();
+      } else {
+        socketManager.emit("battle:reconnect", { roomCode: code });
+      }
+    };
+
+    if (typeof window !== "undefined") {
+      document.addEventListener("visibilitychange", handleMobileWakeup);
+      window.addEventListener("online", handleOnline);
+    }
+
     const fallbackTimer = setTimeout(() => {
       if (active && statusRef.current === "loading" && !battleRef.current) {
         socketManager.emit("battle:reconnect", { roomCode: code });
@@ -407,6 +435,10 @@ export function useLiveBattle(roomCode: string) {
     return () => {
       active = false;
       clearTimeout(fallbackTimer);
+      if (typeof window !== "undefined") {
+        document.removeEventListener("visibilitychange", handleMobileWakeup);
+        window.removeEventListener("online", handleOnline);
+      }
       if (socket) {
         socket.off("connect", handleConnect);
         socket.off("disconnect", handleDisconnect);

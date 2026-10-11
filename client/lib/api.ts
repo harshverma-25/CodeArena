@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+import { clientConfig } from "./config";
 
 export class ApiError extends Error {
   statusCode: number;
@@ -28,9 +28,10 @@ export async function apiRequest<T>(
     headers.set("Authorization", `Bearer ${token}`);
   }
 
+  const apiUrl = clientConfig.apiUrl;
   let response: Response;
   try {
-    response = await fetch(`${API_URL}${path}`, {
+    response = await fetch(`${apiUrl}${path}`, {
       ...options,
       credentials: options.credentials || "include",
       headers,
@@ -39,7 +40,7 @@ export async function apiRequest<T>(
     if (error instanceof TypeError && error.message.includes("fetch")) {
       throw new ApiError(
         0,
-        `Unable to reach backend server at ${API_URL}${path}. Please ensure the server is running on port 5000.`
+        `Unable to reach backend server at ${apiUrl}${path}. Please verify server network connectivity and environment settings.`
       );
     }
     throw error;

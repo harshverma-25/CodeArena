@@ -2,8 +2,10 @@
  * Test authentication and environment helper for CodeArena client integration tests.
  * Provides dynamic guest session creation conforming to server-authoritative HMAC/JWT guest auth.
  */
-
-export const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:5000';
+export const BACKEND_URL =
+  process.env.BACKEND_URL ||
+  process.env.NEXT_PUBLIC_WS_URL ||
+  (process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace(/\/api\/v1\/?$/, '') : 'http://localhost:5000');
 
 export interface TestUser {
   userId: string;

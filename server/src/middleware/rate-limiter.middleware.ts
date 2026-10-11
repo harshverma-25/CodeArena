@@ -6,8 +6,15 @@ const WINDOW_SIZE_MS = 15 * 60 * 1000; // 15 minutes
 const MAX_REQUESTS = 500; // Limit each IP to 500 requests per window
 
 export function rateLimiter(req: Request, res: Response, next: NextFunction) {
-  // Bypassing rate limiting for static documentation routes
-  if (req.path.startsWith('/api/docs') || req.path.startsWith('/api/swagger.json')) {
+  const normalizedPath = req.path.replace(/\/+$/, '') || '/';
+
+  // Bypass rate limiting for documentation and automated orchestrator health probes
+  if (
+    normalizedPath === '/health' ||
+    normalizedPath === '/api/v1/health' ||
+    normalizedPath.startsWith('/api/docs') ||
+    normalizedPath.startsWith('/api/swagger.json')
+  ) {
     return next();
   }
 

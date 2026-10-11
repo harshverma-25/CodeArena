@@ -19,16 +19,16 @@ export default function UserPublicProfilePage() {
   if (isLoading) {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-6 p-6 rounded-2xl border border-border bg-card/40 animate-pulse">
-          <div className="h-20 w-20 rounded-2xl bg-secondary shrink-0" />
+        <div className="flex items-center gap-6 p-6 rounded-[24px] border-2 border-black bg-white shadow-[4px_4px_0px_#000] animate-pulse">
+          <div className="h-20 w-20 rounded-2xl bg-stone-200 border-2 border-black shrink-0" />
           <div className="space-y-2 flex-1">
-            <div className="h-6 w-1/3 rounded bg-secondary" />
-            <div className="h-4 w-1/4 rounded bg-secondary" />
+            <div className="h-6 w-1/3 rounded-xl bg-stone-200" />
+            <div className="h-4 w-1/4 rounded-xl bg-stone-200" />
           </div>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 animate-pulse">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-24 rounded-2xl border border-border bg-card p-5" />
+            <div key={i} className="h-28 rounded-2xl border-2 border-black bg-white shadow-[3px_3px_0px_#000] p-4" />
           ))}
         </div>
       </div>
@@ -37,23 +37,29 @@ export default function UserPublicProfilePage() {
 
   if (isError || !profile) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 border border-border rounded-2xl bg-card text-center gap-4 my-8">
-        <div className="h-14 w-14 rounded-2xl bg-rose-500/10 text-rose-500 flex items-center justify-center border border-rose-500/20">
-          <UserX className="h-7 w-7" />
+      <div className="flex flex-col items-center justify-center p-10 border-[2.5px] border-black rounded-[24px] bg-white text-center gap-4 shadow-[4px_4px_0px_#000] my-8">
+        <div className="h-14 w-14 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center border-2 border-black shadow-[2px_2px_0px_#000]">
+          <UserX className="h-7 w-7 stroke-[2.5]" />
         </div>
         <div>
-          <h3 className="text-xl font-bold text-foreground mb-1">Player Profile Not Found</h3>
-          <p className="text-sm text-muted-foreground font-mono">
-            {error?.message || `User '${username}' does not exist on Quizzy.`}
+          <h3 className="text-xl font-black text-black mb-1">Player Profile Not Found</h3>
+          <p className="text-xs font-bold text-stone-600 font-mono">
+            {error?.message || `User '${username}' does not exist on CodeArena.`}
           </p>
         </div>
-        <div className="flex gap-3 pt-2 font-mono text-xs">
-          <Button onClick={() => router.push("/leaderboard")} variant="outline" className="gap-1.5">
+        <div className="flex gap-3 pt-2 text-xs">
+          <button
+            onClick={() => router.push("/leaderboard")}
+            className="px-4 py-2 rounded-xl bg-white hover:bg-stone-50 text-black border-2 border-black font-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
+          >
             Leaderboard
-          </Button>
-          <Button onClick={() => refetch()} className="gap-1.5 bg-primary text-primary-foreground">
-            <RefreshCw className="h-4 w-4" /> Retry
-          </Button>
+          </button>
+          <button
+            onClick={() => refetch()}
+            className="px-4 py-2 rounded-xl bg-[#FFE600] hover:bg-[#FACC15] text-black border-2 border-black font-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] cursor-pointer flex items-center gap-1.5"
+          >
+            <RefreshCw className="h-4 w-4 stroke-[2.5]" /> Retry
+          </button>
         </div>
       </div>
     );

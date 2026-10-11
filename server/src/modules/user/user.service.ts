@@ -2,6 +2,7 @@ import { env } from '../../config/env.js';
 import { userRepository } from './user.repository.js';
 import { IUserDocument, IUser, ILeaderboardResponse, ILeaderboardEntry, IPublicUserProfile } from './user.types.js';
 import { AppError } from '../../shared/errors/api-error.js';
+import { generateLocalSvgAvatar } from '../../shared/utils/avatar.utils.js';
 
 import { Types } from 'mongoose';
 import { battleRepository } from '../battle/battle.repository.js';
@@ -22,7 +23,7 @@ export class UserService {
 
     try {
       const displayName = `User ${identifier.slice(-4)}`;
-      const avatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${username}`;
+      const avatar = generateLocalSvgAvatar(username);
 
       user = await userRepository.create({
         username,

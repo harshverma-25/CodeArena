@@ -1,4 +1,5 @@
 import { io, Socket } from "socket.io-client";
+import { clientConfig } from "./config";
 
 class SocketManager {
   private socket: Socket | null = null;
@@ -14,7 +15,7 @@ class SocketManager {
     }
 
     this.token = token;
-    const wsUrl = process.env.NEXT_PUBLIC_WS_URL || "http://localhost:5000";
+    const wsUrl = clientConfig.wsUrl;
 
     this.socket = io(wsUrl, {
       auth: {
@@ -24,9 +25,25 @@ class SocketManager {
       withCredentials: true,
       autoConnect: true,
       reconnection: true,
-      reconnectionAttempts: 5,
+      reconnectionAttempts: 10,
       reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      randomizationFactor: 0.5,
     });
+
+    // Mobile background tab & network wake-up auto-recovery
+    if (typeof window !== "undefined") {
+      const handleMobileWakeup = () => {
+        if (document.visibilityState === "visible" && navigator.onLine) {
+          if (this.socket && !this.socket.connected) {
+            console.log("📱 Mobile device foregrounded: proactively reconnecting socket...");
+            this.socket.connect();
+          }
+        }
+      };
+      window.addEventListener("visibilitychange", handleMobileWakeup);
+      window.addEventListener("online", handleMobileWakeup);
+    }
 
     this.socket.on("connect", () => {
       console.log("🔌 Socket.IO client connected:", this.socket?.id);

@@ -1,6 +1,8 @@
 import { Server as HttpServer } from 'http';
 import { Server, Socket } from 'socket.io';
-import { env } from '../config/env.js';
+import { createAdapter } from '@socket.io/redis-adapter';
+import { Redis } from 'ioredis';
+import { env, resolveCorsOrigins } from '../config/env.js';
 import { logger } from '../config/logger.js';
 import { userService } from '../modules/user/user.service.js';
 import { UserModel } from '../modules/user/user.model.js';
@@ -11,6 +13,8 @@ import { battleService } from '../modules/battle/battle.service.js';
 import { socketRateLimiter } from './socket.limiter.js';
 
 let io: Server | null = null;
+let redisPubClient: Redis | null = null;
+let redisSubClient: Redis | null = null;
 
 /**
  * Socket.IO authentication middleware utilizing Native JWT and Guest session verification.
@@ -73,13 +77,27 @@ export const socketAuthMiddleware = async (socket: Socket, next: (err?: Error) =
 export function initializeSocket(httpServer: HttpServer): Server {
   io = new Server(httpServer, {
     cors: {
-      origin: process.env.CORS_ORIGIN && process.env.CORS_ORIGIN !== '*' ? process.env.CORS_ORIGIN : true,
+      origin: resolveCorsOrigins(env.CORS_ORIGIN),
       credentials: true,
       methods: ['GET', 'POST'],
     },
     pingTimeout: 60000,
     pingInterval: 25000,
   });
+
+  // Attach Redis cluster adapter if REDIS_URI is configured
+  if (env.REDIS_URI) {
+    try {
+      redisPubClient = new Redis(env.REDIS_URI);
+      redisSubClient = redisPubClient.duplicate();
+      io.adapter(createAdapter(redisPubClient, redisSubClient));
+      logger.info('🚀 Socket.IO configured with Redis pub/sub cluster adapter for horizontal multi-node scaling.');
+    } catch (err: any) {
+      logger.error(err, 'Failed to initialize Redis adapter for Socket.IO. Defaulting to in-memory adapter.');
+    }
+  } else {
+    logger.info('ℹ️ Socket.IO running with in-memory adapter (single-node mode). Set REDIS_URI to enable horizontal clustering.');
+  }
 
   // Apply Auth Middleware
   io.use(socketAuthMiddleware);
@@ -118,4 +136,26 @@ export function getIo(): Server {
     throw new Error('Socket.IO is not initialized');
   }
   return io;
+}
+
+/**
+ * Gracefully close Socket.IO server and any Redis pub/sub clients.
+ */
+export async function closeSocket(): Promise<void> {
+  if (redisPubClient) {
+    try {
+      redisPubClient.disconnect();
+    } catch {}
+    redisPubClient = null;
+  }
+  if (redisSubClient) {
+    try {
+      redisSubClient.disconnect();
+    } catch {}
+    redisSubClient = null;
+  }
+  if (io) {
+    await new Promise<void>((resolve) => io!.close(() => resolve()));
+    io = null;
+  }
 }

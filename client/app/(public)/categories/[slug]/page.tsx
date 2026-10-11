@@ -184,7 +184,7 @@ export default function CategoryDetailPage({ params }: PageProps) {
       {/* Top Navigation */}
       <Navbar />
 
-      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 pt-28 pb-16 space-y-8">
+      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 pt-[88px] sm:pt-[92px] pb-16 space-y-6">
         {/* Breadcrumb Row */}
         <nav className="flex items-center gap-2 text-xs font-black uppercase text-stone-600">
           <Link href="/" className="hover:text-black transition-colors">
@@ -252,108 +252,113 @@ export default function CategoryDetailPage({ params }: PageProps) {
               </div>
             )}
 
-            {/* TOP HERO: Category Banner with Mixed Quick Play */}
-            <div className="bg-white border-[2.5px] border-black rounded-[32px] p-6 sm:p-8 lg:p-10 shadow-[6px_6px_0px_#000]">
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-                {/* Left: Category Icon, Name & Description */}
-                <div className="space-y-4 max-w-2xl">
+            {/* TOP ROW: Separated Category Hero Banner (Left) + Mixed Quiz Quick Launch Card (Right) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+              {/* Left Side: Category Details Banner */}
+              <div className="lg:col-span-7 xl:col-span-8 bg-white border-[2.5px] border-black rounded-[32px] p-6 sm:p-8 shadow-[6px_6px_0px_#000] flex flex-col justify-between gap-6">
+                <div className="space-y-4">
                   <div className="flex items-center gap-4">
-                    <div className="p-2 bg-[#FEF08A] rounded-2xl border-2 border-black shadow-[3px_3px_0px_#000] shrink-0">
-                      {getCategoryIcon(category.slug, "w-12 h-12")}
+                    <div className="p-2.5 bg-[#FEF08A] rounded-2xl border-2 border-black shadow-[3px_3px_0px_#000] shrink-0">
+                      {getCategoryIcon(category.slug, "w-10 h-10 sm:w-12 sm:h-12")}
                     </div>
                     <div>
                       <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#DCFCE7] border-2 border-black text-[11px] font-black uppercase text-emerald-900 shadow-[1px_1px_0px_#000] mb-1">
                         Active Category
                       </div>
-                      <h1 className="font-black text-3xl sm:text-4xl text-black tracking-tight uppercase">
+                      <h1 className="font-black text-2xl sm:text-3xl lg:text-4xl text-black tracking-tight uppercase">
                         {category.name}
                       </h1>
                     </div>
                   </div>
 
-                  <p className="text-xs sm:text-sm font-bold text-stone-700 leading-relaxed">
+                  <p className="text-xs sm:text-sm font-bold text-stone-700 leading-relaxed max-w-2xl">
                     {category.description || `Browse subjects and challenge friends in ${category.name} quizzes.`}
                   </p>
-
-                  <div className="flex items-center gap-3 pt-1">
-                    <span className="px-3.5 py-1.5 rounded-full bg-white border-2 border-black font-black text-xs text-black shadow-[2px_2px_0px_#000]">
-                      {category.questionCount} Questions Available
-                    </span>
-                    <span className="px-3.5 py-1.5 rounded-full bg-stone-100 border-2 border-black font-black text-xs text-stone-800 shadow-[2px_2px_0px_#000]">
-                      {subjects.length} {subjects.length === 1 ? "Subject" : "Subjects"}
-                    </span>
-                  </div>
                 </div>
 
-                {/* Right: Quick Launch Mixed Quiz Card */}
-                <div className="bg-[#FAF7EE] border-[2.5px] border-black rounded-[26px] p-5 sm:p-6 shadow-[4px_4px_0px_#000] space-y-4 min-w-[300px] lg:max-w-sm">
-                  <div className="flex items-center justify-between">
-                    <span className="font-black text-sm uppercase text-black flex items-center gap-1.5">
+                <div className="flex items-center gap-3 pt-3 border-t-2 border-stone-100 flex-wrap">
+                  <span className="px-3.5 py-1.5 rounded-full bg-[#FEF9C3] border-2 border-black font-black text-xs text-black shadow-[2px_2px_0px_#000]">
+                    {category.questionCount} Questions Available
+                  </span>
+                  <span className="px-3.5 py-1.5 rounded-full bg-white border-2 border-black font-black text-xs text-stone-800 shadow-[2px_2px_0px_#000]">
+                    {subjects.length} {subjects.length === 1 ? "Subject" : "Subjects"}
+                  </span>
+                </div>
+              </div>
+
+              {/* Right Side: Separate Mixed Quiz Card */}
+              <div className="lg:col-span-5 xl:col-span-4 bg-[#FAF7EE] border-[2.5px] border-black rounded-[32px] p-6 shadow-[6px_6px_0px_#000] flex flex-col justify-between gap-4">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-black text-base uppercase text-black flex items-center gap-2">
                       <ArcadeLightningIcon className="w-5 h-5 text-[#F59E0B]" />
                       Mixed {category.name} Quiz
                     </span>
-                    <span className="text-[11px] font-black px-2 py-0.5 rounded-md bg-[#FFE600] border border-black shadow-[1px_1px_0px_#000]">
+                    <span className="text-[11px] font-black px-2.5 py-0.5 rounded-md bg-[#FFE600] border-2 border-black shadow-[1.5px_1.5px_0px_#000]">
                       All Topics
                     </span>
                   </div>
+                  <p className="text-xs font-bold text-stone-600">
+                    A randomized mix pulling questions from across all subjects in {category.name}.
+                  </p>
+                </div>
 
-                  {/* Question Count Picker */}
-                  <div className="space-y-1.5">
-                    <label className="text-[11px] font-black uppercase text-stone-600">
-                      Length: {selectedQuestionCount} Questions
-                    </label>
-                    <div className="grid grid-cols-3 gap-2">
-                      {[10, 15, 20].map((count) => {
-                        const isSelected = selectedQuestionCount === count;
-                        const isAvailable = (category.questionCount || 0) >= count;
-                        return (
-                          <button
-                            key={count}
-                            type="button"
-                            disabled={!isAvailable}
-                            onClick={() => setSelectedQuestionCount(count)}
-                            className={`py-1.5 rounded-xl border-2 font-black text-xs transition-all cursor-pointer ${
-                              isSelected
-                                ? "bg-[#FFE600] text-black border-black shadow-[2px_2px_0px_#000]"
-                                : isAvailable
-                                ? "bg-white text-stone-800 border-stone-300 hover:border-black"
-                                : "bg-stone-100 text-stone-400 border-stone-200 cursor-not-allowed"
-                            }`}
-                          >
-                            {count} Qs
-                          </button>
-                        );
-                      })}
-                    </div>
+                {/* Question Count Picker */}
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-black uppercase text-stone-600">
+                    Quiz Length: {selectedQuestionCount} Questions
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[10, 15, 20].map((count) => {
+                      const isSelected = selectedQuestionCount === count;
+                      const isAvailable = (category.questionCount || 0) >= count;
+                      return (
+                        <button
+                          key={count}
+                          type="button"
+                          disabled={!isAvailable}
+                          onClick={() => setSelectedQuestionCount(count)}
+                          className={`py-1.5 rounded-xl border-2 font-black text-xs transition-all cursor-pointer ${
+                            isSelected
+                              ? "bg-[#FFE600] text-black border-black shadow-[2px_2px_0px_#000]"
+                              : isAvailable
+                              ? "bg-white text-stone-800 border-stone-300 hover:border-black"
+                              : "bg-stone-100 text-stone-400 border-stone-200 cursor-not-allowed"
+                          }`}
+                        >
+                          {count} Qs
+                        </button>
+                      );
+                    })}
                   </div>
+                </div>
 
-                  {/* Action Buttons */}
-                  <div className="grid grid-cols-2 gap-2.5 pt-1">
-                    <button
-                      type="button"
-                      disabled={
-                        launchingCardKey !== null ||
-                        (category.questionCount || 0) < selectedQuestionCount
-                      }
-                      onClick={() => handlePlaySolo(null, true)}
-                      className="py-2.5 px-3 rounded-xl bg-white hover:bg-stone-50 border-2 border-black font-black text-xs text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      <Play className="w-3.5 h-3.5 fill-black" />
-                      <span>{launchingCardKey === "solo-mixed" ? "Starting..." : "Solo Play"}</span>
-                    </button>
-                    <button
-                      type="button"
-                      disabled={
-                        launchingCardKey !== null ||
-                        (category.questionCount || 0) < selectedQuestionCount
-                      }
-                      onClick={() => handlePlayMultiplayer(null, true)}
-                      className="py-2.5 px-3 rounded-xl bg-[#FFE600] hover:bg-[#FACC15] border-2 border-black font-black text-xs text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      <Users className="w-3.5 h-3.5 stroke-[2.5]" />
-                      <span>{launchingCardKey === "multi-mixed" ? "Creating..." : "Multiplayer"}</span>
-                    </button>
-                  </div>
+                {/* Action Buttons */}
+                <div className="grid grid-cols-2 gap-2.5 pt-1">
+                  <button
+                    type="button"
+                    disabled={
+                      launchingCardKey !== null ||
+                      (category.questionCount || 0) < selectedQuestionCount
+                    }
+                    onClick={() => handlePlaySolo(null, true)}
+                    className="py-2.5 px-3 rounded-xl bg-white hover:bg-stone-50 border-2 border-black font-black text-xs text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Play className="w-3.5 h-3.5 fill-black" />
+                    <span>{launchingCardKey === "solo-mixed" ? "Starting..." : "Solo Play"}</span>
+                  </button>
+                  <button
+                    type="button"
+                    disabled={
+                      launchingCardKey !== null ||
+                      (category.questionCount || 0) < selectedQuestionCount
+                    }
+                    onClick={() => handlePlayMultiplayer(null, true)}
+                    className="py-2.5 px-3 rounded-xl bg-[#FFE600] hover:bg-[#FACC15] border-2 border-black font-black text-xs text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Users className="w-3.5 h-3.5 stroke-[2.5]" />
+                    <span>{launchingCardKey === "multi-mixed" ? "Creating..." : "Multiplayer"}</span>
+                  </button>
                 </div>
               </div>
             </div>

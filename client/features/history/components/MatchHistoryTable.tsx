@@ -48,31 +48,31 @@ export function MatchHistoryTable() {
   const getDifficultyColor = (difficulty?: string) => {
     switch (difficulty?.toLowerCase()) {
       case "easy":
-        return "text-emerald-500 bg-emerald-500/10 border-emerald-500/20";
+        return "text-black bg-[#A7F3D0] border-2 border-black shadow-[1px_1px_0px_#000]";
       case "medium":
-        return "text-amber-500 bg-amber-500/10 border-amber-500/20";
+        return "text-black bg-[#FEF08A] border-2 border-black shadow-[1px_1px_0px_#000]";
       case "hard":
-        return "text-rose-500 bg-rose-500/10 border-rose-500/20";
+        return "text-black bg-[#FECDD3] border-2 border-black shadow-[1px_1px_0px_#000]";
       default:
-        return "text-muted-foreground bg-secondary/40 border-border";
+        return "text-black bg-[#FAF7EE] border-2 border-black shadow-[1px_1px_0px_#000]";
     }
   };
 
   if (isLoading) {
     return (
       <div className="space-y-4">
-        <div className="flex items-center justify-between border-b border-border pb-4">
-          <div className="h-6 w-48 rounded bg-secondary animate-pulse" />
-          <div className="h-9 w-28 rounded bg-secondary animate-pulse" />
+        <div className="flex items-center justify-between pb-2">
+          <div className="h-6 w-48 rounded-xl bg-stone-200 border-2 border-black animate-pulse" />
+          <div className="h-9 w-28 rounded-xl bg-stone-200 border-2 border-black animate-pulse" />
         </div>
-        <div className="rounded-2xl border border-border bg-card/50 overflow-hidden">
+        <div className="space-y-3">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="flex flex-col md:flex-row items-center justify-between p-5 border-b border-border/40 gap-4 last:border-0">
+            <div key={i} className="flex flex-col md:flex-row items-center justify-between p-5 rounded-2xl border-2 border-black bg-white shadow-[3px_3px_0px_#000] gap-4">
               <div className="flex-1 space-y-2 w-full">
-                <div className="h-5 w-1/3 rounded bg-secondary animate-pulse" />
-                <div className="h-4 w-1/4 rounded bg-secondary animate-pulse" />
+                <div className="h-5 w-1/3 rounded bg-stone-200 animate-pulse" />
+                <div className="h-4 w-1/4 rounded bg-stone-200 animate-pulse" />
               </div>
-              <div className="h-9 w-24 rounded bg-secondary animate-pulse shrink-0" />
+              <div className="h-9 w-24 rounded-xl bg-stone-200 border-2 border-black animate-pulse shrink-0" />
             </div>
           ))}
         </div>
@@ -82,17 +82,20 @@ export function MatchHistoryTable() {
 
   if (isError) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 border border-border rounded-2xl bg-card text-center gap-4">
-        <div className="h-12 w-12 rounded-2xl bg-rose-500/10 text-rose-500 flex items-center justify-center border border-rose-500/20">
-          <AlertCircle className="h-6 w-6" />
+      <div className="flex flex-col items-center justify-center p-10 border-2 border-black rounded-[24px] bg-white text-center gap-4 shadow-[4px_4px_0px_#000]">
+        <div className="h-12 w-12 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center border-2 border-black shadow-[2px_2px_0px_#000]">
+          <AlertCircle className="h-6 w-6 stroke-[2.5]" />
         </div>
         <div>
-          <h3 className="text-lg font-bold text-foreground mb-1">Failed to load history</h3>
-          <p className="text-sm text-muted-foreground">{error?.message || "An unexpected error occurred."}</p>
+          <h3 className="text-lg font-black text-black mb-1">Failed to Load History</h3>
+          <p className="text-xs font-bold text-stone-600">{error?.message || "An unexpected network error occurred."}</p>
         </div>
-        <Button onClick={() => refetch()} variant="secondary" className="text-xs">
+        <button
+          onClick={() => refetch()}
+          className="px-4 py-2 rounded-xl bg-[#FFE600] hover:bg-[#FACC15] text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] cursor-pointer"
+        >
           Try Again
-        </Button>
+        </button>
       </div>
     );
   }
@@ -112,24 +115,24 @@ export function MatchHistoryTable() {
   const myId = user?._id || user?.id;
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-5">
       {/* Table Header Filter controls */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-border pb-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-1">
         <div>
-          <h2 className="text-xl font-bold tracking-tight text-foreground">Quiz History</h2>
-          <p className="text-xs text-muted-foreground mt-0.5">
+          <h2 className="text-lg font-black tracking-tight text-black">Completed Sessions</h2>
+          <p className="text-xs font-bold text-stone-600">
             Showing {matches.length} of {totalMatches} quizzes completed
           </p>
         </div>
         <div className="flex items-center gap-2 self-stretch sm:self-auto justify-between">
-          <span className="text-xs text-muted-foreground shrink-0">Rows per page:</span>
+          <span className="text-xs font-black text-stone-700 shrink-0">Rows:</span>
           <select
             value={limit}
             onChange={(e) => {
               setLimit(Number(e.target.value));
               setPage(1);
             }}
-            className="h-9 w-20 rounded-md border border-border bg-background px-2.5 py-1 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary font-mono cursor-pointer"
+            className="h-9 w-20 rounded-xl border-2 border-black bg-white px-2.5 py-1 text-xs font-mono font-black text-black shadow-[2px_2px_0px_#000] focus:outline-none cursor-pointer"
           >
             <option value={5}>5</option>
             <option value={10}>10</option>
@@ -141,22 +144,25 @@ export function MatchHistoryTable() {
 
       {matches.length === 0 ? (
         /* Empty State */
-        <div className="flex flex-col items-center justify-center text-center py-16 px-4 border border-dashed border-border rounded-2xl bg-card/20">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary border border-border text-muted-foreground mb-4">
-            <HelpCircle className="h-6 w-6" />
+        <div className="flex flex-col items-center justify-center text-center py-14 px-4 border-[2.5px] border-black rounded-[24px] bg-white shadow-[4px_4px_0px_#000]">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#CFFAFE] border-2 border-black text-black mb-3 shadow-[2px_2px_0px_#000]">
+            <HelpCircle className="h-6 w-6 stroke-[2.5]" />
           </div>
-          <h3 className="text-lg font-bold text-foreground mb-1">No completed quizzes found</h3>
-          <p className="text-sm text-muted-foreground max-w-sm mb-6">
-            You haven&apos;t completed any quizzes yet. Join or host a quiz room to test your skills!
+          <h3 className="text-lg font-black text-black mb-1">No completed quizzes yet</h3>
+          <p className="text-xs font-bold text-stone-600 max-w-sm mb-5">
+            You haven&apos;t completed any quizzes yet. Join or host a quiz room to test your knowledge!
           </p>
-          <Link href="/" className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-xs font-semibold text-primary-foreground hover:bg-primary/95 transition-colors font-mono">
+          <Link
+            href="/categories"
+            className="inline-flex h-10 items-center justify-center rounded-xl bg-[#FFE600] hover:bg-[#FACC15] border-2 border-black px-5 text-xs font-black text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all"
+          >
             Start a Quiz
           </Link>
         </div>
       ) : (
-        /* Table Grid Card list */
-        <div className="flex flex-col gap-4">
-          <div className="rounded-2xl border border-border bg-card/40 overflow-hidden divide-y divide-border/60">
+        /* Match Cards list */
+        <div className="flex flex-col gap-3">
+          <div className="space-y-3">
             {matches.map((match) => {
               const totalPlayers = match.totalPlayers || match.players?.length || (match.opponent ? 2 : 1);
               const isSolo = totalPlayers === 1 || match.result === "COMPLETED";
@@ -173,82 +179,79 @@ export function MatchHistoryTable() {
                 }
               }
 
-              const topicName = match.topic || "MCQ Challenge";
+              const topicName = match.topic || "Quiz Challenge";
               const difficultyName = match.difficulty || "Medium";
 
               return (
                 <div
                   key={match._id}
-                  className="flex flex-col md:flex-row md:items-center justify-between p-5 gap-4 hover:bg-secondary/15 transition-all duration-200"
+                  className="flex flex-col md:flex-row md:items-center justify-between p-4 sm:p-5 rounded-2xl border-2 border-black bg-white shadow-[3px_3px_0px_#000] hover:-translate-y-0.5 transition-all duration-150 gap-4"
                 >
                   {/* Info Section */}
-                  <div className="flex-1 min-w-0 space-y-2">
-                    <div className="flex items-center gap-2.5 flex-wrap">
-                      <span className="font-extrabold text-foreground text-sm sm:text-base tracking-tight truncate max-w-[280px] sm:max-w-md">
-                        {topicName} ({match.questionCount || 5} Qs)
+                  <div className="flex-1 min-w-0 space-y-2.5">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-black text-black text-base sm:text-lg tracking-tight truncate max-w-[280px] sm:max-w-md">
+                        {topicName}
+                      </span>
+                      <span className="px-2.5 py-0.5 rounded-full bg-[#DDD6FE] border-2 border-black text-[11px] font-black text-black shadow-[1px_1px_0px_#000]">
+                        {match.questionCount || 5} Questions
                       </span>
                       {difficultyName && (
-                        <span className={cn("text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border shrink-0 font-mono", getDifficultyColor(difficultyName))}>
+                        <span className={cn("text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full shrink-0 font-mono", getDifficultyColor(difficultyName))}>
                           {difficultyName}
                         </span>
                       )}
                     </div>
                     
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground font-mono">
-                      <div className="flex items-center gap-1.5 font-medium text-foreground/90 font-sans">
-                        <Users className="h-3.5 w-3.5 text-zinc-400" />
-                        <span>{isSolo ? "Solo Quiz" : `${totalPlayers} Participants`}</span>
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono font-bold text-stone-700">
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#CFFAFE] border border-black text-black">
+                        <Users className="h-3.5 w-3.5 stroke-[2.5]" />
+                        <span>{isSolo ? "Solo Quiz" : `${totalPlayers} Players`}</span>
                       </div>
-                      <span className="hidden sm:inline text-zinc-600">|</span>
-                      <span className="text-foreground/80 font-bold font-mono">
-                        Score: {match.userScore ?? 0}
+                      <span className="text-black font-black">
+                        Score: {match.userScore ?? 0} pts
                       </span>
                       {match.userAccuracy !== undefined && (
-                        <>
-                          <span className="hidden sm:inline text-zinc-600">|</span>
-                          <span className="text-foreground/80 font-mono">
-                            {match.userAccuracy}% Accuracy
-                          </span>
-                        </>
+                        <span className="text-black">
+                          {match.userAccuracy}% Accuracy
+                        </span>
                       )}
-                      <span className="hidden sm:inline text-zinc-600">|</span>
-                      <span className="flex items-center gap-1 font-mono">
-                        <Clock className="h-3.5 w-3.5 text-zinc-500" /> {formatDuration(match.duration)}
+                      <span className="flex items-center gap-1 text-stone-600">
+                        <Clock className="h-3.5 w-3.5 stroke-[2.5]" /> {formatDuration(match.duration)}
                       </span>
-                      <span className="hidden sm:inline text-zinc-600">|</span>
-                      <span className="flex items-center gap-1 font-mono">
-                        <Calendar className="h-3.5 w-3.5 text-zinc-500" /> {formatDate(match.startedAt)}
+                      <span className="flex items-center gap-1 text-stone-600">
+                        <Calendar className="h-3.5 w-3.5 stroke-[2.5]" /> {formatDate(match.startedAt)}
                       </span>
                     </div>
                   </div>
 
                   {/* Verdict & Action */}
-                  <div className="flex items-center justify-between md:justify-end gap-5 shrink-0 self-stretch md:self-auto border-t md:border-t-0 border-border/40 pt-3 md:pt-0">
+                  <div className="flex items-center justify-between md:justify-end gap-4 shrink-0 self-stretch md:self-auto border-t md:border-t-0 border-stone-200 pt-3 md:pt-0">
                     <div className="md:text-right shrink-0">
                       {match.status === "COMPLETED" || match.status === "completed" ? (
                         isSolo ? (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 px-3 py-1 text-xs font-bold text-emerald-400 font-mono">
-                            <Award className="h-3.5 w-3.5" /> Completed
+                          <span className="inline-flex items-center gap-1 rounded-full bg-[#A7F3D0] border-2 border-black px-3 py-1 text-xs font-black text-black shadow-[1px_1px_0px_#000]">
+                            <Award className="h-3.5 w-3.5 stroke-[2.5]" /> Completed
                           </span>
                         ) : userRank === 1 ? (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 border border-amber-500/30 px-3 py-1 text-xs font-bold text-amber-400 font-mono">
-                            <Trophy className="h-3.5 w-3.5" /> Rank #1
+                          <span className="inline-flex items-center gap-1 rounded-full bg-[#FFE600] border-2 border-black px-3 py-1 text-xs font-black text-black shadow-[1px_1px_0px_#000]">
+                            👑 Rank #1
                           </span>
                         ) : userRank === 2 ? (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-slate-300/15 border border-slate-300/30 px-3 py-1 text-xs font-bold text-slate-200 font-mono">
+                          <span className="inline-flex items-center gap-1 rounded-full bg-stone-200 border-2 border-black px-3 py-1 text-xs font-black text-black shadow-[1px_1px_0px_#000]">
                             🥈 Rank #2
                           </span>
                         ) : userRank === 3 ? (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-amber-700/15 border border-amber-700/30 px-3 py-1 text-xs font-bold text-amber-500 font-mono">
+                          <span className="inline-flex items-center gap-1 rounded-full bg-amber-200 border-2 border-black px-3 py-1 text-xs font-black text-black shadow-[1px_1px_0px_#000]">
                             🥉 Rank #3
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-zinc-800 border border-zinc-700 px-3 py-1 text-xs font-bold text-zinc-400 font-mono">
+                          <span className="inline-flex items-center gap-1 rounded-full bg-[#FAF7EE] border-2 border-black px-3 py-1 text-xs font-mono font-black text-black shadow-[1px_1px_0px_#000]">
                             Rank #{userRank}
                           </span>
                         )
                       ) : (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 border border-amber-500/20 px-3 py-1 text-xs font-bold text-amber-500 font-mono">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-[#FEF08A] border-2 border-black px-3 py-1 text-xs font-black text-black">
                           {match.status}
                         </span>
                       )}
@@ -256,9 +259,10 @@ export function MatchHistoryTable() {
 
                     <Link
                       href={`/results/${match._id}`}
-                      className="inline-flex h-9 items-center gap-1 border border-border/80 rounded-md bg-zinc-900/60 px-3.5 text-xs font-semibold text-foreground hover:bg-zinc-800 transition-colors cursor-pointer font-mono"
+                      className="inline-flex h-9 items-center gap-1.5 border-2 border-black rounded-xl bg-white hover:bg-stone-50 px-3.5 text-xs font-black text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
                     >
-                      Results <ExternalLink className="h-3.5 w-3.5" />
+                      <span>Breakdown</span>
+                      <ExternalLink className="h-3.5 w-3.5 stroke-[2.5]" />
                     </Link>
                   </div>
                 </div>
@@ -268,29 +272,27 @@ export function MatchHistoryTable() {
 
           {/* Pagination Controls */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-between gap-4 mt-2">
-              <span className="text-xs text-muted-foreground font-mono">
+            <div className="flex items-center justify-between gap-4 mt-3 pt-2">
+              <span className="text-xs font-black text-stone-700">
                 Page {page} of {totalPages}
               </span>
-              <div className="flex items-center gap-1">
-                <Button
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
                   onClick={handlePrevPage}
                   disabled={page === 1}
-                  variant="outline"
-                  size="sm"
-                  className="gap-1 cursor-pointer font-mono text-xs disabled:opacity-50"
+                  className="px-3 py-1.5 rounded-xl bg-white hover:bg-stone-50 border-2 border-black font-black text-xs text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer flex items-center gap-1"
                 >
-                  <ChevronLeft className="h-3.5 w-3.5" /> Prev
-                </Button>
-                <Button
+                  <ChevronLeft className="h-3.5 w-3.5 stroke-[3]" /> Prev
+                </button>
+                <button
+                  type="button"
                   onClick={handleNextPage}
                   disabled={page === totalPages}
-                  variant="outline"
-                  size="sm"
-                  className="gap-1 cursor-pointer font-mono text-xs disabled:opacity-50"
+                  className="px-3 py-1.5 rounded-xl bg-white hover:bg-stone-50 border-2 border-black font-black text-xs text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer flex items-center gap-1"
                 >
-                  Next <ChevronRight className="h-3.5 w-3.5" />
-                </Button>
+                  Next <ChevronRight className="h-3.5 w-3.5 stroke-[3]" />
+                </button>
               </div>
             </div>
           )}

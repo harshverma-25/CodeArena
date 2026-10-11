@@ -36,7 +36,7 @@ export class RoomService {
    * Generates a unique 6-character room code with a bounded attempt limit (10 attempts)
    * using a lightweight database existence check without populates.
    */
-  private async generateUniqueRoomCode(maxAttempts = 10): Promise<string> {
+  private async generateUniqueRoomCode(maxAttempts = 25): Promise<string> {
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       const roomCode = this.generateRoomCode();
       const exists = await roomRepository.existsByRoomCode(roomCode);
@@ -685,13 +685,22 @@ export class RoomService {
    * Default threshold: 2 hours (7,200,000 ms).
    * Safe across restarts and multi-instance environments.
    */
-  async cleanStaleRooms(staleThresholdMs: number = 2 * 60 * 60 * 1000): Promise<{ deletedRoomsCount: number }> {
+  async cleanStaleRooms(
+    staleThresholdMs: number = 2 * 60 * 60 * 1000,
+    completedRetentionDays: number = 7
+  ): Promise<{ deletedRoomsCount: number; prunedCompletedRoomsCount: number }> {
     const cutoff = new Date(Date.now() - staleThresholdMs);
     const deletedRoomsCount = await roomRepository.deleteStaleWaitingRooms(cutoff);
-    if (deletedRoomsCount > 0) {
-      logger.info(`[GC] Deleted ${deletedRoomsCount} abandoned WAITING/READY rooms older than ${cutoff.toISOString()}`);
+
+    const completedCutoff = new Date(Date.now() - completedRetentionDays * 24 * 60 * 60 * 1000);
+    const prunedCompletedRoomsCount = await roomRepository.deleteExpiredCompletedRooms(completedCutoff);
+
+    if (deletedRoomsCount > 0 || prunedCompletedRoomsCount > 0) {
+      logger.info(
+        `[GC] Cleaned rooms: ${deletedRoomsCount} waiting/ready rooms deleted, ${prunedCompletedRoomsCount} expired completed/abandoned rooms pruned.`
+      );
     }
-    return { deletedRoomsCount };
+    return { deletedRoomsCount, prunedCompletedRoomsCount };
   }
 
   /**

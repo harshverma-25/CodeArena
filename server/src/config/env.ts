@@ -20,6 +20,8 @@ const envSchema = z.object({
     errorMap: () => ({ message: 'NODE_ENV must be development, production, or test' }),
   }),
   MONGODB_URI: z.string().min(1, 'MONGODB_URI is required'),
+  CORS_ORIGIN: z.string().default('*'),
+  REDIS_URI: z.string().optional(),
   GUEST_JWT_SECRET: z.string().optional(),
   JWT_ACCESS_SECRET: z.string().optional(),
   JWT_REFRESH_SECRET: z.string().optional(),
@@ -28,6 +30,14 @@ const envSchema = z.object({
 })
   .superRefine((data, ctx) => {
     if (data.NODE_ENV === 'production') {
+      if (!data.CORS_ORIGIN || data.CORS_ORIGIN === '*') {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['CORS_ORIGIN'],
+          message:
+            'CORS_ORIGIN is required in production and cannot be "*" when credentials are enabled. Provide allowed origins (e.g. https://quizzy.app or comma-separated list).',
+        });
+      }
       if (!data.GUEST_JWT_SECRET || data.GUEST_JWT_SECRET.length < 32) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -70,4 +80,20 @@ if (!result.success) {
 
 export const env = result.data;
 export type Env = z.infer<typeof envSchema>;
+
+/**
+ * Resolves CORS origins from configuration.
+ * Returns true in development wildcard mode (allowing credentials with dynamic reflection),
+ * or an array of allowed origin strings in production.
+ */
+export function resolveCorsOrigins(corsOrigin: string): boolean | string[] {
+  if (corsOrigin === '*') {
+    return true;
+  }
+  return corsOrigin
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean);
+}
+
 export default env;

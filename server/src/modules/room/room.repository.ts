@@ -73,6 +73,18 @@ export class RoomRepository {
     }).exec();
     return result.deletedCount || 0;
   }
+
+  /**
+   * Atomically delete completed or abandoned rooms older than the archival threshold.
+   * All finalized match data is independently preserved in BattleModel.
+   */
+  async deleteExpiredCompletedRooms(cutoff: Date): Promise<number> {
+    const result = await RoomModel.deleteMany({
+      status: { $in: [RoomStatus.FINISHED, RoomStatus.CANCELLED] },
+      updatedAt: { $lte: cutoff },
+    }).exec();
+    return result.deletedCount || 0;
+  }
 }
 
 export const roomRepository = new RoomRepository();

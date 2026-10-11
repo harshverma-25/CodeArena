@@ -132,7 +132,7 @@ export default function AllCategoriesPage() {
       {/* Top Navigation */}
       <Navbar />
 
-      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 pt-28 pb-16 space-y-8">
+      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 pt-[88px] sm:pt-[92px] pb-16 space-y-6">
         {/* Header Breadcrumb & Controls */}
         <div className="bg-[#FAF7EE] border-[2.5px] border-black rounded-[32px] p-6 sm:p-8 shadow-[6px_6px_0px_#000]">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">

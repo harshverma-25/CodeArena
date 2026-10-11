@@ -279,15 +279,15 @@ export default function LiveQuizArenaPage() {
       {/* ========================================================================= */}
       {/* MAIN GAMEPLAY ARENA DASHBOARD (Directly beneath Navbar) */}
       {/* ========================================================================= */}
-      <main className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-26 space-y-5">
+      <main className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pt-[88px] sm:pt-[92px] space-y-5">
         
-        {/* DUAL-COLUMN LAYOUT: Left (Quiz Gameplay) & Right (Multiplayer Leaderboard) */}
-        <div className={`grid grid-cols-1 ${isSoloMatch ? "lg:grid-cols-12" : "lg:grid-cols-12"} gap-5 items-start`}>
+        {/* DUAL-COLUMN LAYOUT: Left (Quiz Gameplay) & Right (Scorecard & Controls) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
           
           {/* ======================================================================= */}
           {/* LEFT COLUMN: TIMER, PROGRESS, SCORE & CORE QUESTION CARD */}
           {/* ======================================================================= */}
-          <div className={`${isSoloMatch ? "lg:col-span-8 lg:col-start-3" : "lg:col-span-8"} flex flex-col gap-5`}>
+          <div className="lg:col-span-8 flex flex-col gap-5">
             
             {/* TOP ROW: 3 CARDS (TIMER, QUESTION PROGRESS, SCORE) */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -688,35 +688,127 @@ export default function LiveQuizArenaPage() {
                 </div>
               </div>
 
+              {/* ACTION CONTROLS PANEL (Right Side Button Div) */}
+              <div className="bg-white border-[2.5px] border-black rounded-[28px] p-5 shadow-[6px_6px_0px_#000] flex flex-col gap-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-black text-xs uppercase tracking-wider text-stone-700">
+                    Match Controls
+                  </h4>
+                  <span className="text-[11px] font-bold text-stone-500">
+                    {isHost ? "Room Host" : "Player"}
+                  </span>
+                </div>
+
+                {isRevealed && isHost && (
+                  <button
+                    type="button"
+                    onClick={advanceRound}
+                    className="w-full py-3 px-4 bg-[#FFE600] hover:bg-[#FACC15] text-black font-black text-sm rounded-2xl border-2 border-black shadow-[3px_3px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] flex items-center justify-center gap-2 cursor-pointer transition-all"
+                  >
+                    <span>Next Round Now</span>
+                    <ArrowRight className="w-4 h-4 stroke-[3]" />
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  id="multiplayer-sidebar-exit-quiz-button"
+                  onClick={() => openExitModal()}
+                  className="w-full py-3 px-4 bg-white hover:bg-red-50 text-red-600 font-black text-sm rounded-2xl border-2 border-black shadow-[3px_3px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] flex items-center justify-center gap-2 cursor-pointer transition-all"
+                >
+                  <LogOut className="w-4 h-4 stroke-[2.5]" />
+                  <span>Exit Quiz</span>
+                </button>
+              </div>
+
             </div>
           ) : (
-            // SOLO MODE ADAPTATION: Solo Statistics Card
+            // SOLO MODE: Right side Scorecard & Action Controls
             <div className="lg:col-span-4 flex flex-col gap-5">
               <div className="bg-white border-[2.5px] border-black rounded-[28px] p-5 sm:p-6 shadow-[6px_6px_0px_#000]">
-                <div className="flex items-center gap-2.5 mb-4">
-                  <div className="w-9 h-9 rounded-2xl bg-[#FEF08A] border-2 border-black flex items-center justify-center shrink-0 shadow-[2px_2px_0px_#000]">
-                    <Award className="w-5 h-5 text-black stroke-[2.5]" />
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-10 h-10 rounded-2xl bg-[#FEF08A] border-2 border-black flex items-center justify-center shrink-0 shadow-[2px_2px_0px_#000]">
+                      <Trophy className="w-5 h-5 text-black stroke-[2.5]" />
+                    </div>
+                    <div>
+                      <h3 className="font-black text-lg sm:text-xl text-black uppercase tracking-tight leading-tight">
+                        SCORECARD
+                      </h3>
+                      <span className="text-[10px] font-black uppercase text-stone-500 tracking-wider">
+                        Solo Practice Mode
+                      </span>
+                    </div>
                   </div>
-                  <h3 className="font-black text-lg sm:text-xl text-black uppercase tracking-tight">
-                    SOLO PRACTICE
-                  </h3>
+                  <div className="flex items-center gap-1">
+                    <ArcadeStarIcon className="w-5 h-5 text-[#FFE600]" />
+                  </div>
                 </div>
 
                 <div className="space-y-3">
-                  <div className="p-3.5 rounded-2xl bg-[#FEF08A] border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-between">
-                    <span className="font-black text-xs text-black">Questions Remaining</span>
-                    <span className="font-mono font-black text-base">{totalQuestions - currentQNumber}</span>
+                  <div className="p-3.5 rounded-2xl bg-[#FAF7EE] border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-between">
+                    <span className="font-black text-xs text-stone-700">Question Progress</span>
+                    <span className="font-mono font-black text-base text-black">
+                      {currentQNumber} / {totalQuestions}
+                    </span>
                   </div>
-                  <div className="p-3.5 rounded-2xl bg-[#A7F3D0] border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-between">
-                    <span className="font-black text-xs text-black">Current Potential</span>
-                    <span className="font-mono font-black text-base">{potentialScore} pts</span>
+
+                  <div className="p-3.5 rounded-2xl bg-[#DDD6FE] border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-between">
+                    <span className="font-black text-xs text-stone-900">Total Score</span>
+                    <span className="font-mono font-black text-lg text-black">
+                      {(battle?.myScore || 0).toLocaleString()} <span className="text-xs">pts</span>
+                    </span>
                   </div>
+
                   <div className="p-3.5 rounded-2xl bg-[#CFFAFE] border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-between">
-                    <span className="font-black text-xs text-black">Total Score</span>
-                    <span className="font-mono font-black text-base">{(battle?.myScore || 0).toLocaleString()}</span>
+                    <span className="font-black text-xs text-stone-900">Questions Remaining</span>
+                    <span className="font-mono font-black text-base text-black">
+                      {Math.max(0, totalQuestions - currentQNumber)}
+                    </span>
+                  </div>
+
+                  <div className="p-3.5 rounded-2xl bg-[#FEF08A] border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-between">
+                    <span className="font-black text-xs text-stone-900">Max Round Value</span>
+                    <span className="font-mono font-black text-base text-black">
+                      {potentialScore} pts
+                    </span>
                   </div>
                 </div>
               </div>
+
+              {/* ACTION CONTROLS PANEL (Right Side Button Div) */}
+              <div className="bg-white border-[2.5px] border-black rounded-[28px] p-5 shadow-[6px_6px_0px_#000] flex flex-col gap-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-black text-xs uppercase tracking-wider text-stone-700">
+                    Quiz Actions
+                  </h4>
+                  <span className="text-[11px] font-bold text-stone-500">
+                    Solo Session
+                  </span>
+                </div>
+
+                {isRevealed && (
+                  <button
+                    type="button"
+                    onClick={advanceRound}
+                    className="w-full py-3 px-4 bg-[#FFE600] hover:bg-[#FACC15] text-black font-black text-sm rounded-2xl border-2 border-black shadow-[3px_3px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] flex items-center justify-center gap-2 cursor-pointer transition-all"
+                  >
+                    <span>Next Round Now</span>
+                    <ArrowRight className="w-4 h-4 stroke-[3]" />
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  id="solo-sidebar-exit-quiz-button"
+                  onClick={() => openExitModal()}
+                  className="w-full py-3 px-4 bg-white hover:bg-red-50 text-red-600 font-black text-sm rounded-2xl border-2 border-black shadow-[3px_3px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] flex items-center justify-center gap-2 cursor-pointer transition-all"
+                >
+                  <LogOut className="w-4 h-4 stroke-[2.5]" />
+                  <span>Exit Quiz</span>
+                </button>
+              </div>
+
             </div>
           )}
 

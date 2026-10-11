@@ -3,7 +3,7 @@ import app from './app.js';
 import { env } from './config/env.js';
 import { logger } from './config/logger.js';
 import { connectDatabase, disconnectDatabase } from './config/database.js';
-import { initializeSocket } from './sockets/index.js';
+import { initializeSocket, closeSocket } from './sockets/index.js';
 import { battleService } from './modules/battle/battle.service.js';
 import { roomService } from './modules/room/room.service.js';
 
@@ -37,6 +37,8 @@ const gracefulShutdown = async (signal: string) => {
   // Stop background sweeper and garbage collector
   battleService.stopSweeper();
   roomService.stopGarbageCollector();
+
+  await closeSocket();
 
   server.close(async () => {
     logger.info('HTTP server closed.');

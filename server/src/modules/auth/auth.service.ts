@@ -6,6 +6,7 @@ import { logger } from '../../config/logger.js';
 import { hashPassword, verifyPassword, hashToken } from '../../shared/utils/crypto-auth.js';
 import { signJwtToken, verifyJwtToken, ITokenPayload } from '../../shared/utils/jwt.js';
 import { ApiError } from '../../shared/errors/api-error.js';
+import { generateLocalSvgAvatar } from '../../shared/utils/avatar.utils.js';
 
 export class AuthService {
   /**
@@ -43,7 +44,7 @@ export class AuthService {
     }
 
     const passwordHash = hashPassword(password);
-    const avatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(username)}`;
+    const avatar = generateLocalSvgAvatar(username);
 
     const user = await userRepository.create({
       email,
@@ -429,7 +430,7 @@ export class AuthService {
     const username = `guest_${randomSuffix}`;
 
     const displayName = customDisplayName?.trim() || `Guest ${randomSuffix.toUpperCase()}`;
-    const avatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${username}`;
+    const avatar = generateLocalSvgAvatar(username);
 
     const user = await userRepository.create({
       username,
