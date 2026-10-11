@@ -75,10 +75,27 @@ export function useLiveBattle(roomCode: string) {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const revealTimerRef = useRef<NodeJS.Timeout | null>(null);
 
+  const currentUserRef = useRef(currentUser);
+  useEffect(() => {
+    currentUserRef.current = currentUser;
+  }, [currentUser]);
+
+  const battleRef = useRef(battle);
+  useEffect(() => {
+    battleRef.current = battle;
+  }, [battle]);
+
+  const statusRef = useRef(status);
+  useEffect(() => {
+    statusRef.current = status;
+  }, [status]);
+
+  const wasDisconnectedRef = useRef(false);
+
   // Initialize from BattleInitPayload
   const processInitPayload = useCallback(
     (payload: BattleInitPayload, currentUserId?: string) => {
-      const myId = currentUserId || currentUser?._id;
+      const myId = currentUserId || currentUserRef.current?._id;
       const myPlayer = payload.players.find((p) => p.userId === myId);
 
       const deadline = payload.questionDeadline ? new Date(payload.questionDeadline) : null;
@@ -124,18 +141,25 @@ export function useLiveBattle(roomCode: string) {
         setStatus("active");
       }
     },
-    [currentUser]
+    []
   );
 
-  // Initialize from cache if present
+  // Initialize from cache if present and matching current room
   useEffect(() => {
-    if (cachedInitData && !battle) {
-      const timer = setTimeout(() => {
-        processInitPayload(cachedInitData);
-      }, 0);
-      return () => clearTimeout(timer);
+    if (cachedInitData && cachedInitData.roomCode === code && !battleRef.current) {
+      processInitPayload(cachedInitData);
     }
-  }, [cachedInitData, battle, processInitPayload]);
+  }, [cachedInitData, code, processInitPayload]);
+
+  // Synchronize myScore if currentUser resolves after initial battle processing
+  useEffect(() => {
+    if (currentUser?._id && battle && battle.myScore === 0) {
+      const myMatch = players.find((p) => p.userId === currentUser._id);
+      if (myMatch && myMatch.score !== battle.myScore) {
+        setBattle((prev) => (prev ? { ...prev, myScore: myMatch.score } : prev));
+      }
+    }
+  }, [currentUser, battle, players]);
 
   // Main Socket Listener & Reconnection
   useEffect(() => {
@@ -148,7 +172,7 @@ export function useLiveBattle(roomCode: string) {
     const handleBattleInit = (payload: BattleInitPayload) => {
       if (!active) return;
       setBattleInitData(payload);
-      processInitPayload(payload, currentUser?._id);
+      processInitPayload(payload, currentUserRef.current?._id);
     };
 
     const handleAnswerLocked = (payload: BattleAnswerLockedPayload) => {
@@ -193,7 +217,7 @@ export function useLiveBattle(roomCode: string) {
       );
 
       // Update my score
-      const myMatch = payload.players.find((rp) => rp.userId === currentUser?._id);
+      const myMatch = payload.players.find((rp) => rp.userId === currentUserRef.current?._id);
       if (myMatch) {
         setBattle((prev) => (prev ? { ...prev, myScore: myMatch.totalScore } : prev));
       }
@@ -265,12 +289,18 @@ export function useLiveBattle(roomCode: string) {
       useBattleStore.getState().setSocketConnected(true);
       useBattleStore.getState().setReconnecting(false);
       useBattleStore.getState().setSocketError(null);
-      socketManager.emit("battle:reconnect", { roomCode: code });
+
+      // Only emit reconnect if this was an actual reconnection from a disconnect
+      if (wasDisconnectedRef.current) {
+        wasDisconnectedRef.current = false;
+        socketManager.emit("battle:reconnect", { roomCode: code });
+      }
     };
 
     const handleDisconnect = (reason: string) => {
       if (!active) return;
       console.warn("🔌 Live battle socket disconnected:", reason);
+      wasDisconnectedRef.current = true;
       setIsSocketDisconnected(true);
       useBattleStore.getState().setSocketConnected(false);
     };
@@ -311,15 +341,18 @@ export function useLiveBattle(roomCode: string) {
       socket.on("player:reconnected", handlePlayerReconnected);
       socket.on("error", handleError);
 
-      // Reconnect/sync to room channel & battle state
-      socketManager.emit("battle:reconnect", { roomCode: code });
+      // If we do NOT have cached init data for this room, sync once on initial mount
+      const hasCachedData = cachedInitData && cachedInitData.roomCode === code;
+      if (!hasCachedData && !battleRef.current) {
+        socketManager.emit("battle:reconnect", { roomCode: code });
+      }
     }
 
     const fallbackTimer = setTimeout(() => {
-      if (active && status === "loading" && !battle) {
+      if (active && statusRef.current === "loading" && !battleRef.current) {
         socketManager.emit("battle:reconnect", { roomCode: code });
       }
-    }, 2000);
+    }, 2500);
 
     return () => {
       active = false;
@@ -340,7 +373,7 @@ export function useLiveBattle(roomCode: string) {
         socket.off("error", handleError);
       }
     };
-  }, [code, currentUser, processInitPayload, setBattleInitData, status, battle]);
+  }, [code, processInitPayload, setBattleInitData, cachedInitData]);
 
   // Dynamic Decreasing Points & Visual Countdown Timer
   useEffect(() => {

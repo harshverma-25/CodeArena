@@ -143,6 +143,7 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
 
     try {
       const roomChannel = `room:${roomCode}`;
+      const isAlreadyInRoom = socket.rooms.has(roomChannel);
       socket.join(roomChannel);
       socket.data.roomCode = roomCode;
 
@@ -162,7 +163,7 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
 
         // For solo quizzes (1 player), if round 0 has not yet received a submission,
         // synchronize round start with the client socket connection so no time is lost during page navigation
-        if (currentBattle.players.length === 1) {
+        if (currentBattle.players.length === 1 && currentBattle.currentRound?.roundIndex === 0) {
           await battleService.synchronizeSoloRoundStart(currentBattle._id.toString());
         }
 
@@ -171,8 +172,17 @@ export function registerBattleHandlers(io: Server, socket: Socket) {
         const initPayload = await battleService.getBattleInitPayload(refreshedBattle, userId);
         if (initPayload) {
           socket.emit('battle:init', initPayload);
-          socket.to(roomChannel).emit('player:reconnected', { userId });
-          logger.info(`Player ${userId} reconnected to active battle in room ${roomCode}`);
+
+          // Prevent duplicate reconnection broadcasts and spam logs
+          const now = Date.now();
+          const lastAnnounced = (socket.data.lastBattleReconnectedAt as number) || 0;
+          const shouldAnnounce = !isAlreadyInRoom || (now - lastAnnounced > 3000);
+
+          if (shouldAnnounce) {
+            socket.data.lastBattleReconnectedAt = now;
+            socket.to(roomChannel).emit('player:reconnected', { userId });
+            logger.info(`Player ${userId} reconnected to active battle in room ${roomCode}`);
+          }
 
           // If round is currently revealed, also send reveal payload
           const revealPayload = await battleService.getBattleRevealPayloadIfRevealed(refreshedBattle._id.toString());
