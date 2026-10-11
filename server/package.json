@@ -9,6 +9,7 @@
     "start": "node dist/server.js",
     "seed": "tsx src/scripts/seed-questions.ts",
     "seed:questions": "tsx src/scripts/seed-questions.ts",
+    "clear:questions": "tsx src/scripts/clear-questions.ts",
     "test:security": "tsx src/scripts/verify-env-security.ts",
     "test:guest": "tsx src/scripts/verify-guest-auth.ts",
     "test:task2-1": "tsx src/scripts/verify-task2-1.ts",

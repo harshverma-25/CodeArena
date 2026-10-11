@@ -1,0 +1,28 @@
+[
+  {
+    "questionId": "dsa-001",
+    "question": "What is the average time complexity of accessing an element in an array by its index?",
+    "options": [
+      "O(1)",
+      "O(log N)",
+      "O(N)",
+      "O(N^2)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Arrays allocate contiguous memory locations, allowing O(1) random access.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-002",
+    "question": "Which data structure follows the First In, First Out (FIFO) principle?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Binary Tree",
+      "Graph"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A queue operates on a FIFO basis, where items are removed in the order they were inserted.",
+    "difficulty": "easy"
+  }
+]
