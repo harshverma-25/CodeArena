@@ -36,3 +36,6 @@ Thumbs.db
 
 # Local Judge0 instance
 judge0/
+
+# Documentation (kept locally, excluded from public repo)
+/docs/
