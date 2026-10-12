@@ -75,19 +75,6 @@ Timer limits are server-derived per category to match the complexity of the subj
 
 > **Mixed Category Mode**: When selected, the engine balances question sampling across all subjects within that category for diverse matchups.
 
----
-
-## Screenshots
-
-> *Screenshots below illustrate the core interface. Replace placeholders with actual application captures as new theme updates are deployed.*
-
-| Screen | Preview Placeholder |
-| :--- | :--- |
-| **Home & Category Discovery** | ![Home Screen Placeholder](https://via.placeholder.com/800x450/1e293b/ffffff?text=Quizzy+-+Home+%26+Categories) |
-| **Multiplayer Lobby** | ![Lobby Screen Placeholder](https://via.placeholder.com/800x450/1e293b/ffffff?text=Quizzy+-+Lobby+%26+Room+Code) |
-| **Live Battle Arena** | ![Battle Arena Placeholder](https://via.placeholder.com/800x450/1e293b/ffffff?text=Quizzy+-+Live+Battle+Arena) |
-| **Round Reveal & Podium** | ![Round Reveal Placeholder](https://via.placeholder.com/800x450/1e293b/ffffff?text=Quizzy+-+Round+Reveal+%26+Podium) |
-| **Admin Management** | ![Admin Screen Placeholder](https://via.placeholder.com/800x450/1e293b/ffffff?text=Quizzy+-+Admin+Dashboard) |
 
 ---
 
