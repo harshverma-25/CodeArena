@@ -107,6 +107,28 @@ npx tsx src/scripts/verify-stale-garbage-collection.ts
 ```
 * **Script**: [`server/src/scripts/verify-stale-garbage-collection.ts`](file:///h:/Project/code-arena/server/src/scripts/verify-stale-garbage-collection.ts)
 
+### 2.8 Admin System & Deletion Verification
+Validates admin RBAC protection, category/subject CRUD operations, bulk import preview and execution, and cascading deletion protections preventing accidental loss of questions.
+```bash
+cd server
+npx tsx src/scripts/verify-admin-system.ts
+npx tsx src/scripts/verify-admin-delete.ts
+```
+* **Scripts**:
+  * [`server/src/scripts/verify-admin-system.ts`](file:///h:/Project/code-arena/server/src/scripts/verify-admin-system.ts)
+  * [`server/src/scripts/verify-admin-delete.ts`](file:///h:/Project/code-arena/server/src/scripts/verify-admin-delete.ts)
+
+### 2.9 End-to-End Product & Solo Flow Verification
+Simulates complete real-time lifecycle journeys for both multiplayer rooms and instant solo practice matches.
+```bash
+cd server
+npx tsx src/scripts/verify-product-flow.ts
+npx tsx src/scripts/verify-solo-flow.ts
+```
+* **Scripts**:
+  * [`server/src/scripts/verify-product-flow.ts`](file:///h:/Project/code-arena/server/src/scripts/verify-product-flow.ts)
+  * [`server/src/scripts/verify-solo-flow.ts`](file:///h:/Project/code-arena/server/src/scripts/verify-solo-flow.ts)
+
 ---
 
 ## 3. Data Integrity & Reconciliation Tools
@@ -137,6 +159,8 @@ npx tsx test-flow.ts
 npx tsx test-timeout.ts
 npx tsx test-step6-leaderboard-profile.ts
 ```
+> [!NOTE]
+> `client/test-flow.ts` provisions a native cryptographic guest session via `POST /api/v1/auth/guest`, eliminating all hardcoded test mocks or third-party dependencies.
 
 ---
 

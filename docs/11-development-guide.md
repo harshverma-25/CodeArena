@@ -50,18 +50,21 @@ cp .env.example .env.local
 ```
 *(Configure `MONGODB_URI` and JWT secrets in `server/.env`. See [10 — Environment Configuration](10-environment-configuration.md) for variable definitions).*
 
-### Step 4: Seed Categories and Questions
-First seed the master category & subject hierarchy, then ingest questions:
+### Step 4: Seed Categories, Admin User, and Questions
+First seed the master category & subject hierarchy, create the local admin account, then ingest questions:
 ```bash
 cd server
 # 1. Seed categories and link existing topics
 npx tsx src/scripts/seed-categories.ts
 
-# 2. Ingest questions into MongoDB
+# 2. Seed initial administrator account (admin@quizzy.local / admin123)
+npx tsx src/scripts/seed-admin.ts
+
+# 3. Ingest starter question banks into MongoDB
 npm run seed:questions
 ```
 > [!NOTE]
-> The initial question seed provides starter question banks for core subjects across Programming, Aptitude, and General Knowledge. While all master categories and subjects are defined, question availability varies per subject; test suites verify available question pools prior to match creation.
+> Questions can also be added via the interactive Admin Portal at `http://localhost:3000/admin/import` by dragging and dropping JSON files with live schema preview.
 
 ---
 
@@ -92,9 +95,8 @@ npm run dev
 ## 4. Common Developer Workflows
 
 ### 4.1 Adding Questions to the Question Bank
-1. Open or add JSON definitions in [`server/src/scripts/questions/`](file:///h:/Project/code-arena/server/src/scripts/questions/).
-2. Adhere to the question schema with `categoryId`, `subjectId`, `difficulty`, `options` (exactly 4), `correctAnswer` (0–3), `explanation`, and `isPublished: true`.
-3. Re-run `npm run seed:questions` to upsert the changes without duplicating existing entries.
+1. **Via Admin Portal (Recommended)**: Sign in as an administrator, navigate to `/admin/import`, preview your JSON/CSV payload with instant line validation, and execute bulk import.
+2. **Via JSON Seed Files**: Open or add JSON definitions in [`server/src/scripts/questions/`](file:///h:/Project/code-arena/server/src/scripts/questions/) and re-run `npm run seed:questions`.
 
 ### 4.2 Creating a New Server Feature Module
 When adding a new domain to `server/src/modules/`:
@@ -121,6 +123,10 @@ cd server
 npm run test:native-auth
 npx tsx src/scripts/verify-category-subject-system.ts
 npx tsx src/scripts/verify-multiplayer-quiz.ts
+npx tsx src/scripts/verify-admin-system.ts
+npx tsx src/scripts/verify-admin-delete.ts
+npx tsx src/scripts/verify-product-flow.ts
+npx tsx src/scripts/verify-solo-flow.ts
 npx tsx src/scripts/verify-quiz-configuration.ts
 npx tsx src/scripts/verify-stale-garbage-collection.ts
 ```

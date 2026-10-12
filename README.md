@@ -19,6 +19,9 @@ CodeArena is a production-ready, real-time 1–4 player competitive quiz platfor
 * **Dual-Authentication Architecture**:
   * **Native JWT**: Registration/login with PBKDF2 password hashing (100,000 iterations, SHA-512), short-lived Access Tokens (15m), and rotated Refresh Tokens (7d) stored as SHA-256 hashes in MongoDB and HttpOnly cookies.
   * **Cryptographic Guest Sessions**: Instant zero-friction entry with HMAC-SHA256 timing-safe guest JWT tokens.
+  * **100% Offline SVG Avatars**: Procedurally generated inline SVG data URI avatars with zero third-party CDN dependencies.
+* **Admin Management & Bulk Ingestion**: Interactive admin suite (`/admin`) for category/subject hierarchy control, question publishing/deletion, and preview-backed JSON/CSV bulk import.
+* **Horizontal Scalability**: Plug-and-play Redis pub/sub cluster adapter (`@socket.io/redis-adapter`) enabled automatically via `REDIS_URI`.
 * **Match History & Analytics**: Post-match question-by-question review with participant-only authorization, accuracy tracking, and global leaderboards.
 
 ---
@@ -80,6 +83,9 @@ cd server
 
 # Seed master categories and subjects
 npx tsx src/scripts/seed-categories.ts
+
+# Seed initial admin account
+npx tsx src/scripts/seed-admin.ts
 
 # Seed initial question bank
 npm run seed:questions

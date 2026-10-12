@@ -31,6 +31,9 @@ Key milestones achieved:
 5. **Native JWT Authentication**: Complete elimination of third-party auth (Clerk) in favor of secure native Access Tokens (15m), Refresh Tokens (7d in HttpOnly cookie & DB hash), and cryptographic HMAC guest tokens.
 6. **Persistent Battle State & Timers**: Migration from volatile in-memory timer Maps to persistent MongoDB `BattleModel.currentRound` subdocuments, server-authoritative timestamps, and automated background sweeping for crash-resilient matches.
 7. **Automated Garbage Collection**: Implemented atomic MongoDB-driven garbage collection for abandoned rooms and stale battles to reclaim resources and free 6-character room codes.
+8. **Admin Management & Bulk Ingestion**: Dedicated admin portal (`/admin`) for categories, subjects, question publishing/deletion, and preview-backed CSV/JSON bulk import.
+9. **Horizontal Scaling & Offline Avatars**: Native support for `@socket.io/redis-adapter` (`REDIS_URI`) for multi-node deployments, alongside 100% offline-resilient inline SVG avatar generation with zero third-party CDN dependencies.
+10. **Arcade Neobrutalism & Viewport Responsiveness**: High-contrast arcade design system with mobile question-first hierarchy, auto-scrolling on round advance, sticky timer pills, and full-page desktop arena layout.
 
 ---
 
@@ -43,7 +46,9 @@ Key milestones achieved:
 | **Anti-Cheat Protocol** | Server sanitizes questions, hides correct answers and explanations until game finish, validates submission deadlines. | Guaranteed integrity and fair match outcomes. |
 | **Rankings & Results** | Real-time quiz rankings (Rank 1–4), podium display, score breakdowns, and tie handling. | Transparent player rankings and progression. |
 | **Match History & Review** | Post-match analysis, detailed question breakdown with correct answers and technical explanations. | Clear learning outcomes and knowledge retention. |
-| **Dual Authentication** | Native JWT auth (Access + Refresh tokens) alongside instant zero-credential Guest mode. | Zero barrier to entry with full account permanence for regulars. |
+| **Dual Authentication** | Native JWT auth (Access + Refresh tokens) alongside instant zero-credential Guest mode with offline SVG avatars. | Zero barrier to entry with full account permanence for regulars. |
+| **Admin & Content Portal** | Comprehensive dashboard for categories, subjects, questions, bulk JSON/CSV import, and audit history. | Scalable content management and curriculum maintenance. |
+| **Adaptive Arena UI** | Mobile question-first vertical order with auto-scroll and sticky timer pill; compact full-page desktop view. | Seamless battle experience across all phone and desktop viewports. |
 
 ---
 
@@ -54,7 +59,7 @@ flowchart TD
     subgraph Client ["Client (client/)"]
         Next["Next.js 16 (App Router & Proxy)"]
         React["React 19"]
-        Tailwind["TailwindCSS v4 (Stitch Theme)"]
+        Tailwind["TailwindCSS v4 (Arcade Neobrutalism)"]
         Zustand["Zustand v5 (State)"]
         Query["TanStack React Query v5"]
         SocketClient["Socket.IO Client v4"]
@@ -62,39 +67,43 @@ flowchart TD
 
     subgraph Server ["Server (server/)"]
         Express["Express.js"]
-        SocketServer["Socket.IO v4"]
+        SocketServer["Socket.IO v4 (@socket.io/redis-adapter)"]
         Mongoose["Mongoose ODM v8"]
         Zod["Zod Validation"]
         Pino["Pino Logger"]
         NativeAuth["Native JWT & PBKDF2 / Guest HMAC"]
+        AdminModule["Admin & Content Ingestion Engine"]
     end
 
     subgraph Infrastructure ["Infrastructure"]
         MongoDB[(MongoDB Database)]
-        Dicebear[Dicebear Avatar API]
+        RedisPubSub[("Redis (Optional Pub/Sub Cluster)")]
+        OfflineSVG["Offline SVG Procedural Avatars"]
     end
 
     Next <--> Express
     SocketClient <--> SocketServer
     Express --> Mongoose --> MongoDB
     Express --> NativeAuth
-    Express --> Dicebear
+    Express --> AdminModule
+    SocketServer -. Optional Cluster .- RedisPubSub
+    Express --> OfflineSVG
 ```
 
 ### Technology Breakdown
 * **Frontend**:
   * **Framework**: Next.js 16.2.10 (React 19.2.4) utilizing the App Router and Next.js 16 `proxy.ts` routing convention.
-  * **Styling**: TailwindCSS v4 with warm light Stitch Design System tokens.
+  * **Styling**: TailwindCSS v4 with arcade neobrutalist aesthetic (crisp borders, bold contrast, expressive retro pills).
   * **State Management**: Zustand v5 for client/socket session state; TanStack Query v5 for server state caching.
   * **Real-time Client**: `socket.io-client` v4.8.3 with WebSocket-first transport and credentials.
 * **Backend**:
   * **Runtime**: Node.js v20+ with TypeScript v5.5.
   * **HTTP Server**: Express.js v4.19 with custom security headers and centralized error propagation.
-  * **Real-Time Gateway**: Socket.IO v4.7 with handshake JWT authentication.
+  * **Real-Time Gateway**: Socket.IO v4.7 with handshake JWT authentication and `@socket.io/redis-adapter` support.
   * **Database & ODM**: MongoDB with Mongoose v8.5.
   * **Validation & Security**: Zod for environment and request schemas; Node.js `crypto` for PBKDF2 password hashing and HMAC-SHA256 guest token verification.
-* **Third-Party Services**:
-  * **Dicebear**: Procedural SVG avatar generator for user and guest player accounts.
+* **Avatars & Media**:
+  * **Offline SVG Generator**: Self-contained inline SVG data URI generation for registered and guest players (zero third-party dependencies or network calls).
 
 ---
 

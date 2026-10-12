@@ -20,9 +20,26 @@ erDiagram
     USER ||--o{ ROOM_PLAYER : participates
     USER ||--o{ BATTLE_PLAYER : plays
     USER ||--o{ BATTLE : wins
+    USER ||--o{ IMPORT_HISTORY : imports
     ROOM ||--o| BATTLE : initiates
     BATTLE ||--|{ BATTLE_PLAYER : contains
     BATTLE_PLAYER ||--o{ BATTLE_ANSWER : submits
+
+    IMPORT_HISTORY {
+        ObjectId _id PK
+        string importId UK
+        string fileName
+        ObjectId categoryId FK
+        ObjectId subjectId FK
+        ObjectId adminId FK
+        int totalQuestions
+        int importedCount
+        int updatedCount
+        int skippedCount
+        int failedCount
+        string status
+        date createdAt
+    }
 
     CATEGORY {
         ObjectId _id PK
@@ -336,6 +353,36 @@ BattleSchema.index({ status: 1, 'currentRound.status': 1, 'currentRound.revealEx
 > [!NOTE]
 > There is **no standalone `HistoryModel` collection** in the database. Match history and post-game reviews are derived directly from completed documents in the `battles` collection (`BattleModel`) via `HistoryRepository`.
 
+### 3.7 `ImportHistoryModel` (`server/src/modules/admin/import-history.model.ts`)
+Stores audit records of bulk question ingestion operations.
+
+```typescript
+const ImportHistorySchema = new Schema<IImportHistoryDocument>(
+  {
+    importId: { type: String, required: true, unique: true, index: true },
+    fileName: { type: String, required: true },
+    fileSize: { type: Number, default: 0 },
+    categoryId: { type: Schema.Types.ObjectId, ref: 'Category', required: true, index: true },
+    categoryName: { type: String, required: true },
+    subjectId: { type: Schema.Types.ObjectId, ref: 'Subject', required: true, index: true },
+    subjectName: { type: String, required: true },
+    adminId: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true },
+    adminUsername: { type: String, required: true },
+    totalQuestions: { type: Number, required: true },
+    importedCount: { type: Number, default: 0 },
+    updatedCount: { type: Number, default: 0 },
+    skippedCount: { type: Number, default: 0 },
+    failedCount: { type: Number, default: 0 },
+    duplicateStrategy: { type: String, enum: ['skip', 'update'], default: 'skip' },
+    status: { type: String, enum: ['completed', 'partial', 'failed'], default: 'completed', index: true },
+    validationErrors: { type: [ImportRowErrorSchema], default: [] },
+  },
+  { timestamps: true }
+);
+
+ImportHistorySchema.index({ createdAt: -1 });
+```
+
 ---
 
 ## 4. Compound Indexing Strategy
@@ -349,11 +396,12 @@ To guarantee scalability without loading entire collections into Node.js memory:
 | **`Battle`** | `{ roomCode: 1, status: 1 }` | Used for instant lookup of active matches by room code. |
 | **`Battle`** | `{ status: 1, 'currentRound.status': 1, 'currentRound.deadline': 1 }` | High-frequency background sweeper query to advance expired question rounds. |
 | **`Battle`** | `{ status: 1, 'currentRound.status': 1, 'currentRound.revealExpiresAt': 1 }` | High-frequency background sweeper query to transition expired reveal periods to next round. |
-| **`Room`** | `{ status: 1, updatedAt: 1 }` | Used by background garbage collector to purge stale unstarted waiting rooms older than 2 hours. |
+| **`Room`** | `{ status: 1, updatedAt: 1 }` | Background GC queries to purge unstarted waiting rooms older than 2 hours and finished rooms older than 7 days. |
 | **`Question`** | `{ categoryId: 1, subjectId: 1, isPublished: 1 }` | Efficient querying of published questions within a subject. |
 | **`Question`** | `{ categoryId: 1, subjectId: 1, difficulty: 1, isPublished: 1 }` | Question sampling for specific subject and difficulty. |
 | **`Question`** | `{ categoryId: 1, isPublished: 1 }` | Question sampling for category / mixed modes. |
 | **`Subject`** | `{ categoryId: 1, isActive: 1 }` | Subject listing and discovery by parent category. |
+| **`ImportHistory`** | `{ createdAt: -1 }` | Reverse chronological pagination for admin import audit logs. |
 
 ---
 

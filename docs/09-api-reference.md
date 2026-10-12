@@ -33,8 +33,8 @@ The token refresh endpoint additionally accepts the `refreshToken` HttpOnly cook
 ### 3.1 Health Diagnostics
 
 #### `GET /health` or `GET /api/v1/health`
-Checks server uptime, environment, and MongoDB connection status.
-* **Auth**: None (Public)
+Checks server uptime, environment, and MongoDB connection status. Explicitly bypassed by the global rate limiter to prevent synthetic health probe quota exhaustion.
+* **Auth**: None (Public; Bypasses Rate Limiter)
 * **Response (200 OK)**:
   ```json
   {
@@ -245,14 +245,107 @@ Retrieves detailed, post-match question-by-question review with correct answers 
 
 ---
 
-### 3.9 Interactive Documentation (`/api`)
+---
 
-* **`GET /api/docs`**: Serves Swagger UI web interface.
-* **`GET /api/swagger.json`**: Serves raw OpenAPI 3.0 specification.
+### 3.10 Administration & Bulk Curriculum Ingestion (`/api/v1/admin`)
+> [!NOTE]
+> All admin routes strictly require an authenticated Bearer token from a user with `role: 'admin'`. Unauthorized requests return `401 Unauthorized` or `403 Forbidden`.
+
+#### `GET /api/v1/admin/overview`
+Retrieves platform statistics including total categories, subjects, questions, and match activity.
+* **Auth**: Required (`role === 'admin'`)
+
+#### `GET /api/v1/admin/categories`
+Retrieves full category and subject tree hierarchy with real-time question count badges.
+* **Auth**: Required (`role === 'admin'`)
+
+#### `POST /api/v1/admin/categories`
+Creates a new quiz category (`name`, `slug`, `description`, `icon`).
+* **Auth**: Required (`role === 'admin'`)
+
+#### `PATCH /api/v1/admin/categories/:id`
+Updates category metadata or active status.
+* **Auth**: Required (`role === 'admin'`)
+
+#### `DELETE /api/v1/admin/categories/:id`
+Deletes a category. Rejects deletion if child subjects or published questions still exist.
+* **Auth**: Required (`role === 'admin'`)
+
+#### `POST /api/v1/admin/subjects`
+Creates a new subject under a parent category (`categoryId`, `name`, `slug`, `description`, `icon`).
+* **Auth**: Required (`role === 'admin'`)
+
+#### `PATCH /api/v1/admin/subjects/:id`
+Updates subject metadata.
+* **Auth**: Required (`role === 'admin'`)
+
+#### `DELETE /api/v1/admin/subjects/:id`
+Deletes a subject. Requires that attached questions have been deleted first.
+* **Auth**: Required (`role === 'admin'`)
+
+#### `GET /api/v1/admin/subjects/:id/questions`
+Retrieves paginated question list for a specific subject with difficulty filters.
+* **Auth**: Required (`role === 'admin'`)
+* **Query Parameters**: `page`, `limit`, `difficulty`.
+
+#### `DELETE /api/v1/admin/subjects/:id/questions`
+Purges all questions attached to a subject.
+* **Auth**: Required (`role === 'admin'`)
+
+#### `DELETE /api/v1/admin/questions/:id`
+Permanently deletes a single question by its `_id`.
+* **Auth**: Required (`role === 'admin'`)
+
+#### `GET /api/v1/admin/import/sample`
+Returns the standardized JSON template structure for bulk question imports.
+* **Auth**: Required (`role === 'admin'`)
+
+#### `POST /api/v1/admin/import/preview`
+Performs dry-run Zod schema validation on questions payload without database persistence. Returns counts for valid, malformed, and duplicate questions with detailed line-by-line error explanations.
+* **Auth**: Required (`role === 'admin'`)
+* **Request Body**:
+  ```json
+  {
+    "categoryId": "66f000000000000000000001",
+    "subjectId": "66f000000000000000000002",
+    "questions": [ ... ]
+  }
+  ```
+
+#### `POST /api/v1/admin/import/execute`
+Atomically ingests validated questions, applies duplicate handling strategy (`skip` or `update`), and records an immutable `ImportHistory` audit log.
+* **Auth**: Required (`role === 'admin'`)
+* **Request Body**:
+  ```json
+  {
+    "fileName": "dsa-hard-questions.json",
+    "fileSize": 14200,
+    "categoryId": "66f00000000000000000001",
+    "subjectId": "66f00000000000000000002",
+    "duplicateStrategy": "skip",
+    "questions": [ ... ]
+  }
+  ```
+
+#### `GET /api/v1/admin/history`
+Returns paginated import audit logs.
+* **Auth**: Required (`role === 'admin'`)
+* **Query Parameters**: `page` (default: 1), `limit` (default: 10).
+
+#### `GET /api/v1/admin/history/:importId`
+Retrieves detailed breakdown of an import run including per-row validation failures and skipped entries.
+* **Auth**: Required (`role === 'admin'`)
+
+---
+
+### 3.11 Interactive Documentation (`/api`)
+
+* **`GET /api/docs`**: Serves Swagger UI web interface (bypasses rate limiter).
+* **`GET /api/swagger.json`**: Serves raw OpenAPI 3.0 specification (bypasses rate limiter).
 
 ---
 
 ## 4. Document Cross-References
 * For environment variables required to run these endpoints, see [10 — Environment Configuration](10-environment-configuration.md).
-* For authentication implementation details, see [06 — Authentication & Security](06-authentication-security.md).
+* For authentication and RBAC implementation details, see [06 — Authentication & Security](06-authentication-security.md).
 * For WebSocket events corresponding to these operations, see [07 — Real-Time Socket Architecture](07-realtime-socket-architecture.md).

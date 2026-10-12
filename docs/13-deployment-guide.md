@@ -89,18 +89,20 @@ server {
 
 Before declaring production ready:
 1. **`NODE_ENV=production`**: Ensures stack traces are omitted from API error responses and development backdoor tokens are disabled.
-2. **`JWT_ACCESS_SECRET` & `JWT_REFRESH_SECRET`**: Set to high-entropy 64-character random strings.
-3. **`GUEST_JWT_SECRET`**: Set to a cryptographically secure, high-entropy 64-character random string.
-4. **`CORS_ORIGIN`**: Explicitly set to the frontend production domain (e.g. `https://codearena.dev`), never `*`.
+2. **`JWT_ACCESS_SECRET` & `JWT_REFRESH_SECRET`**: Set to high-entropy strings (minimum 32 characters, 64 recommended).
+3. **`GUEST_JWT_SECRET`**: Set to a cryptographically secure, high-entropy string (minimum 32 characters, 64 recommended).
+4. **`CORS_ORIGIN`**: Explicitly set to the frontend production domain (e.g. `https://code-arena-jade.vercel.app`), never `*`.
 5. **Database Indexes**: Verify compound indexes exist for leaderboard, questions, and categories.
-6. **Category & Question Seeding**: Ensure categories (`npx tsx src/scripts/seed-categories.ts`) and questions (`npm run seed:questions`) are seeded.
+6. **Category & Question Seeding**: Ensure categories (`npx tsx src/scripts/seed-categories.ts`), admin user (`npx tsx src/scripts/seed-admin.ts`), and questions (`npm run seed:questions`) are seeded.
+7. **`REDIS_URI` (Multi-Node Scaling)**: If running multiple backend instances behind a load balancer, set `REDIS_URI=redis://username:password@host:port` to enable `@socket.io/redis-adapter`. Single-instance deployments can safely omit this variable to use the default in-memory adapter.
 
 ---
 
 ## 5. Health Monitoring & Diagnostics
 
 Configure your infrastructure load balancer to ping the health check endpoint:
-* **Endpoint**: `GET /api/v1/health`
+* **Endpoint**: `GET /api/v1/health` or `GET /health`
+* **Rate Limiting**: Health check endpoints are **explicitly bypassed** by the global rate limiter, preventing automated container/ALB health probes from exhausting request quotas.
 * **Healthy Status (HTTP 200)**:
   ```json
   {

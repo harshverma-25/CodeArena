@@ -64,7 +64,7 @@ flowchart TD
 When an unauthenticated user enters the arena as a guest:
 1. The client calls `POST /api/v1/auth/guest` with an optional display handle.
 2. The server generates a unique `guestId` (e.g. `guest_a1b2c3d4...`) and random handle (`Guest 40A9F2`).
-3. An avatar URL is generated via the Dicebear bottts API: `https://api.dicebear.com/7.x/bottts/svg?seed=${username}`.
+3. An offline SVG avatar is procedurally generated as an inline SVG data URI (`data:image/svg+xml;utf8,...`) with zero external network dependencies.
 4. A guest `UserModel` record is created with `isGuest: true` and `role: 'guest'`.
 5. The server issues a custom signed JWT valid for 24 hours.
 
@@ -80,6 +80,10 @@ The `authenticate` middleware regulates access to private REST routes:
 2. **Checks Guest Bearer Token**: If native verification fails or token has `guest_` prefix, verifies via `authService.verifyGuestToken(token)`.
 3. **Strict Test Environment Bypass**: Allows `mock_test_token_*` **only** if `env.NODE_ENV === 'test'`. In `development` and `production`, mock tokens are strictly rejected.
 4. **Attaches User**: Queries the user document from MongoDB and attaches it to `req.user`.
+
+The `authorizeAdmin` middleware enforces administrative role requirements:
+* Confirms `req.user` exists, throwing 401 Unauthorized if absent.
+* Validates `req.user.role === 'admin'`, throwing 403 Forbidden if not an administrator.
 
 ---
 
@@ -99,7 +103,7 @@ WebSocket connections pass authentication during the handshake:
 | :--- | :--- | :--- |
 | **`user`** (Registered) | Host rooms, join rooms, participate in battles, update profile settings, appear on global leaderboard. | Standard rate limits apply. |
 | **`guest`** (Temporary) | Host rooms, join rooms, participate in battles, view match history. | **Forbidden from modifying profile settings** (`PATCH /api/v1/users/me` returns 403). **Excluded from public global leaderboard**. |
-| **`admin`** | User management, question publishing, full administrative capabilities. | Reserved for future platform administration. |
+| **`admin`** | All registered user capabilities + Category/Subject CRUD, question deletion and publishing, CSV/JSON bulk question import with schema preview, and import audit history review. | Restricted to authenticated users with `role: 'admin'`. Guarded by `authorizeAdmin`. |
 
 ---
 
@@ -110,7 +114,7 @@ The Express application registers defense-in-depth HTTP headers in [`app.ts`](fi
 * `X-Frame-Options: DENY`: Protects against clickjacking.
 * `X-XSS-Protection: 1; mode=block`: Activates browser XSS filtering.
 * `Strict-Transport-Security`: Enforced in production (`max-age=31536000; includeSubDomains`).
-* **Rate Limiting (`server/src/middleware/rate-limiter.middleware.ts`)**: In-memory sliding-window limiter enforcing a maximum of 500 requests per 15-minute window per IP. Excludes `/api/docs` and `/api/swagger.json` (see [15 — Known Issues](15-known-issues-and-technical-debt.md) for health probe exclusion and Redis clustering backlog).
+* **Rate Limiting (`server/src/middleware/rate-limiter.middleware.ts`)**: Sliding-window limiter enforcing 500 requests per 15-minute window per IP. Excludes `/health`, `/api/v1/health`, `/api/docs`, and `/api/swagger.json`, preventing ALB/Docker probe exhaustion, and includes an automated 15-minute sweep to prune expired IP buckets from memory.
 
 ---
 

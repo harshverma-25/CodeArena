@@ -42,6 +42,13 @@ The `client/` codebase is organized around standard Next.js conventions and doma
 ```text
 client/
 ├── app/
+│   ├── (admin)/
+│   │   └── admin/
+│   │       ├── categories/page.tsx         <-- Category & subject tree management
+│   │       ├── history/page.tsx            <-- Bulk question import history audit
+│   │       ├── import/page.tsx             <-- Preview-backed JSON/CSV bulk import
+│   │       ├── layout.tsx                  <-- Admin dashboard sidebar & header layout
+│   │       └── page.tsx                    <-- Global system stats & management overview
 │   ├── (match)/
 │   │   ├── results/[matchId]/page.tsx      <-- Post-match victory/defeat/rankings screen
 │   │   └── layout.tsx
@@ -59,11 +66,11 @@ client/
 │   │   ├── register/page.tsx               <-- Native user registration
 │   │   ├── page.tsx                        <-- Landing page with hero & CTA
 │   │   └── layout.tsx                      <-- Public layout with LandingNav
-│   ├── globals.css                         <-- Global Tailwind styles & Stitch tokens
+│   ├── globals.css                         <-- Global Tailwind styles & arcade theme tokens
 │   └── layout.tsx                          <-- Root layout with AppProviders & Google Fonts
-├── components/                             <-- Shared UI components (Navbar, modals)
+├── components/                             <-- Shared UI components (Navbar, modals, avatar SVG)
 ├── features/                               <-- Domain-specific components & hooks
-├── hooks/                                  <-- Utility React hooks
+├── hooks/                                  <-- Utility React hooks (visibility, online recovery)
 ├── lib/                                    <-- Singletons (api.ts, socket.ts)
 ├── proxy.ts                                <-- Next.js 16 route protection proxy
 ├── store/                                  <-- Zustand stores (battleStore, uiStore)
@@ -80,6 +87,7 @@ Client-side route access is regulated by [`client/proxy.ts`](file:///h:/Project/
 import { NextResponse, NextRequest } from "next/server";
 
 const PROTECTED_PREFIXES = [
+  "/admin",
   "/battle",
   "/profile",
   "/settings",
@@ -141,6 +149,7 @@ The application bifurcates state into **Ephemeral Real-Time State** (Zustand) an
 * **`usePublicProfile(username)`**: Caches public user statistics and recent battle records.
 * **`useMatchHistory(page, limit)`**: Caches paginated completed matches.
 * **`useCategories()`**: Fetches and caches active question categories and subjects.
+* **`useAdminOverview()` & `useImportHistory()`**: Caches administrative metrics and bulk ingestion audit logs.
 
 ---
 
@@ -150,19 +159,20 @@ WebSocket connections are managed through a centralized `SocketManager` singleto
 * **WebSocket-First Transport**: Configured with `transports: ["websocket", "polling"]` and `withCredentials: true` to eliminate unnecessary polling round-trips.
 * **Token Synchronization**: Ensures the socket reconnects automatically with the active bearer token (native JWT access token or HMAC guest token).
 * **Lifecycle Handlers**: Subscribes to `connect`, `disconnect`, `connect_error`, and handles auto-reconnection and in-game reconnection banners.
+* **Background Tab Recovery**: Listens to browser `visibilitychange` and `online` events, instantly re-synchronizing socket state when the mobile device or tab returns to the foreground.
 
 ---
 
-## 6. UI Design System & Theming
+## 6. UI Design System & Viewport Adaptation
 
-* **Stitch Design System Theme**: Standardized on a warm light surface palette (`--color-surface: #fff8f0`, `--color-surface-container: #f3ede4`, `--color-on-surface: #1d1b16`) paired with deep pine accents (`--color-primary-container: #317a63`).
-* **Unified Navigation**: `<Navbar />` is unified across all landing and internal pages, featuring dynamic user state, authentication toggles, and an integrated 6-character room PIN input with client-side format validation.
-* **Micro-Animations & Progress**: Circular timer rings and multiplayer answer status indicators provide immediate visual cues.
-* **Rank Badges**: Distinct visual badges for top-tier players:
-  * 🥇 Rank 1: Amber gold badge with soft glowing border.
-  * 🥈 Rank 2: Slate silver badge with metallic sheen.
-  * 🥉 Rank 3: Bronze copper badge.
-  * `#4`: Clean monospace badge.
+* **Arcade Neobrutalism Design System**: Bold, high-contrast neobrutalist aesthetic featuring heavy retro borders (`border-4 border-black`), offset drop shadows (`shadow-[4px_4px_0px_#000]`), and high-energy arcade badges.
+* **Unified Navigation**: `<Navbar />` is unified across all public, protected, and admin views, with responsive drawer support and instant 6-character room PIN validation.
+* **Live Quiz Arena Viewport Responsiveness**:
+  * **Mobile Layout**: Question card and option buttons are elevated to the very top of the DOM and rendered first (`order-1`). Secondary components (opponent list, live telemetry) appear underneath.
+  * **Automatic Question Auto-Scroll**: When `battle:next_question` dispatches, the client automatically executes smooth viewport scroll to the top of the question container so the user never misses the prompt.
+  * **Sticky Mobile Timer Pill**: A compact floating pill timer anchors to the top bar on mobile screens to preserve maximum vertical space for question and options.
+  * **Desktop Arena Optimization**: Compact full-page layout calibrated so all critical battle elements fit comfortably in view without forcing user scroll.
+* **Offline Avatar System**: Instant client-side and server-side SVG generation producing distinct procedural retro robot/pixel avatars without external network calls.
 
 ---
 

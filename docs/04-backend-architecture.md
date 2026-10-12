@@ -83,6 +83,7 @@ app.use('/api/v1/rooms', roomRoutes);
 app.use('/api/v1/battles', battleRoutes);
 app.use('/api/v1/matches', battleRoutes); // Compatibility alias
 app.use('/api/v1/history', historyRoutes);
+app.use('/api/v1/admin', adminRoutes);
 app.use('/api', docsRoutes);
 
 // 8. 404 & Centralized Error Handler
@@ -104,6 +105,7 @@ app.use(errorHandler);
 | **`room/`** | Generates unique 6-character room codes, manages 1–4 player lobbies, player readiness, settings updates, and game initiation. | `room.routes.ts`, `room.controller.ts`, `room.service.ts`, `room.repository.ts`, `room.model.ts` |
 | **`battle/`** | Real-time quiz battle engine, anti-cheat question dispatch, server timer orchestration, answer verification, synchronized round reveals, and atomic finalization. | `battle.routes.ts`, `battle.controller.ts`, `battle.service.ts`, `battle.repository.ts`, `battle.model.ts` |
 | **`history/`** | Queries completed match records from `BattleModel`, per-player scores/ranks, durations, and post-match question explanations. | `history.routes.ts`, `history.controller.ts`, `history.service.ts`, `history.repository.ts` |
+| **`admin/`** | Administrative metrics, category/subject tree CRUD, bulk CSV/JSON question import with schema preview, question deletion/publishing, and import audit history. | `admin.routes.ts`, `admin.controller.ts`, `admin.service.ts`, `admin.validation.ts`, `import-history.model.ts` |
 | **`docs/`** | Serves OpenAPI 3.0 specification JSON and interactive Swagger UI documentation. | `docs.routes.ts`, `openapi.ts` |
 
 ---

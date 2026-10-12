@@ -89,7 +89,11 @@ At the end of each round:
    - Detailed technical explanation.
    - Round points earned by each player.
    - Updated cumulative scores and intermediate rankings.
-2. At the conclusion of the final round, the server broadcasts `battle:completed`:
+2. **Reveal Duration & Progression**:
+   - The reveal window lasts for **5 seconds** (`revealExpiresAt = new Date(Date.now() + 5000)`).
+   - The room host can skip the wait early by emitting `battle:advance_round`.
+   - The 1-second background sweeper detects when `revealExpiresAt` expires and automatically dispatches `battle:next_question`.
+3. At the conclusion of the final round, the server transitions the match to `COMPLETED` and broadcasts `battle:completed`:
    - Final scores for all 1–4 players.
    - 1-indexed rankings (Rank 1, 2, 3, 4) with support for tied ranks.
    - Accuracy percentages and question-by-question breakdown.

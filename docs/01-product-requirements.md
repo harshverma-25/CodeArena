@@ -41,6 +41,18 @@
 * **US-4.2 (User Standing Card)**: Authenticated users immediately see their own global rank and statistics banner above the table.
 * **US-4.3 (Match History)**: Players can review past matches, results (VICTORY, DEFEAT, DRAW), opponents/rankings, and view detailed question-by-question explanations.
 
+### 2.5 Admin Management & Curriculum Ingestion
+* **US-5.1 (Category & Subject Management)**: Administrators (`role === 'admin'`) can create, update, and delete categories and subjects, with cascading safeguards for dependent questions.
+* **US-5.2 (Question Bank Management)**: Admins can view paginated questions for any subject, filter by difficulty, toggle publication status, or delete deprecated questions.
+* **US-5.3 (Bulk CSV/JSON Import with Preview)**: Admins can upload questions in bulk with dry-run schema validation (`/admin/import`), reviewing valid vs. malformed questions prior to atomic ingestion.
+* **US-5.4 (Import Auditing & History)**: Each bulk import operation creates a permanent `ImportHistory` audit log recording user, timestamps, filename, and ingested question counts.
+
+### 2.6 Mobile & Viewport-Adaptive Battle Arena
+* **US-6.1 (Mobile Question-First Layout)**: On mobile viewports, the active question card and answer options render at the top of the viewport (`order-1`), placing secondary telemetry (opponent statuses, round metadata) below to minimize cognitive distraction.
+* **US-6.2 (Auto-Scroll on Question Transition)**: When the server dispatches a new question round (`battle:next_question`), the mobile client automatically scrolls the viewport smoothly to the top of the question card.
+* **US-6.3 (Mobile Sticky Timer Pill)**: A compact countdown timer pill floats at the top of the mobile viewport, ensuring remaining time is always visible without consuming vertical question space.
+* **US-6.4 (Compact Full-Page Desktop Arena)**: On desktop monitors, the battle arena is sized to fit within a single viewport without unnecessary page scrolling, providing immediate sightlines to both question options and live opponent progress.
+
 ---
 
 ## 3. End-to-End User Flow
@@ -78,6 +90,9 @@ sequenceDiagram
         Server-->>Players: socket.emit("battle:answer_locked", { optionIndex })
         Server-->>Client: socket.emit("battle:player_submitted", { playerId })
         Server-->>Client: socket.emit("battle:reveal", { correctOption, scores, explanations })
+        opt Host Early Advance
+            Host->>Server: socket.emit("battle:advance_round")
+        end
         Server-->>Client: socket.emit("battle:next_question", { QNext })
     end
 
@@ -104,7 +119,7 @@ CodeArena enforces strict server-side authority:
 * **Latency**: Real-time telemetry events (`battle:player_submitted`, `room:update`) must dispatch within $<50\text{ ms}$ of arrival on the server.
 * **Scalability**: Leaderboard and user profile rank queries must execute in $O(\log N)$ time using database compound indexes.
 * **Reliability**: Socket reconnections within active battles recover room context and question state via `battle:init` / `battle:reconnect`.
-* **Cross-Device Usability**: Fully responsive interface supporting mobile, tablet, and desktop viewports.
+* **Cross-Device Usability**: Fully responsive interface supporting mobile, tablet, and desktop viewports with adaptive element ordering.
 
 ---
 
@@ -112,3 +127,4 @@ CodeArena enforces strict server-side authority:
 * For architecture design, see [02 — System Architecture](02-system-architecture.md).
 * For battle engine and question sampling specifics, see [08 — Battle Engine](08-battle-engine.md).
 * For database schema and index designs, see [05 — Database Architecture](05-database-architecture.md).
+* For API specifications including admin endpoints, see [09 — API Reference](09-api-reference.md).

@@ -23,12 +23,14 @@ flowchart TB
         RestAPI["REST Controllers & Services"]
         SocketGateway["Socket.IO Event Handlers"]
         Engine["Quiz Orchestrator & Timers"]
+        AdminEngine["Admin & Ingestion Service"]
     end
 
     subgraph DataLayer ["Persistence & External Services"]
         Mongo[("MongoDB Database\n(Mongoose ODM)")]
         AuthService["Native PBKDF2 & JWT Auth"]
-        Dicebear["Dicebear Avatar Service"]
+        RedisCluster[("Redis Cluster Adapter\n(Optional via REDIS_URI)")]
+        OfflineAvatar["Offline SVG Procedural Avatars"]
     end
 
     UI --> Store
@@ -38,13 +40,16 @@ flowchart TB
     SocketC --> WS
 
     HTTP --> MW --> RestAPI
+    RestAPI --> AdminEngine
     WS --> SocketGateway
     SocketGateway <--> Engine
+    SocketGateway -. Horizontal Cluster .- RedisCluster
 
     RestAPI --> Mongo
     Engine --> Mongo
+    AdminEngine --> Mongo
     RestAPI --> AuthService
-    RestAPI --> Dicebear
+    RestAPI --> OfflineAvatar
 ```
 
 ---
@@ -63,6 +68,7 @@ Used for **idempotent, cacheable, or transactional queries**:
 * Question bank browsing (`/api/v1/questions`).
 * Guest session provisioning (`/api/v1/auth/guest`).
 * Room creation (`POST /api/v1/rooms`).
+* Administrative operations & bulk question import (`/api/v1/admin/*`).
 
 ### 2.2 WebSocket (Socket.IO) Transport
 Used for **low-latency, real-time bidirectional communication**:
@@ -138,8 +144,9 @@ If a user disconnects mid-battle:
 ### 4.4 Stale Room & Abandoned Battle Garbage Collection
 To prevent orphaned database records and permanently locked 6-character room codes:
 1. **Periodic Background GC**: `roomService.startGarbageCollector()` runs every 10 minutes on server startup.
-2. **Stale Room Pruning**: Deletes rooms in `WAITING` or `READY` status untouched for $>2\text{ hours}$ via `RoomModel.deleteMany({ status: { $in: ['WAITING', 'READY'] }, updatedAt: { $lte: twoHoursAgo } })`.
-3. **Abandoned Battle Pruning**: Automatically cancels `IN_PROGRESS` battles older than 2 hours via `BattleModel.findOneAndUpdate(..., { status: BattleStatus.CANCELLED })`, freeing the associated `roomCode` for reuse.
+2. **Stale Waiting Room Pruning**: Deletes rooms in `WAITING` or `READY` status untouched for $>2\text{ hours}$ via `RoomModel.deleteMany({ status: { $in: ['WAITING', 'READY'] }, updatedAt: { $lte: twoHoursAgo } })`.
+3. **Completed Room Pruning**: Deletes finished or cancelled rooms older than 7 days (`RoomModel.deleteMany({ status: { $in: ['FINISHED', 'CANCELLED'] }, updatedAt: { $lte: sevenDaysAgo } })`), freeing room codes for reuse while preserving match data in `battles`.
+4. **Abandoned Battle Pruning**: Automatically cancels `IN_PROGRESS` battles older than 2 hours via `BattleModel.findOneAndUpdate(..., { status: BattleStatus.CANCELLED })`, freeing the associated `roomCode` for reuse.
 
 ---
 

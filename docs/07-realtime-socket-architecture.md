@@ -4,11 +4,19 @@
 
 CodeArena uses **Socket.IO (v4.7)** for low-latency, event-driven communication between players and the server. The WebSocket gateway shares the underlying HTTP port (5000), configured with WebSocket-first transport (`transports: ["websocket", "polling"]`), credentials, and room-based channels (`room:${roomCode}`) to partition game telemetry for 1–4 players.
 
+### Horizontal Scaling & Clustering
+* **Single-Node Mode (Default)**: Utilizes the built-in in-memory adapter without external dependencies.
+* **Clustered / Multi-Node Mode**: When `REDIS_URI` is provided, the gateway initializes `@socket.io/redis-adapter` backed by `ioredis` pub/sub clients. Sockets connected across distinct process instances or containers communicate across nodes seamlessly, routing room broadcasts and state transitions without message isolation.
+
 ```mermaid
 graph TD
     Client1["Player 1 Socket"] -- WebSocket Handshake --> AuthMW["Socket Auth Middleware"]
     ClientN["Players 2-4 Sockets"] -- WebSocket Handshake --> AuthMW
     AuthMW --> RoomMgr["Room Channel (room:AB12CD)"]
+
+    subgraph Cluster ["Horizontal Scalability"]
+        RedisAdapter["Redis Pub/Sub Adapter (ioredis)\nActive when REDIS_URI configured"]
+    end
 
     subgraph Events ["Real-Time Event Channels"]
         LobbyEvents["Lobby: room:join, room:leave, room:ready, room:update_settings, room:update"]
@@ -16,6 +24,7 @@ graph TD
         CompletionEvents["Finalization: battle:completed, room:play_again"]
     end
 
+    RoomMgr <--> RedisAdapter
     RoomMgr <--> LobbyEvents
     RoomMgr <--> BattleEvents
     RoomMgr <--> CompletionEvents
@@ -31,6 +40,7 @@ Every incoming connection is validated before the socket connection is granted:
 3. **Context Injection**: Successful validation binds the database user record to `socket.data.user`.
 4. **Lifecycle Hooks**: Sockets subscribe to connection drop handlers (`disconnect`), updating readiness and alerting room peers via `player:disconnected`.
 5. **Transport Alignment**: Both client and server support WebSocket upgrades with fallback to polling and aligned CORS credentials (`withCredentials: true`).
+6. **Rate Limiting**: Custom per-socket event limiter (`socketRateLimiter`) bounds incoming message frequencies, automatically releasing per-socket tracking maps on disconnect.
 
 ---
 

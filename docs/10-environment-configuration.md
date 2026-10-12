@@ -13,12 +13,13 @@ CodeArena employs **strict startup schema validation** for backend configuration
 | **`PORT`** | `number` | Yes | `5000` | Port on which Express and Socket.IO listen. Automatically parsed and type-cast to integer. |
 | **`NODE_ENV`** | `enum` | Yes | `development` | Runtime mode. Must be one of: `development`, `production`, `test`. Regulates stack traces and mock token acceptance. |
 | **`MONGODB_URI`** | `string` | Yes | None | Full MongoDB connection string (local or Atlas URI). |
-| **`JWT_ACCESS_SECRET`** | `string` | No | Fallback string | High-entropy secret for signing short-lived (15 min) Native JWT access tokens. |
-| **`JWT_REFRESH_SECRET`** | `string` | No | Fallback string | High-entropy secret for signing long-lived (7 days) Native JWT refresh tokens. |
-| **`GUEST_JWT_SECRET`** | `string` | No | Fallback string | High-entropy secret used for HMAC SHA-256 signing of guest session tokens. Minimum 32 bytes recommended in production. |
+| **`REDIS_URI`** | `string` | No | `undefined` | Redis connection URI (`redis://user:pass@host:port`). When configured, enables `@socket.io/redis-adapter` for horizontal Socket.IO clustering across nodes. |
+| **`JWT_ACCESS_SECRET`** | `string` | No | Fallback string | High-entropy secret for signing short-lived (15 min) Native JWT access tokens. Minimum 32 chars in production. |
+| **`JWT_REFRESH_SECRET`** | `string` | No | Fallback string | High-entropy secret for signing long-lived (7 days) Native JWT refresh tokens. Minimum 32 chars in production. |
+| **`GUEST_JWT_SECRET`** | `string` | No | Fallback string | High-entropy secret used for HMAC SHA-256 signing of guest session tokens. Minimum 32 chars in production. |
 | **`JWT_ACCESS_EXPIRES_IN`** | `string` | No | `900` | Access Token expiration in seconds (default: 15 minutes). |
 | **`JWT_REFRESH_EXPIRES_IN`** | `string` | No | `604800` | Refresh Token expiration in seconds (default: 7 days). |
-| **`CORS_ORIGIN`** | `string` | No | `*` | Allowed origin for Cross-Origin Resource Sharing. In production, restrict to frontend domain. |
+| **`CORS_ORIGIN`** | `string` | No | `*` | Allowed origin for Cross-Origin Resource Sharing. In production, defaults to frontend production domain if set to `*`. |
 | **`LOG_LEVEL`** | `string` | No | `info` | Logging verbosity for Pino logger (`debug`, `info`, `warn`, `error`). |
 
 ### 2.1 Backend Schema Definition (`server/src/config/env.ts`)
@@ -31,11 +32,25 @@ const envSchema = z.object({
   }),
   NODE_ENV: z.enum(['development', 'production', 'test']),
   MONGODB_URI: z.string().min(1, 'MONGODB_URI is required'),
-  GUEST_JWT_SECRET: z.string().default(process.env.GUEST_JWT_SECRET || 'codearena_secure_guest_jwt_secret_key_32_bytes_min'),
-  JWT_ACCESS_SECRET: z.string().default(process.env.JWT_ACCESS_SECRET || 'codearena_secure_access_jwt_secret_key_32_bytes_min'),
-  JWT_REFRESH_SECRET: z.string().default(process.env.JWT_REFRESH_SECRET || 'codearena_secure_refresh_jwt_secret_key_32_bytes_min'),
-  JWT_ACCESS_EXPIRES_IN: z.string().default(process.env.JWT_ACCESS_EXPIRES_IN || '900'),
-  JWT_REFRESH_EXPIRES_IN: z.string().default(process.env.JWT_REFRESH_EXPIRES_IN || '604800'),
+  CORS_ORIGIN: z.string().default('*'),
+  REDIS_URI: z.string().optional(),
+  GUEST_JWT_SECRET: z.string().optional(),
+  JWT_ACCESS_SECRET: z.string().optional(),
+  JWT_REFRESH_SECRET: z.string().optional(),
+  JWT_ACCESS_EXPIRES_IN: z.string().default('900'),
+  JWT_REFRESH_EXPIRES_IN: z.string().default('604800'),
+}).superRefine((data, ctx) => {
+  if (data.NODE_ENV === 'production') {
+    if (!data.GUEST_JWT_SECRET || data.GUEST_JWT_SECRET.length < 32) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['GUEST_JWT_SECRET'], message: 'GUEST_JWT_SECRET is required and must be >= 32 chars in production' });
+    }
+    if (!data.JWT_ACCESS_SECRET || data.JWT_ACCESS_SECRET.length < 32) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['JWT_ACCESS_SECRET'], message: 'JWT_ACCESS_SECRET is required and must be >= 32 chars in production' });
+    }
+    if (!data.JWT_REFRESH_SECRET || data.JWT_REFRESH_SECRET.length < 32) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['JWT_REFRESH_SECRET'], message: 'JWT_REFRESH_SECRET is required and must be >= 32 chars in production' });
+    }
+  }
 });
 ```
 
@@ -69,6 +84,7 @@ GUEST_JWT_SECRET=super_secret_guest_hmac_key_min_32_chars
 JWT_ACCESS_EXPIRES_IN=900
 JWT_REFRESH_EXPIRES_IN=604800
 CORS_ORIGIN=http://localhost:3000
+# REDIS_URI=redis://127.0.0.1:6379
 LOG_LEVEL=info
 ```
 
