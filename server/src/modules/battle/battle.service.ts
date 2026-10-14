@@ -22,6 +22,12 @@ import { getIo } from '../../sockets/socket.js';
 import { formatRoomSocketPayload } from '../../sockets/room.socket.js';
 import { userRepository } from '../user/user.repository.js';
 import { getCategoryTimeLimit } from '../../shared/config/quiz-config.js';
+import {
+  getOptionPermutation,
+  randomizeOptions,
+  mapDisplayedToOriginal,
+  mapOriginalToDisplayed,
+} from '../question/question-randomizer.js';
 
 export class BattleService {
   private sweeperTimer: NodeJS.Timeout | null = null;
@@ -406,6 +412,11 @@ export class BattleService {
     if (!currentQId) return null;
 
     const questionDoc = await questionService.getQuestionByQuestionId(currentQId);
+    const permutation = getOptionPermutation(battle._id.toString(), currentQId, currentRoundIndex);
+    const randomizedQuestion = {
+      ...questionDoc,
+      options: randomizeOptions(questionDoc.options, permutation),
+    };
 
     const roundStartedAt = currentRound
       ? currentRound.startedAt.getTime()
@@ -451,7 +462,7 @@ export class BattleService {
       currentQuestionIndex: currentRoundIndex,
       roundStartedAt,
       questionDeadline: deadline,
-      currentQuestion: questionDoc,
+      currentQuestion: randomizedQuestion,
       players: mappedPlayers,
     };
   }
@@ -535,8 +546,15 @@ export class BattleService {
       throw new ApiError(404, 'Submitted question not found in database');
     }
 
+    const permutation = getOptionPermutation(
+      battle._id.toString(),
+      questionId,
+      battle.currentRound.roundIndex
+    );
+    const originalSelectedOption = mapDisplayedToOriginal(selectedOption, permutation);
+
     const isCorrect = (selectedOption >= 0 && selectedOption <= 3)
-      ? questionDoc.correctAnswer === selectedOption
+      ? questionDoc.correctAnswer === originalSelectedOption
       : false;
 
     const submission: IBattleRoundSubmission = {
@@ -622,6 +640,12 @@ export class BattleService {
       answer: any;
     }> = [];
 
+    const permutation = getOptionPermutation(
+      battleId,
+      currentRound.questionId,
+      currentRound.roundIndex
+    );
+
     for (const p of battle.players) {
       const pUId = (p.userId as any)._id ? (p.userId as any)._id.toString() : p.userId.toString();
       const sub = submissionsMap.get(pUId);
@@ -630,9 +654,10 @@ export class BattleService {
         if (sub.isCorrect) {
           p.score += sub.potentialScore;
         }
+        const originalSelectedOption = mapDisplayedToOriginal(sub.selectedOption, permutation);
         const answerRecord = {
           questionId: currentRound.questionId,
-          selectedOption: sub.selectedOption,
+          selectedOption: originalSelectedOption,
           isCorrect: sub.isCorrect,
           submittedAt: sub.submittedAt,
           timeTakenMs: sub.timeTakenMs,
@@ -674,10 +699,14 @@ export class BattleService {
     const isLast = currentRound.roundIndex >= battle.questionCount - 1;
     const roomChannel = `room:${roomCode}`;
 
+    const displayedCorrectAnswer = questionDoc
+      ? mapOriginalToDisplayed(questionDoc.correctAnswer, permutation)
+      : 0;
+
     const revealPayload: IBattleRevealPayload = {
       roundIndex: currentRound.roundIndex,
       questionId: currentRound.questionId,
-      correctAnswer: questionDoc ? questionDoc.correctAnswer : 0,
+      correctAnswer: displayedCorrectAnswer,
       explanation: questionDoc ? questionDoc.explanation : '',
       accuracyPct,
       correctCount,
@@ -772,6 +801,11 @@ export class BattleService {
     if (!updatedBattle) return;
 
     const nextQDoc = await questionService.getQuestionByQuestionId(nextQId);
+    const nextPermutation = getOptionPermutation(battleId, nextQId, nextRoundIndex);
+    const randomizedNextQuestion = {
+      ...nextQDoc,
+      options: randomizeOptions(nextQDoc.options, nextPermutation),
+    };
 
     const nextPayload: IBattleNextQuestionPayload = {
       currentQuestionIndex: nextRoundIndex,
@@ -779,7 +813,7 @@ export class BattleService {
       roundStartedAt: now.getTime(),
       questionDeadline: nextDeadline,
       timePerQuestion: battle.timePerQuestion,
-      question: nextQDoc,
+      question: randomizedNextQuestion,
       completed: false,
     };
 
@@ -969,6 +1003,11 @@ export class BattleService {
 
     const currentRound = battle.currentRound;
     const questionDoc = await this.qRepository.findByQuestionId(currentRound.questionId);
+    const permutation = getOptionPermutation(battleId, currentRound.questionId, currentRound.roundIndex);
+    const displayedCorrectAnswer = questionDoc
+      ? mapOriginalToDisplayed(questionDoc.correctAnswer, permutation)
+      : 0;
+
     const correctCount = currentRound.submissions.filter((s) => s.isCorrect).length;
     const accuracyPct = battle.players.length > 0
       ? Math.round((correctCount / battle.players.length) * 100)
@@ -980,7 +1019,7 @@ export class BattleService {
     return {
       roundIndex: currentRound.roundIndex,
       questionId: currentRound.questionId,
-      correctAnswer: questionDoc ? questionDoc.correctAnswer : 0,
+      correctAnswer: displayedCorrectAnswer,
       explanation: questionDoc ? questionDoc.explanation : '',
       accuracyPct,
       correctCount,
