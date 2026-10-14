@@ -43,7 +43,7 @@ export class UserRepository {
 
   async countHigherRankedUsers(criteria: { wins: number; accuracy: number; matchesPlayed: number; username: string }): Promise<number> {
     return UserModel.countDocuments({
-      isGuest: { $ne: true },
+      isGuest: false,
       $or: [
         { wins: { $gt: criteria.wins } },
         { wins: criteria.wins, accuracy: { $gt: criteria.accuracy } },
@@ -54,7 +54,7 @@ export class UserRepository {
   }
 
   async findLeaderboard(options: { skip: number; limit: number }): Promise<{ users: IUserDocument[]; total: number }> {
-    const filter = { isGuest: { $ne: true } };
+    const filter = { isGuest: false };
     const [total, users] = await Promise.all([
       UserModel.countDocuments(filter),
       UserModel.find(filter)

@@ -7,34 +7,57 @@ import { BattleModel } from '../battle/battle.model.js';
 import { BattleStatus } from '../battle/battle.types.js';
 
 export class CategoryService {
+  // In-memory bounded TTL caches for read-heavy public taxonomy & popular quizzes
+  private categoriesCache: { data: any[]; expiresAt: number } | null = null;
+  private subjectsCache: Map<string, { data: { category: any; subjects: any[] }; expiresAt: number }> = new Map();
+  private popularCache: Map<number, { data: any[]; expiresAt: number }> = new Map();
+  private readonly CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes bounded TTL
+
   constructor(private repository: CategoryRepository = categoryRepository) {}
 
   /**
+   * Explicitly evict taxonomy and popular quiz caches (called on seed, question imports, etc.).
+   */
+  public clearCache(): void {
+    this.categoriesCache = null;
+    this.subjectsCache.clear();
+    this.popularCache.clear();
+  }
+
+  /**
    * Retrieve all active categories with question counts and availability metrics.
+   * Employs batch question aggregation and in-memory TTL caching to eliminate N+1 queries.
    */
   async getAllCategories(): Promise<any[]> {
-    const categories = await this.repository.findAllActiveCategories();
-    return Promise.all(
-      categories.map(async (cat) => {
-        const questionCount = await questionRepository.countMatching({
-          categoryId: cat.slug,
-          isMixedCategory: true,
-        });
-        const availableLengths = getAvailableQuizLengths(questionCount);
-        return {
-          _id: cat._id.toString(),
-          id: cat._id.toString(),
-          name: cat.name,
-          slug: cat.slug,
-          description: cat.description,
-          icon: cat.icon,
-          isActive: cat.isActive,
-          questionCount,
-          availableLengths,
-          isPlayable: questionCount >= 10,
-        };
-      })
-    );
+    const now = Date.now();
+    if (this.categoriesCache && now < this.categoriesCache.expiresAt) {
+      return this.categoriesCache.data;
+    }
+
+    const [categories, categoryCounts] = await Promise.all([
+      this.repository.findAllActiveCategories(),
+      questionRepository.countPublishedGroupedByCategory(),
+    ]);
+
+    const data = categories.map((cat) => {
+      const questionCount = categoryCounts.get(cat._id.toString()) || 0;
+      const availableLengths = getAvailableQuizLengths(questionCount);
+      return {
+        _id: cat._id.toString(),
+        id: cat._id.toString(),
+        name: cat.name,
+        slug: cat.slug,
+        description: cat.description,
+        icon: cat.icon,
+        isActive: cat.isActive,
+        questionCount,
+        availableLengths,
+        isPlayable: questionCount >= 10,
+      };
+    });
+
+    this.categoriesCache = { data, expiresAt: now + this.CACHE_TTL_MS };
+    return data;
   }
 
   /**
@@ -50,42 +73,43 @@ export class CategoryService {
 
   /**
    * Retrieve category and all active subjects belonging to it with question counts and availability metrics.
+   * Completely eliminates N+1 queries via single-pass subject question count aggregation and TTL caching.
    */
   async getSubjectsForCategory(categoryIdOrSlug: string): Promise<{ category: any; subjects: any[] }> {
+    const cacheKey = categoryIdOrSlug.toLowerCase();
+    const now = Date.now();
+    const cached = this.subjectsCache.get(cacheKey);
+    if (cached && now < cached.expiresAt) {
+      return cached.data;
+    }
+
     const category = await this.getCategory(categoryIdOrSlug);
-    const subjects = await this.repository.findSubjectsByCategoryIdOrSlug(category.slug);
+    const [subjects, { subjectCounts, totalCategoryCount }] = await Promise.all([
+      this.repository.findSubjectsByCategoryIdOrSlug(category.slug),
+      questionRepository.countPublishedGroupedBySubject(category._id),
+    ]);
 
-    const categoryQuestionCount = await questionRepository.countMatching({
-      categoryId: category.slug,
-      isMixedCategory: true,
+    const categoryAvailableLengths = getAvailableQuizLengths(totalCategoryCount);
+
+    const subjectsWithCount = subjects.map((subj) => {
+      const questionCount = subjectCounts.get(subj._id.toString()) || 0;
+      const availableLengths = getAvailableQuizLengths(questionCount);
+      return {
+        _id: subj._id.toString(),
+        id: subj._id.toString(),
+        categoryId: subj.categoryId.toString(),
+        name: subj.name,
+        slug: subj.slug,
+        description: subj.description,
+        icon: subj.icon,
+        isActive: subj.isActive,
+        questionCount,
+        availableLengths,
+        isPlayable: questionCount >= 10,
+      };
     });
-    const categoryAvailableLengths = getAvailableQuizLengths(categoryQuestionCount);
 
-    const subjectsWithCount = await Promise.all(
-      subjects.map(async (subj) => {
-        const questionCount = await questionRepository.countMatching({
-          categoryId: category.slug,
-          subjectId: subj.slug,
-          isMixedCategory: false,
-        });
-        const availableLengths = getAvailableQuizLengths(questionCount);
-        return {
-          _id: subj._id.toString(),
-          id: subj._id.toString(),
-          categoryId: subj.categoryId.toString(),
-          name: subj.name,
-          slug: subj.slug,
-          description: subj.description,
-          icon: subj.icon,
-          isActive: subj.isActive,
-          questionCount,
-          availableLengths,
-          isPlayable: questionCount >= 10,
-        };
-      })
-    );
-
-    return {
+    const result = {
       category: {
         _id: category._id.toString(),
         id: category._id.toString(),
@@ -94,12 +118,18 @@ export class CategoryService {
         description: category.description,
         icon: category.icon,
         isActive: category.isActive,
-        questionCount: categoryQuestionCount,
+        questionCount: totalCategoryCount,
         availableLengths: categoryAvailableLengths,
-        isPlayable: categoryQuestionCount >= 10,
+        isPlayable: totalCategoryCount >= 10,
       },
       subjects: subjectsWithCount,
     };
+
+    this.subjectsCache.set(cacheKey, { data: result, expiresAt: now + this.CACHE_TTL_MS });
+    this.subjectsCache.set(category.slug.toLowerCase(), { data: result, expiresAt: now + this.CACHE_TTL_MS });
+    this.subjectsCache.set(category._id.toString(), { data: result, expiresAt: now + this.CACHE_TTL_MS });
+
+    return result;
   }
 
   /**
@@ -118,11 +148,8 @@ export class CategoryService {
    */
   async getCategoryDetails(categoryIdOrSlug: string): Promise<any> {
     const category = await this.getCategory(categoryIdOrSlug);
-    const questionCount = await questionRepository.countMatching({
-      categoryId: category.slug,
-      isMixedCategory: true,
-    });
-    const availableLengths = getAvailableQuizLengths(questionCount);
+    const { totalCategoryCount } = await questionRepository.countPublishedGroupedBySubject(category._id);
+    const availableLengths = getAvailableQuizLengths(totalCategoryCount);
     return {
       _id: category._id.toString(),
       id: category._id.toString(),
@@ -131,24 +158,41 @@ export class CategoryService {
       description: category.description,
       icon: category.icon,
       isActive: category.isActive,
-      questionCount,
+      questionCount: totalCategoryCount,
       availableLengths,
-      isPlayable: questionCount >= 10,
+      isPlayable: totalCategoryCount >= 10,
     };
   }
 
   /**
    * Retrieve genuinely most-played quizzes from completed battles in MongoDB.
-   * Never fabricates fake popularity records or counts.
+   * Employs early pipeline projection, lightweight lookup, and bounded TTL caching.
    */
   async getPopularQuizzes(limit: number = 5): Promise<any[]> {
+    const now = Date.now();
+    const cached = this.popularCache.get(limit);
+    if (cached && now < cached.expiresAt) {
+      return cached.data;
+    }
+
     const completedBattles = await BattleModel.aggregate([
       { $match: { status: BattleStatus.COMPLETED } },
+      // Project only essential fields before $lookup to avoid carrying heavy players/answers arrays in pipeline RAM
+      { $project: { roomId: 1, topic: 1, endedAt: 1 } },
       {
         $lookup: {
           from: 'rooms',
           localField: 'roomId',
           foreignField: '_id',
+          pipeline: [
+            {
+              $project: {
+                'settings.categoryId': 1,
+                'settings.subjectId': 1,
+                'settings.isMixedCategory': 1,
+              },
+            },
+          ],
           as: 'room',
         },
       },
@@ -278,13 +322,27 @@ export class CategoryService {
       .sort((a, b) => b.playedCount - a.playedCount)
       .slice(0, limit);
 
-    return Promise.all(
+    const finalResults = await Promise.all(
       sorted.map(async (item, index) => {
-        const questionCount = await questionRepository.countMatching({
-          categoryId: item.categorySlug,
-          subjectId: item.subjectSlug || undefined,
-          isMixedCategory: item.isMixedCategory,
-        });
+        let questionCount = 0;
+        const matchedCat = categoryMap.get(item.categorySlug.toLowerCase());
+        const matchedSubj = item.subjectSlug ? subjectMap.get(item.subjectSlug.toLowerCase()) : null;
+
+        if (matchedCat) {
+          if (item.isMixedCategory || !matchedSubj) {
+            const { totalCategoryCount } = await questionRepository.countPublishedGroupedBySubject(matchedCat._id);
+            questionCount = totalCategoryCount;
+          } else {
+            const { subjectCounts } = await questionRepository.countPublishedGroupedBySubject(matchedCat._id);
+            questionCount = subjectCounts.get(matchedSubj._id.toString()) || 0;
+          }
+        } else {
+          questionCount = await questionRepository.countMatching({
+            categoryId: item.categorySlug,
+            subjectId: item.subjectSlug || undefined,
+            isMixedCategory: item.isMixedCategory,
+          });
+        }
 
         return {
           id: `popular-${item.categorySlug}-${item.subjectSlug || 'mixed'}`,
@@ -300,6 +358,9 @@ export class CategoryService {
         };
       })
     );
+
+    this.popularCache.set(limit, { data: finalResults, expiresAt: now + this.CACHE_TTL_MS });
+    return finalResults;
   }
 }
 

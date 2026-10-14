@@ -25,7 +25,8 @@ export class HistoryRepository {
         .populate('players.userId', 'username displayName avatar')
         .populate('winnerId', 'username displayName avatar')
         .populate('roomId', 'settings roomCode')
-        .exec(),
+        .lean()
+        .exec() as any,
       BattleModel.countDocuments(query),
     ]);
 

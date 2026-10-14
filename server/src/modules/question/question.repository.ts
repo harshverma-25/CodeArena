@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import { QuestionModel } from './question.model.js';
 import { IQuestion, IQuestionDocument, QuestionTopic, QuestionDifficulty } from './question.types.js';
 import { categoryRepository } from '../category/category.repository.js';
@@ -190,6 +191,51 @@ export class QuestionRepository {
   ): Promise<boolean> {
     const count = await this.countMatching(filter);
     return count > 0;
+  }
+
+  /**
+   * Batch count published questions grouped by categoryId in a single index-covered aggregation.
+   * Completely avoids N+1 queries across category listings.
+   */
+  async countPublishedGroupedByCategory(): Promise<Map<string, number>> {
+    const results = await QuestionModel.aggregate([
+      { $match: { isPublished: true, categoryId: { $ne: null } } },
+      { $group: { _id: '$categoryId', count: { $sum: 1 } } },
+    ]);
+    const map = new Map<string, number>();
+    for (const r of results) {
+      if (r._id) {
+        map.set(r._id.toString(), r.count);
+      }
+    }
+    return map;
+  }
+
+  /**
+   * Batch count published questions for a specific category grouped by subjectId in a single aggregation.
+   * Fully covered by compound index { categoryId: 1, subjectId: 1, isPublished: 1 }.
+   */
+  async countPublishedGroupedBySubject(categoryId: any): Promise<{ subjectCounts: Map<string, number>; totalCategoryCount: number }> {
+    const catObjectId = typeof categoryId === 'string' && Types.ObjectId.isValid(categoryId)
+      ? new Types.ObjectId(categoryId)
+      : categoryId;
+
+    const results = await QuestionModel.aggregate([
+      { $match: { categoryId: catObjectId, isPublished: true } },
+      { $group: { _id: '$subjectId', count: { $sum: 1 } } },
+    ]);
+
+    const subjectCounts = new Map<string, number>();
+    let totalCategoryCount = 0;
+
+    for (const r of results) {
+      totalCategoryCount += r.count;
+      if (r._id) {
+        subjectCounts.set(r._id.toString(), r.count);
+      }
+    }
+
+    return { subjectCounts, totalCategoryCount };
   }
 }
 
