@@ -1,5 +1,6 @@
 import { Types } from 'mongoose';
 import { CategoryModel, SubjectModel } from '../category/category.model.js';
+import { categoryService } from '../category/category.service.js';
 import { QuestionModel } from '../question/question.model.js';
 import { UserModel } from '../user/user.model.js';
 import { ImportHistoryModel } from './import-history.model.js';
@@ -170,6 +171,7 @@ export class AdminService {
       isActive: true,
     });
 
+    categoryService.clearCache();
     return category;
   }
 
@@ -188,6 +190,7 @@ export class AdminService {
     if (data.isActive !== undefined) category.isActive = data.isActive;
 
     await category.save();
+    categoryService.clearCache();
     return category;
   }
 
@@ -216,6 +219,7 @@ export class AdminService {
       isActive: true,
     });
 
+    categoryService.clearCache();
     return subject;
   }
 
@@ -234,6 +238,7 @@ export class AdminService {
     if (data.isActive !== undefined) subject.isActive = data.isActive;
 
     await subject.save();
+    categoryService.clearCache();
     return subject;
   }
 
@@ -266,6 +271,7 @@ export class AdminService {
 
     // 4. Delete the category itself
     await CategoryModel.findByIdAndDelete(category._id);
+    categoryService.clearCache();
 
     return {
       categoryId: category._id.toString(),
@@ -293,6 +299,7 @@ export class AdminService {
 
     // 2. Delete the subject itself
     await SubjectModel.findByIdAndDelete(subject._id);
+    categoryService.clearCache();
 
     return {
       subjectId: subject._id.toString(),
@@ -315,6 +322,7 @@ export class AdminService {
     }
 
     const deletedQuestions = await QuestionModel.deleteMany({ subjectId: subject._id });
+    categoryService.clearCache();
 
     return {
       subjectId: subject._id.toString(),
@@ -388,6 +396,7 @@ export class AdminService {
     }
 
     await QuestionModel.findByIdAndDelete(question._id);
+    categoryService.clearCache();
 
     return {
       id: question._id.toString(),
@@ -702,6 +711,8 @@ export class AdminService {
       status,
       validationErrors: rowErrors,
     });
+
+    categoryService.clearCache();
 
     return {
       importId,

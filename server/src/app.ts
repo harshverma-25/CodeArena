@@ -1,9 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import compression from 'compression';
 import { requestLogger } from './middleware/request-logger.middleware.js';
 import { errorHandler } from './middleware/error.middleware.js';
 import { notFoundHandler } from './middleware/not-found.middleware.js';
+import { noCache } from './middleware/cache.middleware.js';
 import { userRoutes } from './modules/user/user.routes.js';
 import { questionRoutes } from './modules/question/question.routes.js';
 import { roomRoutes } from './modules/room/room.routes.js';
@@ -76,6 +78,19 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Request logging middleware
 app.use(requestLogger);
 
+// Enable HTTP response compression for compressible payloads exceeding 1KB
+app.use(
+  compression({
+    threshold: 1024,
+    filter: (req, res) => {
+      if (req.headers['x-no-compression']) {
+        return false;
+      }
+      return compression.filter(req, res);
+    },
+  })
+);
+
 // Health check endpoint
 const getHealthStatus = () => {
   const readyState = mongoose.connection.readyState;
@@ -93,7 +108,7 @@ const getHealthStatus = () => {
   };
 };
 
-app.get('/health', (req, res) => {
+app.get('/health', noCache, (req, res) => {
   const health = getHealthStatus();
   res.status(health.status === 'OK' ? 200 : 503).json({
     success: true,
@@ -102,7 +117,7 @@ app.get('/health', (req, res) => {
   });
 });
 
-app.get('/api/v1/health', (req, res) => {
+app.get('/api/v1/health', noCache, (req, res) => {
   const health = getHealthStatus();
   res.status(health.status === 'OK' ? 200 : 503).json({
     success: true,

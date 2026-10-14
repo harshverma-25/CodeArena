@@ -4,11 +4,13 @@ import { authenticate } from '../../middleware/auth.middleware.js';
 import { validateRequest } from '../../middleware/validate.middleware.js';
 import { startBattleSchema } from './battle.validation.js';
 import { asyncHandler } from '../../shared/utils/async-handler.js';
+import { noCache } from '../../middleware/cache.middleware.js';
 
 const router = Router();
 
-// Protect all battle routes using authenticate middleware
+// Protect all battle routes using authenticate and noCache middleware
 router.use(asyncHandler(authenticate));
+router.use(noCache);
 
 // Route: POST /battles/start
 router.post(

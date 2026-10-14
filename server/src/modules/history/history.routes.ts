@@ -4,12 +4,13 @@ import { authenticate } from '../../middleware/auth.middleware.js';
 import { validateRequest } from '../../middleware/validate.middleware.js';
 import { historyQuerySchema, battleIdParamSchema } from './history.validator.js';
 import { asyncHandler } from '../../shared/utils/async-handler.js';
-
+import { noCache } from '../../middleware/cache.middleware.js';
 
 const router = Router();
 
-// Protect all history routes
+// Protect all history routes with authenticate and noCache
 router.use(asyncHandler(authenticate));
+router.use(noCache);
 
 // GET /api/v1/history - list paginated match history
 router.get(

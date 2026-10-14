@@ -3,6 +3,7 @@ import { adminController } from './admin.controller.js';
 import { authenticate, authorizeAdmin } from '../../middleware/auth.middleware.js';
 import { validateRequest } from '../../middleware/validate.middleware.js';
 import { asyncHandler } from '../../shared/utils/async-handler.js';
+import { noCache } from '../../middleware/cache.middleware.js';
 import {
   createCategorySchema,
   updateCategorySchema,
@@ -19,9 +20,10 @@ import {
 
 const router = Router();
 
-// Protect ALL admin routes with authenticate + authorizeAdmin
+// Protect ALL admin routes with authenticate + authorizeAdmin and strict noCache
 router.use(asyncHandler(authenticate));
 router.use(authorizeAdmin);
+router.use(noCache);
 
 // 1. Overview metrics
 router.get(

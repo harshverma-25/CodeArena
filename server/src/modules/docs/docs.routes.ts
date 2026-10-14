@@ -1,15 +1,17 @@
 import { Router } from 'express';
 import { openApiSpec } from './openapi.js';
+import { publicCache } from '../../middleware/cache.middleware.js';
 
 const router = Router();
+const docsCache = publicCache({ maxAge: 3600, staleWhileRevalidate: 86400 });
 
 // Endpoint: GET /api/swagger.json
-router.get('/swagger.json', (req, res) => {
+router.get('/swagger.json', docsCache, (req, res) => {
   res.json(openApiSpec);
 });
 
 // Endpoint: GET /api/docs
-router.get('/docs', (req, res) => {
+router.get('/docs', docsCache, (req, res) => {
   const html = `
 <!DOCTYPE html>
 <html lang="en">

@@ -4,8 +4,10 @@ import { optionalAuthenticate } from '../../middleware/auth.middleware.js';
 import { validateRequest } from '../../middleware/validate.middleware.js';
 import { leaderboardQuerySchema } from '../user/user.validation.js';
 import { asyncHandler } from '../../shared/utils/async-handler.js';
+import { noCache } from '../../middleware/cache.middleware.js';
 
 const router = Router();
+router.use(noCache);
 
 // Route: GET /api/v1/leaderboard
 router.get(

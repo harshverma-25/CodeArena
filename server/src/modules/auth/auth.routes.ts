@@ -10,8 +10,10 @@ import {
 import { asyncHandler } from '../../shared/utils/async-handler.js';
 import { ApiError } from '../../shared/errors/api-error.js';
 import { authenticate, optionalAuthenticate } from '../../middleware/auth.middleware.js';
+import { noCache } from '../../middleware/cache.middleware.js';
 
 const router = Router();
+router.use(noCache);
 
 const guestCreationCounts = new Map<string, { count: number; resetTime: number }>();
 const GUEST_WINDOW_MS = 15 * 60 * 1000; // 15 minutes

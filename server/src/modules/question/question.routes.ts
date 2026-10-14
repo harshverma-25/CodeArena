@@ -4,12 +4,13 @@ import { authenticate } from '../../middleware/auth.middleware.js';
 import { validateRequest } from '../../middleware/validate.middleware.js';
 import { listQuestionsSchema, getQuestionParamSchema } from './question.validation.js';
 import { asyncHandler } from '../../shared/utils/async-handler.js';
-
+import { noCache } from '../../middleware/cache.middleware.js';
 
 const router = Router();
 
-// Protect all question routes using authenticate middleware
+// Protect all question routes using authenticate and noCache middleware
 router.use(asyncHandler(authenticate));
+router.use(noCache);
 
 // Route: GET /api/v1/questions
 router.get(

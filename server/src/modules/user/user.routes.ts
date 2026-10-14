@@ -8,8 +8,10 @@ import {
   leaderboardQuerySchema,
 } from './user.validation.js';
 import { asyncHandler } from '../../shared/utils/async-handler.js';
+import { noCache } from '../../middleware/cache.middleware.js';
 
 const router = Router();
+router.use(noCache);
 
 // --- Authenticated Private Routes ---
 // GET /api/v1/users/me - get current user document

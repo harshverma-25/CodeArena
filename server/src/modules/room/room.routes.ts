@@ -10,12 +10,13 @@ import {
   updateReadyStatusSchema,
 } from './room.validation.js';
 import { asyncHandler } from '../../shared/utils/async-handler.js';
-
+import { noCache } from '../../middleware/cache.middleware.js';
 
 const router = Router();
 
-// Protect all room routes using authenticate middleware
+// Protect all room routes using authenticate and noCache middleware
 router.use(asyncHandler(authenticate));
+router.use(noCache);
 
 // Route: POST /rooms
 router.post(
