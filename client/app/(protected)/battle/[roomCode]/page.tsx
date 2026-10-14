@@ -98,10 +98,10 @@ const OPTION_THEMES = [
 
 // Fallback avatars for player card slots 1 to 4
 const PLAYER_AVATARS = [
-  (p: LiveBattlePlayer) => p.avatar ? <img src={p.avatar} alt={p.displayName} className="w-full h-full object-cover" /> : <GamerBoyAvatar className="w-full h-full" />,
-  (p: LiveBattlePlayer) => p.avatar ? <img src={p.avatar} alt={p.displayName} className="w-full h-full object-cover" /> : <GamerGirlAvatar className="w-full h-full" />,
-  (p: LiveBattlePlayer) => p.avatar ? <img src={p.avatar} alt={p.displayName} className="w-full h-full object-cover" /> : <GamerCapAvatar className="w-full h-full" />,
-  (p: LiveBattlePlayer) => p.avatar ? <img src={p.avatar} alt={p.displayName} className="w-full h-full object-cover" /> : <GamerOrangeAvatar className="w-full h-full" />,
+  (p: LiveBattlePlayer) => p.avatar ? <img src={p.avatar} alt={p.displayName} width={64} height={64} loading="lazy" decoding="async" className="w-full h-full object-cover" /> : <GamerBoyAvatar className="w-full h-full" />,
+  (p: LiveBattlePlayer) => p.avatar ? <img src={p.avatar} alt={p.displayName} width={64} height={64} loading="lazy" decoding="async" className="w-full h-full object-cover" /> : <GamerGirlAvatar className="w-full h-full" />,
+  (p: LiveBattlePlayer) => p.avatar ? <img src={p.avatar} alt={p.displayName} width={64} height={64} loading="lazy" decoding="async" className="w-full h-full object-cover" /> : <GamerCapAvatar className="w-full h-full" />,
+  (p: LiveBattlePlayer) => p.avatar ? <img src={p.avatar} alt={p.displayName} width={64} height={64} loading="lazy" decoding="async" className="w-full h-full object-cover" /> : <GamerOrangeAvatar className="w-full h-full" />,
 ];
 
 // Player card pastel color themes matching screenshot

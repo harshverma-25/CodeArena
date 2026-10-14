@@ -200,6 +200,10 @@ export default function MatchResultsPage() {
         <img
           src={avatarUrl}
           alt="Avatar"
+          width={64}
+          height={64}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover"
         />
       );

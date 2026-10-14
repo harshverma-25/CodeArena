@@ -89,6 +89,10 @@ export function PublicProfileView({ profile }: PublicProfileViewProps) {
               <img
                 src={avatar || getOfflineAvatarDataUri(username || "player")}
                 alt={username}
+                width={80}
+                height={80}
+                loading="lazy"
+                decoding="async"
                 className="h-20 w-20 rounded-2xl border-2 border-black bg-white object-cover shadow-[2px_2px_0px_#000] shrink-0"
               />
               {rank > 0 && rank <= 3 && (

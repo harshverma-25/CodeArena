@@ -124,6 +124,10 @@ export function ProfileStats() {
               <img
                 src={dbUser?.avatar || getOfflineAvatarDataUri(dbUser?.username || "user")}
                 alt={dbUser?.username || "User"}
+                width={80}
+                height={80}
+                loading="lazy"
+                decoding="async"
                 className="h-20 w-20 rounded-2xl border-2 border-black bg-white object-cover shadow-[2px_2px_0px_#000] shrink-0"
               />
               <span className="absolute -bottom-2 -right-2 flex h-7 w-7 items-center justify-center rounded-xl bg-[#FFE600] border-2 border-black shadow-[1px_1px_0px_#000] text-xs">

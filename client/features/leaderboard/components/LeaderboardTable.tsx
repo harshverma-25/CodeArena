@@ -221,6 +221,10 @@ export function LeaderboardTable() {
                     <img
                       src={player.avatar || getOfflineAvatarDataUri(player.username || "player")}
                       alt={player.username}
+                      width={40}
+                      height={40}
+                      loading="lazy"
+                      decoding="async"
                       className="h-10 w-10 rounded-xl border-2 border-black bg-white object-cover shadow-[1px_1px_0px_#000] shrink-0"
                     />
 

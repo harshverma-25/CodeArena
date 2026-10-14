@@ -160,7 +160,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-[#2DD4BF] border-2 border-black flex items-center justify-center font-black text-sm shadow-[2px_2px_0px_#000] overflow-hidden">
               {activeUser?.avatar ? (
-                <img src={activeUser.avatar} alt="Avatar" className="w-full h-full object-cover" />
+                <img src={activeUser.avatar} alt="Avatar" width={40} height={40} loading="lazy" decoding="async" className="w-full h-full object-cover" />
               ) : (
                 activeUser?.username?.slice(0, 2).toUpperCase() || "AD"
               )}

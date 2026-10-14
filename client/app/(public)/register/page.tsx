@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Shield, ArrowRight, Lock, Mail, User as UserIcon, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -102,9 +103,12 @@ export default function RegisterPage() {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center z-10 mb-6">
         <Link href="/" className="inline-flex items-center gap-2.5 mb-3 group">
-          <img
+          <Image
             src="/images/quizzy-logo.png"
             alt="Quizzy Logo"
+            width={108}
+            height={40}
+            priority
             className="h-10 w-auto object-contain"
           />
           <span className="text-2xl font-bold tracking-tight text-[#1d1b16]">

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
@@ -156,9 +157,12 @@ export function Navbar() {
             {/* Logo matching screenshot arcade aesthetic */}
             <Link href="/" className="flex items-center hover:scale-105 transition-transform" title="Quizzy Home">
               <div className="relative flex items-center">
-                <img
+                <Image
                   src="/images/quizzy-hero-logo.jpg"
                   alt="Quizzy"
+                  width={79}
+                  height={44}
+                  priority
                   className="h-10 sm:h-11 w-auto object-contain rounded-xl"
                 />
               </div>
@@ -298,10 +302,15 @@ export function Navbar() {
                   className="flex items-center gap-2 pl-1 pr-2.5 py-1 bg-white border-2 border-black rounded-full shadow-[2px_2px_0px_#000] hover:bg-stone-50 cursor-pointer active:translate-x-[1px] active:translate-y-[1px] transition-all"
                 >
                   <div className="w-7 h-7 rounded-full bg-[#8B5CF6] border-2 border-black flex items-center justify-center overflow-hidden shrink-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     {activeUser.avatar ? (
                       <img
                         src={activeUser.avatar}
                         alt={displayName}
+                        width={28}
+                        height={28}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover"
                       />
                     ) : (

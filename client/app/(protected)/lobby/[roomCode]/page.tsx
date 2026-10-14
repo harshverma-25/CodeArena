@@ -297,19 +297,19 @@ export default function MultiplayerLobbyPage() {
   const slotConfigs = [
     {
       bg: "bg-[#FEF08A]", // Slot 1: Pastel yellow (Host)
-      avatar: (p: RoomPlayer) => p.user?.avatar ? <img src={p.user.avatar} alt="Avatar" className="w-full h-full object-cover" /> : <GamerBoyAvatar className="w-full h-full" />,
+      avatar: (p: RoomPlayer) => p.user?.avatar ? <img src={p.user.avatar} alt="Avatar" width={64} height={64} loading="lazy" decoding="async" className="w-full h-full object-cover" /> : <GamerBoyAvatar className="w-full h-full" />,
     },
     {
       bg: "bg-[#DDD6FE]", // Slot 2: Pastel purple
-      avatar: (p: RoomPlayer) => p.user?.avatar ? <img src={p.user.avatar} alt="Avatar" className="w-full h-full object-cover" /> : <GamerGirlAvatar className="w-full h-full" />,
+      avatar: (p: RoomPlayer) => p.user?.avatar ? <img src={p.user.avatar} alt="Avatar" width={64} height={64} loading="lazy" decoding="async" className="w-full h-full object-cover" /> : <GamerGirlAvatar className="w-full h-full" />,
     },
     {
       bg: "bg-[#A7F3D0]", // Slot 3: Pastel mint/cyan
-      avatar: (p: RoomPlayer) => p.user?.avatar ? <img src={p.user.avatar} alt="Avatar" className="w-full h-full object-cover" /> : <GamerCapAvatar className="w-full h-full" />,
+      avatar: (p: RoomPlayer) => p.user?.avatar ? <img src={p.user.avatar} alt="Avatar" width={64} height={64} loading="lazy" decoding="async" className="w-full h-full object-cover" /> : <GamerCapAvatar className="w-full h-full" />,
     },
     {
       bg: "bg-[#FBCFE8]", // Slot 4: Pastel soft pink
-      avatar: (p: RoomPlayer) => p.user?.avatar ? <img src={p.user.avatar} alt="Avatar" className="w-full h-full object-cover" /> : <GamerOrangeAvatar className="w-full h-full" />,
+      avatar: (p: RoomPlayer) => p.user?.avatar ? <img src={p.user.avatar} alt="Avatar" width={64} height={64} loading="lazy" decoding="async" className="w-full h-full object-cover" /> : <GamerOrangeAvatar className="w-full h-full" />,
     },
   ];
 
