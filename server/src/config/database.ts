@@ -19,7 +19,14 @@ export const connectDatabase = async (): Promise<void> => {
       logger.warn('⚠️ MongoDB connection lost/disconnected.');
     });
 
-    await mongoose.connect(env.MONGODB_URI);
+    await mongoose.connect(env.MONGODB_URI, {
+      maxPoolSize: 20, // Calibrated for Render instance resources and Atlas shared tier limits
+      minPoolSize: 5, // Pre-warms 5 sockets so incoming requests never incur TLS handshake delays
+      serverSelectionTimeoutMS: 5000, // Fails fast in 5s rather than stalling for 30s
+      socketTimeoutMS: 45000, // Closes stalled sockets after 45s
+      connectTimeoutMS: 10000,
+      family: 4, // Prefers IPv4 to avoid slow IPv6 dual-stack lookups on cloud platforms
+    });
   } catch (error) {
     logger.error(error, '❌ Failed to connect to MongoDB during startup.');
     process.exit(1);

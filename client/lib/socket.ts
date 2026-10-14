@@ -4,6 +4,18 @@ import { clientConfig } from "./config";
 class SocketManager {
   private socket: Socket | null = null;
   private token: string | null = null;
+  private windowListenersAttached = false;
+
+  private handleMobileWakeup = () => {
+    if (typeof document !== "undefined" && typeof navigator !== "undefined") {
+      if (document.visibilityState === "visible" && navigator.onLine) {
+        if (this.socket && !this.socket.connected) {
+          console.log("📱 Mobile device foregrounded: proactively reconnecting socket...");
+          this.socket.connect();
+        }
+      }
+    }
+  };
 
   public connect(token: string): Socket {
     if (this.socket && !this.socket.disconnected && this.token === token) {
@@ -31,18 +43,11 @@ class SocketManager {
       randomizationFactor: 0.5,
     });
 
-    // Mobile background tab & network wake-up auto-recovery
-    if (typeof window !== "undefined") {
-      const handleMobileWakeup = () => {
-        if (document.visibilityState === "visible" && navigator.onLine) {
-          if (this.socket && !this.socket.connected) {
-            console.log("📱 Mobile device foregrounded: proactively reconnecting socket...");
-            this.socket.connect();
-          }
-        }
-      };
-      window.addEventListener("visibilitychange", handleMobileWakeup);
-      window.addEventListener("online", handleMobileWakeup);
+    // Mobile background tab & network wake-up auto-recovery (attach once)
+    if (typeof window !== "undefined" && !this.windowListenersAttached) {
+      window.addEventListener("visibilitychange", this.handleMobileWakeup);
+      window.addEventListener("online", this.handleMobileWakeup);
+      this.windowListenersAttached = true;
     }
 
     this.socket.on("connect", () => {
@@ -104,6 +109,11 @@ class SocketManager {
       this.socket.disconnect();
       this.socket = null;
       this.token = null;
+    }
+    if (typeof window !== "undefined" && this.windowListenersAttached) {
+      window.removeEventListener("visibilitychange", this.handleMobileWakeup);
+      window.removeEventListener("online", this.handleMobileWakeup);
+      this.windowListenersAttached = false;
     }
   }
 

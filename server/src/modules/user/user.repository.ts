@@ -2,8 +2,34 @@ import { UserModel } from './user.model.js';
 import { IUser, IUserDocument } from './user.types.js';
 
 export class UserRepository {
+  // Short-lived bounded in-memory cache for high-frequency token authentication (15s TTL, max 1000 users)
+  private userCache = new Map<string, { user: IUserDocument; expiresAt: number }>();
+  private readonly CACHE_TTL_MS = 15 * 1000;
+  private readonly MAX_CACHE_ENTRIES = 1000;
+
+  public invalidate(userId: string): void {
+    this.userCache.delete(userId);
+  }
+
+  public clearAllCache(): void {
+    this.userCache.clear();
+  }
+
   async findById(userId: string): Promise<IUserDocument | null> {
-    return UserModel.findById(userId);
+    const cached = this.userCache.get(userId);
+    if (cached && Date.now() < cached.expiresAt) {
+      return cached.user;
+    }
+
+    const user = await UserModel.findById(userId);
+    if (user) {
+      if (this.userCache.size >= this.MAX_CACHE_ENTRIES) {
+        const oldestKey = this.userCache.keys().next().value;
+        if (oldestKey) this.userCache.delete(oldestKey);
+      }
+      this.userCache.set(userId, { user, expiresAt: Date.now() + this.CACHE_TTL_MS });
+    }
+    return user;
   }
 
   async findByEmail(email: string): Promise<IUserDocument | null> {
@@ -21,10 +47,12 @@ export class UserRepository {
   }
 
   async updateRefreshToken(userId: string, refreshTokenHash: string): Promise<void> {
+    this.invalidate(userId);
     await UserModel.findByIdAndUpdate(userId, { refreshTokenHash });
   }
 
   async clearRefreshToken(userId: string): Promise<void> {
+    this.invalidate(userId);
     await UserModel.findByIdAndUpdate(userId, {
       $unset: { refreshTokenHash: 1 },
       $set: { refreshTokenFamilies: [] },
@@ -32,12 +60,14 @@ export class UserRepository {
   }
 
   async clearRefreshTokenFamily(userId: string, familyId: string): Promise<void> {
+    this.invalidate(userId);
     await UserModel.findByIdAndUpdate(userId, {
       $pull: { refreshTokenFamilies: { familyId } },
     });
   }
 
   async updateById(userId: string, updateData: Partial<IUser>): Promise<IUserDocument | null> {
+    this.invalidate(userId);
     return UserModel.findByIdAndUpdate(userId, updateData, { new: true });
   }
 

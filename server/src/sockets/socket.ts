@@ -6,6 +6,7 @@ import { env, resolveCorsOrigins } from '../config/env.js';
 import { logger } from '../config/logger.js';
 import { userService } from '../modules/user/user.service.js';
 import { UserModel } from '../modules/user/user.model.js';
+import { userRepository } from '../modules/user/user.repository.js';
 import { authService } from '../modules/auth/auth.service.js';
 import { registerRoomHandlers } from './room.socket.js';
 import { registerBattleHandlers } from './battle.socket.js';
@@ -37,7 +38,7 @@ export const socketAuthMiddleware = async (socket: Socket, next: (err?: Error) =
     // 1. Native Access Token
     const accessPayload = authService.verifyAccessToken(token);
     if (accessPayload && accessPayload.sub) {
-      const dbUser = await UserModel.findById(accessPayload.sub);
+      const dbUser = await userRepository.findById(accessPayload.sub);
       if (dbUser) {
         socket.data.user = dbUser;
         return next();
@@ -48,7 +49,7 @@ export const socketAuthMiddleware = async (socket: Socket, next: (err?: Error) =
     const guestPayload = authService.verifyGuestToken(token);
     if (guestPayload) {
       if (guestPayload.sub) {
-        const guestUser = await UserModel.findById(guestPayload.sub);
+        const guestUser = await userRepository.findById(guestPayload.sub);
         if (guestUser) {
           socket.data.user = guestUser;
           return next();
