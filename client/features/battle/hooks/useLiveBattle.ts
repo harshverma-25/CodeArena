@@ -403,6 +403,14 @@ export function useLiveBattle(roomCode: string) {
       if (!active) return;
       if (document.visibilityState === "visible") {
         console.log("📱 Mobile device foregrounded: syncing turn with server...");
+        const currentBattle = battleRef.current;
+        if (currentBattle && statusRef.current === "active") {
+          const totalMs = (currentBattle.timePerQuestion || 30) * 1000;
+          const elapsed = Math.max(0, Date.now() - currentBattle.roundStartedAt);
+          if (elapsed >= totalMs) {
+            setIsLocked(true);
+          }
+        }
         if (socketManager.getSocket()?.disconnected) {
           socketManager.reconnect();
         } else {
@@ -459,72 +467,36 @@ export function useLiveBattle(roomCode: string) {
     };
   }, [code, processInitPayload]);
 
-  // Dynamic Decreasing Points & Visual Countdown Timer
+  // Authoritative Round Expiration & Auto-Lock at Server-Directed Deadline
   useEffect(() => {
-    if (status !== "active" || isRevealed || !battle) {
-      if (timerRef.current) clearInterval(timerRef.current);
+    if (status !== "active" || isRevealed || !battle || isLocked) {
+      if (timerRef.current) clearTimeout(timerRef.current);
       return;
     }
 
     const totalDurationSec = battle.timePerQuestion || 30;
     const totalDurationMs = totalDurationSec * 1000;
     const startedAt = battle.roundStartedAt;
+    const elapsedMs = Math.max(0, Date.now() - startedAt);
+    const remainingMs = Math.max(0, totalDurationMs - elapsedMs);
 
-    const tick = () => {
-      const now = Date.now();
-      const elapsedMs = Math.max(0, now - startedAt);
-      const elapsedSec = elapsedMs / 1000;
-
-      // Formula: 1000 pts start, drops by 30 pts/sec.
-      // 0s: 1000. 2s: ~940. 5s: ~850. Min: 100.
-      if (!isLocked) {
-        const score = Math.max(100, Math.round(1000 - elapsedSec * 30));
-        setPotentialScore(score);
-      }
-
-      const remainingMs = Math.max(0, totalDurationMs - elapsedMs);
-      const remainingSecs = Math.ceil(remainingMs / 1000);
-      setTimeRemaining(remainingSecs);
-
-      const percent = Math.max(0, Math.min(100, (remainingMs / totalDurationMs) * 100));
-      setTimerPercent(percent);
-
-      if (remainingMs <= 0 && !isLocked) {
+    if (remainingMs <= 0) {
+      const lockTimer = setTimeout(() => {
         setIsLocked(true);
-      }
-    };
-
-    tick();
-    timerRef.current = setInterval(tick, 100);
-
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [status, isRevealed, isLocked, battle]);
-
-  // Reveal Phase 5-second countdown timer
-  useEffect(() => {
-    if (!isRevealed || status !== "reveal") {
-      if (revealTimerRef.current) clearInterval(revealTimerRef.current);
-      return;
+      }, 0);
+      return () => clearTimeout(lockTimer);
     }
 
-    const interval = setInterval(() => {
-      setRevealCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+    timerRef.current = setTimeout(() => {
+      setIsLocked(true);
+    }, remainingMs);
 
-    revealTimerRef.current = interval;
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [status, isRevealed, isLocked, battle?.roundStartedAt, battle?.timePerQuestion]);
 
-    return () => clearInterval(interval);
-  }, [isRevealed, status]);
-
-  // Submit Answer Action
+  // Submit Answer Action - stable callback that does not re-create on clock ticks
   const submitAnswer = useCallback(
     (optionIndex: number) => {
       const currentBattle = battleRef.current;
@@ -534,7 +506,10 @@ export function useLiveBattle(roomCode: string) {
       setIsLocked(true);
       setSelectedOption(optionIndex);
       setIsSubmitting(true);
-      setLockedScore(potentialScore);
+
+      const elapsedSec = Math.max(0, (Date.now() - (currentBattle.roundStartedAt || Date.now())) / 1000);
+      const score = Math.max(100, Math.round(1000 - elapsedSec * 30));
+      setLockedScore(score);
 
       // 2. Authoritative submission via Socket.IO
       socketManager.emit("battle:submit_answer", {
@@ -543,7 +518,7 @@ export function useLiveBattle(roomCode: string) {
         selectedOption: optionIndex,
       });
     },
-    [isLocked, isSubmitting, code, potentialScore]
+    [isLocked, isSubmitting, code]
   );
 
   // Host manually advances to next round early during reveal

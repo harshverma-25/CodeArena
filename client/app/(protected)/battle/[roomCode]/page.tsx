@@ -40,6 +40,16 @@ import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { useLiveBattle, LiveBattlePlayer } from "@/features/battle/hooks/useLiveBattle";
 import { useQuizExitGuard } from "@/features/battle/hooks/useQuizExitGuard";
 import { ExitQuizModal } from "@/features/battle/components/ExitQuizModal";
+import {
+  BattleTimerCard,
+  MobileTimerPill,
+  ScoreTicker,
+  RevealCountdownBadge,
+  MaxRoundValueBadge,
+  AnswerOptionCard,
+  PlayerRosterItem,
+  QuestionProgressCard,
+} from "@/features/battle";
 
 const OPTION_LETTERS = ["A", "B", "C", "D"];
 
@@ -124,13 +134,9 @@ export default function LiveQuizArenaPage() {
     selectedOption,
     isLocked,
     isSubmitting,
-    potentialScore,
     lockedScore,
-    timeRemaining,
-    timerPercent,
     isRevealed,
     revealData,
-    revealCountdown,
     results,
     status,
     errorMessage,
@@ -301,71 +307,21 @@ export default function LiveQuizArenaPage() {
             {/* On mobile: placed below Question Card (order-2); On desktop: placed at top (lg:order-1) */}
             <div className="order-2 lg:order-1 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
               
-              {/* CARD A: TIMER CARD */}
-              <div className="relative bg-[#FEF08A] border-[2.5px] border-black rounded-[22px] p-3.5 sm:p-4 shadow-[4px_4px_0px_#000] flex flex-col justify-between overflow-hidden">
-                <div className="flex items-center gap-3">
-                  {/* Timer Stopwatch Icon */}
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#CFFAFE] border-2 border-black flex items-center justify-center shrink-0 shadow-[2px_2px_0px_#000]">
-                    <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-black stroke-[2.5]" />
-                  </div>
-                  <div>
-                    <div className="font-black text-2xl sm:text-3xl text-black leading-none font-mono tracking-tight">
-                      {timeRemaining}s
-                    </div>
-                    <span className="text-[10px] font-black tracking-widest text-stone-900 uppercase mt-0.5 block">
-                      TIME LEFT
-                    </span>
-                  </div>
-                </div>
-
-                {/* Decreasing Horizontal Progress Bar */}
-                <div className="mt-2.5 sm:mt-3 w-full h-3 bg-white border-2 border-black rounded-full overflow-hidden p-0.5">
-                  <div
-                    className={`h-full rounded-full transition-all duration-150 ${
-                      timeRemaining <= 3 ? "bg-red-600" : "bg-black"
-                    }`}
-                    style={{ width: `${Math.max(0, Math.min(100, timerPercent))}%` }}
-                  />
-                </div>
-
-                {/* Decorative star doodle */}
-                <div className="absolute top-2 right-2 pointer-events-none opacity-80">
-                  <ArcadeStarIcon className="w-4 h-4 text-[#FFE600]" />
-                </div>
-              </div>
+              {/* CARD A: ISOLATED TIMER CARD */}
+              <BattleTimerCard
+                roundStartedAt={battle?.roundStartedAt || 0}
+                timePerQuestion={battle?.timePerQuestion || 30}
+                isLocked={isLocked}
+                isRevealed={isRevealed}
+                status={status}
+              />
 
               {/* CARD B: QUESTION PROGRESS CARD */}
-              <div className="relative bg-white border-[2.5px] border-black rounded-[22px] p-3.5 sm:p-4 shadow-[4px_4px_0px_#000] flex flex-col justify-between">
-                <div>
-                  <h3 className="font-black text-sm sm:text-base text-black text-center tracking-tight">
-                    Question {currentQNumber} / {totalQuestions}
-                  </h3>
-                </div>
-
-                {/* Segmented Progress Capsules matching screenshot */}
-                <div className="mt-2.5 sm:mt-3 flex items-center justify-center gap-1 sm:gap-1.5 flex-wrap">
-                  {Array.from({ length: totalQuestions }).map((_, idx) => {
-                    const isCompleted = idx < currentQNumber;
-                    const isCurrent = idx === currentQIndex;
-                    return (
-                      <div
-                        key={idx}
-                        className={`h-3 sm:h-3.5 rounded-full border-1.5 border-black transition-all ${
-                          isCompleted
-                            ? "w-4 sm:w-5 bg-[#0D9488]"
-                            : "w-4 sm:w-5 bg-white"
-                        } ${isCurrent ? "ring-2 ring-black" : ""}`}
-                        title={`Question ${idx + 1}`}
-                      />
-                    );
-                  })}
-                </div>
-
-                {/* Crown Doodle on top right */}
-                <div className="absolute -top-2 -right-1 pointer-events-none">
-                  <ArcadeCrownIcon className="w-6 h-5" />
-                </div>
-              </div>
+              <QuestionProgressCard
+                currentQNumber={currentQNumber}
+                totalQuestions={totalQuestions}
+                currentQIndex={currentQIndex}
+              />
 
               {/* CARD C: YOUR SCORE CARD */}
               <div className="relative bg-[#DDD6FE] border-[2.5px] border-black rounded-[22px] p-3.5 sm:p-4 shadow-[4px_4px_0px_#000] flex flex-col justify-between">
@@ -385,20 +341,13 @@ export default function LiveQuizArenaPage() {
                 </div>
 
                 {/* Live points ticker info */}
-                <div className="mt-2.5 sm:mt-3 text-[11px] font-extrabold text-stone-700 flex items-center justify-between">
-                  <span>
-                    {isRevealed
-                      ? isMyAnswerCorrect
-                        ? `+${myEarnedScore} pts awarded!`
-                        : "0 pts earned"
-                      : isLocked
-                      ? "Locked in!"
-                      : `Max: ${potentialScore} pts`}
-                  </span>
-                  {isRevealed && isMyAnswerCorrect && (
-                    <span className="text-[#065F46] font-black">✓ Correct</span>
-                  )}
-                </div>
+                <ScoreTicker
+                  roundStartedAt={battle?.roundStartedAt || 0}
+                  isLocked={isLocked}
+                  isRevealed={isRevealed}
+                  isMyAnswerCorrect={isMyAnswerCorrect}
+                  myEarnedScore={myEarnedScore}
+                />
               </div>
 
             </div>
@@ -424,10 +373,12 @@ export default function LiveQuizArenaPage() {
                     </span>
                   </div>
                   {/* Mobile-only timer pill so user at top always sees remaining time without scrolling */}
-                  <div className="inline-flex sm:hidden items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FEF08A] border-2 border-black shadow-[2px_2px_0px_#000] font-mono font-black text-xs">
-                    <Clock className="w-3.5 h-3.5 stroke-[2.5]" />
-                    <span>{timeRemaining}s</span>
-                  </div>
+                  <MobileTimerPill
+                    roundStartedAt={battle?.roundStartedAt || 0}
+                    timePerQuestion={battle?.timePerQuestion || 30}
+                    isRevealed={isRevealed}
+                    status={status}
+                  />
                   <ArcadeCrownIcon className="w-6 h-5 hidden sm:inline-block" />
                 </div>
 
@@ -457,89 +408,22 @@ export default function LiveQuizArenaPage() {
 
               {/* 2x2 Interactive Answer Options Grid (Stacked 1-col on mobile, 2-col on sm+) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
-                {options.map((optionText, idx) => {
-                  const letter = OPTION_LETTERS[idx] || `${idx + 1}`;
-                  const theme = OPTION_THEMES[idx % OPTION_THEMES.length];
-                  const isSelected = selectedOption === idx;
-                  const isCorrect = isRevealed && correctAnswerIndex === idx;
-                  const isWrongSelected = isRevealed && isSelected && !isCorrect;
-
-                  let cardClasses = `${theme.bg} ${theme.hoverBg} border-[2.5px] border-black shadow-[4px_4px_0px_#000]`;
-                  let badgeClasses = "bg-white text-black border-2 border-black";
-
-                  if (isCorrect) {
-                    cardClasses = "bg-[#10B981] text-white border-[3px] border-black shadow-[4px_4px_0px_#000] scale-[1.01]";
-                    badgeClasses = "bg-white text-[#10B981] border-2 border-black";
-                  } else if (isWrongSelected) {
-                    cardClasses = "bg-[#EF4444] text-white border-[3px] border-black shadow-[4px_4px_0px_#000]";
-                    badgeClasses = "bg-white text-red-600 border-2 border-black";
-                  } else if (isSelected && isLocked) {
-                    cardClasses = "bg-[#FFE600] text-black border-[3px] border-black shadow-[4px_4px_0px_#000]";
-                    badgeClasses = "bg-black text-[#FFE600] border-2 border-black";
-                  } else if (isLocked) {
-                    cardClasses = `${theme.bg} opacity-60 border-[2.5px] border-stone-400 cursor-not-allowed shadow-[2px_2px_0px_#000]`;
-                  }
-
-                  return (
-                    <button
-                      key={idx}
-                      type="button"
-                      disabled={isLocked || isSubmitting}
-                      onClick={() => submitAnswer(idx)}
-                      className={`group relative text-left p-3.5 sm:p-4.5 rounded-2xl flex items-center gap-3 sm:gap-3.5 transition-all overflow-hidden ${cardClasses} ${
-                        !isLocked ? "hover:-translate-y-1 active:translate-x-[1px] active:translate-y-[1px] cursor-pointer" : ""
-                      }`}
-                    >
-                      {/* Decorative comic scribble in corner */}
-                      {!isRevealed && !isSelected && theme.scribble}
-
-                      {/* Option Box Letter (A, B, C, D) */}
-                      <div
-                        className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center font-black text-lg sm:text-xl shrink-0 shadow-[1px_1px_0px_#000] ${badgeClasses}`}
-                      >
-                        {letter}
-                      </div>
-
-                      {/* Option Text */}
-                      <div className="flex-1 min-w-0 pr-2">
-                        <span className={`font-black text-base sm:text-lg xl:text-xl leading-snug break-words ${
-                          isCorrect || isWrongSelected ? "text-white" : "text-black"
-                        }`}>
-                          {optionText}
-                        </span>
-
-                        {/* State Pills */}
-                        {isCorrect && (
-                          <span className="block mt-1 text-[11px] font-black uppercase tracking-wider text-emerald-100">
-                            ✓ Correct Answer
-                          </span>
-                        )}
-                        {isWrongSelected && (
-                          <span className="block mt-1 text-[11px] font-black uppercase tracking-wider text-red-100">
-                            ✗ Your Choice
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Feedback Icon on Right */}
-                      <div className="shrink-0">
-                        {isCorrect ? (
-                          <div className="w-7 h-7 rounded-full bg-white text-emerald-600 flex items-center justify-center font-black">
-                            <Check className="w-4 h-4 stroke-[3]" />
-                          </div>
-                        ) : isWrongSelected ? (
-                          <div className="w-7 h-7 rounded-full bg-white text-red-600 flex items-center justify-center font-black">
-                            <X className="w-4 h-4 stroke-[3]" />
-                          </div>
-                        ) : isSelected && isLocked ? (
-                          <div className="w-7 h-7 rounded-full bg-black text-[#FFE600] flex items-center justify-center font-black">
-                            <Check className="w-4 h-4 stroke-[3]" />
-                          </div>
-                        ) : null}
-                      </div>
-                    </button>
-                  );
-                })}
+                {options.map((optionText, idx) => (
+                  <AnswerOptionCard
+                    key={idx}
+                    idx={idx}
+                    letter={OPTION_LETTERS[idx] || `${idx + 1}`}
+                    optionText={optionText}
+                    theme={OPTION_THEMES[idx % OPTION_THEMES.length]}
+                    isSelected={selectedOption === idx}
+                    isLocked={isLocked}
+                    isSubmitting={isSubmitting}
+                    isRevealed={isRevealed}
+                    isCorrect={isRevealed && correctAnswerIndex === idx}
+                    isWrongSelected={isRevealed && selectedOption === idx && correctAnswerIndex !== idx}
+                    onSelect={submitAnswer}
+                  />
+                ))}
               </div>
 
               {/* Reveal Mode: Educational Explanation Accordion */}
@@ -550,9 +434,10 @@ export default function LiveQuizArenaPage() {
                       <ArcadeStarIcon className="w-4 h-4 text-black" />
                       Educational Explanation
                     </span>
-                    <span className="font-black text-xs bg-white border border-black px-2 py-0.5 rounded-md">
-                      Next question in {revealCountdown}s
-                    </span>
+                    <RevealCountdownBadge
+                      isRevealed={isRevealed}
+                      revealDurationSec={revealData.revealDurationSec || 5}
+                    />
                   </div>
                   <p className="text-xs sm:text-sm font-bold text-stone-800 leading-relaxed">
                     {revealData.explanation || "This option represents the standard definition and logic for this topic."}
@@ -603,76 +488,15 @@ export default function LiveQuizArenaPage() {
 
                 {/* Players List with Custom Ranked Badges */}
                 <div className="flex flex-col gap-2.5">
-                  {rankedPlayers.map((player, idx) => {
-                    const isMe = player.userId === myId;
-                    const theme = PLAYER_CARD_THEMES[idx % PLAYER_CARD_THEMES.length];
-                    const avatarRenderer = PLAYER_AVATARS[idx % PLAYER_AVATARS.length];
-
-                    return (
-                      <div
-                        key={player.userId}
-                        className={`relative rounded-2xl border-[2.5px] border-black p-2.5 sm:p-3 shadow-[3px_3px_0px_#000] flex items-center justify-between gap-3 ${theme.bg} ${
-                          isMe ? "ring-2 ring-black" : ""
-                        }`}
-                      >
-                        {/* Rank Bookmark Tag (#1, #2, #3, #4) */}
-                        <div className="absolute -top-2.5 -left-2 z-10">
-                          <span className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-md border-2 border-black font-black text-xs shadow-[1px_1px_0px_#000] ${theme.bookmarkBg} text-black`}>
-                            #{player.rank}
-                            {player.rank === 1 && <ArcadeCrownIcon className="w-3.5 h-3 inline-block" />}
-                          </span>
-                        </div>
-
-                        {/* Left: Avatar + Name + Answer State */}
-                        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                          {/* Circular Avatar */}
-                          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-black overflow-hidden bg-white shadow-[2px_2px_0px_#000] shrink-0">
-                            {avatarRenderer(player)}
-                          </div>
-
-                          <div className="min-w-0">
-                            <div className="flex items-center gap-1.5">
-                              <span className="font-black text-sm text-black truncate leading-tight">
-                                {player.displayName || player.username}
-                              </span>
-                            </div>
-                            <span className="text-[11px] font-bold text-stone-700 leading-tight block">
-                              {isMe ? "You" : player.isHost ? "Host" : "Guest"}
-                            </span>
-
-                            {/* Answer Status Badge & Response Latency */}
-                            <div className="mt-1 flex items-center gap-1.5">
-                              {player.hasAnswered ? (
-                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#D1FAE5] border border-black font-black text-[10px] text-[#065F46]">
-                                  <Check className="w-3 h-3 stroke-[3]" />
-                                  Answered
-                                </span>
-                              ) : (
-                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#CFFAFE] border border-black font-black text-[10px] text-[#0369A1]">
-                                  <Clock className="w-2.5 h-2.5 stroke-[2.5]" />
-                                  Thinking...
-                                </span>
-                              )}
-
-                              {/* Ping / Latency metric */}
-                              <span className="text-[10px] font-bold text-stone-600 flex items-center gap-1">
-                                <span className={`w-1.5 h-1.5 rounded-full ${player.hasAnswered ? "bg-emerald-500" : "bg-sky-500"}`} />
-                                {player.timeTakenMs ? `${player.timeTakenMs}ms` : "Live"}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Right: Authoritative Player Score */}
-                        <div className="shrink-0 text-right">
-                          <span className="font-black text-lg sm:text-xl text-black font-mono">
-                            {(player.score || 0).toLocaleString()}
-                          </span>
-                        </div>
-
-                      </div>
-                    );
-                  })}
+                  {rankedPlayers.map((player, idx) => (
+                    <PlayerRosterItem
+                      key={player.userId}
+                      player={player}
+                      isMe={player.userId === myId}
+                      theme={PLAYER_CARD_THEMES[idx % PLAYER_CARD_THEMES.length]}
+                      avatarRenderer={PLAYER_AVATARS[idx % PLAYER_AVATARS.length]}
+                    />
+                  ))}
                 </div>
 
               </div>
@@ -784,9 +608,10 @@ export default function LiveQuizArenaPage() {
 
                   <div className="p-3 sm:p-3.5 rounded-2xl bg-[#FEF08A] border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-between">
                     <span className="font-black text-xs text-stone-900">Max Round Value</span>
-                    <span className="font-mono font-black text-base text-black">
-                      {potentialScore} pts
-                    </span>
+                    <MaxRoundValueBadge
+                      roundStartedAt={battle?.roundStartedAt || 0}
+                      isLocked={isLocked}
+                    />
                   </div>
                 </div>
               </div>
