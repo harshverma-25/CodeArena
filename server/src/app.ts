@@ -21,6 +21,7 @@ import mongoose from 'mongoose';
 import { rateLimiter } from './middleware/rate-limiter.middleware.js';
 import { env, resolveCorsOrigins } from './config/env.js';
 import { logger } from './config/logger.js';
+import { isUpstashConfigured } from './config/redis.js';
 
 const app = express();
 
@@ -102,6 +103,7 @@ const getHealthStatus = () => {
   return {
     status: readyState === 1 ? 'OK' : 'DEGRADED',
     database,
+    cache: isUpstashConfigured() ? 'upstash_redis' : 'in_memory_fallback',
     uptime: Math.floor(process.uptime()), // in seconds
     environment: process.env.NODE_ENV || 'development',
     version: '1.0.0',

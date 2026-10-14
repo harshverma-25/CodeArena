@@ -5,23 +5,23 @@ import { questionRepository } from '../question/question.repository.js';
 import { getAvailableQuizLengths } from '../../shared/config/quiz-config.js';
 import { BattleModel } from '../battle/battle.model.js';
 import { BattleStatus } from '../battle/battle.types.js';
+import { cacheService } from '../../shared/cache/cache.service.js';
 
 export class CategoryService {
-  // In-memory bounded TTL caches for read-heavy public taxonomy & popular quizzes
-  private categoriesCache: { data: any[]; expiresAt: number } | null = null;
-  private subjectsCache: Map<string, { data: { category: any; subjects: any[] }; expiresAt: number }> = new Map();
-  private popularCache: Map<number, { data: any[]; expiresAt: number }> = new Map();
-  private readonly CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes bounded TTL
+  private readonly TTL_CATEGORIES = 300; // 5 minutes
+  private readonly TTL_SUBJECTS = 300; // 5 minutes
+  private readonly TTL_POPULAR = 180; // 3 minutes
 
   constructor(private repository: CategoryRepository = categoryRepository) {}
 
   /**
-   * Explicitly evict taxonomy and popular quiz caches (called on seed, question imports, etc.).
+   * Explicitly evict taxonomy and popular quiz caches (called on seed, question imports, admin mutations).
    */
-  public clearCache(): void {
-    this.categoriesCache = null;
-    this.subjectsCache.clear();
-    this.popularCache.clear();
+  public async clearCache(): Promise<void> {
+    await Promise.all([
+      cacheService.delByPrefix('categories:'),
+      cacheService.delByPrefix('popular:'),
+    ]).catch(() => {});
   }
 
   /**
@@ -29,35 +29,29 @@ export class CategoryService {
    * Employs batch question aggregation and in-memory TTL caching to eliminate N+1 queries.
    */
   async getAllCategories(): Promise<any[]> {
-    const now = Date.now();
-    if (this.categoriesCache && now < this.categoriesCache.expiresAt) {
-      return this.categoriesCache.data;
-    }
+    return cacheService.getOrSet('categories:all', this.TTL_CATEGORIES, async () => {
+      const [categories, categoryCounts] = await Promise.all([
+        this.repository.findAllActiveCategories(),
+        questionRepository.countPublishedGroupedByCategory(),
+      ]);
 
-    const [categories, categoryCounts] = await Promise.all([
-      this.repository.findAllActiveCategories(),
-      questionRepository.countPublishedGroupedByCategory(),
-    ]);
-
-    const data = categories.map((cat) => {
-      const questionCount = categoryCounts.get(cat._id.toString()) || 0;
-      const availableLengths = getAvailableQuizLengths(questionCount);
-      return {
-        _id: cat._id.toString(),
-        id: cat._id.toString(),
-        name: cat.name,
-        slug: cat.slug,
-        description: cat.description,
-        icon: cat.icon,
-        isActive: cat.isActive,
-        questionCount,
-        availableLengths,
-        isPlayable: questionCount >= 10,
-      };
+      return categories.map((cat) => {
+        const questionCount = categoryCounts.get(cat._id.toString()) || 0;
+        const availableLengths = getAvailableQuizLengths(questionCount);
+        return {
+          _id: cat._id.toString(),
+          id: cat._id.toString(),
+          name: cat.name,
+          slug: cat.slug,
+          description: cat.description,
+          icon: cat.icon,
+          isActive: cat.isActive,
+          questionCount,
+          availableLengths,
+          isPlayable: questionCount >= 10,
+        };
+      });
     });
-
-    this.categoriesCache = { data, expiresAt: now + this.CACHE_TTL_MS };
-    return data;
   }
 
   /**
@@ -76,60 +70,56 @@ export class CategoryService {
    * Completely eliminates N+1 queries via single-pass subject question count aggregation and TTL caching.
    */
   async getSubjectsForCategory(categoryIdOrSlug: string): Promise<{ category: any; subjects: any[] }> {
-    const cacheKey = categoryIdOrSlug.toLowerCase();
-    const now = Date.now();
-    const cached = this.subjectsCache.get(cacheKey);
-    if (cached && now < cached.expiresAt) {
-      return cached.data;
-    }
+    const key = `categories:subjects:${categoryIdOrSlug.toLowerCase()}`;
+    return cacheService.getOrSet(key, this.TTL_SUBJECTS, async () => {
+      const category = await this.getCategory(categoryIdOrSlug);
+      const [subjects, { subjectCounts, totalCategoryCount }] = await Promise.all([
+        this.repository.findSubjectsByCategoryIdOrSlug(category.slug),
+        questionRepository.countPublishedGroupedBySubject(category._id),
+      ]);
 
-    const category = await this.getCategory(categoryIdOrSlug);
-    const [subjects, { subjectCounts, totalCategoryCount }] = await Promise.all([
-      this.repository.findSubjectsByCategoryIdOrSlug(category.slug),
-      questionRepository.countPublishedGroupedBySubject(category._id),
-    ]);
+      const categoryAvailableLengths = getAvailableQuizLengths(totalCategoryCount);
 
-    const categoryAvailableLengths = getAvailableQuizLengths(totalCategoryCount);
+      const subjectsWithCount = subjects.map((subj) => {
+        const questionCount = subjectCounts.get(subj._id.toString()) || 0;
+        const availableLengths = getAvailableQuizLengths(questionCount);
+        return {
+          _id: subj._id.toString(),
+          id: subj._id.toString(),
+          categoryId: subj.categoryId.toString(),
+          name: subj.name,
+          slug: subj.slug,
+          description: subj.description,
+          icon: subj.icon,
+          isActive: subj.isActive,
+          questionCount,
+          availableLengths,
+          isPlayable: questionCount >= 10,
+        };
+      });
 
-    const subjectsWithCount = subjects.map((subj) => {
-      const questionCount = subjectCounts.get(subj._id.toString()) || 0;
-      const availableLengths = getAvailableQuizLengths(questionCount);
-      return {
-        _id: subj._id.toString(),
-        id: subj._id.toString(),
-        categoryId: subj.categoryId.toString(),
-        name: subj.name,
-        slug: subj.slug,
-        description: subj.description,
-        icon: subj.icon,
-        isActive: subj.isActive,
-        questionCount,
-        availableLengths,
-        isPlayable: questionCount >= 10,
+      const result = {
+        category: {
+          _id: category._id.toString(),
+          id: category._id.toString(),
+          name: category.name,
+          slug: category.slug,
+          description: category.description,
+          icon: category.icon,
+          isActive: category.isActive,
+          questionCount: totalCategoryCount,
+          availableLengths: categoryAvailableLengths,
+          isPlayable: totalCategoryCount >= 10,
+        },
+        subjects: subjectsWithCount,
       };
+
+      // Prime secondary keys for alternate lookups (by slug and id)
+      cacheService.set(`categories:subjects:${category.slug.toLowerCase()}`, result, this.TTL_SUBJECTS).catch(() => {});
+      cacheService.set(`categories:subjects:${category._id.toString()}`, result, this.TTL_SUBJECTS).catch(() => {});
+
+      return result;
     });
-
-    const result = {
-      category: {
-        _id: category._id.toString(),
-        id: category._id.toString(),
-        name: category.name,
-        slug: category.slug,
-        description: category.description,
-        icon: category.icon,
-        isActive: category.isActive,
-        questionCount: totalCategoryCount,
-        availableLengths: categoryAvailableLengths,
-        isPlayable: totalCategoryCount >= 10,
-      },
-      subjects: subjectsWithCount,
-    };
-
-    this.subjectsCache.set(cacheKey, { data: result, expiresAt: now + this.CACHE_TTL_MS });
-    this.subjectsCache.set(category.slug.toLowerCase(), { data: result, expiresAt: now + this.CACHE_TTL_MS });
-    this.subjectsCache.set(category._id.toString(), { data: result, expiresAt: now + this.CACHE_TTL_MS });
-
-    return result;
   }
 
   /**
@@ -147,21 +137,24 @@ export class CategoryService {
    * Retrieve category details including live question count and playable status.
    */
   async getCategoryDetails(categoryIdOrSlug: string): Promise<any> {
-    const category = await this.getCategory(categoryIdOrSlug);
-    const { totalCategoryCount } = await questionRepository.countPublishedGroupedBySubject(category._id);
-    const availableLengths = getAvailableQuizLengths(totalCategoryCount);
-    return {
-      _id: category._id.toString(),
-      id: category._id.toString(),
-      name: category.name,
-      slug: category.slug,
-      description: category.description,
-      icon: category.icon,
-      isActive: category.isActive,
-      questionCount: totalCategoryCount,
-      availableLengths,
-      isPlayable: totalCategoryCount >= 10,
-    };
+    const key = `categories:detail:${categoryIdOrSlug.toLowerCase()}`;
+    return cacheService.getOrSet(key, this.TTL_CATEGORIES, async () => {
+      const category = await this.getCategory(categoryIdOrSlug);
+      const { totalCategoryCount } = await questionRepository.countPublishedGroupedBySubject(category._id);
+      const availableLengths = getAvailableQuizLengths(totalCategoryCount);
+      return {
+        _id: category._id.toString(),
+        id: category._id.toString(),
+        name: category.name,
+        slug: category.slug,
+        description: category.description,
+        icon: category.icon,
+        isActive: category.isActive,
+        questionCount: totalCategoryCount,
+        availableLengths,
+        isPlayable: totalCategoryCount >= 10,
+      };
+    });
   }
 
   /**
@@ -169,13 +162,9 @@ export class CategoryService {
    * Employs early pipeline projection, lightweight lookup, and bounded TTL caching.
    */
   async getPopularQuizzes(limit: number = 5): Promise<any[]> {
-    const now = Date.now();
-    const cached = this.popularCache.get(limit);
-    if (cached && now < cached.expiresAt) {
-      return cached.data;
-    }
-
-    const completedBattles = await BattleModel.aggregate([
+    const key = `popular:${limit}`;
+    return cacheService.getOrSet(key, this.TTL_POPULAR, async () => {
+      const completedBattles = await BattleModel.aggregate([
       { $match: { status: BattleStatus.COMPLETED } },
       // Project only essential fields before $lookup to avoid carrying heavy players/answers arrays in pipeline RAM
       { $project: { roomId: 1, topic: 1, endedAt: 1 } },
@@ -359,8 +348,8 @@ export class CategoryService {
       })
     );
 
-    this.popularCache.set(limit, { data: finalResults, expiresAt: now + this.CACHE_TTL_MS });
     return finalResults;
+  });
   }
 }
 
