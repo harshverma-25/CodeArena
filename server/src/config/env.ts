@@ -59,7 +59,7 @@ const envSchema = z.object({
     ...data,
     CORS_ORIGIN:
       !data.CORS_ORIGIN || (data.NODE_ENV === 'production' && data.CORS_ORIGIN === '*')
-        ? 'https://code-arena-jade.vercel.app'
+        ? 'https://quizzyworld.vercel.app'
         : data.CORS_ORIGIN,
     GUEST_JWT_SECRET:
       data.GUEST_JWT_SECRET || 'codearena_dev_guest_jwt_secret_key_32_bytes_min',
@@ -80,13 +80,14 @@ export const env = result.data;
 export type Env = z.infer<typeof envSchema>;
 
 export const TRUSTED_PRODUCTION_ORIGINS = [
+  'https://quizzyworld.vercel.app',
   'https://code-arena-jade.vercel.app',
 ];
 
 /**
  * Resolves CORS origins from configuration.
  * Automatically normalizes origins (stripping trailing slashes) and guarantees inclusion
- * of the exact trusted production frontend origin (https://code-arena-jade.vercel.app).
+ * of the exact trusted production frontend origin (https://quizzyworld.vercel.app).
  * Returns true in development wildcard mode, or an array of allowed origin strings.
  */
 export function resolveCorsOrigins(corsOrigin: string): boolean | string[] {
