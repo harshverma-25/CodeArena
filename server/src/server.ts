@@ -7,6 +7,7 @@ import { initializeSocket, closeSocket } from './sockets/index.js';
 import { battleService } from './modules/battle/battle.service.js';
 import { roomService } from './modules/room/room.service.js';
 
+// Server HTTP instance
 const server = http.createServer(app);
 
 const startServer = async () => {

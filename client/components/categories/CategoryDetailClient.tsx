@@ -228,7 +228,7 @@ export function CategoryDetailClient({ slug, verifiedCategory }: CategoryDetailC
       {/* Loading State */}
       {loading && (
         <div className="space-y-6 animate-pulse">
-          <div className="h-48 rounded-[32px] border-[2.5px] border-black bg-white p-8 shadow-[6px_6px_0px_#000]" />
+          <div className="h-24 rounded-[28px] border-[2.5px] border-black bg-white p-6 shadow-[5px_5px_0px_#000]" />
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
@@ -286,94 +286,56 @@ export function CategoryDetailClient({ slug, verifiedCategory }: CategoryDetailC
             </div>
           )}
 
-          {/* TOP ROW: Separated Category Hero Banner (Left) + Mixed Quiz Quick Launch Card (Right) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            {/* Left Side: Category Details Banner */}
-            <div className="lg:col-span-7 xl:col-span-8 bg-white border-[2.5px] border-black rounded-[32px] p-6 sm:p-8 shadow-[6px_6px_0px_#000] flex flex-col justify-between gap-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="p-2.5 bg-[#FEF08A] rounded-2xl border-2 border-black shadow-[3px_3px_0px_#000] shrink-0">
-                    {getCategoryIcon(slug, "w-10 h-10 sm:w-12 sm:h-12")}
-                  </div>
-                  <div>
-                    <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#DCFCE7] border-2 border-black text-[11px] font-black uppercase text-emerald-900 shadow-[1px_1px_0px_#000] mb-1">
-                      Verified Curriculum
-                    </div>
-                    <h1 className="font-black text-2xl sm:text-3xl lg:text-4xl text-black tracking-tight uppercase">
-                      {displayName}
-                    </h1>
-                  </div>
-                </div>
-
-                <p className="text-xs sm:text-sm font-bold text-stone-700 leading-relaxed max-w-2xl">
-                  {category?.description || verifiedCategory?.description || `Browse subjects and challenge friends in ${displayName} quizzes.`}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3 pt-3 border-t-2 border-stone-100 flex-wrap">
-                <span className="px-3.5 py-1.5 rounded-full bg-[#FEF9C3] border-2 border-black font-black text-xs text-black shadow-[2px_2px_0px_#000]">
-                  {category?.questionCount || 0} Questions Available
-                </span>
-                <span className="px-3.5 py-1.5 rounded-full bg-white border-2 border-black font-black text-xs text-stone-800 shadow-[2px_2px_0px_#000]">
-                  {subjects.length > 0 ? subjects.length : verifiedCategory?.subjects.length || 0} Topics
+          {/* Mixed Category Quiz Quick Launch Banner */}
+          <div className="bg-white border-[2.5px] border-black rounded-[28px] p-5 sm:p-6 shadow-[5px_5px_0px_#000] flex flex-col md:flex-row md:items-center justify-between gap-5">
+            <div className="space-y-1.5 max-w-xl">
+              <div className="flex items-center gap-2">
+                <ArcadeLightningIcon className="w-5 h-5 text-[#F59E0B] shrink-0" />
+                <h2 className="font-black text-base sm:text-lg uppercase text-black tracking-tight">
+                  Mixed {displayName} Quiz
+                </h2>
+                <span className="text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full bg-[#FFE600] border-2 border-black shadow-[1.5px_1.5px_0px_#000]">
+                  All Topics
                 </span>
               </div>
+              <p className="text-xs sm:text-sm font-bold text-stone-600 leading-relaxed">
+                A randomized mix pulling questions from across all subjects in {displayName}.
+              </p>
             </div>
 
-            {/* Right Side: Separate Mixed Quiz Card */}
-            <div className="lg:col-span-5 xl:col-span-4 bg-[#FAF7EE] border-[2.5px] border-black rounded-[32px] p-6 shadow-[6px_6px_0px_#000] flex flex-col justify-between gap-4">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-black text-base uppercase text-black flex items-center gap-2">
-                    <ArcadeLightningIcon className="w-5 h-5 text-[#F59E0B]" />
-                    Mixed {displayName} Quiz
-                  </span>
-                  <span className="text-[11px] font-black px-2.5 py-0.5 rounded-md bg-[#FFE600] border-2 border-black shadow-[1.5px_1.5px_0px_#000]">
-                    All Topics
-                  </span>
-                </div>
-                <p className="text-xs font-bold text-stone-600">
-                  A randomized mix pulling questions from across all subjects in {displayName}.
-                </p>
-              </div>
-
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
               {/* Question Count Picker */}
-              <div className="space-y-1.5">
-                <label className="text-[11px] font-black uppercase text-stone-600">
-                  Quiz Length: {selectedQuestionCount} Questions
-                </label>
-                <div className="grid grid-cols-3 gap-2">
-                  {[10, 15, 20].map((count) => {
-                    const isSelected = selectedQuestionCount === count;
-                    const isAvailable = (category?.questionCount || 20) >= count;
-                    return (
-                      <button
-                        key={count}
-                        type="button"
-                        disabled={!isAvailable}
-                        onClick={() => setSelectedQuestionCount(count)}
-                        className={`py-1.5 rounded-xl border-2 font-black text-xs transition-all cursor-pointer ${
-                          isSelected
-                            ? "bg-[#FFE600] text-black border-black shadow-[2px_2px_0px_#000]"
-                            : isAvailable
-                            ? "bg-white text-stone-800 border-stone-300 hover:border-black"
-                            : "bg-stone-100 text-stone-400 border-stone-200 cursor-not-allowed"
-                        }`}
-                      >
-                        {count} Qs
-                      </button>
-                    );
-                  })}
-                </div>
+              <div className="flex items-center justify-between sm:justify-start gap-1.5 bg-[#FAF7EE] p-1.5 rounded-2xl border-2 border-black shadow-[2px_2px_0px_#000]">
+                {[10, 15, 20].map((count) => {
+                  const isSelected = selectedQuestionCount === count;
+                  const isAvailable = (category?.questionCount || 20) >= count;
+                  return (
+                    <button
+                      key={count}
+                      type="button"
+                      disabled={!isAvailable}
+                      onClick={() => setSelectedQuestionCount(count)}
+                      className={`py-1.5 px-3 rounded-xl border-2 font-black text-xs transition-all cursor-pointer ${
+                        isSelected
+                          ? "bg-[#FFE600] text-black border-black shadow-[1.5px_1.5px_0px_#000]"
+                          : isAvailable
+                          ? "bg-white text-stone-800 border-stone-200 hover:border-black"
+                          : "bg-stone-100 text-stone-400 border-transparent cursor-not-allowed"
+                      }`}
+                    >
+                      {count} Qs
+                    </button>
+                  );
+                })}
               </div>
 
               {/* Action Buttons */}
-              <div className="grid grid-cols-2 gap-2.5 pt-1">
+              <div className="grid grid-cols-2 sm:flex sm:items-center gap-2">
                 <button
                   type="button"
                   disabled={launchingCardKey !== null}
                   onClick={() => handlePlaySolo(null, true)}
-                  className="py-2.5 px-3 rounded-xl bg-white hover:bg-stone-50 border-2 border-black font-black text-xs text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="py-2.5 px-4 rounded-xl bg-white hover:bg-stone-50 border-2 border-black font-black text-xs text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
                 >
                   <Play className="w-3.5 h-3.5 fill-black" />
                   <span>{launchingCardKey === "solo-mixed" ? "Starting..." : "Solo Play"}</span>
@@ -382,7 +344,7 @@ export function CategoryDetailClient({ slug, verifiedCategory }: CategoryDetailC
                   type="button"
                   disabled={launchingCardKey !== null}
                   onClick={() => handlePlayMultiplayer(null, true)}
-                  className="py-2.5 px-3 rounded-xl bg-[#FFE600] hover:bg-[#FACC15] border-2 border-black font-black text-xs text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="py-2.5 px-4 rounded-xl bg-[#FFE600] hover:bg-[#FACC15] border-2 border-black font-black text-xs text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
                 >
                   <Users className="w-3.5 h-3.5" />
                   <span>{launchingCardKey === "multi-mixed" ? "Creating..." : "Host Room"}</span>
@@ -438,12 +400,12 @@ export function CategoryDetailClient({ slug, verifiedCategory }: CategoryDetailC
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <BookOpen className="w-5 h-5 text-black shrink-0" />
-                <h2
+                <h1
                   id="subjects-heading"
                   className="font-black text-lg sm:text-xl text-black tracking-wide uppercase"
                 >
-                  Subject-Specific Quizzes
-                </h2>
+                  {displayName} Quizzes
+                </h1>
               </div>
               <span className="text-xs font-bold text-stone-600 hidden sm:inline">
                 {subjects.length} {subjects.length === 1 ? "Quiz" : "Quizzes"} Available
@@ -533,9 +495,6 @@ export function CategoryDetailClient({ slug, verifiedCategory }: CategoryDetailC
                 <span className="text-xs font-black uppercase text-stone-900 flex items-center gap-1.5">
                   <SlidersHorizontal className="w-3.5 h-3.5" />
                   Select Questions Count
-                </span>
-                <span className="text-[11px] font-bold text-stone-500">
-                  Available: {activePlayModalQuiz.availableQuestions || 10}+ Qs
                 </span>
               </div>
 

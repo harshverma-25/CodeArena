@@ -21,207 +21,326 @@ function cleanText(text?: string): string {
 }
 
 /**
- * Builds a tailored, category-specific prompt for Cloudflare Workers AI text-to-image models.
- * Ensures the primary subject dominates the image and explicitly excludes irrelevant objects
- * like arcade cabinets, generic signboards, watermarks, and embedded text.
+ * Subject-specific prompt definitions ensuring the exact quiz title and named franchise
+ * dictate the visual imagery, strictly preventing generic category overrides.
+ */
+const SPECIFIC_SUBJECT_PROMPTS: Record<
+  string,
+  {
+    subjectVisual: string;
+    settingVisual: string;
+    styleVisual: string;
+    negativeConstraints: string;
+  }
+> = {
+  // --- ANIME & MANGA ---
+  'naruto universe': {
+    subjectVisual:
+      'Naruto Uzumaki with his iconic spiky blond hair, wearing his classic orange-and-blue ninja jumpsuit with the Konoha leaf village forehead protector headband, summoning a swirling glowing cyan Rasengan energy sphere in his hand',
+    settingVisual: 'scenic Hidden Leaf Village with Hokage stone monument faces in the mountain background under clear twilight skies',
+    styleVisual: 'high quality cinematic Japanese anime art style, vibrant cel-shading, dynamic action composition, centered 1:1 square framing',
+    negativeConstraints: 'no Earth globe, no generic samurai, no modern city, no arcade machines, no text, no letters',
+  },
+  'one piece adventures': {
+    subjectVisual:
+      'Monkey D. Luffy wearing his iconic red vest and woven straw hat with red ribbon, standing triumphantly with fist raised on the wooden deck of the pirate ship Thousand Sunny with jolly roger flag',
+    settingVisual: 'sun-drenched azure Grand Line tropical ocean with billowing white clouds and distant sea king silhouette',
+    styleVisual: 'vibrant Japanese pirate adventure anime art style, rich cel-shading, bold energetic heroic framing, centered 1:1 square composition',
+    negativeConstraints: 'no generic dark pirate ships, no realistic photos, no Earth globe, no arcade machines, no text, no letters',
+  },
+  'dragon ball': {
+    subjectVisual:
+      'Son Goku in his iconic orange martial arts dogi gi with blue sash and wristbands, spiky black hair with golden Super Saiyan aura flames radiating around him, gathering a glowing blue Kamehameha energy ball between his palms',
+    settingVisual: 'dramatic desert canyon battlefield with floating shattered rock debris and radiant ki energy flares',
+    styleVisual: 'classic high-octane Japanese shonen anime art style, powerful energy highlights, clean 1:1 square framing',
+    negativeConstraints: 'no generic fighters, no western superheroes, no arcade machines, no text, no letters',
+  },
+  'jujutsu kaisen quiz': {
+    subjectVisual:
+      'Jujutsu sorcerer Satoru Gojo with iconic spiky white hair and sleek black blindfold, performing domain expansion hand signs with swirling blue and red cursed energy orbs orbiting around him, standing alongside Yuji Itadori',
+    settingVisual: 'mysterious infinite void domain expansion with dark celestial reflections and glowing cursed aura',
+    styleVisual: 'dark modern fantasy anime art style, high contrast neon cursed energy lighting, centered 1:1 square composition',
+    negativeConstraints: 'no generic ninjas, no medieval knights, no arcade machines, no text, no letters',
+  },
+
+  // --- MOVIES & WEB SERIES ---
+  'harry potter world': {
+    subjectVisual:
+      'Harry Potter with round wire-rim glasses and lightning-bolt scar, holding a glowing brown holly wand emitting golden magical sparks, with a fluttering golden snitch with delicate wings hovering nearby, and the magnificent silhouette of Hogwarts Castle with gothic towers and candlelit stained-glass windows',
+    settingVisual: 'misty Scottish highland lakeside at night with a full moon illuminating Hogwarts Castle and floating candles',
+    styleVisual: 'rich cinematic wizarding fantasy illustration, warm ambient spell glow, dramatic atmospheric lighting, centered 1:1 square composition',
+    negativeConstraints: 'no planet Earth, no outer space, no superheroes, no modern city, no generic fantasy, no arcade machines, no text, no letters',
+  },
+  'marvel universe': {
+    subjectVisual:
+      'The Avengers superheroes assembled together — Iron Man in iconic red-and-gold metallic armor with glowing chest arc reactor, Captain America holding his round red-white-and-blue vibranium star shield, and Thor with crackling lightning hammer',
+    settingVisual: 'cinematic hero stance atop Avengers Tower overlooking a dramatic glowing metropolis skyline at dusk with lightning in the sky',
+    styleVisual: 'epic cinematic superhero digital concept art, volumetric rim lighting, vivid heroic color grading, balanced 1:1 square composition',
+    negativeConstraints: 'no generic robots, no ordinary warriors, no DC heroes, no arcade machines, no text, no letters',
+  },
+  'dc universe': {
+    subjectVisual:
+      'Legendary DC Justice League heroes — Batman in his dark armored cowl and scalloped cape standing poised beside Superman with the iconic chest symbol and red flowing cape, and Wonder Woman with golden lasso of truth',
+    settingVisual: 'moody gothic Gotham City cathedral rooftop with dark gargoyles and distant searchlight beams piercing stormy night clouds',
+    styleVisual: 'dark cinematic heroic concept art, dramatic rim highlights and deep shadows, centered 1:1 square composition',
+    negativeConstraints: 'no Marvel heroes, no generic superheroes, no arcade machines, no text, no letters',
+  },
+  'stranger things': {
+    subjectVisual:
+      'The Hawkins retro mystery scene with four teenage friends on classic 1980s bicycles with glowing headlights in a misty pine forest at night, with the ominous red storm clouds and giant shadowy silhouette of the multi-legged Mind Flayer monster in the Upside Down sky',
+    settingVisual: 'eerie foggy Hawkins Indiana suburban woods with glowing spores and retro 1980s atmospheric neon-red lighting',
+    styleVisual: 'nostalgic 1980s cinematic sci-fi thriller art, synthwave dark atmospheric glow, centered 1:1 square composition',
+    negativeConstraints: 'no modern futuristic robots, no comedy cartoons, no arcade machines, no text, no letters',
+  },
+  'money heist quiz': {
+    subjectVisual:
+      'Heist crew members in signature red hooded boiler jumpsuits wearing the iconic Salvador Dali mustache masks, holding tactical duffle bags in front of a giant circular open bank vault door with raining banknotes in the air',
+    settingVisual: 'Royal Mint of Spain bank interior with grand marble pillars, dramatic overhead spotlights, and red emergency beacon glow',
+    styleVisual: 'tense cinematic action thriller digital art, bold red and charcoal contrast, centered 1:1 square composition',
+    negativeConstraints: 'no generic fantasy, no superheroes, no arcade machines, no text, no letters',
+  },
+  'movie dialogue quiz': {
+    subjectVisual:
+      'A glowing vintage cinema film clapperboard, classic 35mm golden film reels with flowing celluloid film strip, retro movie microphone, and director megaphone under a focused stage spotlight',
+    settingVisual: 'theatrical movie premiere red carpet stage with plush crimson velvet curtains and glamorous golden bokeh chandeliers',
+    styleVisual: 'polished cinematic tribute art, rich golden and amber glow, elegant 1:1 square composition',
+    negativeConstraints: 'no random messy objects, no arcade machines, no text, no letters',
+  },
+
+  // --- SPORTS ---
+  'ipl superstars': {
+    subjectVisual:
+      'Star Indian Premier League T20 cricket players in vibrant team colored cricket jerseys (blue, yellow, and gold), batsman hitting an explosive sixer with wooden cricket bat, wickets with flying illuminated LED bails, and red leather ball in motion',
+    settingVisual: 'massive packed modern cricket stadium at night under towering glowing floodlights with cheering grandstands and celebratory fireworks',
+    styleVisual: 'high-energy sports illustration, dynamic motion capture, vivid stadium lighting, centered 1:1 square composition',
+    negativeConstraints: 'no football, no soccer, no basketball, no baseball, no empty fields, no arcade machines, no text, no letters',
+  },
+  'cricket records': {
+    subjectVisual:
+      'A gleaming golden cricket championship cup trophy flanked by crossed wooden cricket bats, three wooden wickets with flying bails, and a shiny red cricket ball with crisp white seam resting on pristine green grass',
+    settingVisual: 'sunlit oval cricket stadium pitch with manicured grass boundary lines and clear blue afternoon sky',
+    styleVisual: 'prestigious sports art, polished gold reflections, crisp athletic details, centered 1:1 square framing',
+    negativeConstraints: 'no baseball, no soccer, no football, no arcade machines, no text, no letters',
+  },
+  'guess the cricketer': {
+    subjectVisual:
+      'A celebrated international cricket batsman in jersey and white pads, holding a raised cricket bat in triumphant half-century celebration, with batting gloves and helmet on the cricket pitch',
+    settingVisual: 'vibrant sunlit cricket arena with lush green turf and cheering stadium spectator stands',
+    styleVisual: 'inspirational sports portrait art, dynamic lighting, clean 1:1 square framing',
+    negativeConstraints: 'no other sports, no baseball, no arcade machines, no text, no letters',
+  },
+
+  // --- GENERAL KNOWLEDGE & INDIA ---
+  'world flags challenge': {
+    subjectVisual:
+      'A dynamic, majestic circular wreath of recognizable international national flags fluttering in the breeze — prominently featuring the flags of India, United States, United Kingdom, Japan, Brazil, France, Germany, and Canada',
+    settingVisual: 'clear blue sky background with subtle golden celebratory confetti and soft global diplomatic arena lighting',
+    styleVisual: 'crisp colorful vexillological art, clean cloth textures and accurate flag motifs, centered 1:1 square composition',
+    negativeConstraints: 'no plain Earth globe without flags, no dark outer space, no fantasy banners, no arcade machines, no text, no letters',
+  },
+  'world geography': {
+    subjectVisual:
+      'A detailed physical 3D world globe showing realistic green continents, snow-capped mountain ranges, blue oceans, alongside a vintage polished brass nautical compass and a folded topographical explorer map',
+    settingVisual: 'explorer wooden study desk with warm golden lantern light and antique map scrolls in background',
+    styleVisual: 'polished 3D cartographic explorer art, rich geographical textures, clean 1:1 square composition',
+    negativeConstraints: 'no fantasy planets, no sci-fi cyberspace, no arcade machines, no text, no letters',
+  },
+  'indian history': {
+    subjectVisual:
+      'Grand architectural heritage of historical India — the majestic Ashoka Lion Capital sculpture, intricate ancient stone temple carvings, and the glowing red sandstone arches of historical Mughal forts under golden hour light',
+    settingVisual: 'golden sunset over historical ancient Indian palace courtyards with ornamental water fountains and stone pillars',
+    styleVisual: 'rich historical cultural digital art, warm golden amber lighting, dignified centered 1:1 square composition',
+    negativeConstraints: 'no modern skyscrapers, no European castles, no arcade machines, no text, no letters',
+  },
+  'world history': {
+    subjectVisual:
+      'Historic world civilizations montage — the monumental stone Egyptian pyramids, classical ancient Roman Colosseum arches, antique parchment scroll, and an ornate vintage hourglass with falling golden sand',
+    settingVisual: 'dignified historical archaeological museum setting with warm golden sunlight filtering through stone arches',
+    styleVisual: 'epic historical digital painting, rich antique textures, timeless composition, 1:1 square framing',
+    negativeConstraints: 'no modern technology, no outer space, no arcade machines, no text, no letters',
+  },
+  'famous personalities': {
+    subjectVisual:
+      'Artistic classical tribute to great historical world thinkers and leaders — noble busts and portraits surrounded by golden laurel wreaths, quill and parchment, scientific compass, and timeless books of philosophy',
+    settingVisual: 'grand classical hall of fame library with towering wooden bookshelves and warm atmospheric light beams',
+    styleVisual: 'dignified classical portrait concept art, golden luminescence, balanced 1:1 square composition',
+    negativeConstraints: 'no modern pop celebrities, no cartoons, no arcade machines, no text, no letters',
+  },
+  'inventions & discoveries': {
+    subjectVisual:
+      'Revolutionary historic human inventions — Thomas Edison glowing filament incandescent lightbulb, Leonardo da Vinci aerial screw blueprint drawings, Galileo brass astronomical telescope, and intricate clockwork brass gears',
+    settingVisual: 'inventor laboratory workshop with workbenches, parchment schematics, and warm amber gaslight illumination',
+    styleVisual: 'detailed steampunk and historical invention art, glowing brass and glass, centered 1:1 square framing',
+    negativeConstraints: 'no futuristic cyberpunk, no arcade machines, no text, no letters',
+  },
+
+  // --- SCIENCE & SPACE ---
+  'solar system': {
+    subjectVisual:
+      'The complete Solar System with the blazing golden Sun at the center radiating warm solar flares, surrounded by the accurately rendered orbiting planets: rocky Mercury, golden Venus, blue Earth with its moon, red Mars, giant banded Jupiter with its Great Red Spot, magnificent ringed Saturn with glowing rings, icy blue Uranus, and deep blue Neptune on luminous orbital planes',
+    settingVisual: 'deep cosmic starfield space background with twinkling stars and subtle colorful nebula gas clouds',
+    styleVisual: 'breathtaking astronomical 3D space art, accurate planetary colors and scale, balanced 1:1 square composition',
+    negativeConstraints: 'no Earth alone, no plain Earth globe, no fantasy galaxies without planets, no alien monsters, no arcade machines, no text, no letters',
+  },
+  'human body': {
+    subjectVisual:
+      'Detailed 3D anatomical model of the human body showcasing the glowing red cardiovascular heart and blood vessels, muscular skeletal anatomy, and the glowing blue synaptic neural network of the brain',
+    settingVisual: 'clean modern medical science laboratory with soft turquoise and indigo holographic diagnostic lighting',
+    styleVisual: 'pristine 3D biomedical concept art, luminescent anatomical clarity, centered 1:1 square composition',
+    negativeConstraints: 'no grotesque horror, no cartoon monsters, no arcade machines, no text, no letters',
+  },
+  'animal kingdom': {
+    subjectVisual:
+      'A majestic wildlife assembly featuring a magnificent African lion with golden mane, a soaring bald eagle with outstretched wings, and an agile tiger in natural harmony',
+    settingVisual: 'lush golden hour savanna landscape with acacia trees and warm sun rays breaking through morning clouds',
+    styleVisual: 'stunning natural history wildlife art, vivid realistic animal textures, balanced 1:1 square framing',
+    negativeConstraints: 'no mythical fantasy monsters, no cages, no zoo bars, no arcade machines, no text, no letters',
+  },
+  'amazing science facts': {
+    subjectVisual:
+      'Fascinating physical science wonders — a glowing glass plasma globe emitting branching purple and violet lightning tendrils, magnetic levitation superconductor disc hovering over magnets, and prism light refraction',
+    settingVisual: 'modern exploratory science museum exhibit with dark background and vibrant luminescent scientific glows',
+    styleVisual: 'vivid modern science concept art, glowing energetic neon highlights, centered 1:1 square composition',
+    negativeConstraints: 'no plain chalkboard, no generic classroom, no arcade machines, no text, no letters',
+  },
+  'physics challenge': {
+    subjectVisual:
+      'Core physics phenomena — an illuminated atomic nucleus with glowing orbiting electron probability clouds, wave-particle double-slit interference pattern, a triangular optical glass prism dispersing pure white light into a vibrant rainbow spectrum, and spacetime curvature lines',
+    settingVisual: 'deep physics cosmos with glowing electromagnetic field vectors and quantum particle trails',
+    styleVisual: 'striking 3D physics visualization art, crystalline optics, brilliant quantum neon luminescence, 1:1 square composition',
+    negativeConstraints: 'no chemistry test tubes, no biology cells, no arcade machines, no text, no letters',
+  },
+  'chemistry quiz': {
+    subjectVisual:
+      'Laboratory chemistry setup with borosilicate glass Erlenmeyer flasks, round boiling flasks, and test tubes filled with glowing vibrant cyan, amber, and magenta bubbling liquid solutions, alongside colorful 3D molecular ball-and-stick models',
+    settingVisual: 'clean modern chemistry research lab with chalkboard chemical equations softly blurred in background',
+    styleVisual: 'sparkling chemical science concept art, glowing liquid translucency, clean 1:1 square framing',
+    negativeConstraints: 'no biology animals, no physics rockets, no arcade machines, no text, no letters',
+  },
+  'biology basics': {
+    subjectVisual:
+      'Glowing cyan double-helix DNA strand twisting upward beside microscopic cellular organelles, plant leaf chloroplasts showing photosynthesis, and detailed cell nucleus with vibrant bioluminescent accents',
+    settingVisual: 'microscopic cellular bio-dome environment with soft aquatic teal and emerald botanical lighting',
+    styleVisual: 'detailed microscopic biological 3D art, translucent cell membranes, centered 1:1 square composition',
+    negativeConstraints: 'no chemistry flasks, no physics machines, no arcade machines, no text, no letters',
+  },
+  'periodic table': {
+    subjectVisual:
+      'Luminous 3D periodic table display featuring colorful glowing crystalline element cubes — shimmering golden gold ingot, glittering crystalline carbon diamond, reactive copper crystals, and neon discharge tubes glowing in different elemental colors',
+    settingVisual: 'sleek scientific element display gallery with dark reflective slate surface and crisp illumination',
+    styleVisual: 'vibrant modern chemistry concept art, glowing element tiles, polished 1:1 square composition',
+    negativeConstraints: 'no generic textbooks, no chalkboard clutter, no arcade machines, no text, no letters',
+  },
+  'famous scientists': {
+    subjectVisual:
+      'Iconic historic scientific laboratory featuring Albert Einstein thought experiments with chalkboard calculations, Isaac Newton prism and falling red apple, Marie Curie glowing blue radium flask, and Nikola Tesla electrical wireless coils',
+    settingVisual: 'atmospheric historic research study with warm amber library lamps and scientific instruments',
+    styleVisual: 'tribute scientific digital painting, rich warm academic lighting, dignified 1:1 square composition',
+    negativeConstraints: 'no fantasy wizards, no cartoon caricatures, no arcade machines, no text, no letters',
+  },
+
+  // --- COMPUTER SCIENCE & PROGRAMMING ---
+  'dbms quiz': {
+    subjectVisual:
+      'Glowing 3D stacked cylindrical database server tiers with illuminated relational data tables, SQL query relational schema connecting lines with key indicators, and glowing cyan data packet pulses flowing between storage disks',
+    settingVisual: 'sleek dark modern cloud server datacenter with glowing blue and purple server rack status lights',
+    styleVisual: 'modern isometric software tech concept art, glowing neon data streams, clean 1:1 square composition',
+    negativeConstraints: 'no arcade machines, no gaming consoles, no messy cables, no text, no letters',
+  },
+  'operating systems': {
+    subjectVisual:
+      'Computer operating system core architecture — a glowing metallic CPU multi-core silicon processor chip labeled with kernel layer, surrounded by RAM memory blocks, scheduler process pipelines, and file system hierarchy tree',
+    settingVisual: 'dark high-tech motherboard circuit board with glowing neon cyan bus traces and microchip illumination',
+    styleVisual: 'modern isometric computer engineering concept art, crisp circuit details, centered 1:1 square composition',
+    negativeConstraints: 'no video games, no smartphone apps, no arcade machines, no text, no letters',
+  },
+  'computer networks': {
+    subjectVisual:
+      'Computer networking architecture — a glowing 3D network topology with interconnected enterprise server racks, high-speed fiber-optic cables emitting light pulses, network switches, packet routers, and glowing TCP/IP nodes spanning an abstract global grid',
+    settingVisual: 'dark high-tech network operations center with glowing cyber grid and optical fiber glow',
+    styleVisual: 'sleek telecommunications tech art, glowing cyan and amber data packets, clean 1:1 square composition',
+    negativeConstraints: 'no social media logos, no arcade machines, no text, no letters',
+  },
+  'oop concepts': {
+    subjectVisual:
+      'Object-Oriented Programming concepts represented as 3D modular glowing geometric blocks — illustrating Inheritance with hierarchical parent-child nodes, Encapsulation with a protective glowing glass shield over internal state, and Polymorphism with morphing colorful modules',
+    settingVisual: 'minimalist dark developer workspace with soft purple and teal neon blueprint grid',
+    styleVisual: 'abstract software engineering 3D illustration, clean geometric logic shapes, centered 1:1 square framing',
+    negativeConstraints: 'no arcade cabinets, no messy wires, no text, no letters',
+  },
+  'html & css': {
+    subjectVisual:
+      'Modern front-end web development visualization — a floating 3D glass web browser interface window with responsive UI layout wireframes, flexbox and grid layout cards, colorful CSS styling layer swatches, and brackets',
+    settingVisual: 'sleek contemporary web developer desk setup with soft ambient warm-and-blue studio lighting',
+    styleVisual: 'clean modern web design concept art, elegant glassmorphism elements, centered 1:1 square composition',
+    negativeConstraints: 'no messy wires, no arcade cabinets, no gibberish text, no letters',
+  },
+};
+
+/**
+ * Builds a tailored, title-first prompt ensuring that the exact quiz title
+ * and named franchise dominate the visual output.
  */
 export function buildThumbnailPrompt(ctx: ThumbnailPromptContext): string {
   const subject = cleanText(ctx.subjectName);
   const category = cleanText(ctx.categoryName);
   const catSlug = (ctx.categorySlug || '').toLowerCase();
   const desc = cleanText(ctx.description);
-  const topics = (ctx.sampleQuestionTopics || [])
-    .map(cleanText)
-    .filter(Boolean)
-    .slice(0, 3)
-    .join(', ');
+  const lowerSub = subject.toLowerCase().trim();
 
-  const lowerSub = subject.toLowerCase();
-  const lowerCat = category.toLowerCase();
-
-  let subjectVisual = '';
-  let settingVisual = '';
-  let styleVisual = 'polished modern digital illustration, vibrant colors, expressive lighting, centered 1:1 square composition, highly readable at small icon sizes';
-  let negativeConstraints = 'no text, no letters, no watermarks, no arcade machines, no game cabinets, no neon signboards';
-
-  // 1. Anime / Manga / Animation
-  if (
-    lowerSub.includes('anime') ||
-    lowerSub.includes('manga') ||
-    lowerSub.includes('naruto') ||
-    lowerSub.includes('dragon ball') ||
-    lowerSub.includes('one piece') ||
-    lowerSub.includes('attack on titan') ||
-    lowerSub.includes('jujutsu') ||
-    catSlug === 'anime'
-  ) {
-    subjectVisual = 'Original anime character artwork in a scenic landscape with cherry blossom petals, traditional pagodas, and vibrant twilight sky';
-    settingVisual = '';
-    styleVisual = 'high quality Japanese anime art style, colorful cel-shading, rich cinematic color palette, centered 1:1 square composition';
-    negativeConstraints = 'no text, no logo, no arcade machines, no video game cabinets, no arcade signs';
-  }
-  // 2. Football / Soccer
-  else if (
-    lowerSub.includes('football') ||
-    lowerSub.includes('soccer') ||
-    lowerSub.includes('fifa') ||
-    lowerSub.includes('premier league') ||
-    lowerSub.includes('champions league')
-  ) {
-    subjectVisual = 'Dynamic soccer players in athletic jerseys competing for a classic football match ball';
-    settingVisual = 'lush green stadium pitch under glowing floodlights with goal nets and atmospheric crowd bokeh';
-    styleVisual = 'vibrant sports illustration, dynamic action capture, high contrast lighting, clean 1:1 square framing';
-  }
-  // 3. Cricket
-  else if (lowerSub.includes('cricket') || lowerSub.includes('ipl')) {
-    subjectVisual = 'Cricket batsman executing a dramatic cover drive shot with wooden cricket wickets and red leather ball in motion';
-    settingVisual = 'sunlit green cricket stadium oval with packed grandstands and clear sky';
-    styleVisual = 'energetic sports art, clean stylized illustration, balanced 1:1 square composition';
-  }
-  // 4. Sports (General / Basketball / Tennis etc.)
-  else if (
-    lowerCat.includes('sport') ||
-    catSlug.includes('sport') ||
-    lowerSub.includes('sport') ||
-    lowerSub.includes('basketball') ||
-    lowerSub.includes('tennis')
-  ) {
-    subjectVisual = `Athletic competition focusing on ${subject}, sporting equipment and active players in motion`;
-    settingVisual = 'modern championship stadium arena with vivid court lighting';
-    styleVisual = 'dynamic digital sports art, bold energetic composition, centered 1:1 square framing';
-  }
-  // 5. Programming / Computer Science (DSA, DBMS, Networks, OS, OOP, Web, etc.)
-  else if (
-    lowerCat.includes('program') ||
-    catSlug.includes('program') ||
-    lowerSub.includes('code') ||
-    lowerSub.includes('dsa') ||
-    lowerSub.includes('algorithm') ||
-    lowerSub.includes('dbms') ||
-    lowerSub.includes('database') ||
-    lowerSub.includes('network') ||
-    lowerSub.includes('os') ||
-    lowerSub.includes('operating system') ||
-    lowerSub.includes('oop') ||
-    lowerSub.includes('software')
-  ) {
-    if (lowerSub.includes('dsa') || lowerSub.includes('algorithm')) {
-      subjectVisual = 'Glowing 3D binary search tree and algorithmic data node connections with glowing geometric logic paths';
-    } else if (lowerSub.includes('dbms') || lowerSub.includes('database')) {
-      subjectVisual = 'Glowing cylindrical database servers with cyber data storage blocks and networked holographic flows';
-    } else if (lowerSub.includes('network')) {
-      subjectVisual = 'Interconnected global network nodes, fiber optic cyber pulses, and glowing server routers';
-    } else {
-      subjectVisual = 'Software development workspace with monitors showing glowing code editor interfaces and terminal consoles';
-    }
-    settingVisual = 'sleek minimalist developer desk environment with soft neon ambient cyber accents';
-    styleVisual = 'modern isometric tech concept art, glowing neon accents, clean digital composition, 1:1 square framing';
-    negativeConstraints = 'no arcade machines, no arcade cabinets, no gibberish text, no watermarks, no messy wires';
-  }
-  // 6. Science (Physics, Chemistry, Biology)
-  else if (
-    lowerCat.includes('science') ||
-    catSlug.includes('science') ||
-    lowerSub.includes('physics') ||
-    lowerSub.includes('chemistry') ||
-    lowerSub.includes('biology')
-  ) {
-    if (lowerSub.includes('chem')) {
-      subjectVisual = 'Laboratory glass beakers and flasks filled with glowing colorful bubbling chemical reactions';
-      settingVisual = 'modern research lab with molecular compound models in background';
-    } else if (lowerSub.includes('bio')) {
-      subjectVisual = 'Glowing double-helix DNA strand with organic cellular microscope structures and plant biology';
-      settingVisual = 'luminescent scientific bio-dome atmosphere with soft green and teal lighting';
-    } else if (lowerSub.includes('physics')) {
-      subjectVisual = 'Orbiting atomic nucleus particles, wave-particle quantum fields, and cosmic planetary motion';
-      settingVisual = 'deep space physics cosmos with glowing electromagnetic field lines';
-    } else {
-      subjectVisual = `Scientific visual representation of ${subject}, featuring scientific instruments and molecular discoveries`;
-      settingVisual = 'atmospheric research observatory with soft ambient scientific lighting';
-    }
-    styleVisual = 'striking 3D scientific concept art, glowing translucency, balanced 1:1 square composition';
-  }
-  // 7. World History & Civilizations
-  else if (
-    lowerSub.includes('history') ||
-    lowerSub.includes('polity') ||
-    lowerSub.includes('civilization') ||
-    lowerSub.includes('ancient') ||
-    lowerSub.includes('war')
-  ) {
-    subjectVisual = 'Majestic ancient architectural monument and historic artifacts, antique parchment scroll, and vintage brass compass';
-    settingVisual = 'golden hour atmospheric sunlight over historic ancient stone pillars and palace grounds';
-    styleVisual = 'rich cinematic historical art, warm golden lighting, dignified composition, 1:1 square framing';
-  }
-  // 8. Geography & World Trivia / Flags
-  else if (
-    lowerSub.includes('geography') ||
-    lowerSub.includes('flag') ||
-    lowerSub.includes('capital') ||
-    lowerSub.includes('world')
-  ) {
-    if (lowerSub.includes('flag')) {
-      subjectVisual = 'Artistic stylized arrangement of colorful international national flags fluttering around a central globe';
-    } else {
-      subjectVisual = 'Detailed 3D Earth globe with visible mountain continents, oceans, vintage nautical compass rose, and world landmarks';
-    }
-    settingVisual = 'cosmic planetary orbit with warm atmospheric glow on the horizon';
-    styleVisual = 'polished 3D cartographic art, clean geographic textures, centered 1:1 square composition';
-  }
-  // 9. Entertainment / Cinema / Movies (Marvel, DC, Bollywood, etc.)
-  else if (
-    lowerCat.includes('entertainment') ||
-    catSlug.includes('entertainment') ||
-    lowerSub.includes('movie') ||
-    lowerSub.includes('cinema') ||
-    lowerSub.includes('marvel') ||
-    lowerSub.includes('dc') ||
-    lowerSub.includes('bollywood')
-  ) {
-    if (lowerSub.includes('marvel') || lowerSub.includes('dc')) {
-      subjectVisual = 'Original stylized superhero in an iconic dynamic heroic pose overlooking a glowing city skyline';
-      settingVisual = 'dramatic cinematic atmosphere with lightning sparks and dusk sky';
-    } else if (lowerSub.includes('bollywood')) {
-      subjectVisual = 'Glamorous cinema set with classic film camera, golden film reel, and dazzling theatrical stage chandeliers';
-      settingVisual = 'vibrant cinematic movie stage with warm festive amber lighting';
-    } else {
-      subjectVisual = 'Cinematic film camera with classic movie clapperboard, film reels, and dramatic spotlight';
-      settingVisual = 'theatrical cinema premiere stage with red velvet and dramatic atmospheric lighting';
-    }
-    styleVisual = 'cinematic digital concept art, rich lighting and shadows, centered 1:1 square composition';
-    negativeConstraints = 'no arcade machines, no game cabinets, no copyrighted character logos, no text';
-  }
-  // 10. Math, Aptitude & Logic
-  else if (
-    lowerCat.includes('aptitude') ||
-    lowerCat.includes('math') ||
-    lowerSub.includes('math') ||
-    lowerSub.includes('logic') ||
-    lowerSub.includes('puzzle')
-  ) {
-    subjectVisual = 'Intricate glowing polyhedrons, floating mathematical geometry, abacus counters, and tactical chess pieces';
-    settingVisual = 'sleek dark reflective puzzle board with soft purple and teal neon illumination';
-    styleVisual = 'clean geometric 3D art, modern abstract puzzle aesthetic, centered 1:1 square framing';
-  }
-  // 11. General / Custom Fallback
-  else {
-    const contextualHint = desc ? `representing ${desc.slice(0, 80)}` : `focusing on ${subject}`;
-    subjectVisual = `Artistic representation of ${subject}, ${contextualHint}`;
-    settingVisual = 'clean themed studio setting with cohesive atmospheric lighting';
-    styleVisual = 'polished digital concept art, vibrant colors, clean lighting, centered 1:1 square composition';
+  // 1. Check for exact title match in specific definitions
+  if (SPECIFIC_SUBJECT_PROMPTS[lowerSub]) {
+    const p = SPECIFIC_SUBJECT_PROMPTS[lowerSub];
+    return [p.subjectVisual, p.settingVisual, p.styleVisual, p.negativeConstraints]
+      .filter(Boolean)
+      .join(', ');
   }
 
-  // Include safe topic keywords if available to sharpen contextual relevance
-  const topicDetails = topics ? `incorporating visual motifs of ${topics}` : '';
+  // 2. Check for key franchise patterns inside the title
+  if (lowerSub.includes('harry potter') || lowerSub.includes('hogwarts')) {
+    const p = SPECIFIC_SUBJECT_PROMPTS['harry potter world'];
+    return [p.subjectVisual, p.settingVisual, p.styleVisual, p.negativeConstraints].join(', ');
+  }
+  if (lowerSub.includes('marvel') || lowerSub.includes('avengers') || lowerSub.includes('iron man')) {
+    const p = SPECIFIC_SUBJECT_PROMPTS['marvel universe'];
+    return [p.subjectVisual, p.settingVisual, p.styleVisual, p.negativeConstraints].join(', ');
+  }
+  if (lowerSub.includes('naruto')) {
+    const p = SPECIFIC_SUBJECT_PROMPTS['naruto universe'];
+    return [p.subjectVisual, p.settingVisual, p.styleVisual, p.negativeConstraints].join(', ');
+  }
+  if (lowerSub.includes('one piece') || lowerSub.includes('luffy')) {
+    const p = SPECIFIC_SUBJECT_PROMPTS['one piece adventures'];
+    return [p.subjectVisual, p.settingVisual, p.styleVisual, p.negativeConstraints].join(', ');
+  }
+  if (lowerSub.includes('jujutsu') || lowerSub.includes('gojo')) {
+    const p = SPECIFIC_SUBJECT_PROMPTS['jujutsu kaisen quiz'];
+    return [p.subjectVisual, p.settingVisual, p.styleVisual, p.negativeConstraints].join(', ');
+  }
+  if (lowerSub.includes('dragon ball') || lowerSub.includes('goku') || lowerSub.includes('saiyan')) {
+    const p = SPECIFIC_SUBJECT_PROMPTS['dragon ball'];
+    return [p.subjectVisual, p.settingVisual, p.styleVisual, p.negativeConstraints].join(', ');
+  }
+  if (lowerSub.includes('solar system') || (lowerSub.includes('planets') && lowerSub.includes('sun'))) {
+    const p = SPECIFIC_SUBJECT_PROMPTS['solar system'];
+    return [p.subjectVisual, p.settingVisual, p.styleVisual, p.negativeConstraints].join(', ');
+  }
+  if (lowerSub.includes('flag') && (lowerSub.includes('world') || lowerSub.includes('country') || lowerSub.includes('challenge'))) {
+    const p = SPECIFIC_SUBJECT_PROMPTS['world flags challenge'];
+    return [p.subjectVisual, p.settingVisual, p.styleVisual, p.negativeConstraints].join(', ');
+  }
+  if (lowerSub.includes('ipl') || (lowerSub.includes('cricket') && lowerSub.includes('superstar'))) {
+    const p = SPECIFIC_SUBJECT_PROMPTS['ipl superstars'];
+    return [p.subjectVisual, p.settingVisual, p.styleVisual, p.negativeConstraints].join(', ');
+  }
 
-  // Combine into a cohesive, concise prompt within token limits
-  const promptParts = [
-    subjectVisual,
-    topicDetails,
-    settingVisual,
-    styleVisual,
-    negativeConstraints,
-  ].filter(Boolean);
+  // 3. Dynamic Title-First Assembly for any other quiz title
+  // Always prioritize the literal quiz title and its specific subject
+  const contextualDetails = desc ? `focusing on ${desc.slice(0, 100)}` : `focusing on ${subject}`;
+  const subjectVisual = `A vivid, highly recognizable central visual depiction of "${subject}" (${category}), ${contextualDetails}`;
+  const settingVisual = 'cohesive atmospheric environment with polished dramatic lighting matching the theme';
+  const styleVisual = 'polished modern digital concept art, vibrant harmonious colors, expressive lighting, centered 1:1 square composition, high visual clarity at small icon sizes';
+  const negativeConstraints = 'no text, no letters, no words, no watermarks, no arcade machines, no video game cabinets, no random irrelevant objects';
 
-  return promptParts.join(', ');
+  return [subjectVisual, settingVisual, styleVisual, negativeConstraints].filter(Boolean).join(', ');
 }

@@ -63,6 +63,26 @@ function getThumbnailTheme(categorySlug: string) {
   };
 }
 
+/**
+ * Automatically injects Cloudinary on-the-fly transformations for maximum compression and performance:
+ * - f_auto: serves AVIF or WebP depending on browser support
+ * - q_auto: smart perceptual compression to drastically reduce byte size
+ * - w_400,h_400,c_fill: exact dimensions for 1:1 compact cards to avoid delivering oversized images
+ */
+export function getOptimizedThumbnailUrl(url?: string): string | undefined {
+  if (!url) return undefined;
+  const trimmed = url.trim();
+  if (!trimmed) return undefined;
+
+  if (trimmed.includes('cloudinary.com') && trimmed.includes('/upload/')) {
+    if (!trimmed.includes('/upload/f_auto') && !trimmed.includes('/upload/q_auto') && !trimmed.includes('/upload/w_')) {
+      return trimmed.replace('/upload/', '/upload/f_auto,q_auto,w_400,h_400,c_fill/');
+    }
+  }
+
+  return trimmed;
+}
+
 export function QuizThumbnail({
   src,
   alt,
@@ -73,13 +93,14 @@ export function QuizThumbnail({
   categorySlug: string;
 }) {
   const [hasError, setHasError] = useState(false);
+  const optimizedSrc = getOptimizedThumbnailUrl(src);
 
-  if (src && !hasError) {
+  if (optimizedSrc && !hasError) {
     return (
       <div className="w-full h-full relative overflow-hidden bg-stone-200">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={src}
+          src={optimizedSrc}
           alt={alt}
           loading="lazy"
           decoding="async"
@@ -153,13 +174,6 @@ export function CompactQuizCard({
           alt={title}
           categorySlug={categorySlug}
         />
-
-        {/* Top-Right Pill Badge: "{count} Questions" */}
-        <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 z-10">
-          <span className="px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full bg-white border-[1.5px] sm:border-2 border-black text-[9px] sm:text-[10px] md:text-xs font-black text-black shadow-[1px_1px_0px_#000] whitespace-nowrap leading-tight">
-            {displayQuestions} Questions
-          </span>
-        </div>
       </div>
 
       {/* 2. Bottom Row: Title + Played Count on Left, Circular Teal Play Button on Right */}

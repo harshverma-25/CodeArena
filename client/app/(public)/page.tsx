@@ -892,9 +892,6 @@ export default function QuizzyHomePage() {
                   <SlidersHorizontal className="w-3.5 h-3.5" />
                   Select Questions Count
                 </span>
-                <span className="text-[11px] font-bold text-stone-500">
-                  Available: {activePlayModalQuiz.availableQuestions || 10}+ Qs
-                </span>
               </div>
 
               <div className="grid grid-cols-3 gap-2">
