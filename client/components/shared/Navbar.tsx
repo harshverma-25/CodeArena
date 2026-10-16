@@ -205,131 +205,88 @@ export function Navbar() {
             </nav>
           </div>
 
-          {/* CENTER / RIGHT: JOIN ROOM (PIN INPUT INTERFACE) */}
-          <div className="hidden md:flex items-center justify-center">
-            <form
-              onSubmit={handleJoinPin}
-              className="flex items-center bg-[#FFFDF5] border-2 border-black rounded-full pl-3 pr-1 py-1 shadow-[2px_2px_0px_#000]"
-            >
-              <div className="flex items-center gap-2 pr-2">
-                <Gamepad2 className="w-4 h-4 text-amber-600 shrink-0" />
-                <div className="flex flex-col text-left">
-                  <span className="text-[9px] text-amber-700 leading-none uppercase tracking-wider font-extrabold">
-                    Join Room
-                  </span>
-                  <span className="text-[11px] text-stone-900 leading-tight font-extrabold">
-                    Enter PIN
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <input
-                  className={cn(
-                    "w-20 px-2 py-0.5 bg-white rounded-full text-xs text-stone-900 placeholder:text-stone-400 text-center tracking-wider focus:outline-none border-2 border-black uppercase font-black transition-all",
-                    pinError
-                      ? "border-red-500 text-red-600 bg-red-50"
-                      : "border-black"
-                  )}
-                  maxLength={6}
-                  placeholder="123 456"
-                  type="text"
-                  value={pinValue}
-                  onChange={(e) => {
-                    setPinValue(e.target.value);
-                    if (pinError) setPinError(null);
-                  }}
-                  title={pinError || "Enter 6-character room PIN"}
-                />
-                <button
-                  aria-label="Join Room by PIN"
-                  className="h-7 w-7 rounded-full bg-[#0D9488] hover:bg-[#0F766E] text-white border-2 border-black flex items-center justify-center transition-all shadow-[1px_1px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
-                  type="submit"
-                >
-                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
-                </button>
-              </div>
-            </form>
-          </div>
-
-          {/* RIGHT: SEARCH & USER PROFILE / AUTH */}
+          {/* RIGHT: INLINE SEARCH & USER PROFILE / AUTH */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* SEARCH BUTTON / EXPANDABLE INPUT */}
-            {isSearchActive ? (
-              <form
-                onSubmit={handleSearchSubmit}
-                className="flex items-center gap-1.5 bg-white border-2 border-black rounded-full px-3 py-1 shadow-[2px_2px_0px_#000] transition-all"
-              >
-                <Search className="w-3.5 h-3.5 text-black shrink-0 stroke-[2.5]" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => handleSearchChange(e.target.value)}
-                  placeholder="Search quizzes..."
-                  className="w-28 sm:w-40 bg-transparent text-xs text-black focus:outline-none font-bold"
-                  autoFocus
-                />
+            {/* INLINE SEARCH INPUT FIELD */}
+            <form
+              onSubmit={handleSearchSubmit}
+              className="flex items-center gap-2 bg-[#FFFDF5] border-2 border-black rounded-full px-3 py-1.5 shadow-[2px_2px_0px_#000] focus-within:ring-2 focus-within:ring-[#FFE600] transition-all"
+            >
+              <Search className="w-3.5 h-3.5 text-stone-700 shrink-0 stroke-[2.5]" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => handleSearchChange(e.target.value)}
+                placeholder="Search quizzes..."
+                className="w-24 xs:w-32 sm:w-44 md:w-56 bg-transparent text-xs text-black placeholder:text-stone-400 focus:outline-none font-bold"
+              />
+              {searchQuery && (
                 <button
                   type="button"
-                  onClick={() => {
-                    handleSearchChange("");
-                    setIsSearchActive(false);
-                  }}
-                  className="text-stone-500 hover:text-black cursor-pointer p-0.5"
-                  aria-label="Close search"
+                  onClick={() => handleSearchChange("")}
+                  className="text-stone-400 hover:text-black cursor-pointer p-0.5"
+                  aria-label="Clear search"
                 >
                   <X className="w-3.5 h-3.5 stroke-[2.5]" />
                 </button>
-              </form>
-            ) : (
-              <button
-                aria-label="Search quizzes"
-                onClick={() => setIsSearchActive(true)}
-                className="h-9 w-9 rounded-full bg-white border-2 border-black flex items-center justify-center text-black hover:bg-stone-100 transition-colors cursor-pointer shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px]"
-                type="button"
-              >
-                <Search className="w-4 h-4 stroke-[2.5]" />
-              </button>
-            )}
+              )}
+            </form>
 
             {/* PROFILE SECTION / UNIFIED AUTH CONTROLS */}
             <div className="relative" ref={profileMenuRef}>
               {!mounted ? (
                 <div className="h-9 w-24 rounded-full bg-stone-200 border-2 border-black animate-pulse" />
               ) : activeUser ? (
-                <button
-                  type="button"
-                  onClick={() => setIsProfileMenuOpen((prev) => !prev)}
-                  className="flex items-center gap-2 pl-1 pr-2.5 py-1 bg-white border-2 border-black rounded-full shadow-[2px_2px_0px_#000] hover:bg-stone-50 cursor-pointer active:translate-x-[1px] active:translate-y-[1px] transition-all"
-                >
-                  <div className="w-7 h-7 rounded-full bg-[#8B5CF6] border-2 border-black flex items-center justify-center overflow-hidden shrink-0">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    {activeUser.avatar ? (
-                      <img
-                        src={activeUser.avatar}
-                        alt={displayName}
-                        width={28}
-                        height={28}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <UserIcon className="w-3.5 h-3.5 text-white" />
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <div className="flex items-center bg-[#F4EFE6] border-2 border-black rounded-full p-0.5 shadow-[2px_2px_0px_#000]">
+                    <button
+                      type="button"
+                      onClick={() => setIsProfileMenuOpen((prev) => !prev)}
+                      className="flex items-center gap-2 pl-1 pr-2.5 py-1 bg-white border border-stone-200 rounded-full hover:bg-stone-50 cursor-pointer active:translate-x-[1px] active:translate-y-[1px] transition-all"
+                    >
+                      <div className="w-7 h-7 rounded-full bg-[#8B5CF6] border-2 border-black flex items-center justify-center overflow-hidden shrink-0">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        {activeUser.avatar ? (
+                          <img
+                            src={activeUser.avatar}
+                            alt={displayName}
+                            width={28}
+                            height={28}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <UserIcon className="w-3.5 h-3.5 text-white" />
+                        )}
+                      </div>
+                      <div className="flex flex-col text-left">
+                        <span className="text-xs text-black leading-none font-black truncate max-w-[80px] sm:max-w-[110px]">
+                          {displayName}
+                        </span>
+                        <span className="text-[9px] text-[#DC2626] font-black uppercase tracking-wider leading-none mt-0.5">
+                          {isGuest ? "GUEST" : "ONLINE"}
+                        </span>
+                      </div>
+                      <ChevronDown className="w-3.5 h-3.5 text-stone-700 stroke-[2.5]" />
+                    </button>
+
+                    {isGuest && (
+                      <>
+                        <div className="w-[1.5px] h-3.5 bg-stone-300 mx-1" />
+                        <Link
+                          href="/login"
+                          className="px-3 py-1 rounded-full text-xs font-black bg-[#FFE600] text-black border border-black hover:bg-[#FACC15] shadow-[1px_1px_0px_#000] transition-all"
+                        >
+                          Login
+                        </Link>
+                      </>
                     )}
                   </div>
-                  <div className="flex flex-col text-left">
-                    <span className="text-xs text-black leading-none font-black truncate max-w-[90px] sm:max-w-[120px]">
-                      {displayName}
-                    </span>
-                    <span className="text-[9px] text-[#DC2626] font-black uppercase tracking-wider leading-none mt-0.5">
-                      {isGuest ? "GUEST" : "ONLINE"}
-                    </span>
-                  </div>
-                  <ChevronDown className="w-3.5 h-3.5 text-stone-700 stroke-[2.5]" />
-                </button>
+                </div>
               ) : (
                 <div className="flex items-center gap-1.5 sm:gap-2">
-                  {/* Subtle Guest / Log In Capsule */}
+                  {/* Subtle Guest / Log In Capsule with Login button inside */}
                   <div className="flex items-center bg-[#F4EFE6] border-2 border-black rounded-full p-0.5 shadow-[2px_2px_0px_#000]">
                     <button
                       type="button"
@@ -338,15 +295,14 @@ export function Navbar() {
                       title="Play as Guest without creating an account"
                     >
                       <UserIcon className="w-3.5 h-3.5 text-stone-600 stroke-[2.5]" />
-                      <span className="hidden xs:inline">Guest</span>
-                      <span className="xs:hidden">Guest</span>
+                      <span>Guest</span>
                     </button>
                     <div className="w-[1.5px] h-3.5 bg-stone-300 mx-0.5" />
                     <Link
                       href="/login"
-                      className="px-3 py-1 rounded-full text-xs font-black text-stone-700 hover:text-black hover:bg-white/90 transition-all"
+                      className="px-3 py-1 rounded-full text-xs font-black bg-white text-stone-900 border border-stone-300 hover:border-black hover:bg-stone-50 shadow-[1px_1px_0px_rgba(0,0,0,0.08)] transition-all"
                     >
-                      Log In
+                      Login
                     </Link>
                   </div>
 

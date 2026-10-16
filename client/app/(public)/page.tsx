@@ -1,23 +1,20 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   Play,
   Users,
-  Clock,
-  Sparkles,
-  Zap,
   Flame,
-  Crown,
-  Check,
   X,
   SlidersHorizontal,
   ChevronRight,
-  Award,
+  Gamepad2,
+  Film,
   Trophy,
+  LayoutGrid,
 } from "lucide-react";
 
 import {
@@ -26,19 +23,20 @@ import {
   ArcadeCodeIcon,
   ArcadeFlaskIcon,
   ArcadeGlobeIcon,
-  ArcadeNewsIcon,
   ArcadeCrownIcon,
   ArcadeLightningIcon,
   ArcadeFlameIcon,
   ArcadeStarIcon,
 } from "@/components/ui/ArcadeIcons";
 
-import { isGuestSessionActive, getGuestUser, PlayAsGuestModal, useCurrentUser } from "@/features/auth";
+import { CompactQuizCard } from "@/components/shared/CompactQuizCard";
+import { isGuestSessionActive, PlayAsGuestModal, useCurrentUser } from "@/features/auth";
 import { useApiClient } from "@/hooks/useApiClient";
-import { Category, PopularQuiz } from "@/types";
+import { Category, PopularQuiz, Subject } from "@/types";
+import { cn } from "@/lib/utils";
 
-// Dynamic pastel palette for category cards
-const CATEGORY_THEMES = [
+// Dynamic pastel palette for subject cards
+const CARD_THEMES = [
   {
     bgColor: "bg-[#DCFCE7]", // Pastel mint green
     hoverBg: "hover:bg-[#BBF7D0]",
@@ -85,19 +83,93 @@ const RANK_BADGE_COLORS = [
   "bg-[#38BDF8] text-black", // Rank 5: Sky blue
 ];
 
-function getCategoryIcon(slug: string, className = "w-12 h-12") {
-  switch (slug.toLowerCase()) {
-    case "aptitude":
-      return <ArcadeBrainIcon className={className} />;
-    case "programming":
-      return <ArcadeCodeIcon className={className} />;
-    case "science":
-      return <ArcadeFlaskIcon className={className} />;
-    case "general-knowledge":
-      return <ArcadeGlobeIcon className={className} />;
-    default:
-      return <ArcadeLightbulbIcon className={className} />;
+interface DynamicSubject extends Subject {
+  categorySlug: string;
+  categoryName: string;
+  playedCount?: number;
+}
+
+function getCategoryIcon(slug: string, className = "w-4 h-4 shrink-0") {
+  const s = (slug || "").toLowerCase();
+  if (s === "all") return <LayoutGrid className={className} />;
+  if (s.includes("code") || s.includes("program")) return <ArcadeCodeIcon className={className} />;
+  if (s.includes("brain") || s.includes("aptitude")) return <ArcadeBrainIcon className={className} />;
+  if (s.includes("flask") || s.includes("science")) return <ArcadeFlaskIcon className={className} />;
+  if (s.includes("globe") || s.includes("general") || s.includes("gk")) return <ArcadeGlobeIcon className={className} />;
+  if (s.includes("entertainment") || s.includes("movie") || s.includes("film") || s.includes("anime") || s.includes("marvel")) {
+    return <Film className={`${className} text-purple-600`} />;
   }
+  if (s.includes("sport") || s.includes("cricket") || s.includes("football")) {
+    return <Trophy className={`${className} text-emerald-600`} />;
+  }
+  return <ArcadeLightbulbIcon className={className} />;
+}
+
+function getSubjectIcon(slug: string, categorySlug: string, className = "w-8 h-8") {
+  const s = (slug || "").toLowerCase();
+  const c = (categorySlug || "").toLowerCase();
+
+  if (
+    s.includes("code") ||
+    s.includes("program") ||
+    s.includes("dsa") ||
+    s.includes("dbms") ||
+    s.includes("os") ||
+    s.includes("oop") ||
+    s.includes("network") ||
+    c === "programming"
+  ) {
+    return <ArcadeCodeIcon className={className} />;
+  }
+  if (
+    s.includes("flask") ||
+    s.includes("science") ||
+    s.includes("physics") ||
+    s.includes("chemistry") ||
+    s.includes("biology") ||
+    c === "science"
+  ) {
+    return <ArcadeFlaskIcon className={className} />;
+  }
+  if (
+    s.includes("globe") ||
+    s.includes("general") ||
+    s.includes("history") ||
+    s.includes("geography") ||
+    s.includes("polity") ||
+    s.includes("current") ||
+    c === "general-knowledge"
+  ) {
+    return <ArcadeGlobeIcon className={className} />;
+  }
+  if (
+    s.includes("brain") ||
+    s.includes("aptitude") ||
+    s.includes("reasoning") ||
+    s.includes("quant") ||
+    c === "aptitude"
+  ) {
+    return <ArcadeBrainIcon className={className} />;
+  }
+  if (
+    s.includes("anime") ||
+    s.includes("bollywood") ||
+    s.includes("marvel") ||
+    s.includes("dc") ||
+    s.includes("movie") ||
+    c === "entertainment"
+  ) {
+    return <Film className={`${className} text-purple-600`} />;
+  }
+  if (
+    s.includes("cricket") ||
+    s.includes("football") ||
+    s.includes("sport") ||
+    c === "sports"
+  ) {
+    return <Trophy className={`${className} text-emerald-600`} />;
+  }
+  return <ArcadeLightbulbIcon className={className} />;
 }
 
 function renderQuizIcon(icon?: string, categorySlug?: string) {
@@ -120,6 +192,12 @@ function renderQuizIcon(icon?: string, categorySlug?: string) {
   if (target.includes("globe") || target.includes("gk") || target.includes("general")) {
     return <ArcadeGlobeIcon className="w-5 h-5" />;
   }
+  if (target.includes("movie") || target.includes("film") || target.includes("entertainment") || target.includes("anime")) {
+    return <Film className="w-5 h-5 text-purple-600" />;
+  }
+  if (target.includes("trophy") || target.includes("sport") || target.includes("cricket") || target.includes("football")) {
+    return <Trophy className="w-5 h-5 text-emerald-600" />;
+  }
   return <ArcadeLightbulbIcon className="w-5 h-5" />;
 }
 
@@ -129,16 +207,25 @@ export default function QuizzyHomePage() {
   const { data: currentUser } = useCurrentUser();
   const isUserAuthenticated = Boolean(currentUser);
 
-  // Backend API states (100% dynamic data from MongoDB)
+  // Active Category State
+  const [selectedCategorySlug, setSelectedCategorySlug] = useState<string>("all");
+
+  // Hero PIN join input state
+  const [heroPinValue, setHeroPinValue] = useState<string>("");
+  const [heroPinError, setHeroPinError] = useState<string | null>(null);
+
+  // Dynamic Backend Data States (100% from MongoDB)
   const [categories, setCategories] = useState<Category[]>([]);
+  const [subjects, setSubjects] = useState<DynamicSubject[]>([]);
   const [loadingCategories, setLoadingCategories] = useState<boolean>(true);
+  const [loadingSubjects, setLoadingSubjects] = useState<boolean>(true);
   const [categoriesError, setCategoriesError] = useState<string | null>(null);
 
   const [popularQuizzes, setPopularQuizzes] = useState<PopularQuiz[]>([]);
   const [loadingPopular, setLoadingPopular] = useState<boolean>(true);
   const [popularError, setPopularError] = useState<string | null>(null);
 
-  // Interactive Quiz Configuration
+  // Interactive Quiz Configuration Modal State
   const [selectedQuestionCount, setSelectedQuestionCount] = useState<number>(10);
   const [activePlayModalQuiz, setActivePlayModalQuiz] = useState<{
     title: string;
@@ -156,12 +243,11 @@ export default function QuizzyHomePage() {
   // Auth and Guest State
   const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
   const [guestActive, setGuestActive] = useState<boolean>(false);
-  const [guestUser, setGuestUser] = useState<any>(null);
+  const [pendingJoinPin, setPendingJoinPin] = useState<string | null>(null);
 
-  // Search state
+  // Search state (synced with Navbar inline search)
   const [searchQuery, setSearchQuery] = useState("");
 
-  const categoriesSectionRef = useRef<HTMLDivElement>(null);
   const mostPlayedSectionRef = useRef<HTMLDivElement>(null);
 
   // Synchronize guest auth
@@ -169,11 +255,6 @@ export default function QuizzyHomePage() {
     const updateGuest = () => {
       const active = isGuestSessionActive();
       setGuestActive(active);
-      if (active) {
-        setGuestUser(getGuestUser());
-      } else {
-        setGuestUser(null);
-      }
     };
     updateGuest();
     window.addEventListener("codearena:guest-auth-change", updateGuest);
@@ -195,22 +276,78 @@ export default function QuizzyHomePage() {
 
   const hasAccess = Boolean(isUserAuthenticated || guestActive);
 
-  // Fetch real categories and real popular quizzes from backend APIs
+  // If user completed guest login while attempting to join room, resume join
+  useEffect(() => {
+    if (hasAccess && pendingJoinPin) {
+      const pin = pendingJoinPin;
+      setPendingJoinPin(null);
+      router.push(`/lobby/${pin}`);
+    }
+  }, [hasAccess, pendingJoinPin, router]);
+
+  // Fetch real categories, real subjects, and real popular quizzes from backend APIs
   useEffect(() => {
     let isMounted = true;
 
-    const fetchCategoriesData = async () => {
+    const fetchAllData = async () => {
       try {
         setLoadingCategories(true);
+        setLoadingSubjects(true);
         setCategoriesError(null);
-        const res = await api.get<{ success: boolean; data: Category[] }>("/categories");
-        if (isMounted && res.data && Array.isArray(res.data)) {
-          setCategories(res.data);
+
+        // 1. Fetch categories
+        const catRes = await api.get<{ success: boolean; data: Category[] }>("/categories");
+        const activeCategories = Array.isArray(catRes.data) ? catRes.data : [];
+
+        if (isMounted) {
+          setCategories(activeCategories);
+          setLoadingCategories(false);
+        }
+
+        // 2. Fetch subjects for all active categories in parallel
+        if (activeCategories.length > 0) {
+          const subjectsPromises = activeCategories.map((cat) =>
+            api
+              .get<{ success: boolean; data: { category: Category; subjects: Subject[] } }>(
+                `/categories/${cat.slug}/subjects`
+              )
+              .then((res) => ({
+                cat,
+                subjects: res.data?.subjects || [],
+              }))
+              .catch(() => ({
+                cat,
+                subjects: [] as Subject[],
+              }))
+          );
+
+          const subjectsResults = await Promise.all(subjectsPromises);
+          const aggregatedSubjects: DynamicSubject[] = [];
+
+          subjectsResults.forEach(({ cat, subjects: subsList }) => {
+            subsList.forEach((sub) => {
+              aggregatedSubjects.push({
+                ...sub,
+                categorySlug: cat.slug,
+                categoryName: cat.name,
+                playedCount: 0,
+              });
+            });
+          });
+
+          if (isMounted) {
+            setSubjects(aggregatedSubjects);
+          }
         }
       } catch (err: any) {
-        if (isMounted) setCategoriesError(err?.message || "Could not fetch categories.");
+        if (isMounted) {
+          setCategoriesError(err?.message || "Could not fetch dynamic categories from database.");
+        }
       } finally {
-        if (isMounted) setLoadingCategories(false);
+        if (isMounted) {
+          setLoadingCategories(false);
+          setLoadingSubjects(false);
+        }
       }
     };
 
@@ -218,7 +355,7 @@ export default function QuizzyHomePage() {
       try {
         setLoadingPopular(true);
         setPopularError(null);
-        const res = await api.get<{ success: boolean; data: PopularQuiz[] }>("/categories/popular?limit=5");
+        const res = await api.get<{ success: boolean; data: PopularQuiz[] }>("/categories/popular?limit=6");
         if (isMounted && res.data && Array.isArray(res.data)) {
           setPopularQuizzes(res.data);
         }
@@ -229,7 +366,7 @@ export default function QuizzyHomePage() {
       }
     };
 
-    fetchCategoriesData();
+    fetchAllData();
     fetchPopularData();
 
     return () => {
@@ -237,7 +374,55 @@ export default function QuizzyHomePage() {
     };
   }, []);
 
-  // Launch Solo Quiz
+  // Update play counts on subjects based on popular quizzes data from MongoDB
+  const enrichedSubjects = useMemo(() => {
+    if (!subjects.length) return [];
+    if (!popularQuizzes.length) return subjects;
+
+    const playMap: Record<string, number> = {};
+    popularQuizzes.forEach((pq) => {
+      if (pq.subjectSlug) {
+        playMap[`${pq.categorySlug}-${pq.subjectSlug}`] = pq.playedCount;
+      }
+    });
+
+    return subjects.map((sub) => {
+      const key = `${sub.categorySlug}-${sub.slug}`;
+      return {
+        ...sub,
+        playedCount: playMap[key] || sub.playedCount || 0,
+      };
+    });
+  }, [subjects, popularQuizzes]);
+
+  // Handle Hero Banner PIN Join
+  const handleHeroJoinPin = (e: React.FormEvent) => {
+    e.preventDefault();
+    const cleanPin = heroPinValue.trim().toUpperCase();
+    if (!cleanPin) {
+      setHeroPinError("Please enter a 6-digit room PIN");
+      setTimeout(() => setHeroPinError(null), 3500);
+      return;
+    }
+
+    if (cleanPin.length !== 6 || !/^[A-Z0-9]{6}$/.test(cleanPin)) {
+      setHeroPinError("PIN must be exactly 6 alphanumeric characters");
+      setTimeout(() => setHeroPinError(null), 3500);
+      return;
+    }
+
+    if (!hasAccess) {
+      setPendingJoinPin(cleanPin);
+      setIsGuestModalOpen(true);
+      return;
+    }
+
+    setHeroPinError(null);
+    router.push(`/lobby/${cleanPin}`);
+  };
+
+
+  // Launch Solo Quiz Session
   const handlePlaySolo = async (quiz: {
     categorySlug: string;
     subjectSlug?: string | null;
@@ -309,16 +494,46 @@ export default function QuizzyHomePage() {
     }
   };
 
+  // Currently Selected Category Object (if not "all")
+  const activeCategory = useMemo(() => {
+    if (selectedCategorySlug === "all") return null;
+    return categories.find((c) => c.slug === selectedCategorySlug) || null;
+  }, [categories, selectedCategorySlug]);
+
+  // Dynamically Filtered Subjects based on selected Category and Navbar Search
+  const displayedSubjects = useMemo(() => {
+    let items = enrichedSubjects;
+
+    if (selectedCategorySlug !== "all") {
+      items = items.filter((sub) => sub.categorySlug === selectedCategorySlug);
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      items = items.filter(
+        (sub) =>
+          sub.name.toLowerCase().includes(q) ||
+          (sub.description && sub.description.toLowerCase().includes(q)) ||
+          sub.categoryName.toLowerCase().includes(q)
+      );
+    }
+
+    return items;
+  }, [enrichedSubjects, selectedCategorySlug, searchQuery]);
+
   return (
     <div className="w-full min-h-screen bg-[#FAF7EE] text-stone-900 pb-20 select-none overflow-x-hidden">
       <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 space-y-6 sm:space-y-8 pt-4">
-        
-        {/* Error notification banner if room creation encounters an issue */}
-        {roomError && (
+
+        {/* Room / Global Action Error notification */}
+        {(roomError || categoriesError) && (
           <div className="p-4 rounded-2xl bg-red-100 border-[2.5px] border-black text-red-900 shadow-[4px_4px_0px_#000] flex items-center justify-between">
-            <span className="font-extrabold text-sm sm:text-base">{roomError}</span>
+            <span className="font-extrabold text-sm sm:text-base">{roomError || categoriesError}</span>
             <button
-              onClick={() => setRoomError(null)}
+              onClick={() => {
+                setRoomError(null);
+                setCategoriesError(null);
+              }}
               className="bg-red-200 hover:bg-red-300 border-2 border-black rounded-lg px-3 py-1 font-black text-xs cursor-pointer shadow-[2px_2px_0px_#000]"
             >
               Dismiss
@@ -327,270 +542,309 @@ export default function QuizzyHomePage() {
         )}
 
         {/* ========================================================================= */}
-        {/* SECTION C: EXPLORE CATEGORIES (100% DYNAMIC FROM MONGODB) */}
+        {/* 1. JOIN ROOM WITH PIN (SLEEK RETRO-ARCADE THEME) */}
         {/* ========================================================================= */}
-        <section
-          id="categories"
-          ref={categoriesSectionRef}
-          className="w-full bg-[#FAF7EE] border-[2.5px] border-black rounded-[32px] p-5 sm:p-7 lg:p-8 shadow-[6px_6px_0px_#000]"
-        >
-          {/* Header Row */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            
-            {/* Left Header with Lightning & Crown */}
-            <div className="flex items-center gap-2.5 flex-wrap">
-              <ArcadeLightningIcon className="w-7 h-7 text-[#FFE600] shrink-0" />
-              <h2 className="font-black text-xl sm:text-2xl text-black tracking-wide uppercase flex items-center gap-2">
-                EXPLORE CATEGORIES
-                <ArcadeCrownIcon className="w-6 h-5 inline-block" />
+        <section className="w-full bg-white border-[2.5px] border-black rounded-[22px] sm:rounded-[26px] p-3.5 sm:px-6 sm:py-3.5 shadow-[4px_4px_0px_#000] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          {/* Left: Icon & Punchy Title */}
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#EDE9FE] border-2 border-black flex items-center justify-center shadow-[2px_2px_0px_#000] shrink-0">
+              <Gamepad2 className="w-5 h-5 text-[#7C3AED]" />
+            </div>
+            <div>
+              <h2 className="font-black text-sm sm:text-base text-black uppercase tracking-tight leading-tight">
+                Join a Room
               </h2>
+              <p className="text-[11px] font-bold text-stone-500 leading-tight">
+                Enter 6-digit PIN to play with friends
+              </p>
             </div>
-
-            {/* Right Subtitle & Action Link */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <span className="text-xs sm:text-sm font-bold text-stone-700 hidden md:inline">
-                Choose a category to browse subjects and play live quiz rooms.
-              </span>
-              <Link
-                href="/categories"
-                className="inline-flex items-center gap-1.5 self-start sm:self-auto bg-[#FFE600] hover:bg-[#FACC15] active:translate-x-[1px] active:translate-y-[1px] text-black font-black text-xs sm:text-sm px-4 py-2 rounded-full border-2 border-black shadow-[3px_3px_0px_#000] transition-all cursor-pointer"
-              >
-                <span>View All Categories</span>
-                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-              </Link>
-            </div>
-
           </div>
 
-          {/* Loading Skeletons */}
-          {loadingCategories && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {[1, 2, 3, 4].map((i) => (
+          {/* Right: 6-Digit PIN Form */}
+          <div className="flex items-center gap-2 self-start sm:self-auto">
+            <form
+              onSubmit={handleHeroJoinPin}
+              className="flex items-center bg-[#FAF7EE] border-2 border-black rounded-full p-1 shadow-[2px_2px_0px_#000] focus-within:ring-2 focus-within:ring-black"
+            >
+              <input
+                type="text"
+                maxLength={6}
+                value={heroPinValue}
+                onChange={(e) => {
+                  setHeroPinValue(e.target.value.toUpperCase());
+                  if (heroPinError) setHeroPinError(null);
+                }}
+                placeholder="ENTER PIN"
+                className={cn(
+                  "w-28 sm:w-36 px-3 py-1 bg-transparent text-xs sm:text-sm font-black text-black placeholder:text-stone-400 text-center tracking-widest uppercase focus:outline-none",
+                  heroPinError && "text-red-600 placeholder:text-red-400"
+                )}
+              />
+              <button
+                type="submit"
+                aria-label="Join Room with PIN"
+                className="w-8 h-8 rounded-full bg-[#0D9488] hover:bg-[#0F766E] text-white border-2 border-black flex items-center justify-center transition-all shadow-[1px_1px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] cursor-pointer shrink-0"
+              >
+                <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
+              </button>
+            </form>
+
+            {heroPinError && (
+              <span className="text-[11px] font-black text-red-600">
+                {heroPinError}
+              </span>
+            )}
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 2. HORIZONTAL CATEGORY STRIP ("Explore Categories" - 100% Dynamic) */}
+        {/* ========================================================================= */}
+        <section className="w-full space-y-3">
+          {/* Section Header Row */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <ArcadeLightningIcon className="w-5 h-5 text-[#F59E0B]" />
+              <span className="font-black text-sm uppercase text-stone-700 tracking-wider">
+                Explore Categories
+              </span>
+            </div>
+            <Link
+              href="/categories"
+              className="text-xs font-black text-stone-800 hover:text-black flex items-center gap-1 hover:underline"
+            >
+              <span>View All Categories</span>
+              <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
+            </Link>
+          </div>
+
+          {/* Horizontal Scrollable Category Pills Strip (No outer wrapper box) */}
+          <div className="w-full overflow-x-auto pb-2 scrollbar-none flex items-center gap-2.5 sm:gap-3">
+            {/* Pill 1: All */}
+            <button
+              type="button"
+              onClick={() => setSelectedCategorySlug("all")}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2.5 rounded-full border-2 border-black font-black text-xs sm:text-sm whitespace-nowrap cursor-pointer transition-all shrink-0 active:translate-x-[1px] active:translate-y-[1px]",
+                selectedCategorySlug === "all"
+                  ? "bg-[#FFE600] text-black shadow-[3px_3px_0px_#000] scale-[1.02]"
+                  : "bg-white text-stone-800 hover:bg-[#FFFDF5] shadow-[2px_2px_0px_#000] hover:-translate-y-0.5"
+              )}
+            >
+              <LayoutGrid className="w-4 h-4 text-black shrink-0" />
+              <span>All</span>
+            </button>
+
+            {/* Dynamic Category Pills from MongoDB */}
+            {categories.map((cat) => {
+              const isActive = selectedCategorySlug === cat.slug;
+              return (
+                <button
+                  key={cat.id || cat.slug}
+                  type="button"
+                  onClick={() => setSelectedCategorySlug(cat.slug)}
+                  className={cn(
+                    "flex items-center gap-2 px-4 py-2.5 rounded-full border-2 border-black font-black text-xs sm:text-sm whitespace-nowrap cursor-pointer transition-all shrink-0 active:translate-x-[1px] active:translate-y-[1px]",
+                    isActive
+                      ? "bg-[#FFE600] text-black shadow-[3px_3px_0px_#000] scale-[1.02]"
+                      : "bg-white text-stone-800 hover:bg-[#FFFDF5] shadow-[2px_2px_0px_#000] hover:-translate-y-0.5"
+                  )}
+                >
+                  {getCategoryIcon(cat.slug)}
+                  <span>{cat.name}</span>
+                </button>
+              );
+            })}
+
+            {/* Category Skeletons while loading */}
+            {loadingCategories && (
+              <div className="flex items-center gap-2.5">
+                {[1, 2, 3, 4].map((i) => (
+                  <div
+                    key={i}
+                    className="h-10 w-28 rounded-full border-2 border-stone-300 bg-stone-100 animate-pulse shrink-0"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 3. DYNAMIC CATEGORY QUIZ GRID (Compact Square Image Cards) */}
+        {/* ========================================================================= */}
+        <section className="w-full space-y-3">
+          {/* Section Header: Compact & Bold */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
+            <div className="flex items-center gap-2">
+              <span className="shrink-0">{getCategoryIcon(selectedCategorySlug, "w-5 h-5")}</span>
+              <h2 className="font-black text-lg sm:text-xl text-black uppercase tracking-tight">
+                {activeCategory ? `${activeCategory.name} Quizzes` : "Best Rated Right Now"}
+              </h2>
+              <span className="text-xs font-bold text-stone-500">
+                ({displayedSubjects.length})
+              </span>
+            </div>
+
+            {selectedCategorySlug !== "all" && (
+              <Link
+                href={`/categories/${selectedCategorySlug}`}
+                className="inline-flex items-center gap-1.5 self-start sm:self-auto px-3 py-1 rounded-full bg-white hover:bg-stone-50 text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer whitespace-nowrap"
+              >
+                <span>Curriculum</span>
+                <ArrowRight className="w-3 h-3 stroke-[2.5]" />
+              </Link>
+            )}
+          </div>
+
+          {/* Skeletons while loading subjects */}
+          {loadingSubjects && (
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((i) => (
                 <div
                   key={i}
-                  className="h-48 rounded-[24px] border-[2.5px] border-black bg-white p-4 shadow-[4px_4px_0px_#000] animate-pulse space-y-3"
+                  className="rounded-xl sm:rounded-2xl border-[1.5px] sm:border-2 border-black bg-white p-1.5 sm:p-2 shadow-[2px_2px_0px_#000] animate-pulse space-y-1.5"
                 >
-                  <div className="flex justify-between items-start">
-                    <div className="w-12 h-12 bg-stone-200 rounded-xl" />
-                    <div className="w-20 h-5 bg-stone-200 rounded-full" />
+                  <div className="w-full aspect-square rounded-lg sm:rounded-xl bg-stone-200" />
+                  <div className="h-3 sm:h-3.5 w-4/5 bg-stone-200 rounded mt-1" />
+                  <div className="flex justify-between items-center pt-1 border-t border-stone-100">
+                    <div className="h-2.5 w-6 bg-stone-200 rounded" />
+                    <div className="h-2.5 w-10 bg-stone-200 rounded" />
                   </div>
-                  <div className="h-5 w-3/4 bg-stone-200 rounded" />
-                  <div className="h-4 w-full bg-stone-200 rounded" />
                 </div>
               ))}
             </div>
           )}
 
-          {/* Empty State: 0 categories in database */}
-          {!loadingCategories && categories.length === 0 && (
-            <div className="w-full bg-white border-[2.5px] border-black rounded-[24px] p-8 text-center shadow-[4px_4px_0px_#000] space-y-2">
-              <p className="font-black text-base text-black uppercase">No categories available yet.</p>
-              <p className="text-xs font-bold text-stone-600">
-                Active categories will appear here once published in the database.
+          {/* Empty state if search returns zero results */}
+          {!loadingSubjects && displayedSubjects.length === 0 && (
+            <div className="w-full bg-white border-2 border-black rounded-2xl p-6 text-center shadow-[3px_3px_0px_#000] space-y-2">
+              <p className="font-black text-sm sm:text-base text-black uppercase">
+                {searchQuery ? `No quizzes found for "${searchQuery}"` : "No quizzes available in this category yet"}
               </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedCategorySlug("all");
+                  setSearchQuery("");
+                }}
+                className="mt-1 inline-flex items-center px-4 py-1.5 bg-[#FFE600] border-2 border-black rounded-full font-black text-xs text-black shadow-[2px_2px_0px_#000] cursor-pointer"
+              >
+                Reset Filters
+              </button>
             </div>
           )}
 
-          {/* Dynamic Category Cards */}
-          {!loadingCategories && categories.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {categories.map((cat, idx) => {
-                const theme = CATEGORY_THEMES[idx % CATEGORY_THEMES.length];
-                return (
-                  <Link
-                    key={cat.id || cat.slug}
-                    href={`/categories/${cat.slug}`}
-                    className={`group relative rounded-[24px] border-[2.5px] border-black p-4 flex flex-col justify-between ${theme.bgColor} ${theme.hoverBg} shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:shadow-[6px_6px_0px_#000] transition-all cursor-pointer`}
-                  >
-                    <div>
-                      {/* Top: Illustrated Icon and Question Count Pill */}
-                      <div className="flex items-start justify-between gap-2 mb-3">
-                        <div className="shrink-0 p-1 bg-white/70 rounded-xl border-2 border-black shadow-[1.5px_1.5px_0px_#000]">
-                          {getCategoryIcon(cat.slug, "w-10 h-10")}
-                        </div>
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-black bg-white border-2 border-black text-stone-900 shadow-[1px_1px_0px_#000] whitespace-nowrap">
-                          {cat.questionCount || 0} Questions
-                        </span>
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="font-black text-base sm:text-lg text-black mb-1 group-hover:text-black leading-snug">
-                        {cat.name}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="text-[12px] font-bold text-stone-700 leading-snug line-clamp-3">
-                        {cat.description || `Explore subjects and challenge friends in ${cat.name}.`}
-                      </p>
-                    </div>
-
-                    {/* Bottom Row: Action Label + Arrow */}
-                    <div className="mt-4 pt-2 border-t-2 border-black/15 flex items-center justify-between">
-                      <span className="text-[11px] font-black uppercase text-stone-800">
-                        Explore Subjects
-                      </span>
-                      <div
-                        className={`w-8 h-8 rounded-full ${theme.buttonColor} ${theme.buttonHover} text-white border-2 border-black flex items-center justify-center shadow-[2px_2px_0px_#000] group-hover:scale-110 active:translate-x-[1px] active:translate-y-[1px] transition-all`}
-                      >
-                        <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
+          {/* Compact Square Quiz Cards (6 columns on desktop, 3 on mobile) */}
+          {!loadingSubjects && displayedSubjects.length > 0 && (
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
+              {displayedSubjects.map((sub) => (
+                <CompactQuizCard
+                  key={sub.id || sub.slug}
+                  id={sub.id || sub.slug}
+                  title={sub.name}
+                  categorySlug={sub.categorySlug}
+                  subjectSlug={sub.slug}
+                  isMixedCategory={false}
+                  thumbnailUrl={sub.thumbnailUrl}
+                  questionCount={sub.questionCount}
+                  playedCount={sub.playedCount}
+                  onPlay={() => {
+                    setActivePlayModalQuiz({
+                      title: sub.name,
+                      categorySlug: sub.categorySlug,
+                      subjectSlug: sub.slug,
+                      isMixedCategory: false,
+                      description: sub.description || `Play live matches in ${sub.name}.`,
+                      availableQuestions: sub.questionCount,
+                    });
+                  }}
+                />
+              ))}
             </div>
           )}
         </section>
 
         {/* ========================================================================= */}
-        {/* SECTION D: MOST PLAYED QUIZZES (GENUINE POPULARITY FROM MONGODB) */}
+        {/* 4. POPULAR RIGHT NOW (Compact Square Image Cards) */}
         {/* ========================================================================= */}
         <section
           id="quizzes"
           ref={mostPlayedSectionRef}
-          className="w-full bg-[#FAF7EE] border-[2.5px] border-black rounded-[32px] p-5 sm:p-7 lg:p-8 shadow-[6px_6px_0px_#000]"
+          className="w-full space-y-3 pt-2"
         >
-          {/* Header Row */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            
-            {/* Left Header with Flame & Crown */}
-            <div className="flex items-center gap-2.5 flex-wrap">
-              <ArcadeFlameIcon className="w-7 h-7 text-[#F97316] shrink-0" />
-              <h2 className="font-black text-xl sm:text-2xl text-black tracking-wide uppercase flex items-center gap-2">
-                MOST PLAYED QUIZZES
-                <ArcadeCrownIcon className="w-6 h-5 inline-block" />
+          {/* Header Row: Compact & Bold */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <ArcadeFlameIcon className="w-5 h-5 text-[#F97316] shrink-0" />
+              <h2 className="font-black text-lg sm:text-xl text-black tracking-wide uppercase">
+                Popular Right Now
               </h2>
             </div>
 
-            {/* Right Subtitle & Action Link */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <span className="text-xs sm:text-sm font-bold text-stone-700 hidden md:inline">
-                Real community-played quizzes ranked by completed matches!
-              </span>
-              <Link
-                href="/categories"
-                className="inline-flex items-center gap-1.5 self-start sm:self-auto bg-[#FFE600] hover:bg-[#FACC15] active:translate-x-[1px] active:translate-y-[1px] text-black font-black text-xs sm:text-sm px-4 py-2 rounded-full border-2 border-black shadow-[3px_3px_0px_#000] transition-all cursor-pointer"
-              >
-                <span>View All Quizzes</span>
-                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-              </Link>
-            </div>
-
+            <Link
+              href="/categories"
+              className="inline-flex items-center gap-1 text-xs font-black text-stone-800 hover:text-black hover:underline"
+            >
+              <span>View All</span>
+              <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
+            </Link>
           </div>
 
           {/* Loading Skeletons */}
           {loadingPopular && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {[1, 2, 3, 4, 5].map((i) => (
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div
                   key={i}
-                  className="h-44 rounded-[24px] border-[2.5px] border-black bg-white p-4 shadow-[4px_4px_0px_#000] animate-pulse space-y-3"
+                  className="rounded-xl sm:rounded-2xl border-[1.5px] sm:border-2 border-black bg-white p-1.5 sm:p-2 shadow-[2px_2px_0px_#000] animate-pulse space-y-1.5"
                 >
-                  <div className="flex justify-between items-center">
-                    <div className="w-8 h-5 bg-stone-200 rounded" />
-                    <div className="w-8 h-8 bg-stone-200 rounded-full" />
+                  <div className="w-full aspect-square rounded-lg sm:rounded-xl bg-stone-200" />
+                  <div className="h-3 sm:h-3.5 w-4/5 bg-stone-200 rounded mt-1" />
+                  <div className="flex justify-between items-center pt-1 border-t border-stone-100">
+                    <div className="h-2.5 w-6 bg-stone-200 rounded" />
+                    <div className="h-2.5 w-10 bg-stone-200 rounded" />
                   </div>
-                  <div className="h-5 w-3/4 bg-stone-200 rounded" />
-                  <div className="h-4 w-full bg-stone-200 rounded" />
                 </div>
               ))}
             </div>
           )}
 
-          {/* Empty State: 0 completed matches in database */}
+          {/* Empty State */}
           {!loadingPopular && popularQuizzes.length === 0 && (
-            <div className="w-full bg-white border-[2.5px] border-black rounded-[24px] p-8 text-center shadow-[4px_4px_0px_#000] space-y-3">
-              <div className="w-12 h-12 bg-[#FEF08A] rounded-2xl border-2 border-black flex items-center justify-center mx-auto shadow-[2px_2px_0px_#000]">
-                <Flame className="w-6 h-6 text-[#F97316]" />
-              </div>
-              <h3 className="font-black text-lg text-black uppercase">
+            <div className="w-full bg-white border-2 border-black rounded-2xl p-6 text-center shadow-[3px_3px_0px_#000] space-y-2">
+              <p className="font-black text-sm sm:text-base text-black uppercase">
                 No popular quizzes yet. Be the first to play!
-              </h3>
-              <p className="text-xs font-bold text-stone-600 max-w-md mx-auto leading-relaxed">
-                Complete multiplayer or solo matches across any category above to establish the platform&apos;s leaderboard.
               </p>
-              <div className="pt-2">
-                <Link
-                  href="/categories"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#FFE600] border-2 border-black font-black text-xs text-black shadow-[2px_2px_0px_#000] hover:bg-[#FACC15]"
-                >
-                  <span>Choose a Category to Play</span>
-                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
-                </Link>
-              </div>
             </div>
           )}
 
-          {/* Real Dynamic Popular Quizzes */}
+          {/* Real Dynamic Popular Quizzes (Compact Square Cards) */}
           {!loadingPopular && popularQuizzes.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {popularQuizzes.map((quiz, idx) => {
-                const badgeColor = RANK_BADGE_COLORS[idx % RANK_BADGE_COLORS.length];
-                const key = `${quiz.categorySlug}-${quiz.subjectSlug || "mixed"}`;
-                const isStartingThisSolo = startingSoloCardId === key;
-                const isCreatingThisRoom = creatingRoomCardId === key;
-                const isBusy = isStartingThisSolo || isCreatingThisRoom;
-
-                return (
-                  <div
-                    key={quiz.id}
-                    className="group relative rounded-[24px] border-[2.5px] border-black bg-white p-4 flex flex-col justify-between shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:shadow-[6px_6px_0px_#000] transition-all"
-                  >
-                    {/* Top: Rank Bookmark & Category Icon */}
-                    <div className="flex items-center justify-between mb-2">
-                      <span
-                        className={`inline-flex items-center px-2 py-0.5 rounded-md border-2 border-black font-black text-xs shadow-[1px_1px_0px_#000] ${badgeColor}`}
-                      >
-                        #{quiz.rank}
-                      </span>
-
-                      <div className="w-9 h-9 rounded-full bg-[#FAF7EE] border-2 border-black flex items-center justify-center p-1 shadow-[1px_1px_0px_#000]">
-                        {renderQuizIcon(quiz.icon, quiz.categorySlug)}
-                      </div>
-                    </div>
-
-                    {/* Quiz Details */}
-                    <div className="my-1">
-                      <h3 className="font-black text-base text-black mb-1 leading-snug group-hover:text-black">
-                        {quiz.title}
-                      </h3>
-                      <p className="text-[12px] font-bold text-stone-600 leading-snug line-clamp-2">
-                        {quiz.description}
-                      </p>
-                    </div>
-
-                    {/* Bottom Row: Real Play Count & Play Action Button */}
-                    <div className="mt-4 pt-2 border-t-2 border-stone-100 flex items-center justify-between">
-                      <div className="flex items-center gap-1.5 text-stone-700 font-bold text-xs">
-                        <Users className="w-3.5 h-3.5 text-stone-900 stroke-[2.5]" />
-                        <span>
-                          {quiz.playedCount} {quiz.playedCount === 1 ? "played" : "played"}
-                        </span>
-                      </div>
-
-                      {/* Play Button Circle */}
-                      <button
-                        type="button"
-                        disabled={isBusy}
-                        onClick={() => {
-                          setActivePlayModalQuiz({
-                            title: quiz.title,
-                            categorySlug: quiz.categorySlug,
-                            subjectSlug: quiz.subjectSlug,
-                            isMixedCategory: quiz.isMixedCategory,
-                            description: quiz.description,
-                            availableQuestions: quiz.questionCount,
-                          });
-                        }}
-                        title={`Configure & Play ${quiz.title}`}
-                        className="w-9 h-9 rounded-full bg-[#FFE600] hover:bg-[#FACC15] text-black border-2 border-black flex items-center justify-center shadow-[2px_2px_0px_#000] group-hover:scale-110 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
-                      >
-                        <Play className="w-4 h-4 fill-black text-black ml-0.5" />
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
+              {popularQuizzes.map((quiz) => (
+                <CompactQuizCard
+                  key={quiz.id}
+                  id={quiz.id}
+                  title={quiz.title}
+                  categorySlug={quiz.categorySlug}
+                  subjectSlug={quiz.subjectSlug}
+                  isMixedCategory={quiz.isMixedCategory}
+                  thumbnailUrl={quiz.thumbnailUrl}
+                  questionCount={quiz.questionCount}
+                  playedCount={quiz.playedCount}
+                  onPlay={() => {
+                    setActivePlayModalQuiz({
+                      title: quiz.title,
+                      categorySlug: quiz.categorySlug,
+                      subjectSlug: quiz.subjectSlug,
+                      isMixedCategory: quiz.isMixedCategory,
+                      description: quiz.description,
+                      availableQuestions: quiz.questionCount,
+                    });
+                  }}
+                />
+              ))}
             </div>
           )}
         </section>

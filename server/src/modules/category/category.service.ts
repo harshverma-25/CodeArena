@@ -91,6 +91,7 @@ export class CategoryService {
           slug: subj.slug,
           description: subj.description,
           icon: subj.icon,
+          thumbnailUrl: subj.thumbnailUrl || '',
           isActive: subj.isActive,
           questionCount,
           availableLengths,
@@ -342,6 +343,7 @@ export class CategoryService {
           subjectSlug: item.subjectSlug,
           isMixedCategory: item.isMixedCategory,
           icon: item.icon,
+          thumbnailUrl: matchedSubj?.thumbnailUrl || '',
           questionCount,
           playedCount: item.playedCount,
         };

@@ -20,6 +20,7 @@ export interface ISubject {
   slug: string;
   description?: string;
   icon?: string;
+  thumbnailUrl?: string;
   isActive: boolean;
   createdAt?: Date;
   updatedAt?: Date;

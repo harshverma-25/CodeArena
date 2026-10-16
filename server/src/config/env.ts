@@ -29,6 +29,15 @@ const envSchema = z.object({
   JWT_REFRESH_SECRET: z.string().optional(),
   JWT_ACCESS_EXPIRES_IN: z.string().default('900'), // 15 mins (in seconds)
   JWT_REFRESH_EXPIRES_IN: z.string().default('604800'), // 7 days (in seconds)
+  // Cloudflare Workers AI Config
+  CLOUDFLARE_ACCOUNT_ID: z.string().optional(),
+  CLOUDFLARE_API_TOKEN: z.string().optional(),
+  CLOUDFLARE_AI_MODEL: z.string().default('@cf/stabilityai/stable-diffusion-xl-base-1.0'),
+  // Cloudinary Config
+  CLOUDINARY_CLOUD_NAME: z.string().optional(),
+  CLOUDINARY_API_KEY: z.string().optional(),
+  CLOUDINARY_API_SECRET: z.string().optional(),
+  CLOUDINARY_URL: z.string().optional(),
 })
   .superRefine((data, ctx) => {
     if (data.NODE_ENV === 'production') {

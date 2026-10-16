@@ -7,6 +7,8 @@ import { ImportHistoryModel } from './import-history.model.js';
 import { IImportRowError } from './import-history.types.js';
 import { ApiError } from '../../shared/errors/api-error.js';
 import { QuestionDifficulty } from '../question/question.types.js';
+import { mediaService } from '../media/media.service.js';
+import { logger } from '../../config/logger.js';
 
 interface RawQuestion {
   externalId?: string;
@@ -197,7 +199,15 @@ export class AdminService {
   /**
    * Create a new subject under a category.
    */
-  async createSubject(data: { categoryId: string; name: string; slug?: string; description?: string; icon?: string }) {
+  async createSubject(data: {
+    categoryId: string;
+    name: string;
+    slug?: string;
+    description?: string;
+    icon?: string;
+    thumbnailUrl?: string;
+    autoGenerateThumbnail?: boolean;
+  }) {
     const category = await CategoryModel.findById(data.categoryId);
     if (!category) {
       throw new ApiError(404, 'Parent category not found');
@@ -210,12 +220,45 @@ export class AdminService {
       throw new ApiError(409, `Subject with slug "${slug}" already exists`);
     }
 
+    let finalThumbnailUrl = (data.thumbnailUrl || '').trim();
+
+    // If no thumbnail provided, or autoGenerateThumbnail requested, attempt Cloudflare Workers AI + Cloudinary
+    if (!finalThumbnailUrl || data.autoGenerateThumbnail) {
+      try {
+        const generatedUrl = await mediaService.generateAndUploadSubjectThumbnail(
+          data.name,
+          category.name,
+          {
+            categorySlug: category.slug,
+            description: data.description,
+          }
+        );
+        if (generatedUrl) {
+          finalThumbnailUrl = generatedUrl;
+        }
+      } catch (err: any) {
+        logger.warn({ err: err?.message }, 'Auto-generation of subject thumbnail via AI skipped/failed');
+      }
+    } else if (finalThumbnailUrl.startsWith('http://') || finalThumbnailUrl.startsWith('https://')) {
+      // If external URL provided, optionally optimize and store in Cloudinary
+      try {
+        const optimizedUrl = await mediaService.uploadImage(finalThumbnailUrl, {
+          folder: 'quizzy/thumbnails',
+          publicId: `thumb-${slug}-${Date.now()}`,
+        });
+        if (optimizedUrl) finalThumbnailUrl = optimizedUrl;
+      } catch (err: any) {
+        logger.warn({ err: err?.message }, 'Could not upload external thumbnail to Cloudinary, keeping raw URL');
+      }
+    }
+
     const subject = await SubjectModel.create({
       categoryId: category._id,
       name: data.name.trim(),
       slug,
       description: data.description?.trim() || '',
       icon: data.icon?.trim() || '',
+      thumbnailUrl: finalThumbnailUrl,
       isActive: true,
     });
 
@@ -226,7 +269,17 @@ export class AdminService {
   /**
    * Update subject.
    */
-  async updateSubject(id: string, data: { name?: string; description?: string; icon?: string; isActive?: boolean }) {
+  async updateSubject(
+    id: string,
+    data: {
+      name?: string;
+      description?: string;
+      icon?: string;
+      thumbnailUrl?: string;
+      autoGenerateThumbnail?: boolean;
+      isActive?: boolean;
+    }
+  ) {
     const subject = await SubjectModel.findById(id);
     if (!subject) {
       throw new ApiError(404, 'Subject not found');
@@ -237,9 +290,77 @@ export class AdminService {
     if (data.icon !== undefined) subject.icon = data.icon.trim();
     if (data.isActive !== undefined) subject.isActive = data.isActive;
 
+    if (data.autoGenerateThumbnail) {
+      try {
+        const category = await CategoryModel.findById(subject.categoryId);
+        const sampleQuestions = await QuestionModel.find({ subjectId: subject._id }, { question: 1 }).limit(3);
+        const sampleQuestionTopics = sampleQuestions.map((q) => q.question.slice(0, 40));
+
+        const generatedUrl = await mediaService.generateAndUploadSubjectThumbnail(
+          subject.name,
+          category?.name,
+          {
+            categorySlug: category?.slug,
+            description: subject.description,
+            sampleQuestionTopics,
+          }
+        );
+        if (generatedUrl) subject.thumbnailUrl = generatedUrl;
+      } catch (err: any) {
+        logger.warn({ err: err?.message }, 'Auto-generation of subject thumbnail failed during update');
+      }
+    } else if (data.thumbnailUrl !== undefined) {
+      let finalUrl = data.thumbnailUrl.trim();
+      if (finalUrl && (finalUrl.startsWith('http://') || finalUrl.startsWith('https://'))) {
+        try {
+          const optimizedUrl = await mediaService.uploadImage(finalUrl, {
+            folder: 'quizzy/thumbnails',
+            publicId: `thumb-${subject.slug}-${Date.now()}`,
+          });
+          if (optimizedUrl) finalUrl = optimizedUrl;
+        } catch {
+          // Keep raw URL if Cloudinary upload fails
+        }
+      }
+      subject.thumbnailUrl = finalUrl;
+    }
+
     await subject.save();
     categoryService.clearCache();
     return subject;
+  }
+
+  /**
+   * Upload an image to Cloudinary (from base64 or URL)
+   */
+  async uploadMedia(data: { imageUrl?: string; base64Data?: string }) {
+    const input = data.base64Data || data.imageUrl!;
+    const url = await mediaService.uploadImage(input, {
+      folder: 'quizzy/thumbnails',
+    });
+    return { url };
+  }
+
+  /**
+   * Generate image via Cloudflare Workers AI and upload to Cloudinary
+   */
+  async generateMedia(data: {
+    subjectName: string;
+    categoryName?: string;
+    categorySlug?: string;
+    description?: string;
+    sampleTopics?: string[];
+  }) {
+    const url = await mediaService.generateAndUploadSubjectThumbnail(
+      data.subjectName,
+      data.categoryName,
+      {
+        categorySlug: data.categorySlug,
+        description: data.description,
+        sampleQuestionTopics: data.sampleTopics,
+      }
+    );
+    return { url };
   }
 
   /**

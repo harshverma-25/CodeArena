@@ -50,6 +50,9 @@ export interface Subject {
   questionCount: number;
   availableLengths?: number[];
   isPlayable?: boolean;
+  thumbnailUrl?: string;
+  rating?: number;
+  creator?: string;
 }
 
 export interface PopularQuiz {
@@ -63,6 +66,9 @@ export interface PopularQuiz {
   icon?: string;
   questionCount: number;
   playedCount: number;
+  thumbnailUrl?: string;
+  rating?: number;
+  creator?: string;
 }
 
 export interface RoomSettings {
@@ -401,6 +407,7 @@ export interface AdminSubjectItem {
   slug: string;
   description: string;
   icon: string;
+  thumbnailUrl?: string;
   isActive: boolean;
   questionCount: number;
 }

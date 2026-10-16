@@ -99,6 +99,16 @@ export class AdminController {
     const data = adminService.getSampleQuestionsTemplate();
     return res.status(200).json(new ApiResponse(200, data, 'Sample template retrieved'));
   }
+
+  async uploadMedia(req: Request, res: Response) {
+    const data = await adminService.uploadMedia(req.body);
+    return res.status(200).json(new ApiResponse(200, data, 'Media uploaded successfully to Cloudinary'));
+  }
+
+  async generateMedia(req: Request, res: Response) {
+    const data = await adminService.generateMedia(req.body);
+    return res.status(200).json(new ApiResponse(200, data, 'Thumbnail generated via Cloudflare Workers AI and stored in Cloudinary'));
+  }
 }
 
 export const adminController = new AdminController();

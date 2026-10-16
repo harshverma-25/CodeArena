@@ -28,6 +28,8 @@ export const createSubjectSchema = z.object({
     slug: z.string().min(2).max(60).regex(/^[a-z0-9-]+$/, 'Slug must be lowercase alphanumeric with hyphens').optional(),
     description: z.string().max(250).optional(),
     icon: z.string().max(50).optional(),
+    thumbnailUrl: z.string().optional(),
+    autoGenerateThumbnail: z.boolean().optional(),
   }),
 });
 
@@ -39,7 +41,28 @@ export const updateSubjectSchema = z.object({
     name: z.string().min(2).max(60).optional(),
     description: z.string().max(250).optional(),
     icon: z.string().max(50).optional(),
+    thumbnailUrl: z.string().optional(),
+    autoGenerateThumbnail: z.boolean().optional(),
     isActive: z.boolean().optional(),
+  }),
+});
+
+export const uploadMediaSchema = z.object({
+  body: z.object({
+    imageUrl: z.string().optional(),
+    base64Data: z.string().optional(),
+  }).refine((data) => data.imageUrl || data.base64Data, {
+    message: 'Either imageUrl or base64Data must be provided',
+  }),
+});
+
+export const generateMediaSchema = z.object({
+  body: z.object({
+    subjectName: z.string().min(1, 'Subject name is required'),
+    categoryName: z.string().optional(),
+    categorySlug: z.string().optional(),
+    description: z.string().optional(),
+    sampleTopics: z.array(z.string()).optional(),
   }),
 });
 

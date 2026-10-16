@@ -19,6 +19,7 @@ const SubjectSchema = new Schema<ISubjectDocument>(
     slug: { type: String, required: true, unique: true, index: true, lowercase: true, trim: true },
     description: { type: String, default: '' },
     icon: { type: String, default: '' },
+    thumbnailUrl: { type: String, default: '' },
     isActive: { type: Boolean, default: true, index: true },
   },
   { timestamps: true }

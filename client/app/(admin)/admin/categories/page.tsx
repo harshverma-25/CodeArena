@@ -21,6 +21,9 @@ import {
   ArrowRight,
   AlertTriangle,
   Loader2,
+  Upload,
+  Image as ImageIcon,
+  Wand2,
 } from "lucide-react";
 import { useApiClient } from "@/hooks/useApiClient";
 import { AdminCategoryTreeItem, AdminSubjectItem, AdminQuestionItem } from "@/types";
@@ -41,7 +44,17 @@ export default function AdminCategoriesPage() {
 
   const [isSubjectModalOpen, setIsSubjectModalOpen] = useState(false);
   const [editingSubject, setEditingSubject] = useState<{ subject: AdminSubjectItem; categoryId: string } | null>(null);
-  const [subjectForm, setSubjectForm] = useState({ categoryId: "", name: "", slug: "", description: "", icon: "" });
+  const [subjectForm, setSubjectForm] = useState({
+    categoryId: "",
+    name: "",
+    slug: "",
+    description: "",
+    icon: "",
+    thumbnailUrl: "",
+    autoGenerateThumbnail: false,
+  });
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [generatingImage, setGeneratingImage] = useState(false);
 
   // Delete Confirmation Modals state
   const [deleteCategoryTarget, setDeleteCategoryTarget] = useState<AdminCategoryTreeItem | null>(null);
@@ -147,7 +160,15 @@ export default function AdminCategoriesPage() {
   // Open Create Subject Modal
   const handleOpenCreateSubject = (categoryId: string) => {
     setEditingSubject(null);
-    setSubjectForm({ categoryId, name: "", slug: "", description: "", icon: "" });
+    setSubjectForm({
+      categoryId,
+      name: "",
+      slug: "",
+      description: "",
+      icon: "",
+      thumbnailUrl: "",
+      autoGenerateThumbnail: false,
+    });
     setIsSubjectModalOpen(true);
   };
 
@@ -160,8 +181,62 @@ export default function AdminCategoriesPage() {
       slug: subject.slug,
       description: subject.description || "",
       icon: subject.icon || "",
+      thumbnailUrl: subject.thumbnailUrl || "",
+      autoGenerateThumbnail: false,
     });
     setIsSubjectModalOpen(true);
+  };
+
+  // Handle manual file upload to Cloudinary via backend
+  const handleUploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        setUploadingImage(true);
+        const base64Data = reader.result as string;
+        const res = await api.post<{ success: boolean; data: { url: string } }>("/admin/media/upload", {
+          base64Data,
+        });
+        if (res.data?.url) {
+          setSubjectForm((prev) => ({ ...prev, thumbnailUrl: res.data.url }));
+          setActionMessage("Image uploaded to Cloudinary successfully!");
+        }
+      } catch (err: any) {
+        alert(err?.message || "Failed to upload image to Cloudinary");
+      } finally {
+        setUploadingImage(false);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Handle on-demand AI generation via Cloudflare Workers AI + Cloudinary
+  const handleGenerateAiImage = async () => {
+    if (!subjectForm.name.trim()) {
+      alert("Please enter a subject name first so the AI knows what image to generate!");
+      return;
+    }
+    const cat = categories.find((c) => c.id === subjectForm.categoryId);
+    try {
+      setGeneratingImage(true);
+      const res = await api.post<{ success: boolean; data: { url: string } }>("/admin/media/generate", {
+        subjectName: subjectForm.name.trim(),
+        categoryName: cat?.name,
+        categorySlug: cat?.slug,
+        description: subjectForm.description?.trim() || undefined,
+      });
+      if (res.data?.url) {
+        setSubjectForm((prev) => ({ ...prev, thumbnailUrl: res.data.url }));
+        setActionMessage("Image generated with Cloudflare Workers AI and saved to Cloudinary!");
+      }
+    } catch (err: any) {
+      alert(err?.message || "Failed to generate AI image. Please verify CLOUDFLARE_ACCOUNT_ID and CLOUDINARY credentials in server .env.");
+    } finally {
+      setGeneratingImage(false);
+    }
   };
 
   // Save Subject
@@ -174,6 +249,8 @@ export default function AdminCategoriesPage() {
           name: subjectForm.name,
           description: subjectForm.description,
           icon: subjectForm.icon,
+          thumbnailUrl: subjectForm.thumbnailUrl,
+          autoGenerateThumbnail: subjectForm.autoGenerateThumbnail,
         });
         setActionMessage(`Updated subject "${subjectForm.name}" successfully.`);
       } else {
@@ -183,6 +260,8 @@ export default function AdminCategoriesPage() {
           slug: subjectForm.slug || undefined,
           description: subjectForm.description,
           icon: subjectForm.icon,
+          thumbnailUrl: subjectForm.thumbnailUrl,
+          autoGenerateThumbnail: subjectForm.autoGenerateThumbnail,
         });
         setActionMessage(`Created subject "${subjectForm.name}" successfully.`);
       }
@@ -730,6 +809,106 @@ export default function AdminCategoriesPage() {
                   onChange={(e) => setSubjectForm({ ...subjectForm, description: e.target.value })}
                   className="w-full px-3 py-2 rounded-xl border-2 border-black text-xs font-semibold focus:outline-none focus:bg-yellow-50/20"
                 />
+              </div>
+
+              {/* QUIZ THUMBNAIL IMAGE CONFIGURATION */}
+              <div className="p-3 rounded-xl border-2 border-black bg-stone-50 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center gap-1.5 text-xs font-black text-black uppercase tracking-wider">
+                    <ImageIcon className="w-3.5 h-3.5 text-amber-600" />
+                    <span>Quiz Thumbnail Image</span>
+                  </label>
+                  <span className="text-[10px] font-bold text-stone-500">Cloudinary CDN</span>
+                </div>
+
+                {/* Option 1: Direct Image URL */}
+                <div>
+                  <div className="flex gap-2">
+                    <input
+                      type="url"
+                      placeholder="Paste image URL (https://...)"
+                      value={subjectForm.thumbnailUrl}
+                      onChange={(e) => setSubjectForm({ ...subjectForm, thumbnailUrl: e.target.value })}
+                      className="flex-1 px-3 py-1.5 rounded-lg border-2 border-black text-xs font-medium bg-white focus:outline-none"
+                    />
+                    {subjectForm.thumbnailUrl && (
+                      <button
+                        type="button"
+                        onClick={() => setSubjectForm({ ...subjectForm, thumbnailUrl: "" })}
+                        className="p-1.5 rounded-lg border-2 border-black bg-stone-200 hover:bg-stone-300 text-black text-xs"
+                        title="Clear image"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Option 2 & 3: Upload from file OR Generate with Cloudflare AI */}
+                <div className="flex flex-wrap items-center gap-2 pt-1">
+                  {/* File Upload Button */}
+                  <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 border-black bg-white hover:bg-stone-100 text-xs font-black cursor-pointer shadow-[1px_1px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all">
+                    {uploadingImage ? (
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Upload className="w-3.5 h-3.5 text-blue-600" />
+                    )}
+                    <span>{uploadingImage ? "Uploading..." : "Upload File"}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      disabled={uploadingImage}
+                      onChange={handleUploadFile}
+                      className="hidden"
+                    />
+                  </label>
+
+                  {/* AI Generate Button (Cloudflare Workers AI) */}
+                  <button
+                    type="button"
+                    disabled={generatingImage}
+                    onClick={handleGenerateAiImage}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 border-black bg-[#FFE600] hover:bg-[#ebd400] text-black text-xs font-black shadow-[1px_1px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
+                  >
+                    {generatingImage ? (
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Wand2 className="w-3.5 h-3.5 text-purple-700" />
+                    )}
+                    <span>{generatingImage ? "Generating AI..." : "Generate with Cloudflare AI"}</span>
+                  </button>
+                </div>
+
+                {/* Auto-generate checkbox if creating new quiz and leaving image blank */}
+                <label className="flex items-center gap-2 pt-1 text-[11px] font-bold text-stone-700 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={subjectForm.autoGenerateThumbnail}
+                    onChange={(e) =>
+                      setSubjectForm({ ...subjectForm, autoGenerateThumbnail: e.target.checked })
+                    }
+                    className="w-3.5 h-3.5 rounded border-2 border-black text-black"
+                  />
+                  <span>Auto-generate with AI on save if no image is uploaded</span>
+                </label>
+
+                {/* Image Preview Box */}
+                {subjectForm.thumbnailUrl && (
+                  <div className="pt-2 flex items-center gap-3 bg-white p-2 rounded-xl border border-black/30">
+                    <div className="w-14 h-14 rounded-lg border-2 border-black overflow-hidden relative bg-stone-100 shrink-0">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={subjectForm.thumbnailUrl}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[11px] font-black text-emerald-700">Image attached</p>
+                      <p className="text-[10px] text-stone-500 truncate">{subjectForm.thumbnailUrl}</p>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="flex justify-end gap-2 pt-3 border-t-2 border-black">

@@ -16,6 +16,8 @@ import {
   previewImportSchema,
   executeImportSchema,
   listImportHistorySchema,
+  uploadMediaSchema,
+  generateMediaSchema,
 } from './admin.validation.js';
 
 const router = Router();
@@ -71,6 +73,18 @@ router.delete(
   '/subjects/:id',
   validateRequest(deleteSubjectSchema),
   asyncHandler((req, res) => adminController.deleteSubject(req, res))
+);
+
+router.post(
+  '/media/upload',
+  validateRequest(uploadMediaSchema),
+  asyncHandler((req, res) => adminController.uploadMedia(req, res))
+);
+
+router.post(
+  '/media/generate',
+  validateRequest(generateMediaSchema),
+  asyncHandler((req, res) => adminController.generateMedia(req, res))
 );
 
 router.delete(
