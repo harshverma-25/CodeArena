@@ -1,0 +1,652 @@
+[
+  {
+    "questionId": "py-001",
+    "question": "What is the primary purpose of the Global Interpreter Lock (GIL) in CPython?",
+    "options": [
+      "To prevent multiple threads from executing Python bytecode simultaneously",
+      "To speed up asynchronous I/O loops",
+      "To lock dictionary keys during iteration",
+      "To encrypt bytecode files (.pyc)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The GIL is a mutex that prevents multiple native threads from executing CPython bytecode at once, ensuring thread-safe CPython memory management.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "py-002",
+    "question": "Which of the following data types in Python is IMMUTABLE?",
+    "options": [
+      "list",
+      "dict",
+      "tuple",
+      "set"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Tuples cannot be modified after creation, making them immutable sequences in Python.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-003",
+    "question": "What will `print(type(lambda x: x))` output in Python?",
+    "options": [
+      "<class 'lambda'>",
+      "<class 'function'>",
+      "<class 'method'>",
+      "<class 'anonymous'>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Anonymous functions created with `lambda` are regular function objects and belong to `<class 'function'>`.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-004",
+    "question": "What is the difference between `__str__` and `__repr__` in Python?",
+    "options": [
+      "`__str__` is intended for readable user output; `__repr__` is intended for unambiguous developer representation and debugging",
+      "`__repr__` is for printing to files; `__str__` is for console only",
+      "`__str__` is deprecated in Python 3",
+      "`__repr__` converts to byte string; `__str__` converts to unicode"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`__str__` provides a human-friendly string, while `__repr__` should ideally be an expression that could recreate the object.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "py-005",
+    "question": "What does the `with` statement in Python simplify?",
+    "options": [
+      "Thread synchronization only",
+      "Exception handling and automatic resource management via context managers",
+      "Dynamic module imports",
+      "Loop optimization"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The `with` statement ensures `__enter__()` and `__exit__()` are called on the context manager, guaranteeing resource cleanup (like closing files).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-006",
+    "question": "What will `print([i for i in range(5) if i % 2 == 0])` output?",
+    "options": [
+      "[0, 2, 4]",
+      "[2, 4]",
+      "[1, 3]",
+      "[0, 1, 2, 3, 4]"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Even numbers in `range(5)` (0, 1, 2, 3, 4) are 0, 2, and 4.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-007",
+    "question": "What is the output of `bool('False')` in Python?",
+    "options": [
+      "False",
+      "True",
+      "None",
+      "ValueError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Any non-empty string in Python evaluates to `True` when converted to boolean.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-008",
+    "question": "Which built-in module provides tools for working with iterators and combinatorics (e.g., permutations, combinations)?",
+    "options": [
+      "functools",
+      "itertools",
+      "collections",
+      "operator"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`itertools` offers memory-efficient generator functions for combinatorial iterators like cycle, chain, and permutations.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-009",
+    "question": "What is the difference between `is` and `==` in Python?",
+    "options": [
+      "`is` checks identity (same memory address), whereas `==` checks value equality",
+      "`is` checks value equality, whereas `==` checks identity",
+      "`is` is used only for strings, `==` for numbers",
+      "They are completely interchangeable"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`is` checks if two references point to the exact same object (`id(a) == id(b)`), while `==` checks if their contents are equal.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-010",
+    "question": "What does the `*args` and `**kwargs` syntax in a function definition do?",
+    "options": [
+      "`*args` accepts arbitrary positional arguments as a tuple; `**kwargs` accepts arbitrary keyword arguments as a dictionary",
+      "`*args` specifies pointer addresses; `**kwargs` specifies reference counts",
+      "`*args` handles exceptions; `**kwargs` handles type declarations",
+      "`*args` is for required parameters; `**kwargs` is for default parameters"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`*args` packs variable positional parameters into a tuple, while `**kwargs` packs keyword arguments into a dictionary.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-011",
+    "question": "What does the `yield` keyword do inside a Python function?",
+    "options": [
+      "Terminates the function permanently like return",
+      "Turns the function into a generator, producing values one at a time and pausing execution state",
+      "Relinquishes CPU time to the OS scheduler",
+      "Yields execution to the next imported package"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Functions containing `yield` become generators that preserve local state and yield items sequentially upon `next()`.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-012",
+    "question": "What is the Method Resolution Order (MRO) algorithm used in Python 3 for multiple inheritance?",
+    "options": [
+      "Depth-First Search",
+      "Breadth-First Search",
+      "C3 Linearization",
+      "Dijkstra's topological sort"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Python uses the C3 Linearization algorithm to determine the order in which base classes are searched for attributes.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "py-013",
+    "question": "What is the output of `list(set([1, 2, 2, 3, 1, 4]))`?",
+    "options": [
+      "A list with duplicates preserved",
+      "A list containing unique elements [1, 2, 3, 4] (order may vary)",
+      "Throws a TypeError",
+      "A dictionary of frequencies"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Constructing a set strips duplicate values; converting back yields unique elements.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-014",
+    "question": "What is a Python decorator?",
+    "options": [
+      "A graphical tool in Tkinter",
+      "A function that takes another function as an argument, extends its behavior without modifying it, and returns a function",
+      "A class that serializes JSON",
+      "A comment style using triple quotes"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Decorators wrap functions (using the `@` syntax) to add functionality such as logging, authentication, or caching.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "py-015",
+    "question": "What happens when you pass a mutable default argument like `def add_item(item, lst=[]):`?",
+    "options": [
+      "A new list is created on every call",
+      "The default list is created once at function definition time and shared across subsequent calls",
+      "Python raises a SyntaxError at compilation",
+      "The list is automatically frozen into a tuple"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Default parameter expressions are evaluated once when the function is defined, causing mutable objects like lists to persist state between calls.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "py-016",
+    "question": "What is the result of `'hello'[-1]` in Python?",
+    "options": [
+      "'h'",
+      "'o'",
+      "'l'",
+      "IndexError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Negative indexing in Python indexes from the end, so `[-1]` retrieves the last character `'o'`.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-017",
+    "question": "Which built-in function returns a list of attributes and methods available on an object?",
+    "options": [
+      "inspect()",
+      "dir()",
+      "help()",
+      "eval()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`dir()` returns all valid attributes and magic methods for an object or module.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-018",
+    "question": "What is the time complexity of looking up a key in a Python `dict` on average?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Python dictionaries are implemented using optimized hash tables, giving average O(1) key lookup.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-019",
+    "question": "What does the `@staticmethod` decorator indicate in a class definition?",
+    "options": [
+      "The method receives the class `cls` as its first argument",
+      "The method does not receive an implicit first argument (neither `self` nor `cls`)",
+      "The method cannot be called without instantiating the class",
+      "The method's variables are kept in static C memory"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A static method is bound to the class rather than an object, behaving like a plain function without `self` or `cls`.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "py-020",
+    "question": "What does the `@classmethod` decorator provide to the method as its first argument?",
+    "options": [
+      "`self` (instance)",
+      "`cls` (the class object itself)",
+      "None",
+      "The parent module"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`@classmethod` methods receive the class object (`cls`) as the first argument, allowing factory constructors.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-021",
+    "question": "What is the purpose of `__init__.py` in a directory?",
+    "options": [
+      "It marks the directory as a Python package that can be imported",
+      "It contains compiler instructions for C extensions",
+      "It runs unit tests automatically",
+      "It initializes the virtual environment"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Historically and conventionally, `__init__.py` denotes that a folder should be treated as a Python package namespace.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-022",
+    "question": "What is the difference between `deepcopy` and `copy` in the `copy` module?",
+    "options": [
+      "`copy` creates a shallow copy (copies references of nested objects); `deepcopy` recursively copies all nested objects",
+      "`deepcopy` works only on primitives",
+      "`copy` is faster because it encrypts the object",
+      "`deepcopy` creates a pointer in C memory"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Shallow copy only duplicates the outer container, whereas `deepcopy` duplicates nested mutable child objects recursively.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "py-023",
+    "question": "What will `print(round(2.5))` and `print(round(3.5))` output in Python 3?",
+    "options": [
+      "3 and 4",
+      "2 and 4",
+      "3 and 3",
+      "2 and 3"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Python 3 uses 'round half to even' (banker's rounding): 2.5 rounds to 2 (even) and 3.5 rounds to 4 (even).",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "py-024",
+    "question": "Which magic method is invoked when an instance of a class is called like a function: `obj()`?",
+    "options": [
+      "`__init__`",
+      "`__call__`",
+      "`__invoke__`",
+      "`__run__`"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Implementing `__call__` allows instances of the class to behave as callables.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "py-025",
+    "question": "What does `sys.getrefcount(obj)` return in Python?",
+    "options": [
+      "The number of references to an object plus one (for the argument itself)",
+      "The memory size of the object in bytes",
+      "The hash value of the object",
+      "The garbage collector generation number"
+    ],
+    "correctAnswer": 0,
+    "explanation": "It returns the current reference count, which is 1 higher than expected because passing it to `getrefcount` creates a temporary reference.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "py-026",
+    "question": "What will `a = [1, 2]; b = a; b += [3]; print(a)` output?",
+    "options": [
+      "[1, 2]",
+      "[1, 2, 3]",
+      "[3]",
+      "TypeError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`+=` on a list calls `extend()` in-place, mutating the shared list object referenced by both `a` and `b`.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "py-027",
+    "question": "What does the `pass` statement do in Python?",
+    "options": [
+      "Terminates the program immediately",
+      "A null operation; nothing happens, used as a syntactic placeholder",
+      "Skips to the next iteration of a loop",
+      "Passes an argument by reference"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`pass` is a placeholder when a statement is required syntactically but no code needs to execute.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-028",
+    "question": "What will `print('abc'.find('z'))` return in Python?",
+    "options": [
+      "-1",
+      "None",
+      "ValueError",
+      "0"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`str.find()` returns -1 if the substring is not found, unlike `str.index()` which raises a `ValueError`.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-029",
+    "question": "What is the primary difference between a list and a generator expression in Python?",
+    "options": [
+      "Lists store all elements in memory immediately; generators yield elements lazily on demand",
+      "Generators cannot be looped over",
+      "Lists can only store integers",
+      "Generators use square brackets `[]`"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Generator expressions (in parentheses `()`) compute items lazily, consuming significantly less memory for large sequences.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-030",
+    "question": "Which of the following creates a dictionary with default values for non-existent keys?",
+    "options": [
+      "collections.defaultdict",
+      "collections.OrderedDict",
+      "collections.namedtuple",
+      "collections.deque"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`defaultdict` takes a factory callable and automatically populates missing keys when accessed.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-031",
+    "question": "What does the `@property` decorator allow you to do in a Python class?",
+    "options": [
+      "Access a method like a regular attribute getter",
+      "Make the class private",
+      "Automatically serialize the class to XML",
+      "Disable garbage collection on the class"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`@property` turns an instance method into a getter, allowing `obj.prop` syntax without parentheses.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-032",
+    "question": "What is the output of `print(0.1 + 0.2 == 0.3)` in standard Python?",
+    "options": [
+      "True",
+      "False",
+      "None",
+      "FloatingPointError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Binary floating-point arithmetic makes `0.1 + 0.2 = 0.30000000000000004`, evaluating the equality to `False`.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-033",
+    "question": "Which module in Python is used for asynchronous programming with `async`/`await` syntax?",
+    "options": [
+      "multiprocessing",
+      "threading",
+      "asyncio",
+      "concurrent.futures"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`asyncio` provides an event loop, coroutines, and tasks for concurrent asynchronous I/O operations.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-034",
+    "question": "What is the purpose of `__slots__` in a Python class?",
+    "options": [
+      "Restricts valid attributes and prevents creation of `__dict__`, reducing memory overhead per instance",
+      "Enables multi-threading on the class",
+      "Creates slots for GUI buttons",
+      "Enforces static typing on all fields"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Declaring `__slots__` bypasses dynamic `__dict__` creation, speeding up attribute access and saving significant RAM.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "py-035",
+    "question": "What does `zip([1, 2], ['a', 'b'])` return when converted to a list?",
+    "options": [
+      "[(1, 'a'), (2, 'b')]",
+      "[(1, 2), ('a', 'b')]",
+      "[1, 2, 'a', 'b']",
+      "{1: 'a', 2: 'b'}"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`zip` aggregates elements from each iterable into pairs: `[(1, 'a'), (2, 'b')]`.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-036",
+    "question": "What is the output of `bool([])`, `bool({})`, and `bool(0)` in Python?",
+    "options": [
+      "False, False, False",
+      "True, True, False",
+      "False, True, False",
+      "True, True, True"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Empty sequences, empty mappings, and zero numeric values all evaluate to `False`.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-037",
+    "question": "What is the key difference between `__new__` and `__init__` in Python?",
+    "options": [
+      "`__new__` creates and returns the new instance; `__init__` initializes the newly created instance",
+      "`__init__` creates the object; `__new__` initializes its variables",
+      "`__new__` is called only in subclasses of int",
+      "`__init__` is a class method; `__new__` is an instance method"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`__new__` is the actual constructor that allocates and returns the object before `__init__` configures its initial attributes.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "py-038",
+    "question": "What does the `break` statement do when used inside a loop with an `else` clause?",
+    "options": [
+      "Executes the `else` block immediately",
+      "Terminates the loop and SKIPS the `else` block",
+      "Causes a syntax error",
+      "Restarts the loop from the beginning"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A loop's `else` block executes only if the loop terminates normally (without hitting a `break`).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "py-039",
+    "question": "Which standard library module handles regular expressions in Python?",
+    "options": [
+      "regex_lib",
+      "re",
+      "strings.regex",
+      "pattern"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The `re` module provides Perl-like regular expression matching and search operations in Python.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-040",
+    "question": "What is duck typing in Python?",
+    "options": [
+      "A static type checking mode in mypy",
+      "If it walks like a duck and quacks like a duck, it's a duck — dynamic typing focusing on an object's methods rather than its explicit class",
+      "Subclassing all classes from Duck",
+      "A pattern where variables can only hold bird species"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Duck typing checks whether an object supports required operations at runtime rather than verifying its explicit inheritance hierarchy.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-041",
+    "question": "What does `str.strip()` do in Python?",
+    "options": [
+      "Removes leading and trailing whitespaces (or specified characters)",
+      "Removes all spaces everywhere inside the string",
+      "Reverses the string",
+      "Splits the string into individual letters"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`strip()` removes whitespace from both the beginning and end of the string.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-042",
+    "question": "What is the output of `[1, 2] * 3` in Python?",
+    "options": [
+      "[3, 6]",
+      "[1, 2, 1, 2, 1, 2]",
+      "[[1, 2], [1, 2], [1, 2]]",
+      "TypeError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Multiplying a sequence by an integer repeats the sequence that many times.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-043",
+    "question": "What is the purpose of the `nonlocal` keyword in Python?",
+    "options": [
+      "To declare that a variable refers to a previously bound variable in the nearest enclosing non-global scope",
+      "To import variables from other servers",
+      "To export variables across threads",
+      "To make variables accessible without imports"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`nonlocal` causes the identifier to refer to a variable in the outer enclosing function scope instead of creating a local one.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "py-044",
+    "question": "What does the `enumerate()` function return when iterating over a sequence?",
+    "options": [
+      "Tuples of (index, item)",
+      "Only the indices",
+      "Only the items in reversed order",
+      "A dictionary of frequencies"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`enumerate(iterable)` yields pairs of `(count, item)` starting from count 0 by default.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-045",
+    "question": "How does Python handle garbage collection for cyclic references?",
+    "options": [
+      "Using reference counting alone",
+      "Using a generational cyclic garbage collector in addition to reference counting",
+      "By crashing with an OutOfMemoryError",
+      "By running mark-and-sweep on every variable change"
+    ],
+    "correctAnswer": 1,
+    "explanation": "While reference counting handles immediate cleanup, a generational cycle detector detects and cleans up isolated reference cycles.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "py-046",
+    "question": "What is the return type of `map()` in Python 3?",
+    "options": [
+      "A list",
+      "A map iterator object",
+      "A tuple",
+      "A dictionary"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In Python 3, `map()` returns an iterator yielding items on demand rather than allocating a full list.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "py-047",
+    "question": "Which operator performs matrix multiplication in Python 3.5+?",
+    "options": [
+      "*",
+      "**",
+      "@",
+      "//"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The `@` operator was introduced in PEP 465 to represent matrix multiplication (implemented by NumPy and others via `__matmul__`).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "py-048",
+    "question": "What will `dict.fromkeys(['a', 'b'], 0)` produce?",
+    "options": [
+      "{'a': 0, 'b': 0}",
+      "['a', 0, 'b', 0]",
+      "{'a': None, 'b': None}",
+      "{0: 'a', 0: 'b'}"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`fromkeys()` initializes a new dictionary with specified keys mapped to the given initial value.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "py-049",
+    "question": "What is the purpose of `functools.lru_cache`?",
+    "options": [
+      "To wrap a function with a memoizing callable that saves up to maxsize recent results",
+      "To clear system RAM",
+      "To measure network latency",
+      "To compress images"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`@lru_cache` is a built-in decorator that caches return values based on function arguments using a Least Recently Used eviction policy.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "py-050",
+    "question": "What does the expression `x = 5; print(f'{x=}')` output in Python 3.8+?",
+    "options": [
+      "'5'",
+      "'x=5'",
+      "'x = 5'",
+      "SyntaxError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The `f'{expr=}'` syntax prints the expression text followed by an equals sign and its evaluated value, handy for quick debugging.",
+    "difficulty": "medium"
+  }
+]

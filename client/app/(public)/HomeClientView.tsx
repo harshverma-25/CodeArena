@@ -11,6 +11,7 @@ import {
   X,
   SlidersHorizontal,
   ChevronRight,
+  ChevronLeft,
   Gamepad2,
   Film,
   Trophy,
@@ -98,11 +99,14 @@ export interface HomeSummaryData {
 function getCategoryIcon(slug: string, className = "w-4 h-4 shrink-0") {
   const s = (slug || "").toLowerCase();
   if (s === "all") return <LayoutGrid className={className} />;
-  if (s.includes("code") || s.includes("program")) return <ArcadeCodeIcon className={className} />;
+  if (s.includes("code") || s.includes("program") || s.includes("computer")) return <ArcadeCodeIcon className={className} />;
   if (s.includes("brain") || s.includes("aptitude")) return <ArcadeBrainIcon className={className} />;
-  if (s.includes("flask") || s.includes("science")) return <ArcadeFlaskIcon className={className} />;
-  if (s.includes("globe") || s.includes("general") || s.includes("gk")) return <ArcadeGlobeIcon className={className} />;
-  if (s.includes("entertainment") || s.includes("movie") || s.includes("film") || s.includes("anime") || s.includes("marvel")) {
+  if (s.includes("flask") || s.includes("science") || s.includes("space")) return <ArcadeFlaskIcon className={className} />;
+  if (s.includes("globe") || s.includes("general") || s.includes("gk") || s.includes("india")) return <ArcadeGlobeIcon className={className} />;
+  if (s.includes("anime") || s.includes("manga")) {
+    return <Gamepad2 className={`${className} text-rose-500`} />;
+  }
+  if (s.includes("entertainment") || s.includes("movie") || s.includes("film") || s.includes("marvel") || s.includes("series")) {
     return <Film className={`${className} text-purple-600`} />;
   }
   if (s.includes("sport") || s.includes("cricket") || s.includes("football")) {
@@ -205,6 +209,149 @@ function renderQuizIcon(icon?: string, categorySlug?: string) {
     return <Trophy className="w-5 h-5 text-emerald-600" />;
   }
   return <ArcadeLightbulbIcon className="w-5 h-5" />;
+}
+
+interface CategoryScrollRowProps {
+  category: Category;
+  subjects: DynamicSubject[];
+  onPlay: (quiz: {
+    title: string;
+    categorySlug: string;
+    subjectSlug?: string | null;
+    isMixedCategory?: boolean;
+    description?: string;
+    questionCount?: number;
+  }) => void;
+}
+
+function CategoryScrollRow({ category, subjects, onPlay }: CategoryScrollRowProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 8);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 8);
+    }
+  };
+
+  useEffect(() => {
+    checkScroll();
+    const el = scrollRef.current;
+    if (el) {
+      el.addEventListener("scroll", checkScroll, { passive: true });
+      window.addEventListener("resize", checkScroll);
+      return () => {
+        el.removeEventListener("scroll", checkScroll);
+        window.removeEventListener("resize", checkScroll);
+      };
+    }
+  }, [subjects]);
+
+  const handleScroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const scrollAmount = 380;
+      scrollRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  return (
+    <section className="w-full space-y-3 pt-1">
+      {/* Category Row Header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="shrink-0">{getCategoryIcon(category.slug, "w-5 h-5")}</span>
+          <h2 className="font-black text-lg sm:text-xl text-black uppercase tracking-tight">
+            {category.name}
+          </h2>
+          <span className="text-xs font-bold text-stone-500">
+            ({subjects.length})
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Desktop Left/Right Scroll Arrows */}
+          <div className="hidden sm:flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => handleScroll("left")}
+              disabled={!canScrollLeft}
+              aria-label={`Scroll ${category.name} left`}
+              className={cn(
+                "w-7 h-7 rounded-full bg-white border-2 border-black flex items-center justify-center transition-all shadow-[1.5px_1.5px_0px_#000] active:translate-x-[1px] active:translate-y-[1px]",
+                canScrollLeft
+                  ? "hover:bg-[#FFE600] cursor-pointer"
+                  : "opacity-30 cursor-not-allowed"
+              )}
+            >
+              <ChevronLeft className="w-3.5 h-3.5 stroke-[2.5]" />
+            </button>
+            <button
+              type="button"
+              onClick={() => handleScroll("right")}
+              disabled={!canScrollRight}
+              aria-label={`Scroll ${category.name} right`}
+              className={cn(
+                "w-7 h-7 rounded-full bg-white border-2 border-black flex items-center justify-center transition-all shadow-[1.5px_1.5px_0px_#000] active:translate-x-[1px] active:translate-y-[1px]",
+                canScrollRight
+                  ? "hover:bg-[#FFE600] cursor-pointer"
+                  : "opacity-30 cursor-not-allowed"
+              )}
+            >
+              <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
+            </button>
+          </div>
+
+          <Link
+            href={`/categories/${category.slug}`}
+            className="inline-flex items-center gap-1 text-xs font-black text-stone-800 hover:text-black hover:underline"
+          >
+            <span>View All</span>
+            <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
+          </Link>
+        </div>
+      </div>
+
+      {/* Horizontal Sideways Scrolling Strip */}
+      <div
+        ref={scrollRef}
+        className="w-full overflow-x-auto pb-3 pt-1 scrollbar-none flex gap-2.5 sm:gap-3 snap-x scroll-smooth"
+      >
+        {subjects.map((sub) => (
+          <div
+            key={sub.id || sub.slug}
+            className="w-[145px] sm:w-[170px] md:w-[190px] shrink-0 snap-start"
+          >
+            <CompactQuizCard
+              id={sub.id || sub.slug}
+              title={sub.name}
+              categorySlug={sub.categorySlug}
+              subjectSlug={sub.slug}
+              isMixedCategory={false}
+              thumbnailUrl={sub.thumbnailUrl}
+              questionCount={sub.questionCount}
+              playedCount={sub.playedCount}
+              onPlay={() =>
+                onPlay({
+                  title: sub.name,
+                  categorySlug: sub.categorySlug,
+                  subjectSlug: sub.slug,
+                  isMixedCategory: false,
+                  description: sub.description || `Play live matches in ${sub.name}.`,
+                  questionCount: sub.questionCount,
+                })
+              }
+            />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 }
 
 export default function HomeClientView({
@@ -489,6 +636,83 @@ export default function HomeClientView({
     return items;
   }, [enrichedSubjects, selectedCategorySlug, searchQuery]);
 
+  // Group enriched subjects by categorySlug
+  const subjectsByCategory = useMemo(() => {
+    const map: Record<string, DynamicSubject[]> = {};
+    enrichedSubjects.forEach((sub) => {
+      const slug = sub.categorySlug;
+      if (!map[slug]) {
+        map[slug] = [];
+      }
+      map[slug].push(sub);
+    });
+    return map;
+  }, [enrichedSubjects]);
+
+  // Priority order for categories on homepage (Anime & Manga, Computer Science, Sports first)
+  const categoriesWithSubjects = useMemo(() => {
+    const priorityOrder = [
+      "anime-manga",
+      "computer-science-programming",
+      "sports",
+      "movies-web-series",
+      "general-knowledge-india",
+      "science-space",
+      "programming",
+      "aptitude",
+    ];
+
+    return [...categories]
+      .filter((cat) => (subjectsByCategory[cat.slug] || []).length > 0)
+      .sort((a, b) => {
+        const indexA = priorityOrder.indexOf(a.slug);
+        const indexB = priorityOrder.indexOf(b.slug);
+        if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+        if (indexA !== -1) return -1;
+        if (indexB !== -1) return 1;
+        return a.name.localeCompare(b.name);
+      });
+  }, [categories, subjectsByCategory]);
+
+  // Top 6 Most Played Quizzes (only top 6 with View All)
+  const mostPlayedQuizzes = useMemo(() => {
+    if (popularQuizzes && popularQuizzes.length > 0) {
+      return popularQuizzes.slice(0, 6);
+    }
+    return [...enrichedSubjects]
+      .sort((a, b) => (b.playedCount || 0) - (a.playedCount || 0))
+      .slice(0, 6)
+      .map((sub) => ({
+        id: sub.id || sub.slug,
+        title: sub.name,
+        categorySlug: sub.categorySlug,
+        subjectSlug: sub.slug,
+        isMixedCategory: false,
+        thumbnailUrl: sub.thumbnailUrl,
+        questionCount: sub.questionCount,
+        playedCount: sub.playedCount,
+        description: sub.description || `Play live matches in ${sub.name}.`,
+      }));
+  }, [popularQuizzes, enrichedSubjects]);
+
+  const handlePlayQuiz = (quiz: {
+    title: string;
+    categorySlug: string;
+    subjectSlug?: string | null;
+    isMixedCategory?: boolean;
+    description?: string;
+    questionCount?: number;
+  }) => {
+    setActivePlayModalQuiz({
+      title: quiz.title,
+      categorySlug: quiz.categorySlug,
+      subjectSlug: quiz.subjectSlug,
+      isMixedCategory: Boolean(quiz.isMixedCategory),
+      description: quiz.description || `Play live matches in ${quiz.title}.`,
+      availableQuestions: quiz.questionCount,
+    });
+  };
+
   return (
     <div className="w-full min-h-screen bg-[#FAF7EE] text-stone-900 pb-20 select-none overflow-x-hidden">
       <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 space-y-6 sm:space-y-8 pt-4">
@@ -639,183 +863,203 @@ export default function HomeClientView({
         </section>
 
         {/* ========================================================================= */}
-        {/* 3. DYNAMIC CATEGORY QUIZ GRID (Compact Square Image Cards) */}
+        {/* 3. DYNAMIC CONTENT: EITHER FILTERED/SEARCH GRID OR (MOST PLAYED + CATEGORY ROWS) */}
         {/* ========================================================================= */}
-        <section className="w-full space-y-3">
-          {/* Section Header: Compact & Bold */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
-            <div className="flex items-center gap-2">
-              <span className="shrink-0">{getCategoryIcon(selectedCategorySlug, "w-5 h-5")}</span>
-              <h2 className="font-black text-lg sm:text-xl text-black uppercase tracking-tight">
-                {activeCategory ? `${activeCategory.name} Quizzes` : "Best Rated Right Now"}
-              </h2>
-              <span className="text-xs font-bold text-stone-500">
-                ({displayedSubjects.length})
-              </span>
+        {(selectedCategorySlug !== "all" || searchQuery.trim() !== "") ? (
+          /* ======================================================================= */
+          /* FILTERED CATEGORY / SEARCH RESULTS VIEW                                 */
+          /* ======================================================================= */
+          <section className="w-full space-y-3">
+            {/* Header with Title and Reset / Curriculum Action */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
+              <div className="flex items-center gap-2">
+                <span className="shrink-0">{getCategoryIcon(selectedCategorySlug, "w-5 h-5")}</span>
+                <h2 className="font-black text-lg sm:text-xl text-black uppercase tracking-tight">
+                  {searchQuery ? `Search Results: "${searchQuery}"` : activeCategory ? `${activeCategory.name} Quizzes` : "Quizzes"}
+                </h2>
+                <span className="text-xs font-bold text-stone-500">
+                  ({displayedSubjects.length})
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 flex-wrap">
+                {selectedCategorySlug !== "all" && (
+                  <Link
+                    href={`/categories/${selectedCategorySlug}`}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white hover:bg-stone-50 text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer whitespace-nowrap"
+                  >
+                    <span>Curriculum</span>
+                    <ArrowRight className="w-3 h-3 stroke-[2.5]" />
+                  </Link>
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedCategorySlug("all");
+                    setSearchQuery("");
+                  }}
+                  className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FFE600] hover:bg-[#FACC15] text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer whitespace-nowrap"
+                >
+                  <span>Show All Categories</span>
+                </button>
+              </div>
             </div>
 
-            {selectedCategorySlug !== "all" && (
-              <Link
-                href={`/categories/${selectedCategorySlug}`}
-                className="inline-flex items-center gap-1.5 self-start sm:self-auto px-3 py-1 rounded-full bg-white hover:bg-stone-50 text-black font-black text-xs border-2 border-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer whitespace-nowrap"
-              >
-                <span>Curriculum</span>
-                <ArrowRight className="w-3 h-3 stroke-[2.5]" />
-              </Link>
+            {/* Skeletons while loading */}
+            {loadingSubjects && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <div
+                    key={i}
+                    className="rounded-xl sm:rounded-2xl border-[1.5px] sm:border-2 border-black bg-white p-1.5 sm:p-2 shadow-[2px_2px_0px_#000] animate-pulse space-y-1.5"
+                  >
+                    <div className="w-full aspect-square rounded-lg sm:rounded-xl bg-stone-200" />
+                    <div className="h-3 sm:h-3.5 w-4/5 bg-stone-200 rounded mt-1" />
+                    <div className="flex justify-between items-center pt-1 border-t border-stone-100">
+                      <div className="h-2.5 w-6 bg-stone-200 rounded" />
+                      <div className="h-2.5 w-10 bg-stone-200 rounded" />
+                    </div>
+                  </div>
+                ))}
+              </div>
             )}
-          </div>
 
-          {/* Skeletons while loading subjects */}
-          {loadingSubjects && (
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((i) => (
-                <div
-                  key={i}
-                  className="rounded-xl sm:rounded-2xl border-[1.5px] sm:border-2 border-black bg-white p-1.5 sm:p-2 shadow-[2px_2px_0px_#000] animate-pulse space-y-1.5"
-                >
-                  <div className="w-full aspect-square rounded-lg sm:rounded-xl bg-stone-200" />
-                  <div className="h-3 sm:h-3.5 w-4/5 bg-stone-200 rounded mt-1" />
-                  <div className="flex justify-between items-center pt-1 border-t border-stone-100">
-                    <div className="h-2.5 w-6 bg-stone-200 rounded" />
-                    <div className="h-2.5 w-10 bg-stone-200 rounded" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Empty state if search returns zero results */}
-          {!loadingSubjects && displayedSubjects.length === 0 && (
-            <div className="w-full bg-white border-2 border-black rounded-2xl p-6 text-center shadow-[3px_3px_0px_#000] space-y-2">
-              <p className="font-black text-sm sm:text-base text-black uppercase">
-                {searchQuery ? `No quizzes found for "${searchQuery}"` : "No quizzes available in this category yet"}
-              </p>
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedCategorySlug("all");
-                  setSearchQuery("");
-                }}
-                className="mt-1 inline-flex items-center px-4 py-1.5 bg-[#FFE600] border-2 border-black rounded-full font-black text-xs text-black shadow-[2px_2px_0px_#000] cursor-pointer"
-              >
-                Reset Filters
-              </button>
-            </div>
-          )}
-
-          {/* Compact Square Quiz Cards (6 columns on desktop, 3 on mobile) */}
-          {!loadingSubjects && displayedSubjects.length > 0 && (
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
-              {displayedSubjects.map((sub) => (
-                <CompactQuizCard
-                  key={sub.id || sub.slug}
-                  id={sub.id || sub.slug}
-                  title={sub.name}
-                  categorySlug={sub.categorySlug}
-                  subjectSlug={sub.slug}
-                  isMixedCategory={false}
-                  thumbnailUrl={sub.thumbnailUrl}
-                  questionCount={sub.questionCount}
-                  playedCount={sub.playedCount}
-                  onPlay={() => {
-                    setActivePlayModalQuiz({
-                      title: sub.name,
-                      categorySlug: sub.categorySlug,
-                      subjectSlug: sub.slug,
-                      isMixedCategory: false,
-                      description: sub.description || `Play live matches in ${sub.name}.`,
-                      availableQuestions: sub.questionCount,
-                    });
+            {/* Empty state if search or category returns 0 */}
+            {!loadingSubjects && displayedSubjects.length === 0 && (
+              <div className="w-full bg-white border-2 border-black rounded-2xl p-6 text-center shadow-[3px_3px_0px_#000] space-y-2">
+                <p className="font-black text-sm sm:text-base text-black uppercase">
+                  {searchQuery ? `No quizzes found for "${searchQuery}"` : "No quizzes available in this category yet"}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedCategorySlug("all");
+                    setSearchQuery("");
                   }}
-                />
-              ))}
-            </div>
-          )}
-        </section>
+                  className="mt-1 inline-flex items-center px-4 py-1.5 bg-[#FFE600] border-2 border-black rounded-full font-black text-xs text-black shadow-[2px_2px_0px_#000] cursor-pointer"
+                >
+                  Reset Filters
+                </button>
+              </div>
+            )}
 
-        {/* ========================================================================= */}
-        {/* 4. POPULAR RIGHT NOW (Compact Square Image Cards) */}
-        {/* ========================================================================= */}
-        <section
-          id="quizzes"
-          ref={mostPlayedSectionRef}
-          className="w-full space-y-3 pt-2"
-        >
-          {/* Header Row: Compact & Bold */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <ArcadeFlameIcon className="w-5 h-5 text-[#F97316] shrink-0" />
-              <h2 className="font-black text-lg sm:text-xl text-black tracking-wide uppercase">
-                Popular Right Now
-              </h2>
-            </div>
-
-            <Link
-              href="/categories"
-              className="inline-flex items-center gap-1 text-xs font-black text-stone-800 hover:text-black hover:underline"
+            {/* Filtered Grid */}
+            {!loadingSubjects && displayedSubjects.length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3">
+                {displayedSubjects.map((sub) => (
+                  <CompactQuizCard
+                    key={sub.id || sub.slug}
+                    id={sub.id || sub.slug}
+                    title={sub.name}
+                    categorySlug={sub.categorySlug}
+                    subjectSlug={sub.slug}
+                    isMixedCategory={false}
+                    thumbnailUrl={sub.thumbnailUrl}
+                    questionCount={sub.questionCount}
+                    playedCount={sub.playedCount}
+                    onPlay={() =>
+                      handlePlayQuiz({
+                        title: sub.name,
+                        categorySlug: sub.categorySlug,
+                        subjectSlug: sub.slug,
+                        isMixedCategory: false,
+                        description: sub.description || `Play live matches in ${sub.name}.`,
+                        questionCount: sub.questionCount,
+                      })
+                    }
+                  />
+                ))}
+              </div>
+            )}
+          </section>
+        ) : (
+          /* ======================================================================= */
+          /* DEFAULT VIEW: TOP 6 MOST PLAYED + SIDEWAYS SCROLLING CATEGORY ROWS     */
+          /* ======================================================================= */
+          <>
+            {/* 3. MOST PLAYED (ONLY TOP 6 WITH VIEW ALL LINK) */}
+            <section
+              id="quizzes"
+              ref={mostPlayedSectionRef}
+              className="w-full space-y-3 pt-1"
             >
-              <span>View All</span>
-              <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
-            </Link>
-          </div>
-
-          {/* Loading Skeletons */}
-          {loadingPopular && (
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div
-                  key={i}
-                  className="rounded-xl sm:rounded-2xl border-[1.5px] sm:border-2 border-black bg-white p-1.5 sm:p-2 shadow-[2px_2px_0px_#000] animate-pulse space-y-1.5"
-                >
-                  <div className="w-full aspect-square rounded-lg sm:rounded-xl bg-stone-200" />
-                  <div className="h-3 sm:h-3.5 w-4/5 bg-stone-200 rounded mt-1" />
-                  <div className="flex justify-between items-center pt-1 border-t border-stone-100">
-                    <div className="h-2.5 w-6 bg-stone-200 rounded" />
-                    <div className="h-2.5 w-10 bg-stone-200 rounded" />
-                  </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <ArcadeFlameIcon className="w-5 h-5 text-[#F97316] shrink-0" />
+                  <h2 className="font-black text-lg sm:text-xl text-black tracking-wide uppercase">
+                    Most Played
+                  </h2>
                 </div>
-              ))}
-            </div>
-          )}
 
-          {/* Empty State */}
-          {!loadingPopular && popularQuizzes.length === 0 && (
-            <div className="w-full bg-white border-2 border-black rounded-2xl p-6 text-center shadow-[3px_3px_0px_#000] space-y-2">
-              <p className="font-black text-sm sm:text-base text-black uppercase">
-                No popular quizzes yet. Be the first to play!
-              </p>
-            </div>
-          )}
+                <Link
+                  href="/categories"
+                  className="inline-flex items-center gap-1 text-xs font-black text-stone-800 hover:text-black hover:underline"
+                >
+                  <span>View All</span>
+                  <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                </Link>
+              </div>
 
-          {/* Real Dynamic Popular Quizzes (Compact Square Cards) */}
-          {!loadingPopular && popularQuizzes.length > 0 && (
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
-              {popularQuizzes.map((quiz) => (
-                <CompactQuizCard
-                  key={quiz.id}
-                  id={quiz.id}
-                  title={quiz.title}
-                  categorySlug={quiz.categorySlug}
-                  subjectSlug={quiz.subjectSlug}
-                  isMixedCategory={quiz.isMixedCategory}
-                  thumbnailUrl={quiz.thumbnailUrl}
-                  questionCount={quiz.questionCount}
-                  playedCount={quiz.playedCount}
-                  onPlay={() => {
-                    setActivePlayModalQuiz({
-                      title: quiz.title,
-                      categorySlug: quiz.categorySlug,
-                      subjectSlug: quiz.subjectSlug,
-                      isMixedCategory: quiz.isMixedCategory,
-                      description: quiz.description,
-                      availableQuestions: quiz.questionCount,
-                    });
-                  }}
-                />
-              ))}
-            </div>
-          )}
-        </section>
+              {/* Skeletons while loading */}
+              {(loadingPopular || loadingSubjects) && mostPlayedQuizzes.length === 0 && (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3">
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
+                    <div
+                      key={i}
+                      className="rounded-xl sm:rounded-2xl border-[1.5px] sm:border-2 border-black bg-white p-1.5 sm:p-2 shadow-[2px_2px_0px_#000] animate-pulse space-y-1.5"
+                    >
+                      <div className="w-full aspect-square rounded-lg sm:rounded-xl bg-stone-200" />
+                      <div className="h-3 sm:h-3.5 w-4/5 bg-stone-200 rounded mt-1" />
+                      <div className="flex justify-between items-center pt-1 border-t border-stone-100">
+                        <div className="h-2.5 w-6 bg-stone-200 rounded" />
+                        <div className="h-2.5 w-10 bg-stone-200 rounded" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Real Top 6 Most Played Quizzes (Compact Square Cards) */}
+              {mostPlayedQuizzes.length > 0 && (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3">
+                  {mostPlayedQuizzes.map((quiz) => (
+                    <CompactQuizCard
+                      key={quiz.id}
+                      id={quiz.id}
+                      title={quiz.title}
+                      categorySlug={quiz.categorySlug}
+                      subjectSlug={quiz.subjectSlug}
+                      isMixedCategory={quiz.isMixedCategory}
+                      thumbnailUrl={quiz.thumbnailUrl}
+                      questionCount={quiz.questionCount}
+                      playedCount={quiz.playedCount}
+                      onPlay={() =>
+                        handlePlayQuiz({
+                          title: quiz.title,
+                          categorySlug: quiz.categorySlug,
+                          subjectSlug: quiz.subjectSlug,
+                          isMixedCategory: quiz.isMixedCategory,
+                          description: quiz.description,
+                          questionCount: quiz.questionCount,
+                        })
+                      }
+                    />
+                  ))}
+                </div>
+              )}
+            </section>
+
+            {/* 4. ONE ROW PER CATEGORY (SCROLLING SIDEWAYS WITH ITS OWN VIEW ALL) */}
+            {categoriesWithSubjects.map((cat) => (
+              <CategoryScrollRow
+                key={cat.id || cat.slug}
+                category={cat}
+                subjects={subjectsByCategory[cat.slug] || []}
+                onPlay={handlePlayQuiz}
+              />
+            ))}
+          </>
+        )}
 
       </div>
 

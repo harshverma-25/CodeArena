@@ -1,0 +1,652 @@
+[
+  {
+    "questionId": "js-001",
+    "question": "What is the output of `typeof NaN` in JavaScript?",
+    "options": [
+      "'nan'",
+      "'undefined'",
+      "'number'",
+      "'object'"
+    ],
+    "correctAnswer": 2,
+    "explanation": "In IEEE 754 and JavaScript specifications, NaN represents a numeric value signifying 'Not-a-Number', so `typeof NaN === 'number'`.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-002",
+    "question": "Which of the following creates a block-scoped variable that cannot be reassigned?",
+    "options": [
+      "var",
+      "let",
+      "const",
+      "static"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`const` declares a block-scoped variable whose binding is immutable (cannot be reassigned).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-003",
+    "question": "What does `[] == ![]` evaluate to in JavaScript?",
+    "options": [
+      "true",
+      "false",
+      "undefined",
+      "TypeError"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`![]` evaluates to false. Then `[] == false` triggers type coercion: `[]` becomes `\"\"` and `false` becomes 0, then `\"\"` becomes 0, yielding `0 == 0`, which is true.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-004",
+    "question": "Which JavaScript engine powers Google Chrome and Node.js?",
+    "options": [
+      "SpiderMonkey",
+      "V8",
+      "JavaScriptCore",
+      "Chakra"
+    ],
+    "correctAnswer": 1,
+    "explanation": "V8 is Google's open-source high-performance WebAssembly and JavaScript engine written in C++.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-005",
+    "question": "What is the output of `console.log(1 + '2' + 3)`?",
+    "options": [
+      "6",
+      "'123'",
+      "'15'",
+      "NaN"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Addition evaluates left to right: `1 + '2'` coerces 1 to string yielding `'12'`, then `'12' + 3` coerces 3 yielding `'123'`.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-006",
+    "question": "What is a closure in JavaScript?",
+    "options": [
+      "A function bundled with references to its surrounding lexical environment",
+      "A method to close browser tabs programmatically",
+      "A syntax error in curly braces",
+      "An asynchronous event listener callback"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A closure gives an inner function access to an outer function's scope even after the outer function has returned.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-007",
+    "question": "What will `console.log(typeof null)` output?",
+    "options": [
+      "'null'",
+      "'undefined'",
+      "'object'",
+      "'boolean'"
+    ],
+    "correctAnswer": 2,
+    "explanation": "`typeof null === 'object'` is a historic quirk from the first implementation of JavaScript where object type tags were 0.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-008",
+    "question": "Which method converts a JSON string into a JavaScript object?",
+    "options": [
+      "JSON.stringify()",
+      "JSON.parse()",
+      "JSON.toObject()",
+      "JSON.decode()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`JSON.parse()` deserializes a JSON string into a native JavaScript object or primitive.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-009",
+    "question": "What is the difference between `==` and `===`?",
+    "options": [
+      "`==` checks equality with type coercion, whereas `===` checks strict equality without coercion",
+      "`===` is only for strings, while `==` is for numbers",
+      "`==` checks memory addresses, while `===` checks values",
+      "There is no difference in ES6"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`==` performs abstract type conversion before comparing values, while `===` requires both value and type to match.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-010",
+    "question": "In the JavaScript Event Loop, which queue has higher priority: the Microtask Queue or the Macrotask (Callback) Queue?",
+    "options": [
+      "Macrotask Queue",
+      "Microtask Queue",
+      "Both have identical priority",
+      "Animation frame queue always preempts both"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The microtask queue (Promise callbacks, queueMicrotask, MutationObserver) is completely drained after each macrotask before the next macrotask runs.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-011",
+    "question": "What will `console.log(0.1 + 0.2 === 0.3)` return?",
+    "options": [
+      "true",
+      "false",
+      "undefined",
+      "NaN"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Due to binary IEEE 754 floating-point representation, `0.1 + 0.2` equals `0.30000000000000004`, which is not strictly equal to 0.3.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-012",
+    "question": "How does the `this` keyword behave inside an ES6 arrow function?",
+    "options": [
+      "It binds dynamically to the caller object",
+      "It retains the `this` value of the enclosing lexical context",
+      "It is always undefined",
+      "It refers to the global `window` object always"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arrow functions do not have their own `this` binding; they capture `this` lexically from their enclosing scope.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-013",
+    "question": "What is the purpose of the `Promise.allSettled()` method?",
+    "options": [
+      "Rejects immediately upon the first rejected promise",
+      "Resolves when all promises settle (either fulfilled or rejected) with an array of result objects",
+      "Returns only the promises that resolved successfully",
+      "Cancels remaining promises when one finishes"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`Promise.allSettled()` waits for all input promises to either resolve or reject, returning `{ status, value/reason }` for each.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-014",
+    "question": "What is the Temporal Dead Zone (TDZ) in JavaScript?",
+    "options": [
+      "The duration before the garbage collector frees memory",
+      "The period between entering scope and variable declaration with `let` or `const` where access throws a ReferenceError",
+      "The delay in `setTimeout(fn, 0)` execution",
+      "The lifetime of an async worker thread"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Variables declared with `let` and `const` exist in the TDZ from the start of their enclosing block until the declaration is evaluated.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-015",
+    "question": "Which built-in method creates a deep copy of serializable JavaScript data in modern browsers?",
+    "options": [
+      "Object.assign()",
+      "structuredClone()",
+      "Array.prototype.slice()",
+      "Object.freeze()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`structuredClone()` is a native global function that performs deep cloning of JavaScript values.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-016",
+    "question": "What is the result of `Boolean('')`, `Boolean(0)`, and `Boolean([])` respectively?",
+    "options": [
+      "false, false, false",
+      "false, false, true",
+      "true, false, true",
+      "false, true, true"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Empty string `''` and `0` are falsy, while empty array `[]` is an object reference and therefore truthy.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-017",
+    "question": "What will `console.log([1, 2, 3] + [4, 5, 6])` output?",
+    "options": [
+      "[1, 2, 3, 4, 5, 6]",
+      "'1,2,34,5,6'",
+      "NaN",
+      "TypeError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arrays are coerced to strings via `toString()` (`'1,2,3'` and `'4,5,6'`), then concatenated to `'1,2,34,5,6'`.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-018",
+    "question": "Which of the following methods stops event propagation up the DOM tree?",
+    "options": [
+      "event.preventDefault()",
+      "event.stopPropagation()",
+      "event.stopImmediate()",
+      "event.cancel()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`stopPropagation()` prevents the current event from bubbling further up or capturing down through the DOM.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-019",
+    "question": "What is the output of `(function(){ var a = b = 3; })(); console.log(typeof b);`?",
+    "options": [
+      "'undefined'",
+      "'number'",
+      "'object'",
+      "ReferenceError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`b = 3` creates a global variable in non-strict mode because `var` only applies to `a`. Thus `b` is globally accessible as a number.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "js-020",
+    "question": "Which method invokes a function immediately while passing arguments as an array?",
+    "options": [
+      "Function.prototype.call()",
+      "Function.prototype.apply()",
+      "Function.prototype.bind()",
+      "Function.prototype.exec()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`apply(thisArg, [argsArray])` invokes the function with an array of arguments, whereas `call()` takes comma-separated arguments.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-021",
+    "question": "What is the result of `Object.is(-0, +0)`?",
+    "options": [
+      "true",
+      "false",
+      "undefined",
+      "NaN"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`Object.is()` distinguishes between `-0` and `+0` (returns false), unlike the `===` operator which considers `-0 === +0` true.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-022",
+    "question": "What does the `WeakMap` data structure in JavaScript allow?",
+    "options": [
+      "Keys can be arbitrary primitives or objects",
+      "Keys must be objects, and they are weakly referenced allowing garbage collection",
+      "Values are automatically sorted",
+      "It allows iteration via `for...of` loops"
+    ],
+    "correctAnswer": 1,
+    "explanation": "WeakMap keys must be garbage-collectible objects; if no other reference exists, the key and entry can be cleared by GC.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-023",
+    "question": "What does `Array.prototype.reduce()` return if called on an empty array without an initialValue?",
+    "options": [
+      "undefined",
+      "null",
+      "TypeError",
+      "0"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Executing `reduce()` on an empty array without providing an initial value throws an immediate `TypeError: Reduce of empty array with no initial value`.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-024",
+    "question": "What will `console.log(3 > 2 > 1)` evaluate to?",
+    "options": [
+      "true",
+      "false",
+      "undefined",
+      "TypeError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Evaluated left-to-right: `(3 > 2)` is `true`. Then `(true > 1)` coerces `true` to `1`: `1 > 1` is `false`.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-025",
+    "question": "What is the primary difference between `sessionStorage` and `localStorage`?",
+    "options": [
+      "`localStorage` data persists indefinitely until cleared, while `sessionStorage` data clears when the page session/tab ends",
+      "`sessionStorage` can store up to 50MB, whereas `localStorage` stores 5MB",
+      "`localStorage` is sent with every HTTP request automatically",
+      "`sessionStorage` is synchronous while `localStorage` is asynchronous"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`sessionStorage` survives page reloads but is scoped to the browser tab lifecycle; `localStorage` persists across sessions until explicitly deleted.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-026",
+    "question": "Which operator provides a default value only when the left operand is `null` or `undefined` (nullish)?",
+    "options": [
+      "|| (Logical OR)",
+      "?? (Nullish Coalescing)",
+      "&& (Logical AND)",
+      "?: (Ternary)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The nullish coalescing operator `??` returns its right operand only if the left operand evaluates to `null` or `undefined` (ignoring `0`, `false`, `''`).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-027",
+    "question": "What does a generator function return when invoked?",
+    "options": [
+      "The resolved value directly",
+      "A Generator Object (an Iterator)",
+      "A Promise",
+      "A Worker thread"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Functions defined with `function*` return a Generator object conforming to the iterable and iterator protocols.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-028",
+    "question": "Which of the following will properly freeze an object so its top-level properties cannot be added, deleted, or modified?",
+    "options": [
+      "Object.seal()",
+      "Object.freeze()",
+      "Object.preventExtensions()",
+      "Object.lock()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`Object.freeze()` prevents adding new properties, deleting existing properties, or changing the values/descriptors of existing properties.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-029",
+    "question": "What is the output of `console.log([10, 2, 5, 1].sort())`?",
+    "options": [
+      "[1, 2, 5, 10]",
+      "[1, 10, 2, 5]",
+      "[10, 5, 2, 1]",
+      "[2, 5, 10, 1]"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Default `sort()` converts array elements to strings and compares UTF-16 code unit values, placing `'10'` before `'2'`.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-030",
+    "question": "What does the keyword `super` refer to inside a derived class constructor?",
+    "options": [
+      "The child class instance",
+      "The parent/base class constructor",
+      "The global window object",
+      "The prototype of the child class"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`super()` invokes the parent class constructor to initialize `this` in the subclass context.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-031",
+    "question": "What is the output of `console.log(typeof (() => {}))`?",
+    "options": [
+      "'arrow'",
+      "'object'",
+      "'function'",
+      "'undefined'"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Functions of all types, including arrow functions, yield `'function'` under the `typeof` operator.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-032",
+    "question": "What happens when you access an uninitialized variable declared with `var`?",
+    "options": [
+      "Throws a ReferenceError",
+      "Returns `undefined`",
+      "Returns `null`",
+      "Throws a TypeError"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`var` variables are hoisted and initialized to `undefined` at the start of their function/global execution context.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-033",
+    "question": "Which method creates a new object using an existing object as the prototype of the newly created object?",
+    "options": [
+      "Object.assign()",
+      "Object.create()",
+      "Object.setPrototypeOf()",
+      "new Object()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`Object.create(proto)` constructs a fresh object whose `[[Prototype]]` points directly to `proto`.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-034",
+    "question": "What does `Promise.race()` return?",
+    "options": [
+      "The promise that resolves first with a value",
+      "A promise that settles as soon as any input promise settles (either resolves OR rejects)",
+      "An array of all completed promises",
+      "The promise that took the longest time"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`Promise.race()` settles with the outcome (value or error) of the very first promise to settle.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-035",
+    "question": "What is the purpose of the `use strict` directive in JavaScript?",
+    "options": [
+      "Enforces strict typing like TypeScript",
+      "Catches silent errors, disables un-declared globals, and restricts unsafe language features",
+      "Compresses and optimizes code execution",
+      "Prevents asynchronous callbacks from running"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Strict mode eliminates silent bugs by throwing errors, prevents accidental globals, and prohibits `with` statements.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-036",
+    "question": "What will `console.log(typeof Symbol('id'))` output?",
+    "options": [
+      "'string'",
+      "'symbol'",
+      "'object'",
+      "'identifier'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Symbols are unique primitive values introduced in ES6, returning `'symbol'` with `typeof`.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-037",
+    "question": "What does `Array.prototype.flat()` do by default if no depth argument is passed?",
+    "options": [
+      "Flattens up to depth 1",
+      "Flattens completely (Infinity)",
+      "Returns the array unmodified",
+      "Throws an error"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`flat()` defaults to flattening sub-array elements at depth 1.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-038",
+    "question": "What is event delegation in client-side JavaScript?",
+    "options": [
+      "Assigning an event listener to multiple children simultaneously",
+      "Attaching a single event listener to a parent element to handle events triggered by descendants via bubbling",
+      "Delegating server processing to Web Workers",
+      "Transferring mouse focus to keyboard handlers"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Event delegation exploits event bubbling so a single listener on an ancestor manages clicks on many dynamic children.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-039",
+    "question": "What is the output of `console.log(1 < 2 < 3)` and `console.log(3 > 2 > 1)`?",
+    "options": [
+      "true, true",
+      "true, false",
+      "false, true",
+      "false, false"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`1 < 2` is `true`, then `true < 3` coerces `true` to 1: `1 < 3` is `true`. In contrast, `3 > 2` is `true`, then `true > 1` becomes `1 > 1` which is `false`.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-040",
+    "question": "Which of the following creates an unmodifiable, unique object property identifier?",
+    "options": [
+      "String()",
+      "Symbol()",
+      "BigInt()",
+      "Proxy()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Every `Symbol()` call generates a globally unique identifier that never clashes with other property keys.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-041",
+    "question": "What will be printed by: `for (var i = 0; i < 3; i++) { setTimeout(() => console.log(i), 0); }`?",
+    "options": [
+      "0 1 2",
+      "3 3 3",
+      "undefined undefined undefined",
+      "0 0 0"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`var` is function-scoped; by the time the `setTimeout` timer callbacks execute, the single loop variable `i` has incremented to 3.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-042",
+    "question": "What will be printed if `let` is used instead: `for (let i = 0; i < 3; i++) { setTimeout(() => console.log(i), 0); }`?",
+    "options": [
+      "0 1 2",
+      "3 3 3",
+      "undefined undefined undefined",
+      "2 2 2"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`let` creates a distinct new lexical binding for `i` in each loop iteration, preserving 0, 1, and 2 in the closure.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-043",
+    "question": "What is a `Proxy` object in JavaScript used for?",
+    "options": [
+      "To intercept and customize fundamental operations (like property lookup, assignment, enumeration) on a target object",
+      "To establish HTTPS network proxy tunnels",
+      "To serialize objects to XML",
+      "To run code in isolated sandboxed iframes"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A `Proxy` wraps another object (target) and intercepts operations using handler traps such as `get`, `set`, and `has`.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-044",
+    "question": "What is the result of `Number.MAX_SAFE_INTEGER` in JavaScript?",
+    "options": [
+      "2^31 - 1",
+      "2^53 - 1 (9007199254740991)",
+      "2^64 - 1",
+      "Infinity"
+    ],
+    "correctAnswer": 1,
+    "explanation": "JavaScript represents numbers as double-precision floats, offering exact integer precision up to 2^53 - 1.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-045",
+    "question": "Which method removes the last element from an array and returns that element?",
+    "options": [
+      "shift()",
+      "pop()",
+      "slice()",
+      "splice()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`pop()` removes the last element and mutates the array length, returning the popped element.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-046",
+    "question": "Which method removes the first element from an array and returns it?",
+    "options": [
+      "unshift()",
+      "shift()",
+      "pop()",
+      "splice()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`shift()` removes the element at index 0 and shifts subsequent elements down.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-047",
+    "question": "What does the `Reflect` API provide in JavaScript?",
+    "options": [
+      "Methods for interceptable JavaScript operations identical to Proxy handler traps",
+      "A way to inspect database tables",
+      "Graphic rendering utilities for CSS reflections",
+      "Methods to access CPU memory registers"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`Reflect` is a built-in object that provides static methods for interceptable JavaScript operations matching Proxy handler methods.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "js-048",
+    "question": "What is the return value of `async function test() { return 42; }` when invoked?",
+    "options": [
+      "42",
+      "Promise.resolve(42)",
+      "undefined",
+      "Generator object"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Async functions always wrap their return value in a resolved Promise.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "js-049",
+    "question": "What does the `Object.hasOwn(obj, prop)` method do in modern JavaScript (ES2022)?",
+    "options": [
+      "A safer alternative to `Object.prototype.hasOwnProperty.call()` to check if an object possesses a direct property",
+      "Checks if property exists anywhere on the prototype chain",
+      "Verifies if an object is owned by the current window",
+      "Locks the property so it cannot be inherited"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`Object.hasOwn()` works cleanly even on objects created with `Object.create(null)` where `hasOwnProperty` is absent.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "js-050",
+    "question": "What will `console.log(!!{})` output?",
+    "options": [
+      "true",
+      "false",
+      "undefined",
+      "TypeError"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In JavaScript, all objects (including empty `{}`) are truthy, so double negation yields `true`.",
+    "difficulty": "easy"
+  }
+]

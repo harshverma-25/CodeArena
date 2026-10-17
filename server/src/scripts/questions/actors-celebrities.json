@@ -1,0 +1,652 @@
+[
+  {
+    "questionId": "act-001",
+    "question": "Which iconic actor played Tony Stark / Iron Man across 11 Marvel Cinematic Universe movies?",
+    "options": [
+      "Chris Evans",
+      "Robert Downey Jr.",
+      "Chris Hemsworth",
+      "Mark Ruffalo"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Robert Downey Jr. launched the MCU with Iron Man in 2008.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-002",
+    "question": "Who is known as the 'King of Bollywood' and 'Badshah', having starred in DDLJ, Chennai Express, and Jawan?",
+    "options": [
+      "Salman Khan",
+      "Shah Rukh Khan",
+      "Aamir Khan",
+      "Akshay Kumar"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Shah Rukh Khan (SRK) is universally celebrated as the King of Bollywood.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-003",
+    "question": "Which actor performed his own death-defying stunts clinging to planes and base-jumping motorcycles in Mission: Impossible?",
+    "options": [
+      "Tom Cruise",
+      "Keanu Reeves",
+      "Jason Statham",
+      "Daniel Craig"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Tom Cruise is legendary for executing real-life extreme stunts for cinematic authenticity.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-004",
+    "question": "Which actress portrayed Hermione Granger across all eight Harry Potter films before starring in Beauty and the Beast?",
+    "options": [
+      "Emma Stone",
+      "Emma Watson",
+      "Bonnie Wright",
+      "Saoirse Ronan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Emma Watson rose to worldwide stardom playing Hermione Granger.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-005",
+    "question": "Who won the Best Actor Oscar for playing J. Robert Oppenheimer in Christopher Nolan's 2023 biographical epic?",
+    "options": [
+      "Cillian Murphy",
+      "Matt Damon",
+      "Robert Downey Jr.",
+      "Bradley Cooper"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Irish actor Cillian Murphy swept the 2024 awards season for Oppenheimer.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-006",
+    "question": "Which legendary Indian megastar is affectionately referred to as 'Shahenshah' and 'Big B'?",
+    "options": [
+      "Dharmendra",
+      "Amitabh Bachchan",
+      "Rajnikanth",
+      "Kamal Haasan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Amitabh Bachchan has dominated Indian cinema for over five decades.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-007",
+    "question": "Which Hollywood star played Captain Jack Sparrow, Edward Scissorhands, and Willy Wonka?",
+    "options": [
+      "Brad Pitt",
+      "Johnny Depp",
+      "Leonardo DiCaprio",
+      "Christian Bale"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Johnny Depp is renowned for his eccentric character transformations.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-008",
+    "question": "Which actor won his first Academy Award for Best Actor in 2016 for wrestling a bear in The Revenant?",
+    "options": [
+      "Leonardo DiCaprio",
+      "Matthew McConaughey",
+      "Joaquin Phoenix",
+      "Christian Bale"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Leonardo DiCaprio won his long-awaited Oscar for Alejandro Inarritu's The Revenant.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-009",
+    "question": "Which superstar is celebrated as 'Thalaivar' and the cultural phenomenon of Tamil cinema?",
+    "options": [
+      "Kamal Haasan",
+      "Rajinikanth",
+      "Vijay",
+      "Ajith Kumar"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Superstar Rajinikanth is celebrated for his larger-than-life screen presence and unique style.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-010",
+    "question": "Which actress won Academy Awards for La La Land (2016) and Poor Things (2023)?",
+    "options": [
+      "Jennifer Lawrence",
+      "Emma Stone",
+      "Margot Robbie",
+      "Anne Hathaway"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Emma Stone is a two-time Best Actress Oscar winner.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-011",
+    "question": "Which method actor underwent extreme physical transformations for The Machinist and Batman Begins?",
+    "options": [
+      "Christian Bale",
+      "Joaquin Phoenix",
+      "Jared Leto",
+      "Gary Oldman"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Christian Bale famously dropped to 120 lbs for The Machinist before packing on 100 lbs of muscle for Batman.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-012",
+    "question": "Which actress starred as Black Widow (Natasha Romanoff) across multiple Marvel blockbusters?",
+    "options": [
+      "Scarlett Johansson",
+      "Elizabeth Olsen",
+      "Brie Larson",
+      "Florence Pugh"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Scarlett Johansson debuted as Black Widow in Iron Man 2 and played her for over a decade.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-013",
+    "question": "Which Australian actor transformed into the Marvel God of Thunder, Thor?",
+    "options": [
+      "Liam Hemsworth",
+      "Chris Hemsworth",
+      "Hugh Jackman",
+      "Chris Evans"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Chris Hemsworth has portrayed Thor since 2011.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-014",
+    "question": "Which actor portrayed Wolverine across nine X-Men films spanning 17 years before reprising the role in Deadpool 3?",
+    "options": [
+      "Hugh Jackman",
+      "Ryan Reynolds",
+      "Karl Urban",
+      "Russell Crowe"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Hugh Jackman's portrayal of Logan / Wolverine is one of the longest comic book runs in cinematic history.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-015",
+    "question": "Which actor plays the quick-witted, fourth-wall-breaking antihero Deadpool?",
+    "options": [
+      "Ryan Reynolds",
+      "Paul Rudd",
+      "Chris Pratt",
+      "Taika Waititi"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Ryan Reynolds championed the R-rated Deadpool franchise to global box-office records.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-016",
+    "question": "Which beloved actor was tragically immortalized for his legendary Oscar-winning portrayal of the Joker in The Dark Knight?",
+    "options": [
+      "Jack Nicholson",
+      "Heath Ledger",
+      "Joaquin Phoenix",
+      "Barry Keoghan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Heath Ledger posthumously won the Academy Award for his unforgettable performance as the Joker.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-017",
+    "question": "Which actor won the Best Actor Oscar for playing the Joker in Todd Phillips' 2019 psychological drama?",
+    "options": [
+      "Joaquin Phoenix",
+      "Willem Dafoe",
+      "Jared Leto",
+      "Adam Driver"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Joaquin Phoenix lost 52 pounds to play Arthur Fleck in Joker.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-018",
+    "question": "Who is known as 'Mr. Perfectionist' in Indian cinema for meticulously crafting films like Lagaan, 3 Idiots, and Dangal?",
+    "options": [
+      "Aamir Khan",
+      "Hrithik Roshan",
+      "Ajay Devgn",
+      "Ranbir Kapoor"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Aamir Khan is renowned for doing one meticulous film at a time to perfection.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-019",
+    "question": "Which Indian actor is hailed as the 'Greek God of Bollywood' for his extraordinary dancing skills and physique?",
+    "options": [
+      "Tiger Shroff",
+      "Hrithik Roshan",
+      "Vidyut Jammwal",
+      "Sidharth Malhotra"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hrithik Roshan is universally acclaimed for his sculpted physique and unmatched dance artistry.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-020",
+    "question": "Which Indian actress won Miss World 2000 before achieving worldwide acclaim in Quantico and Hollywood films?",
+    "options": [
+      "Deepika Padukone",
+      "Priyanka Chopra Jonas",
+      "Aishwarya Rai",
+      "Katrina Kaif"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Priyanka Chopra Jonas transitioned from Miss World to a global international icon.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-021",
+    "question": "Which actress was crowned Miss World 1994 and is celebrated for her roles in Devdas, Dhoom 2, and Jodhaa Akbar?",
+    "options": [
+      "Sushmita Sen",
+      "Aishwarya Rai Bachchan",
+      "Dia Mirza",
+      "Lara Dutta"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Aishwarya Rai is revered as one of the most beautiful women in the world.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-022",
+    "question": "Which former WWE wrestler and box-office titan is known as 'The People's Champion' and 'The Rock'?",
+    "options": [
+      "John Cena",
+      "Dwayne Johnson",
+      "Dave Bautista",
+      "Roman Reigns"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dwayne 'The Rock' Johnson became the world's highest-paid movie star.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-023",
+    "question": "Which actor voiced the lovable cowboy Woody in Disney Pixar's Toy Story franchise?",
+    "options": [
+      "Tom Hanks",
+      "Tim Allen",
+      "Billy Crystal",
+      "Robin Williams"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Tom Hanks brought warmth and leadership to Sheriff Woody across four Toy Story movies.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-024",
+    "question": "Which actor voiced the cosmic Space Ranger Buzz Lightyear in Toy Story?",
+    "options": [
+      "Tom Hanks",
+      "Tim Allen",
+      "John Goodman",
+      "Patrick Warburton"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Tim Allen delivered the iconic catchphrase 'To infinity and beyond!'.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-025",
+    "question": "Which actor famously played Neo in The Matrix, John Wick, and Ted in Bill & Ted?",
+    "options": [
+      "Keanu Reeves",
+      "Harrison Ford",
+      "Nicolas Cage",
+      "Johnny Depp"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Keanu Reeves is universally beloved for his humble demeanor and legendary action cinema pedigree.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-026",
+    "question": "Which English actress won an Academy Award for The Queen (2006) and portrayed Queen Elizabeth II?",
+    "options": [
+      "Judi Dench",
+      "Helen Mirren",
+      "Maggie Smith",
+      "Emma Thompson"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dame Helen Mirren is the only performer to have achieved the Triple Crown of Acting in both the US and UK.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "act-027",
+    "question": "Which actor played Captain America (Steve Rogers) across the Infinity Saga of the Marvel Cinematic Universe?",
+    "options": [
+      "Chris Evans",
+      "Sebastian Stan",
+      "Anthony Mackie",
+      "Jeremy Renner"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Chris Evans wielded the vibranium shield from The First Avenger through Avengers: Endgame.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-028",
+    "question": "Which English actor portrayed the formidable dark wizard Voldemort in the Harry Potter films?",
+    "options": [
+      "Ralph Fiennes",
+      "Gary Oldman",
+      "Alan Rickman",
+      "Jason Isaacs"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Ralph Fiennes gave a spine-chilling performance as Lord Voldemort ('He Who Must Not Be Named').",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-029",
+    "question": "Which beloved British actor portrayed Professor Severus Snape with iconic dry gravity before his passing in 2016?",
+    "options": [
+      "Alan Rickman",
+      "Michael Gambon",
+      "Richard Harris",
+      "John Hurt"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Alan Rickman's tender, complicated delivery of 'Always' remains legendary.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-030",
+    "question": "Which versatile Welsh actor played Hannibal Lecter in The Silence of the Lambs (1991)?",
+    "options": [
+      "Anthony Hopkins",
+      "Ian McKellen",
+      "Patrick Stewart",
+      "Brian Cox"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Sir Anthony Hopkins won Best Actor despite appearing for less than 16 minutes of screen time.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-031",
+    "question": "Which actor portrayed James Bond across five blockbuster films from Casino Royale (2006) to No Time to Die (2021)?",
+    "options": [
+      "Pierce Brosnan",
+      "Daniel Craig",
+      "Sean Connery",
+      "Roger Moore"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Daniel Craig brought gritty realism and physical intensity to Agent 007.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-032",
+    "question": "Who was the Scottish legend who was the very first actor to portray James Bond on the silver screen?",
+    "options": [
+      "Sean Connery",
+      "George Lazenby",
+      "Roger Moore",
+      "Timothy Dalton"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Sir Sean Connery debuted as 007 in Dr. No (1962).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-033",
+    "question": "Which Indian actor won universal acclaim for her roles in Piku, Padmaavat, and Gehraiyaan?",
+    "options": [
+      "Deepika Padukone",
+      "Anushka Sharma",
+      "Kareena Kapoor",
+      "Alia Bhatt"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Deepika Padukone is one of the most bankable leading ladies in Indian cinema history.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-034",
+    "question": "Which young Indian actress won four Filmfare Best Actress awards for Highway, Raazi, Gully Boy, and Gangubai Kathiawadi?",
+    "options": [
+      "Alia Bhatt",
+      "Kriti Sanon",
+      "Sara Ali Khan",
+      "Kiara Advani"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Alia Bhatt also won the National Film Award for Best Actress for Gangubai Kathiawadi.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-035",
+    "question": "Which Indian actor is known as the 'Khiladi' of Bollywood for his early martial arts stunts and high annual output?",
+    "options": [
+      "Akshay Kumar",
+      "Suniel Shetty",
+      "Sunny Deol",
+      "Bobby Deol"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Akshay Kumar earned the nickname Khiladi after starring in eight films with the word in their title.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-036",
+    "question": "Which actor portrayed the beloved character Chandler Bing in the world-famous sitcom Friends?",
+    "options": [
+      "Matthew Perry",
+      "Matt LeBlanc",
+      "David Schwimmer",
+      "Paul Rudd"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Matthew Perry's sarcastic wit and timing made Chandler Bing an all-time TV treasure.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-037",
+    "question": "Which actress portrayed Rachel Green on Friends before becoming an A-list movie star?",
+    "options": [
+      "Jennifer Aniston",
+      "Courteney Cox",
+      "Lisa Kudrow",
+      "Reese Witherspoon"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Jennifer Aniston was a global fashion and television icon throughout Friends' 10-year run.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-038",
+    "question": "Which Hollywood titan directed Jurassic Park, Jaws, E.T., Schindler's List, and Raiders of the Lost Ark?",
+    "options": [
+      "Steven Spielberg",
+      "James Cameron",
+      "George Lucas",
+      "Martin Scorsese"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Steven Spielberg is the most commercially and critically successful director in film history.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-039",
+    "question": "Which visionary director is famous for non-linear storytelling in Memento, The Dark Knight, Inception, and Oppenheimer?",
+    "options": [
+      "Christopher Nolan",
+      "Quentin Tarantino",
+      "David Fincher",
+      "Denis Villeneuve"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Christopher Nolan is celebrated for practical effects, IMAX cinematography, and complex temporal themes.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-040",
+    "question": "Which director directed the two highest-grossing films of all time: Avatar and Titanic?",
+    "options": [
+      "James Cameron",
+      "Steven Spielberg",
+      "Peter Jackson",
+      "Ridley Scott"
+    ],
+    "correctAnswer": 0,
+    "explanation": "James Cameron holds unprecedented records with Avatar ($2.9B), Titanic ($2.2B), and Avatar 2 ($2.3B).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-041",
+    "question": "Which director directed Pulp Fiction, Kill Bill, Django Unchained, and Inglourious Basterds?",
+    "options": [
+      "Quentin Tarantino",
+      "Martin Scorsese",
+      "Paul Thomas Anderson",
+      "Guy Ritchie"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Quentin Tarantino is celebrated for razor-sharp dialogue, stylized violence, and cinema homages.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-042",
+    "question": "Which legendary director collaborated with Robert De Niro and Leonardo DiCaprio across Taxi Driver, Goodfellas, and The Wolf of Wall Street?",
+    "options": [
+      "Martin Scorsese",
+      "Francis Ford Coppola",
+      "Brian De Palma",
+      "Woody Allen"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Martin Scorsese is an undisputed master of American crime and character cinema.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-043",
+    "question": "Which South Indian actor gained massive worldwide fame as Komaram Bheem in RRR?",
+    "options": [
+      "Jr. NTR (N. T. Rama Rao Jr.)",
+      "Ram Charan",
+      "Allu Arjun",
+      "Mahesh Babu"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Jr. NTR delivered a powerhouse physical and emotional performance in RRR.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "act-044",
+    "question": "Which South Indian star played Alluri Sitarama Raju alongside Jr. NTR in RRR?",
+    "options": [
+      "Ram Charan",
+      "Prabhas",
+      "Nani",
+      "Vijay Deverakonda"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Ram Charan co-starred as the laser-focused police officer and revolutionary archer.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "act-045",
+    "question": "Which Telugu superstar gained national fame and an unprecedented fan following as the lead in Pushpa: The Rise?",
+    "options": [
+      "Allu Arjun",
+      "Vijay",
+      "Suriya",
+      "Dhanush"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Allu Arjun won the National Film Award for Best Actor for his swagger in Pushpa.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-046",
+    "question": "Which actor portrayed Walter White (Heisenberg), the chemistry teacher turned methamphetamine kingpin in Breaking Bad?",
+    "options": [
+      "Bryan Cranston",
+      "Aaron Paul",
+      "Bob Odenkirk",
+      "Giancarlo Esposito"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Bryan Cranston won four Primetime Emmy Awards for Best Actor for Breaking Bad.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-047",
+    "question": "Which actor portrayed Jesse Pinkman, Walter White's loyal young partner in Breaking Bad?",
+    "options": [
+      "Aaron Paul",
+      "Dean Norris",
+      "RJ Mitte",
+      "Jonathan Banks"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Aaron Paul won three Emmy Awards for his emotionally raw portrayal of Jesse Pinkman ('Yeah science, bitch!').",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-048",
+    "question": "Which actor played the fearsome Chilean drug lord and fried chicken proprietor Gus Fring in Breaking Bad and Better Call Saul?",
+    "options": [
+      "Giancarlo Esposito",
+      "Mark Margolis",
+      "Tony Dalton",
+      "Pedro Pascal"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Giancarlo Esposito created one of television's most chillingly composed villains.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-049",
+    "question": "Which beloved Chilean-American actor stars as The Mandalorian, Joel Miller in The Last of Us, and Oberyn Martell in Game of Thrones?",
+    "options": [
+      "Pedro Pascal",
+      "Oscar Isaac",
+      "Diego Luna",
+      "Gabriel Luna"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Pedro Pascal is affectionately celebrated as the internet's favorite protector and father figure.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "act-050",
+    "question": "Which actor played Aragorn (Strider), the rightful King of Gondor, in Peter Jackson's The Lord of the Rings trilogy?",
+    "options": [
+      "Viggo Mortensen",
+      "Sean Bean",
+      "Orlando Bloom",
+      "Karl Urban"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Viggo Mortensen's dedication to stunt combat and horse riding made his Aragorn iconic.",
+    "difficulty": "easy"
+  }
+]

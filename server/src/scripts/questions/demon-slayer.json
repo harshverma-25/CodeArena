@@ -1,0 +1,652 @@
+[
+  {
+    "questionId": "ds-001",
+    "question": "What is the name of Tanjiro Kamado's sister who turns into a demon?",
+    "options": [
+      "Kanao",
+      "Nezuko",
+      "Shinobu",
+      "Mitsuri"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nezuko Kamado is Tanjiro's younger sister who survived the attack but was transformed into a demon.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-002",
+    "question": "What style of breathing does Tanjiro initially learn from Sakonji Urokodaki?",
+    "options": [
+      "Flame Breathing",
+      "Water Breathing",
+      "Thunder Breathing",
+      "Beast Breathing"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Urokodaki taught Tanjiro the forms and techniques of Water Breathing on Mount Sagiri.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-003",
+    "question": "Who is the primary antagonist and creator of all demons in Demon Slayer?",
+    "options": [
+      "Akaza",
+      "Kokushibo",
+      "Muzan Kibutsuji",
+      "Doma"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Muzan Kibutsuji is the Demon King and the progenitor of all other demons.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-004",
+    "question": "What unique headwear does Inosuke Hashibira wear?",
+    "options": [
+      "Wolf pelt",
+      "Boar head mask",
+      "Bear skull",
+      "Fox mask"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Inosuke wears a hollowed-out boar's head mask given to him by the boar mother that raised him.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-005",
+    "question": "Zenitsu Agatsuma can only fight effectively when he is in what state?",
+    "options": [
+      "Enraged",
+      "Asleep or unconscious",
+      "Blindfolded",
+      "Drunk"
+    ],
+    "correctAnswer": 1,
+    "explanation": "When Zenitsu's fear overwhelms him, he falls unconscious and his honed subconscious reflexes take over.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-006",
+    "question": "What color does Tanjiro's Nichirin blade turn after he first unsheathes it?",
+    "options": [
+      "Blue",
+      "Red",
+      "Black",
+      "Yellow"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Tanjiro's sword turns pitch black, a color historically associated with users of Sun Breathing.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-007",
+    "question": "Who is the Flame Hashira that stars prominently in the Mugen Train Arc?",
+    "options": [
+      "Tengen Uzui",
+      "Kyojuro Rengoku",
+      "Sanemi Shinazugawa",
+      "Muichiro Tokito"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kyojuro Rengoku is the passionate Flame Hashira who bravely defends the passengers of the Mugen Train.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-008",
+    "question": "What is the ancient hereditary dance performed by the Kamado family called?",
+    "options": [
+      "Hinokami Kagura",
+      "Amaterasu Mai",
+      "Getsurin Odori",
+      "Hi no Kokyu"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Hinokami Kagura (Dance of the Fire God) is passed down generationally in the Kamado household.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-009",
+    "question": "Which Upper Rank Demon is responsible for the death of Kyojuro Rengoku?",
+    "options": [
+      "Gyutaro",
+      "Akaza",
+      "Hantengu",
+      "Gyokko"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Upper Rank Three Akaza fatally wounds Rengoku at the climax of the Mugen Train incident.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-010",
+    "question": "What makes Nezuko unique among all demons regarding sustenance?",
+    "options": [
+      "She drinks animal blood",
+      "She recovers energy by sleeping",
+      "She eats wisteria flowers",
+      "She absorbs moonlight"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nezuko does not consume human flesh; she restores her vitality purely by sleeping for extended periods.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-011",
+    "question": "Who is the Water Hashira who spared Nezuko and sent Tanjiro to Mount Sagiri?",
+    "options": [
+      "Giyu Tomioka",
+      "Obanai Iguro",
+      "Gyomei Himejima",
+      "Muichiro Tokito"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Giyu Tomioka recognized the siblings' bond and directed Tanjiro to his master Sakonji Urokodaki.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-012",
+    "question": "What is the special metal used to forge swords capable of decapitating demons?",
+    "options": [
+      "Chakra Iron",
+      "Scarlet Crimson Iron Sand",
+      "Adamantine Steel",
+      "Valyrian Steel"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nichirin blades are forged from Scarlet Crimson Iron Sand and Scarlet Ore harvested from sun-drenched peaks.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-013",
+    "question": "What flower is inherently poisonous and repellent to demons?",
+    "options": [
+      "Spider Lily",
+      "Wisteria",
+      "Lotus",
+      "Cherry Blossom"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Wisteria flowers are highly toxic to demons and are planted around Final Selection mountain.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-014",
+    "question": "Who is the Insect Hashira known for utilizing wisteria poison in combat?",
+    "options": [
+      "Mitsuri Kanroji",
+      "Shinobu Kocho",
+      "Kanao Tsuyuri",
+      "Aoi Kanzaki"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Shinobu Kocho lacks the physical strength to decapitate demons, so she eliminates them with wisteria poisons.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-015",
+    "question": "Which breathing technique was self-taught by Inosuke in the wilderness?",
+    "options": [
+      "Wind Breathing",
+      "Beast Breathing",
+      "Sound Breathing",
+      "Earth Breathing"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Inosuke invented Beast Breathing through instinct while surviving among wild boars and animals.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-016",
+    "question": "What mythical flower has Muzan Kibutsuji been searching for for centuries?",
+    "options": [
+      "Blue Spider Lily",
+      "Golden Lotus",
+      "Red Sun Dahlia",
+      "Silver Orchid"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Muzan seeks the elusive Blue Spider Lily to overcome his sole weakness to sunlight.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-017",
+    "question": "Who is the Sound Hashira who leads the operation in the Entertainment District?",
+    "options": [
+      "Tengen Uzui",
+      "Sanemi Shinazugawa",
+      "Gyomei Himejima",
+      "Obanai Iguro"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Tengen Uzui, the flamboyant Sound Hashira and former shinobi, leads the Entertainment District battle.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-018",
+    "question": "Which dual sibling demons hold the title of Upper Rank Six in Yoshiwara?",
+    "options": [
+      "Daki and Gyutaro",
+      "Enmu and Rui",
+      "Susamaru and Yahaba",
+      "Nakime and Kaigaku"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Daki and her brother Gyutaro share the mantle of Upper Rank Six in the Entertainment District.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-019",
+    "question": "What extraordinary sensory ability does Tanjiro possess?",
+    "options": [
+      "Microscopic vision",
+      "Acute sense of smell",
+      "Echolocation hearing",
+      "Vibrational touch"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Tanjiro possesses an extraordinarily keen sense of smell that lets him detect emotions and the 'opening thread'.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-020",
+    "question": "What extraordinary sensory ability does Zenitsu possess?",
+    "options": [
+      "Superhuman hearing",
+      "Heat sensing",
+      "Telepathic vision",
+      "Taste analysis"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Zenitsu has superhuman hearing, allowing him to discern heartbeats, thoughts, and demonic sounds.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-021",
+    "question": "Who is the master of Thunder Breathing who trained both Zenitsu and Kaigaku?",
+    "options": [
+      "Shinjuro Rengoku",
+      "Jigoro Kuwajima",
+      "Tanjuro Kamado",
+      "Yoriichi Tsugikuni"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Jigoro Kuwajima, a former Roaring Hashira, patiently trained Zenitsu.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "ds-022",
+    "question": "What form of Thunder Breathing is the only one Zenitsu initially perfected?",
+    "options": [
+      "First Form: Thunderclap and Flash",
+      "Second Form: Lightning Ball",
+      "Third Form: Buzzing Mosquito",
+      "Fourth Form: Distant Thunder"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Zenitsu only mastered the First Form, but honed it to godspeed perfection.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-023",
+    "question": "Who was the legendary swordsman of the Sengoku Era who created Sun Breathing?",
+    "options": [
+      "Michikatsu Tsugikuni",
+      "Yoriichi Tsugikuni",
+      "Kokushibo",
+      "Sumiyoshi"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Yoriichi Tsugikuni was the progenitor of all Breathing Styles and the greatest swordsman in history.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-024",
+    "question": "What is the rank of Kokushibo among the Twelve Kizuki?",
+    "options": [
+      "Upper Rank One",
+      "Upper Rank Two",
+      "Upper Rank Three",
+      "Upper Rank Four"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Kokushibo, Yoriichi's twin brother Michikatsu, is Upper Rank One.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-025",
+    "question": "Who is the Stone Hashira recognized as the physically strongest in the Demon Slayer Corps?",
+    "options": [
+      "Gyomei Himejima",
+      "Sanemi Shinazugawa",
+      "Muichiro Tokito",
+      "Tengen Uzui"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Gyomei Himejima, the blind monk and Stone Hashira, is regarded as the strongest Corps member.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-026",
+    "question": "What weapon does Gyomei Himejima wield instead of a standard katana?",
+    "options": [
+      "War scythe",
+      "Flail and spiked axe connected by a chain",
+      "Giant hammer",
+      "Dual broadswords"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Gyomei wields a heavy iron spiked flail and broad axe linked by an unbreakable chain.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-027",
+    "question": "Who is the youngest Hashira in the Corps, achieving the rank after only two months of training?",
+    "options": [
+      "Muichiro Tokito",
+      "Kanao Tsuyuri",
+      "Genya Shinazugawa",
+      "Mitsuri Kanroji"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Muichiro Tokito, the Mist Hashira, became a Pillar at just 14 years old after two months of training.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-028",
+    "question": "What is the Love Hashira Mitsuri Kanroji's unique sword characteristic?",
+    "options": [
+      "It is heavy like a club",
+      "It is flexible and whip-like",
+      "It has jagged serrated teeth",
+      "It is double-bladed"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mitsuri's Nichirin blade is ultra-thin, flexible, and manipulated like a deadly whip.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-029",
+    "question": "Who is the demon doctor who allies with Tanjiro to find a cure for demon transformation?",
+    "options": [
+      "Tamayo",
+      "Daki",
+      "Nakime",
+      "Susamaru"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Lady Tamayo broke free of Muzan's curse and conducts medical research with her assistant Yushiro.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-030",
+    "question": "What special biological ability does Genya Shinazugawa possess?",
+    "options": [
+      "He can breathe underwater",
+      "He gains demonic traits by eating demon flesh",
+      "He can turn invisible",
+      "He has Wolverine healing factor"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Genya cannot use breathing styles; instead, his digestive system allows him to temporarily gain demon powers by eating them.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-031",
+    "question": "What is the name of the Lower Rank Five demon on Mount Natagumo who creates a false family?",
+    "options": [
+      "Enmu",
+      "Rui",
+      "Kyogai",
+      "Rokuro"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rui is the Spider Demon who forced other demons into playing roles in his dysfunctional family.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-032",
+    "question": "Who was the Lower Rank One demon defeated aboard the Mugen Train?",
+    "options": [
+      "Wakuraba",
+      "Mukago",
+      "Enmu",
+      "Kamanue"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Enmu used Blood Demon Art sleep and dream manipulation to fuse with the Mugen Train engine.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-033",
+    "question": "What pattern is on Tanjiro's iconic checkered haori?",
+    "options": [
+      "Black and green",
+      "Red and white",
+      "Blue and yellow",
+      "Purple and black"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Tanjiro wears a distinctive green and black checkered (ichimatsu) haori.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-034",
+    "question": "Who forged Tanjiro's swords and constantly threatens him whenever he breaks or loses one?",
+    "options": [
+      "Kotetsu",
+      "Hotaru Haganezuka",
+      "Tecchin Tecchikawahara",
+      "Kanamori"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hotaru Haganezuka is the passionately temperamental swordsmith who chases Tanjiro with knives when blades break.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-035",
+    "question": "What is the name of the mechanical training battle doll in the Swordsmith Village?",
+    "options": [
+      "Karakuri Zero",
+      "Yoriichi Type Zero",
+      "Giga Automaton",
+      "Nichirin Golem"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Yoriichi Type Zero is a six-armed mechanical puppet built centuries ago modeled after Yoriichi Tsugikuni.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-036",
+    "question": "Which Upper Rank demon attacks the Swordsmith Village using emotional clones (Anger, Joy, Sorrow, Pleasure)?",
+    "options": [
+      "Hantengu (Upper Rank 4)",
+      "Gyokko (Upper Rank 5)",
+      "Doma (Upper Rank 2)",
+      "Akaza (Upper Rank 3)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Hantengu manifests his emotions into powerful battle avatars like Sekido, Karaku, Aizetsu, and Urogi.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-037",
+    "question": "What vase-dwelling Upper Rank demon attacks the Swordsmith Village with fish-like abominations?",
+    "options": [
+      "Gyokko",
+      "Hantengu",
+      "Doma",
+      "Kaigaku"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Gyokko, Upper Rank Five, considers himself an artist and travels between ceramic pots.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-038",
+    "question": "What is the highest rank among swordsmen in the Demon Slayer Corps below the Master?",
+    "options": [
+      "Mizunoto",
+      "Kinoe",
+      "Hashira (Pillar)",
+      "Tsuguko"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Hashira (Pillars) are the nine elite combatants of the Demon Slayer Corps.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-039",
+    "question": "Who is the 97th leader and master of the Demon Slayer Corps who suffers from a hereditary curse?",
+    "options": [
+      "Kagaya Ubuyashiki",
+      "Kiriya Ubuyashiki",
+      "Amane Ubuyashiki",
+      "Shinjuro Rengoku"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Kagaya Ubuyashiki, revered as Oyakata-sama by the Hashira, leads the Corps with gentle wisdom.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-040",
+    "question": "What are the marks that appear on Demon Slayers' bodies that grant heightened strength and speed?",
+    "options": [
+      "Demon Slayer Mark",
+      "Curse Seal",
+      "Chakra Sigil",
+      "Sun Rune"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Demon Slayer Mark awakens when body temperature exceeds 39°C and heart rate surpasses 200 BPM.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-041",
+    "question": "What is the domain or shifting fortress created by the Biwa demon Nakime called?",
+    "options": [
+      "Infinity Castle",
+      "Netherworld Void",
+      "Blood Citadel",
+      "Shadow Realm"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Infinity Castle is an endless dimension of shifting wooden corridors and rooms controlled by Nakime's biwa.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-042",
+    "question": "Which Hashira uses Serpent Breathing and has heterochromatic eyes and a snake companion named Kaburamaru?",
+    "options": [
+      "Obanai Iguro",
+      "Sanemi Shinazugawa",
+      "Giyu Tomioka",
+      "Gyomei Himejima"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Obanai Iguro is the Serpent Hashira who fights alongside his loyal white snake Kaburamaru.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-043",
+    "question": "What type of rare, intoxicating blood does Wind Hashira Sanemi Shinazugawa possess?",
+    "options": [
+      "Marechi blood",
+      "Royal Blood",
+      "Pure Sun blood",
+      "Golden blood"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Sanemi possesses extremely rare Marechi blood, which acts like strong alcohol to disorient demons.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-044",
+    "question": "What color is the handle and hilt motif of Zenitsu's Nichirin sword?",
+    "options": [
+      "Yellow lightning bolt pattern",
+      "Blue waves",
+      "Cherry blossoms",
+      "Flame tsuba"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Zenitsu's sword features a golden lightning bolt motif along the blade and scabbard.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-045",
+    "question": "What miraculous development happens to Nezuko at the conclusion of the Swordsmith Village Arc?",
+    "options": [
+      "She can speak and conquer sunlight",
+      "She turns completely human",
+      "She grows wings",
+      "She gains Sun Breathing"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Nezuko survives exposure to direct sunlight and begins speaking again, making her Muzan's prime target.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-046",
+    "question": "What animal delivers missions and messages to Demon Slayer Corps members?",
+    "options": [
+      "Kasugai Crows",
+      "Pigeons",
+      "Falcons",
+      "Owls"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Kasugai Crows are assigned to slayers upon completing the Final Selection to convey orders.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-047",
+    "question": "What unique bird was assigned to Zenitsu instead of a Kasugai Crow?",
+    "options": [
+      "A sparrow (Chuntaro)",
+      "A finch",
+      "A bat",
+      "A parakeet"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Zenitsu was humorously assigned a small sparrow nicknamed Chuntaro (Ukogi).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ds-048",
+    "question": "What state of consciousness allows a slayer to perceive an opponent's muscles, blood flow, and organs?",
+    "options": [
+      "Transparent World (See-Through World)",
+      "Seventh Sense",
+      "Sage Mode",
+      "Dragon Eye"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Transparent World enables masters to see inside living bodies to anticipate attacks with zero wasted movement.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "ds-049",
+    "question": "Which Upper Rank demon heads the Eternal Paradise Cult and uses ice-based Blood Demon Arts?",
+    "options": [
+      "Doma (Upper Rank 2)",
+      "Akaza",
+      "Kokushibo",
+      "Hantengu"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Doma is the emotionless Upper Rank Two who wields golden war fans and deadly crystalline ice techniques.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ds-050",
+    "question": "What is Tanjiro's family's traditional livelihood before the tragic demon massacre?",
+    "options": [
+      "Charcoal sellers",
+      "Rice farmers",
+      "Blacksmiths",
+      "Fishermen"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Kamado family lived peacefully in the snowy mountains producing and selling charcoal in the nearby town.",
+    "difficulty": "easy"
+  }
+]

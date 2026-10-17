@@ -1,0 +1,652 @@
+[
+  {
+    "questionId": "dsa-001",
+    "question": "What is the worst-case time complexity of QuickSort?",
+    "options": [
+      "O(n log n)",
+      "O(n)",
+      "O(n²)",
+      "O(log n)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "QuickSort has a worst-case time complexity of O(n²) when the pivot selection repeatedly yields unbalanced partitions.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-002",
+    "question": "Which data structure operates on a Last In First Out (LIFO) principle?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Array",
+      "Linked List"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A Stack adds and removes elements from the same end, following the LIFO principle.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-003",
+    "question": "What is the average time complexity to search for an element in a balanced Binary Search Tree (AVL or Red-Black)?",
+    "options": [
+      "O(1)",
+      "O(n)",
+      "O(log n)",
+      "O(n log n)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Because a balanced BST halves the search space at each level, lookup takes O(log n) time.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-004",
+    "question": "Which sorting algorithm is guaranteed to run in O(n log n) time in all cases (worst, best, and average)?",
+    "options": [
+      "QuickSort",
+      "Bubble Sort",
+      "Merge Sort",
+      "Insertion Sort"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Merge Sort consistently divides the array in half and merges them in O(n) time, guaranteeing O(n log n) in all cases.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-005",
+    "question": "Which graph traversal algorithm uses a Queue as its core auxiliary data structure?",
+    "options": [
+      "Depth-First Search (DFS)",
+      "Breadth-First Search (BFS)",
+      "Dijkstra's Algorithm",
+      "Kruskal's Algorithm"
+    ],
+    "correctAnswer": 1,
+    "explanation": "BFS explores neighbor nodes level by level using a FIFO Queue.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-006",
+    "question": "What is the amortized time complexity of inserting an element into a dynamic array (e.g., std::vector, ArrayList)?",
+    "options": [
+      "O(1)",
+      "O(n)",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Although resizing takes O(n), it occurs infrequently enough that the average/amortized cost per insertion is O(1).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-007",
+    "question": "In a min-heap with n elements, where is the minimum element always located?",
+    "options": [
+      "At a leaf node",
+      "At the root (index 0)",
+      "At the last index",
+      "At index n/2"
+    ],
+    "correctAnswer": 1,
+    "explanation": "By definition, the min-heap property ensures the root node contains the smallest key in the entire heap.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-008",
+    "question": "Which collision resolution technique in hash tables chains colliding entries in linked lists at each bucket?",
+    "options": [
+      "Linear Probing",
+      "Quadratic Probing",
+      "Separate Chaining",
+      "Double Hashing"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Separate Chaining maintains an independent linked list (or tree) at each slot in the hash table array.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-009",
+    "question": "What is the minimum number of queues required to implement a Stack?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "Not possible"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A stack can be implemented using two standard FIFO queues by shifting elements between them during push or pop.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-010",
+    "question": "Which algorithm finds the shortest path between a source node and all other nodes in a weighted graph with non-negative edges?",
+    "options": [
+      "Bellman-Ford",
+      "Dijkstra's Algorithm",
+      "Floyd-Warshall",
+      "Prim's Algorithm"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dijkstra's algorithm greedily extracts the minimum distance node to find single-source shortest paths on non-negative weighted graphs.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-011",
+    "question": "What is the time complexity to find a cycle in a directed graph using Depth-First Search (DFS)?",
+    "options": [
+      "O(V + E)",
+      "O(V * E)",
+      "O(V²)",
+      "O(E log V)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "DFS traverses every vertex and edge once with a recursion stack / visited array, completing in O(V + E) time.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-012",
+    "question": "In Floyd's Cycle-Finding Algorithm (Tortoise and Hare), what are the speeds of the slow and fast pointers?",
+    "options": [
+      "Slow moves 1 step, Fast moves 2 steps",
+      "Slow moves 1 step, Fast moves 3 steps",
+      "Slow moves 2 steps, Fast moves 3 steps",
+      "Both move 1 step"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Slow advances by 1 node while Fast advances by 2 nodes; if there is a loop, they will eventually meet within the cycle.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-013",
+    "question": "What is the height of a balanced binary tree containing n nodes?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A balanced binary tree has height bounded by O(log₂ n).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-014",
+    "question": "Which algorithmic paradigm does the Merge Sort algorithm use?",
+    "options": [
+      "Greedy Method",
+      "Dynamic Programming",
+      "Divide and Conquer",
+      "Backtracking"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Merge sort divides the problem into subproblems, conquers them recursively, and combines their solutions.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-015",
+    "question": "What is the space complexity of an in-place Heap Sort?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Heap Sort rearranges elements within the original array itself using heapify, requiring O(1) auxiliary space.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-016",
+    "question": "Which data structure is best suited for evaluating arithmetic expressions written in postfix (Reverse Polish) notation?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Binary Tree",
+      "Hash Table"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Operands are pushed onto a Stack, and when an operator is encountered, the top two operands are popped and evaluated.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-017",
+    "question": "In dynamic programming, what two key properties must a problem exhibit to be solvable with DP?",
+    "options": [
+      "Optimal Substructure and Overlapping Subproblems",
+      "Greedy Choice and Memoization",
+      "Divide and Conquer and Branching",
+      "Polynomial Time and Determinism"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Dynamic programming applies when optimal solutions to subproblems form optimal global solutions, and subproblems recur repeatedly.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-018",
+    "question": "What is the maximum number of edges in a simple undirected graph with V vertices?",
+    "options": [
+      "V * (V - 1)",
+      "V * (V - 1) / 2",
+      "2^V",
+      "V²"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Each vertex can connect to V-1 other vertices; dividing by 2 removes duplicate undirected pairs: V(V-1)/2.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-019",
+    "question": "Which of the following problems is known to be NP-Complete?",
+    "options": [
+      "Single-source shortest path",
+      "Traveling Salesperson Decision Problem",
+      "Minimum Spanning Tree",
+      "Binary Search"
+    ],
+    "correctAnswer": 1,
+    "explanation": "TSP (decision version) is a classic NP-complete problem; finding the minimum cost tour takes exponential time in the worst case.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-020",
+    "question": "What is the balance factor of any node in an AVL tree allowed to be?",
+    "options": [
+      "0, 1, or 2",
+      "-1, 0, or 1",
+      "-2, -1, or 0",
+      "Any positive integer"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In an AVL tree, the height difference between left and right subtrees must strictly be -1, 0, or 1.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-021",
+    "question": "What is the time complexity of searching for an element in an unsorted linked list of length n?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Linked lists lack random index access, so searching requires a linear traversal from head to tail: O(n).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-022",
+    "question": "Which data structure is typically used to implement a Priority Queue?",
+    "options": [
+      "Binary Heap",
+      "Circular Queue",
+      "Hash Map",
+      "Doubly Linked List"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A Binary Heap allows insertion and extraction of the extreme element in O(log n) time.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-023",
+    "question": "What is the time complexity of the Bellman-Ford algorithm on a graph with V vertices and E edges?",
+    "options": [
+      "O(V + E)",
+      "O(V * E)",
+      "O(E log V)",
+      "O(V³)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bellman-Ford relaxes all E edges V-1 times, leading to a time complexity of O(V * E).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-024",
+    "question": "Which tree traversal processes the root node FIRST, followed by left and right subtrees?",
+    "options": [
+      "In-order",
+      "Pre-order",
+      "Post-order",
+      "Level-order"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Pre-order traversal visits Node -> Left -> Right.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-025",
+    "question": "In an in-order traversal of a valid Binary Search Tree, what is the output sequence guaranteed to be?",
+    "options": [
+      "Sorted in ascending order",
+      "Sorted in descending order",
+      "Random",
+      "Reverse breadth-first"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Left < Root < Right, meaning in-order traversal (Left, Root, Right) always prints keys in ascending order.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-026",
+    "question": "Which sorting algorithm operates by counting the occurrences of each distinct value in the input array?",
+    "options": [
+      "Radix Sort",
+      "Counting Sort",
+      "Bucket Sort",
+      "Quick Sort"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Counting sort tabulates key frequencies and computes prefix sums in O(n + k) non-comparative time.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-027",
+    "question": "What is the space complexity of building an Adjacency Matrix for a graph with V vertices?",
+    "options": [
+      "O(V)",
+      "O(E)",
+      "O(V²)",
+      "O(V + E)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "An adjacency matrix is a 2D array of size V x V, consuming O(V²) memory regardless of the edge count.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-028",
+    "question": "Which algorithm finds the Minimum Spanning Tree (MST) of a connected, undirected graph using a Disjoint Set (Union-Find)?",
+    "options": [
+      "Prim's Algorithm",
+      "Kruskal's Algorithm",
+      "Dijkstra's Algorithm",
+      "Floyd-Warshall"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kruskal's algorithm sorts edges by weight and adds non-cycle forming edges using Union-Find.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-029",
+    "question": "What is the time complexity of finding the prefix match in a Trie containing words of maximum length L?",
+    "options": [
+      "O(L)",
+      "O(N * L)",
+      "O(log N)",
+      "O(1)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Traversing a Trie requires walking node by node for each character in the prefix, taking O(L) time.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-030",
+    "question": "In a circular queue implemented using an array of size N, what condition indicates the queue is full?",
+    "options": [
+      "(rear + 1) % N == front",
+      "rear == front",
+      "front == 0 && rear == N",
+      "rear - front == N"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Leaving one empty slot prevents ambiguity with the empty state: (rear + 1) % N == front denotes a full circular queue.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-031",
+    "question": "What is the recurrence relation for the classic Tower of Hanoi problem?",
+    "options": [
+      "T(n) = 2T(n-1) + 1",
+      "T(n) = T(n-1) + n",
+      "T(n) = 2T(n/2) + O(1)",
+      "T(n) = T(n-1) + T(n-2)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Moving n disks requires moving n-1 disks twice plus 1 move for the largest disk: T(n) = 2T(n-1) + 1 (solves to 2ⁿ - 1).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-032",
+    "question": "Which string matching algorithm precomputes a prefix function (pi table) to achieve O(N + M) search time?",
+    "options": [
+      "Rabin-Karp",
+      "Knuth-Morris-Pratt (KMP)",
+      "Boyer-Moore",
+      "Z-Algorithm"
+    ],
+    "correctAnswer": 1,
+    "explanation": "KMP avoids backtracking by utilizing the longest prefix that is also a suffix.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "dsa-033",
+    "question": "What data structure can be used to efficiently find the running median of a stream of numbers in O(log n) per insertion?",
+    "options": [
+      "A single BST",
+      "Two Heaps (Max-Heap & Min-Heap)",
+      "A circular buffer",
+      "A segmented stack"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A max-heap for the smaller half and min-heap for the larger half keeps the median at the top in O(log n) time.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "dsa-034",
+    "question": "What is the lower bound on the time complexity of any comparison-based sorting algorithm in the worst case?",
+    "options": [
+      "Ω(n)",
+      "Ω(n log n)",
+      "Ω(n²)",
+      "Ω(log n)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The decision tree of comparison sort has n! leaves, leading to a minimum depth of log₂(n!) = Ω(n log n).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-035",
+    "question": "Which of the following is a self-balancing binary search tree where every node is colored red or black?",
+    "options": [
+      "B-Tree",
+      "Red-Black Tree",
+      "Splay Tree",
+      "Treap"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Red-Black Trees maintain balance through node color properties, ensuring path lengths differ by at most a factor of 2.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-036",
+    "question": "What is the primary advantage of a Doubly Linked List over a Singly Linked List?",
+    "options": [
+      "Requires less memory",
+      "Allows bidirectional traversal and constant-time deletion given a node pointer",
+      "Cache locality is vastly superior",
+      "O(1) random index access"
+    ],
+    "correctAnswer": 1,
+    "explanation": "With access to a node, a doubly linked list can update prev and next pointers in O(1) without walking from head.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-037",
+    "question": "Which dynamic programming technique uses a recursive top-down approach with cached answers?",
+    "options": [
+      "Tabulation",
+      "Memoization",
+      "Greedy method",
+      "Iterative DP"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Memoization caches results of recursive calls in a table or hash map to prevent redundant computations.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-038",
+    "question": "What is the worst-case time complexity of inserting a key into an un-rehashed Hash Table?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n²)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "If all n elements collide into the exact same bucket (e.g., in separate chaining), insertion requires walking the list: O(n).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-039",
+    "question": "What is the time complexity of finding the diameter of a binary tree in optimal O(n) time?",
+    "options": [
+      "O(n)",
+      "O(n log n)",
+      "O(n²)",
+      "O(h²)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "By computing height and diameter in a single bottom-up post-order pass, the entire tree is traversed in O(n) time.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-040",
+    "question": "In a B-Tree of order m, what is the maximum number of children any internal node can have?",
+    "options": [
+      "m - 1",
+      "m",
+      "2m",
+      "m / 2"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A B-tree of order m can have at most m children and m - 1 keys per node.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "dsa-041",
+    "question": "Which algorithm finds all pairs shortest paths in a weighted directed graph in O(V³) time?",
+    "options": [
+      "Floyd-Warshall Algorithm",
+      "Dijkstra's Algorithm",
+      "Bellman-Ford Algorithm",
+      "A* Algorithm"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Floyd-Warshall uses a triple-nested loop dynamic programming formulation to compute all-pairs distances in O(V³).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-042",
+    "question": "What is the time complexity of checking if a graph is bipartite using BFS or DFS?",
+    "options": [
+      "O(V + E)",
+      "O(V²)",
+      "O(E²)",
+      "O(V log V)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Bipartite checking is done by 2-coloring vertices during standard graph traversal in O(V + E) time.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-043",
+    "question": "Which sorting algorithm is commonly used as the internal routine in Radix Sort to sort digit by digit stably?",
+    "options": [
+      "Quick Sort",
+      "Counting Sort",
+      "Heap Sort",
+      "Selection Sort"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Counting Sort is stable and runs in O(n + b) time, making it the standard subroutine for Radix Sort.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-044",
+    "question": "What is the space complexity of an iterative Breadth-First Search on a tree with maximum width W?",
+    "options": [
+      "O(1)",
+      "O(W)",
+      "O(depth)",
+      "O(log W)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "At the widest level, the BFS queue must hold all W nodes of that level simultaneously: O(W).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-045",
+    "question": "What is the maximum number of nodes in a binary tree of depth/height k (where root is at depth 0)?",
+    "options": [
+      "2^k",
+      "2^(k+1) - 1",
+      "2^k - 1",
+      "k²"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sum of geometric series: 2⁰ + 2¹ + ... + 2ᵏ = 2^(k+1) - 1 nodes.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-046",
+    "question": "Which data structure is best for implementing an LRU (Least Recently Used) Cache with O(1) get and put?",
+    "options": [
+      "Hash Map + Doubly Linked List",
+      "Binary Search Tree + Stack",
+      "Array + Queue",
+      "Heap + Hash Set"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A Hash Map provides O(1) node lookup, while a Doubly Linked List enables O(1) removal and re-insertion to the head.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "dsa-047",
+    "question": "What does the master theorem state for T(n) = 2T(n/2) + O(n)?",
+    "options": [
+      "O(n)",
+      "O(n log n)",
+      "O(n²)",
+      "O(log n)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Here a = 2, b = 2, log_b(a) = 1. Since f(n) = Θ(n¹), this is Case 2: T(n) = Θ(n log n).",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "dsa-048",
+    "question": "What is the best-case time complexity of Insertion Sort when the input is already sorted?",
+    "options": [
+      "O(1)",
+      "O(n)",
+      "O(n log n)",
+      "O(n²)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Each element only makes one comparison with its predecessor before stopping: total O(n) comparisons.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "dsa-049",
+    "question": "Which probabilistic data structure tests whether an element is a member of a set with possible false positives but never false negatives?",
+    "options": [
+      "Bloom Filter",
+      "Skip List",
+      "HyperLogLog",
+      "Count-Min Sketch"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Bloom filters use bit arrays and multiple hash functions; false positives can happen, but if a bit is 0, it's definitely absent.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "dsa-050",
+    "question": "What is the time complexity to invert/mirror a binary tree with N nodes?",
+    "options": [
+      "O(1)",
+      "O(log N)",
+      "O(N)",
+      "O(N²)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Every node in the tree must be visited once to swap its left and right pointers: O(N) operations.",
+    "difficulty": "easy"
+  }
+]

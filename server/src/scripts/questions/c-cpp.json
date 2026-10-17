@@ -1,0 +1,652 @@
+[
+  {
+    "questionId": "cpp-001",
+    "question": "What is the primary difference between `malloc()` and `new` in C++?",
+    "options": [
+      "`new` is an operator that allocates memory and invokes the constructor; `malloc()` is a C function that only allocates raw bytes without calling constructors",
+      "`malloc()` is faster and calls the destructor automatically",
+      "`new` allocates memory on the stack; `malloc()` allocates on the heap",
+      "`malloc()` is type-safe; `new` returns a `void*`"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`new` is a type-safe operator that constructs objects, while `malloc()` simply allocates uninitialized bytes on the heap.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-002",
+    "question": "What does RAII (Resource Acquisition Is Initialization) mean in C++?",
+    "options": [
+      "Resource allocation is tied to object lifetime, ensuring cleanup in the destructor when the object goes out of scope",
+      "All variables must be initialized in the main function",
+      "Memory must be manually zeroed out upon allocation",
+      "Pointers must be initialized to NULL before use"
+    ],
+    "correctAnswer": 0,
+    "explanation": "RAII guarantees that resources (memory, file handles, mutex locks) are released deterministically during stack unwinding via destructors.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-003",
+    "question": "Which smart pointer in modern C++ (C++11) models exclusive ownership of a dynamically allocated object?",
+    "options": [
+      "std::shared_ptr",
+      "std::unique_ptr",
+      "std::weak_ptr",
+      "std::auto_ptr"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`std::unique_ptr` cannot be copied, only moved, guaranteeing that exactly one pointer owns the resource at any time.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-004",
+    "question": "What is the size of a pointer on a 64-bit operating system architecture?",
+    "options": [
+      "4 bytes",
+      "8 bytes",
+      "16 bytes",
+      "Depends on data type pointed to"
+    ],
+    "correctAnswer": 1,
+    "explanation": "On a 64-bit system, memory addresses are 64 bits (8 bytes) long, regardless of whether it points to char, int, or a class.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-005",
+    "question": "What is a segmentation fault (segfault) in C and C++?",
+    "options": [
+      "An error when an array runs out of capacity",
+      "An OS signal generated when a program attempts to access a memory location it does not have permission to access",
+      "A compiler syntax error",
+      "A memory leak warning"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Segfaults occur when dereferencing null/dangling pointers or writing to read-only memory.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-006",
+    "question": "What is the role of a Virtual Table (vtable) in C++?",
+    "options": [
+      "To resolve dynamic/runtime polymorphism and dispatch virtual function calls",
+      "To store static variables in global memory",
+      "To allocate stack frames for inline functions",
+      "To manage heap garbage collection"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Classes with virtual functions contain a hidden `vptr` pointing to a `vtable` of function pointers to resolve calls dynamically at runtime.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-007",
+    "question": "What does the `std::move` function actually do in C++11?",
+    "options": [
+      "Physically moves bytes in RAM to a new address",
+      "Unconditionally casts its argument to an rvalue reference (`T&&`), enabling move semantics",
+      "Destroys the source object immediately",
+      "Copies the object asynchronously"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`std::move` does not move any data itself; it is a compile-time static cast that turns an lvalue into an rvalue reference.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-008",
+    "question": "What is the key difference between a `struct` and a `class` in C++?",
+    "options": [
+      "In a `struct`, default member access and inheritance are `public`; in a `class`, they are `private`",
+      "`struct` cannot have methods or constructors",
+      "`class` is allocated on the heap, while `struct` is always on the stack",
+      "`struct` does not support templates"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The only syntactic difference between `struct` and `class` in C++ is their default member and base class access specifiers (public vs private).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-009",
+    "question": "What happens if a base class destructor is NOT declared `virtual` and a derived object is deleted through a base class pointer?",
+    "options": [
+      "Compiler throws an error",
+      "Undefined behavior occurs and the derived class destructor will NOT be called, risking resource leaks",
+      "Both destructors are always called regardless",
+      "The program terminates with an uncaught exception"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Without a virtual destructor, `delete basePtr` only invokes `~Base()`, skipping `~Derived()` and leaking derived resources.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-010",
+    "question": "What is a dangling pointer in C/C++?",
+    "options": [
+      "A pointer initialized to NULL",
+      "A pointer pointing to a memory location that has already been deallocated/freed",
+      "A pointer to an array of pointers",
+      "A void pointer waiting for a cast"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A dangling pointer holds the address of freed or out-of-scope memory; dereferencing it triggers undefined behavior.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-011",
+    "question": "What does the `const` keyword at the end of a member function declaration mean: `void print() const;`?",
+    "options": [
+      "The function cannot modify any non-mutable member variables of the calling object",
+      "The function returns a constant value",
+      "The function can only be called once",
+      "The function is executed at compile time"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A const member function treats `this` as `const ClassName*`, forbidding modifications to instance fields (unless marked `mutable`).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-012",
+    "question": "What is the output of `int a = 5; int *p = &a; (*p)++; printf(\"%d\", a);` in C?",
+    "options": [
+      "5",
+      "6",
+      "Address of a",
+      "Compilation error"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`*p` dereferences the pointer to access `a`; incrementing `(*p)++` increments the value of `a` from 5 to 6.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-013",
+    "question": "What is the purpose of the `volatile` keyword in C/C++?",
+    "options": [
+      "Tells the compiler that a variable may be changed unexpectedly (e.g., by hardware or an ISR) and prevents caching/optimization in registers",
+      "Makes the variable thread-safe like Java volatile",
+      "Allocates variable in cache memory",
+      "Deletes variable when scope ends"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In C/C++, `volatile` informs the optimizer not to omit reads or writes, ensuring fresh memory reads on every access.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-014",
+    "question": "What is the difference between `delete` and `delete[]` in C++?",
+    "options": [
+      "`delete` deallocates a single object; `delete[]` calls destructors for and deallocates an entire array allocated with `new[]`",
+      "`delete[]` is used for structs; `delete` for primitives",
+      "`delete[]` is deprecated in C++11",
+      "There is no difference in GCC"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Mismatched deallocation (calling `delete` on a `new[]` array or vice versa) causes undefined behavior.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-015",
+    "question": "Which smart pointer breaks circular references between `std::shared_ptr` instances?",
+    "options": [
+      "std::unique_ptr",
+      "std::weak_ptr",
+      "std::auto_ptr",
+      "std::atomic_ptr"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`std::weak_ptr` observes a `shared_ptr` without incrementing its reference count, preventing cyclic memory leaks.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-016",
+    "question": "What problem does virtual inheritance solve in C++?",
+    "options": [
+      "The diamond problem where a derived class inherits multiple duplicate copies of a common base class",
+      "Slow virtual function lookup",
+      "Stack overflow from deep inheritance hierarchies",
+      "Memory leaks in constructor exceptions"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`virtual public Base` guarantees that only a single shared instance of the common ancestor subobject exists in the most derived class.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-017",
+    "question": "What is an lvalue and an rvalue in C++?",
+    "options": [
+      "An lvalue has an identifiable memory location (addressable); an rvalue is a temporary value not having a persistent memory address",
+      "lvalue is on the left side of addition; rvalue is on the right",
+      "lvalues are loops; rvalues are returns",
+      "lvalues are local variables; rvalues are global"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Lvalues represent objects that persist beyond a single expression (e.g. named variables `x`), while rvalues are temporary values/literals (`x + 5`).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-018",
+    "question": "What is the output of `sizeof('a')` in C versus C++?",
+    "options": [
+      "`sizeof(int)` (usually 4 bytes) in C, but `sizeof(char)` (1 byte) in C++",
+      "1 byte in both C and C++",
+      "4 bytes in both C and C++",
+      "8 bytes in C, 4 bytes in C++"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In C, character literals like `'a'` have type `int` (size 4), while in C++, they are of type `char` (size 1).",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cpp-019",
+    "question": "What does the `explicit` keyword do when applied to a single-argument constructor in C++?",
+    "options": [
+      "Prevents implicit type conversions and copy-initialization from the argument type",
+      "Makes the constructor public",
+      "Forces the constructor to be inlined",
+      "Allows the constructor to be inherited"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`explicit` stops the compiler from implicitly converting arguments (e.g., preventing `MyClass obj = 42;`).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-020",
+    "question": "What is the four-step sequence executed by a typical C/C++ compilation toolchain?",
+    "options": [
+      "Preprocessing -> Compilation -> Assembly -> Linking",
+      "Compilation -> Interpretation -> Linking -> Execution",
+      "Lexing -> Bytecode -> JIT -> Linking",
+      "Preprocessing -> Linking -> Compilation -> Assembly"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The preprocessor expands macros/includes, the compiler generates assembly, the assembler creates object code (.o), and the linker merges object files and libraries into an executable.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-021",
+    "question": "What is a pure virtual function in C++?",
+    "options": [
+      "A virtual function declared with `= 0;` that has no implementation in the base class and makes the class abstract",
+      "A function that cannot throw exceptions",
+      "A function written entirely in inline assembly",
+      "A static function inside a namespace"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A pure virtual function (`virtual void draw() = 0;`) forces derived classes to provide an implementation, making the class abstract.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-022",
+    "question": "What is the time complexity of element lookup in `std::map` versus `std::unordered_map` in C++?",
+    "options": [
+      "`std::map` is O(log n) (Red-Black tree); `std::unordered_map` is O(1) average (Hash Table)",
+      "`std::map` is O(1); `std::unordered_map` is O(log n)",
+      "Both are O(1)",
+      "Both are O(n)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`std::map` is backed by a balanced binary search tree (O(log n)), while `std::unordered_map` uses hashing (O(1) average).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-023",
+    "question": "What does `#pragma once` do in C and C++ header files?",
+    "options": [
+      "Ensures the header file is compiled and included only once per translation unit, replacing traditional `#ifndef` include guards",
+      "Executes the file once at program startup",
+      "Limits memory allocation to one block",
+      "Prevents multi-threaded execution"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`#pragma once` is a widely supported preprocessor directive that avoids duplicate header inclusion across translation units.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-024",
+    "question": "What is the difference between a pointer and a reference in C++?",
+    "options": [
+      "A reference cannot be null, must be bound upon creation, and cannot be reseated to refer to another object; a pointer can be null and re-pointed",
+      "Pointers are faster than references",
+      "References occupy 16 bytes while pointers occupy 8 bytes",
+      "References can point to uninitialized memory"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A reference is an alias to an existing object that cannot be reassigned or made null, whereas pointers are variables storing memory addresses.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-025",
+    "question": "What does the `constexpr` keyword indicate in C++11 and beyond?",
+    "options": [
+      "Specifies that the value of an expression or return value of a function can be evaluated at compile-time",
+      "Declares a global constant that cannot be deleted",
+      "Forces a variable to be placed in the CPU cache",
+      "Disables exception handling"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`constexpr` enforces that expressions or functions can be computed at compile time by the compiler.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-026",
+    "question": "What is the Rule of Three in C++ (prior to C++11)?",
+    "options": [
+      "If a class defines any of Destructor, Copy Constructor, or Copy Assignment Operator, it should likely explicitly define all three",
+      "A class should have at most three public methods",
+      "Functions should not take more than three parameters",
+      "Dynamic arrays must be resized by a factor of 3"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Managing raw resources requires custom handling for destruction, copying, and assignment to prevent shallow-copy double-free bugs.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-027",
+    "question": "What does the Rule of Five introduce in C++11 in addition to the Rule of Three?",
+    "options": [
+      "Move Constructor and Move Assignment Operator",
+      "Default Constructor and Virtual Destructor",
+      "Type conversion operators and hashing",
+      "Getter, Setter, and Validator"
+    ],
+    "correctAnswer": 0,
+    "explanation": "C++11 adds Move Constructor (`Type(Type&&)`) and Move Assignment (`Type& operator=(Type&&)`) to optimize resource transfers.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-028",
+    "question": "What happens when you pass an array to a function in C: `void func(int arr[])`?",
+    "options": [
+      "The array is passed by value (entire array is copied)",
+      "Array decays into a pointer (`int*`) to its first element",
+      "Causes a compilation error unless array size is specified",
+      "Allocates a new heap array"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In C, arrays decay to pointers when passed to functions, losing their `sizeof` array extent information.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-029",
+    "question": "What is the purpose of `extern \"C\"` in C++ code?",
+    "options": [
+      "Instructs the C++ compiler to disable name mangling, allowing linkage with C code or libraries",
+      "Enables C99 language extensions",
+      "Includes the entire C standard library",
+      "Declares variables that can only be accessed by C files"
+    ],
+    "correctAnswer": 0,
+    "explanation": "C++ mangles function names to support overloading; `extern \"C\"` forces unmangled C linkage conventions.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-030",
+    "question": "What is undefined behavior (UB) in C and C++?",
+    "options": [
+      "Code for which the C/C++ standard imposes no requirements, meaning the program may crash, produce garbage, or appear to work unpredictably",
+      "A syntax error caught by the compiler",
+      "An unhandled runtime exception",
+      "A deprecation warning in modern standards"
+    ],
+    "correctAnswer": 0,
+    "explanation": "UB leaves the implementation free to do anything (e.g., signed integer overflow, dereferencing nullptr, buffer overruns).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-031",
+    "question": "What is the output of `printf(\"%d\", 5 >> 1);` in C?",
+    "options": [
+      "10",
+      "2",
+      "2.5",
+      "1"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bitwise right-shift by 1 divides an integer by 2 with truncation: `5 >> 1` is 2.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-032",
+    "question": "What does the `mutable` specifier do when applied to a class member variable?",
+    "options": [
+      "Allows the member variable to be modified even within a `const` member function",
+      "Makes the variable thread-safe",
+      "Prevents the variable from being initialized in constructors",
+      "Forces heap allocation"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`mutable` is often used for internal caching, mutexes, or debug counters that need mutation inside const methods.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-033",
+    "question": "Which cast in C++ is used for safe downcasting in an inheritance hierarchy with runtime type checking?",
+    "options": [
+      "static_cast",
+      "dynamic_cast",
+      "reinterpret_cast",
+      "const_cast"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`dynamic_cast` uses RTTI to verify that the pointer or reference genuinely points to the derived type, returning nullptr if invalid.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-034",
+    "question": "Which cast should be used to cast away the `const` or `volatile` qualifier of a variable?",
+    "options": [
+      "static_cast",
+      "const_cast",
+      "dynamic_cast",
+      "reinterpret_cast"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`const_cast<Type*>` is the only C++ cast explicitly designed to remove or add constness.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-035",
+    "question": "What is the return type and value of `sizeof(char)` according to the C and C++ standards?",
+    "options": [
+      "Type `size_t` and strictly guaranteed to be 1",
+      "Type `int` and can be 1, 2, or 4",
+      "Type `long` and depends on endianness",
+      "Undefined"
+    ],
+    "correctAnswer": 0,
+    "explanation": "By definition in the standards, `sizeof(char)` is always exactly 1 byte of size type `size_t`.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-036",
+    "question": "What is the difference between `std::vector::push_back` and `std::vector::emplace_back`?",
+    "options": [
+      "`emplace_back` constructs the element directly in-place in the vector's memory using perfect forwarding, avoiding temporary copies",
+      "`push_back` is faster because it bypasses constructors",
+      "`emplace_back` only works on primitives",
+      "There is no difference in C++20"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`emplace_back(args...)` forwards arguments to the element's constructor in-place at the end of the buffer.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-037",
+    "question": "What happens if an exception is thrown inside a class destructor during stack unwinding?",
+    "options": [
+      "`std::terminate()` is called immediately, abruptly ending the program",
+      "The exception is silently ignored",
+      "The program recovers and cleans up the next object",
+      "Memory is automatically cleared"
+    ],
+    "correctAnswer": 0,
+    "explanation": "If an exception escapes a destructor while another exception is already active (stack unwinding), C++ immediately invokes `std::terminate`.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cpp-038",
+    "question": "What is the default access specifier for members of a union in C++?",
+    "options": [
+      "public",
+      "private",
+      "protected",
+      "friend"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Like structs, members of a union in C++ default to `public` access.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-039",
+    "question": "What is SFINAE in advanced C++ template programming?",
+    "options": [
+      "Substitution Failure Is Not An Error — if template substitution results in invalid code, the overload is discarded rather than causing a compiler error",
+      "Static Function Inline Allocator Extension",
+      "A memory management protocol in libstdc++",
+      "A safety check for recursion depth"
+    ],
+    "correctAnswer": 0,
+    "explanation": "SFINAE allows compile-time overload selection and template specialization based on whether types support specific member functions or traits.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cpp-040",
+    "question": "What does the `decltype` specifier do in C++11?",
+    "options": [
+      "Queries and yields the compile-time declared type of an expression or variable",
+      "Declares a dynamic variable on the heap",
+      "Deletes a type at runtime",
+      "Casts pointers between namespaces"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`decltype(expr)` inspects the type of an expression at compile time without evaluating the expression itself.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-041",
+    "question": "What is an anonymous namespace in C++ used for?",
+    "options": [
+      "To give internal linkage to functions and variables, restricting their visibility to the current translation unit (modern replacement for static)",
+      "To prevent namespace pollution in headers",
+      "To speed up runtime reflection",
+      "To allow classes without names"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Names declared inside `namespace { ... }` have internal linkage and cannot be accessed from other translation units.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-042",
+    "question": "What is the output of `int x = 10; printf(\"%d, %d\", x++, ++x);` in C?",
+    "options": [
+      "Undefined behavior / unspecified evaluation order in C",
+      "10, 12",
+      "11, 12",
+      "10, 11"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Modifying a variable more than once between sequence points (in C99) or unsequenced side-effects (in C11) results in undefined behavior.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cpp-043",
+    "question": "What is the purpose of the `noexcept` specifier in C++11?",
+    "options": [
+      "Declares that a function is guaranteed not to throw exceptions, enabling compiler optimizations like efficient move operations",
+      "Catches all exceptions automatically",
+      "Disables all try-catch blocks in the program",
+      "Converts exceptions to exit codes"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`noexcept` informs callers that the function will not throw; standard containers use it to determine if elements can be safely moved rather than copied.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-044",
+    "question": "What does the C standard library function `strtok()` use to maintain its internal state across successive calls?",
+    "options": [
+      "An internal static pointer (making it non-reentrant and not thread-safe)",
+      "A dynamic memory allocation",
+      "The calling function's stack frame",
+      "A file descriptor"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`strtok` uses an internal static variable to track the token position, which is why POSIX provides `strtok_r` for reentrant/thread-safe code.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cpp-045",
+    "question": "What is the difference between shallow copy and deep copy in C++?",
+    "options": [
+      "Shallow copy copies pointers directly so both objects point to the same memory; deep copy allocates new memory and duplicates the underlying data",
+      "Deep copy is only available in C++20",
+      "Shallow copy copies the vtable; deep copy copies functions",
+      "They are identical for classes with pointers"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Default copy constructors perform a member-wise shallow copy, which can cause double-free errors if pointers are not deeply duplicated.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-046",
+    "question": "What is the memory layout difference between `char str[] = \"hello\";` and `char *str = \"hello\";` in C?",
+    "options": [
+      "`char str[]` creates a mutable array on the stack initialized with the characters; `char *str` points to a string literal in read-only data segment (modifying it causes UB)",
+      "Both create mutable stack arrays",
+      "`char str[]` is read-only; `char *str` is mutable",
+      "Both point to heap memory"
+    ],
+    "correctAnswer": 0,
+    "explanation": "String literals are typically placed in read-only memory (`.rodata`); attempting to mutate `str[0] = 'H'` on `char *str` leads to a segmentation fault.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-047",
+    "question": "What does the `std::atomic<T>` template provide in C++11?",
+    "options": [
+      "Thread-safe atomic operations on types without explicit mutex locking",
+      "Automatic garbage collection for pointers",
+      "Vectorized SIMD mathematical acceleration",
+      "Compile-time calculations only"
+    ],
+    "correctAnswer": 0,
+    "explanation": "`std::atomic` ensures lock-free atomic read-modify-write operations across concurrent threads.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-048",
+    "question": "What is an inline function in C/C++?",
+    "options": [
+      "A hint to the compiler to substitute the function body directly at each call site to eliminate function call overhead",
+      "A function that can only be written on one line of code",
+      "A function declared inside another function",
+      "A function that cannot take arguments"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The `inline` keyword suggests function inlining to avoid call/return overhead (and allows defining the function in header files without violating ODR).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cpp-049",
+    "question": "What is the One Definition Rule (ODR) in C++?",
+    "options": [
+      "A translation unit cannot contain more than one definition of any variable, function, class type, enumeration, or template",
+      "Every program must consist of exactly one .cpp file",
+      "Classes can have only one constructor",
+      "Headers can only define one class each"
+    ],
+    "correctAnswer": 0,
+    "explanation": "ODR requires that entities have at most one definition per translation unit, and non-inline functions/variables have exactly one definition across the entire program.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cpp-050",
+    "question": "What is the output of `printf(\"%d\", sizeof(NULL))` on a 64-bit system in C?",
+    "options": [
+      "8",
+      "4",
+      "0",
+      "Compilation error"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In C, `NULL` is typically defined as `((void*)0)`, which is a pointer taking 8 bytes on a 64-bit system.",
+    "difficulty": "easy"
+  }
+]

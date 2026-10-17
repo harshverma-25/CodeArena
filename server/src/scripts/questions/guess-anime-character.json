@@ -1,0 +1,652 @@
+[
+  {
+    "questionId": "gac-001",
+    "question": "I have spiky orange hair, wield a giant cleaver Zanpakuto named Zangetsu, and serve as a Substitute Soul Reaper. Who am I?",
+    "options": [
+      "Naruto Uzumaki",
+      "Ichigo Kurosaki",
+      "Renji Abarai",
+      "Natsu Dragneel"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ichigo Kurosaki is the substitute shinigami protagonist of Bleach.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-002",
+    "question": "I am a rubber pirate who wears a straw hat, loves meat, and dreams of becoming the King of the Pirates. Who am I?",
+    "options": [
+      "Monkey D. Luffy",
+      "Portgas D. Ace",
+      "Roronoa Zoro",
+      "Shanks"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Monkey D. Luffy is the Straw Hat captain from One Piece.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-003",
+    "question": "I am a blond ninja with whiskers on my cheeks who houses the Nine-Tails and became the Seventh Hokage. Who am I?",
+    "options": [
+      "Minato Namikaze",
+      "Naruto Uzumaki",
+      "Boruto Uzumaki",
+      "Jiraiya"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Naruto Uzumaki is the titular hero of Naruto and the Seventh Hokage.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-004",
+    "question": "I am a Saiyan raised on Earth, wear an orange turtle hermit gi, love food, and can transform into Super Saiyan. Who am I?",
+    "options": [
+      "Vegeta",
+      "Son Goku (Kakarot)",
+      "Gohan",
+      "Trunks"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Goku is the legendary martial artist protagonist of Dragon Ball.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-005",
+    "question": "I am a high school genius who found a supernatural notebook and proclaimed myself the God of the New World. Who am I?",
+    "options": [
+      "L Lawliet",
+      "Light Yagami (Kira)",
+      "Lelouch vi Britannia",
+      "Shinichi Kudo"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Light Yagami is the brilliant and megalomaniacal anti-hero of Death Note.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-006",
+    "question": "I wear a blindfold over my Six Eyes, possess the Limitless technique, and claim to be 'The Honored One'. Who am I?",
+    "options": [
+      "Satoru Gojo",
+      "Suguru Geto",
+      "Megumi Fushiguro",
+      "Kento Nanami"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Satoru Gojo is the strongest modern jujutsu sorcerer from Jujutsu Kaisen.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-007",
+    "question": "I am a boy with a demon sister, wear hanafuda earrings and a green checkered haori, and smell the 'opening thread'. Who am I?",
+    "options": [
+      "Zenitsu Agatsuma",
+      "Tanjiro Kamado",
+      "Inosuke Hashibira",
+      "Giyu Tomioka"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Tanjiro Kamado is the kindhearted protagonist of Demon Slayer.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-008",
+    "question": "I am the 'Hero for Fun' who trained so hard I went completely bald and defeat every villain with a single punch. Who am I?",
+    "options": [
+      "Genos",
+      "Saitama",
+      "King",
+      "Bang"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Saitama is the overwhelmingly overpowered hero of One Punch Man.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-009",
+    "question": "I am the Fullmetal Alchemist who lost an arm and a leg restoring my brother Alphonse's soul to a suit of armor. Who am I?",
+    "options": [
+      "Roy Mustang",
+      "Edward Elric",
+      "Scar",
+      "Van Hohenheim"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Edward Elric is the automail-bearing protagonist of Fullmetal Alchemist.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-010",
+    "question": "I am an exiled prince of Britannia who gained the Geass of absolute obedience and leads the Black Knights as 'Zero'. Who am I?",
+    "options": [
+      "Suzaku Kururugi",
+      "Lelouch vi Britannia",
+      "Rolo Lamperouge",
+      "Charles zi Britannia"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lelouch vi Britannia commands the rebellion as Zero in Code Geass.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "gac-011",
+    "question": "I am a three-sword style swordsman who constantly gets lost and aims to become the World's Greatest Swordsman. Who am I?",
+    "options": [
+      "Roronoa Zoro",
+      "Trafalgar Law",
+      "Dracule Mihawk",
+      "Killer"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Roronoa Zoro is Luffy's first mate and master of Santoryu.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-012",
+    "question": "I am a green-haired student who was born quirkless, inherited One For All, and mutters constantly in notebooks. Who am I?",
+    "options": [
+      "Izuku Midoriya (Deku)",
+      "Katsuki Bakugo",
+      "Shoto Todoroki",
+      "Eijiro Kirishima"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Izuku Midoriya is the ninth wielder of One For All in My Hero Academia.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-013",
+    "question": "I am Humanity's Strongest Soldier, obsessed with cleanliness, and carry a deep hatred for the Beast Titan. Who am I?",
+    "options": [
+      "Erwin Smith",
+      "Captain Levi Ackerman",
+      "Armin Arlert",
+      "Jean Kirstein"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Levi Ackerman is the fan-favorite squad captain from Attack on Titan.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-014",
+    "question": "I am an ex-assassin from the Zoldyck family who uses lightning-transmuted Nen and rides a skateboard. Who am I?",
+    "options": [
+      "Gon Freecss",
+      "Killua Zoldyck",
+      "Kurapika",
+      "Illumi Zoldyck"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Killua Zoldyck is Gon's best friend and lightning assassin from Hunter x Hunter.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-015",
+    "question": "I left Whale Island with a fishing rod to become a Hunter and find my deadbeat father Ging. Who am I?",
+    "options": [
+      "Leorio Paradinight",
+      "Gon Freecss",
+      "Kurapika",
+      "Hisoka Morow"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Gon Freecss is the cheerful enhancer protagonist of Hunter x Hunter.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-016",
+    "question": "I am the sole survivor of the Kurta Clan, seek vengeance against the Phantom Troupe, and wield Nen chains. Who am I?",
+    "options": [
+      "Kurapika",
+      "Chrollo Lucilfer",
+      "Feitan",
+      "Kalluto"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Kurapika's eyes glow scarlet when agitated, and he swore vengeance on the Spiders.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-017",
+    "question": "I am a creepy jester magician whose Nen ability Bungee Gum has both the properties of rubber and gum. Who am I?",
+    "options": [
+      "Illumi",
+      "Hisoka Morow",
+      "Pariston Hill",
+      "Genthru"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hisoka Morow is the bloodthirsty magician who loves fighting strong opponents.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-018",
+    "question": "I have a demon fox spirit sealed inside me, was an outcast, and eat miso pork ramen at Ichiraku. Who am I?",
+    "options": [
+      "Sasuke Uchiha",
+      "Naruto Uzumaki",
+      "Kakashi Hatake",
+      "Iruka Umino"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Naruto Uzumaki is famous for his love of Ichiraku Ramen.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-019",
+    "question": "I am the copy ninja who wields a Sharingan eye, invented Chidori, and reads 'Make-Out Paradise' novels. Who am I?",
+    "options": [
+      "Obito Uchiha",
+      "Kakashi Hatake",
+      "Itachi Uchiha",
+      "Might Guy"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kakashi Hatake is the masked sensei of Team 7 and the Sixth Hokage.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-020",
+    "question": "I slaughtered my entire clan in a single night to prevent a civil war, sparing only my beloved younger brother Sasuke. Who am I?",
+    "options": [
+      "Madara Uchiha",
+      "Itachi Uchiha",
+      "Shisui Uchiha",
+      "Fugaku Uchiha"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Itachi Uchiha bore the tragic burden of eliminating the Uchiha Clan for Konoha's peace.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-021",
+    "question": "I am the Prince of all Saiyans, deeply proud, married to Bulma, and constantly striving to surpass Kakarot. Who am I?",
+    "options": [
+      "Raditz",
+      "Nappa",
+      "Vegeta",
+      "Bardock"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Vegeta is the proud Saiyan prince from Dragon Ball.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-022",
+    "question": "I am an immortal half-demon who wields the Tessaiga sword, wears red fire-rat robes, and is bound by the word 'Sit!'. Who am I?",
+    "options": [
+      "Sesshomaru",
+      "Inuyasha",
+      "Naraku",
+      "Koga"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Inuyasha is the dog-eared half-demon hero of Inuyasha.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "gac-023",
+    "question": "I am a lazy silver-haired samurai who suffers from high blood sugar, loves Strawberry Milk, and runs the Yorozuya. Who am I?",
+    "options": [
+      "Shinpachi Shimura",
+      "Gintoki Sakata",
+      "Kotaro Katsura",
+      "Toushirou Hijikata"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Gintoki Sakata (the White Yaksha) is the comical and deadly hero of Gintama.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "gac-024",
+    "question": "I am a vampire who serves the Hellsing organization, dual-wields custom pistols, and wears a red coat and fedora. Who am I?",
+    "options": [
+      "Alexander Anderson",
+      "Alucard",
+      "Walter C. Dornez",
+      "Pip Bernadotte"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Alucard (Dracula spelled backwards) is the supreme vampire in Hellsing.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "gac-025",
+    "question": "I am a high schooler who swallowed a cursed finger and became the vessel for Ryomen Sukuna. Who am I?",
+    "options": [
+      "Megumi Fushiguro",
+      "Yuji Itadori",
+      "Yuta Okkotsu",
+      "Aoi Todo"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Yuji Itadori is the superhumanly athletic vessel of the King of Curses in Jujutsu Kaisen.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-026",
+    "question": "I am the King of Curses who possesses four arms, two faces, and commands the Malevolent Shrine. Who am I?",
+    "options": [
+      "Ryomen Sukuna",
+      "Kenjaku",
+      "Mahito",
+      "Jogo"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Ryomen Sukuna is the terrifying calamity from the Golden Age of Jujutsu.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-027",
+    "question": "I am a quiet demon who lives inside a wooden box on my brother's back and wears a bamboo muzzle. Who am I?",
+    "options": [
+      "Kanao",
+      "Nezuko Kamado",
+      "Tamayo",
+      "Daki"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nezuko Kamado is Tanjiro's beloved demon sister in Demon Slayer.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-028",
+    "question": "I wear a hollow boar mask, shout 'Comin' through!', and charge forward with two chipped serrated swords. Who am I?",
+    "options": [
+      "Zenitsu Agatsuma",
+      "Inosuke Hashibira",
+      "Genya Shinazugawa",
+      "Tengen Uzui"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Inosuke Hashibira is the wild mountain-dwelling beast slayer in Demon Slayer.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-029",
+    "question": "I am a cowardly demon slayer with yellow hair who only displays terrifying lightning speed when I fall unconscious. Who am I?",
+    "options": [
+      "Zenitsu Agatsuma",
+      "Kaigaku",
+      "Murata",
+      "Rengoku"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Zenitsu Agatsuma masters Thunder Breathing First Form while asleep.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-030",
+    "question": "I am a master swordsman with a cross-shaped scar on my cheek who vowed never to kill again using a reverse-blade sword. Who am I?",
+    "options": [
+      "Hajime Saito",
+      "Himura Kenshin (Battosai)",
+      "Makoto Shishio",
+      "Sanosuke Sagara"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Himura Kenshin is the wandering rurouni from Rurouni Kenshin.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-031",
+    "question": "I am the captain of Squad 10 in the Soul Society who wields the ice dragon Zanpakuto Hyorinmaru. Who am I?",
+    "options": [
+      "Byakuya Kuchiki",
+      "Toshiro Hitsugaya",
+      "Kenpachi Zaraki",
+      "Shunsui Kyoraku"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Toshiro Hitsugaya is the young prodigy captain in Bleach.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "gac-032",
+    "question": "I am the battle-crazed captain of Squad 11 who doesn't even know his Zanpakuto's name initially and wears an eye patch that eats spiritual pressure. Who am I?",
+    "options": [
+      "Ikkaku Madarame",
+      "Kenpachi Zaraki",
+      "Mayuri Kurotsuchi",
+      "Sajin Komamura"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kenpachi Zaraki fights purely for the thrill of battle with monstrous spiritual energy.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "gac-033",
+    "question": "I faked my own murder, removed my spectacles, slicked back my hair, and declared 'I will stand at the top of the heavens'. Who am I?",
+    "options": [
+      "Gin Ichimaru",
+      "Sosuke Aizen",
+      "Kaname Tosen",
+      "Kisuke Urahara"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sosuke Aizen is the mastermind antagonist who deceived the entire Soul Society.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-034",
+    "question": "I am a fire dragon slayer wizard with pink hair who gets horribly motion sick on all transportation. Who am I?",
+    "options": [
+      "Gray Fullbuster",
+      "Natsu Dragneel",
+      "Gajeel Redfox",
+      "Zeref Dragneel"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Natsu Dragneel is the hot-headed dragon slayer hero of Fairy Tail.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-035",
+    "question": "I am a high school student with spiky hair who was turned into an elementary school child by the Black Organization's poison APTX 4869. Who am I?",
+    "options": [
+      "Heiji Hattori",
+      "Conan Edogawa (Shinichi Kudo)",
+      "Kaitou Kid",
+      "Kogoro Mori"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Shinichi Kudo investigates crimes under the alias Conan Edogawa in Detective Conan.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-036",
+    "question": "I am the legendary 'Black Swordsman' who survived the Eclipse, carries the massive Dragonslayer blade, and possesses a mechanical arm. Who am I?",
+    "options": [
+      "Griffith",
+      "Guts",
+      "Casca",
+      "Skull Knight"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Guts is the relentless branded warrior from Berserk.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-037",
+    "question": "I am a teenage psychic with pink hair and green antennae glasses who just wants to live a quiet life eating coffee jelly. Who am I?",
+    "options": [
+      "Shigeo Kageyama (Mob)",
+      "Kusuo Saiki",
+      "Reigen Arataka",
+      "Teruki Hanazawa"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kusuo Saiki is the god-tier esper protagonist of The Disastrous Life of Saiki K.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "gac-038",
+    "question": "I am a middle schooler with bowl-cut hair who works for a con-artist psychic and unleashes apocalyptic psychic power when my emotions reach 100%. Who am I?",
+    "options": [
+      "Ritsu Kageyama",
+      "Shigeo Kageyama (Mob)",
+      "Teru",
+      "Toichiro Suzuki"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Shigeo Kageyama (Mob) is the protagonist of Mob Psycho 100.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-039",
+    "question": "I am the Flame Alchemist in the Amestris military who snaps my fingers using ignition cloth gloves to produce explosive firestorms. Who am I?",
+    "options": [
+      "Maes Hughes",
+      "Roy Mustang",
+      "Alex Louis Armstrong",
+      "Jean Havoc"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Colonel Roy Mustang is the charismatic Flame Alchemist in Fullmetal Alchemist.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-040",
+    "question": "I am a space cowboy bounty hunter aboard the Bebop who smokes cigarettes and practices Jeet Kune Do. Who am I?",
+    "options": [
+      "Jet Black",
+      "Spike Spiegel",
+      "Vicious",
+      "Faye Valentine"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Spike Spiegel is the cool, tragic protagonist of Cowboy Bebop.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-041",
+    "question": "I am an orphaned boy who can turn into a colossal Attack Titan and yelled 'Tatakae! Tatakae!' (Fight!). Who am I?",
+    "options": [
+      "Armin Arlert",
+      "Eren Jaeger",
+      "Jean Kirstein",
+      "Reiner Braun"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Eren Jaeger is the freedom-obsessed focal character of Attack on Titan.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-042",
+    "question": "I am the cook of the Straw Hat Pirates, refuse to use my hands in battle, and love women unconditionally. Who am I?",
+    "options": [
+      "Roronoa Zoro",
+      "Sanji (Vinsmoke Sanji)",
+      "Usopp",
+      "Brook"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Black Leg Sanji is the chivalrous martial artist chef of One Piece.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-043",
+    "question": "I am a doctor who was an ordinary reindeer before eating the Human-Human Fruit, and I love cotton candy. Who am I?",
+    "options": [
+      "Tony Tony Chopper",
+      "Bepo",
+      "Pekoms",
+      "Carrot"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Tony Tony Chopper is the adorable reindeer doctor of the Straw Hat crew.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-044",
+    "question": "I am a living skeleton musician who ate the Revive-Revive Fruit and laughs with 'Yo-ho-ho-ho!'. Who am I?",
+    "options": [
+      "Franky",
+      "Brook",
+      "Gecko Moria",
+      "Ryuma"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Brook is the Afro-bearing soul king swordsman and musician in One Piece.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-045",
+    "question": "I am an explosive blonde high schooler with anger management issues who shouts 'SHINEEEE!' (Die!) in battle. Who am I?",
+    "options": [
+      "Eijiro Kirishima",
+      "Katsuki Bakugo",
+      "Neito Monoma",
+      "Denki Kaminari"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Katsuki Bakugo is Deku's fierce rival in My Hero Academia.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-046",
+    "question": "I am an immortal demon lord who disguised myself as a family man in Tokyo and fear anyone wearing hanafuda earrings. Who am I?",
+    "options": [
+      "Akaza",
+      "Muzan Kibutsuji",
+      "Kokushibo",
+      "Doma"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Muzan Kibutsuji is the paranoid Demon King who was nearly killed by Yoriichi Tsugikuni.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-047",
+    "question": "I am a chainsaw devil hybrid who works for Public Safety because I dream of touching breasts and eating jam on toast. Who am I?",
+    "options": [
+      "Aki Hayakawa",
+      "Denji (Chainsaw Man)",
+      "Kishibe",
+      "Beam"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Denji is the delightfully crude, golden-hearted protagonist of Chainsaw Man.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-048",
+    "question": "I am the manipulative leader of Public Safety who loves dogs and is secretly the Control Devil. Who am I?",
+    "options": [
+      "Power",
+      "Makima",
+      "Reze",
+      "Kobeni"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Makima is the chilling antagonist of the Public Safety Arc in Chainsaw Man.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-049",
+    "question": "I am a telepathic little girl who loves peanuts and secret agent cartoons, adopted by a spy and an assassin. Who am I?",
+    "options": [
+      "Anya Forger",
+      "Becky Blackbell",
+      "Yor Forger",
+      "Fiona Frost"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Anya Forger is the telepathic mind-reading daughter in Spy x Family.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "gac-050",
+    "question": "I am codename 'Twilight', Westalis's greatest intelligence spy who formed a fake family for Operation Strix. Who am I?",
+    "options": [
+      "Franky Franklin",
+      "Loid Forger",
+      "Yuri Briar",
+      "Donovan Desmond"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Loid Forger is the master spy and father figure of Spy x Family.",
+    "difficulty": "easy"
+  }
+]

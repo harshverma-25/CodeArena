@@ -1,0 +1,652 @@
+[
+  {
+    "questionId": "cru-001",
+    "question": "What signal does the umpire give when tapping their shoulder with an outstretched hand?",
+    "options": [
+      "No-ball",
+      "Short run",
+      "Wide ball",
+      "Dead ball"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Tapping the shoulder indicates a short run, where the batsman failed to ground their bat past the crease.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-002",
+    "question": "What umpire signal consists of raising both arms horizontally sideways?",
+    "options": [
+      "Wide ball",
+      "Six",
+      "No-ball",
+      "Four"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Extending both arms out sideways signals a Wide delivery.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-003",
+    "question": "What signal does the umpire make by waving their hand from side to side in front of their waist?",
+    "options": [
+      "Four boundaries",
+      "Dead ball",
+      "No-ball",
+      "Free hit"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Crossing and uncrossing the wrists below waist level signals that the ball is dead.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-004",
+    "question": "Under the Laws of Cricket (MCC Law 41), what is the running out of a non-striker who backs up too far officially classified as?",
+    "options": [
+      "Run Out",
+      "Mankad Disqualification",
+      "Foul Play",
+      "Obstruction"
+    ],
+    "correctAnswer": 0,
+    "explanation": "MCC officially reclassified the dismissal as a standard 'Run Out' under Law 38 rather than Unfair Play.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-005",
+    "question": "What is the penalty if a bowler delivers a front-foot No-Ball in T20 and ODI cricket?",
+    "options": [
+      "1 run penalty and the next delivery is a Free Hit",
+      "2 runs penalty",
+      "Dismissal of the bowler",
+      "5 runs penalty"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The batting team receives 1 run and the subsequent ball is a Free Hit (where the batsman can only be run out).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-006",
+    "question": "How many ways can a batsman be dismissed in cricket according to the MCC Laws?",
+    "options": [
+      "10 ways",
+      "8 ways",
+      "11 ways",
+      "9 ways"
+    ],
+    "correctAnswer": 0,
+    "explanation": "There are 10 methods of dismissal: Bowled, Caught, LBW, Run Out, Stumped, Hit Wicket, Obstructing Field, Hit Ball Twice, Timed Out, and Retired Out.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-007",
+    "question": "What is the time limit for an incoming batsman to take guard or face a ball before being 'Timed Out' in an ODI/T20 match?",
+    "options": [
+      "2 minutes (in ODIs/T20s)",
+      "5 minutes",
+      "1 minute",
+      "3 minutes"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The ICC Playing Conditions specify that an incoming batsman must be ready to face within 2 minutes.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-008",
+    "question": "Who became the first player in international cricket history to be dismissed 'Timed Out' (in the 2023 World Cup)?",
+    "options": [
+      "Angelo Mathews",
+      "Shakib Al Hasan",
+      "Mushfiqur Rahim",
+      "Kane Williamson"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Angelo Mathews had a broken helmet strap and took longer than 2 minutes against Bangladesh in Delhi.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-009",
+    "question": "Can a batsman be dismissed 'Caught' off a Free Hit delivery?",
+    "options": [
+      "No (they can only be Run Out, Obstructing Field, or Hit Ball Twice)",
+      "Yes, if caught by the keeper",
+      "Yes, if caught on the boundary",
+      "Only on third umpire review"
+    ],
+    "correctAnswer": 0,
+    "explanation": "On a Free Hit, batsmen cannot be dismissed Bowled, Caught, LBW, Stumped, or Hit Wicket.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-010",
+    "question": "What is the maximum number of fielders allowed outside the 30-yard fielding circle during the mandatory Powerplay in an ODI?",
+    "options": [
+      "2 fielders",
+      "3 fielders",
+      "4 fielders",
+      "5 fielders"
+    ],
+    "correctAnswer": 0,
+    "explanation": "During the first 10 overs (Powerplay 1) in an ODI, a maximum of 2 fielders may be outside the ring.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-011",
+    "question": "How many fielders are allowed on the leg side (on-side) behind the batting crease at the instant of delivery?",
+    "options": [
+      "Maximum of 2 fielders",
+      "3 fielders",
+      "Unlimited",
+      "1 fielder"
+    ],
+    "correctAnswer": 0,
+    "explanation": "To prevent dangerous bodyline bowling, no more than 2 fielders can be positioned behind square on the leg side.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-012",
+    "question": "What happens if a ball in play strikes a fielder's helmet placed on the ground behind the wicket-keeper?",
+    "options": [
+      "5 penalty runs awarded to the batting team",
+      "Ball is dead with no runs",
+      "1 run awarded",
+      "Batsman is given out"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Under Law 28.3, 5 penalty runs are awarded to the batting side and the ball becomes dead.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-013",
+    "question": "What three elements must be satisfied for an LBW (Leg Before Wicket) decision when the batsman has played a shot?",
+    "options": [
+      "Pitching in-line or outside off, Impact in-line with stumps, Wickets hitting",
+      "Pitching outside leg",
+      "Bat hitting ball first",
+      "Keeper catching the rebound"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The ball cannot pitch outside leg-stump; if a shot is offered, impact must be in-line with the wickets.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-014",
+    "question": "Can a batsman ever be given out LBW if the ball pitches outside the leg stump line?",
+    "options": [
+      "Never (pitching outside leg is an automatic not out)",
+      "Yes, if they didn't offer a shot",
+      "Yes, on DRS review",
+      "Only in Test matches"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Under the Laws of Cricket, a ball pitching outside leg stump can never result in an LBW dismissal.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-015",
+    "question": "What does the umpire do with their index finger to signal a batsman is OUT?",
+    "options": [
+      "Raise the right or left index finger vertically",
+      "Point to the pavilion",
+      "Cross hands across chest",
+      "Wave it horizontally"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Raising the index finger above the head is the universal signal for a dismissal.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-016",
+    "question": "What is the signal for a boundary four?",
+    "options": [
+      "Waving the arm back and forth across the body",
+      "Raising both arms overhead",
+      "Tapping the knee",
+      "Rolling hands"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Waving an arm horizontally across the torso indicates that the ball crossed the boundary along the ground.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-017",
+    "question": "What is the signal for a six?",
+    "options": [
+      "Raising both arms vertically above the head",
+      "One arm overhead",
+      "Touching the cap",
+      "Tapping the elbow"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Extending both arms straight up into the air signals a six.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-018",
+    "question": "What does an umpire do to indicate a Leg Bye?",
+    "options": [
+      "Touch their raised knee with their hand",
+      "Raise one arm",
+      "Cross their wrists",
+      "Point to their shoe"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Touching a raised knee indicates runs scored off the batsman's pads or body (Leg Byes).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-019",
+    "question": "What is the signal for a Bye?",
+    "options": [
+      "Open palm raised vertically above the head",
+      "Tapping the shoulder",
+      "Two arms out",
+      "Touching the chest"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Holding an open hand vertically overhead signals Byes.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-020",
+    "question": "What does the umpire do to signal a Free Hit?",
+    "options": [
+      "Rotate one arm in a circular motion overhead",
+      "Tap their head",
+      "Point to the bowler",
+      "Make a fist"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Swirling one raised arm in circles signals a Free Hit delivery.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-021",
+    "question": "How long does a fielding captain or batsman have to signal for a DRS review after the ball becomes dead?",
+    "options": [
+      "15 seconds",
+      "30 seconds",
+      "10 seconds",
+      "1 minute"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Teams have exactly 15 seconds to request a player review using the 'T' gesture.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-022",
+    "question": "What happens if a DRS review returns an 'Umpire's Call' on the ball tracker?",
+    "options": [
+      "The on-field decision stands, and the reviewing team does NOT lose their review",
+      "The decision is reversed",
+      "The team loses their review",
+      "A drop ball is called"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Umpire's Call upholds the original on-field ruling while preserving the team's review quota.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-023",
+    "question": "What is UltraEdge / Snicko used for in television umpire reviews?",
+    "options": [
+      "Detecting audio soundwaves to determine if the ball hit the bat or pad",
+      "Tracking ball speed",
+      "Measuring pitch bounce",
+      "Checking foot creases"
+    ],
+    "correctAnswer": 0,
+    "explanation": "UltraEdge synchronizes sound waveforms with slow-motion video frames to pinpoint edge contact.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-024",
+    "question": "What is HotSpot technology based on in cricket broadcasting?",
+    "options": [
+      "Infrared thermal imaging that detects friction heat from ball contact",
+      "Sonar soundwaves",
+      "High-speed lasers",
+      "Radar tracking"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Thermal cameras show white friction spots where the ball makes contact with the bat or pad.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-025",
+    "question": "Can a batsman be given out 'Bowled' if the ball dislodges a bail off a No-Ball delivery?",
+    "options": [
+      "No, a batsman cannot be out Bowled off a No-Ball",
+      "Yes, if the stumps are broken",
+      "Yes, if the bail flies 5 yards",
+      "Only if it is a spinner"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A batsman is immune from being dismissed Bowled on any No-Ball delivery.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-026",
+    "question": "What is 'Hit Wicket'?",
+    "options": [
+      "The batsman breaks their own stumps with their bat or body while playing a shot or setting off for a run",
+      "The bowler kicks the stumps",
+      "The keeper breaks the stumps early",
+      "The ball bounces off the pitch onto stumps"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Law 35 defines Hit Wicket when the striker knocks down the bails during the delivery or shot.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-027",
+    "question": "If a batsman intentionally uses their hand (not holding the bat) to touch the ball without permission, what dismissal is it?",
+    "options": [
+      "Obstructing the Field (formerly Handled the Ball)",
+      "Hand Ball",
+      "Disqualification",
+      "No dismissal"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Handled the Ball was merged into Law 37: Obstructing the Field in the 2017 MCC Code update.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-028",
+    "question": "Can a substitute fielder act as a wicket-keeper in international cricket under modern rules?",
+    "options": [
+      "Yes, with the umpire's consent (since the 2017 law change)",
+      "No, under no circumstances",
+      "Only in Test matches",
+      "Only if the keeper is injured by a helmet"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Since 2017, umpires may permit a substitute fielder to keep wicket if the primary keeper is genuinely injured.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cru-029",
+    "question": "What is the standard length of a cricket pitch measured between the stumps at both ends?",
+    "options": [
+      "22 yards (66 feet / 20.12 meters)",
+      "20 yards",
+      "24 yards",
+      "25 yards"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A cricket pitch is historically and officially 22 yards (1 chain) in length.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-030",
+    "question": "What is the distance between the bowling crease and the popping crease?",
+    "options": [
+      "4 feet (1.22 meters)",
+      "3 feet",
+      "5 feet",
+      "2 feet"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The popping crease is drawn 4 feet in front of the bowling crease and parallel to it.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-031",
+    "question": "How many balls constitute a standard valid over in cricket?",
+    "options": [
+      "6 balls",
+      "8 balls",
+      "5 balls",
+      "4 balls"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Since 1979/80, 6 legal deliveries constitute an over internationally.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-032",
+    "question": "What is the maximum height of a cricket stump above the ground?",
+    "options": [
+      "28 inches (71.1 cm)",
+      "30 inches",
+      "26 inches",
+      "32 inches"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Cricket stumps stand 28 inches tall with a total wicket width of 9 inches across all three stumps.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-033",
+    "question": "What is the legal ball weight range for men's professional cricket?",
+    "options": [
+      "5.5 to 5.75 ounces (155.9 to 163 grams)",
+      "5 to 5.25 ounces",
+      "6 to 6.25 ounces",
+      "4.5 to 5 ounces"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A standard men's red, white, or pink leather cricket ball weighs between 155.9g and 163g.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cru-034",
+    "question": "If a batsman hits the ball and it ricochets off the non-striker's bat onto the stumps while the non-striker is out of their crease, are they out?",
+    "options": [
+      "Only if the ball touched the bowler's hand or body first",
+      "Yes, automatically out",
+      "Out on appeal",
+      "Out if it was a yorker"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A run out at the non-striker's end requires a member of the fielding side to touch or deflect the ball onto the stumps.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-035",
+    "question": "What is the 'Soft Signal' in cricket umpire reviews?",
+    "options": [
+      "An on-field recommendation that was abolished by the ICC in June 2023",
+      "A radio code",
+      "A gesture for no-ball",
+      "A warning to bowlers"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The ICC abolished the controversial soft signal in 2023, allowing TV umpires full autonomy to judge catches.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-036",
+    "question": "How many reviews does each team get per innings in a T20 International?",
+    "options": [
+      "2 reviews per innings",
+      "1 review",
+      "3 reviews",
+      "Unlimited"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In T20Is, each side is allocated 2 unsuccessful reviews per innings.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-037",
+    "question": "How many reviews does each team get per innings in a Test match?",
+    "options": [
+      "3 reviews per innings",
+      "2 reviews",
+      "4 reviews",
+      "1 review"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In Test matches, teams are allowed 3 unsuccessful reviews per innings.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-038",
+    "question": "What is the Stop Clock rule implemented by the ICC in white-ball cricket?",
+    "options": [
+      "The bowling side must start the next over within 60 seconds (warning on first two, 5-run penalty on third)",
+      "A match timer",
+      "DRS countdown",
+      "Drink break timer"
+    ],
+    "correctAnswer": 0,
+    "explanation": "An electronic 60-second timer forces teams to begin overs on schedule to curb slow over rates.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-039",
+    "question": "What happens if a bowling side is behind the required over rate at the start of the final over in a T20 match?",
+    "options": [
+      "They must bring one additional fielder inside the 30-yard circle for the remainder of the innings",
+      "The bowler is banned",
+      "The batting team gets 10 runs",
+      "The match ends"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Failing to start the final over in time forces only 4 fielders outside the ring instead of 5.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-040",
+    "question": "Can a batsman be given out Stumped off a No-Ball delivery?",
+    "options": [
+      "No, a batsman cannot be Stumped off a No-Ball (though they can be Run Out if they attempt a run)",
+      "Yes, if the keeper takes the bails",
+      "Yes, on appeal",
+      "Only if outside the crease"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Stumping requires a legal delivery; off a No-Ball, the dismissal is void unless a genuine run is being attempted.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-041",
+    "question": "Can a batsman be given out Stumped off a Wide delivery?",
+    "options": [
+      "Yes, a batsman CAN be stumped off a Wide ball",
+      "No, wide balls are dead",
+      "Only in Test matches",
+      "Only on third umpire call"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A batsman can legally be stumped off a wide delivery if they leave their crease without attempting a run.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-042",
+    "question": "What is a 'Beamer' in cricket terminology?",
+    "options": [
+      "A full-toss delivery that reaches the batsman above waist height without bouncing",
+      "A bouncer over the head",
+      "A slower ball",
+      "A yorker on the toes"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A beamer is an illegal, dangerous delivery that results in an immediate No-Ball call.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-043",
+    "question": "How many beamers can a bowler deliver before being barred from bowling for the rest of the innings?",
+    "options": [
+      "Two dangerous beamers (or one blatant intentional beamer)",
+      "Three beamers",
+      "Five beamers",
+      "One beamer always"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Umpires issue a first warning on an accidental beamer; a second dangerous beamer suspends the bowler from bowling.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-044",
+    "question": "What is the maximum number of bouncers (short-pitched deliveries above shoulder height) allowed per over in T20 international cricket?",
+    "options": [
+      "1 bouncer per over (IPL permits 2)",
+      "2 bouncers",
+      "3 bouncers",
+      "Unlimited"
+    ],
+    "correctAnswer": 0,
+    "explanation": "ICC T20I rules allow 1 bouncer per over; any subsequent bouncer is called a No-Ball.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-045",
+    "question": "What is the rule regarding the ball bouncing more than once before reaching the popping crease?",
+    "options": [
+      "A delivery bouncing more than once or rolling along the ground is called a No-Ball",
+      "It is a dead ball",
+      "It is legal",
+      "It is a wide"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Under modern rules, any ball bouncing more than once before the batting crease is ruled a No-Ball.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cru-046",
+    "question": "What happens if both bails fall off and the fielding side wants to effect a run-out?",
+    "options": [
+      "They must pull a stump completely out of the ground with the ball in hand",
+      "They cannot run the batsman out",
+      "Touch the stump with the ball",
+      "Replace the bails first"
+    ],
+    "correctAnswer": 0,
+    "explanation": "If the bails are already down, a fielder must uproot a stump entirely from the turf while holding the ball.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cru-047",
+    "question": "What is an 'Appeal' in cricket and why is it mandatory?",
+    "options": [
+      "Umpires cannot give a batsman out unless an appeal ('Howzat?') is made by the fielding side",
+      "It is just for show",
+      "It gives 1 extra run",
+      "It calls the third umpire"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Law 31 dictates that an umpire shall not declare any batsman out without an appeal from the fielding team.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-048",
+    "question": "What is the follow-on threshold in a standard 5-day Test match?",
+    "options": [
+      "A deficit of 200 runs or more behind the first-innings total",
+      "150 runs",
+      "250 runs",
+      "100 runs"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In a 5-day Test, the side batting second can be forced to follow on if they trail by at least 200 runs.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cru-049",
+    "question": "What is the follow-on threshold in a 4-day first-class match?",
+    "options": [
+      "150 runs",
+      "200 runs",
+      "100 runs",
+      "175 runs"
+    ],
+    "correctAnswer": 0,
+    "explanation": "For matches scheduled for 3 or 4 days, the follow-on margin is 150 runs.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cru-050",
+    "question": "What happens if a batsman plays the ball with the bat and then voluntarily kicks the rolling ball away to prevent it from hitting the stumps?",
+    "options": [
+      "They are NOT OUT (batsmen are legally allowed to guard their wickets using their bat or any part of their body excluding hands)",
+      "They are given Out Handled the Ball",
+      "5 penalty runs",
+      "They are Out Obstructing the Field"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Law 34.3 specifically permits a batsman to use their bat or feet to kick the ball away solely to prevent it from hitting the stumps.",
+    "difficulty": "hard"
+  }
+]

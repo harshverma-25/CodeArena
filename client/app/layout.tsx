@@ -1,27 +1,18 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
+import { Nunito, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { AppProviders } from "@/providers";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta-sans",
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
@@ -93,7 +84,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakartaSans.variable} ${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${nunito.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
         <link rel="icon" type="image/svg+xml" href="/quizzy-favicon.svg" />

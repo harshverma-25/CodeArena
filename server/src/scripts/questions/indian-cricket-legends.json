@@ -1,0 +1,652 @@
+[
+  {
+    "questionId": "icl-001",
+    "question": "Who is universally revered as the 'God of Cricket' and holds the record for 100 international centuries?",
+    "options": [
+      "Virat Kohli",
+      "Sachin Tendulkar",
+      "Sunil Gavaskar",
+      "Rahul Dravid"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sachin Tendulkar scored 51 Test centuries and 49 ODI centuries over a 24-year career.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-002",
+    "question": "Who was the first batsman in cricket history to score 10,000 runs in Test matches without wearing a helmet?",
+    "options": [
+      "Sunil Gavaskar",
+      "Gundappa Viswanath",
+      "Kapil Dev",
+      "Dilip Vengsarkar"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Sunil 'Sunny' Gavaskar crossed the 10,000-run milestone against Pakistan in Ahmedabad in 1987.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-003",
+    "question": "Who is known as 'The Wall' of Indian cricket for his impregnable defense and patience?",
+    "options": [
+      "VVS Laxman",
+      "Rahul Dravid",
+      "Cheteshwar Pujara",
+      "Sourav Ganguly"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rahul Dravid faced more deliveries (31,258) than any other batsman in Test cricket history.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-004",
+    "question": "Which Indian captain is celebrated as 'Captain Cool' and is the only captain to win all three white-ball ICC trophies (T20 WC, ODI WC, Champions Trophy)?",
+    "options": [
+      "Sourav Ganguly",
+      "Virat Kohli",
+      "MS Dhoni",
+      "Rohit Sharma"
+    ],
+    "correctAnswer": 2,
+    "explanation": "MS Dhoni led India to victory in the 2007 T20 World Cup, 2011 ODI World Cup, and 2013 Champions Trophy.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-005",
+    "question": "Who is the legendary leg-spinner who took all 10 wickets in a single Test innings against Pakistan in Delhi (1999)?",
+    "options": [
+      "Anil Kumble",
+      "Harbhajan Singh",
+      "Bishan Singh Bedi",
+      "R. Ashwin"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Anil Kumble became only the second bowler after Jim Laker to claim a perfect 10-wicket innings (10/74).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-006",
+    "question": "Who played the legendary epic knock of 281 at Eden Gardens in 2001 to defeat Australia after following on?",
+    "options": [
+      "VVS Laxman",
+      "Rahul Dravid",
+      "Sachin Tendulkar",
+      "Sourav Ganguly"
+    ],
+    "correctAnswer": 0,
+    "explanation": "VVS Laxman's 281 alongside Dravid's 180 snapped Australia's 16-match winning streak.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-007",
+    "question": "Who was nicknamed 'Dada' and the 'Prince of Calcutta', famously taking off his jersey on the Lord's balcony in 2002?",
+    "options": [
+      "Virender Sehwag",
+      "Sourav Ganguly",
+      "Yuvraj Singh",
+      "Harbhajan Singh"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sourav Ganguly waved his jersey after India won the NatWest Series final chasing 326.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-008",
+    "question": "Who is the 'Nawab of Najafgarh' and the only Indian batsman to score two triple-centuries in Test cricket?",
+    "options": [
+      "Virender Sehwag",
+      "Rohit Sharma",
+      "Karun Nair",
+      "Sunil Gavaskar"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Virender Sehwag scored 309 in Multan (2004) and 319 in Chennai (2008).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-009",
+    "question": "Who is the 'Haryana Hurricane' who led India to the 1983 World Cup and finished with 434 Test wickets?",
+    "options": [
+      "Kapil Dev",
+      "Manoj Prabhakar",
+      "Javon Srinath",
+      "Zaheer Khan"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Kapil Dev was India's premier all-rounder who held the world record for most Test wickets until 1999.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-010",
+    "question": "Who was the off-spinner nicknamed 'The Turbanator' who became the first Indian to take a Test hat-trick in 2001?",
+    "options": [
+      "Harbhajan Singh",
+      "R. Ashwin",
+      "Erapalli Prasanna",
+      "Srinivas Venkataraghavan"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Harbhajan Singh dismissed Ponting, Gilchrist, and Warne in three consecutive balls at Eden Gardens.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-011",
+    "question": "Who holds the record for the most player-of-the-series awards in Test cricket for India and over 500 Test wickets?",
+    "options": [
+      "Ravichandran Ashwin",
+      "Anil Kumble",
+      "Ravindra Jadeja",
+      "Harbhajan Singh"
+    ],
+    "correctAnswer": 0,
+    "explanation": "R. Ashwin is India's second-highest Test wicket-taker and tied for the most Player of the Series awards in history.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-012",
+    "question": "Who was India's left-arm fast bowler known as the 'Knuckleball Master' and joint-highest wicket-taker in the 2011 World Cup?",
+    "options": [
+      "Zaheer Khan",
+      "Ashish Nehra",
+      "Irfan Pathan",
+      "RP Singh"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Zaheer Khan took 21 wickets in the 2011 World Cup and spearheaded India's pace attack for over a decade.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-013",
+    "question": "Who holds the record for 50 ODI centuries, surpassing Sachin Tendulkar's 49 in the 2023 World Cup semi-final?",
+    "options": [
+      "Virat Kohli",
+      "Rohit Sharma",
+      "Shubman Gill",
+      "KL Rahul"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Virat Kohli reached his 50th ODI hundred at Wankhede Stadium in front of Sachin Tendulkar.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-014",
+    "question": "Who is the only batsman in cricket history to score three double-centuries in ODI cricket?",
+    "options": [
+      "Rohit Sharma",
+      "Virender Sehwag",
+      "Sachin Tendulkar",
+      "Martin Guptill"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Rohit Sharma scored 209 against Australia, 264 against Sri Lanka, and 208* against Sri Lanka.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-015",
+    "question": "Who was the brilliant Indian batsman known as 'Colonel' who scored centuries in four consecutive Tests at Lord's?",
+    "options": [
+      "Dilip Vengsarkar",
+      "Gundappa Viswanath",
+      "Polly Umrigar",
+      "Vijay Hazare"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Dilip Vengsarkar holds the record for scoring three consecutive centuries at Lord's Cricket Ground.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "icl-016",
+    "question": "Who captained India to their historic first-ever Test series victories in England and West Indies in 1971?",
+    "options": [
+      "Ajit Wadekar",
+      "Mansoor Ali Khan Pataudi",
+      "Sunil Gavaskar",
+      "Bishen Singh Bedi"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Ajit Wadekar captained India to landmark triumphs in the Caribbean and England in the same year.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-017",
+    "question": "Who was the 'Tiger' of Indian cricket who captained with only one functional eye after a car accident?",
+    "options": [
+      "Mansoor Ali Khan Pataudi",
+      "Farokh Engineer",
+      "E.A.S. Prasanna",
+      "Bapu Nadkarni"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Tiger Pataudi lost his right eye in 1961 but became India's youngest Test captain at age 21.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-018",
+    "question": "Which Indian bowler bowled 21 consecutive maiden overs in a Test match against England in Madras (1964)?",
+    "options": [
+      "Bapu Nadkarni",
+      "Bishan Bedi",
+      "Subhash Gupte",
+      "Vinoo Mankad"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Bapu Nadkarni bowled 131 consecutive dot balls (32-27-5-0), an unbroken world record.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "icl-019",
+    "question": "Who was the pioneering all-rounder after whom the running out of a non-striker who backs up too far was named?",
+    "options": [
+      "Vinoo Mankad",
+      "Lala Amarnath",
+      "C.K. Nayudu",
+      "Syed Mushtaq Ali"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Vinoo Mankad famously ran out Bill Brown in Australia in 1947, entering the cricket lexicon.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-020",
+    "question": "Who was the first captain of the Indian cricket team in their inaugural Test match at Lord's in 1932?",
+    "options": [
+      "C.K. Nayudu",
+      "Lala Amarnath",
+      "Vijay Merchant",
+      "Wazir Ali"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Col. C.K. Nayudu captained India in their first Test against England in 1932.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-021",
+    "question": "Who was the first batsman to score a Test century for independent India?",
+    "options": [
+      "Lala Amarnath",
+      "Vijay Hazare",
+      "Pankaj Roy",
+      "Polly Umrigar"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Lala Amarnath scored 118 against England in Bombay in 1933.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "icl-022",
+    "question": "Who took a famous hat-trick in the very first over of a Test match against Pakistan in Karachi (2006)?",
+    "options": [
+      "Irfan Pathan",
+      "Zaheer Khan",
+      "RP Singh",
+      "S. Sreesanth"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Irfan Pathan dismissed Salman Butt, Younis Khan, and Mohammad Yousuf in the first over.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-023",
+    "question": "Who was the legendary leg-spinner who bowled with a fractured jaw bandaged with bandages in Antigua (2002) and dismissed Brian Lara?",
+    "options": [
+      "Anil Kumble",
+      "Harbhajan Singh",
+      "Sarandeep Singh",
+      "Javagal Srinath"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Anil Kumble bowled 14 consecutive overs with a broken jaw, embodying true courage.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-024",
+    "question": "Who holds the record for the highest score by an Indian batsman in Test cricket (319)?",
+    "options": [
+      "Virender Sehwag",
+      "Karun Nair",
+      "Virat Kohli",
+      "Sachin Tendulkar"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Virender Sehwag scored 319 off 304 balls against South Africa in Chennai (2008).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-025",
+    "question": "Who is the only other Indian batsman besides Sehwag to score a triple century in Test cricket (303* vs England in 2016)?",
+    "options": [
+      "Karun Nair",
+      "Cheteshwar Pujara",
+      "Rohit Sharma",
+      "Mayank Agarwal"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Karun Nair scored 303 not out in Chennai in his third Test match.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-026",
+    "question": "Which Indian speedster was nicknamed the 'Mysore Express' and led India's pace bowling throughout the 1990s?",
+    "options": [
+      "Javagal Srinath",
+      "Venkatesh Prasad",
+      "Madan Lal",
+      "Debashish Mohanty"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Javagal Srinath was clocked over 150 km/h in the 1990s and claimed 236 Test wickets.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-027",
+    "question": "Who had the famous dramatic send-off clash with Aamer Sohail in the 1996 World Cup quarter-final in Bangalore?",
+    "options": [
+      "Venkatesh Prasad",
+      "Javagal Srinath",
+      "Anil Kumble",
+      "Ashish Nehra"
+    ],
+    "correctAnswer": 0,
+    "explanation": "After Sohail pointed to the boundary, Venkatesh Prasad clean-bowled him next ball and gestured to the pavilion.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-028",
+    "question": "Which Indian batsman is legendary for his wristy elegance, late cuts, and the master of square cuts in the 1970s?",
+    "options": [
+      "Gundappa Viswanath",
+      "Sunil Gavaskar",
+      "Dilip Vengsarkar",
+      "Mohinder Amarnath"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Gundappa Viswanath's wristwork was regarded as the most graceful in world cricket.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "icl-029",
+    "question": "Who was the left-arm spinner and captain who was part of India's famed Spin Quartet with Prasanna, Venkataraghavan, and Chandrasekhar?",
+    "options": [
+      "Bishan Singh Bedi",
+      "Bapu Nadkarni",
+      "Maninder Singh",
+      "Dilip Doshi"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Bishan Singh Bedi was renowned for his rhythmic run-up and artistic flight.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-030",
+    "question": "Which leg-spinner in the Spin Quartet overcame a childhood polio-withered right arm to become a terrifying bowler?",
+    "options": [
+      "B.S. Chandrasekhar",
+      "E.A.S. Prasanna",
+      "Bishan Bedi",
+      "Subhash Gupte"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Bhagwat Chandrasekhar converted his withered arm into a deadly source of bounce and googlies.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "icl-031",
+    "question": "Which legendary wicket-keeper was known for not wearing thigh guards and keeping with flamboyant charisma in the 1960s-70s?",
+    "options": [
+      "Farokh Engineer",
+      "Syed Kirmani",
+      "Kiran More",
+      "Nayan Mongia"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Farokh Engineer was an aggressive batsman and world-class keeper who represented Lancashire.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "icl-032",
+    "question": "Who won the Best Wicketkeeper award in the 1983 World Cup with his brilliant glovework standing up to Kapil Dev?",
+    "options": [
+      "Syed Kirmani",
+      "Kiran More",
+      "Farokh Engineer",
+      "Parthiv Patel"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Syed Kirmani took 12 catches and 2 stumpings in the 1983 World Cup.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-033",
+    "question": "Who holds the record for the most catches by a non-wicketkeeper in Test cricket history (210 catches)?",
+    "options": [
+      "Rahul Dravid",
+      "VVS Laxman",
+      "Jacques Kallis",
+      "Ricky Ponting"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Rahul Dravid was a premier slip catcher, securing 210 catches in 164 Tests.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-034",
+    "question": "Which Indian batsman scored 6 centuries in his debut Test series against the West Indies in 1971?",
+    "options": [
+      "Sunil Gavaskar (774 runs)",
+      "Gundappa Viswanath",
+      "Dilip Sardesai",
+      "Ajit Wadekar"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Sunil Gavaskar amassed 774 runs at an average of 154.80, immortalized in a calypso.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-035",
+    "question": "Who took 6 wickets for 23 runs against England in Durban during the 2003 World Cup?",
+    "options": [
+      "Ashish Nehra",
+      "Zaheer Khan",
+      "Javagal Srinath",
+      "Harbhajan Singh"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Ashish Nehra delivered one of India's most devastating left-arm pace spells on an injured ankle.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-036",
+    "question": "Who was the first Indian cricketer to score a century in T20 International cricket (against South Africa in 2010)?",
+    "options": [
+      "Suresh Raina",
+      "Rohit Sharma",
+      "Virat Kohli",
+      "KL Rahul"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Suresh Raina scored 101 in Gros Islet during the 2010 World Twenty20.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-037",
+    "question": "Who scored 183 runs off 145 balls against Sri Lanka in Jaipur (2005), the highest ODI score by a wicket-keeper?",
+    "options": [
+      "MS Dhoni",
+      "Kumar Sangakkara",
+      "Adam Gilchrist",
+      "Quinton de Kock"
+    ],
+    "correctAnswer": 0,
+    "explanation": "MS Dhoni's blistering 183* featured 15 boundaries and 10 towering sixes.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-038",
+    "question": "Who hit the longest six by an Indian in international cricket (124 meters against Australia in 2007)?",
+    "options": [
+      "Yuvraj Singh",
+      "MS Dhoni",
+      "Rohit Sharma",
+      "Hardik Pandya"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Yuvraj Singh flicked Brett Lee over square leg for a monstrous 124-meter six in Durban.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-039",
+    "question": "Who was the Indian captain when India reached the No. 1 ranking in ICC Test cricket for the first time in December 2009?",
+    "options": [
+      "MS Dhoni",
+      "Sourav Ganguly",
+      "Rahul Dravid",
+      "Anil Kumble"
+    ],
+    "correctAnswer": 0,
+    "explanation": "MS Dhoni's team defeated Sri Lanka 2-0 in 2009 to take the Test mace for the first time.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-040",
+    "question": "Who has the best bowling figures in an innings for India in ODI cricket (7 for 57)?",
+    "options": [
+      "Mohammed Shami",
+      "Stuart Binny (6/4)",
+      "Anil Kumble (6/12)",
+      "Jasprit Bumrah (6/19)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Mohammed Shami took 7/57 against New Zealand in the 2023 World Cup semi-final.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-041",
+    "question": "Who holds the record for the most economical bowling figures in an ODI for India (6 wickets for 4 runs vs Bangladesh in 2014)?",
+    "options": [
+      "Stuart Binny",
+      "Anil Kumble",
+      "Ravindra Jadeja",
+      "Bhuveneshwar Kumar"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Stuart Binny defended a meager total of 105 by taking 6 wickets for just 4 runs in Mirpur.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-042",
+    "question": "Who was the stylish left-handed batsman from Hyderabad who served as captain and led India to 3 successive World Cups (1992, 1996, 1999)?",
+    "options": [
+      "Mohammad Azharuddin",
+      "Mansoor Ali Khan Pataudi",
+      "Sourav Ganguly",
+      "VVS Laxman"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Mohammad Azharuddin began his career with three centuries in his first three Tests.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-043",
+    "question": "Who was the fiery Indian pace bowler who famously swung the ball both ways and took 5 wickets on debut against Australia in Melbourne (2011)?",
+    "options": [
+      "Umesh Yadav",
+      "Varun Aaron",
+      "Mohammed Shami",
+      "Ishant Sharma"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Umesh Yadav impressed with raw pace and natural outswing.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "icl-044",
+    "question": "Who famously bowled an unforgettable 9-over spell to Ricky Ponting in Perth (2008) as a 19-year-old?",
+    "options": [
+      "Ishant Sharma",
+      "RP Singh",
+      "S. Sreesanth",
+      "Munaf Patel"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Ishant Sharma relentlessly set up and dismissed Ricky Ponting at the WACA.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-045",
+    "question": "Which Indian batsman scored a century before lunch on Day 1 of a Test match (against Afghanistan in 2018)?",
+    "options": [
+      "Shikhar Dhawan",
+      "Virender Sehwag",
+      "Rohit Sharma",
+      "KL Rahul"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Shikhar Dhawan became the first Indian to score a hundred before lunch on the opening day of a Test.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "icl-046",
+    "question": "Who is known as the 'Gabbar' of Indian cricket, celebrated for his twirling moustache and ICC tournament centuries?",
+    "options": [
+      "Shikhar Dhawan",
+      "Hardik Pandya",
+      "Ravindra Jadeja",
+      "Suresh Raina"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Shikhar Dhawan won the Golden Bat in the 2013 and 2017 ICC Champions Trophies.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-047",
+    "question": "Which Indian pace spearhead is famous for his unorthodox hyper-extended bowling action and unplayable yorkers?",
+    "options": [
+      "Jasprit Bumrah",
+      "Mohammed Shami",
+      "Mohammed Siraj",
+      "Bhuvneshwar Kumar"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Jasprit Bumrah is widely regarded as the most complete all-format bowler of the modern era.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-048",
+    "question": "Who is the legendary left-arm all-rounder nicknamed 'Sir Jadeja' by fans and teammates?",
+    "options": [
+      "Ravindra Jadeja",
+      "Axar Patel",
+      "Yuvraj Singh",
+      "Krunal Pandya"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Ravindra Jadeja is a world-class fielder, Test all-rounder, and accurate left-arm spinner.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-049",
+    "question": "Who scored 175 off 66 balls in the IPL for RCB, the highest T20 individual score in history?",
+    "options": [
+      "Chris Gayle",
+      "AB de Villiers",
+      "Virat Kohli",
+      "Brendon McCullum"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Chris Gayle demolished Pune Warriors India in Bangalore in 2013 with 17 sixes.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "icl-050",
+    "question": "Who was the head coach of India when they won the 2024 ICC T20 World Cup, signing off on a glorious high?",
+    "options": [
+      "Rahul Dravid",
+      "Ravi Shastri",
+      "Anil Kumble",
+      "Gary Kirsten"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Rahul Dravid ended his coaching tenure by guiding India to their first ICC trophy in 11 years.",
+    "difficulty": "easy"
+  }
+]

@@ -1,0 +1,652 @@
+[
+  {
+    "questionId": "ipl-t-001",
+    "question": "Which team uses the slogan 'Whistle Podu' and plays at M. A. Chidambaram Stadium (Chepauk)?",
+    "options": [
+      "Chennai Super Kings",
+      "Mumbai Indians",
+      "Royal Challengers Bengaluru",
+      "Kolkata Knight Riders"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Chennai Super Kings (CSK) are renowned for their yellow jersey, 'Whistle Podu' anthem, and fortress Chepauk.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-002",
+    "question": "Which team won 5 IPL titles under the captaincy of Rohit Sharma between 2013 and 2020?",
+    "options": [
+      "Kolkata Knight Riders",
+      "Mumbai Indians",
+      "Sunrisers Hyderabad",
+      "Delhi Capitals"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mumbai Indians won the IPL in 2013, 2015, 2017, 2019, and 2020 under Rohit Sharma.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-003",
+    "question": "Which team has the passionate fan slogan 'Ee Sala Cup Namde' (This year the cup is ours)?",
+    "options": [
+      "Punjab Kings",
+      "Royal Challengers Bengaluru",
+      "Rajasthan Royals",
+      "Lucknow Super Giants"
+    ],
+    "correctAnswer": 1,
+    "explanation": "RCB fans famously rally behind the Kannada battle cry 'Ee Sala Cup Namde'.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-004",
+    "question": "Which team won the inaugural edition of the Indian Premier League in 2008 under Shane Warne's leadership?",
+    "options": [
+      "Rajasthan Royals",
+      "Chennai Super Kings",
+      "Deccan Chargers",
+      "Delhi Daredevils"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Rajasthan Royals, coached and captained by Australian spin legend Shane Warne, were crowned champions in 2008.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-005",
+    "question": "Co-owned by Shah Rukh Khan and Juhi Chawla, which franchise's anthem is 'Korbo, Lorbo, Jeetbo Re'?",
+    "options": [
+      "Delhi Capitals",
+      "Punjab Kings",
+      "Kolkata Knight Riders",
+      "Gujarat Titans"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Kolkata Knight Riders (KKR) play at Eden Gardens and are co-owned by Shah Rukh Khan.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-006",
+    "question": "Which team won the IPL in their debut season in 2022 under Hardik Pandya's captaincy?",
+    "options": [
+      "Lucknow Super Giants",
+      "Gujarat Titans",
+      "Sunrisers Hyderabad",
+      "Rising Pune Supergiant"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Gujarat Titans lifted the trophy in 2022 after defeating Rajasthan Royals in the final at Ahmedabad.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-007",
+    "question": "Which franchise plays their home games at Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium?",
+    "options": [
+      "Lucknow Super Giants",
+      "Punjab Kings",
+      "Delhi Capitals",
+      "Rajasthan Royals"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Lucknow Super Giants (LSG), introduced in 2022, have Ekana Stadium in Lucknow as their home ground.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-008",
+    "question": "Formerly known as Kings XI Punjab, what is this Mohali-based franchise renamed to?",
+    "options": [
+      "Punjab Warriors",
+      "Punjab Kings",
+      "Punjab Lions",
+      "Royal Punjab"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The franchise rebranded from Kings XI Punjab to Punjab Kings ahead of IPL 2021.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-009",
+    "question": "Which team rebranded from 'Delhi Daredevils' in December 2018?",
+    "options": [
+      "Delhi Capitals",
+      "Delhi Dynamos",
+      "Delhi Challengers",
+      "Delhi Tigers"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Delhi franchise changed their name to Delhi Capitals ahead of the 2019 season.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-010",
+    "question": "Which team replaced the Deccan Chargers in 2013 and won their first title under David Warner in 2016?",
+    "options": [
+      "Gujarat Lions",
+      "Sunrisers Hyderabad",
+      "Rising Pune Supergiant",
+      "Kochi Tuskers Kerala"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sunrisers Hyderabad was formed in 2013 and clinched the title in 2016 beating RCB in the final.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-011",
+    "question": "Identify the team: Chris Gayle scored his record-shattering 175* off 66 balls playing for which team?",
+    "options": [
+      "Kolkata Knight Riders",
+      "Kings XI Punjab",
+      "Royal Challengers Bengaluru",
+      "Sunrisers Hyderabad"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Chris Gayle smashed 175* against Pune Warriors India at M. Chinnaswamy Stadium in 2013 playing for RCB.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-012",
+    "question": "Which team plays at Sawai Mansingh Stadium in Jaipur?",
+    "options": [
+      "Rajasthan Royals",
+      "Gujarat Titans",
+      "Punjab Kings",
+      "Delhi Capitals"
+    ],
+    "correctAnswer": 0,
+    "explanation": "SMS Stadium in the Pink City of Jaipur is the fortress of the Rajasthan Royals.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-013",
+    "question": "Which franchise won the IPL 2024 final decisively under the mentorship of Gautam Gambhir?",
+    "options": [
+      "Sunrisers Hyderabad",
+      "Kolkata Knight Riders",
+      "Chennai Super Kings",
+      "Rajasthan Royals"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kolkata Knight Riders won the 2024 IPL championship beating Sunrisers Hyderabad in Chennai.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-014",
+    "question": "Identify the team: Adam Gilchrist led this franchise to IPL glory in South Africa in 2009.",
+    "options": [
+      "Deccan Chargers",
+      "Royal Challengers Bangalore",
+      "Delhi Daredevils",
+      "Rajasthan Royals"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Deccan Chargers won the 2009 IPL held in South Africa, captained by Adam Gilchrist.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-015",
+    "question": "Which team was suspended alongside Rajasthan Royals for the 2016 and 2017 IPL seasons?",
+    "options": [
+      "Kolkata Knight Riders",
+      "Chennai Super Kings",
+      "Mumbai Indians",
+      "Sunrisers Hyderabad"
+    ],
+    "correctAnswer": 1,
+    "explanation": "CSK and RR were banned for two seasons (2016 and 2017) following the spot-fixing inquiry.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-016",
+    "question": "Which temporary franchise was captained by MS Dhoni in 2016 and Steve Smith in 2017?",
+    "options": [
+      "Gujarat Lions",
+      "Rising Pune Supergiant",
+      "Pune Warriors India",
+      "Kochi Tuskers Kerala"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rising Pune Supergiant (RPS) competed in 2016 and 2017, reaching the final in 2017.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-017",
+    "question": "Which team played only in the 2011 IPL season before having their contract terminated?",
+    "options": [
+      "Kochi Tuskers Kerala",
+      "Pune Warriors India",
+      "Gujarat Lions",
+      "Deccan Chargers"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Kochi Tuskers Kerala competed only in the 2011 edition of the IPL.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "ipl-t-018",
+    "question": "Identify the team that posted the all-time lowest total in IPL history: 49 all out against KKR in 2017.",
+    "options": [
+      "Rajasthan Royals",
+      "Delhi Daredevils",
+      "Royal Challengers Bengaluru",
+      "Punjab Kings"
+    ],
+    "correctAnswer": 2,
+    "explanation": "RCB were bowled out for a meager 49 runs at Eden Gardens against KKR on April 23, 2017.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-019",
+    "question": "Which team holds the record for scoring 287/3 against RCB in IPL 2024?",
+    "options": [
+      "Sunrisers Hyderabad",
+      "Kolkata Knight Riders",
+      "Mumbai Indians",
+      "Punjab Kings"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Sunrisers Hyderabad smashed 287/3 at Bengaluru in April 2024, setting a record team total in IPL.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-020",
+    "question": "Which franchise has Preity Zinta as one of its most visible co-owners in the stands?",
+    "options": [
+      "Punjab Kings",
+      "Rajasthan Royals",
+      "Delhi Capitals",
+      "Kolkata Knight Riders"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Bollywood actress Preity Zinta is co-owner and the energetic cheerleader of Punjab Kings.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-021",
+    "question": "Which team has won 2 IPL titles (2012 & 2014) both under Gautam Gambhir's captaincy?",
+    "options": [
+      "Delhi Capitals",
+      "Kolkata Knight Riders",
+      "Sunrisers Hyderabad",
+      "Mumbai Indians"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Gautam Gambhir led KKR to titles in 2012 (against CSK) and 2014 (against Kings XI Punjab).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-022",
+    "question": "Identify the team: Jasprit Bumrah made his IPL debut for this franchise in 2013 taking 3 wickets including Virat Kohli.",
+    "options": [
+      "Gujarat Lions",
+      "Mumbai Indians",
+      "Royal Challengers Bengaluru",
+      "Delhi Capitals"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Jasprit Bumrah made an impactful debut for Mumbai Indians against RCB in April 2013.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-023",
+    "question": "Which team represents the state of Gujarat and has Narendra Modi Stadium as their home arena?",
+    "options": [
+      "Gujarat Titans",
+      "Gujarat Lions",
+      "Ahmedabad Rockets",
+      "Saurashtra Strikers"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Gujarat Titans play their home matches at the world's largest cricket stadium, Narendra Modi Stadium.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-024",
+    "question": "Which team did Brendon McCullum represent when he smashed 158* on the opening night of IPL in 2008?",
+    "options": [
+      "Royal Challengers Bangalore",
+      "Kolkata Knight Riders",
+      "Chennai Super Kings",
+      "Mumbai Indians"
+    ],
+    "correctAnswer": 1,
+    "explanation": "McCullum opened the IPL era with an explosive 158* off 73 balls for KKR against RCB on April 18, 2008.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-025",
+    "question": "Identify the team: Suresh Raina earned the moniker 'Mr. IPL' primarily playing for which team?",
+    "options": [
+      "Chennai Super Kings",
+      "Gujarat Lions",
+      "Delhi Capitals",
+      "Mumbai Indians"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Suresh Raina was the batting stalwart and backbone of Chennai Super Kings for over a decade.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-026",
+    "question": "Which team completed the highest successful run chase in T20 cricket history by chasing down 262 against KKR in IPL 2024?",
+    "options": [
+      "Punjab Kings",
+      "Sunrisers Hyderabad",
+      "Mumbai Indians",
+      "Rajasthan Royals"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Punjab Kings chased down 262 with 8 balls to spare at Eden Gardens in April 2024, setting a world record.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "ipl-t-027",
+    "question": "Which team did AB de Villiers represent in the IPL before joining Royal Challengers Bangalore?",
+    "options": [
+      "Delhi Daredevils",
+      "Rajasthan Royals",
+      "Deccan Chargers",
+      "Mumbai Indians"
+    ],
+    "correctAnswer": 0,
+    "explanation": "AB de Villiers played for Delhi Daredevils from 2008 to 2010 before moving to RCB in 2011.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-028",
+    "question": "Identify the team whose primary color is orange and home ground is Rajiv Gandhi International Stadium.",
+    "options": [
+      "Gujarat Titans",
+      "Sunrisers Hyderabad",
+      "Pune Warriors India",
+      "Kochi Tuskers Kerala"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sunrisers Hyderabad are famously known as the 'Orange Army' and play at Uppal stadium in Hyderabad.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-029",
+    "question": "Which team has Rishabh Pant captained and represented since his breakout in 2016?",
+    "options": [
+      "Delhi Capitals",
+      "Punjab Kings",
+      "Lucknow Super Giants",
+      "Rajasthan Royals"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Rishabh Pant made his IPL debut for Delhi Daredevils (now Delhi Capitals) and became captain in 2021.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-030",
+    "question": "Which franchise won back-to-back IPL championships in 2010 and 2011?",
+    "options": [
+      "Kolkata Knight Riders",
+      "Mumbai Indians",
+      "Chennai Super Kings",
+      "Rajasthan Royals"
+    ],
+    "correctAnswer": 2,
+    "explanation": "CSK became the first team to win consecutive IPL titles in 2010 (vs MI) and 2011 (vs RCB).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-031",
+    "question": "Which team was owned by Subrata Roy's Sahara Group and played between 2011 and 2013?",
+    "options": [
+      "Pune Warriors India",
+      "Kochi Tuskers Kerala",
+      "Rising Pune Supergiant",
+      "Deccan Chargers"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Pune Warriors India was owned by Sahara Adventure Sports Limited from 2011 to 2013.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-032",
+    "question": "Which franchise was bought by the RP-Sanjiv Goenka Group (RPSG) for a record ₹7,090 crore in 2021?",
+    "options": [
+      "Gujarat Titans",
+      "Lucknow Super Giants",
+      "Rising Pune Supergiant",
+      "Kochi Tuskers Kerala"
+    ],
+    "correctAnswer": 1,
+    "explanation": "RPSG Group won the bid for the Lucknow franchise (LSG) for ₹7,090 crore ($940 million).",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "ipl-t-033",
+    "question": "Which franchise won their 5th title in thrilling fashion off the last ball in a rain-curtailed final in 2023?",
+    "options": [
+      "Gujarat Titans",
+      "Chennai Super Kings",
+      "Mumbai Indians",
+      "Kolkata Knight Riders"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ravindra Jadeja struck a six and four off the final two deliveries to seal CSK's 5th title against Gujarat Titans.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-034",
+    "question": "Which team's home venue is the Arun Jaitley Stadium (formerly Feroz Shah Kotla)?",
+    "options": [
+      "Punjab Kings",
+      "Delhi Capitals",
+      "Lucknow Super Giants",
+      "Rajasthan Royals"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arun Jaitley Stadium in New Delhi is the home fortress of the Delhi Capitals.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-035",
+    "question": "Identify the team: Sunil Narine and Andre Russell have both won multiple MVP / Player of the Tournament awards for which team?",
+    "options": [
+      "Kolkata Knight Riders",
+      "Mumbai Indians",
+      "Sunrisers Hyderabad",
+      "Delhi Capitals"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Both Caribbean all-rounders have been long-standing pillars and match-winners for KKR.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-036",
+    "question": "Which team reached the final in 2014 under George Bailey, scoring 199 in the final against KKR?",
+    "options": [
+      "Kings XI Punjab",
+      "Rajasthan Royals",
+      "Delhi Daredevils",
+      "Sunrisers Hyderabad"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Kings XI Punjab had a phenomenal 2014 season powered by Glenn Maxwell and Wriddhiman Saha's century in the final.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-037",
+    "question": "Identify the team: Kieron Pollard played all his 189 IPL matches for this single franchise from 2010 to 2022.",
+    "options": [
+      "Chennai Super Kings",
+      "Mumbai Indians",
+      "Royal Challengers Bangalore",
+      "Kolkata Knight Riders"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kieron Pollard spent his entire 13-season IPL playing career with Mumbai Indians.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-038",
+    "question": "Which team did Shane Watson score a blistering century for on one leg in the 2019 IPL final?",
+    "options": [
+      "Rajasthan Royals",
+      "Royal Challengers Bangalore",
+      "Chennai Super Kings",
+      "Mumbai Indians"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Shane Watson batted courageously with a bleeding knee for CSK, scoring 80 off 59 balls in the 2019 final.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-039",
+    "question": "Which franchise won the fair play award in the inaugural season and was captained by Rahul Dravid in later years?",
+    "options": [
+      "Rajasthan Royals",
+      "Deccan Chargers",
+      "Delhi Daredevils",
+      "Royal Challengers Bangalore"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Rajasthan Royals were renowned for their disciplined cricket and youth mentorship under Dravid.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-040",
+    "question": "Identify the team: Yuzvendra Chahal is the all-time highest wicket-taker for which IPL franchise?",
+    "options": [
+      "Rajasthan Royals",
+      "Royal Challengers Bengaluru",
+      "Mumbai Indians",
+      "Delhi Capitals"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Chahal picked up 139 wickets for RCB between 2014 and 2021 before joining Rajasthan Royals.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-041",
+    "question": "Which team has qualified for the playoffs in 12 out of the 15 seasons they competed in up to 2024?",
+    "options": [
+      "Mumbai Indians",
+      "Chennai Super Kings",
+      "Kolkata Knight Riders",
+      "Sunrisers Hyderabad"
+    ],
+    "correctAnswer": 1,
+    "explanation": "CSK holds an unmatched consistency record, qualifying for the playoffs 12 times and reaching 10 finals.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-042",
+    "question": "Which team did Chris Gayle score a century on his debut match for after going unsold in the 2011 auction initially?",
+    "options": [
+      "Kolkata Knight Riders",
+      "Royal Challengers Bangalore",
+      "Kings XI Punjab",
+      "Pune Warriors India"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Gayle came in as a replacement for Dirk Nannes and scored 102* off 55 against KKR in his RCB debut.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "ipl-t-043",
+    "question": "Which team did Hardik Pandya lead to back-to-back finals in 2022 and 2023?",
+    "options": [
+      "Mumbai Indians",
+      "Gujarat Titans",
+      "Lucknow Super Giants",
+      "Sunrisers Hyderabad"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hardik captained Gujarat Titans to victory in 2022 and runners-up finish in 2023.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-044",
+    "question": "Which team has Sourav Ganguly served as Director of Cricket and Ricky Ponting as head coach?",
+    "options": [
+      "Kolkata Knight Riders",
+      "Delhi Capitals",
+      "Mumbai Indians",
+      "Punjab Kings"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ricky Ponting was head coach and Sourav Ganguly was Director of Cricket at Delhi Capitals.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-045",
+    "question": "Which team represents the pink city and wears pink and blue jerseys?",
+    "options": [
+      "Punjab Kings",
+      "Rajasthan Royals",
+      "Gujarat Titans",
+      "Lucknow Super Giants"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rajasthan Royals adopted pink jerseys in tribute to the Pink City of Jaipur.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-046",
+    "question": "Which team's home venue was the Brabourne Stadium and DY Patil Stadium in early IPL editions?",
+    "options": [
+      "Mumbai Indians",
+      "Chennai Super Kings",
+      "Deccan Chargers",
+      "Pune Warriors India"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Mumbai Indians played matches at Brabourne and DY Patil while Wankhede Stadium was undergoing renovation for the 2011 WC.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "ipl-t-047",
+    "question": "Which franchise's reserve home ground is the scenic HPCA Stadium in Dharamshala?",
+    "options": [
+      "Delhi Capitals",
+      "Punjab Kings",
+      "Rajasthan Royals",
+      "Lucknow Super Giants"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Punjab Kings host select home matches at the picturesque Dharamshala stadium in Himachal Pradesh.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-048",
+    "question": "Identify the team: Who won the 2016 IPL trophy defending 208 against RCB at M. Chinnaswamy Stadium?",
+    "options": [
+      "Sunrisers Hyderabad",
+      "Kolkata Knight Riders",
+      "Mumbai Indians",
+      "Chennai Super Kings"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Sunrisers Hyderabad defeated RCB by 8 runs in the 2016 final to lift their maiden title.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "ipl-t-049",
+    "question": "Which team holds the record for 3 centuries by a single batter (Jos Buttler) in winning causes in IPL 2022?",
+    "options": [
+      "Rajasthan Royals",
+      "Royal Challengers Bengaluru",
+      "Mumbai Indians",
+      "Gujarat Titans"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Jos Buttler scored 4 centuries in total for Rajasthan Royals in IPL 2022, scoring 863 runs in the season.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "ipl-t-050",
+    "question": "Which team has the iconic horn tune followed by the crowd chanting their initials three times?",
+    "options": [
+      "CSK",
+      "RCB",
+      "MI",
+      "KKR"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The iconic Chinnaswamy stadium horn followed by the resounding chant 'R-C-B!' is one of cricket's most famous fan traditions.",
+    "difficulty": "easy"
+  }
+]

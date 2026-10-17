@@ -1,0 +1,652 @@
+[
+  {
+    "questionId": "bl-001",
+    "question": "What is the name of Ichigo Kurosaki's Zanpakuto?",
+    "options": [
+      "Senbonzakura",
+      "Zangetsu",
+      "Hyorinmaru",
+      "Kyoka Suigetsu"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Zangetsu (Slaying Moon) is the spirit of Ichigo's Zanpakuto.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-002",
+    "question": "Who was the Soul Reaper who transferred her powers to Ichigo in the very first episode?",
+    "options": [
+      "Orihime Inoue",
+      "Rukia Kuchiki",
+      "Yoruichi Shihoin",
+      "Rangiku Matsumoto"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rukia Kuchiki was forced to pierce Ichigo with her blade to save his family from a Hollow.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-003",
+    "question": "What is the second and ultimate release stage of a Zanpakuto called?",
+    "options": [
+      "Shikai",
+      "Bankai",
+      "Resurreccion",
+      "Vollstandig"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bankai is the final release form of a Soul Reaper's Zanpakuto, multiplying power 5 to 10-fold.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-004",
+    "question": "What is Ichigo's signature energy wave attack called?",
+    "options": [
+      "Getsuga Tensho",
+      "Cero",
+      "Bala",
+      "Hadou 90: Kurohitsugi"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Getsuga Tensho (Moon Fang Heaven-Piercer) concentrates spiritual pressure into a slashing crescent arc.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-005",
+    "question": "What organization of 13 military divisions protects the Soul Society?",
+    "options": [
+      "Espada",
+      "Gotei 13",
+      "Vandenreich",
+      "Visoreds"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Gotei 13 (Thirteen Court Guard Squads) is the premier military defense organization of the Soul Society.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-006",
+    "question": "Who was the Captain of Squad 5 who betrayed the Soul Society and ascended to Hueco Mundo?",
+    "options": [
+      "Gin Ichimaru",
+      "Kaname Tosen",
+      "Sosuke Aizen",
+      "Kisuke Urahara"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Sosuke Aizen staged his own murder to orchestrate the acquisition of the Hogyoku.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-007",
+    "question": "What is the name of Aizen's complete hypnosis Zanpakuto?",
+    "options": [
+      "Kyoka Suigetsu",
+      "Senbonzakura",
+      "Suzumebachi",
+      "Ashisogi Jizo"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Kyoka Suigetsu (Mirror Flower, Water Moon) places anyone who sees its release under complete hypnosis.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-008",
+    "question": "What miraculous artifact capable of dissolving boundaries between Soul Reapers and Hollows did Urahara and Aizen develop?",
+    "options": [
+      "Hogyoku",
+      "Oken",
+      "Quincy Cross",
+      "Sanrei Glove"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Hogyoku manifests the deepest desires of those around it and allows hollowfication/arrancarization.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-009",
+    "question": "What are the top 10 most powerful Arrancars under Aizen's command called?",
+    "options": [
+      "The Sternritter",
+      "The Espada",
+      "The Visoreds",
+      "The Privaron"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Espada are ranked 0 to 9 in order of lethal spiritual pressure.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-010",
+    "question": "Who is the 4th Espada with bat-like wings who represents Emptiness and achieves Segunda Etapa?",
+    "options": [
+      "Grimmjow Jaegerjaquez",
+      "Ulquiorra Cifer",
+      "Coyote Starrk",
+      "Tier Harribel"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ulquiorra Cifer possesses two levels of release and tests Ichigo's resolve in Las Noches.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-011",
+    "question": "Who is the 6th Espada with blue hair and a jaw-mask who fought Ichigo in multiple bloody duels?",
+    "options": [
+      "Grimmjow Jaegerjaquez",
+      "Nnoitra Gilga",
+      "Szayelaporro Granz",
+      "Baraggan Louisenbairn"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Grimmjow is the panther-like Arrancar whose release command is 'Grind, Pantera'.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-012",
+    "question": "Who is the Captain-Commander of the Gotei 13 who wields the devastating flame Zanpakuto Ryujin Jakka?",
+    "options": [
+      "Shunsui Kyoraku",
+      "Genryusai Shigekuni Yamamoto",
+      "Jushiro Ukitake",
+      "Retsu Unohana"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Yamamoto founded the Gotei 13 and held the mantle of Captain-Commander for over 1,000 years.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-013",
+    "question": "What is the release command and power of Byakuya Kuchiki's Bankai, Senbonzakura Kageyoshi?",
+    "options": [
+      "Scatter, turning the blade into thousands of razor-sharp cherry blossom petals",
+      "Freeze all water in the atmosphere",
+      "Burn the world to ashes",
+      "Cut everything in half"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Senbonzakura Kageyoshi drops the sword into the ground, summoning millions of blade petals.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-014",
+    "question": "What is Kisuke Urahara's candy shop in the human world that acts as a base of operations?",
+    "options": [
+      "Urahara Shop (Urahara Shoten)",
+      "Soul Emporium",
+      "Karakura Goods",
+      "Seireitei Outpost"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Former Squad 12 Captain Kisuke Urahara runs a quiet general shop in Karakura Town.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-015",
+    "question": "Who is the former 2nd Division Captain and 'Goddess of Flash' who can transform into a black cat?",
+    "options": [
+      "Yoruichi Shihoin",
+      "Soi Fon",
+      "Kukai Shiba",
+      "Mashiro Kuna"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Yoruichi Shihoin is the master of Shunpo and unarmed martial combat.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-016",
+    "question": "What human clan of spiritual archers fights Hollows using Bows and Spirit Particles (Reishi)?",
+    "options": [
+      "Fullbringers",
+      "Quincies",
+      "Visoreds",
+      "Bounts"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Quincies, led historically by Yhwach and represented by Uryu Ishida, destroy Hollows entirely.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-017",
+    "question": "Who is Ichigo's high school rival and Quincy ally whose father is Ryuken Ishida?",
+    "options": [
+      "Yasutora Sado (Chad)",
+      "Uryu Ishida",
+      "Keigo Asano",
+      "Mizuiro Kojima"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Uryu Ishida is the proud, glasses-wearing Quincy prodigy.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-018",
+    "question": "What is Orihime Inoue's extraordinary hairpin-based power called?",
+    "options": [
+      "Shun Shun Rikka (Six Flowers of the Hibiscus Shield)",
+      "Brazo Derecha",
+      "Santen Kesshun",
+      "Kototen Rikka"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Shun Shun Rikka rejects phenomena, effectively reversing injuries and time-space outcomes.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-019",
+    "question": "What is Yasutora Sado's (Chad) fullbring ability that manifests armored arms?",
+    "options": [
+      "Right Arm of the Giant & Left Arm of the Devil",
+      "Titan Claws",
+      "Iron Fist of El Directo",
+      "Stone Aegis"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Brazo Derecha de Gigante defends while Brazo Izquierda del Diablo delivers crushing strikes.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-020",
+    "question": "What is the ancient Father of the Quincies and Emperor of the Wandenreich called?",
+    "options": [
+      "Yhwach",
+      "Jugram Haschwalth",
+      "Gerard Valkyrie",
+      "Lille Barro"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Yhwach awakened after 900 years to wage the Thousand-Year Blood War.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-021",
+    "question": "What is Yhwach's terrifying almighty ability to see and alter all possible futures?",
+    "options": [
+      "The Almighty ('A')",
+      "The Visionary ('V')",
+      "The Balance ('B')",
+      "The Miracle ('M')"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Almighty allows Yhwach to see infinite future timelines and reshape them to his advantage.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-022",
+    "question": "Who was revealed to be the very first Kenpachi (Yachiru Unohana) and captain of Squad 4?",
+    "options": [
+      "Retsu Unohana",
+      "Yachiru Kusajishi",
+      "Isane Kotetsu",
+      "Nemu Kurotsuchi"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Unohana was the most notorious mass murderer in Soul Society history and the original First Kenpachi.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-023",
+    "question": "What is the name of the elite Five Captains of the Royal Guard who protect the Soul King?",
+    "options": [
+      "Zero Division (Squad 0)",
+      "Imperial Guard",
+      "Oken Legion",
+      "Court Special Forces"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Squad 0 consists of 5 legendary figures whose combined power surpasses all 13 Gotei squads combined.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-024",
+    "question": "Who is the Squad 0 member and 'God of the Sword' who forges every single Asauchi / Zanpakuto?",
+    "options": [
+      "Ichibe Hyosube",
+      "Oetsu Nimaiya",
+      "Tenjiro Kirinji",
+      "Senjumaru Shutara"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Oetsu Nimaiya created all Zanpakuto and forged Ichigo's true dual Zangetsu blades.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "bl-025",
+    "question": "Who is the leader of Squad 0 who names everything in the Soul Society and wields the ink brush Ichimonji?",
+    "options": [
+      "Ichibe Hyosube",
+      "Oetsu Nimaiya",
+      "Genryusai Yamamoto",
+      "Sosuke Aizen"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Ichibe Hyosube, the Monk of Perception, can erase names and strip all divine powers.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "bl-026",
+    "question": "Who was the 'old man Zangetsu' inside Ichigo's soul actually revealed to be?",
+    "options": [
+      "The manifestation of Ichigo's Quincy powers (resembling young Yhwach from 1,000 years ago)",
+      "A demon spirit",
+      "His biological grandfather",
+      "A rogue Soul Reaper"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Old Man Zangetsu represented Ichigo's maternal Quincy heritage, suppressing his true Hollow/Shinigami power.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "bl-027",
+    "question": "Who is Ichigo's father, an ex-captain of the 10th Division who disguised himself as a goofy doctor?",
+    "options": [
+      "Isshin Kurosaki (Isshin Shiba)",
+      "Ryuken Ishida",
+      "Kisuke Urahara",
+      "Kaien Shiba"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Isshin Shiba was head of the Shiba Clan and captain of Squad 10 before marrying Masaki Kurosaki.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-028",
+    "question": "What was Ichigo's mother Masaki Kurosaki's true heritage that resulted in her death to Grand Fisher?",
+    "options": [
+      "She was a pure-blood (Echt) Quincy who lost her powers to Yhwach's Auswahlen",
+      "She was a Hollow",
+      "She was a human witch",
+      "She was a Soul Reaper"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Masaki was a powerful Quincy whose Blut Vene was stripped away during Yhwach's holy selection.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "bl-029",
+    "question": "What technique did Ichigo use to defeat Sosuke Aizen in the Fake Karakura Town climax?",
+    "options": [
+      "Final Getsuga Tensho (Mugetsu)",
+      "Bankai: Tensa Zangetsu",
+      "Gran Rey Cero",
+      "Hollow Mask Burst"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Using the Final Getsuga Tensho, Ichigo became the attack itself, trading all his spiritual powers for absolute god-slaying force.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-030",
+    "question": "What form did Ichigo undergo when Ulquiorra blasted a hole through his chest in Hueco Mundo?",
+    "options": [
+      "Full Vasto Lorde Hollow transformation",
+      "Bankai form 2",
+      "Quincy Vollstandig",
+      "Fullbring Mode"
+    ],
+    "correctAnswer": 0,
+    "explanation": "White Ichigo seized full control, manifesting the iconic horn-bearing Vasto Lorde monster.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-031",
+    "question": "What is the high-speed movement technique practiced by Soul Reapers called?",
+    "options": [
+      "Shunpo (Flash Step)",
+      "Sonido",
+      "Hirenkyaku",
+      "Bringer Light"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Shunpo is the foundational flash step technique of the Soul Society.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-032",
+    "question": "What high-speed movement technique is uniquely used by Arrancars?",
+    "options": [
+      "Sonido",
+      "Shunpo",
+      "Hirenkyaku",
+      "Bringer Light"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Sonido (Sound) is the Arrancar equivalent of flash step, accompanied by a static boom.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-033",
+    "question": "What high-speed movement technique is uniquely used by Quincies?",
+    "options": [
+      "Hirenkyaku",
+      "Sonido",
+      "Shunpo",
+      "Bringer Light"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Hirenkyaku gathers reishi under the user's feet to glide through the air.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-034",
+    "question": "Who is the sadomasochistic science captain of Squad 12 who modifies his own body and daughters?",
+    "options": [
+      "Mayuri Kurotsuchi",
+      "Kisuke Urahara",
+      "Akon",
+      "Nanao Ise"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Mayuri Kurotsuchi heads the Research and Development Institute with bizarre poisons and gadgets.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-035",
+    "question": "Who is the 1st Espada who split his soul into two (himself and Lilynette Gingerbuck) due to loneliness?",
+    "options": [
+      "Coyote Starrk",
+      "Baraggan Louisenbairn",
+      "Tier Harribel",
+      "Nnoitra Gilga"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Coyote Starrk was so spiritually dense that hollows around him perished, so he divided his soul.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-036",
+    "question": "Which Espada was the former king of Hueco Mundo whose breath 'Respira' rots everything it touches?",
+    "options": [
+      "Baraggan Louisenbairn",
+      "Szayelaporro Granz",
+      "Aaroniero Arruruerie",
+      "Yammy Llargo"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Baraggan (Espada 2) commands the power of Senescence and aging.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-037",
+    "question": "Who is the sole female member among the top Espada (Rank 3) with shark water attributes?",
+    "options": [
+      "Tier Harribel",
+      "Nelliel Tu Odelschwanck",
+      "Cirucci Sanderwicci",
+      "Sung-Sun"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Tier Harribel (Tiburón) leads Hueco Mundo after Aizen's defeat.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-038",
+    "question": "Who was the adorable child Arrancar who reverted to her former 3rd Espada adult self to protect Ichigo?",
+    "options": [
+      "Nelliel Tu Odelschwanck (Nel)",
+      "Riruka Dokugamine",
+      "Kukaku Shiba",
+      "Yachiru"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Nel was the former Espada 3 betrayed and wounded by Nnoitra, transforming back when Ichigo was in peril.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-039",
+    "question": "What is the name of Rukia Kuchiki's beautiful Bankai that brings ambient temperatures to Absolute Zero (-273.15°C)?",
+    "options": [
+      "Hakka no Togame",
+      "Sode no Shirayuki",
+      "Daiguren Hyorinmaru",
+      "Minazuki"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Hakka no Togame (White Haze Punishment) freezes all matter to absolute zero within a pillar of mist.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "bl-040",
+    "question": "Who becomes the new Captain-Commander of the Gotei 13 following Yamamoto's death?",
+    "options": [
+      "Shunsui Kyoraku",
+      "Byakuya Kuchiki",
+      "Jushiro Ukitake",
+      "Kenpachi Zaraki"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Central 46 appoint the laid-back yet ruthless Squad 8 Captain Shunsui Kyoraku as supreme commander.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-041",
+    "question": "What children's game rules does Shunsui Kyoraku's dual Zanpakuto Katen Kyokotsu enforce on reality?",
+    "options": [
+      "Children's games where the rules are absolute law (Takaoni, Kageoni, Irooni)",
+      "Card games",
+      "Hide and seek only",
+      "Chess puzzles"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Katen Kyokotsu brings childhood games into deadly reality where both players must obey.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-042",
+    "question": "What is Kenpachi Zaraki's Shikai command and weapon name unlocked in Thousand-Year Blood War?",
+    "options": [
+      "Drink, Nozarashi",
+      "Slay, Ryujin",
+      "Roar, Zabimaru",
+      "Awaken, Zangetsu"
+    ],
+    "correctAnswer": 0,
+    "explanation": "After slaying Unohana, Zaraki heard his Zanpakuto speak for the first time: 'Nozarashi'.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "bl-043",
+    "question": "Who was revealed to be the personification of Kenpachi Zaraki's Bankai?",
+    "options": [
+      "Yachiru Kusajishi",
+      "Retsu Unohana",
+      "Nemu",
+      "Kurotsuchi"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The pink-haired child Yachiru Kusajishi was Zaraki's manifestation of his sword spirit all along.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "bl-044",
+    "question": "What group of exiled Soul Reapers with Hollow masks did Shinji Hirako lead?",
+    "options": [
+      "The Visoreds (Vizards)",
+      "The Espada",
+      "The Fullbringers",
+      "The Xcution"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Visoreds were former captains and lieutenants hollowfied by Aizen 100 years prior.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-045",
+    "question": "What group composed of humans born to mothers attacked by Hollows includes Ginjo and Tsukishima?",
+    "options": [
+      "Xcution (Fullbringers)",
+      "Vandenreich",
+      "Sternritter",
+      "Visoreds"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Xcution consists of Fullbringers who manipulate souls in matter to cultivate power.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-046",
+    "question": "What was Shukuro Tsukishima's terrifying Fullbring 'Book of the End' capable of?",
+    "options": [
+      "Inserting his own presence into the past memories of anyone he slashes",
+      "Erasing memories",
+      "Reading the future",
+      "Summoning books"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Book of the End alters past events, inserting Tsukishima as an intimate friend or family member in memories.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "bl-047",
+    "question": "Who is the giant fox-faced Captain of Squad 7 who becomes an immortal human berserker?",
+    "options": [
+      "Sajin Komamura",
+      "Kaname Tosen",
+      "Tetsuzaemon Iba",
+      "Kensei Muguruma"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Komamura sacrifices his heart to his clan's ancestor to gain human form and invulnerability.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "bl-048",
+    "question": "What is Renji Abarai's true Bankai name revealed in the Royal Realm?",
+    "options": [
+      "Soo Zabimaru",
+      "Hihio Zabimaru",
+      "Zabimaru Orochi",
+      "Kurotsugi Zabimaru"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Zabimaru had only granted Renji half its name (Hihio); its true release is Soo Zabimaru.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "bl-049",
+    "question": "Who did Ichigo Kurosaki marry at the end of the Bleach manga series?",
+    "options": [
+      "Orihime Inoue",
+      "Rukia Kuchiki",
+      "Tatsuki Arisawa",
+      "Neliel"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Ichigo married Orihime Inoue and they had a son named Kazui Kurosaki.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "bl-050",
+    "question": "Who did Renji Abarai marry at the end of the series?",
+    "options": [
+      "Rukia Kuchiki",
+      "Rangiku Matsumoto",
+      "Soi Fon",
+      "Momo Hinamori"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Renji married his childhood best friend Rukia Kuchiki and had a daughter named Ichika.",
+    "difficulty": "easy"
+  }
+]

@@ -62,6 +62,55 @@ const SPECIFIC_SUBJECT_PROMPTS: Record<
     styleVisual: 'dark modern fantasy anime art style, high contrast neon cursed energy lighting, centered 1:1 square composition',
     negativeConstraints: 'no generic ninjas, no medieval knights, no arcade machines, no text, no letters',
   },
+  'demon slayer': {
+    subjectVisual:
+      'Tanjiro Kamado in his checkered green-and-black haori wielding a black Nichirin sword unleashing glowing swirling water and fiery Hinokami Kagura sun breathing dragons, alongside Nezuko Kamado in bamboo muzzle',
+    settingVisual: 'moonlit mystical forest with falling pink wisteria blossoms and swirling ember particles',
+    styleVisual: 'high-end Ufotable inspired Japanese anime art style, dynamic breathing technique elemental effects, centered 1:1 square framing',
+    negativeConstraints: 'no modern firearms, no generic knights, no arcade machines, no text, no letters',
+  },
+  'attack on titan': {
+    subjectVisual:
+      'Eren Yeager in muscular Attack Titan form roaring ferociously, steam rising from his body, beside Survey Corps Scout soldiers flying with ODM gear and twin steel blades against the gigantic 50-meter Wall Maria',
+    settingVisual: 'smoky Shiganshina district battlefield with colossal Titan steam plumes against a dramatic sunset sky',
+    styleVisual: 'epic dark anime concept art, gritty cinematic atmosphere, volumetric lighting, centered 1:1 square composition',
+    negativeConstraints: 'no bright comedy cartoons, no futuristic spaceships, no text, no letters',
+  },
+  'death note': {
+    subjectVisual:
+      'Ryuk the towering Shinigami with glowing amber eyes and dark feathery wings holding a shiny red apple, hovering ominously behind a black leather notebook labeled with subtle mystical aura and a white quill pen',
+    settingVisual: 'moody dark Tokyo bedroom illuminated by cool moonlight and glowing monitor screen in shadows',
+    styleVisual: 'dark supernatural psychological thriller anime art, high contrast chiaroscuro lighting, centered 1:1 square composition',
+    negativeConstraints: 'no colorful bright cartoons, no weapons, no arcade machines, no text, no letters',
+  },
+  'my hero academia': {
+    subjectVisual:
+      'Izuku Midoriya (Deku) in his hero costume channeling One For All Full Cowl with crackling neon-emerald lightning energy, alongside All Might in heroic golden age silhouette with radiant smile',
+    settingVisual: 'U.A. High School heroic training grounds with dynamic dust clouds and blue sky',
+    styleVisual: 'vibrant comic book style anime art, high-energy superhero highlights, centered 1:1 square composition',
+    negativeConstraints: 'no dark horror elements, no generic soldiers, no text, no letters',
+  },
+  'guess the anime character': {
+    subjectVisual:
+      'A mysterious glowing anime protagonist silhouette holding a katana, surrounded by iconic anime elements — dragon balls, shinobi headband, pirate hat, and colorful aura orbs with sparkling question mark particles',
+    settingVisual: 'stage spotlight illumination with dynamic swirling anime energy beams and starburst bokeh',
+    styleVisual: 'modern anime celebration art, vibrant neon pop colors, dynamic mystery composition, centered 1:1 square framing',
+    negativeConstraints: 'no realistic photos, no blurry mess, no arcade machines, no text, no letters',
+  },
+  'bleach': {
+    subjectVisual:
+      'Soul Reaper Ichigo Kurosaki wielding the massive black Tensa Zangetsu blade releasing swirling red and black Getsuga Tensho spiritual pressure energy, with partial white hollow mask appearing',
+    settingVisual: 'atmospheric Soul Society rooftop over the Seireitei with full moon in the dark starry sky',
+    styleVisual: 'stylish high-contrast supernatural shonen anime art, intense spiritual reiatsu energy lighting, centered 1:1 square composition',
+    negativeConstraints: 'no medieval knights, no guns, no arcade machines, no text, no letters',
+  },
+  'hunter x hunter': {
+    subjectVisual:
+      'Gon Freecss charging golden Jajanken aura in his fist alongside Killua Zoldyck surrounded by crackling electric blue Godspeed lightning sparks and Kurapika with glowing chains',
+    settingVisual: 'dramatic World Tree and Hunter Exam arena with radiant Nen aura flares',
+    styleVisual: 'dynamic modern shonen anime art style, vivid vibrant Nen aura effects, centered 1:1 square composition',
+    negativeConstraints: 'no generic ninjas, no modern army, no arcade machines, no text, no letters',
+  },
 
   // --- MOVIES & WEB SERIES ---
   'harry potter world': {
@@ -106,6 +155,20 @@ const SPECIFIC_SUBJECT_PROMPTS: Record<
     styleVisual: 'polished cinematic tribute art, rich golden and amber glow, elegant 1:1 square composition',
     negativeConstraints: 'no random messy objects, no arcade machines, no text, no letters',
   },
+  'guess the movie': {
+    subjectVisual:
+      'An iconic golden film clapperboard, vintage brass 35mm movie camera projector projecting a brilliant golden light beam, classic red-and-blue 3D glasses, and golden film reels with flowing filmstrips',
+    settingVisual: 'luxurious Hollywood cinema auditorium with plush velvet seats and shimmering golden dust particles',
+    styleVisual: 'glamorous cinematic 3D concept art, warm dramatic spotlight illumination, centered 1:1 square framing',
+    negativeConstraints: 'no arcade machines, no television commercials, no text, no letters',
+  },
+  'actors & celebrities': {
+    subjectVisual:
+      'A glittering red carpet walkway flanked by golden stanchions with crimson velvet ropes, brilliant camera flashes from paparazzi photographers, and a prestigious gleaming golden award statuette',
+    settingVisual: 'star-studded Hollywood premiere gala outside a grand illuminated theater at night under crystal clear skies',
+    styleVisual: 'glamorous high-fashion celebrity red carpet digital art, dazzling light flares and golden bokeh, centered 1:1 square composition',
+    negativeConstraints: 'no messy cartoon characters, no sports fields, no text, no letters',
+  },
 
   // --- SPORTS ---
   'ipl superstars': {
@@ -128,6 +191,41 @@ const SPECIFIC_SUBJECT_PROMPTS: Record<
     settingVisual: 'vibrant sunlit cricket arena with lush green turf and cheering stadium spectator stands',
     styleVisual: 'inspirational sports portrait art, dynamic lighting, clean 1:1 square framing',
     negativeConstraints: 'no other sports, no baseball, no arcade machines, no text, no letters',
+  },
+  'icc world cup challenge': {
+    subjectVisual:
+      'The prestigious golden ICC Men\'s Cricket World Cup trophy gleaming brilliantly under bright stadium lights, flanked by a polished English willow cricket bat, a new white leather cricket ball, and national team cricket flags',
+    settingVisual: 'grand world cup final stadium filled with 100,000 cheering fans with confetti and dazzling floodlights at night',
+    styleVisual: 'prestigious international sports concept art, radiant golden trophy reflections, centered 1:1 square composition',
+    negativeConstraints: 'no football, no soccer, no rugby, no arcade machines, no text, no letters',
+  },
+  'indian cricket legends': {
+    subjectVisual:
+      'Legendary Indian cricket icons in Indian blue jerseys with tricolor accents, celebrating a historic victory with raised cricket bat, golden championship cup, and flying cricket ball',
+    settingVisual: 'Wankhede Stadium Mumbai under electric floodlights with thousands of waving Indian flags',
+    styleVisual: 'inspirational cricket sports art, dramatic heroic lighting, crisp athletic motion, centered 1:1 square composition',
+    negativeConstraints: 'no soccer, no baseball, no other sports, no arcade machines, no text, no letters',
+  },
+  'cricket rules & umpire decisions': {
+    subjectVisual:
+      'A cricket umpire in a white wide-brim hat raising his index finger to signal OUT, three wooden wickets with glowing red LED Zing bails flying in mid-air, a leather cricket ball hitting the stump on a green pitch',
+    settingVisual: 'bright sunny test match cricket ground with manicured pitch turf and chalk white crease lines',
+    styleVisual: 'crisp realistic sports digital art, dramatic slow-motion impact freeze, centered 1:1 square composition',
+    negativeConstraints: 'no football referees, no baseball umpires, no arcade machines, no text, no letters',
+  },
+  'guess the ipl team': {
+    subjectVisual:
+      'A circular fan banner showcase of colorful IPL team cricket jerseys and helmets in blue, yellow, purple, and red, surrounding a gleaming golden IPL champions trophy with exploding fireworks',
+    settingVisual: 'vibrant modern IPL night match stadium under glowing floodlights with roaring crowds',
+    styleVisual: 'high-energy T20 cricket festival art, vivid festive colors, centered 1:1 square composition',
+    negativeConstraints: 'no soccer leagues, no NFL, no arcade machines, no text, no letters',
+  },
+  'cricket world records': {
+    subjectVisual:
+      'A glowing golden cricket world records ledger book opened beside a giant electronic scoreboard displaying milestone digits (400*, 264, 100), with a gold-plated cricket bat and golden ball',
+    settingVisual: 'prestigious Lords Cricket Ground pavilion balcony overlooking the historic sunlit pitch',
+    styleVisual: 'majestic sports milestone concept art, polished gold and amber lighting, centered 1:1 square framing',
+    negativeConstraints: 'no baseball, no soccer, no arcade machines, no text, no letters',
   },
 
   // --- GENERAL KNOWLEDGE & INDIA ---
@@ -274,6 +372,41 @@ const SPECIFIC_SUBJECT_PROMPTS: Record<
     settingVisual: 'sleek contemporary web developer desk setup with soft ambient warm-and-blue studio lighting',
     styleVisual: 'clean modern web design concept art, elegant glassmorphism elements, centered 1:1 square composition',
     negativeConstraints: 'no messy wires, no arcade cabinets, no gibberish text, no letters',
+  },
+  'data structures & algorithms (dsa)': {
+    subjectVisual:
+      'A glowing 3D algorithmic visualization — a balanced binary search tree with neon cyan nodes, an interconnected graph network with glowing yellow Dijkstra shortest path edges, and a dynamic sorting array bar visualizer',
+    settingVisual: 'dark futuristic computer science matrix workspace with glowing grid lines and cybernetic data streams',
+    styleVisual: 'sleek software engineering 3D digital art, high-tech neon glow, centered 1:1 square composition',
+    negativeConstraints: 'no arcade cabinets, no messy wires, no text, no letters',
+  },
+  'javascript quiz': {
+    subjectVisual:
+      'A glowing modern yellow JavaScript emblem cube floating in a high-tech developer ecosystem, surrounded by circular asynchronous event loop rings, microtask packet nodes, and glowing code brackets',
+    settingVisual: 'dark modern cyber programming console with warm amber and gold developer ambiance',
+    styleVisual: 'sleek tech developer concept art, crisp isometric lighting, clean 1:1 square composition',
+    negativeConstraints: 'no video game arcade machines, no messy clutter, no text, no letters',
+  },
+  'python programming': {
+    subjectVisual:
+      'Two elegant stylized cybernetic snakes (one royal blue, one vibrant golden yellow) intertwined around a glowing crystalline computer processor core, with floating modular brackets and data objects',
+    settingVisual: 'dark modern AI and data science laboratory workspace with soft blue and gold ambient lighting',
+    styleVisual: 'sophisticated high-tech programming concept art, smooth metallic reflections, centered 1:1 square composition',
+    negativeConstraints: 'no real scary wild snakes, no arcade machines, no text, no letters',
+  },
+  'java programming': {
+    subjectVisual:
+      'A sleek porcelain coffee cup emitting swirling steam that morphs into glowing blue and orange JVM bytecode streams, object-oriented class nodes, and modular enterprise software architecture',
+    settingVisual: 'modern software architect workspace with soft twilight city skyline and clean developer setup',
+    styleVisual: 'polished modern technology art, warm and blue contrasting lighting, centered 1:1 square composition',
+    negativeConstraints: 'no messy spills, no arcade cabinets, no text, no letters',
+  },
+  'c & c++ programming': {
+    subjectVisual:
+      'Interlocking precision metallic gears in deep sapphire blue and chrome, glowing memory pointer address arrows pointing to high-speed hardware registers, and low-level system performance visualization',
+    settingVisual: 'high-tech systems engineering lab with clean circuit board traces and cobalt blue lighting',
+    styleVisual: 'powerful low-level systems programming concept art, crisp metallic textures, centered 1:1 square framing',
+    negativeConstraints: 'no arcade machines, no web design graphics, no text, no letters',
   },
 };
 

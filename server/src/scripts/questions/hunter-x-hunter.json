@@ -1,0 +1,652 @@
+[
+  {
+    "questionId": "hxh-001",
+    "question": "What is the magical aura energy system manipulated by Hunters called?",
+    "options": [
+      "Chakra",
+      "Nen",
+      "Reiki",
+      "Ki"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nen allows users to manipulate the flow of life energy (aura) produced by their bodies.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-002",
+    "question": "What is Gon Freecss's primary Nen category?",
+    "options": [
+      "Enhancement",
+      "Transmutation",
+      "Emission",
+      "Specialization"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Gon is an Enhancer, using aura to boost natural physical offensive and defensive capabilities.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-003",
+    "question": "What is Killua Zoldyck's Nen category?",
+    "options": [
+      "Transmutation",
+      "Enhancement",
+      "Conjuration",
+      "Manipulation"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Killua is a Transmuter who alters the properties of his aura to mimic electrical currents.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-004",
+    "question": "What is the name of Gon's devastating rock-paper-scissors Nen technique?",
+    "options": [
+      "Jajanken",
+      "Godspeed",
+      "Bungee Gum",
+      "Big Bang Impact"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Jajanken (Ja-Janken) features Rock (Enhancement punch), Scissors (Transmutation blade), and Paper (Emission blast).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-005",
+    "question": "What legendary infamous band of 13 thieves from Meteor City is headed by Chrollo Lucilfer?",
+    "options": [
+      "The Phantom Troupe (Genei Ryodan)",
+      "The Chimera Ants",
+      "The Zoldycks",
+      "The Shadow Beasts"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Phantom Troupe (also known as the Spiders) consists of 13 elite thieves with numbered spider tattoos.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-006",
+    "question": "What color do the eyes of the Kurta Clan glow when they become emotionally agitated?",
+    "options": [
+      "Scarlet Red",
+      "Electric Blue",
+      "Golden Yellow",
+      "Emerald Green"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Scarlet Eyes of the slaughtered Kurta clan are celebrated among underground collectors as rare treasures.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-007",
+    "question": "What Nen category does Kurapika shift into when his Scarlet Eyes activate?",
+    "options": [
+      "Specialization (Emperor Time)",
+      "Enhancement",
+      "Manipulation",
+      "Transmutation"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Under Emperor Time, Kurapika becomes a Specialist capable of using 100% efficiency in all Nen categories.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-008",
+    "question": "What test using a cup filled with water and a floating leaf determines a user's Nen type?",
+    "options": [
+      "Water Divination test",
+      "Aura Scrying",
+      "Leaf Prism test",
+      "Element Chalice"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Water Divination test causes water to overflow, change taste, change color, or move the leaf.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-009",
+    "question": "What is Killua's lightning reflex state that connects his brain's signals directly to his aura?",
+    "options": [
+      "Godspeed (Whirlwind & Speed of Lightning)",
+      "Thunderclap",
+      "Overdrive",
+      "Lightning Step"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Godspeed bypasses nervous system lag to trigger instant neuromuscular reflexes.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-010",
+    "question": "Who was the 12th Chairman of the Hunter Association who fought Meruem to the death?",
+    "options": [
+      "Isaac Netero",
+      "Ging Freecss",
+      "Pariston Hill",
+      "Cheadle Yorkshire"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Chairman Netero spent years throwing 10,000 punches of gratitude a day on a mountaintop to achieve supersonic speed.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-011",
+    "question": "What is Isaac Netero's supreme Nen ability called?",
+    "options": [
+      "100-Type Guanyin Bodhisattva",
+      "Zero Hand",
+      "Golden Buddha",
+      "Nirvana Palm"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The 100-Type Guanyin Bodhisattva manifests a colossal golden multi-armed deity that strikes in fractions of a second.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-012",
+    "question": "What was the name of the miniature radioactive weapon planted in Netero's heart that detonated upon his suicide?",
+    "options": [
+      "Poor Man's Rose (Miniature Rose)",
+      "Atom Bomb",
+      "Dragon Dive",
+      "Judgment Chain"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Poor Man's Rose is a cheap, mass-produced chemical weapon that released a lethal poison cloud.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-013",
+    "question": "Who is the Chimera Ant King who challenged Netero and loved the blind Gungi champion Komugi?",
+    "options": [
+      "Meruem",
+      "Neferpitou",
+      "Shaiapouf",
+      "Menthuthuyoupi"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Meruem evolved from a tyrannical conqueror into a philosophical being through his games of Gungi with Komugi.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-014",
+    "question": "Which cat-like Royal Guard Chimera Ant killed Kite and was pulverized by Adult Gon?",
+    "options": [
+      "Neferpitou (Pitou)",
+      "Shaiapouf",
+      "Youpi",
+      "Colt"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Neferpitou was an overwhelming Nen monster whose puppet Doctor Blythe repaired injuries.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-015",
+    "question": "What terrifying vow and sacrifice did Gon make to defeat Neferpitou?",
+    "options": [
+      "He gave up all his future potential and lifespan to age into his ultimate adult form",
+      "He traded his eyes",
+      "He sacrificed Killua",
+      "He drank Chimera poison"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Gon sacrificed all future Nen and vitality, resulting in a state worse than death until Alluka healed him.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-016",
+    "question": "What wish-granting entity from the Dark Continent resides within Killua's younger sibling Alluka?",
+    "options": [
+      "Nanika ('Something')",
+      "Ai",
+      "Brion",
+      "Hellbell"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Nanika can grant any wish without consequence if its three requests are fulfilled first.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-017",
+    "question": "What video game console and virtual game world was created by Ging Freecss and his friends?",
+    "options": [
+      "Greed Island (JoyStation)",
+      "NerveGear",
+      "Dark Continent Quest",
+      "Hunter Land"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Greed Island is a real-world island operated through Nen cards designed for Hunter training.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-018",
+    "question": "Who was the 'Bomber' serial killer on Greed Island who set countdown explosives on players?",
+    "options": [
+      "Genthru",
+      "Razor",
+      "Tsubega",
+      "Binolt"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Genthru used his Countdown and Little Flower abilities to slaughter players for cards.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-019",
+    "question": "Who was the powerful Nen master and convicted criminal who ran the Greed Island dodgeball match?",
+    "options": [
+      "Razor",
+      "Ging",
+      "Dwun",
+      "List"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Razor threw lethal aura dodgeballs that required Gon, Killua, and Hisoka's combined strength to rebound.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-020",
+    "question": "What martial arts arena tower do Gon and Killua fight in to master Nen and earn money?",
+    "options": [
+      "Heavens Arena (251 floors)",
+      "Zoldyck Estate",
+      "Trick Tower",
+      "Yorknew Coliseum"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Heavens Arena is a 251-story combat tower where Floor Masters hold rank above the 200th floor.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-021",
+    "question": "Who was the gentle glasses-wearing Nen instructor who taught Gon and Killua the basics of Ten, Zetsu, Ren, and Hatsu?",
+    "options": [
+      "Wing",
+      "Biscuit Krueger",
+      "Zushi",
+      "Kite"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Wing, a disciple of the Shingen-ryu school under Biscuit Krueger, unlocked Gon and Killua's aura nodes.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-022",
+    "question": "What is the true appearance of Biscuit Krueger (Bisky), who looks like a cute 12-year-old girl?",
+    "options": [
+      "A massive 57-year-old hyper-muscular woman",
+      "An elderly grandmother",
+      "A fairy",
+      "A mannequin"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Bisky despises her original colossal bodybuilder physique and prefers disguising herself as a dainty doll.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-023",
+    "question": "What is Chrollo Lucilfer's Specialist Nen ability that allows him to steal others' techniques?",
+    "options": [
+      "Skill Hunter (Bandit's Secret)",
+      "Memory Bomb",
+      "Order Stamp",
+      "Sun and Moon"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Bandit's Secret stores stolen Nen abilities in a conjured book under strict conditions.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-024",
+    "question": "What heavy doors at the entrance of the Zoldyck estate must guests push open to enter?",
+    "options": [
+      "Testing Gate (Gates of Trial)",
+      "Door of Judgment",
+      "Hell's Gate",
+      "Dragon Threshold"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Testing Gate ranges from 4 tons (Door 1) up to 256 tons (Door 7).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-025",
+    "question": "Who are the legendary father and grandfather duo of the Zoldyck assassin household?",
+    "options": [
+      "Silva and Zeno Zoldyck",
+      "Illumi and Milluki",
+      "Kalluto and Maha",
+      "Ging and Gon"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Zeno and Silva Zoldyck are the lethal elder heads of the family.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-026",
+    "question": "What is Zeno Zoldyck's Dragon Dive ability?",
+    "options": [
+      "Raining thousands of piercing dragon aura arrows from the sky",
+      "Summoning a fire dragon",
+      "Turning into a dragon",
+      "Breathing lightning"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Dragon Dive shatters a massive Nen dragon into countless homing spears that bombard the palace.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-027",
+    "question": "Who is the head butler of the Zoldyck estate who played deadly coin toss games with Gon?",
+    "options": [
+      "Gotoh",
+      "Canary",
+      "Tsubone",
+      "Amane"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Gotoh was fiercely protective of Killua before being ambushed and killed by Hisoka.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-028",
+    "question": "What needle did Illumi plant in Killua's brain to manipulate him?",
+    "options": [
+      "A needle forcing him to flee from opponents with equal or greater strength",
+      "A poison needle",
+      "A tracking needle",
+      "A truth needle"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Killua extracted the needle during his fight against Rammot, overcoming his programmed cowardice.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-029",
+    "question": "What board game do Meruem and Komugi play continuously in the East Gorteau palace?",
+    "options": [
+      "Gungi",
+      "Shogi",
+      "Go",
+      "Chess"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Gungi is a fictional multi-tiered strategic board game that Meruem could never beat Komugi at.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-030",
+    "question": "What was Kurapika's condition and vow that made Chain Jail unbreakable against the Phantom Troupe?",
+    "options": [
+      "If he uses Chain Jail on anyone who is NOT a member of the Phantom Troupe, he will instantly die",
+      "He loses his eyesight",
+      "He cannot eat meat",
+      "He must stay in Yorknew"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A Judgment Chain wrapped around Kurapika's heart enforces death if he breaks his pledge.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-031",
+    "question": "What is the four-level progression of basic Nen training?",
+    "options": [
+      "Ten (Shroud), Zetsu (Suppress), Ren (Enhance), Hatsu (Release)",
+      "In, Gyo, Ko, Ryu",
+      "Ken, Shu, En, Ryu",
+      "Baji, Ren, Chi, Qi"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Ten, Zetsu, Ren, and Hatsu form the foundational four principles of Nen.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-032",
+    "question": "What advanced Nen technique extends one's aura into an omnidirectional sensory sphere?",
+    "options": [
+      "En",
+      "In",
+      "Ko",
+      "Gyo"
+    ],
+    "correctAnswer": 0,
+    "explanation": "En allows Nen users to sense the shape and movement of everything inside their aura perimeter.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-033",
+    "question": "What is the name of Kite's weapon roulette ability that manifests a talking clown?",
+    "options": [
+      "Crazy Slots",
+      "Roulette Blade",
+      "Jackpot Weapon",
+      "Joker's Hand"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Crazy Slots rolls numbers 1 through 9, conjuring weapons that Kite cannot choose and must use before rolling again.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-034",
+    "question": "What insect Chimera Ant ant-humanoid form was Kite reborn into after Pitou murdered him?",
+    "options": [
+      "A red-haired girl with a mouse-like tail",
+      "A soldier ant",
+      "A butterfly",
+      "A dog ant"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Kite's soul was reborn as the red-haired sister of Meruem raised by Colt.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "hxh-035",
+    "question": "Who is the suction-tube and smoke master Hunter who fought alongside Knuckle and Morel?",
+    "options": [
+      "Morel Mackernasey",
+      "Knov",
+      "Shoot McMahon",
+      "Knuckle Bine"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Morel uses a giant smoking pipe to create smoke soldiers (Deep Purple).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-036",
+    "question": "What happens to the timid Hunter Knov when he sneaks into the palace and feels Pouf and Pitou's terrifying aura?",
+    "options": [
+      "His hair turns completely white from pure psychological terror",
+      "He goes blind",
+      "He dies of a heart attack",
+      "He loses his Nen"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The sheer malevolence of the royal guards' En broke Knov's spirit, turning his hair snow white.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-037",
+    "question": "What is Knuckle Bine's Hakoware ability that lends aura with compounding interest?",
+    "options": [
+      "A.P.R. (Amortizing Power Redirector) / Toritaten",
+      "Bank Loan",
+      "Debt Collector",
+      "Tax Man"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A.P.R. floats beside the enemy adding 10% interest every 10 seconds until bankruptcy triggers Zetsu.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-038",
+    "question": "Who is Gon's third companion in the Hunter Exam who dreams of becoming a doctor?",
+    "options": [
+      "Leorio Paradinight",
+      "Tonpa",
+      "Hanzo",
+      "Pokkle"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Leorio desires money exclusively to fund medical school and treat poor patients for free.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-039",
+    "question": "Who is the infamous 'Rookie Crusher' who fails the Hunter Exam dozens of times on purpose to torment novices?",
+    "options": [
+      "Tonpa",
+      "Bodoro",
+      "Geretta",
+      "Amori"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Tonpa hands out laxative-laced juice cans to sabotage rookies.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-040",
+    "question": "What is the name of the uncharted, perilous land outside the known human world where Chimera Ants originated?",
+    "options": [
+      "The Dark Continent",
+      "The Outer Sea",
+      "The Abyss",
+      "The Wild Expanse"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Dark Continent is a gargantuan primordial wilderness harboring the Five Great Calamities.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-041",
+    "question": "Who is the rat Zodiac in the Hunter Association who manipulates the Chairman election and loves chaos?",
+    "options": [
+      "Pariston Hill",
+      "Ging Freecss",
+      "Mizaistom Nana",
+      "Botobai Gigante"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Vice-Chairman Pariston Hill smiles deceitfully while orchestrating high-stakes political intrigue.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-042",
+    "question": "Where did Gon Freecss finally meet and talk with his father Ging at the end of the anime?",
+    "options": [
+      "At the top of the World Tree",
+      "At Whale Island",
+      "At the Hunter Association HQ",
+      "On a blimp"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Gon and Ging climbed the World Tree to sit atop its branches and discuss the wonder of the journey.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "hxh-043",
+    "question": "What happens to Gon's ability to use Nen after being healed by Nanika?",
+    "options": [
+      "He can no longer see or use his aura, returning to a normal boy",
+      "His aura doubled",
+      "He gained Specialization",
+      "His Nen changed element"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Ging explained that Gon simply reset to normal, having spent his Nen in his fight with Pitou.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "hxh-044",
+    "question": "Who killed Hisoka in their death match at Heavens Arena before Hisoka restarted his own heart with Nen?",
+    "options": [
+      "Chrollo Lucilfer",
+      "Illumi Zoldyck",
+      "Machi",
+      "Kurapika"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Chrollo used a combination of stolen abilities to explode Hisoka, who resurrected via Bungee Gum contract.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "hxh-045",
+    "question": "Which two Phantom Troupe members did Hisoka immediately murder after reviving?",
+    "options": [
+      "Kortopi and Shalnark",
+      "Feitan and Phinks",
+      "Nobunaga and Machi",
+      "Franklin and Bonolenov"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Hisoka ambushed Kortopi in a restroom and slaughtered Shalnark in a park.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "hxh-046",
+    "question": "What is the massive black ark carrying princes, mafia families, and hunters to the Dark Continent?",
+    "options": [
+      "Black Whale No. 1",
+      "The Leviathan",
+      "Titanic II",
+      "Behemoth"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Black Whale 1 is the colossal multi-tiered ship hosting the Kakin Succession Contest.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-047",
+    "question": "What is the name of the eccentric 4th Prince of Kakin who collects body parts and masters Nen in days?",
+    "options": [
+      "Tserriednich Hui Guo Rou",
+      "Benjamin",
+      "Camilla",
+      "Halkenburg"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Terror prince Tserriednich possesses terrifying Nen talent and owns a pair of Kurta scarlet eyes.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "hxh-048",
+    "question": "What was the name of the blind chimera ant who played violin and created microscopic clones of himself?",
+    "options": [
+      "Shaiapouf (Pouf)",
+      "Menthuthuyoupi",
+      "Ikalgo",
+      "Meleoron"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Shaiapouf was the dramatic royal guard whose scales induced hypnosis.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-049",
+    "question": "Which chameleon Chimera Ant allied with the Hunters using his breath-holding invisibility 'God's Accomplice'?",
+    "options": [
+      "Meleoron",
+      "Ikalgo",
+      "Welfin",
+      "Cheetu"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Meleoron can make himself and anyone he touches completely undetectable as long as he holds his breath.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "hxh-050",
+    "question": "How did Meruem and Komugi spend their final moments before succumbing to the Rose poison?",
+    "options": [
+      "Holding hands in the dark playing one last game of Gungi",
+      "Fighting hunters",
+      "Traveling to the ocean",
+      "Sleeping under a tree"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Meruem asked Komugi to stay by his side, calling each other's names in the dark until they died peacefully.",
+    "difficulty": "easy"
+  }
+]

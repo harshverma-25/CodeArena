@@ -1,0 +1,652 @@
+[
+  {
+    "questionId": "cwr-001",
+    "question": "Who holds the record for the highest individual score in One Day Internationals (ODI) with 264 runs?",
+    "options": [
+      "Martin Guptill",
+      "Rohit Sharma",
+      "Chris Gayle",
+      "Virender Sehwag"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rohit Sharma scored an astonishing 264 runs off 173 balls against Sri Lanka at Eden Gardens in 2014.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-002",
+    "question": "Who holds the world record for the highest individual score in Test cricket (400 not out)?",
+    "options": [
+      "Matthew Hayden",
+      "Don Bradman",
+      "Brian Lara",
+      "Kumar Sangakkara"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Brian Charles Lara scored 400 not out for the West Indies against England at St John's, Antigua in 2004.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-003",
+    "question": "Which bowler holds the world record for taking the most wickets in international Test cricket (800 wickets)?",
+    "options": [
+      "Shane Warne",
+      "James Anderson",
+      "Anil Kumble",
+      "Muttiah Muralitharan"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Sri Lankan wizard Muttiah Muralitharan took 800 wickets in 133 Test matches at an average of 22.72.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-004",
+    "question": "Who is the only cricketer in history to score 100 international centuries (51 Tests, 49 ODIs)?",
+    "options": [
+      "Virat Kohli",
+      "Ricky Ponting",
+      "Sachin Tendulkar",
+      "Jacques Kallis"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Sachin Tendulkar completed his 100th international century against Bangladesh at Mirpur in March 2012.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-005",
+    "question": "Who holds the record for the fastest century in ODI cricket, scored off just 31 balls?",
+    "options": [
+      "Shahid Afridi",
+      "Corey Anderson",
+      "AB de Villiers",
+      "Glenn Maxwell"
+    ],
+    "correctAnswer": 2,
+    "explanation": "AB de Villiers smashed 149 runs off 44 balls, reaching his hundred in 31 balls against West Indies in 2015.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-006",
+    "question": "What is Sir Donald Bradman's legendary career Test batting average?",
+    "options": [
+      "94.62",
+      "99.94",
+      "101.40",
+      "98.75"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Don Bradman finished his 52-Test career with 6,996 runs and an unprecedented average of 99.94.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-007",
+    "question": "Which team holds the record for the highest team total in ODI cricket (498/4)?",
+    "options": [
+      "Australia",
+      "England",
+      "South Africa",
+      "India"
+    ],
+    "correctAnswer": 1,
+    "explanation": "England amassed 498/4 against the Netherlands in Amstelveen in June 2022.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-008",
+    "question": "Who hit 6 sixes in an over off Stuart Broad during the 2007 T20 World Cup?",
+    "options": [
+      "Chris Gayle",
+      "Yuvraj Singh",
+      "Kieron Pollard",
+      "Herschelle Gibbs"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Yuvraj Singh took 36 runs off Stuart Broad at Kingsmead, Durban in the inaugural 2007 ICC World Twenty20.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-009",
+    "question": "Who was the first batsman in history to hit 6 sixes in an over in an ODI World Cup match?",
+    "options": [
+      "Herschelle Gibbs",
+      "Yuvraj Singh",
+      "Jaskaran Malhotra",
+      "Kieron Pollard"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Herschelle Gibbs hit 6 sixes in an over off Daan van Bunge of the Netherlands in the 2007 Cricket World Cup.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-010",
+    "question": "Who holds the record for the fastest fifty in T20 Internationals, reached in just 9 balls?",
+    "options": [
+      "Yuvraj Singh",
+      "Dipendra Singh Airee",
+      "Chris Gayle",
+      "Hazratullah Zazai"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nepal's Dipendra Singh Airee scored a 50 in 9 balls against Mongolia at the 2023 Asian Games.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-011",
+    "question": "Who holds the record for the fastest recorded delivery in cricket history (161.3 km/h or 100.23 mph)?",
+    "options": [
+      "Brett Lee",
+      "Shoaib Akhtar",
+      "Shaun Tait",
+      "Mitchell Starc"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Pakistan's 'Rawalpindi Express' Shoaib Akhtar bowled at 161.3 km/h to Nick Knight in the 2003 World Cup.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-012",
+    "question": "Which cricketer holds the record for the most total runs across all international formats (34,357 runs)?",
+    "options": [
+      "Kumar Sangakkara",
+      "Ricky Ponting",
+      "Sachin Tendulkar",
+      "Virat Kohli"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Sachin Tendulkar scored 15,921 Test runs, 18,426 ODI runs, and 10 T20I runs, totaling 34,357 international runs.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-013",
+    "question": "Who holds the record for the most ODI centuries in international cricket history (50 centuries)?",
+    "options": [
+      "Sachin Tendulkar",
+      "Virat Kohli",
+      "Rohit Sharma",
+      "Ricky Ponting"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Virat Kohli broke Sachin's record of 49 ODI centuries by scoring his 50th century against New Zealand in the 2023 World Cup semi-final.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-014",
+    "question": "Which bowler has taken the best bowling figures in an ODI innings (8 wickets for 19 runs)?",
+    "options": [
+      "Chaminda Vaas",
+      "Glenn McGrath",
+      "Anil Kumble",
+      "Shahid Afridi"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Sri Lankan left-armer Chaminda Vaas took 8/19 against Zimbabwe in Colombo in December 2001.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cwr-015",
+    "question": "Who are the only three bowlers in Test history to take all 10 wickets in a single innings?",
+    "options": [
+      "Jim Laker, Anil Kumble, and Ajaz Patel",
+      "Shane Warne, Muttiah Muralitharan, and Glenn McGrath",
+      "Jim Laker, Richard Hadlee, and Kapil Dev",
+      "Anil Kumble, Wasim Akram, and Stuart Broad"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Jim Laker (1956), Anil Kumble (1999), and Ajaz Patel (2021) are the exclusive trio with 10-fers in Test innings.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-016",
+    "question": "Who holds the record for the most sixes in all international cricket across formats?",
+    "options": [
+      "Chris Gayle",
+      "Rohit Sharma",
+      "Shahid Afridi",
+      "Brendon McCullum"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rohit Sharma surpassed Chris Gayle's record of 553 international sixes in 2023.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-017",
+    "question": "Who was the first male cricketer to score a double century in ODI history?",
+    "options": [
+      "Virender Sehwag",
+      "Chris Gayle",
+      "Sachin Tendulkar",
+      "Martin Guptill"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Sachin Tendulkar scored 200 not out against South Africa at Gwalior on February 24, 2010.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-018",
+    "question": "What is the highest team total ever scored in Test match cricket history (952/6 dec)?",
+    "options": [
+      "Sri Lanka vs India (1997)",
+      "England vs Australia (1938)",
+      "West Indies vs England (1958)",
+      "Pakistan vs India (1983)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Sri Lanka declared at 952/6 against India in Colombo in August 1997, powered by Sanath Jayasuriya's 340.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-019",
+    "question": "Who holds the record for the highest individual score in a Men's T20 International (172 runs)?",
+    "options": [
+      "Aaron Finch",
+      "Chris Gayle",
+      "Glenn Maxwell",
+      "Hazratullah Zazai"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Australia's Aaron Finch blasted 172 off 76 balls against Zimbabwe in Harare in 2018.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-020",
+    "question": "Which fast bowler has taken the most Test wickets in history (over 700 wickets)?",
+    "options": [
+      "Glenn McGrath",
+      "Courtney Walsh",
+      "James Anderson",
+      "Stuart Broad"
+    ],
+    "correctAnswer": 2,
+    "explanation": "England's James Anderson took 704 Test wickets, the most ever by a pace bowler in Test cricket history.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-021",
+    "question": "Who holds the record for the fastest century in Test cricket (54 balls)?",
+    "options": [
+      "Viv Richards",
+      "Brendon McCullum",
+      "Adam Gilchrist",
+      "Misbah-ul-Haq"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Brendon McCullum scored a 54-ball century in his final Test match against Australia at Christchurch in 2016.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-022",
+    "question": "Which wicketkeeper holds the record for the most dismissals in international cricket (998 dismissals)?",
+    "options": [
+      "Adam Gilchrist",
+      "MS Dhoni",
+      "Mark Boucher",
+      "Kumar Sangakkara"
+    ],
+    "correctAnswer": 2,
+    "explanation": "South Africa's Mark Boucher claimed 998 dismissals (952 catches and 46 stumpings) across international cricket.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cwr-023",
+    "question": "Who holds the world record for the most stumpings in international cricket (195 stumpings)?",
+    "options": [
+      "Kumar Sangakkara",
+      "MS Dhoni",
+      "Romesh Kaluwitharana",
+      "Kamran Akmal"
+    ],
+    "correctAnswer": 1,
+    "explanation": "MS Dhoni leads the all-time stumping charts with 195 stumpings across all formats.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-024",
+    "question": "Who holds the record for the most runs in a single edition of an ICC Men's Cricket World Cup (765 runs in 2023)?",
+    "options": [
+      "Sachin Tendulkar",
+      "Rohit Sharma",
+      "Virat Kohli",
+      "Matthew Hayden"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Virat Kohli scored 765 runs in 11 innings with 3 centuries and 6 fifties during the 2023 World Cup.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-025",
+    "question": "Which bowler took a hat-trick on the first three balls of a Test match in Karachi in 2006?",
+    "options": [
+      "Wasim Akram",
+      "Irfan Pathan",
+      "Shoaib Akhtar",
+      "Glenn McGrath"
+    ],
+    "correctAnswer": 1,
+    "explanation": "India's Irfan Pathan dismissed Salman Butt, Younis Khan, and Mohammad Yousuf in the first over.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-026",
+    "question": "Who holds the world record for the highest partnership in ODI history (372 runs)?",
+    "options": [
+      "Chris Gayle & Marlon Samuels",
+      "Sachin Tendulkar & Rahul Dravid",
+      "Sourav Ganguly & Rahul Dravid",
+      "John Campbell & Shai Hope"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Gayle (215) and Samuels (133*) combined for 372 against Zimbabwe at Canberra in the 2015 World Cup.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cwr-027",
+    "question": "Who is the only batsman in history to score three double centuries in One Day Internationals?",
+    "options": [
+      "Chris Gayle",
+      "Martin Guptill",
+      "Rohit Sharma",
+      "Virender Sehwag"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Rohit Sharma hit 209 (vs Australia, 2013), 264 (vs Sri Lanka, 2014), and 208* (vs Sri Lanka, 2017).",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-028",
+    "question": "What is the lowest team score ever recorded in a completed Test match innings (26 all out)?",
+    "options": [
+      "New Zealand vs England (1955)",
+      "South Africa vs England (1896)",
+      "India vs Australia (2020)",
+      "Australia vs England (1902)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "New Zealand were bowled out for just 26 runs against England at Eden Park, Auckland in 1955.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cwr-029",
+    "question": "Who was the first bowler to reach 500 wickets in One Day Internationals?",
+    "options": [
+      "Muttiah Muralitharan",
+      "Wasim Akram",
+      "Waqar Younis",
+      "Glenn McGrath"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Wasim Akram became the first to breach the 500-wicket milestone in ODIs during the 2003 World Cup.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-030",
+    "question": "Who scored the fastest double century in Test cricket (off 153 balls)?",
+    "options": [
+      "Virender Sehwag",
+      "Nathan Astle",
+      "Brendon McCullum",
+      "Adam Gilchrist"
+    ],
+    "correctAnswer": 1,
+    "explanation": "New Zealand's Nathan Astle blasted a double century in 153 balls against England at Christchurch in 2002.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cwr-031",
+    "question": "Which batsman holds the record for the most runs in an over in Test cricket (35 runs off Stuart Broad)?",
+    "options": [
+      "Brian Lara",
+      "Jasprit Bumrah",
+      "Shahid Afridi",
+      "George Bailey"
+    ],
+    "correctAnswer": 1,
+    "explanation": "India captain Jasprit Bumrah smashed 29 runs off the bat (plus 6 extras) in a 35-run over from Broad at Edgbaston in 2022.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-032",
+    "question": "Who holds the record for the most catches by a non-wicketkeeper in Test cricket (210 catches)?",
+    "options": [
+      "Ricky Ponting",
+      "Rahul Dravid",
+      "Jacques Kallis",
+      "Mahela Jayawardene"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rahul Dravid 'The Wall' holds the Test world record with 210 catches, mostly at first slip.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-033",
+    "question": "Who took four wickets in four consecutive balls twice in international cricket?",
+    "options": [
+      "Lasith Malinga",
+      "Rashid Khan",
+      "Wasim Akram",
+      "Brett Lee"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Lasith Malinga achieved 4 wickets in 4 balls against South Africa in 2007 (ODI) and New Zealand in 2019 (T20I).",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-034",
+    "question": "Who holds the record for the highest individual score in Women's ODIs (232 not out)?",
+    "options": [
+      "Belinda Clark",
+      "Amelia Kerr",
+      "Deepti Sharma",
+      "Meg Lanning"
+    ],
+    "correctAnswer": 1,
+    "explanation": "New Zealand's Amelia Kerr scored 232* off 145 balls against Ireland in Dublin in 2018.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cwr-035",
+    "question": "Who holds the record for the highest team total in Men's T20 Internationals (314/3)?",
+    "options": [
+      "Afghanistan",
+      "Nepal",
+      "India",
+      "Czech Republic"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nepal scored 314/3 against Mongolia in the Asian Games in Hangzhou in September 2023.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cwr-036",
+    "question": "Who holds the record for playing the most consecutive Test matches without missing one (159 Tests)?",
+    "options": [
+      "Alastair Cook",
+      "Allan Border",
+      "Mark Waugh",
+      "Brendon McCullum"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Sir Alastair Cook played 159 consecutive Tests for England between 2006 and 2018.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-037",
+    "question": "Who was the first cricketer to play 100 T20 Internationals?",
+    "options": [
+      "Rohit Sharma",
+      "Shoaib Malik",
+      "Shahid Afridi",
+      "Eoin Morgan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Pakistan's Shoaib Malik was the first male cricketer to cross the 100 T20I appearance landmark.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-038",
+    "question": "Who holds the record for the best bowling figures in a Men's T20 International (6 wickets for 7 runs)?",
+    "options": [
+      "Deepak Chahar",
+      "Syazrul Idrus",
+      "Ajantha Mendis",
+      "Rashid Khan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Malaysia's Syazrul Idrus took 7 wickets for 8 runs against China in 2023 (or Deepak Chahar 6/7 among full members).",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cwr-039",
+    "question": "Who holds the record for the most centuries in a single ICC Cricket World Cup tournament (5 centuries in 2019)?",
+    "options": [
+      "Kumar Sangakkara",
+      "Rohit Sharma",
+      "Quinton de Kock",
+      "Matthew Hayden"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rohit Sharma scored a record 5 centuries during the 2019 ICC World Cup in England.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-040",
+    "question": "Who holds the record for the most Player of the Match awards in international cricket history (76 awards)?",
+    "options": [
+      "Virat Kohli",
+      "Sachin Tendulkar",
+      "Sanath Jayasuriya",
+      "Jacques Kallis"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sachin Tendulkar won 76 Player of the Match awards (62 in ODIs, 14 in Tests) across his illustrious career.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-041",
+    "question": "What is the longest recorded cricket match in history in terms of playing days (Timeless Test)?",
+    "options": [
+      "10 days (South Africa vs England, 1939)",
+      "7 days (Australia vs England, 1929)",
+      "8 days (West Indies vs England, 1930)",
+      "12 days (England vs Australia, 1921)"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The 1939 Timeless Test in Durban lasted 10 days before being declared a draw so England could catch their boat home.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cwr-042",
+    "question": "Who holds the record for the most wickets in a single ICC World Cup tournament (27 wickets in 2019)?",
+    "options": [
+      "Glenn McGrath",
+      "Mitchell Starc",
+      "Mohammed Shami",
+      "Muttiah Muralitharan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mitchell Starc took 27 wickets in the 2019 World Cup, surpassing Glenn McGrath's 26 wickets in 2007.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-043",
+    "question": "Who scored the first ever double century in Women's ODI cricket history in 1997?",
+    "options": [
+      "Belinda Clark",
+      "Amelia Kerr",
+      "Mithali Raj",
+      "Charlotte Edwards"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Australia's Belinda Clark scored 229* against Denmark at Mumbai in December 1997, 13 years before Sachin's men's 200.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cwr-044",
+    "question": "Which bowler took a hat-trick in his very first over on his ODI debut?",
+    "options": [
+      "Taijul Islam",
+      "Wanindu Hasaranga",
+      "Kagiso Rabada",
+      "Shehan Madushanka"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Bangladesh spinner Taijul Islam achieved an ODI debut hat-trick against Zimbabwe in Dhaka in 2014.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cwr-045",
+    "question": "Who holds the record for the most sixes hit in a single ODI innings (17 sixes)?",
+    "options": [
+      "Rohit Sharma",
+      "Chris Gayle",
+      "Eoin Morgan",
+      "AB de Villiers"
+    ],
+    "correctAnswer": 2,
+    "explanation": "England captain Eoin Morgan smashed 17 sixes against Afghanistan at Old Trafford in the 2019 World Cup.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-046",
+    "question": "Who holds the record for the highest individual score on Test debut (287 runs)?",
+    "options": [
+      "Tip Foster",
+      "Jacques Rudolph",
+      "Lawrence Rowe",
+      "Kyle Mayers"
+    ],
+    "correctAnswer": 0,
+    "explanation": "RE 'Tip' Foster scored 287 for England against Australia at Sydney in 1903, a record that still stands today.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cwr-047",
+    "question": "Who was the fastest batsman to reach 10,000 runs in ODI cricket (in just 205 innings)?",
+    "options": [
+      "Sachin Tendulkar",
+      "Virat Kohli",
+      "Rohit Sharma",
+      "Sourav Ganguly"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Virat Kohli reached 10,000 ODI runs in only 205 innings, beating Tendulkar's previous record of 259 innings.",
+    "difficulty": "easy"
+  },
+  {
+    "questionId": "cwr-048",
+    "question": "Who holds the world record for the most dismissals in a single Test match by a wicketkeeper (11 dismissals)?",
+    "options": [
+      "Jack Russell, AB de Villiers, and Rishabh Pant",
+      "Adam Gilchrist and MS Dhoni",
+      "Mark Boucher and Ian Healy",
+      "Rod Marsh and Ridley Jacobs"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Jack Russell (1995), AB de Villiers (2013), and Rishabh Pant (2018) each took 11 catches in a single Test match.",
+    "difficulty": "hard"
+  },
+  {
+    "questionId": "cwr-049",
+    "question": "Which team successfully chased down the highest target in ODI history (438 runs)?",
+    "options": [
+      "Australia",
+      "South Africa",
+      "England",
+      "India"
+    ],
+    "correctAnswer": 1,
+    "explanation": "South Africa scored 438/9 to beat Australia's 434/4 in the legendary 5th ODI at Johannesburg in March 2006.",
+    "difficulty": "medium"
+  },
+  {
+    "questionId": "cwr-050",
+    "question": "Who has scored the most runs in T20 International history?",
+    "options": [
+      "Virat Kohli",
+      "Rohit Sharma",
+      "Babar Azam",
+      "Martin Guptill"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rohit Sharma finished his T20I career after winning the 2024 T20 World Cup with a record 4,231 runs.",
+    "difficulty": "easy"
+  }
+]

@@ -1,0 +1,424 @@
+import fs from 'fs';
+import path from 'path';
+
+interface Question {
+  questionId: string;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+  difficulty: 'easy' | 'medium' | 'hard';
+}
+
+const questionsDir = path.resolve(process.cwd(), 'src/scripts/questions');
+
+// 3. Death Note (50 questions)
+const deathNoteQuestions: Question[] = [
+  {
+    questionId: "dn-001",
+    question: "What is the primary condition for a person to die when their name is written in the Death Note?",
+    options: ["The writer must have met them in person", "The writer must picture the victim's face while writing their name", "The victim must be asleep", "The victim must hear their name spoken aloud"],
+    correctAnswer: 1,
+    explanation: "Picturing the victim's face ensures individuals sharing the same name are not affected.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-002",
+    question: "What is the alias adopted by the high school genius Light Yagami when he acts as the god of the new world?",
+    options: ["Kira", "Zero", "L", "Shinigami"],
+    correctAnswer: 0,
+    explanation: "The public and media dub the mysterious vigilante 'Kira', derived from the English word 'killer'.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-003",
+    question: "Who is the Shinigami who dropped his Death Note into the human realm out of boredom?",
+    options: ["Rem", "Ryuk", "Sidoh", "Gelus"],
+    correctAnswer: 1,
+    explanation: "Ryuk dropped a second Death Note he tricked from the Shinigami King into the human world.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-004",
+    question: "What earthly human food is Ryuk completely addicted to?",
+    options: ["Chocolate bars", "Apples", "Strawberries", "Ramen"],
+    correctAnswer: 1,
+    explanation: "Ryuk adores crisp, juicy apples and suffers withdrawal symptoms (twisting into pretzels) without them.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-005",
+    question: "If no cause of death is specified after writing a person's name in the Death Note, how do they die?",
+    options: ["Sudden stroke", "Heart attack in 40 seconds", "Brain aneurysm", "Suffocation"],
+    correctAnswer: 1,
+    explanation: "The default rule states that the victim dies of a heart attack within 40 human seconds.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-006",
+    question: "What is the eccentric world-renowned detective L's true real name?",
+    options: ["L Lawliet", "Light Yagami", "Nate River", "Mihael Keehl"],
+    correctAnswer: 0,
+    explanation: "L's full name revealed in How to Read 13 is L Lawliet.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-007",
+    question: "What trade-off does a human have to make with a Shinigami to obtain Shinigami Eyes?",
+    options: ["Give up their eyesight after 5 years", "Surrender half of their remaining lifespan", "Never sleep again", "Sacrifice a family member"],
+    correctAnswer: 1,
+    explanation: "The Shinigami eye deal grants the ability to see names and lifespans above heads in exchange for half of one's remaining life.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-008",
+    question: "What popular model and pop idol becomes the Second Kira?",
+    options: ["Kiyomi Takada", "Misa Amane", "Naomi Misora", "Sayu Yagami"],
+    correctAnswer: 1,
+    explanation: "Misa Amane is devoted to Kira for executing the robber who murdered her parents.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-009",
+    question: "Which Shinigami loved Misa Amane and sacrificed their own life to protect her from L?",
+    options: ["Rem", "Ryuk", "Jealous", "Midora"],
+    correctAnswer: 0,
+    explanation: "Rem knowingly committed the ultimate taboo of killing L and Watari to extend Misa's lifespan, turning into sand.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-010",
+    question: "What orphanage founded by Watari raised gifted child prodigies to succeed L?",
+    options: ["Grace Field House", "Wammy's House", "The Garden", "Orion Academy"],
+    correctAnswer: 1,
+    explanation: "Wammy's House in Winchester, England, nurtured genius orphans like Near and Mello.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-011",
+    question: "Who is L's calm, puzzle-loving primary successor who plays with toys and dice?",
+    options: ["Near (Nate River)", "Mello (Mihael Keehl)", "Matt", "Teru Mikami"],
+    correctAnswer: 0,
+    explanation: "Near heads the SPK (Special Provision for Kira) and constantly builds card towers and stacks toys.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-012",
+    question: "What sweet treat or habit is Mello famous for indulging in?",
+    options: ["Lollipops", "Bars of chocolate", "Gum", "Ice cream"],
+    correctAnswer: 1,
+    explanation: "Mello constantly bites into slabs of milk chocolate while devising aggressive schemes with the mafia.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-013",
+    question: "Who is Light Yagami's father who serves as head of the Japanese Kira Task Force?",
+    options: ["Soichiro Yagami", "Tota Matsuda", "Kanzo Mogi", "Shuichi Aizawa"],
+    correctAnswer: 0,
+    explanation: "Soichiro Yagami is a principled, uncompromising police chief who leads the investigation.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-014",
+    question: "How did Light conceal a miniature LCD television to watch criminal news broadcasts during his surveillance?",
+    options: ["Inside a bag of barbecue potato chips", "Inside an eraser", "Underneath his keyboard", "Inside his textbook binding"],
+    correctAnswer: 0,
+    explanation: "In an iconic scene, Light eats potato chips while secretly viewing news inside the bag and writing names.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-015",
+    question: "Who was the FBI agent investigating Light Yagami whom Light tricked into killing his entire team?",
+    options: ["Raye Penber", "Anthony Rester", "Stephen Gevanni", "Halle Lidner"],
+    correctAnswer: 0,
+    explanation: "Light tailed Raye Penber onto the subway train and coerced him into writing down his fellow FBI agents' names.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-016",
+    question: "Who was Raye Penber's sharp fiancée, a former FBI agent, whose alias 'Shoko Maki' almost exposed Light?",
+    options: ["Naomi Misora", "Kiyomi Takada", "Wedy", "Aiber"],
+    correctAnswer: 0,
+    explanation: "Naomi deduced Kira could manipulate deaths, leading Light to desperately deduce her true name before she reached police HQ.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-017",
+    question: "What fake rule did Light trick Ryuk into writing in the Death Note to exonerate himself and Misa?",
+    options: ["The 13-day rule (The user will die if they do not write a name every 13 days)", "Names cannot be written in pencil", "Only criminals can be killed", "The notebook burns if torn"],
+    correctAnswer: 0,
+    explanation: "The fake 13-day rule proved Light and Misa's innocence to L since they had been confined for over 50 days.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-018",
+    question: "Who was chosen by Light to act as the 'Hand of God' prosecutor Kira after Misa was compromised?",
+    options: ["Teru Mikami", "Kyosuke Higuchi", "Reiji Namikawa", "Takeshi Ooi"],
+    correctAnswer: 0,
+    explanation: "Teru Mikami, a zealous prosecutor with a binary sense of justice who chanted 'Delete!' (Sakujo!), became X-Kira.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-019",
+    question: "Which corporate entity acquired the Death Note during the Yotsuba Arc?",
+    options: ["Yotsuba Group", "OmniCorp", "Tatsuta Zaibatsu", "Kuroda Tech"],
+    correctAnswer: 0,
+    explanation: "Eight executives of the Yotsuba Group met secretly on Fridays to murder competitors using the Death Note.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-020",
+    question: "Which Yotsuba executive was the actual bearer of the notebook?",
+    options: ["Kyosuke Higuchi", "Shingo Mido", "Eiichi Takahashi", "Masahiko Kida"],
+    correctAnswer: 0,
+    explanation: "Kyosuke Higuchi used the notebook ruthlessly to climb the corporate ladder.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-021",
+    question: "What happens to a human's memories of the Death Note if they relinquish ownership?",
+    options: ["All memories related to the Death Note are erased immediately", "They fall into a coma", "Their memories stay intact", "They forget their childhood"],
+    correctAnswer: 0,
+    explanation: "Giving up ownership completely wipes all memories associated with the Death Note until touching it again.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-022",
+    question: "What alias does L use when enrolling in the same university as Light to monitor him?",
+    options: ["Hideki Ryuga", "Asahi Narumi", "Tarou Yamada", "Ryuzaki"],
+    correctAnswer: 0,
+    explanation: "L uses the name of a famous Japanese pop idol, Hideki Ryuga, daring Light to write the idol's name and expose himself.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-023",
+    question: "What physical sport do Light and L play against each other in university to measure each other's psychology?",
+    options: ["Tennis", "Basketball", "Fencing", "Chess"],
+    correctAnswer: 0,
+    explanation: "Light and L play a blistering match of tennis where both deduce each other's competitiveness and mindset.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-024",
+    question: "Who is L's faithful handler, caregiver, and founder of Wammy's House?",
+    options: ["Watari (Quillsh Wammy)", "Roger Ruvie", "Anthony Rester", "Aiber"],
+    correctAnswer: 0,
+    explanation: "Watari is an inventor and philanthropist who acted as L's sole liaison to the outside world.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-025",
+    question: "What was L's unusual posture and seating position throughout the series?",
+    options: ["Perched on chairs with knees pulled to his chest", "Cross-legged on the floor", "Lying completely flat", "Standing leaning on a cane"],
+    correctAnswer: 0,
+    explanation: "L claimed sitting normally reduced his deductive reasoning ability by roughly 40%.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-026",
+    question: "What kind of food did L constantly consume while working cases?",
+    options: ["Cakes, sweets, pastries, and sugar cubes", "Sushi and sashimi", "Coffee beans", "Spicy curries"],
+    correctAnswer: 0,
+    explanation: "L constantly ate sugary confections, stating that his brain burned through glucose at extraordinary rates.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-027",
+    question: "Who was Light's college girlfriend and NHK news anchor who served as Kira's official media spokesperson?",
+    options: ["Kiyomi Takada", "Yuri", "Misa Amane", "Halle Lidner"],
+    correctAnswer: 0,
+    explanation: "Kiyomi Takada served as Kira's public broadcast voice and intermediary to Teru Mikami.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-028",
+    question: "How did Light Yagami kill Kiyomi Takada after Mello abducted her?",
+    options: ["Wrote her name on a hidden piece of Death Note page to commit suicide by burning", "Shot her with a gun", "Poisoned her tea", "Hired an assassin"],
+    correctAnswer: 0,
+    explanation: "Light wrote on a hidden paper scrap from his watch that Takada would set fire to the truck and commit suicide.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-029",
+    question: "What fatal mistake did Teru Mikami make after Mello kidnapped Takada that ruined Light's master plan?",
+    options: ["He went to the bank to retrieve the real Death Note and write Takada's name himself", "He confessed to police", "He wrote Light's name", "He lost the notebook on the subway"],
+    correctAnswer: 0,
+    explanation: "Believing Light couldn't act, Mikami visited the safety deposit box, allowing Gevanni to discover and duplicate the real notebook.",
+    difficulty: "hard"
+  },
+  {
+    questionId: "dn-030",
+    question: "Which brilliant SPK investigator copied the entire real Death Note by hand overnight down to the handwriting?",
+    options: ["Stephen Gevanni", "Anthony Rester", "Halle Lidner", "Matt"],
+    correctAnswer: 0,
+    explanation: "Stephen Gevanni meticulously duplicated every single page and entry of the authentic Death Note overnight.",
+    difficulty: "hard"
+  },
+  {
+    questionId: "dn-031",
+    question: "Where did the final climax and confrontation between Near and Light Yagami take place?",
+    options: ["Yellow Box Warehouse", "Tokyo Tower", "Wammy's House", "Yotsuba Headquarters"],
+    correctAnswer: 0,
+    explanation: "The dramatic unmasking and climax took place at the abandoned Yellow Box Warehouse near the docks.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-032",
+    question: "Who shot Light multiple times when Light attempted to write Near's name with blood on a hidden scrap?",
+    options: ["Tota Matsuda", "Shuichi Aizawa", "Near", "Kanzo Mogi"],
+    correctAnswer: 0,
+    explanation: "Matsuda, deeply betrayed and weeping over Chief Yagami's memory, shot Light's hand and torso.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-033",
+    question: "Who ultimately wrote Light Yagami's name in their own Death Note as promised on day one?",
+    options: ["Ryuk", "Rem", "Near", "Misa"],
+    correctAnswer: 0,
+    explanation: "Ryuk fulfilled his promise from chapter one that he would be the one to write Light's name when his time arrived.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-034",
+    question: "How much time does a Death Note user have to specify the exact details of death after writing the cause?",
+    options: ["6 minutes and 40 seconds (400 seconds)", "40 seconds", "10 minutes", "24 hours"],
+    correctAnswer: 0,
+    explanation: "After writing the cause of death, details can be written within the next 6 minutes and 40 seconds.",
+    difficulty: "hard"
+  },
+  {
+    questionId: "dn-035",
+    question: "What happens if a victim's name is misspelled four times accidentally in the Death Note?",
+    options: ["The victim becomes permanently immune to the Death Note", "The notebook burns", "The writer dies", "Nothing happens"],
+    correctAnswer: 0,
+    explanation: "If misspelled 4 times accidentally, the Death Note will never affect that specific human again.",
+    difficulty: "hard"
+  },
+  {
+    questionId: "dn-036",
+    question: "What happens if a user intentionally misspells a name four times to grant someone immunity?",
+    options: ["The writer dies immediately", "The victim dies immediately", "The notebook loses its magic", "The Shinigami takes the eyes"],
+    correctAnswer: 0,
+    explanation: "Rule 35 states that intentionally misspelling four times causes the writer to drop dead.",
+    difficulty: "hard"
+  },
+  {
+    questionId: "dn-037",
+    question: "What is the name of the Shinigami who originally owned the notebook Ryuk stole, who visits Earth to reclaim it?",
+    options: ["Sidoh", "Nu", "Gook", "Deridovely"],
+    correctAnswer: 0,
+    explanation: "Sidoh is a cowardly, bird-like Shinigami who loved chocolate and tracked Mello down to recover his notebook.",
+    difficulty: "hard"
+  },
+  {
+    questionId: "dn-038",
+    question: "Where can humans who use the Death Note go when they die?",
+    options: ["Neither Heaven nor Hell (Mu / Nothingness)", "Only to Hell", "To the Shinigami Realm", "Purgatory"],
+    correctAnswer: 0,
+    explanation: "Ryuk states that humans who use the notebook cannot enter Heaven or Hell, reflecting the rule that all humans go to Mu.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-039",
+    question: "What was the very first crime committed by the first criminal Light tested the Death Note on?",
+    options: ["Otoharu Kurou (Hostage taker in a daycare)", "Shibuimaru Takuo (Harassing a woman on a motorcycle)", "Lind L. Tailor", "A bank robber"],
+    correctAnswer: 0,
+    explanation: "Light first tested the notebook on Kurou Otoharu who was holding children and teachers hostage in a school.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-040",
+    question: "Who was Lind L. Tailor?",
+    options: ["A death row criminal used by L as a live televised decoy in the Kanto region", "An FBI detective", "The mayor of Tokyo", "Light's classmate"],
+    correctAnswer: 0,
+    explanation: "L used Lind L. Tailor's televised execution to bait Kira into proving his location and killing power.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-041",
+    question: "What hidden compartment mechanism protected Light's desk drawer from family intrusion?",
+    options: ["A spring-loaded mechanism with pencil lead and mini-incinerator gasoline battery", "A fingerprint biometric scanner", "A padlocked brass chain", "A false bottom keyhole"],
+    correctAnswer: 0,
+    explanation: "If forced open without using the ballpoint pen core in the hidden hole, a battery ignited gasoline to burn the notebook.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-042",
+    question: "What is Mello's real name?",
+    options: ["Mihael Keehl", "Nate River", "Mail Jeevas", "Quillsh Wammy"],
+    correctAnswer: 0,
+    explanation: "Mello's real name is Mihael Keehl.",
+    difficulty: "hard"
+  },
+  {
+    questionId: "dn-043",
+    question: "What is Matt's real name, Mello's loyal companion who was gunned down by police?",
+    options: ["Mail Jeevas", "Mihael Keehl", "Nate River", "John McEnroe"],
+    correctAnswer: 0,
+    explanation: "Matt, the cigarette-smoking tech expert from Wammy's House, is named Mail Jeevas.",
+    difficulty: "hard"
+  },
+  {
+    questionId: "dn-044",
+    question: "Which member of the Task Force had the Shinigami Eyes deal performed to raid Mello's hideout?",
+    options: ["Soichiro Yagami", "Tota Matsuda", "Shuichi Aizawa", "Kanzo Mogi"],
+    correctAnswer: 0,
+    explanation: "Chief Soichiro Yagami traded half his lifespan with Ryuk to see Mello's real name, but refused to shoot him.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-045",
+    question: "Why did Chief Yagami die peacefully in the hospital believing Light was innocent?",
+    options: ["Because he could still see Light's lifespan above his head (since Light had temporarily given up ownership)", "Light told him so", "L told him so", "Near exonerated him"],
+    correctAnswer: 0,
+    explanation: "Since Light had given up ownership and lent the notebook to the Task Force, his lifespan was visible to his father's eyes.",
+    difficulty: "hard"
+  },
+  {
+    questionId: "dn-046",
+    question: "What was the name of the Shinigami who died saving Misa from a stalker murderer before the series began?",
+    options: ["Gelus (Jealous)", "Ryuk", "Rem", "Armonia"],
+    correctAnswer: 0,
+    explanation: "Gelus watched Misa from the Shinigami realm and wrote her attacker's name, crumbling into ash.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-047",
+    question: "How many days did Light and Misa remain handcuffed together by a steel chain with L?",
+    options: ["Several weeks (approximately 2 months during the Yotsuba hunt)", "1 day", "3 days", "1 year"],
+    correctAnswer: 0,
+    explanation: "L handcuffed himself directly to Light with a heavy chain to monitor him 24 hours a day.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-048",
+    question: "What word did Teru Mikami chant obsessively every time he wrote a name in the Death Note?",
+    options: ["Sakujo! (Delete! / Eliminate!)", "Shine! (Die!)", "Justice!", "Guilty!"],
+    correctAnswer: 0,
+    explanation: "Mikami hysterically muttered 'Sakujo! Sakujo! Sakujo!' (Delete! Eliminate!) with every stroke of his pen.",
+    difficulty: "easy"
+  },
+  {
+    questionId: "dn-049",
+    question: "What object did Light hide inside his wristwatch to allow emergency killings?",
+    options: ["A tiny cut scrap of Death Note paper and a hidden needle", "A poison dart", "A micro camera", "A lockpick"],
+    correctAnswer: 0,
+    explanation: "Light engineered a spring-loaded watch face concealing a scrap of paper and a pin to draw blood.",
+    difficulty: "medium"
+  },
+  {
+    questionId: "dn-050",
+    question: "What was the name of the manga creators (writer and illustrator duo) of Death Note?",
+    options: ["Tsugumi Ohba and Takeshi Obata", "Eiichiro Oda", "Masashi Kishimoto", "Akira Toriyama"],
+    correctAnswer: 0,
+    explanation: "Death Note was written by Tsugumi Ohba and illustrated by Takeshi Obata.",
+    difficulty: "medium"
+  }
+];
+
+fs.writeFileSync(
+  path.join(questionsDir, 'death-note.json'),
+  JSON.stringify(deathNoteQuestions, null, 2),
+  'utf-8'
+);
+console.log('✅ Generated death-note.json (50 questions)');
