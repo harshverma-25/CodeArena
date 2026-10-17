@@ -1,5 +1,8 @@
+import mongoose from 'mongoose';
 import { battleRepository, BattleRepository } from './battle.repository.js';
 import { BattleModel } from './battle.model.js';
+import { CategoryModel, SubjectModel } from '../category/category.model.js';
+import { categoryService } from '../category/category.service.js';
 import { questionRepository, QuestionRepository } from '../question/question.repository.js';
 import { questionService } from '../question/question.service.js';
 import { roomRepository } from '../room/room.repository.js';
@@ -320,6 +323,8 @@ export class BattleService {
     const battle = await this.repository.create({
       roomId: room._id as any,
       roomCode: code,
+      categoryId: room.settings.categoryId || null,
+      subjectId: room.settings.subjectId || null,
       topic: targetTopic,
       difficulty: targetDifficulty,
       questionCount: totalNeeded,
@@ -337,6 +342,37 @@ export class BattleService {
         submissions: [],
       },
     });
+
+    // Increment playedCount for Subject and/or Category asynchronously
+    (async () => {
+      try {
+        let subjectUpdated = false;
+        if (room.settings.subjectId) {
+          const subKey = String(room.settings.subjectId);
+          const isObjId = mongoose.Types.ObjectId.isValid(subKey);
+          const updatedSub = await SubjectModel.findOneAndUpdate(
+            isObjId ? { $or: [{ _id: subKey }, { slug: subKey.toLowerCase() }] } : { slug: subKey.toLowerCase() },
+            { $inc: { playedCount: 1 } },
+            { new: true }
+          );
+          if (updatedSub) {
+            subjectUpdated = true;
+            await CategoryModel.findByIdAndUpdate(updatedSub.categoryId, { $inc: { playedCount: 1 } });
+          }
+        }
+        if (!subjectUpdated && room.settings.categoryId) {
+          const catKey = String(room.settings.categoryId);
+          const isObjId = mongoose.Types.ObjectId.isValid(catKey);
+          await CategoryModel.findOneAndUpdate(
+            isObjId ? { $or: [{ _id: catKey }, { slug: catKey.toLowerCase() }] } : { slug: catKey.toLowerCase() },
+            { $inc: { playedCount: 1 } }
+          );
+        }
+        await categoryService.clearCache();
+      } catch (err) {
+        logger.warn(err, 'Failed to increment playedCount on battle start');
+      }
+    })();
 
     // 7. Update Room Status to IN_PROGRESS
     await roomRepository.update(code, {

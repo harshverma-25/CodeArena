@@ -190,7 +190,7 @@ export function CompactQuizCard({
           <div className="flex items-center gap-1 mt-0.5 sm:mt-1 text-black">
             <Users className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 stroke-[2.5]" />
             <span className="font-bold text-[9px] sm:text-[11px] text-stone-900 leading-none truncate">
-              {displayPlays} played
+              {displayPlays.toLocaleString()} played
             </span>
           </div>
         </div>

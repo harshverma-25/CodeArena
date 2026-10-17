@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "bio-001",
+    "question": "What is known as the 'powerhouse of the cell' for producing cellular ATP energy?",
+    "options": [
+      "Ribosome",
+      "Mitochondria",
+      "Nucleus",
+      "Endoplasmic reticulum"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mitochondria generate most of the cell's chemical energy supply in the form of adenosine triphosphate (ATP).",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-002",
+    "question": "What green pigment in plant chloroplasts is responsible for absorbing sunlight for photosynthesis?",
+    "options": [
+      "Carotene",
+      "Chlorophyll",
+      "Xanthophyll",
+      "Anthocyanin"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Chlorophyll absorbs blue and red light from the sun, reflecting green wavelengths and providing the color of plant leaves.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-003",
+    "question": "What cellular organelle contains the hereditary genetic material (DNA) in eukaryotic cells?",
+    "options": [
+      "Vacuole",
+      "Nucleus",
+      "Ribosome",
+      "Golgi apparatus"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The cell nucleus serves as the repository of genetic instructions contained in linear DNA chromosomes.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-004",
+    "question": "What rigid outer structure surrounds plant cells providing support and protection, but is absent in animal cells?",
+    "options": [
+      "Cell membrane",
+      "Cell wall",
+      "Nuclear envelope",
+      "Cytoskeleton"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Plant cells possess a rigid cell wall composed primarily of cellulose, which animal cells lack.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-005",
+    "question": "What cellular organelles are responsible for protein synthesis by translating messenger RNA?",
+    "options": [
+      "Lysosomes",
+      "Ribosomes",
+      "Vacuoles",
+      "Centrosomes"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ribosomes translate genetic codes transcribed in mRNA into specific polypeptide amino acid sequences.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-006",
+    "question": "What process do somatic cells use to divide and produce two genetically identical daughter cells?",
+    "options": [
+      "Meiosis",
+      "Mitosis",
+      "Binary fission",
+      "Budding"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mitosis is the process of nuclear division resulting in two daughter nuclei each identical to the parent nucleus.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-007",
+    "question": "What type of cell division reduces the chromosome number by half to produce gametes (sperm and egg cells)?",
+    "options": [
+      "Mitosis",
+      "Meiosis",
+      "Cytokinesis",
+      "Budding"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Meiosis produces four haploid daughter cells (gametes) containing half the parental chromosome number.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-008",
+    "question": "How many pairs of chromosomes do humans typically possess in each somatic cell?",
+    "options": [
+      "20 pairs",
+      "23 pairs (46 total)",
+      "25 pairs",
+      "46 pairs"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Humans have 23 pairs of chromosomes: 22 pairs of autosomes and 1 pair of sex chromosomes (XX or XY).",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-009",
+    "question": "What are the four nitrogenous bases found in DNA molecules?",
+    "options": [
+      "Adenine, Thymine, Guanine, Cytosine",
+      "Adenine, Uracil, Guanine, Cytosine",
+      "Alanine, Threonine, Glycine, Cysteine",
+      "ATP, ADP, GTP, CTP"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The four nucleotide bases in DNA are Adenine (A), Thymine (T), Guanine (G), and Cytosine (C).",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-010",
+    "question": "Which nitrogenous base replaces Thymine in ribonucleic acid (RNA)?",
+    "options": [
+      "Adenine",
+      "Uracil",
+      "Guanine",
+      "Cytosine"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In RNA, Uracil (U) pairs with Adenine instead of Thymine (T).",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-011",
+    "question": "What biological macromolecule stores energy long-term and forms cellular phospholipid bilayers?",
+    "options": [
+      "Carbohydrates",
+      "Lipids (fats)",
+      "Proteins",
+      "Nucleic acids"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lipids provide high-density energy storage, thermal insulation, and compose the lipid bilayer of membranes.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-012",
+    "question": "What vascular plant tissue transports water and dissolved mineral nutrients upward from roots to leaves?",
+    "options": [
+      "Phloem",
+      "Xylem",
+      "Cambium",
+      "Cortex"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Xylem tissue consists of tracheids and vessel elements that conduct water upward via transpiration pull.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-013",
+    "question": "What vascular plant tissue transports sugars and organic nutrients produced in leaves downward and throughout the plant?",
+    "options": [
+      "Xylem",
+      "Phloem",
+      "Pith",
+      "Epidermis"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Phloem translocates soluble sugars (sucrose) produced during photosynthesis to non-photosynthetic tissues.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-014",
+    "question": "What are microscopic pores on plant leaves that open and close to regulate gas exchange and water transpiration?",
+    "options": [
+      "Lenticels",
+      "Stomata",
+      "Chloroplasts",
+      "Cuticles"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Stomata, regulated by pairs of guard cells, allow carbon dioxide uptake and release oxygen and water vapor.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-015",
+    "question": "What type of organism makes its own food using sunlight or chemical energy (a primary producer)?",
+    "options": [
+      "Heterotroph",
+      "Autotroph",
+      "Decomposer",
+      "Parasite"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Autotrophs (like green plants and algae) produce organic compounds from simple inorganic substances.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-016",
+    "question": "What type of organism must consume other organisms to obtain energy and organic nutrients?",
+    "options": [
+      "Autotroph",
+      "Heterotroph",
+      "Chemotroph",
+      "Phototroph"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Heterotrophs (including all animals, fungi, and many bacteria) cannot synthesize their own food and must ingest organic matter.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-017",
+    "question": "What organisms break down dead organic matter and waste, recycling nutrients back into the ecosystem?",
+    "options": [
+      "Carnivores",
+      "Decomposers (saprotrophs)",
+      "Producers",
+      "Apex predators"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Decomposers such as fungi and soil bacteria break down decaying matter, returning vital nutrients to the soil.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-018",
+    "question": "What is an animal that eats only plants called?",
+    "options": [
+      "Carnivore",
+      "Herbivore",
+      "Omnivore",
+      "Piscivore"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Herbivores are anatomically adapted to consume autotrophic plant material (e.g., deer, cows, rabbits).",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-019",
+    "question": "What is an animal that eats only meat/flesh called?",
+    "options": [
+      "Herbivore",
+      "Carnivore",
+      "Frugivore",
+      "Detritivore"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Carnivores obtain energy exclusively or predominantly through predation on other animals.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-020",
+    "question": "What is an animal that naturally consumes both plants and animals called?",
+    "options": [
+      "Carnivore",
+      "Omnivore",
+      "Herbivore",
+      "Insectivore"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Omnivores (like humans, bears, and pigs) feed on a diverse diet of both plant matter and animal tissue.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-021",
+    "question": "What biological term describes a close, long-term interaction between two different biological species?",
+    "options": [
+      "Competition",
+      "Symbiosis",
+      "Predation",
+      "Speciation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Symbiosis includes mutualism, commensalism, and parasitism.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-022",
+    "question": "What symbiotic relationship benefits both participating species (such as clownfish and sea anemones)?",
+    "options": [
+      "Parasitism",
+      "Mutualism",
+      "Commensalism",
+      "Amensalism"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mutualism is an ecological interaction where both species derive mutual benefits.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-023",
+    "question": "What is the biological kingdom to which mushrooms, yeasts, and molds belong?",
+    "options": [
+      "Plantae",
+      "Fungi",
+      "Protista",
+      "Monera"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Fungi are eukaryotic organisms possessing chitin in their cell walls that absorb nutrients through extracellular digestion.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-024",
+    "question": "Do viruses have cellular structures of their own?",
+    "options": [
+      "Yes, they are prokaryotic cells",
+      "No, they are non-cellular genetic material wrapped in a protein coat",
+      "Yes, they have a nucleus",
+      "They are eukaryotic single-cell organisms"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Viruses are obligate intracellular parasites made of DNA or RNA enclosed in a protein capsid, lacking cellular machinery.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-025",
+    "question": "What is the biological process by which organisms maintain a stable internal environment despite external fluctuations?",
+    "options": [
+      "Metabolism",
+      "Homeostasis",
+      "Osmosis",
+      "Taxonomy"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Homeostasis regulates core variables like body temperature, pH, and fluid balance within narrow physiological limits.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-026",
+    "question": "What is the net passive movement of water molecules through a semi-permeable membrane called?",
+    "options": [
+      "Diffusion",
+      "Osmosis",
+      "Active transport",
+      "Endocytosis"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Osmosis is the spontaneous movement of water from an area of low solute concentration to high solute concentration.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-027",
+    "question": "What cellular organelle contains digestive enzymes that break down cell debris and foreign invaders ('suicide bags')?",
+    "options": [
+      "Ribosome",
+      "Lysosome",
+      "Centriole",
+      "Peroxisome"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lysosomes contain acidic hydrolytic enzymes that digest macromolecules, cellular waste, and apoptotic cell parts.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-028",
+    "question": "What cellular organelle modifies, sorts, and packages proteins for secretion or delivery?",
+    "options": [
+      "Mitochondria",
+      "Golgi apparatus (Golgi body)",
+      "Endoplasmic reticulum",
+      "Nucleolus"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Golgi apparatus acts like a cellular post office, glycosylating and packing proteins into transport vesicles.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-029",
+    "question": "What are bacteria classified as in terms of cell organization?",
+    "options": [
+      "Eukaryotes",
+      "Prokaryotes",
+      "Viruses",
+      "Protozoa"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Prokaryotes are single-celled organisms that lack a membrane-bound nucleus and membrane-bound organelles.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-030",
+    "question": "What type of cellular organism possesses a membrane-bound nucleus and complex organelles?",
+    "options": [
+      "Prokaryote",
+      "Eukaryote",
+      "Bacteriophage",
+      "Prion"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Eukaryotes (animals, plants, fungi, and protists) have membrane-bound nuclei and specialized organelles.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-031",
+    "question": "What is a segment of DNA that codes for a specific functional protein or trait called?",
+    "options": [
+      "Chromosome",
+      "Gene",
+      "Codon",
+      "Allele"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A gene is the basic molecular unit of heredity containing instructions to build specific polypeptides.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-032",
+    "question": "What are different alternative forms or variants of the same gene called?",
+    "options": [
+      "Codons",
+      "Alleles",
+      "Genomes",
+      "Plasmids"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Alleles are variant nucleotide sequences at a specific genomic locus (e.g., brown eye allele vs blue eye allele).",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-033",
+    "question": "What is an organism's genetic makeup or combination of alleles called?",
+    "options": [
+      "Phenotype",
+      "Genotype",
+      "Karyotype",
+      "Serotype"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Genotype refers to the specific genetic makeup of an organism, while phenotype refers to observable physical traits.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-034",
+    "question": "What is the observable physical appearance or functional expression of an organism's traits called?",
+    "options": [
+      "Genotype",
+      "Phenotype",
+      "Allele",
+      "Haplotype"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An organism's phenotype is the set of observable characteristics resulting from the interaction of its genotype with the environment.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-035",
+    "question": "What Swedish botanist developed the modern system of binomial nomenclature (genus and species)?",
+    "options": [
+      "Charles Darwin",
+      "Carl Linnaeus",
+      "Gregor Mendel",
+      "Jean-Baptiste Lamarck"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Carl Linnaeus formalised binomial nomenclature (e.g., Homo sapiens) in the 18th century, earning the title 'Father of Modern Taxonomy'.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-036",
+    "question": "What is the primary carbohydrate storage compound in plants?",
+    "options": [
+      "Glycogen",
+      "Starch (amylum)",
+      "Cellulose",
+      "Chitin"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Plants store excess glucose produced during photosynthesis in the form of starch granules.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-037",
+    "question": "What is the primary carbohydrate storage compound in animal livers and muscles?",
+    "options": [
+      "Starch",
+      "Glycogen",
+      "Cellulose",
+      "Dextrin"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Animals store energy as glycogen, a multibranched polysaccharide of glucose located primarily in liver and skeletal muscles.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-038",
+    "question": "Which of the following describes anaerobic respiration?",
+    "options": [
+      "Respiration requiring ample oxygen",
+      "Respiration that occurs in the absence of oxygen",
+      "Photosynthesis in bright light",
+      "Water filtration in roots"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Anaerobic respiration breaks down glucose to produce cellular energy without requiring molecular oxygen.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-039",
+    "question": "What anaerobic metabolic process produces alcohol or lactic acid in microorganisms like yeast?",
+    "options": [
+      "Krebs cycle",
+      "Fermentation",
+      "Transpiration",
+      "Oxidative phosphorylation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Fermentation allows glycolysis to continue producing ATP in anaerobic conditions, generating ethanol or lactate.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-040",
+    "question": "What is an organism that transmits disease-causing pathogens from one host to another called (such as mosquitoes transmitting malaria)?",
+    "options": [
+      "Parasite",
+      "Vector",
+      "Host",
+      "Pathogen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In epidemiology, a vector is any agent (often an arthropod) that transfers an infectious pathogen into another living organism.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-041",
+    "question": "What is the process called when an organism grows and replaces damaged or lost tissues, organs, or limbs?",
+    "options": [
+      "Metamorphosis",
+      "Regeneration",
+      "Germination",
+      "Speciation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Regeneration is the natural renewal of lost or damaged tissues (e.g., starfishes regrowing lost arms).",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-042",
+    "question": "What is the biological term for the development of a plant from a dormant seed?",
+    "options": [
+      "Pollination",
+      "Germination",
+      "Fertilization",
+      "Transpiration"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Germination begins when a dormant seed absorbs water and sprouts a seedling embryo.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-043",
+    "question": "What is the transfer of pollen grains from the anther to the stigma of a flower called?",
+    "options": [
+      "Fertilization",
+      "Pollination",
+      "Germination",
+      "Budding"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Pollination is the delivery of pollen by wind, water, or animal pollinators to the female reproductive organ.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-044",
+    "question": "What is the female reproductive part of a flowering plant called?",
+    "options": [
+      "Stamen",
+      "Pistil (or Carpel)",
+      "Sepal",
+      "Petal"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The pistil comprises the stigma, style, and ovary containing ovules.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-045",
+    "question": "What is the male reproductive organ of a flowering plant called?",
+    "options": [
+      "Pistil",
+      "Stamen",
+      "Ovary",
+      "Style"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The stamen consists of the slender filament and the pollen-producing anther.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-046",
+    "question": "What is the protective outer layer of a tree trunk called?",
+    "options": [
+      "Phloem",
+      "Bark",
+      "Pith",
+      "Xylem"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bark comprises all tissues outside the vascular cambium, protecting against insects, physical injury, and dehydration.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-047",
+    "question": "What is the study of birds called?",
+    "options": [
+      "Entomology",
+      "Ornithology",
+      "Herpetology",
+      "Ichthyology"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ornithology is the branch of zoology that studies bird species, physiology, and habitats.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-048",
+    "question": "What is the study of insects called?",
+    "options": [
+      "Ornithology",
+      "Entomology",
+      "Herpetology",
+      "Botany"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Entomology is the scientific study of insects, the largest animal group on Earth.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-049",
+    "question": "What is the study of reptiles and amphibians called?",
+    "options": [
+      "Ichthyology",
+      "Herpetology",
+      "Mammalogy",
+      "Paleontology"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Herpetology is the branch of zoology dedicated to reptiles and amphibians.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  },
+  {
+    "questionId": "bio-050",
+    "question": "What is the study of plant life and botany called?",
+    "options": [
+      "Zoology",
+      "Botany (Plant Biology)",
+      "Ecology",
+      "Microbiology"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Botany is the scientific discipline dedicated to the study of plants, including algae and fungi historically.",
+    "difficulty": "easy",
+    "topic": "Biology Basics"
+  }
+]

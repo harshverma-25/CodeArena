@@ -49,6 +49,8 @@ export interface IBattleCurrentRound {
 export interface IBattle {
   roomId: Types.ObjectId;
   roomCode: string;
+  categoryId?: string | null;
+  subjectId?: string | null;
   topic: string;
   difficulty: string;
   questionCount: number;

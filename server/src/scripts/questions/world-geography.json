@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "geo-001",
+    "question": "What is the longest river in the world by traditional geographic consensus?",
+    "options": [
+      "Amazon River",
+      "Nile River",
+      "Yangtze River",
+      "Mississippi River"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Nile River in Africa, stretching approximately 6,650 km, is traditionally recognized as the longest river in the world.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-002",
+    "question": "What is the highest mountain peak above sea level on Earth?",
+    "options": [
+      "K2",
+      "Mount Kilimanjaro",
+      "Mount Everest",
+      "Kangchenjunga"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Mount Everest in the Himalayas rises to an elevation of 8,848.86 meters above sea level.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-003",
+    "question": "What is the largest ocean on Earth by surface area?",
+    "options": [
+      "Atlantic Ocean",
+      "Indian Ocean",
+      "Arctic Ocean",
+      "Pacific Ocean"
+    ],
+    "correctAnswer": 3,
+    "explanation": "The Pacific Ocean covers over 165 million square kilometers, making it larger than all the Earth's land area combined.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-004",
+    "question": "What is the largest country in the world by total land area?",
+    "options": [
+      "Canada",
+      "China",
+      "Russia",
+      "United States"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Russia spans over 17 million square kilometers across Eastern Europe and Northern Asia.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-005",
+    "question": "What is the smallest independent sovereign state in the world by both area and population?",
+    "options": [
+      "Monaco",
+      "San Marino",
+      "Vatican City",
+      "Liechtenstein"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Vatican City covers an area of just 0.49 square kilometers (121 acres) completely surrounded by Rome, Italy.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-006",
+    "question": "What is the largest hot desert in the world?",
+    "options": [
+      "Gobi Desert",
+      "Sahara Desert",
+      "Kalahari Desert",
+      "Thar Desert"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Sahara Desert in Northern Africa is the largest subtropical hot desert on Earth, covering over 9 million square kilometers.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-007",
+    "question": "What is the capital city of France?",
+    "options": [
+      "Marseille",
+      "Lyon",
+      "Paris",
+      "Nice"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Paris, situated on the Seine River, is the capital and largest city of France.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-008",
+    "question": "Which continent is known as the 'Dark Continent' and contains the highest number of sovereign countries?",
+    "options": [
+      "Asia",
+      "Africa",
+      "Europe",
+      "South America"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Africa contains 54 internationally recognized sovereign states, more than any other continent.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-009",
+    "question": "What is the capital city of Australia?",
+    "options": [
+      "Sydney",
+      "Melbourne",
+      "Canberra",
+      "Brisbane"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Canberra was chosen as the compromise capital of Australia in 1908 between rivals Sydney and Melbourne.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-010",
+    "question": "Which strait separates the continents of Asia and North America?",
+    "options": [
+      "Strait of Gibraltar",
+      "Bering Strait",
+      "Malacca Strait",
+      "Bosphorus Strait"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Bering Strait connects the Pacific and Arctic oceans, separating Russia in Asia from Alaska in North America.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-011",
+    "question": "What is the largest freshwater lake in the world by surface area?",
+    "options": [
+      "Lake Victoria",
+      "Lake Superior",
+      "Lake Baikal",
+      "Caspian Sea"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lake Superior, on the US-Canada border, is the world's largest freshwater lake by surface area (approx. 82,100 km²).",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-012",
+    "question": "What is the deepest lake in the world, holding 20% of Earth's unfrozen surface freshwater?",
+    "options": [
+      "Lake Tanganyika",
+      "Lake Baikal",
+      "Caspian Sea",
+      "Lake Superior"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lake Baikal in Siberia, Russia, has a maximum depth of 1,642 meters (5,387 feet).",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-013",
+    "question": "Which country is known as the 'Land of the Rising Sun'?",
+    "options": [
+      "China",
+      "Japan",
+      "South Korea",
+      "Thailand"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Japan is called Nihon or Nippon natively, which translates literally to 'origin of the sun' or 'Land of the Rising Sun'.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-014",
+    "question": "What is the highest uninterrupted waterfall in the world?",
+    "options": [
+      "Niagara Falls",
+      "Victoria Falls",
+      "Angel Falls",
+      "Iguazu Falls"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Angel Falls in Venezuela drops 979 meters (3,212 feet) with an uninterrupted plunge of 807 meters.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-015",
+    "question": "Which imaginary line divides the Earth into the Northern and Southern Hemispheres?",
+    "options": [
+      "Prime Meridian",
+      "Tropic of Cancer",
+      "Equator",
+      "Tropic of Capricorn"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The Equator is the line of 0 degrees latitude that circles the Earth midway between the North and South poles.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-016",
+    "question": "What is the capital city of Japan?",
+    "options": [
+      "Kyoto",
+      "Osaka",
+      "Tokyo",
+      "Yokohama"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Tokyo is the bustling capital city and economic hub of Japan.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-017",
+    "question": "What is the longest continental mountain range in the world?",
+    "options": [
+      "Rocky Mountains",
+      "Himalayas",
+      "Andes Mountains",
+      "Alps"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The Andes span over 7,000 kilometers along the western coast of South America.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-018",
+    "question": "Which country has the longest coastline in the world?",
+    "options": [
+      "Russia",
+      "Canada",
+      "Norway",
+      "Indonesia"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Canada possesses the world's longest coastline, measuring over 202,080 kilometers (125,567 miles).",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-019",
+    "question": "What is the capital city of Canada?",
+    "options": [
+      "Toronto",
+      "Vancouver",
+      "Ottawa",
+      "Montreal"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Ottawa in the province of Ontario is the federal capital of Canada.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-020",
+    "question": "Which body of water connects the Atlantic Ocean to the Mediterranean Sea?",
+    "options": [
+      "Suez Canal",
+      "Strait of Gibraltar",
+      "Bosphorus Strait",
+      "Panama Canal"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Strait of Gibraltar connects the Atlantic Ocean to the Mediterranean Sea, separating Spain from Morocco.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-021",
+    "question": "Which is the most populous country in the world as of 2023 onwards?",
+    "options": [
+      "China",
+      "India",
+      "United States",
+      "Indonesia"
+    ],
+    "correctAnswer": 1,
+    "explanation": "According to UN official demographic projections, India overtook China in 2023 to become the world's most populous nation.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-022",
+    "question": "In which country is the famous historic Taj Mahal located?",
+    "options": [
+      "Pakistan",
+      "India",
+      "Bangladesh",
+      "Iran"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Taj Mahal is located on the south bank of the Yamuna River in Agra, India.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-023",
+    "question": "Which African country has three official capital cities: Pretoria, Cape Town, and Bloemfontein?",
+    "options": [
+      "Nigeria",
+      "South Africa",
+      "Kenya",
+      "Egypt"
+    ],
+    "correctAnswer": 1,
+    "explanation": "South Africa divides power among three capitals: Pretoria (executive), Cape Town (legislative), and Bloemfontein (judicial).",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-024",
+    "question": "What is the capital of Italy?",
+    "options": [
+      "Milan",
+      "Venice",
+      "Rome",
+      "Florence"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Rome, known as the 'Eternal City', is the capital of Italy.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-025",
+    "question": "Which continent is also a single sovereign country?",
+    "options": [
+      "Europe",
+      "Antarctica",
+      "Australia",
+      "South America"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Australia is both a continent and a single sovereign nation.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-026",
+    "question": "What is the largest island in the world that is not a continent?",
+    "options": [
+      "Madagascar",
+      "New Guinea",
+      "Greenland",
+      "Borneo"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Greenland, an autonomous territory within the Kingdom of Denmark, is the world's largest island.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-027",
+    "question": "Which river flows through the Grand Canyon in the United States?",
+    "options": [
+      "Mississippi River",
+      "Colorado River",
+      "Rio Grande",
+      "Columbia River"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Colorado River carved the famous Grand Canyon in Arizona over millions of years.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-028",
+    "question": "What is the capital of Germany?",
+    "options": [
+      "Munich",
+      "Frankfurt",
+      "Berlin",
+      "Hamburg"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Berlin is the capital and largest city of Germany.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-029",
+    "question": "Which sea is the saltiest and lowest body of water on Earth's land surface?",
+    "options": [
+      "Red Sea",
+      "Caspian Sea",
+      "Dead Sea",
+      "Black Sea"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The Dead Sea borders Jordan and Israel, lying about 430 meters below sea level with nearly 34% salinity.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-030",
+    "question": "What canal connects the Mediterranean Sea to the Red Sea, enabling direct maritime trade between Europe and Asia?",
+    "options": [
+      "Panama Canal",
+      "Suez Canal",
+      "Kiel Canal",
+      "Erie Canal"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Suez Canal in Egypt opened in 1869, providing a direct water route between the North Atlantic and northern Indian oceans.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-031",
+    "question": "Which city is the capital of the United Kingdom?",
+    "options": [
+      "Edinburgh",
+      "Manchester",
+      "London",
+      "Birmingham"
+    ],
+    "correctAnswer": 2,
+    "explanation": "London is the capital of both England and the United Kingdom.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-032",
+    "question": "What is the capital of Russia?",
+    "options": [
+      "Saint Petersburg",
+      "Moscow",
+      "Novosibirsk",
+      "Kazan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Moscow is the capital and largest metropolis of Russia.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-033",
+    "question": "Which major river runs through Egypt and flows into the Mediterranean Sea?",
+    "options": [
+      "Congo",
+      "Niger",
+      "Nile",
+      "Zambezi"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The Nile River runs northward through Egypt and terminates in a large delta at the Mediterranean Sea.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-034",
+    "question": "What is the capital of China?",
+    "options": [
+      "Shanghai",
+      "Beijing",
+      "Guangzhou",
+      "Shenzhen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Beijing is the capital of the People's Republic of China.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-035",
+    "question": "Which is the highest plateau in the world, often called the 'Roof of the World'?",
+    "options": [
+      "Deccan Plateau",
+      "Colorado Plateau",
+      "Tibetan Plateau",
+      "Anatolian Plateau"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The Tibetan Plateau in Central and East Asia averages over 4,500 meters in elevation.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-036",
+    "question": "What is the capital city of Brazil?",
+    "options": [
+      "Rio de Janeiro",
+      "São Paulo",
+      "Brasília",
+      "Salvador"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Brasília was inaugurated in 1960 as the planned capital of Brazil, replacing Rio de Janeiro.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-037",
+    "question": "What is the capital of Egypt?",
+    "options": [
+      "Alexandria",
+      "Cairo",
+      "Giza",
+      "Luxor"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Cairo is the historic capital city and cultural center of Egypt.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-038",
+    "question": "Which desert covers much of northern China and southern Mongolia?",
+    "options": [
+      "Thar Desert",
+      "Gobi Desert",
+      "Atacama Desert",
+      "Arabian Desert"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Gobi Desert is a vast cold desert region spanning northern China and southern Mongolia.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-039",
+    "question": "Which river flows through Paris?",
+    "options": [
+      "Thames",
+      "Danube",
+      "Seine",
+      "Rhine"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The Seine River flows right through the heart of Paris, dividing the city into Left and Right Banks.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-040",
+    "question": "What is the largest country in South America by area and population?",
+    "options": [
+      "Argentina",
+      "Colombia",
+      "Brazil",
+      "Peru"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Brazil occupies almost half of South America's entire landmass.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-041",
+    "question": "What is the capital of Spain?",
+    "options": [
+      "Barcelona",
+      "Seville",
+      "Madrid",
+      "Valencia"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Madrid is the capital and most populous municipality of Spain.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-042",
+    "question": "What is the driest non-polar desert in the world?",
+    "options": [
+      "Sahara Desert",
+      "Atacama Desert",
+      "Mojave Desert",
+      "Namib Desert"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Atacama Desert in Chile is the driest non-polar desert on Earth, with some areas receiving virtually no rain.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-043",
+    "question": "Which ocean lies entirely in the Eastern Hemisphere and is named after a major country?",
+    "options": [
+      "Atlantic Ocean",
+      "Pacific Ocean",
+      "Indian Ocean",
+      "Arctic Ocean"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The Indian Ocean is the only ocean named after a country (India).",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-044",
+    "question": "What is the capital of South Korea?",
+    "options": [
+      "Busan",
+      "Incheon",
+      "Seoul",
+      "Daegu"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Seoul is the capital and financial heart of South Korea.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-045",
+    "question": "Which European country is shaped like a boot?",
+    "options": [
+      "Greece",
+      "Portugal",
+      "Italy",
+      "Croatia"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Italy's geographic peninsula famously resembles a high-heeled boot kicking the island of Sicily.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-046",
+    "question": "What is the capital of Argentina?",
+    "options": [
+      "Cordoba",
+      "Rosario",
+      "Buenos Aires",
+      "Mendoza"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Buenos Aires is the capital and largest city of Argentina, located on the Río de la Plata.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-047",
+    "question": "Which country is home to the ancient ruins of Machu Picchu?",
+    "options": [
+      "Bolivia",
+      "Chile",
+      "Peru",
+      "Ecuador"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Machu Picchu is a 15th-century Inca citadel located in the Eastern Cordillera of southern Peru.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-048",
+    "question": "Which country has the most natural lakes in the world, holding over 60% of all lakes globally?",
+    "options": [
+      "United States",
+      "Russia",
+      "Canada",
+      "Finland"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Canada contains more lakes than the rest of the world combined, numbering around 2 million lakes.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-049",
+    "question": "What is the capital of Thailand?",
+    "options": [
+      "Phuket",
+      "Chiang Mai",
+      "Bangkok",
+      "Pattaya"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Bangkok (Krung Thep Maha Nakhon) is the vibrant capital city of Thailand.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  },
+  {
+    "questionId": "geo-050",
+    "question": "Which is the smallest continent by land area?",
+    "options": [
+      "Europe",
+      "Antarctica",
+      "Australia (Oceania)",
+      "South America"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Australia is the smallest of Earth's seven continents by total land area.",
+    "difficulty": "easy",
+    "topic": "World Geography"
+  }
+]

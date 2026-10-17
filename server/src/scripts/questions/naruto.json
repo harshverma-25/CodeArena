@@ -1,0 +1,452 @@
+[
+  {
+    "questionId": "naruto-001",
+    "question": "What is the name of the nine-tailed beast sealed inside Naruto Uzumaki?",
+    "options": ["Shukaku", "Kurama", "Gyuki", "Matatabi"],
+    "correctAnswer": 1,
+    "explanation": "The Nine-Tails sealed inside Naruto is named Kurama.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-002",
+    "question": "Which village does Naruto Uzumaki belong to?",
+    "options": ["Sunagakure (Hidden Sand)", "Kirigakure (Hidden Mist)", "Konohagakure (Hidden Leaf)", "Kumogakure (Hidden Cloud)"],
+    "correctAnswer": 2,
+    "explanation": "Naruto is a ninja from Konohagakure, the Hidden Leaf Village in the Land of Fire.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-003",
+    "question": "Who was the leader and sensei of Team 7 when Naruto, Sasuke, and Sakura graduated?",
+    "options": ["Jiraiya", "Kakashi Hatake", "Iruka Umino", "Asuma Sarutobi"],
+    "correctAnswer": 1,
+    "explanation": "Kakashi Hatake was the Jonin leader of Team 7.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-004",
+    "question": "What is Naruto's signature jutsu invented by the Fourth Hokage?",
+    "options": ["Chidori", "Rasengan", "Amaterasu", "Shadow Clone Jutsu"],
+    "correctAnswer": 1,
+    "explanation": "The Rasengan was created by Naruto's father, Minato Namikaze, the Fourth Hokage.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-005",
+    "question": "What is Sasuke Uchiha's signature lightning-style technique taught by Kakashi?",
+    "options": ["Rasengan", "Chidori", "Kirin", "Lightning Blade"],
+    "correctAnswer": 1,
+    "explanation": "Kakashi taught Sasuke the Chidori prior to the final rounds of the Chunin Exams.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-006",
+    "question": "What is Naruto's favorite food that he frequently eats at Ichiraku?",
+    "options": ["Dango", "Ramen", "Sushi", "Onigiri"],
+    "correctAnswer": 1,
+    "explanation": "Naruto's favorite food is Miso Chashu Ramen at Ramen Ichiraku.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-007",
+    "question": "Who was known as the 'Copy Ninja' throughout the shinobi world?",
+    "options": ["Sasuke Uchiha", "Kakashi Hatake", "Orochimaru", "Itachi Uchiha"],
+    "correctAnswer": 1,
+    "explanation": "Kakashi Hatake was known as the Copy Ninja due to his Sharingan which copied over a thousand jutsu.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-008",
+    "question": "What eye technique is unique to the Uchiha clan?",
+    "options": ["Byakugan", "Sharingan", "Rinnegan", "Tenseigan"],
+    "correctAnswer": 1,
+    "explanation": "The Sharingan is the dōjutsu kekkei genkai of the Uchiha clan.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-009",
+    "question": "What eye technique is unique to the Hyuga clan?",
+    "options": ["Byakugan", "Sharingan", "Ketsuryugan", "Rinnegan"],
+    "correctAnswer": 0,
+    "explanation": "The Byakugan is the dōjutsu kekkei genkai possessed by members of the Hyūga clan.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-010",
+    "question": "Who was the Fourth Hokage of Konoha and Naruto's father?",
+    "options": ["Hashirama Senju", "Tobirama Senju", "Hiruzen Sarutobi", "Minato Namikaze"],
+    "correctAnswer": 3,
+    "explanation": "Minato Namikaze, the Yellow Flash of the Leaf, was the Fourth Hokage and Naruto's father.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-011",
+    "question": "Who was the First Hokage and founder of Konohagakure alongside Madara Uchiha?",
+    "options": ["Hashirama Senju", "Tobirama Senju", "Hiruzen Sarutobi", "Danzo Shimura"],
+    "correctAnswer": 0,
+    "explanation": "Hashirama Senju, the God of Shinobi, founded the Hidden Leaf Village with Madara Uchiha.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-012",
+    "question": "Which criminal organization wore black cloaks with red clouds?",
+    "options": ["ANBU", "Seven Ninja Swordsmen", "Akatsuki", "Root"],
+    "correctAnswer": 2,
+    "explanation": "The Akatsuki was a rogue ninja organization whose members wore black cloaks with red clouds.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-013",
+    "question": "Who was Sasuke's older brother who massacred the Uchiha clan to protect the village?",
+    "options": ["Madara Uchiha", "Shisui Uchiha", "Obito Uchiha", "Itachi Uchiha"],
+    "correctAnswer": 3,
+    "explanation": "Itachi Uchiha eliminated his clan under secret orders from Leaf elders, sparing only Sasuke.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-014",
+    "question": "Who is known as the 'Toad Sage' and mentored both Minato and Naruto?",
+    "options": ["Orochimaru", "Jiraiya", "Tsunade", "Gamabunta"],
+    "correctAnswer": 1,
+    "explanation": "Jiraiya was one of the Legendary Sannin, also known as the Toad Sage.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-015",
+    "question": "Who became the Fifth Hokage and was celebrated as the greatest medical ninja?",
+    "options": ["Shizune", "Kushina Uzumaki", "Tsunade", "Mei Terumi"],
+    "correctAnswer": 2,
+    "explanation": "Lady Tsunade, granddaughter of Hashirama Senju, became the Fifth Hokage.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-016",
+    "question": "Who are the Legendary Sannin of the Leaf Village?",
+    "options": ["Kakashi, Guy, Asuma", "Jiraiya, Tsunade, Orochimaru", "Madara, Hashirama, Tobirama", "Naruto, Sasuke, Sakura"],
+    "correctAnswer": 1,
+    "explanation": "Jiraiya, Tsunade, and Orochimaru were named the Legendary Sannin by Hanzo of the Salamander.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-017",
+    "question": "What weapon does Rock Lee specialize in?",
+    "options": ["Genjutsu", "Ninjutsu", "Taijutsu", "Senjutsu"],
+    "correctAnswer": 2,
+    "explanation": "Rock Lee cannot mold chakra for Ninjutsu or Genjutsu, so he dedicated his life to mastering Taijutsu.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-018",
+    "question": "Who is Rock Lee's beloved sensei who dresses identically to him?",
+    "options": ["Kakashi Hatake", "Might Guy", "Asuma Sarutobi", "Kurenai Yuhi"],
+    "correctAnswer": 1,
+    "explanation": "Might Guy, the Leaf's Noble Green Beast, is Rock Lee's devoted sensei.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-019",
+    "question": "What is Gaara's primary defensive and offensive weapon?",
+    "options": ["Puppets", "Sand", "Wind Blade", "Paper Bombs"],
+    "correctAnswer": 1,
+    "explanation": "Gaara controls chakra-infused sand stored in a large gourd on his back.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-020",
+    "question": "What title did Gaara achieve in Sunagakure at a very young age?",
+    "options": ["Mizukage", "Kazekage", "Raikage", "Tsuchikage"],
+    "correctAnswer": 1,
+    "explanation": "Gaara became the Fifth Kazekage of the Hidden Sand Village.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-021",
+    "question": "Who eventually marries Naruto Uzumaki?",
+    "options": ["Sakura Haruno", "Hinata Hyuga", "Ino Yamanaka", "Tenten"],
+    "correctAnswer": 1,
+    "explanation": "Hinata Hyūga, who loved Naruto since childhood, marries him in the finale.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-022",
+    "question": "What is the name of Naruto and Hinata's firstborn son?",
+    "options": ["Kawaki", "Boruto", "Mitsuki", "Konohamaru"],
+    "correctAnswer": 1,
+    "explanation": "Boruto Uzumaki is the son of Naruto and Hinata.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-023",
+    "question": "Which ninja clan specializes in Shadow Imitation techniques?",
+    "options": ["Akimichi Clan", "Nara Clan", "Yamanaka Clan", "Aburame Clan"],
+    "correctAnswer": 1,
+    "explanation": "The Nara clan, including Shikamaru and Shikaku, specializes in Shadow Manipulation techniques.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-024",
+    "question": "What is Shikamaru Nara's famous catchphrase?",
+    "options": ["Believe it!", "What a drag...", "Youth never fades!", "Super explosive!"],
+    "correctAnswer": 1,
+    "explanation": "Shikamaru constantly mutters 'What a drag...' (Mendokuse) when facing troubles.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-025",
+    "question": "Who was the leader of the Akatsuki who destroyed Konoha using the Shinra Tensei (Almighty Push)?",
+    "options": ["Kisame", "Pain (Nagato)", "Deidara", "Sasori"],
+    "correctAnswer": 1,
+    "explanation": "Pain, using the Deva Path and Nagato's Rinnegan, flattened Konoha with a massive Almighty Push.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-026",
+    "question": "What kind of creatures does Kiba Inuzuka fight alongside?",
+    "options": ["Insects", "Dogs (Ninken)", "Toads", "Snakes"],
+    "correctAnswer": 1,
+    "explanation": "Kiba fights alongside his ninja dog partner, Akamaru.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-027",
+    "question": "Which clan hosts parasitic kikaichū insects inside their bodies?",
+    "options": ["Aburame Clan", "Inuzuka Clan", "Hyūga Clan", "Uchiha Clan"],
+    "correctAnswer": 0,
+    "explanation": "The Aburame clan, including Shino Aburame, uses their bodies as hives for symbiotic insects.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-028",
+    "question": "What is the supreme visual jutsu possessed by Nagato and the Sage of Six Paths?",
+    "options": ["Sharingan", "Byakugan", "Rinnegan", "Ketsuryūgan"],
+    "correctAnswer": 2,
+    "explanation": "The Rinnegan is regarded as the most exalted of the Three Great Dōjutsu.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-029",
+    "question": "What was the name of the masked Akatsuki member who claimed to be Madara before revealing his identity as Obito?",
+    "options": ["Tobi", "Zetsu", "Hidan", "Kakuzu"],
+    "correctAnswer": 0,
+    "explanation": "Obito Uchiha operated in disguise under the comedic persona 'Tobi'.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-030",
+    "question": "Which Akatsuki member is a master puppet master who turned his own body into a puppet?",
+    "options": ["Kankuro", "Sasori", "Deidara", "Hidan"],
+    "correctAnswer": 1,
+    "explanation": "Sasori of the Red Sand was a Sunagakure puppeteer who replaced his body with puppet mechanisms.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-031",
+    "question": "What is Deidara's philosophy regarding art?",
+    "options": ["Art is eternal and unchanging", "Art is an explosion!", "Art is in human suffering", "Art is puppet design"],
+    "correctAnswer": 1,
+    "explanation": "Deidara loudly proclaims 'Art is an explosion!' (Geijutsu wa bakuhatsu da!).",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-032",
+    "question": "Which immortal Akatsuki member worshipped the deity Jashin and fought with a three-bladed scythe?",
+    "options": ["Kakuzu", "Hidan", "Kisame", "Zetsu"],
+    "correctAnswer": 1,
+    "explanation": "Hidan was an immortal zealot of Jashin who engaged in voodoo-like rituals using opponents' blood.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-033",
+    "question": "Which massive shark-like sword was wielded by Kisame Hoshigaki?",
+    "options": ["Kubikiribōchō", "Samehada", "Kusanagi", "Nuibari"],
+    "correctAnswer": 1,
+    "explanation": "Samehada (Shark Skin) was Kisame's sentient chakra-devouring greatsword.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-034",
+    "question": "Who was Zabuza Momochi's loyal young companion who wielded Ice Release mirrors?",
+    "options": ["Haku", "Kimimaro", "Suigetsu", "Jugo"],
+    "correctAnswer": 0,
+    "explanation": "Haku was a young Ice Release user from the Land of Water who protected Zabuza.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-035",
+    "question": "What is the forbidden technique that revives deceased souls using living sacrifices?",
+    "options": ["Izanagi", "Edo Tensei (Reanimation Jutsu)", "Reaper Death Seal", "Tsukuyomi"],
+    "correctAnswer": 1,
+    "explanation": "Edo Tensei (Impure World Reincarnation), invented by Tobirama Senju, resurrects the dead.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-036",
+    "question": "What is the name of the colossal wooden-faced mountain carving honoring Leaf leaders?",
+    "options": ["Hokage Rock", "Valley of the End", "Naka Shrine", "Mount Myoboku"],
+    "correctAnswer": 0,
+    "explanation": "The Hokage Rock overlooks Konohagakure, showing the faces of all Hokage.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-037",
+    "question": "Where did Naruto and Sasuke have their iconic battles at the end of Part 1 and Shippuden?",
+    "options": ["Forest of Death", "Valley of the End", "Mount Myoboku", "Ryuuchi Cave"],
+    "correctAnswer": 1,
+    "explanation": "The Valley of the End, with statues of Hashirama and Madara, is the stage for their clashes.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-038",
+    "question": "What does Choji Akimichi become furious about if called?",
+    "options": ["Slow", "Fat / Chubby", "Weak", "Lazy"],
+    "correctAnswer": 1,
+    "explanation": "Choji insists he is just 'big-boned' and flies into a rage if called fat.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-039",
+    "question": "What is the clan jutsu of Ino Yamanaka that takes over a target's body?",
+    "options": ["Mind Transfer Jutsu", "Shadow Possession Jutsu", "Gentle Fist", "Expansion Jutsu"],
+    "correctAnswer": 0,
+    "explanation": "The Yamanaka clan's signature technique is the Mind Body Switch (Mind Transfer) Jutsu.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-040",
+    "question": "What is Sai's primary ninjutsu specialty?",
+    "options": ["Super Beast Imitating Drawing (Ink Ninjutsu)", "Sand manipulation", "Bone manipulation", "Explosion clay"],
+    "correctAnswer": 0,
+    "explanation": "Sai uses brush and ink on scrolls to bring drawn beasts to life in combat.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-041",
+    "question": "What is the name of the sacred mountain where Jiraiya and Naruto learned Toad Senjutsu (Sage Mode)?",
+    "options": ["Mount Fuji", "Mount Myoboku", "Mount Shikkotsu", "Mount Ryuchi"],
+    "correctAnswer": 1,
+    "explanation": "Mount Myōboku is the land of toads where Sage Mode training takes place.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-042",
+    "question": "What chakra element is Naruto's natural affinity?",
+    "options": ["Fire Release", "Water Release", "Lightning Release", "Wind Release"],
+    "correctAnswer": 3,
+    "explanation": "Naruto's natural elemental chakra affinity is Wind (Futon), which he used to create Rasenshuriken.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-043",
+    "question": "What chakra element is Sasuke's natural clan affinity?",
+    "options": ["Fire Release", "Earth Release", "Water Release", "Wind Release"],
+    "correctAnswer": 0,
+    "explanation": "All Uchiha possess a natural affinity for Fire Release, symbolized by the Fireball Jutsu.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-044",
+    "question": "Who was the ancestor of all shinobi and mother of Hagoromo and Hamura?",
+    "options": ["Kaguya Otsutsuki", "Kushina Uzumaki", "Mito Uzumaki", "Konan"],
+    "correctAnswer": 0,
+    "explanation": "Kaguya Ōtsutsuki consumed the fruit of the God Tree and became the progenitor of chakra on Earth.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-045",
+    "question": "Who was the legendary swordsman of the Hidden Mist who was defeated in the Land of Waves arc?",
+    "options": ["Kisame Hoshigaki", "Zabuza Momochi", "Chojuro", "Mangetsu Hozuki"],
+    "correctAnswer": 1,
+    "explanation": "Zabuza Momochi, the Demon of the Hidden Mist, was the first major antagonist Team 7 faced.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-046",
+    "question": "What is the seal placed on Sasuke by Orochimaru in the Forest of Death called?",
+    "options": ["Cursed Seal of Heaven", "Reaper Death Seal", "Four Symbols Seal", "Strength of a Hundred Seal"],
+    "correctAnswer": 0,
+    "explanation": "Orochimaru bit Sasuke to give him the Cursed Seal of Heaven to entice him with dark power.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-047",
+    "question": "Which gate is the final, fatal gate of the Eight Inner Gates used by Might Guy against Madara?",
+    "options": ["Gate of Wonder", "Gate of Joy", "Gate of Death", "Gate of Limit"],
+    "correctAnswer": 2,
+    "explanation": "The Eighth Gate is the Gate of Death, located at the heart, unleashing all bodily potential.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-048",
+    "question": "What is the rank of ninja directly below Jonin and above Genin?",
+    "options": ["Anbu", "Chunin", "Kage", "Sannin"],
+    "correctAnswer": 1,
+    "explanation": "The official shinobi ranking progression is Academy Student -> Genin -> Chunin -> Jonin.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-049",
+    "question": "Who became the Sixth Hokage after the Fourth Great Ninja War?",
+    "options": ["Kakashi Hatake", "Might Guy", "Shikamaru Nara", "Sasuke Uchiha"],
+    "correctAnswer": 0,
+    "explanation": "Kakashi Hatake was appointed the Sixth Hokage following the Fourth Shinobi World War.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  },
+  {
+    "questionId": "naruto-050",
+    "question": "Which Hokage position does Naruto Uzumaki ultimately achieve?",
+    "options": ["Fifth Hokage", "Sixth Hokage", "Seventh Hokage", "Eighth Hokage"],
+    "correctAnswer": 2,
+    "explanation": "Naruto Uzumaki fulfills his lifelong dream by becoming the Seventh Hokage of Konohagakure.",
+    "difficulty": "easy",
+    "topic": "Naruto"
+  }
+]

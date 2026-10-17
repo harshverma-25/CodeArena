@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "cn-001",
+    "question": "How many layers are in the OSI (Open Systems Interconnection) reference model?",
+    "options": [
+      "4",
+      "5",
+      "7",
+      "9"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The OSI model consists of 7 layers: Physical, Data Link, Network, Transport, Session, Presentation, Application.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-002",
+    "question": "Which layer of the OSI model is responsible for routing packets across different networks?",
+    "options": [
+      "Data Link Layer",
+      "Network Layer",
+      "Transport Layer",
+      "Session Layer"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Network Layer (Layer 3) handles logical IP addressing, packet forwarding, and path determination/routing.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-003",
+    "question": "What does TCP stand for in computer networking?",
+    "options": [
+      "Transmission Control Protocol",
+      "Transfer Communication Path",
+      "Terminal Connection Protocol",
+      "Telecom Control Process"
+    ],
+    "correctAnswer": 0,
+    "explanation": "TCP stands for Transmission Control Protocol, providing reliable, ordered delivery of byte streams.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-004",
+    "question": "What is the primary difference between TCP and UDP?",
+    "options": [
+      "TCP is connectionless and unreliable; UDP is connection-oriented and reliable",
+      "TCP is connection-oriented and guarantees delivery; UDP is connectionless and faster without delivery guarantee",
+      "TCP is used only for video; UDP is used for web pages",
+      "TCP works on Layer 1; UDP works on Layer 7"
+    ],
+    "correctAnswer": 1,
+    "explanation": "TCP uses a 3-way handshake and retransmission to ensure delivery; UDP sends datagrams without establishing a connection.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-005",
+    "question": "What does IP stand for in network terminology?",
+    "options": [
+      "Internet Protocol",
+      "Internal Path",
+      "Interconnection Port",
+      "Interface Program"
+    ],
+    "correctAnswer": 0,
+    "explanation": "IP stands for Internet Protocol, the principal protocol for routing packets across network boundaries.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-006",
+    "question": "How many bits are used in an IPv4 address?",
+    "options": [
+      "16 bits",
+      "32 bits",
+      "64 bits",
+      "128 bits"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An IPv4 address is 32 bits (4 bytes) long, represented as four decimal octets (e.g., 192.168.1.1).",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-007",
+    "question": "How many bits are used in an IPv6 address?",
+    "options": [
+      "32 bits",
+      "64 bits",
+      "128 bits",
+      "256 bits"
+    ],
+    "correctAnswer": 2,
+    "explanation": "An IPv6 address is 128 bits (16 bytes) long, represented in hexadecimal groups separated by colons.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-008",
+    "question": "What is the standard loopback IP address for localhost in IPv4?",
+    "options": [
+      "192.168.0.1",
+      "127.0.0.1",
+      "10.0.0.1",
+      "0.0.0.0"
+    ],
+    "correctAnswer": 1,
+    "explanation": "127.0.0.1 is the standard IPv4 loopback address referring to the local host machine.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-009",
+    "question": "What protocol translates human-readable domain names (like www.google.com) into numerical IP addresses?",
+    "options": [
+      "DHCP",
+      "DNS (Domain Name System)",
+      "ARP",
+      "BGP"
+    ],
+    "correctAnswer": 1,
+    "explanation": "DNS translates domain names into IP addresses so browsers can connect to internet servers.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-010",
+    "question": "What is the default port number for unencrypted HTTP web traffic?",
+    "options": [
+      "21",
+      "22",
+      "80",
+      "443"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Port 80 is the default TCP port for unencrypted Hypertext Transfer Protocol (HTTP) traffic.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-011",
+    "question": "What is the default port number for encrypted HTTPS web traffic?",
+    "options": [
+      "80",
+      "443",
+      "8080",
+      "25"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Port 443 is the standard TCP port for secure HTTPS web communication encrypted with TLS/SSL.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-012",
+    "question": "What is the default port used by Secure Shell (SSH)?",
+    "options": [
+      "20",
+      "22",
+      "23",
+      "53"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Port 22 is the standard TCP port assigned to the SSH (Secure Shell) protocol.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-013",
+    "question": "What is the default port used by the Domain Name System (DNS)?",
+    "options": [
+      "25",
+      "53",
+      "67",
+      "110"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Port 53 (using both UDP and TCP) is assigned to DNS queries and zone transfers.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-014",
+    "question": "What does MAC address stand for in hardware networking?",
+    "options": [
+      "Master Access Code",
+      "Media Access Control",
+      "Main Address Channel",
+      "Machine Authentication Card"
+    ],
+    "correctAnswer": 1,
+    "explanation": "MAC (Media Access Control) address is a unique 48-bit physical identifier assigned to a Network Interface Card (NIC).",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-015",
+    "question": "What protocol is used to map an IP address to a physical MAC address on a local network?",
+    "options": [
+      "DNS",
+      "ARP (Address Resolution Protocol)",
+      "DHCP",
+      "ICMP"
+    ],
+    "correctAnswer": 1,
+    "explanation": "ARP (Address Resolution Protocol) resolves a known logical IP address to its corresponding physical MAC address.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-016",
+    "question": "What protocol dynamically assigns IP addresses, subnet masks, and default gateways to client devices automatically?",
+    "options": [
+      "DNS",
+      "DHCP (Dynamic Host Configuration Protocol)",
+      "SNMP",
+      "NTP"
+    ],
+    "correctAnswer": 1,
+    "explanation": "DHCP automatically distributes network configuration parameters to client devices upon connection.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-017",
+    "question": "What utility command uses ICMP Echo Request and Echo Reply messages to test network reachability to a host?",
+    "options": [
+      "traceroute",
+      "ping",
+      "netstat",
+      "ipconfig"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'ping' tool tests latency and packet loss to a destination host using ICMP.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-018",
+    "question": "What are the three packets exchanged during a standard TCP Three-Way Handshake to establish a connection?",
+    "options": [
+      "GET, POST, ACK",
+      "SYN, SYN-ACK, ACK",
+      "CONNECT, ACCEPT, READY",
+      "HELLO, WELCOME, START"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A TCP connection is established using: 1) Client sends SYN, 2) Server responds SYN-ACK, 3) Client sends ACK.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-019",
+    "question": "Which network device operates at Layer 2 (Data Link) and forwards frames based on hardware MAC addresses?",
+    "options": [
+      "Hub",
+      "Switch",
+      "Router",
+      "Modem"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A network switch inspects MAC addresses in Layer 2 frames to direct traffic specifically to destination ports.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-020",
+    "question": "Which network device operates at Layer 3 (Network Layer) and connects different networks by routing IP packets?",
+    "options": [
+      "Switch",
+      "Router",
+      "Repeater",
+      "Bridge"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A router forwards data packets between separate computer networks based on IP routing tables.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-021",
+    "question": "What legacy device simply broadcasts all incoming data packets out to every other connected port at Layer 1?",
+    "options": [
+      "Switch",
+      "Hub",
+      "Router",
+      "Gateway"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A dumb network hub retransmits incoming electrical signals across all ports without filtering.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-022",
+    "question": "What does LAN stand for in computer networks?",
+    "options": [
+      "Local Area Network",
+      "Logical Access Node",
+      "Large Array Network",
+      "Line Allocation Network"
+    ],
+    "correctAnswer": 0,
+    "explanation": "LAN (Local Area Network) connects computers within a limited geographical area like a home, school, or office.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-023",
+    "question": "What does WAN stand for in computer networks?",
+    "options": [
+      "Wide Area Network",
+      "Wireless Access Node",
+      "Web Area Network",
+      "World Allocation Network"
+    ],
+    "correctAnswer": 0,
+    "explanation": "WAN (Wide Area Network) spans large geographical distances (the Internet is the largest example).",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-024",
+    "question": "What topology connects all devices to a single central central hub or switch?",
+    "options": [
+      "Bus Topology",
+      "Star Topology",
+      "Ring Topology",
+      "Mesh Topology"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In a Star topology, all network nodes connect individually to a central switch or hub.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-025",
+    "question": "What topology provides every device with a dedicated point-to-point link to every other device in the network?",
+    "options": [
+      "Star",
+      "Mesh Topology",
+      "Bus",
+      "Ring"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A full Mesh topology provides redundant links between every pair of nodes, offering maximum fault tolerance.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-026",
+    "question": "What does NAT stand for in networking?",
+    "options": [
+      "Network Address Translation",
+      "Node Access Table",
+      "Network Allocation Timing",
+      "Name Authentication Tool"
+    ],
+    "correctAnswer": 0,
+    "explanation": "NAT (Network Address Translation) remaps private local IP addresses to a public IP address on the router.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-027",
+    "question": "Which of the following is a private IPv4 address range defined in RFC 1918?",
+    "options": [
+      "192.168.0.0 - 192.168.255.255",
+      "8.8.8.8",
+      "1.1.1.1",
+      "172.33.0.0"
+    ],
+    "correctAnswer": 0,
+    "explanation": "192.168.0.0/16, 10.0.0.0/8, and 172.16.0.0/12 are reserved for private internal networks.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-028",
+    "question": "What does FTP stand for?",
+    "options": [
+      "File Transfer Protocol",
+      "Fast Transmission Path",
+      "Folder Transport Process",
+      "Fiber Transfer Protocol"
+    ],
+    "correctAnswer": 0,
+    "explanation": "FTP (File Transfer Protocol) is a standard protocol used for transferring files between client and server.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-029",
+    "question": "What protocol is used to send outgoing email from client to server or between mail servers?",
+    "options": [
+      "POP3",
+      "SMTP (Simple Mail Transfer Protocol)",
+      "IMAP",
+      "HTTP"
+    ],
+    "correctAnswer": 1,
+    "explanation": "SMTP (Simple Mail Transfer Protocol, port 25/587) handles the sending and relaying of email messages.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-030",
+    "question": "What protocol allows email clients to retrieve messages from a mail server while keeping emails synchronized on the server?",
+    "options": [
+      "SMTP",
+      "IMAP (Internet Message Access Protocol)",
+      "POP3",
+      "FTP"
+    ],
+    "correctAnswer": 1,
+    "explanation": "IMAP keeps emails synchronized across multiple devices on the central mail server.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-031",
+    "question": "What command-line tool traces the exact path and router hops packets take across the Internet to reach a destination host?",
+    "options": [
+      "traceroute (or tracert)",
+      "ping",
+      "netstat",
+      "nslookup"
+    ],
+    "correctAnswer": 0,
+    "explanation": "'traceroute' lists every intermediate router hop and round-trip time by incrementing the IP packet's TTL value.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-032",
+    "question": "What field in an IPv4 header prevents packets from endlessly circulating in a routing loop by decrementing at each hop?",
+    "options": [
+      "Checksum",
+      "Time To Live (TTL)",
+      "Sequence Number",
+      "Payload Length"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Each router decrements the TTL by 1; when it reaches 0, the packet is discarded and an ICMP Time Exceeded is returned.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-033",
+    "question": "What protocol operates at the Data Link layer using CSMA/CD to detect packet collisions on legacy wired bus networks?",
+    "options": [
+      "Token Ring",
+      "Ethernet",
+      "FDDI",
+      "ATM"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ethernet used CSMA/CD (Carrier Sense Multiple Access with Collision Detection) on shared media.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-034",
+    "question": "What does Wi-Fi stand for according to IEEE 802.11 standards?",
+    "options": [
+      "Wireless Fidelity",
+      "Wide Field Interface",
+      "Wired Fiber Integration",
+      "Wireless Frequency Interconnect"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Wi-Fi is a brand name for wireless local area network technology conforming to IEEE 802.11 standards.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-035",
+    "question": "What wireless security encryption protocol is considered the modern gold standard for Wi-Fi networks?",
+    "options": [
+      "WEP",
+      "WPA3",
+      "WPA1",
+      "TKIP"
+    ],
+    "correctAnswer": 1,
+    "explanation": "WPA3 (Wi-Fi Protected Access 3) provides the strongest modern encryption and protection against brute-force attacks.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-036",
+    "question": "What does VPN stand for?",
+    "options": [
+      "Virtual Private Network",
+      "Variable Protocol Node",
+      "Visual Packet Network",
+      "Verified Port Number"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A VPN (Virtual Private Network) encrypts internet traffic and tunnels it securely through an external server.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-037",
+    "question": "What security device monitors incoming and outgoing network traffic and blocks unauthorized access based on defined rules?",
+    "options": [
+      "Modem",
+      "Firewall",
+      "Repeater",
+      "Hub"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A Firewall acts as a barrier between a trusted internal network and untrusted outside networks like the Internet.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-038",
+    "question": "What type of attack floods a network server with a massive volume of illegitimate traffic to make it unavailable to legitimate users?",
+    "options": [
+      "Phishing",
+      "Denial-of-Service / DDoS (Distributed Denial of Service)",
+      "Man-in-the-Middle",
+      "SQL Injection"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A DDoS attack uses botnets to overwhelm target bandwidth and server resources.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-039",
+    "question": "What network transmission mode allows data to flow in both directions simultaneously (like a telephone conversation)?",
+    "options": [
+      "Simplex",
+      "Half-Duplex",
+      "Full-Duplex",
+      "Multiplex"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Full-Duplex communication allows simultaneous two-way transmission (unlike walkie-talkies which are half-duplex).",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-040",
+    "question": "What transmission mode allows data to flow in only one direction ever (like a television broadcast)?",
+    "options": [
+      "Simplex",
+      "Half-Duplex",
+      "Full-Duplex",
+      "Duplex"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Simplex mode is strictly unidirectional, sending data from transmitter to receiver only.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-041",
+    "question": "What physical cable uses pulses of light traveling through glass fibers to transmit data at extremely high speeds?",
+    "options": [
+      "Coaxial Cable",
+      "Fiber Optic Cable",
+      "Unshielded Twisted Pair (UTP)",
+      "Shielded Twisted Pair (STP)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Fiber Optic cables use total internal reflection of light waves, providing immense bandwidth over long distances.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-042",
+    "question": "What standard connector is used on the ends of Cat5e and Cat6 Ethernet cables?",
+    "options": [
+      "RJ-11",
+      "RJ-45",
+      "BNC",
+      "USB-C"
+    ],
+    "correctAnswer": 1,
+    "explanation": "RJ-45 (Registered Jack 45) is an 8-pin connector standard for twisted-pair Ethernet cabling.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-043",
+    "question": "What is the Maximum Transmission Unit (MTU) size for standard Ethernet frames?",
+    "options": [
+      "512 bytes",
+      "1500 bytes",
+      "4096 bytes",
+      "9000 bytes"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The default standard Ethernet MTU is 1500 bytes (frames larger than this are termed jumbo frames).",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-044",
+    "question": "What subnet mask corresponds to a standard Class C network (/24 in CIDR notation)?",
+    "options": [
+      "255.0.0.0",
+      "255.255.0.0",
+      "255.255.255.0",
+      "255.255.255.255"
+    ],
+    "correctAnswer": 2,
+    "explanation": "A /24 subnet mask is 255.255.255.0, dedicating 24 bits to the network ID and 8 bits to host IDs (254 usable hosts).",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-045",
+    "question": "What exterior gateway routing protocol is the foundational routing backbone of the entire global Internet?",
+    "options": [
+      "RIP",
+      "OSPF",
+      "BGP (Border Gateway Protocol)",
+      "EIGRP"
+    ],
+    "correctAnswer": 2,
+    "explanation": "BGP (Border Gateway Protocol) makes routing decisions between autonomous systems (AS) on the global Internet.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-046",
+    "question": "What network protocol is used by network administrators to monitor and manage network devices like switches and routers?",
+    "options": [
+      "SNMP (Simple Network Management Protocol)",
+      "NTP",
+      "SMTP",
+      "LDAP"
+    ],
+    "correctAnswer": 0,
+    "explanation": "SNMP collects device health metrics, CPU loads, and bandwidth statistics across network hardware.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-047",
+    "question": "What protocol synchronizes clock times of computers and network equipment to within milliseconds of UTC?",
+    "options": [
+      "SNMP",
+      "NTP (Network Time Protocol)",
+      "DNS",
+      "DHCP"
+    ],
+    "correctAnswer": 1,
+    "explanation": "NTP (Network Time Protocol) synchronizes system clocks over packet-switched networks.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-048",
+    "question": "What error-detection technique appends calculated remainder bits to a data block to detect corrupted bits in transmission?",
+    "options": [
+      "Parity Bit",
+      "Cyclic Redundancy Check (CRC)",
+      "Hamming Code",
+      "Checksum"
+    ],
+    "correctAnswer": 1,
+    "explanation": "CRC uses polynomial division to detect transmission errors in Ethernet frames.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-049",
+    "question": "What does CDN stand for in web delivery architecture?",
+    "options": [
+      "Content Delivery Network",
+      "Central Domain Node",
+      "Core Data Network",
+      "Client Download Node"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A CDN (Content Delivery Network) caches static web content across geographically distributed servers close to users.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "questionId": "cn-050",
+    "question": "What communication architectural pattern forms the foundation of the World Wide Web?",
+    "options": [
+      "Peer-to-Peer",
+      "Client-Server Architecture",
+      "Master-Slave",
+      "Monolithic"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The web operates primarily on a Client-Server model where web browsers request resources from web servers.",
+    "difficulty": "easy",
+    "topic": "Computer Networks"
+  }
+]

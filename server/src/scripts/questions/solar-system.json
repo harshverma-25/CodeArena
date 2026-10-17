@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "sol-001",
+    "question": "How many recognized major planets are there in our Solar System?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Following the IAU 2006 reclassification of Pluto as a dwarf planet, there are 8 official major planets.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-002",
+    "question": "Which planet is closest to the Sun?",
+    "options": [
+      "Venus",
+      "Mercury",
+      "Earth",
+      "Mars"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mercury orbits closest to the Sun at an average distance of about 58 million kilometers.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-003",
+    "question": "Which planet is the largest in the Solar System, with more mass than all other planets combined?",
+    "options": [
+      "Saturn",
+      "Jupiter",
+      "Neptune",
+      "Uranus"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Jupiter is a gas giant containing more than 2.5 times the combined mass of all other planets in the Solar System.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-004",
+    "question": "Which planet is famously known as the 'Red Planet' due to iron oxide rust on its surface?",
+    "options": [
+      "Mercury",
+      "Venus",
+      "Mars",
+      "Jupiter"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Mars appears reddish to the naked eye because iron-rich minerals in its soil oxidize (rust).",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-005",
+    "question": "What is the name of the persistent, giant anticyclonic storm on Jupiter that is larger than Earth?",
+    "options": [
+      "The Great Dark Spot",
+      "The Great Red Spot",
+      "Olympus Mons",
+      "Valles Marineris"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Great Red Spot is a colossal high-pressure storm in Jupiter's southern hemisphere observed for centuries.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-006",
+    "question": "What is the largest volcano and highest known mountain peak in the entire Solar System, located on Mars?",
+    "options": [
+      "Mount Everest",
+      "Olympus Mons",
+      "Mauna Kea",
+      "Maxwell Montes"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Olympus Mons on Mars stands over 21 km (13 miles) high, about 2.5 times the height of Mount Everest.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-007",
+    "question": "Which planet in our solar system has the lowest density, low enough that it could theoretically float in water?",
+    "options": [
+      "Jupiter",
+      "Saturn",
+      "Uranus",
+      "Neptune"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Saturn has a mean density of approximately 0.687 g/cm³, less than the density of liquid water (1.0 g/cm³).",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-008",
+    "question": "Which is the coldest planet in the Solar System, often dubbed the 'Ice Giant' tilted on its side?",
+    "options": [
+      "Neptune",
+      "Uranus",
+      "Saturn",
+      "Mars"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Uranus has the coldest atmosphere in the solar system, dropping down to -224°C, and rotates almost completely on its side.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-009",
+    "question": "Which planet is the eighth and farthest known major planet from the Sun, famous for intense supersonic winds?",
+    "options": [
+      "Uranus",
+      "Neptune",
+      "Pluto",
+      "Saturn"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Neptune is the outermost major planet, with winds whipping through its blue methane atmosphere up to 2,100 km/h.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-010",
+    "question": "What is the largest moon in the Solar System, orbiting Jupiter and larger than the planet Mercury?",
+    "options": [
+      "Titan",
+      "Ganymede",
+      "Callisto",
+      "Europa"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ganymede is 5,268 km in diameter, making it larger than Mercury and the only moon known to possess its own magnetic field.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-011",
+    "question": "Which moon of Saturn has a dense nitrogen atmosphere and surface lakes of liquid methane and ethane?",
+    "options": [
+      "Enceladus",
+      "Titan",
+      "Mimas",
+      "Rhea"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Titan is the only moon with a substantial, dense atmosphere and stable surface bodies of liquid hydrocarbons.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-012",
+    "question": "Which volcanic moon of Jupiter is the most volcanically active body in the entire Solar System?",
+    "options": [
+      "Europa",
+      "Io",
+      "Ganymede",
+      "Callisto"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Io experiences extreme tidal friction from Jupiter's gravity, driving over 400 active volcanoes spitting sulfur.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-013",
+    "question": "Which icy moon of Jupiter harbors a deep subsurface liquid water ocean beneath its smooth, cracked ice crust?",
+    "options": [
+      "Io",
+      "Europa",
+      "Phobos",
+      "Deimos"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Europa is a prime candidate in the search for extraterrestrial life due to a warm global ocean beneath its ice sheet.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-014",
+    "question": "What are the two tiny irregularly shaped moons of Mars called?",
+    "options": [
+      "Titan and Enceladus",
+      "Phobos and Deimos",
+      "Io and Europa",
+      "Oberon and Titania"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Phobos ('fear') and Deimos ('panic') are captured asteroids orbiting Mars.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-015",
+    "question": "What astronomical classification was assigned to Pluto by the International Astronomical Union in 2006?",
+    "options": [
+      "Asteroid",
+      "Dwarf Planet",
+      "Comet",
+      "Major Planet"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Pluto was reclassified as a dwarf planet because it has not cleared the neighborhood around its orbit in the Kuiper belt.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-016",
+    "question": "Where is the main asteroid belt located in our solar system?",
+    "options": [
+      "Between Mercury and Venus",
+      "Between Earth and Mars",
+      "Between Mars and Jupiter",
+      "Beyond Neptune"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The asteroid belt orbits between Mars and Jupiter, containing millions of rocky bodies like Ceres, Vesta, and Pallas.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-017",
+    "question": "What is the largest object in the asteroid belt, classified as a dwarf planet?",
+    "options": [
+      "Vesta",
+      "Ceres",
+      "Pallas",
+      "Eris"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ceres is roughly 940 km across, accounting for a third of the entire mass of the asteroid belt.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-018",
+    "question": "What is the region of icy bodies, comets, and dwarf planets located beyond Neptune called?",
+    "options": [
+      "Asteroid Belt",
+      "Kuiper Belt",
+      "Van Allen Belt",
+      "Oort Cloud"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Kuiper Belt extends from Neptune's orbit out to 50 AU and contains Pluto, Makemake, and Haumea.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-019",
+    "question": "What is the vast, spherical shell of icy cometary bodies theoretically surrounding the outer boundaries of the Solar System?",
+    "options": [
+      "Kuiper Belt",
+      "Oort Cloud",
+      "Heliopause",
+      "Scattered Disc"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Oort Cloud extends up to 100,000 AU from the Sun and is considered the source of long-period comets.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-020",
+    "question": "What famous comet visits the inner solar system every 75 to 76 years, last seen in 1986 and next visible in 2061?",
+    "options": [
+      "Hale-Bopp",
+      "Halley's Comet (1P/Halley)",
+      "Comet Encke",
+      "Shoemaker-Levy 9"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Halley's Comet is the only known short-period comet regularly visible to the naked human eye from Earth twice in a human lifetime.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-021",
+    "question": "What causes a comet to develop a glowing coma and long tail pointing away from the Sun?",
+    "options": [
+      "Combustion with space oxygen",
+      "Solar radiation and solar wind sublimating icy volatile compounds",
+      "Frictional drag against interstellar dust",
+      "Nuclear fission inside the nucleus"
+    ],
+    "correctAnswer": 1,
+    "explanation": "As a comet nears the Sun, solar radiation vaporizes ice into gas and dust pushed into a tail by solar wind.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-022",
+    "question": "What nuclear process powers the Sun and all main sequence stars, releasing massive thermal energy?",
+    "options": [
+      "Nuclear Fission",
+      "Nuclear Fusion (converting hydrogen into helium)",
+      "Chemical combustion",
+      "Radioactive decay"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Under immense core pressure and temperatures (~15 million Kelvin), hydrogen nuclei fuse into helium via the proton-proton chain.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-023",
+    "question": "What is the visible outer surface layer of the Sun called from which light radiates?",
+    "options": [
+      "Corona",
+      "Photosphere",
+      "Chromosphere",
+      "Core"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The photosphere is the 500-km-deep surface layer of the Sun with an average temperature of about 5,500°C.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-024",
+    "question": "What is the outermost halo-like atmosphere of the Sun called, visible to the eye only during a total solar eclipse?",
+    "options": [
+      "Photosphere",
+      "Corona",
+      "Chromosphere",
+      "Convection Zone"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The solar corona consists of superheated plasma extending millions of kilometers into space at over a million Kelvin.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-025",
+    "question": "What are the dark, cooler patches observed on the Sun's surface caused by intense localized magnetic fields?",
+    "options": [
+      "Solar Flares",
+      "Sunspots",
+      "Prominences",
+      "Coronal Mass Ejections"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sunspots are regions where strong magnetic flux inhibits convection, cooling the area by ~1,500°C and appearing darker.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-026",
+    "question": "How long does it take for Earth to complete one full revolution around the Sun?",
+    "options": [
+      "30 days",
+      "365.25 days (1 year)",
+      "100 days",
+      "24 hours"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Earth orbits the Sun in approximately 365.242 days, which is why a leap day is added every 4 years.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-027",
+    "question": "How long does it take for Earth to complete one full rotation on its axis, creating day and night?",
+    "options": [
+      "12 hours",
+      "24 hours (approx. 23h 56m)",
+      "365 days",
+      "28 days"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Earth completes one rotation relative to the Sun in 24 hours (solar day), or 23 hours 56 minutes relative to distant stars (sidereal day).",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-028",
+    "question": "What causes the seasonal changes (spring, summer, autumn, winter) on Earth throughout the year?",
+    "options": [
+      "Varying distance from the Sun",
+      "The 23.5-degree tilt of Earth's rotational axis",
+      "Solar flare cycles",
+      "Ocean currents"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Earth's axial tilt of 23.5° causes different hemispheres to lean toward or away from the Sun during its annual orbit.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-029",
+    "question": "Which two planets in the Solar System have zero natural moons?",
+    "options": [
+      "Mercury and Venus",
+      "Mars and Venus",
+      "Mercury and Mars",
+      "Earth and Venus"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Mercury and Venus are the only two planets in our Solar System that do not possess any natural satellites.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-030",
+    "question": "Which planet is often called Earth's 'Twin' due to its very similar size, mass, and composition?",
+    "options": [
+      "Mars",
+      "Venus",
+      "Mercury",
+      "Neptune"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Venus is nearly identical to Earth in diameter (95%) and mass (81%), but has an inhospitable, scorching atmosphere.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-031",
+    "question": "What is the average distance from the Earth to the Sun called in astronomy?",
+    "options": [
+      "1 Light-year",
+      "1 Astronomical Unit (AU)",
+      "1 Parsec",
+      "1 Gigameter"
+    ],
+    "correctAnswer": 1,
+    "explanation": "One Astronomical Unit (AU) is approximately 149.6 million kilometers (93 million miles), the mean Earth-Sun distance.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-032",
+    "question": "What is the brightest natural object in the Earth's night sky after the Moon?",
+    "options": [
+      "Jupiter",
+      "Venus",
+      "Sirius",
+      "Mars"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Venus reflects 70% of sunlight with its thick sulfuric acid cloud decks, outshining all other night sky planets and stars.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-033",
+    "question": "Why does the same side of the Moon always face toward Earth?",
+    "options": [
+      "The Moon does not rotate",
+      "Tidal locking synchronizes its rotational period with its orbital period",
+      "Earth's magnetic field locks it in place",
+      "Optical illusion"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Earth's gravity has tidally locked the Moon, so it takes 27.3 days both to rotate once and to orbit Earth once.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-034",
+    "question": "What are the dark, smooth basaltic plains visible on the lunar surface called?",
+    "options": [
+      "Craters",
+      "Lunar maria ('seas')",
+      "Rilles",
+      "Terrae"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Early astronomers mistook dark basaltic lava flood plains on the Moon for bodies of water, naming them 'maria' (seas).",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-035",
+    "question": "Which spacecraft became the first human-made object to enter interstellar space in 2012?",
+    "options": [
+      "Pioneer 10",
+      "Voyager 1",
+      "New Horizons",
+      "Cassini"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Voyager 1 crossed the heliopause in August 2012 at a distance of over 121 AU from the Sun.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-036",
+    "question": "Which NASA mission conducted the historic close flyby of Pluto and its moon Charon in July 2015?",
+    "options": [
+      "Voyager 2",
+      "New Horizons",
+      "Dawn",
+      "Galileo"
+    ],
+    "correctAnswer": 1,
+    "explanation": "New Horizons returned stunning high-resolution images of Pluto's nitrogen-ice heart (Tombaugh Regio).",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-037",
+    "question": "Which NASA robotic rover landed on Mars in February 2021 and deployed the Ingenuity helicopter?",
+    "options": [
+      "Curiosity",
+      "Perseverance",
+      "Spirit",
+      "Opportunity"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Perseverance landed in Jezero Crater to search for signs of ancient microbial life and cache rock samples.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-038",
+    "question": "What is the four-planet group of Mercury, Venus, Earth, and Mars collectively referred to as?",
+    "options": [
+      "Gas Giants",
+      "Terrestrial (Rocky) Planets",
+      "Ice Giants",
+      "Dwarf Planets"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The four inner terrestrial planets have compact, rocky surfaces composed mainly of silicate rock and metals.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-039",
+    "question": "What are Jupiter and Saturn primarily categorized as?",
+    "options": [
+      "Ice Giants",
+      "Gas Giants",
+      "Terrestrial Planets",
+      "Brown Dwarfs"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Jupiter and Saturn are gas giants composed predominantly of hydrogen and helium without a well-defined solid surface.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-040",
+    "question": "What are Uranus and Neptune primarily categorized as in modern astronomy?",
+    "options": [
+      "Gas Giants",
+      "Ice Giants",
+      "Dwarf Planets",
+      "Terrestrial Planets"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Uranus and Neptune contain heavier volatile elements ('ices' like water, ammonia, and methane) above a small rocky core.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-041",
+    "question": "How long does it take for the Moon to cycle through all of its phases (from New Moon to New Moon)?",
+    "options": [
+      "7 days",
+      "14 days",
+      "29.5 days (Synodic month)",
+      "365 days"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The synodic month (lunar phase cycle) lasts approximately 29.53 days.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-042",
+    "question": "What is the name of the boundary zone where the solar wind is stopped by the interstellar medium?",
+    "options": [
+      "Kuiper Belt",
+      "Heliopause",
+      "Oort limit",
+      "Bow shock"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The heliopause marks the outermost edge of the heliosphere, where the solar wind pressure balances interstellar gas.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-043",
+    "question": "What is the second largest planet in our solar system?",
+    "options": [
+      "Jupiter",
+      "Saturn",
+      "Uranus",
+      "Neptune"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Saturn is second in size only to Jupiter, with an equatorial diameter of about 120,500 km.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-044",
+    "question": "Which planet has the shortest day (fastest rotational period) in the Solar System, rotating in under 10 hours?",
+    "options": [
+      "Mercury",
+      "Earth",
+      "Jupiter",
+      "Mars"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Jupiter rotates once on its axis in roughly 9 hours and 55 minutes, causing a noticeable equatorial bulge.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-045",
+    "question": "Which planet has the longest day, taking 243 Earth days to complete one single rotation?",
+    "options": [
+      "Mercury",
+      "Venus",
+      "Mars",
+      "Saturn"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Venus takes 243 Earth days to rotate once on its axis, longer than its orbital year around the Sun (225 Earth days).",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-046",
+    "question": "What color is the planet Neptune when observed through telescopes?",
+    "options": [
+      "Reddish-orange",
+      "Vivid azure blue",
+      "Pale green",
+      "Bright yellow"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Neptune exhibits a striking deep azure blue color caused by methane absorption of red light in its upper atmosphere.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-047",
+    "question": "Which planet is famous for having a hexagon-shaped cloud pattern spinning at its north pole?",
+    "options": [
+      "Jupiter",
+      "Saturn",
+      "Uranus",
+      "Neptune"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Saturn's north polar hexagon is a persistent jet stream storm discovered by Voyager and imaged closely by Cassini.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-048",
+    "question": "What is the closest star system to our Solar System?",
+    "options": [
+      "Sirius",
+      "Alpha Centauri (including Proxima Centauri)",
+      "Barnard's Star",
+      "Betelgeuse"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Proxima Centauri, part of the Alpha Centauri triple star system, lies about 4.24 light-years from Earth.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-049",
+    "question": "What percentage of the total mass of the entire Solar System is contained within the Sun alone?",
+    "options": [
+      "50%",
+      "75%",
+      "90%",
+      "99.8%"
+    ],
+    "correctAnswer": 3,
+    "explanation": "The Sun contains approximately 99.86% of all the mass in the entire Solar System.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  },
+  {
+    "questionId": "sol-050",
+    "question": "What is the scientific term for the study of the origin, evolution, and eventual fate of the universe?",
+    "options": [
+      "Astrology",
+      "Cosmology",
+      "Meteorology",
+      "Geodesy"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Cosmology is the branch of astronomy and physics concerned with the origins, large-scale structures, and evolution of the universe.",
+    "difficulty": "easy",
+    "topic": "Solar System"
+  }
+]

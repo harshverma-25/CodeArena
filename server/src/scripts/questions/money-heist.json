@@ -1,0 +1,457 @@
+[
+  {
+    "questionId": "mh-001",
+    "question": "What is the mastermind architect of the heists in Money Heist (La Casa de Papel) called?",
+    "options": ["The Commander", "The Professor (El Profesor)", "The Master", "The Captain"],
+    "correctAnswer": 1,
+    "explanation": "Sergio Marquina operates under the moniker 'The Professor' (El Profesor).",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-002",
+    "question": "What is the real name of The Professor in Money Heist?",
+    "options": ["Andrés de Fonollosa", "Sergio Marquina", "Aníbal Cortés", "Agustín Ramos"],
+    "correctAnswer": 1,
+    "explanation": "The Professor's real identity is Sergio Marquina (also using the alias Salvador 'Salva' Martín).",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-003",
+    "question": "What naming system do the crew members use as aliases to protect their real identities?",
+    "options": ["Precious gemstones", "Capital cities of the world", "Greek gods", "Colors"],
+    "correctAnswer": 1,
+    "explanation": "Each robber in the gang is assigned a major world city name (Tokyo, Berlin, Denver, etc.).",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-004",
+    "question": "Who serves as the primary narrator of the entire Money Heist series?",
+    "options": ["The Professor", "Nairobi", "Tokyo (Silene Oliveira)", "Lisbon"],
+    "correctAnswer": 2,
+    "explanation": "Tokyo (Silene Oliveira), played by Úrsula Corberó, narrates the events of both heists.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-005",
+    "question": "What famous Spanish artist's face is depicted on the masks worn by the robbers and hostages?",
+    "options": ["Pablo Picasso", "Salvador Dalí", "Francisco Goya", "Diego Velázquez"],
+    "correctAnswer": 1,
+    "explanation": "The crew wears the famous Salvador Dalí mustache masks as a symbol of resistance and anonymity.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-006",
+    "question": "What color are the iconic jumpsuits worn by the robbers and hostages throughout the heists?",
+    "options": ["Navy Blue", "Bright Red", "Pitch Black", "Fluorescent Orange"],
+    "correctAnswer": 1,
+    "explanation": "The gang and hostages wear matching bright red hooded boiler-suits.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-007",
+    "question": "What target institution was the focus of the first heist across Seasons 1 and 2?",
+    "options": ["The Bank of Spain", "The Royal Mint of Spain (Fábrica Nacional de Moneda y Timbre)", "The Madrid Stock Exchange", "The Prado Museum"],
+    "correctAnswer": 1,
+    "explanation": "In Part 1 and Part 2, the gang breaks into the Royal Mint of Spain to print 2.4 billion euros of unrecorded cash.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-008",
+    "question": "What Italian anti-fascist folk resistance song is the theme and anthem of the resistance in Money Heist?",
+    "options": ["'O Sole Mio'", "'Bella Ciao'", "'Volare'", "'Felicità'"],
+    "correctAnswer": 1,
+    "explanation": "'Bella Ciao' is sung by The Professor and Berlin to celebrate freedom, resistance, and brotherhood.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-009",
+    "question": "Who was The Professor's older brother and the charismatic, terminally ill field leader in the Royal Mint heist?",
+    "options": ["Palermo", "Berlin (Andrés de Fonollosa)", "Bogotá", "Marseille"],
+    "correctAnswer": 1,
+    "explanation": "Andrés de Fonollosa, known as Berlin, was Sergio's older brother who suffered from Helmer's Myopathy.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-010",
+    "question": "What target institution is the objective of the second heist in Seasons 3, 4, and 5?",
+    "options": ["The Royal Mint of Spain", "The Bank of Spain", "The Federal Reserve", "The European Central Bank"],
+    "correctAnswer": 1,
+    "explanation": "The crew reunites to melt 90 tons of the national gold reserves from the Bank of Spain.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-011",
+    "question": "Who was the female inspector leading the police negotiations at the Royal Mint who later falls in love with The Professor?",
+    "options": ["Alicia Sierra", "Raquel Murillo (Lisbon)", "Tamayo", "Prieto"],
+    "correctAnswer": 1,
+    "explanation": "Inspector Raquel Murillo negotiated with 'Salva' before discovering his identity and joining the heist as Lisbon.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-012",
+    "question": "What city code name did former Inspector Raquel Murillo adopt when she joined the crew?",
+    "options": ["Paris", "Lisbon", "Madrid", "Rome"],
+    "correctAnswer": 1,
+    "explanation": "Raquel chose Lisbon as her robber city alias upon joining the gang in Season 3.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-013",
+    "question": "Which robber is known for his infectious, machine-gun-like laugh and is Moscow's son?",
+    "options": ["Rio", "Denver (Daniel Ramos)", "Helsinki", "Oslo"],
+    "correctAnswer": 1,
+    "explanation": "Denver has an unmistakable braying laugh and enters the heist alongside his father Moscow.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-014",
+    "question": "Who was Denver's miner father who dug the escape tunnel and was tragically shot by police?",
+    "options": ["Helsinki", "Moscow (Agustín Ramos)", "Bogotá", "Marsella"],
+    "correctAnswer": 1,
+    "explanation": "Agustín Ramos (Moscow) was an expert miner who dug the escape tunnel to the warehouse.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-015",
+    "question": "Who is the young genius computer hacker of the crew who falls deeply in love with Tokyo?",
+    "options": ["Denver", "Rio (Aníbal Cortés)", "Berlin", "Palermo"],
+    "correctAnswer": 1,
+    "explanation": "Aníbal Cortés, code name Rio, is the young cybersecurity prodigy of the gang.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-016",
+    "question": "What counterfeit and quality control expert in the gang famously shouted 'Empieza el matriarcado' (Let the matriarchy begin)?",
+    "options": ["Tokyo", "Nairobi (Ágata Jiménez)", "Stockholm", "Manila"],
+    "correctAnswer": 1,
+    "explanation": "Nairobi took command from an unstable Berlin with the iconic line 'Empieza el matriarcado!'.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-017",
+    "question": "Who was the ruthless head of security at the Bank of Spain who assassinated Nairobi in Season 4?",
+    "options": ["Arturo Román", "César Gandía", "Angel Rubio", "Suárez"],
+    "correctAnswer": 1,
+    "explanation": "César Gandía escaped his handcuffs, hunted the gang within the bank, and shot Nairobi in the head.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-018",
+    "question": "What cowardly, obnoxious Director of the Royal Mint constantly tried to organize failed hostage rebellions?",
+    "options": ["Arturo Román ('Arturito')", "Alison Parker", "Torres", "Prieto"],
+    "correctAnswer": 0,
+    "explanation": "Arturo Román, despised by the gang and nicknamed 'Arturito', caused constant chaos as a hostage.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-019",
+    "question": "Who was Arturo's pregnant mistress and secretary who fell in love with Denver and joined the robbers?",
+    "options": ["Alison Parker", "Mónica Gaztambide (Stockholm)", "Alicia Sierra", "Nairobi"],
+    "correctAnswer": 1,
+    "explanation": "Mónica Gaztambide bonded with Denver while hidden in a vault and took the code name Stockholm.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-020",
+    "question": "What is the psychological condition where hostages develop positive emotional bonds with their captors, inspiring Mónica's code name?",
+    "options": ["Lima Syndrome", "Stockholm Syndrome", "Stendhal Syndrome", "Jerusalem Syndrome"],
+    "correctAnswer": 1,
+    "explanation": "Stockholm Syndrome is the psychological phenomenon where captives develop affection and loyalty toward their captors.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-021",
+    "question": "Who is the heavily tattooed Serbian war veteran who plays the accordion and shares a deep bond with Nairobi?",
+    "options": ["Oslo", "Helsinki (Mirko Dragic)", "Bogotá", "Marseille"],
+    "correctAnswer": 1,
+    "explanation": "Helsinki is the gentle-hearted muscle of the gang who cared tenderly for Nairobi.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-022",
+    "question": "Who was Helsinki's cousin and fellow Serbian veteran who was suffocated by Helsinki out of mercy?",
+    "options": ["Radko Dragic (Oslo)", "Bogotá", "Marseille", "Palermo"],
+    "correctAnswer": 0,
+    "explanation": "After hostages clubbed Oslo causing irreversible brain damage, Helsinki euthanized his cousin to end his suffering.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-023",
+    "question": "What ruthless, lollipop-sucking, heavily pregnant police inspector takes over the Bank of Spain negotiation?",
+    "options": ["Raquel Murillo", "Alicia Sierra", "Tamayo", "Angel"],
+    "correctAnswer": 1,
+    "explanation": "Inspector Alicia Sierra, played by Najwa Nimri, used psychological warfare and torture against the gang.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-024",
+    "question": "Who was Berlin's passionate Argentine friend who designed the Bank of Spain plan alongside him?",
+    "options": ["Marseille", "Palermo (Martín Berrote)", "Bogotá", "Manila"],
+    "correctAnswer": 1,
+    "explanation": "Martín Berrote (Palermo) was in love with Berlin and took command inside the Bank of Spain.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-025",
+    "question": "What is the primary commodity stolen from the Bank of Spain?",
+    "options": ["Art collections", "Gold reserves melted into small gold pellets", "Classified government secrets", "Uncut diamonds"],
+    "correctAnswer": 1,
+    "explanation": "The gang melted 90 tonnes of national gold bars into 1-millimeter gold gravel pellets to pump through pipes.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-026",
+    "question": "What defense mechanism floods the underground vault of the Bank of Spain if breached?",
+    "options": ["Toxic nerve gas", "High-pressure water that completely submerges the chamber", "Flamethrowers", "Electrified steel floor"],
+    "correctAnswer": 1,
+    "explanation": "The Bank of Spain's real-life security vault floods completely with water from the Cibeles fountain when breached.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-027",
+    "question": "Who helps the gang by operating high-tech diving and deep-sea welding gear in the flooded vault?",
+    "options": ["Marseille", "Bogotá", "Denver", "Rio"],
+    "correctAnswer": 1,
+    "explanation": "Bogotá, played by Hovik Keuchkerian, is an expert metallurgist and deep-sea welder.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-028",
+    "question": "What outside operative acts as a fixer on a bicycle with his pet ferret, aiding The Professor?",
+    "options": ["Marseille", "Bogotá", "Benjamin", "Matias"],
+    "correctAnswer": 0,
+    "explanation": "Marseille coordinates external logistics, wiretapping, and misdirection for The Professor.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-029",
+    "question": "What hostage is the daughter of the British Ambassador to Spain, used as the gang's 'Little Red Riding Hood' trump card?",
+    "options": ["Alison Parker", "Ariadna", "Mercedes Colmenar", "Amanda"],
+    "correctAnswer": 0,
+    "explanation": "Alison Parker was the primary royal hostage preventing police assault on the Royal Mint.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-030",
+    "question": "How did Tokyo sacrifice her life to take out Gandía and his special forces unit in Season 5?",
+    "options": ["She shot a rocket launcher at them", "She pulled the pins on four grenades strapped across her chest", "She set fire to the bank", "She drove a tank through the doors"],
+    "correctAnswer": 1,
+    "explanation": "Shot and cornered in the pantry, Tokyo unpinned the grenades on her tactical vest, killing Gandía.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-031",
+    "question": "Who delivered Inspector Alicia Sierra's baby girl (Victoria) in a safehouse?",
+    "options": ["Colonel Tamayo", "The Professor (Sergio)", "Lisbon", "Marseille"],
+    "correctAnswer": 1,
+    "explanation": "When Alicia's water broke while holding The Professor hostage, Sergio assisted her in safely delivering baby Victoria.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-032",
+    "question": "What did The Professor do to replace the real gold bars stolen from the Bank of Spain to stabilize Spain's economy?",
+    "options": ["He returned the gold", "He supplied brass ingots plated with gold as collateral", "He printed trillions of euros", "He gave them diamonds"],
+    "correctAnswer": 1,
+    "explanation": "Sergio swapped the 90 tons of real gold with brass bars painted gold, keeping Spain's bankruptcy a state secret.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-033",
+    "question": "Who steals the gold gravel from The Professor in Season 5 before returning it?",
+    "options": ["César Gandía", "Berlin's son Rafael and ex-wife Tatiana", "The CIA", "Arturo Román"],
+    "correctAnswer": 1,
+    "explanation": "Rafael, Berlin's MIT-educated electronics expert son, and Tatiana double-crossed The Professor and hid the gold.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-034",
+    "question": "What is the estate outside Madrid where the gang spent five months rehearsing the Royal Mint plan called?",
+    "options": ["Casa de Campo", "Toledo Estate (Cigarral de Toledo)", "Monastery of San Frutos", "El Escorial"],
+    "correctAnswer": 1,
+    "explanation": "The Professor trained the crew for 5 months in an isolated hunting estate in Toledo.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-035",
+    "question": "What Italian monastery was used as the planning headquarters for the Bank of Spain heist?",
+    "options": ["Monastery of San Frutos (Florence)", "Vatican City", "Monte Cassino", "Montserrat"],
+    "correctAnswer": 0,
+    "explanation": "The gang and Berlin planned the second heist at the secluded Monastery of San Frutos in Florence.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-036",
+    "question": "What was the code name of the protocol enacted when Tokyo returned to the Mint on a motorcycle after being arrested?",
+    "options": ["Plan Chernobyl", "Plan Alcatraz", "Plan Valencia", "Plan Cameroon"],
+    "correctAnswer": 1,
+    "explanation": "Tokyo leaped onto a motorcycle outside the courthouse and crashed through the Royal Mint doors under fire.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-037",
+    "question": "What plan in Season 3 involved dropping 140 million euros from airships over Madrid to cause civil unrest?",
+    "options": ["Plan Chernobyl", "Plan Rome", "Plan Hamelin", "Plan Madrid"],
+    "correctAnswer": 0,
+    "explanation": "The Professor showered money from blimps over Madrid to spark public chaos and distract the police.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-038",
+    "question": "What is The Professor's favorite hobby that he constantly practices with small pieces of colored paper?",
+    "options": ["Chess", "Origami (paper folding)", "Calligraphy", "Card tricks"],
+    "correctAnswer": 1,
+    "explanation": "The Professor compulsively folds origami paper figures, especially birds, when thinking under stress.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-039",
+    "question": "Who created the global sensation Money Heist (La Casa de Papel)?",
+    "options": ["Álex Pina", "Guillermo del Toro", "Pedro Almodóvar", "Álex de la Iglesia"],
+    "correctAnswer": 0,
+    "explanation": "Spanish showrunner Álex Pina created La Casa de Papel.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-040",
+    "question": "What transgender member of the crew is Denver's childhood friend and goddaughter of Moscow?",
+    "options": ["Manila (Julia)", "Stockholm", "Tokyo", "Tatiana"],
+    "correctAnswer": 0,
+    "explanation": "Julia, code-named Manila, joined the Bank of Spain heist embedded as a secret hostage plant.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-041",
+    "question": "Who was the father of The Professor and Berlin who died being shot while robbing a bank to pay for Sergio's medical bills?",
+    "options": ["Jesús Marquina", "Agustín Ramos", "Andrés de Fonollosa Sr.", "Benjamin"],
+    "correctAnswer": 0,
+    "explanation": "Jesús Marquina conceived the original Royal Mint heist and died in front of the Caja de Madrid.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-042",
+    "question": "What animal name did The Professor give to his cider apple orchard business front?",
+    "options": ["Cidrería Marquina", "Finca El Águila", "Bodegas Salva", "Hacienda Toledo"],
+    "correctAnswer": 0,
+    "explanation": "The Professor operated a rustic cider brewery as an innocent cover story for meeting Raquel.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-043",
+    "question": "What term does The Professor use to emphasize that their heist must not spill human blood?",
+    "options": ["'Clean Heist'", "'No Bloodshed Rule'", "'Total Pacifism'", "'The Moral High Ground'"],
+    "correctAnswer": 1,
+    "explanation": "The Professor emphasized that the moment blood is shed, they cease to be heroes of the people.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-044",
+    "question": "What was the military rank of Luis Tamayo, the hot-tempered government commander in charge of the Bank of Spain crisis?",
+    "options": ["Captain", "Colonel", "General", "Major"],
+    "correctAnswer": 1,
+    "explanation": "Colonel Luis Tamayo spearheaded the police and army operations outside the Bank of Spain.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-045",
+    "question": "What disguise did the gang use to safely escape the Bank of Spain in the finale with military escort?",
+    "options": ["They walked out inside body bags transported by military hearses", "They flew away in helicopters", "They dressed as police officers", "They escaped through the sewer drains"],
+    "correctAnswer": 0,
+    "explanation": "Tamayo faked their executions, escorting them away in body bags under state protection.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-046",
+    "question": "What country did the surviving gang members fly to at the conclusion of the series with new identities?",
+    "options": ["Portugal", "Thailand", "Pakistan", "United States"],
+    "correctAnswer": 0,
+    "explanation": "The gang departed on a military helicopter to Portugal with new passports and diplomatic immunity.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-047",
+    "question": "What song does Berlin sing with an Italian choir at his Tuscan wedding with Tatiana?",
+    "options": ["'Guantanamera'", "'Ti Amo'", "'Bella Ciao'", "'My Way'"],
+    "correctAnswer": 1,
+    "explanation": "Berlin delivers a show-stopping performance of Umberto Tozzi's romantic classic 'Ti Amo'.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-048",
+    "question": "What was the name of the police deputy inspector who was secretly in love with Raquel Murillo?",
+    "options": ["Ángel Rubio", "Suárez", "Alberto", "Prieto"],
+    "correctAnswer": 0,
+    "explanation": "Sub-inspector Ángel Rubio worked alongside Raquel while harboring unrequited romantic feelings for her.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-049",
+    "question": "How did The Professor first establish communication with Inspector Raquel Murillo during the Mint heist?",
+    "options": ["Via a red landline telephone", "Through encrypted radio", "By sending handwritten letters", "By meeting at a café"],
+    "correctAnswer": 0,
+    "explanation": "The Professor spoke to Raquel on an analog red telephone linked directly to the police command tent.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  },
+  {
+    "questionId": "mh-050",
+    "question": "What does Berlin sacrifice himself to do at the end of Season 2?",
+    "options": [
+      "He stayed behind with an automatic machine gun to delay police so the crew could escape through the tunnel",
+      "He surrendered peacefully to police",
+      "He blew up the safe",
+      "He negotiated for a helicopter"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Suffering from a terminal illness, Berlin held the line with a Browning machine gun while singing 'Bella Ciao'.",
+    "difficulty": "easy",
+    "topic": "Money Heist"
+  }
+]

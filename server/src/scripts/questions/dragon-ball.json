@@ -1,0 +1,452 @@
+[
+  {
+    "questionId": "dragon-ball-001",
+    "question": "What is the alien warrior race that Son Goku belongs to?",
+    "options": ["Namekian", "Saiyan", "Yardrat", "Cerelian"],
+    "correctAnswer": 1,
+    "explanation": "Goku belongs to the Saiyan race, a warrior species originally from Planet Vegeta.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-002",
+    "question": "What is Son Goku's original Saiyan birth name?",
+    "options": ["Raditz", "Kakarot", "Bardock", "Broly"],
+    "correctAnswer": 1,
+    "explanation": "Goku was born on Planet Vegeta with the Saiyan name Kakarot.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-003",
+    "question": "How many Dragon Balls are required to summon Shenron and make a wish?",
+    "options": ["Three", "Five", "Seven", "Nine"],
+    "correctAnswer": 2,
+    "explanation": "Gathering all seven Dragon Balls allows the user to summon the Eternal Dragon Shenron.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-004",
+    "question": "Who was Goku's first martial arts master who taught him the iconic Kamehameha wave?",
+    "options": ["Korin", "Kami", "Master Roshi (Turtle Hermit)", "King Kai"],
+    "correctAnswer": 2,
+    "explanation": "Master Roshi, the Turtle Hermit, trained young Goku and Krillin and invented the Kamehameha.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-005",
+    "question": "Who is Goku's lifelong best friend since their training days with Master Roshi?",
+    "options": ["Yamcha", "Tien Shinhan", "Krillin", "Chiaotzu"],
+    "correctAnswer": 2,
+    "explanation": "Krillin trained alongside Goku under Master Roshi and became his closest lifelong friend.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-006",
+    "question": "Who is the proud Prince of all Saiyans and Goku's greatest rival?",
+    "options": ["Raditz", "Nappa", "Vegeta", "Broly"],
+    "correctAnswer": 2,
+    "explanation": "Vegeta is the Prince of the Saiyans and Goku's eternal rival and ally.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-007",
+    "question": "Who is Goku's wife whom he met as a child and married at the 23rd World Martial Arts Tournament?",
+    "options": ["Bulma", "Launch", "Chi-Chi", "Videl"],
+    "correctAnswer": 2,
+    "explanation": "Chi-Chi, daughter of the Ox-King, married Goku after the 23rd Tenkaichi Budokai.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-008",
+    "question": "What is the name of Goku and Chi-Chi's first son, named after Goku's adoptive grandfather?",
+    "options": ["Goten", "Gohan", "Trunks", "Pan"],
+    "correctAnswer": 1,
+    "explanation": "Son Gohan was named in honor of Goku's adoptive grandfather, Grandpa Gohan.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-009",
+    "question": "Who was Gohan's first strict martial arts mentor who sacrificed his life to protect him from Nappa?",
+    "options": ["Master Roshi", "Piccolo", "Krillin", "Yamcha"],
+    "correctAnswer": 1,
+    "explanation": "Piccolo took Gohan under his wing, developing a deep paternal bond and shielding Gohan with his body.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-010",
+    "question": "What planet do Piccolo and Kami originate from?",
+    "options": ["Planet Vegeta", "Planet Namek", "Planet Yardrat", "Planet Sadala"],
+    "correctAnswer": 1,
+    "explanation": "Piccolo is a Namekian from Planet Namek.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-011",
+    "question": "What tragic event triggers Goku's first transformation into a legendary Super Saiyan on Planet Namek?",
+    "options": ["Vegeta's death", "Frieza murdering Krillin", "Piccolo being injured", "The destruction of the Dragon Balls"],
+    "correctAnswer": 1,
+    "explanation": "Witnessing Frieza blow up Krillin drove Goku into a rage of fury, unlocking Super Saiyan.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-012",
+    "question": "What galactic galactic emperor was responsible for destroying Planet Vegeta?",
+    "options": ["Cell", "Majin Buu", "Lord Frieza", "King Cold"],
+    "correctAnswer": 2,
+    "explanation": "Frieza annihilated Planet Vegeta out of fear that a legendary Super Saiyan would rise against him.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-013",
+    "question": "What device invented by Bulma is used to detect the electromagnetic signal of Dragon Balls?",
+    "options": ["Scouter", "Dragon Radar", "Capsule Device", "Dyno Tracker"],
+    "correctAnswer": 1,
+    "explanation": "Bulma invented the handheld Dragon Radar to track the unique resonance frequencies of the Dragon Balls.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-014",
+    "question": "What is the name of Bulma's family company that produces compact Hoi-Poi Capsules?",
+    "options": ["Capsule Corporation", "Red Ribbon Army", "Turtle Corp", "Z-Fighter Tech"],
+    "correctAnswer": 0,
+    "explanation": "Bulma's father Dr. Briefs founded Capsule Corporation, one of the wealthiest companies on Earth.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-015",
+    "question": "Who travels back in time from a post-apocalyptic future to warn Goku about the lethal heart virus and Androids?",
+    "options": ["Future Gohan", "Future Trunks", "Future Goten", "Baby Trunks"],
+    "correctAnswer": 1,
+    "explanation": "Future Trunks, son of Vegeta and Bulma, uses a time machine to deliver heart medication to Goku.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-016",
+    "question": "What is the signature sword technique of Future Trunks used to slice Mecha Frieza in half?",
+    "options": ["Burning Attack / Shining Sword Attack", "Kamehameha", "Final Flash", "Special Beam Cannon"],
+    "correctAnswer": 0,
+    "explanation": "Future Trunks sliced Mecha Frieza to pieces with his broadsword and blasted him with energy.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-017",
+    "question": "What bio-mechanical Android created by Dr. Gero hosts the Cell Games?",
+    "options": ["Android 16", "Android 17", "Cell", "Android 19"],
+    "correctAnswer": 2,
+    "explanation": "Cell, an ultimate bio-android containing DNA of the universe's greatest warriors, hosted the Cell Games.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-018",
+    "question": "Who was the first Z-Fighter to break through and achieve Super Saiyan 2 during the Cell Games?",
+    "options": ["Goku", "Vegeta", "Gohan", "Future Trunks"],
+    "correctAnswer": 2,
+    "explanation": "Gohan unleashed his inner power and became the first to attain Super Saiyan 2 after Cell crushed Android 16.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-019",
+    "question": "What iconic one-handed beam attack did Gohan use to destroy Perfect Cell?",
+    "options": ["Spirit Bomb", "Father-Son Kamehameha", "Masenko", "Big Bang Attack"],
+    "correctAnswer": 1,
+    "explanation": "Gohan unleashed the Father-Son Kamehameha with Goku's spiritual encouragement from the Other World.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-020",
+    "question": "What magical beans grown by Korin instantly restore physical vitality, stamina, and heal severe wounds?",
+    "options": ["Yardrat Beans", "Senzu Beans", "Capsule Seeds", "Sacred Dew"],
+    "correctAnswer": 1,
+    "explanation": "Senzu Beans grown by Master Korin instantly heal injuries and provide nourishment for ten days.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-021",
+    "question": "What is the name of King Kai's technique that multiplies Goku's strength, speed, and senses temporarily with a red aura?",
+    "options": ["Ultra Instinct", "Kaio-ken", "Spirit Bomb", "Super Saiyan"],
+    "correctAnswer": 1,
+    "explanation": "King Kai taught Goku the Kaio-ken, which boosts power in multipliers (e.g. Kaio-ken x20).",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-022",
+    "question": "What colossal ultimate technique gathers life energy from plants, animals, and people into a giant blue sphere?",
+    "options": ["Spirit Bomb (Genki Dama)", "Kamehameha", "Final Flash", "Death Ball"],
+    "correctAnswer": 0,
+    "explanation": "The Spirit Bomb (Genki Dama) gathers life energy from all surrounding nature into an immense sphere.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-023",
+    "question": "What special room in Kami's Lookout allows warriors to train for a whole year in just one single Earth day?",
+    "options": ["The Gravity Chamber", "Hyperbolic Time Chamber (Room of Spirit and Time)", "Other World Stadium", "Beerus' Planet"],
+    "correctAnswer": 1,
+    "explanation": "The Hyperbolic Time Chamber has harsh gravity and temperatures where one year inside equals one day on Earth.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-024",
+    "question": "What is the fusion technique called where Goten and Trunks perform a synchronized mirrored dance?",
+    "options": ["Potara Fusion", "Metamoran Fusion Dance (resulting in Gotenks)", "Namekian Assimilation", "Absorbing"],
+    "correctAnswer": 1,
+    "explanation": "The Fusion Dance requires precise synchronized poses, fusing Goten and Trunks into Gotenks.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-025",
+    "question": "What is the name of the warrior formed when Goku and Vegeta fuse using Supreme Kai's Potara earrings?",
+    "options": ["Gogeta", "Vegito", "Gotenks", "Veku"],
+    "correctAnswer": 1,
+    "explanation": "When Goku and Vegeta wear the sacred Potara earrings on opposite ears, they merge into Vegito.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-026",
+    "question": "What is the name of the warrior formed when Goku and Vegeta perform the Metamoran Fusion Dance?",
+    "options": ["Vegito", "Gogeta", "Gotenks", "Gohan"],
+    "correctAnswer": 1,
+    "explanation": "Gogeta is the resulting fusion when Goku and Vegeta correctly execute the Fusion Dance.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-027",
+    "question": "What pink magical creature was revived by the evil wizard Babidi in Dragon Ball Z?",
+    "options": ["Dabura", "Yakon", "Majin Buu", "Pui Pui"],
+    "correctAnswer": 2,
+    "explanation": "Babidi used collected energy to awaken Majin Buu, an ancient pink magical entity created by Bibidi.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-028",
+    "question": "Who is the boastful martial artist who takes all the public credit for defeating Cell and saving Earth?",
+    "options": ["Hercule / Mr. Satan", "Bora", "Upa", "Oolong"],
+    "correctAnswer": 0,
+    "explanation": "Mr. Satan (Hercule) became a world-renowned celebrity by claiming victory over Cell.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-029",
+    "question": "Who is Mr. Satan's daughter who discovers Gohan's identity as Great Saiyaman and marries him?",
+    "options": ["Marron", "Videl", "Erasa", "Tights"],
+    "correctAnswer": 1,
+    "explanation": "Videl learned flight from Gohan, discovered he was the Golden Fighter, and married him.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-030",
+    "question": "What is the name of Gohan and Videl's daughter?",
+    "options": ["Bra", "Pan", "Marron", "Bulla"],
+    "correctAnswer": 1,
+    "explanation": "Pan is the daughter of Gohan and Videl and granddaughter of Goku and Mr. Satan.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-031",
+    "question": "Who is the feline God of Destruction of Universe 7 who loves Earth food?",
+    "options": ["Champa", "Beerus", "Belmod", "Quitela"],
+    "correctAnswer": 1,
+    "explanation": "Lord Beerus is the God of Destruction of Universe 7, famous for sparing Earth because he loves its cuisine.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-032",
+    "question": "Who is Beerus' angel attendant and martial arts teacher?",
+    "options": ["Vados", "Whis", "Kusu", "Marcarita"],
+    "correctAnswer": 1,
+    "explanation": "Whis is the Angel of Universe 7 who serves as Beerus' attendant and martial arts instructor.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-033",
+    "question": "What divine transformation with red hair was achieved by ritual with five righteous Saiyans?",
+    "options": ["Super Saiyan Blue", "Super Saiyan God", "Super Saiyan 4", "Ultra Ego"],
+    "correctAnswer": 1,
+    "explanation": "Super Saiyan God grants fiery crimson hair and god ki, achieved by the ritual of six righteous Saiyans.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-034",
+    "question": "What divine transformation combines the power of Super Saiyan God with the first Super Saiyan form (blue hair)?",
+    "options": ["Super Saiyan Rosé", "Super Saiyan Blue (Super Saiyan God Super Saiyan)", "Ultra Instinct Omen", "Super Saiyan Green"],
+    "correctAnswer": 1,
+    "explanation": "Super Saiyan Blue is the form attained by tapping into Super Saiyan while channeling divine God ki.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-035",
+    "question": "What supreme state of battle where the body reacts autonomously without conscious thought does Goku master?",
+    "options": ["Ultra Instinct (Migatte no Gokui)", "Ultra Ego", "Kaio-ken x100", "Beast Mode"],
+    "correctAnswer": 0,
+    "explanation": "Ultra Instinct allows Goku's body to evade and counterattack automatically without conscious thought.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-036",
+    "question": "What purple destructive state does Vegeta master under Beerus' teachings?",
+    "options": ["Ultra Instinct", "Ultra Ego", "Super Saiyan Purple", "Evil Saiyan"],
+    "correctAnswer": 1,
+    "explanation": "Ultra Ego is Vegeta's Hakai-infused state that grows stronger the more damage and battle fervor he takes on.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-037",
+    "question": "Who is the ruler of all the Multiverse in Dragon Ball Super?",
+    "options": ["Grand Minister", "Lord Zeno (Omni-King)", "Beerus", "Zamasu"],
+    "correctAnswer": 1,
+    "explanation": "Grand Zeno, the Omni-King, is the supreme ruler of all twelve universes with power to erase reality instantly.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-038",
+    "question": "What mortal warrior from Universe 11's Pride Troopers pushed Goku to unlock Mastered Ultra Instinct in the Tournament of Power?",
+    "options": ["Toppo", "Dyspo", "Jiren", "Hit"],
+    "correctAnswer": 2,
+    "explanation": "Jiren the Gray possessed strength exceeding even a God of Destruction, challenging Goku to the utmost limit.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-039",
+    "question": "What assassin from Universe 6 utilizes the deadly 'Time-Skip' technique?",
+    "options": ["Cabba", "Frost", "Hit", "Magetta"],
+    "correctAnswer": 2,
+    "explanation": "Hit the Infallible is a legendary assassin from Universe 6 who stops time for tenths of a second.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-040",
+    "question": "Who is the evil rogue Supreme Kai apprentice from Universe 10 who stole Goku's body in an alternate timeline?",
+    "options": ["Gowasu", "Zamasu (Goku Black)", "Moro", "Granolah"],
+    "correctAnswer": 1,
+    "explanation": "Zamasu stole Goku's body using the Super Dragon Balls, becoming 'Goku Black' to enact the Zero Mortals Plan.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-041",
+    "question": "What is Piccolo's signature spiraling piercing beam attack charged at his forehead?",
+    "options": ["Destructo Disc", "Special Beam Cannon (Makankosappo)", "Tri-Beam", "Galick Gun"],
+    "correctAnswer": 1,
+    "explanation": "Piccolo's signature Special Beam Cannon pierces through opponents with spiraling energy.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-042",
+    "question": "What razor-sharp rotating energy disk technique was invented by Krillin?",
+    "options": ["Solar Flare", "Destructo Disc (Kienzan)", "Spirit Ball", "Wolf Fang Fist"],
+    "correctAnswer": 1,
+    "explanation": "Krillin invented the Destructo Disc (Kienzan), a flat razor-sharp ki disc capable of slicing anything.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-043",
+    "question": "What technique invented by Tien Shinhan temporarily blinds opponents with an intense burst of light?",
+    "options": ["Tri-Beam", "Solar Flare (Taiyoken)", "Dodokan", "Spirit Ball"],
+    "correctAnswer": 1,
+    "explanation": "The Solar Flare (Taiyōken) emits a blinding flash of light to incapacitate opponents temporarily.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-044",
+    "question": "What form do Saiyans with tails assume when looking directly at a full moon?",
+    "options": ["Great Ape (Oozaru)", "Super Saiyan", "Super Saiyan God", "Golden Oozaru"],
+    "correctAnswer": 0,
+    "explanation": "Blutz waves from a full moon cause Saiyans possessing tails to transform into gigantic Great Apes (Oozaru).",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-045",
+    "question": "What was Goku's primary flying transportation before he mastered flight and Instant Transmission?",
+    "options": ["Nimbus Cloud (Kinto-un)", "Capsule Jet", "Shenron", "Pterodactyl"],
+    "correctAnswer": 0,
+    "explanation": "The Flying Nimbus (Kinto'un), gifted by Master Roshi, can only be ridden by those pure of heart.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-046",
+    "question": "What extending red staff was given to Goku by Grandpa Gohan?",
+    "options": ["Power Pole (Nyoibo)", "Brave Sword", "Z Sword", "Staff of Whis"],
+    "correctAnswer": 0,
+    "explanation": "The Power Pole (Nyoi-bō) is an ancient magical staff that extends to tremendous lengths upon command.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-047",
+    "question": "What happens when a person who is not pure of heart tries to sit on the Flying Nimbus?",
+    "options": ["It explodes", "They fall right through it like regular smoke/clouds", "It turns black", "It shocks them with lightning"],
+    "correctAnswer": 1,
+    "explanation": "Anyone with tainted thoughts or impure nature falls straight through the Flying Nimbus.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-048",
+    "question": "Who is the Legendary Super Saiyan born with a power level of 10,000 exiled to Planet Vampa?",
+    "options": ["Raditz", "Nappa", "Broly", "Tarble"],
+    "correctAnswer": 2,
+    "explanation": "Broly is a mutant Saiyan with limitless growing rage and raw power.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-049",
+    "question": "What is the name of Android 18's twin brother who works as a wildlife park ranger?",
+    "options": ["Android 16", "Android 17 (Lapis)", "Android 19", "Android 20"],
+    "correctAnswer": 1,
+    "explanation": "Android 17 (human name Lapis) became a wildlife reserve ranger and won the Tournament of Power.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  },
+  {
+    "questionId": "dragon-ball-050",
+    "question": "Who does Android 18 marry in Dragon Ball Z?",
+    "options": ["Yamcha", "Tien", "Krillin", "Master Roshi"],
+    "correctAnswer": 2,
+    "explanation": "Krillin used a Dragon Ball wish to remove the explosives inside Android 18, and they later married and had a daughter, Marron.",
+    "difficulty": "easy",
+    "topic": "Dragon Ball"
+  }
+]

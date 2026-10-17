@@ -1,0 +1,452 @@
+[
+  {
+    "questionId": "st-001",
+    "question": "In what fictional Indiana town is the series Stranger Things primarily set?",
+    "options": ["Springfield", "Hawkins", "Riverdale", "Sunnydale"],
+    "correctAnswer": 1,
+    "explanation": "Stranger Things is set in the small fictional town of Hawkins, Indiana, in the 1980s.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-002",
+    "question": "What is the dark, decaying alternate dimension beneath Hawkins called?",
+    "options": ["The Nether", "The Upside Down", "The Void", "The Shadow Realm"],
+    "correctAnswer": 1,
+    "explanation": "The Upside Down is the cold, spore-filled mirror dimension parallel to the human world.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-003",
+    "question": "What is the numerical name of the telekinetic girl with a shaved head who escaped Hawkins Lab?",
+    "options": ["Seven", "Eight (Kali)", "Eleven (El / Jane)", "Ten"],
+    "correctAnswer": 2,
+    "explanation": "Eleven (El), tattooed with '011' on her wrist, was raised and experimented on in Hawkins Lab.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-004",
+    "question": "What is Eleven's favorite breakfast food that Mike shares with her?",
+    "options": ["Pancakes", "Eggo Waffles", "Pop-Tarts", "Cheerios"],
+    "correctAnswer": 1,
+    "explanation": "Eleven develops an obsession with toasted frozen Eggo waffles.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-005",
+    "question": "Which young boy goes missing in the first episode of Season 1, kicking off the series?",
+    "options": ["Mike Wheeler", "Dustin Henderson", "Lucas Sinclair", "Will Byers"],
+    "correctAnswer": 3,
+    "explanation": "Will Byers is ambushed by the Demogorgon and pulled into the Upside Down in the opening episode.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-006",
+    "question": "What tabletop role-playing game do the kids play in Mike's basement?",
+    "options": ["Warhammer", "Dungeons & Dragons (D&D)", "Magic: The Gathering", "Call of Cthulhu"],
+    "correctAnswer": 1,
+    "explanation": "The boys play D&D campaigns, which they use to name the monsters they encounter.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-007",
+    "question": "What flower-faced predatory monster from the Upside Down is named after a D&D creature?",
+    "options": ["The Demogorgon", "The Mind Flayer", "Vecna", "Demodog"],
+    "correctAnswer": 0,
+    "explanation": "The kids named the humanoid creature with a petal-like toothy mouth the Demogorgon.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-008",
+    "question": "Who is the Chief of Police in Hawkins who takes in Eleven as his adopted daughter?",
+    "options": ["Officer Callahan", "Jim Hopper", "Ted Wheeler", "Bob Newby"],
+    "correctAnswer": 1,
+    "explanation": "Jim Hopper becomes Eleven's protective adoptive father and legal guardian.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-009",
+    "question": "Who plays Will and Jonathan's determined mother, Joyce Byers?",
+    "options": ["Winona Ryder", "Millie Bobby Brown", "Natalia Dyer", "Sadie Sink"],
+    "correctAnswer": 0,
+    "explanation": "Winona Ryder delivers an iconic performance as the frantic, loving mother Joyce Byers.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-010",
+    "question": "What household item does Joyce Byers string across her living room wall to communicate with Will in the Upside Down?",
+    "options": ["Tin cans and string", "Christmas lights and painted alphabet letters", "Mirrors and candles", "Walkie-talkies"],
+    "correctAnswer": 1,
+    "explanation": "Joyce paints the English alphabet on her wallpaper and hangs multicolored Christmas bulbs above each letter.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-011",
+    "question": "What is the name of Mike's older sister who dated Steve Harrington and later Jonathan Byers?",
+    "options": ["Nancy Wheeler", "Robin Buckley", "Max Mayfield", "Chrissy Cunningham"],
+    "correctAnswer": 0,
+    "explanation": "Nancy Wheeler is the intrepid student journalist and sharp-shooting older sister of Mike.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-012",
+    "question": "Who starts out as a popular high school jerk but evolves into the beloved 'Babysitter' and protector of the kids?",
+    "options": ["Billy Hargrove", "Steve Harrington", "Tommy H.", "Jason Carver"],
+    "correctAnswer": 1,
+    "explanation": "Steve Harrington undergoes famous character growth to become the selfless babysitter of the party.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-013",
+    "question": "What weapon does Steve Harrington famously customize and wield with great effect?",
+    "options": ["A machete", "A baseball bat with nails driven through it", "A shotgun", "A crowbar"],
+    "correctAnswer": 1,
+    "explanation": "Steve's signature weapon against Demogorgons and Demodogs is a wooden baseball bat studded with nails.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-014",
+    "question": "What red-haired skateboarder girl moves from California to Hawkins in Season 2 with her stepbrother Billy?",
+    "options": ["Max Mayfield (MadMax)", "Robin Buckley", "Suzie Bingham", "Erica Sinclair"],
+    "correctAnswer": 0,
+    "explanation": "Max Mayfield joins the middle school class under the arcade high-score alias 'MADMAX'.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-015",
+    "question": "Who plays Eleven in Stranger Things?",
+    "options": ["Sadie Sink", "Millie Bobby Brown", "Maya Hawke", "Finn Wolfhard"],
+    "correctAnswer": 1,
+    "explanation": "Millie Bobby Brown shot to global superstardom playing the telekinetic Eleven.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-016",
+    "question": "What is Dustin Henderson's beloved pet pollywog creature that grows into a predatory Demodog?",
+    "options": ["Dart (D'Artagnan)", "Chester", "Yertle", "Mews"],
+    "correctAnswer": 0,
+    "explanation": "Dustin found Dart in his trashcan and fed him 3 Musketeers candy bars before it grew into a Demodog.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-017",
+    "question": "What candy bar does Dustin feed Dart to win its trust?",
+    "options": ["Snickers", "3 Musketeers", "Milky Way", "Kit Kat"],
+    "correctAnswer": 1,
+    "explanation": "Dustin shared nougat from a 3 Musketeers bar with Dart.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-018",
+    "question": "What colossal spider-like shadow entity rules the Upside Down's hive mind?",
+    "options": ["The Demogorgon", "The Mind Flayer (Shadow Monster)", "Vecna", "The Thessalhydra"],
+    "correctAnswer": 1,
+    "explanation": "The Mind Flayer commands all creatures in the Upside Down through a collective psychic hive mind.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-019",
+    "question": "Who is the sweet RadioShack manager and Joyce's boyfriend in Season 2 who solves puzzles as 'Bob the Brain'?",
+    "options": ["Bob Newby", "Murray Bauman", "Ted Wheeler", "Lonnie Byers"],
+    "correctAnswer": 0,
+    "explanation": "Bob Newby, played by Sean Astin, heroically decoded Hawkins Lab's maps and was killed by Demodogs.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-020",
+    "question": "What 1984 movie costumes do Mike, Dustin, Lucas, and Will wear to school on Halloween in Season 2?",
+    "options": ["Star Wars", "Ghostbusters", "Back to the Future", "The Karate Kid"],
+    "correctAnswer": 1,
+    "explanation": "The four boys dress up in full Ghostbusters jumpsuits complete with Proton Packs.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-021",
+    "question": "What ice cream parlor in Starcourt Mall do Steve and Robin work at in Season 3?",
+    "options": ["Baskin-Robbins", "Scoops Ahoy", "Dairy Queen", "The Sweet Spot"],
+    "correctAnswer": 1,
+    "explanation": "Steve and Robin wear sailor suits at the Scoops Ahoy ice cream parlor in Starcourt Mall.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-022",
+    "question": "Who works alongside Steve at Scoops Ahoy and decodes the secret Russian radio broadcast?",
+    "options": ["Nancy Wheeler", "Robin Buckley", "Max Mayfield", "Suzie"],
+    "correctAnswer": 1,
+    "explanation": "Robin Buckley, played by Maya Hawke, translated the Russian code broadcast from Starcourt Mall.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-023",
+    "question": "What is Lucas's sassy, ice-cream-loving younger sister named?",
+    "options": ["Tina", "Erica Sinclair", "Eden", "Chrissy"],
+    "correctAnswer": 1,
+    "explanation": "Erica Sinclair, known for her sharp wit and catchphrase 'You can't spell America without Erica', joins the group in Season 3.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-024",
+    "question": "What mall in Hawkins secretly conceals an underground Soviet laboratory trying to open a Gate?",
+    "options": ["Hawkins Plaza", "Starcourt Mall", "Westfield Center", "Oakridge Mall"],
+    "correctAnswer": 1,
+    "explanation": "Starcourt Mall was funded by the Soviets as a front to mask their underground Key machine drilling into the Gate.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-025",
+    "question": "Who was the friendly, Slurpee-loving Russian scientist whom Hopper and Joyce nicknamed 'Smirnoff'?",
+    "options": ["Alexei", "Grigori", "Dmitri", "Yuri"],
+    "correctAnswer": 0,
+    "explanation": "Dr. Alexei ('Smirnoff') loved American cartoons and cherry Slurpees before being murdered at the fair.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-026",
+    "question": "What flavor of 7-Eleven Slurpee does Alexei insist upon receiving from Hopper?",
+    "options": ["Blue Raspberry", "Cherry", "Strawberry", "Grape"],
+    "correctAnswer": 1,
+    "explanation": "Alexei adamantly demanded cherry Slurpee, stating that strawberry Slurpee was not the same.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-027",
+    "question": "What song do Dustin and his Mormon camp girlfriend Suzie sing together over Cerebro in the Season 3 finale?",
+    "options": ["'Africa'", "'The NeverEnding Story'", "'Should I Stay or Should I Go'", "'Separate Ways'"],
+    "correctAnswer": 1,
+    "explanation": "Dustin and Suzie sing the theme song to 'The NeverEnding Story' to get Planck's constant from Suzie.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-028",
+    "question": "What song by The Clash is an emotional bond between Will and his older brother Jonathan Byers?",
+    "options": ["'London Calling'", "'Should I Stay or Should I Go'", "'Rock the Casbah'", "'Heroes'"],
+    "correctAnswer": 1,
+    "explanation": "'Should I Stay or Should I Go' by The Clash is the song Will sings to comfort himself in the Upside Down.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-029",
+    "question": "Who is Max's aggressive older stepbrother who was possessed by the Mind Flayer in Season 3 and died a hero?",
+    "options": ["Eddie Munson", "Billy Hargrove", "Jason Carver", "Troy"],
+    "correctAnswer": 1,
+    "explanation": "Billy Hargrove broke free of the Mind Flayer's possession to shield Eleven at the Starcourt Mall.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-030",
+    "question": "Where was Jim Hopper imprisoned after surviving the explosion at Starcourt Mall?",
+    "options": ["A gulag in Kamchatka, Russia", "The Upside Down", "Chicago", "Hawkins Lab"],
+    "correctAnswer": 0,
+    "explanation": "Hopper was captured by Russian soldiers and sent to a brutal prison labor camp in Kamchatka.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-031",
+    "question": "Who is the eccentric private investigator and conspiracy theorist who speaks fluent Russian and aids Joyce?",
+    "options": ["Bob Newby", "Murray Bauman", "Ted Wheeler", "Officer Callahan"],
+    "correctAnswer": 1,
+    "explanation": "Murray Bauman lives in a fortified bunker, speaks Russian, and helps Joyce infiltrate Soviet operations.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-032",
+    "question": "What is the name of the Hawkins High D&D club led by Eddie Munson in Season 4?",
+    "options": ["The Dungeon Delvers", "The Hellfire Club", "The Dragon Slayers", "The Party"],
+    "correctAnswer": 1,
+    "explanation": "The Hellfire Club is the Hawkins High Dungeons & Dragons club led by super-senior metalhead Eddie Munson.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-033",
+    "question": "Who was the charismatic, electric-guitar-shredding leader of the Hellfire Club introduced in Season 4?",
+    "options": ["Jason Carver", "Eddie Munson", "Argyle", "Gareth"],
+    "correctAnswer": 1,
+    "explanation": "Eddie Munson was wrongly accused of the ritualistic murders caused by Vecna in Hawkins.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-034",
+    "question": "What song by Kate Bush saves Max Mayfield from Vecna's psychic curse when played on her Walkman?",
+    "options": ["'Wuthering Heights'", "'Running Up That Hill (A Deal with God)'", "'Hounds of Love'", "'Babooshka'"],
+    "correctAnswer": 1,
+    "explanation": "'Running Up That Hill' by Kate Bush is Max's favorite song, opening a portal of escape from Vecna's mind lair.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-035",
+    "question": "What terrifying psychic humanoid monster curses and executes teenagers from the Upside Down in Season 4?",
+    "options": ["The Demogorgon", "Vecna (Henry Creel / One)", "The Mind Flayer", "The Demodog"],
+    "correctAnswer": 1,
+    "explanation": "Vecna stalks Hawkins teenagers using past trauma, levitating and snapping their limbs from the Upside Down.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-036",
+    "question": "What was Vecna's original human identity and number at Hawkins National Laboratory?",
+    "options": ["Henry Creel / One (001)", "Dr. Martin Brenner", "Kali / Eight (008)", "Peter Ballard"],
+    "correctAnswer": 0,
+    "explanation": "Vecna was born Henry Creel, the first test subject (One) whose powers Dr. Brenner attempted to replicate.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-037",
+    "question": "What fatherly nickname did Eleven and the lab children use for Dr. Martin Brenner?",
+    "options": ["Uncle", "Papa", "Doctor", "Sir"],
+    "correctAnswer": 1,
+    "explanation": "Dr. Martin Brenner forced all experimental test children to address him exclusively as 'Papa'.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-038",
+    "question": "What Metallica song does Eddie Munson shred on his electric guitar in the Upside Down to lure Demobats?",
+    "options": ["'Enter Sandman'", "'Master of Puppets'", "'Fade to Black'", "'One'"],
+    "correctAnswer": 1,
+    "explanation": "Eddie played 'Master of Puppets' atop the trailer roof in the most metal concert in history.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-039",
+    "question": "What Surfer Boy Pizza van driver in California becomes Jonathan's loyal, stoner best friend?",
+    "options": ["Argyle", "Eddie", "Chrissy", "Eden"],
+    "correctAnswer": 0,
+    "explanation": "Argyle drives his yellow Surfer Boy Pizza van and helps Jonathan, Mike, and Will find Eleven.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-040",
+    "question": "What sinister grandfather clock chiming four times heralds the arrival of which villain?",
+    "options": ["The Demogorgon", "Vecna", "Dr. Brenner", "The Russian General"],
+    "correctAnswer": 1,
+    "explanation": "The ominous chiming of the Creel grandfather clock signals that Vecna has targeted someone for death.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-041",
+    "question": "What physical manifestation occurs whenever Eleven exerts her telekinetic powers?",
+    "options": ["Her eyes turn pitch black", "A nosebleed drops from one of her nostrils", "Her hair turns blonde", "Her fingernails fall off"],
+    "correctAnswer": 1,
+    "explanation": "Eleven consistently suffers a nosebleed when pushing her psychic and telekinetic gifts.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-042",
+    "question": "What is the secret sensory deprivation tank used by Eleven to enter the dark void and locate minds?",
+    "options": ["A swimming pool filled with warm salt water", "A cryogenic chamber", "A glass submarine", "A sensory sensory helmet"],
+    "correctAnswer": 0,
+    "explanation": "Eleven floats in salt water with blindfolds to achieve total sensory deprivation and project into the Void.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-043",
+    "question": "What is the name of Dustin's massive amateur ham radio tower constructed on the highest hill in Hawkins?",
+    "options": ["Cerebro", "Star-Link", "The Satellite", "The Beacon"],
+    "correctAnswer": 0,
+    "explanation": "Dustin assembled 'Cerebro' atop Weathertop to communicate across thousands of miles with Suzie.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-044",
+    "question": "What small town government project was Hawkins National Laboratory secretly operating under?",
+    "options": ["Department of Agriculture", "U.S. Department of Energy (MKUltra project)", "NASA Space Program", "Center for Disease Control"],
+    "correctAnswer": 1,
+    "explanation": "The lab pretended to be a Department of Energy branch while secretly pursuing espionage and Project MKUltra.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-045",
+    "question": "What arcade game did Dustin lose the high score of to 'MADMAX' in Season 2?",
+    "options": ["Pac-Man", "Dig Dug", "Galaga", "Centipede"],
+    "correctAnswer": 1,
+    "explanation": "Dustin was furious when a mysterious player with initials MADMAX smashed his Dig Dug high score.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-046",
+    "question": "What is the name of Lucas Sinclair's basketball team at Hawkins High?",
+    "options": ["The Tigers", "The Bulldogs", "The Panthers", "The Eagles"],
+    "correctAnswer": 0,
+    "explanation": "Lucas joined the Hawkins High Tigers basketball team led by captain Jason Carver.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-047",
+    "question": "What D&D campaign villain character sheet miniature was knocked to the floor right before Will disappeared in Chapter 1?",
+    "options": ["The Demogorgon", "The Mind Flayer", "Vecna", "A Dragon"],
+    "correctAnswer": 0,
+    "explanation": "Will cast fireball but rolled a 7; the Demogorgon miniature fell onto the floor, foreshadowing his kidnapping.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-048",
+    "question": "Who created the smash-hit Netflix series Stranger Things?",
+    "options": ["The Duffer Brothers (Matt and Ross Duffer)", "The Russo Brothers", "Shawn Levy", "J.J. Abrams"],
+    "correctAnswer": 0,
+    "explanation": "Matt and Ross Duffer (The Duffer Brothers) created, wrote, and directed Stranger Things.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-049",
+    "question": "What is the name of the dog belonging to the Byers family in Season 1?",
+    "options": ["Chester", "Barnaby", "Buster", "Max"],
+    "correctAnswer": 0,
+    "explanation": "Chester was the Byers family dog who barked at the Demogorgon outside the shed.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  },
+  {
+    "questionId": "st-050",
+    "question": "What does Eleven famously say when Mike asks her what friendship means?",
+    "options": ["'Friends always smile.'", "'Friends don't lie.'", "'Friends stick together.'", "'Friends eat waffles.'"],
+    "correctAnswer": 1,
+    "explanation": "'Friends don't lie' is Eleven and Mike's sacred core rule of trust and friendship.",
+    "difficulty": "easy",
+    "topic": "Stranger Things"
+  }
+]

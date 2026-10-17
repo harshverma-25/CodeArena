@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "html-css-001",
+    "question": "What does HTML stand for in web development?",
+    "options": [
+      "Hyper Text Markup Language",
+      "High Tech Multi Language",
+      "Hyperlink Text Management List",
+      "Home Tool Markup Language"
+    ],
+    "correctAnswer": 0,
+    "explanation": "HTML stands for HyperText Markup Language, the standard markup language for creating web pages.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-002",
+    "question": "What does CSS stand for?",
+    "options": [
+      "Creative Style Sheets",
+      "Cascading Style Sheets",
+      "Computer Style Syntax",
+      "Colorful Style System"
+    ],
+    "correctAnswer": 1,
+    "explanation": "CSS stands for Cascading Style Sheets, used to describe the presentation and layout of HTML documents.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-003",
+    "question": "What is the standard declaration placed at the very top of an HTML5 document?",
+    "options": [
+      "<!DOCTYPE html>",
+      "<html5>",
+      "<doctype xml>",
+      "<header version=\"5\">"
+    ],
+    "correctAnswer": 0,
+    "explanation": "<!DOCTYPE html> is the clean, standard declaration that tells browsers to render in HTML5 standards mode.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-004",
+    "question": "Which HTML tag is used to define a hyperlink to another web page?",
+    "options": [
+      "<link>",
+      "<a>",
+      "<href>",
+      "<url>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The <a> (anchor) tag, paired with the 'href' attribute, creates clickable hyperlinks.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-005",
+    "question": "Which HTML attribute specifies the destination URL of a hyperlink in an <a> tag?",
+    "options": [
+      "src",
+      "href",
+      "link",
+      "target"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'href' (hypertext reference) attribute specifies the target URL.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-006",
+    "question": "Which HTML tag is used to embed an image into a web page?",
+    "options": [
+      "<image>",
+      "<img>",
+      "<pic>",
+      "<src>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The <img> self-closing tag embeds an image using 'src' and 'alt' attributes.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-007",
+    "question": "Which attribute provides alternative text for screen readers and when an image fails to load?",
+    "options": [
+      "title",
+      "alt",
+      "desc",
+      "caption"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'alt' attribute provides an accessible text description of the image.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-008",
+    "question": "What are the four components of the standard CSS Box Model, starting from the inside out?",
+    "options": [
+      "Content, Border, Padding, Margin",
+      "Content, Padding, Border, Margin",
+      "Margin, Border, Padding, Content",
+      "Padding, Content, Margin, Border"
+    ],
+    "correctAnswer": 1,
+    "explanation": "From inside out: Content -> Padding (clears around content) -> Border -> Margin (clears outside border).",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-009",
+    "question": "What CSS property and value ensures that padding and borders are included in an element's total width and height?",
+    "options": [
+      "box-sizing: content-box",
+      "box-sizing: border-box",
+      "display: flex",
+      "overflow: hidden"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'box-sizing: border-box' calculates element width including content, padding, and borders.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-010",
+    "question": "Which HTML heading tag represents the highest and most important heading on a page?",
+    "options": [
+      "<heading>",
+      "<h1>",
+      "<h6>",
+      "<header>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<h1> is the top-level heading in HTML hierarchy, while <h6> is the lowest.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-011",
+    "question": "Which HTML tag is used to create an unordered bulleted list?",
+    "options": [
+      "<ol>",
+      "<ul>",
+      "<li>",
+      "<list>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<ul> defines an unordered (bulleted) list, while <ol> defines an ordered (numbered) list.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-012",
+    "question": "Which HTML tag defines individual list items inside either a <ul> or <ol> list?",
+    "options": [
+      "<item>",
+      "<li>",
+      "<it>",
+      "<ul>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<li> (list item) contains individual items within both ordered and unordered lists.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-013",
+    "question": "Which CSS property is used to change the background color of an element?",
+    "options": [
+      "color",
+      "background-color",
+      "bg-color",
+      "fill"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'background-color' sets the background color of an element in CSS.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-014",
+    "question": "Which CSS property is used to change the color of text in an element?",
+    "options": [
+      "text-color",
+      "color",
+      "font-color",
+      "text-fill"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'color' property sets the foreground color of text in CSS.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-015",
+    "question": "Which CSS property controls the size of text fonts?",
+    "options": [
+      "text-size",
+      "font-size",
+      "size",
+      "font-weight"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'font-size' specifies the dimension of text fonts (e.g. 16px, 1.5rem).",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-016",
+    "question": "Which CSS selector targets an element with the id 'header'?",
+    "options": [
+      ".header",
+      "#header",
+      "*header",
+      "header:"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In CSS, '#' selects by ID (e.g. #header), while '.' selects by class name (e.g. .header).",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-017",
+    "question": "Which CSS selector targets all elements with the class name 'btn'?",
+    "options": [
+      "#btn",
+      ".btn",
+      "$btn",
+      "btn()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The period prefix ('.') is the class selector in CSS.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-018",
+    "question": "What is the default display value of a <div> element?",
+    "options": [
+      "inline",
+      "block",
+      "inline-block",
+      "flex"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A <div> is a block-level element by default, starting on a new line and occupying the full available width.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-019",
+    "question": "What is the default display value of a <span> element?",
+    "options": [
+      "block",
+      "inline",
+      "flex",
+      "grid"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A <span> is an inline element by default, wrapping only as much width as its content.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-020",
+    "question": "Which CSS display value enables a one-dimensional layout model for arranging items in rows or columns?",
+    "options": [
+      "display: block",
+      "display: flex",
+      "display: grid",
+      "display: table"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Flexbox ('display: flex') is designed for 1-dimensional layouts (either along a row or column).",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-021",
+    "question": "Which Flexbox property aligns items along the main axis (horizontally by default in row layout)?",
+    "options": [
+      "align-items",
+      "justify-content",
+      "flex-wrap",
+      "align-content"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'justify-content' aligns flex items along the primary axis (flex-start, center, space-between, etc.).",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-022",
+    "question": "Which Flexbox property aligns items along the cross axis (vertically by default in row layout)?",
+    "options": [
+      "justify-content",
+      "align-items",
+      "flex-direction",
+      "order"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'align-items' defines default behavior for how flex items are laid out along the cross axis.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-023",
+    "question": "What is the default position value of all HTML elements in CSS?",
+    "options": [
+      "relative",
+      "static",
+      "absolute",
+      "fixed"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'position: static' is the default value; elements render in the natural document flow.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-024",
+    "question": "Which CSS position value positions an element relative to the browser viewport, remaining in place when scrolled?",
+    "options": [
+      "relative",
+      "absolute",
+      "fixed",
+      "static"
+    ],
+    "correctAnswer": 2,
+    "explanation": "'position: fixed' fixes an element relative to the screen viewport regardless of scrolling.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-025",
+    "question": "Which CSS position value positions an element relative to its nearest positioned ancestor?",
+    "options": [
+      "static",
+      "absolute",
+      "fixed",
+      "sticky"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'position: absolute' removes the element from normal flow, positioning it relative to its closest non-static ancestor.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-026",
+    "question": "What CSS property controls the stacking order of overlapping positioned elements?",
+    "options": [
+      "display",
+      "z-index",
+      "layer",
+      "opacity"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'z-index' specifies the stack level of an element (higher values sit on top of lower values).",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-027",
+    "question": "Which HTML5 semantic tag is used to wrap navigation links on a website?",
+    "options": [
+      "<navigate>",
+      "<nav>",
+      "<links>",
+      "<menu>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<nav> is the HTML5 semantic element dedicated to primary navigational links.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-028",
+    "question": "Which HTML5 semantic tag represents the independent, self-contained composition of a page (like a blog post)?",
+    "options": [
+      "<section>",
+      "<article>",
+      "<aside>",
+      "<main>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<article> designates independently distributable content such as articles, blog posts, or comments.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-029",
+    "question": "Which HTML5 semantic tag represents tangentially related content like sidebars or callouts?",
+    "options": [
+      "<sidebar>",
+      "<aside>",
+      "<section>",
+      "<div>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<aside> represents content indirectly related to the main surrounding content (e.g., sidebars).",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-030",
+    "question": "Which HTML5 semantic tag represents the footer of a document or section?",
+    "options": [
+      "<bottom>",
+      "<footer>",
+      "<end>",
+      "<base>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<footer> contains author information, copyright, and related links at the bottom of a section or page.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-031",
+    "question": "Which HTML tag is used to create a drop-down selection list in a form?",
+    "options": [
+      "<input type=\"dropdown\">",
+      "<select>",
+      "<datalist>",
+      "<option>"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<select> paired with nested <option> tags creates a standard drop-down menu.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-032",
+    "question": "Which HTML input type is used for typing hidden passwords with masked bullets?",
+    "options": [
+      "<input type=\"text\">",
+      "<input type=\"password\">",
+      "<input type=\"hidden\">",
+      "<input type=\"secure\">"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<input type=\"password\"> masks typed characters for privacy and security.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-033",
+    "question": "Which input type creates a group of mutually exclusive options where only one can be selected?",
+    "options": [
+      "checkbox",
+      "radio",
+      "button",
+      "select"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<input type=\"radio\"> allows only one choice among inputs sharing the same 'name' attribute.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-034",
+    "question": "Which input type allows users to select zero, one, or multiple independent choices?",
+    "options": [
+      "radio",
+      "checkbox",
+      "switch",
+      "toggle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "<input type=\"checkbox\"> permits multiple independent selections.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-035",
+    "question": "What CSS pseudo-class styles an element when a user hovers their mouse pointer over it?",
+    "options": [
+      ":focus",
+      ":hover",
+      ":active",
+      ":visited"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The ':hover' pseudo-class applies styles when the pointer device hovers over an interactive element.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-036",
+    "question": "What CSS pseudo-class styles an input or button when it is clicked or given keyboard focus?",
+    "options": [
+      ":hover",
+      ":focus",
+      ":target",
+      ":first-child"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The ':focus' pseudo-class applies when an element receives input focus via tab or click.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-037",
+    "question": "What CSS at-rule is used to create responsive designs tailored for different screen widths (mobile, tablet, desktop)?",
+    "options": [
+      "@import",
+      "@media",
+      "@keyframes",
+      "@supports"
+    ],
+    "correctAnswer": 1,
+    "explanation": "@media queries allow CSS rules to apply conditionally based on device screen sizes and resolutions.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-038",
+    "question": "Which CSS unit is relative to the font-size of the root <html> element?",
+    "options": [
+      "em",
+      "rem",
+      "px",
+      "%"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'rem' (root em) scales relative to the root <html> element's font-size (usually 16px by default).",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-039",
+    "question": "Which CSS unit is relative to 1% of the viewport width?",
+    "options": [
+      "vh",
+      "vw",
+      "vmin",
+      "rem"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'1vw' represents 1 percent of the current viewport width.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-040",
+    "question": "Which CSS property is used to make text bold?",
+    "options": [
+      "font-style",
+      "font-weight",
+      "text-decoration",
+      "font-variant"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'font-weight: bold' (or 700) specifies the thickness or boldness of text.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-041",
+    "question": "Which CSS property is used to underline, strike-through, or remove underlines from text links?",
+    "options": [
+      "text-align",
+      "text-decoration",
+      "font-style",
+      "text-transform"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'text-decoration: none' is commonly used to remove default underlines from hyperlinks.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-042",
+    "question": "Which CSS property changes text to uppercase, lowercase, or capitalized?",
+    "options": [
+      "font-style",
+      "text-transform",
+      "text-align",
+      "font-variant"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'text-transform: uppercase' renders text in all capital letters.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-043",
+    "question": "Which CSS property rounds the corners of an element's outer border edge?",
+    "options": [
+      "border-round",
+      "border-radius",
+      "corner-radius",
+      "outline-radius"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'border-radius' adds rounded corners (e.g. 'border-radius: 50%' creates circles).",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-044",
+    "question": "Which CSS property adds shadow effects around an element's frame?",
+    "options": [
+      "text-shadow",
+      "box-shadow",
+      "filter-shadow",
+      "border-shadow"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'box-shadow' applies drop-shadows or inner shadows to block elements.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-045",
+    "question": "What CSS display property enables a two-dimensional grid layout system with rows and columns?",
+    "options": [
+      "display: flex",
+      "display: grid",
+      "display: table",
+      "display: inline-grid"
+    ],
+    "correctAnswer": 1,
+    "explanation": "CSS Grid ('display: grid') handles both rows and columns simultaneously in 2D.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-046",
+    "question": "Which CSS property defines the column track sizes in a CSS Grid container?",
+    "options": [
+      "grid-template-columns",
+      "grid-column-gap",
+      "grid-auto-flow",
+      "grid-template-rows"
+    ],
+    "correctAnswer": 0,
+    "explanation": "'grid-template-columns' sets the number and widths of columns (e.g. `repeat(3, 1fr)`).",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-047",
+    "question": "Which CSS property controls transparency of an element where 0 is fully transparent and 1 is fully opaque?",
+    "options": [
+      "visibility",
+      "opacity",
+      "display",
+      "alpha"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'opacity' sets the transparency level of an element and all its children.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-048",
+    "question": "What is the difference between 'display: none' and 'visibility: hidden' in CSS?",
+    "options": [
+      "'display: none' removes the element entirely from layout; 'visibility: hidden' hides it while preserving its space in the document",
+      "'visibility: hidden' deletes the element from the DOM",
+      "They are identical",
+      "'display: none' only works on mobile devices"
+    ],
+    "correctAnswer": 0,
+    "explanation": "'display: none' takes up zero space, while 'visibility: hidden' leaves an empty gap where the element was.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-049",
+    "question": "What CSS property smoothly animates property changes over a specified duration (e.g. background-color on hover)?",
+    "options": [
+      "animation",
+      "transition",
+      "transform",
+      "keyframe"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'transition: all 0.3s ease' animates state changes smoothly without needing keyframe definitions.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  },
+  {
+    "questionId": "html-css-050",
+    "question": "What meta tag inside the HTML <head> is required to ensure proper mobile viewport scaling and responsive behavior?",
+    "options": [
+      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "<meta name=\"responsive\" content=\"true\">",
+      "<meta name=\"mobile\" content=\"auto\">",
+      "<meta charset=\"UTF-8\">"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The viewport meta tag instructs mobile browsers to render the page width equal to the device screen width.",
+    "difficulty": "easy",
+    "topic": "HTML & CSS"
+  }
+]

@@ -6,6 +6,7 @@ export interface ICategory {
   description?: string;
   icon?: string;
   isActive: boolean;
+  playedCount?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -22,6 +23,7 @@ export interface ISubject {
   icon?: string;
   thumbnailUrl?: string;
   isActive: boolean;
+  playedCount?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }

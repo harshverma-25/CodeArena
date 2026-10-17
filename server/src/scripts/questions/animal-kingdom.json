@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "anim-001",
+    "question": "What is the largest living mammal on Earth?",
+    "options": [
+      "African Elephant",
+      "Blue Whale",
+      "Sperm Whale",
+      "Colossal Squid"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Blue Whale can reach lengths of over 30 meters and weigh up to 200 metric tons, making it the largest animal ever known.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-002",
+    "question": "What is the fastest land animal on Earth?",
+    "options": [
+      "Lion",
+      "Cheetah",
+      "Pronghorn Antelope",
+      "Greyhound"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The cheetah can reach speeds of 100 to 120 km/h (60 to 75 mph) in short sprints.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-003",
+    "question": "Which bird is the largest living bird and cannot fly?",
+    "options": [
+      "Emu",
+      "Ostrich",
+      "Penguin",
+      "Cassowary"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The common ostrich of Africa is the world's heaviest and tallest bird, laying the largest eggs of any living land animal.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-004",
+    "question": "What is the largest living land animal?",
+    "options": [
+      "Hippopotamus",
+      "African Bush Elephant",
+      "White Rhinoceros",
+      "Giraffe"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The African bush elephant can weigh up to 6,000 kg (13,000 lbs) and reach a shoulder height of nearly 4 meters.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-005",
+    "question": "Which mammal is the only one capable of true, sustained flapping flight?",
+    "options": [
+      "Flying squirrel",
+      "Bat",
+      "Sugar glider",
+      "Flying lemur"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bats (order Chiroptera) are the only mammals with wings capable of true flapping flight rather than mere gliding.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-006",
+    "question": "What is the tallest living terrestrial animal?",
+    "options": [
+      "African Elephant",
+      "Giraffe",
+      "Ostrich",
+      "Camel"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Giraffes can reach towering heights of up to 5.7 meters (18.7 feet) thanks to their long necks and legs.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-007",
+    "question": "How many hearts does an octopus have?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correctAnswer": 2,
+    "explanation": "An octopus has three hearts: two branchial hearts to pump blood through the gills and one systemic heart for the rest of the body.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-008",
+    "question": "What color is octopus blood, due to the copper-based molecule hemocyanin?",
+    "options": [
+      "Red",
+      "Blue",
+      "Green",
+      "Clear"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Octopus blood uses copper-rich hemocyanin to transport oxygen in cold, low-oxygen water, giving it a distinctive blue tint.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-009",
+    "question": "Which animal is famous for laying eggs despite being a mammal (a monotreme)?",
+    "options": [
+      "Kangaroo",
+      "Duck-billed Platypus",
+      "Koala",
+      "Opossum"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The platypus and echidna are monotremes, an egg-laying order of mammals found in Australia.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-010",
+    "question": "Which bird is celebrated as the smallest bird in the world, capable of flying backwards?",
+    "options": [
+      "Sparrow",
+      "Bee Hummingbird",
+      "Robin",
+      "Finch"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Bee Hummingbird of Cuba measures only about 5.5 cm and weighs under 2 grams, fluttering its wings up to 80 times per second.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-011",
+    "question": "What is the primary food source of the Giant Panda in the wild?",
+    "options": [
+      "Fish",
+      "Bamboo",
+      "Eucalyptus leaves",
+      "Grass"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bamboo makes up over 99% of a giant panda's daily diet, consuming up to 38 kg of bamboo shoots daily.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-012",
+    "question": "What Australian marsupial feeds almost exclusively on toxic eucalyptus leaves?",
+    "options": [
+      "Kangaroo",
+      "Wombat",
+      "Koala",
+      "Tasmanian Devil"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Koalas have specialized digestive systems with long caecums capable of detoxifying and digesting fibrous eucalyptus leaves.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-013",
+    "question": "Which big cat is the largest wild cat species in the world?",
+    "options": [
+      "Lion",
+      "Tiger (Siberian/Bengal)",
+      "Jaguar",
+      "Leopard"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Tigers (Panthera tigris) are the largest feline species, with Siberian tigers weighing up to 300 kg (660 lbs).",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-014",
+    "question": "What flightless aquatic birds live predominantly in the Southern Hemisphere, particularly Antarctica?",
+    "options": [
+      "Puffins",
+      "Penguins",
+      "Albatrosses",
+      "Gulls"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Penguins are highly adapted swimming seabirds with countershaded plumage living primarily in the Southern Hemisphere.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-015",
+    "question": "Which reptile is the largest living reptile in the world?",
+    "options": [
+      "Komodo Dragon",
+      "Saltwater Crocodile",
+      "Green Anaconda",
+      "Leatherback Sea Turtle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The saltwater crocodile (Crocodylus porosus) can exceed 6 meters in length and weigh over 1,000 kg.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-016",
+    "question": "What is the largest living lizard species in the world?",
+    "options": [
+      "Gila Monster",
+      "Komodo Dragon",
+      "Monitor Lizard",
+      "Iguana"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Komodo dragon of Indonesian islands can grow up to 3 meters in length and weigh over 70 kg.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-017",
+    "question": "What organ do sharks have that allows them to detect the faint electrical fields of other animals?",
+    "options": [
+      "Lateral lines",
+      "Ampullae of Lorenzini",
+      "Spiracles",
+      "Swim bladder"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Ampullae of Lorenzini are electroreceptors covering shark snouts that detect muscle twitches in hidden prey.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-018",
+    "question": "Do sharks have bones in their skeletons?",
+    "options": [
+      "Yes, like all fish",
+      "No, their skeleton is made of cartilage",
+      "Only in their jaws",
+      "Only in their fins"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sharks are cartilaginous fish (class Chondrichthyes) whose skeletons are composed entirely of flexible, lightweight cartilage.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-019",
+    "question": "Which sea creature is unique because the male carries eggs and gives birth to offspring?",
+    "options": [
+      "Clownfish",
+      "Seahorse",
+      "Starfish",
+      "Jellyfish"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Male seahorses possess a specialized brood pouch where female eggs are deposited, fertilized, and gestated until birth.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-020",
+    "question": "What is a group of lions called?",
+    "options": [
+      "Pack",
+      "Pride",
+      "Herd",
+      "Troop"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A social unit of lions is called a pride, typically consisting of related lionesses, cubs, and a small coalition of males.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-021",
+    "question": "What is a group of wolves called?",
+    "options": [
+      "Pride",
+      "Pack",
+      "Flock",
+      "Mob"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Wolves live and hunt together in cooperative family units known as packs.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-022",
+    "question": "What is a group of fish swimming together in a coordinated manner called?",
+    "options": [
+      "Pod",
+      "School (or Shoal)",
+      "Swarm",
+      "Colony"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Fish that swim in synchrony in the same direction are schooling, which deters predators and aids foraging.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-023",
+    "question": "What is a baby kangaroo called when it stays inside its mother's pouch?",
+    "options": [
+      "Cub",
+      "Joey",
+      "Calf",
+      "Pup"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Marsupial infants, including young kangaroos, wallabies, and koalas, are called joeys.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-024",
+    "question": "How many legs does an adult insect typically have?",
+    "options": [
+      "4",
+      "6",
+      "8",
+      "10"
+    ],
+    "correctAnswer": 1,
+    "explanation": "All insects (class Insecta) have three body parts and three pairs of jointed thoracic walking legs (6 total).",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-025",
+    "question": "How many legs does a spider (an arachnid) have?",
+    "options": [
+      "6",
+      "8",
+      "10",
+      "12"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Spiders belong to the class Arachnida and have four pairs of walking legs (8 total), lacking antennae.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-026",
+    "question": "Which insect is famous for producing honey and pollinating flowering plants?",
+    "options": [
+      "Wasp",
+      "Honeybee",
+      "Ant",
+      "Butterfly"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Honeybees collect floral nectar, convert it into honey, and act as vital pollinators of crops and ecosystems.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-027",
+    "question": "What animal has fingerprints that are so strikingly similar to human fingerprints they can confuse crime investigators?",
+    "options": [
+      "Chimpanzee",
+      "Koala",
+      "Dolphin",
+      "Panda"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Koalas have dermatoglyphic dermal ridges with loops and whorls that look virtually indistinguishable from human fingerprints.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-028",
+    "question": "Which arctic marine mammal is famously known as the 'Unicorn of the Sea' due to its long spiral tusk?",
+    "options": [
+      "Walrus",
+      "Narwhal",
+      "Beluga Whale",
+      "Bowhead Whale"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The narwhal is a medium-sized toothed whale whose males boast an elongated helical canine tooth up to 3 meters long.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-029",
+    "question": "What color is the skin of a polar bear underneath its white fur?",
+    "options": [
+      "Pink",
+      "White",
+      "Black",
+      "Brown"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Polar bear skin is completely black to absorb thermal radiation from sunlight, while its hollow guard hairs appear white.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-030",
+    "question": "Which animal is the slowest-moving mammal in the world, spending most of its life hanging upside down in trees?",
+    "options": [
+      "Sloth",
+      "Koala",
+      "Tortoise",
+      "Armadillo"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Three-toed sloths move at an average speed of about 0.24 km/h (0.15 mph) due to an extremely low metabolic rate.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-031",
+    "question": "Which African animal is responsible for more human fatalities annually than lions, tigers, or crocodiles?",
+    "options": [
+      "Cheetah",
+      "Hippopotamus",
+      "Hyena",
+      "Zebra"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hippopotamuses are fiercely territorial, highly aggressive, and attack boats and people near African waterways.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-032",
+    "question": "Which bird has the largest wingspan of any living bird, reaching up to 3.5 meters (11.5 feet)?",
+    "options": [
+      "Bald Eagle",
+      "Wandering Albatross",
+      "Andean Condor",
+      "Pelican"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Wandering Albatross uses its enormous wingspan to glide effortlessly over the southern oceans for thousands of miles.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-033",
+    "question": "What is the fastest diving bird in the world, exceeding speeds of 320 km/h (200 mph) in a high-speed hunting stoop?",
+    "options": [
+      "Golden Eagle",
+      "Peregrine Falcon",
+      "Osprey",
+      "Cheetah Bird"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Peregrine Falcon dives steeply at over 320 km/h, making it the fastest animal on the planet.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-034",
+    "question": "What makes chameleons famous in the reptile world?",
+    "options": [
+      "Breathing underwater",
+      "Changing skin color and independently moving eyes",
+      "Running on water",
+      "Flying between trees"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Chameleons change color via pigment cells (chromatophores) for camouflage and communication, and have stereoscopic independent eyes.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-035",
+    "question": "Which animal produces the loudest sound of any living creature, reaching up to 230 decibels under water?",
+    "options": [
+      "Blue Whale",
+      "Sperm Whale",
+      "Howler Monkey",
+      "Lion"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sperm whale echolocation clicks can reach an astonishing 230 decibels, capable of stunning prey underwater.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-036",
+    "question": "Which crustacean delivers a punch as fast as a .22 caliber bullet, creating cavitation bubbles hot enough to produce light?",
+    "options": [
+      "Mantis Shrimp",
+      "King Crab",
+      "Hermit Crab",
+      "Lobster"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Peacock Mantis Shrimp strikes with club-like dactyl appendages accelerating faster than a bullet.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-037",
+    "question": "What is a group of flamingos called?",
+    "options": [
+      "Flock",
+      "Flamboyance",
+      "Colony",
+      "Flight"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A gathering of flamingos is charmingly referred to as a flamboyance.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-038",
+    "question": "What gives flamingos their vivid pink or reddish-orange color?",
+    "options": [
+      "Natural skin pigment",
+      "Carotenoid pigments in their diet of algae and brine shrimp",
+      "Sun exposure",
+      "Genetics"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Flamingos are born grey; they turn pink from digesting carotenoid pigments found in microscopic algae and brine shrimp.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-039",
+    "question": "Which mammal sleeps while floating in water, often holding hands with others to prevent drifting apart?",
+    "options": [
+      "Beaver",
+      "Sea Otter",
+      "Seal",
+      "Dolphin"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sea otters entangle themselves in kelp and hold hands ('rafting') while resting on their backs to avoid drifting out to sea.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-040",
+    "question": "What is the only species of penguin that breeds during the brutally harsh Antarctic winter?",
+    "options": [
+      "Adélie Penguin",
+      "Emperor Penguin",
+      "Chinstrap Penguin",
+      "Gentoo Penguin"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Emperor penguins endure Antarctic blizzards and subzero temperatures, with males balancing eggs on their feet for months.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-041",
+    "question": "Which snake is recognized as the longest venomous snake in the world?",
+    "options": [
+      "Black Mamba",
+      "King Cobra",
+      "Rattlesnake",
+      "Russell's Viper"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The King Cobra (Ophiophagus hannah) can reach lengths of up to 5.85 meters (19.2 feet).",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-042",
+    "question": "Which heavy snake is considered the heaviest and one of the longest snakes in the world?",
+    "options": [
+      "Green Anaconda",
+      "Reticulated Python",
+      "Burmese Python",
+      "Boa Constrictor"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Green Anaconda of South America is the heaviest snake in the world, weighing up to 250 kg (550 lbs).",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-043",
+    "question": "Which amphibian undergoes metamorphosis from an aquatic gill-breathing tadpole to an air-breathing adult?",
+    "options": [
+      "Frog",
+      "Lizard",
+      "Crocodile",
+      "Snake"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Frogs lay eggs in water that hatch into swimming tadpoles before developing legs, lungs, and absorbing their tails.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-044",
+    "question": "How do frogs typically absorb water rather than drinking it through their mouths?",
+    "options": [
+      "Through their nostrils",
+      "Through their permeable skin",
+      "Through their claws",
+      "Through their eyes"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Frogs do not drink with their mouths; they absorb moisture and electrolytes directly through a 'seat patch' on their abdomen.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-045",
+    "question": "What is a group of crows called?",
+    "options": [
+      "Flock",
+      "Murder",
+      "Covey",
+      "Parade"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A collective group of crows is famously called a 'murder of crows'.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-046",
+    "question": "What animal is the national symbol and bird of the United States?",
+    "options": [
+      "Golden Eagle",
+      "Bald Eagle",
+      "Wild Turkey",
+      "Red-tailed Hawk"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Bald Eagle has been the national bird and heraldic symbol of the United States since 1782.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-047",
+    "question": "What is the only continent on Earth where bees are completely absent in the wild?",
+    "options": [
+      "Australia",
+      "Antarctica",
+      "Europe",
+      "South America"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Antarctica's freezing ice sheets and lack of flowering vegetation make it impossible for bee colonies to survive.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-048",
+    "question": "Which animal's defense mechanism includes spraying a pungent, sulfur-smelling liquid at predators?",
+    "options": [
+      "Porcupine",
+      "Skunk",
+      "Badger",
+      "Weasel"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Skunks have anal scent glands that spray a foul mixture of sulfur-containing thiols up to 3 meters away.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-049",
+    "question": "What is the horn of a rhinoceros composed of?",
+    "options": [
+      "Bone",
+      "Keratin (same as hair and nails)",
+      "Ivory",
+      "Cartilage"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rhino horns are not made of bone or ivory, but dense, compacted filaments of keratin.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  },
+  {
+    "questionId": "anim-050",
+    "question": "How many arms and tentacles does a squid typically have in total?",
+    "options": [
+      "6",
+      "8",
+      "10",
+      "12"
+    ],
+    "correctAnswer": 2,
+    "explanation": "A squid has 10 limbs in total: 8 arms lined with suckers and 2 longer specialized feeding tentacles.",
+    "difficulty": "easy",
+    "topic": "Animal Kingdom"
+  }
+]

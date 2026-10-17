@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "ipl-001",
+    "question": "Which team won the inaugural IPL title in 2008?",
+    "options": [
+      "Chennai Super Kings",
+      "Rajasthan Royals",
+      "Mumbai Indians",
+      "Kolkata Knight Riders"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rajasthan Royals, captained by Shane Warne, won the very first IPL season in 2008.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-002",
+    "question": "Who holds the record for the highest individual score in an IPL match (175*)?",
+    "options": [
+      "Brendon McCullum",
+      "Chris Gayle",
+      "AB de Villiers",
+      "KL Rahul"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Chris Gayle smashed 175* off 66 balls for RCB against Pune Warriors India in 2013.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-003",
+    "question": "Which captain has led Chennai Super Kings (CSK) to 5 IPL titles?",
+    "options": [
+      "Suresh Raina",
+      "MS Dhoni",
+      "Ravindra Jadeja",
+      "Ruturaj Gaikwad"
+    ],
+    "correctAnswer": 1,
+    "explanation": "MS Dhoni led CSK to victory in 2010, 2011, 2018, 2021, and 2023.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-004",
+    "question": "Which captain led Mumbai Indians (MI) to 5 IPL titles?",
+    "options": [
+      "Sachin Tendulkar",
+      "Rohit Sharma",
+      "Hardik Pandya",
+      "Harbhajan Singh"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rohit Sharma captained Mumbai Indians to trophies in 2013, 2015, 2017, 2019, and 2020.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-005",
+    "question": "What color cap is awarded to the highest run-scorer of an IPL season?",
+    "options": [
+      "Purple Cap",
+      "Orange Cap",
+      "Blue Cap",
+      "Green Cap"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Orange Cap is awarded to the tournament's leading run-scorer.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-006",
+    "question": "What color cap is awarded to the leading wicket-taker in an IPL season?",
+    "options": [
+      "Orange Cap",
+      "Purple Cap",
+      "Red Cap",
+      "Golden Cap"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Purple Cap is awarded to the bowler with the most wickets.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-007",
+    "question": "Who is the all-time leading run-scorer in IPL history with over 8,000 runs?",
+    "options": [
+      "Shikhar Dhawan",
+      "David Warner",
+      "Virat Kohli",
+      "Rohit Sharma"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Virat Kohli has scored over 8,000 runs playing exclusively for Royal Challengers Bengaluru.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-008",
+    "question": "Who holds the record for most runs in a single IPL season (973 runs in 2016)?",
+    "options": [
+      "David Warner",
+      "Jos Buttler",
+      "Virat Kohli",
+      "Shubman Gill"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Virat Kohli scored 973 runs with 4 centuries in IPL 2016.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-009",
+    "question": "Who scored an unbeaten 158 for KKR in the first-ever match of IPL history in 2008?",
+    "options": [
+      "Ricky Ponting",
+      "Brendon McCullum",
+      "Sourav Ganguly",
+      "Chris Gayle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Brendon McCullum hit 158* off 73 balls for KKR against RCB in 2008.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-010",
+    "question": "Which batsman was famously nicknamed 'Mr. IPL' for his long-standing consistency with CSK?",
+    "options": [
+      "Ambati Rayudu",
+      "Suresh Raina",
+      "Faf du Plessis",
+      "Shane Watson"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Suresh Raina earned the nickname 'Mr. IPL' for scoring 400+ runs year after year.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-011",
+    "question": "Which South African batsman was known as 'Mr. 360' while representing RCB?",
+    "options": [
+      "Faf du Plessis",
+      "AB de Villiers",
+      "David Miller",
+      "Quinton de Kock"
+    ],
+    "correctAnswer": 1,
+    "explanation": "AB de Villiers was dubbed 'Mr. 360' for hitting boundaries all around the ground.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-012",
+    "question": "Which Australian opener has won the Orange Cap a record 3 times (2015, 2017, 2019)?",
+    "options": [
+      "Shane Watson",
+      "David Warner",
+      "Michael Hussey",
+      "Shaun Marsh"
+    ],
+    "correctAnswer": 1,
+    "explanation": "David Warner won the Orange Cap thrice playing for Sunrisers Hyderabad.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-013",
+    "question": "Which team won the IPL in their debut season in 2022 under Hardik Pandya?",
+    "options": [
+      "Lucknow Super Giants",
+      "Gujarat Titans",
+      "Rising Pune Supergiant",
+      "Kochi Tuskers"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Gujarat Titans lifted the championship in their maiden appearance in 2022.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-014",
+    "question": "Who bowled the first-ever Super Over in IPL history in 2009 for Rajasthan Royals?",
+    "options": [
+      "Kamran Khan",
+      "Shane Warne",
+      "Munaf Patel",
+      "Siddharth Trivedi"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Kamran Khan defended in the inaugural Super Over against KKR in South Africa.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-015",
+    "question": "Which Sri Lankan pacer is known for his sling-action yorkers for Mumbai Indians?",
+    "options": [
+      "Chaminda Vaas",
+      "Lasith Malinga",
+      "Nuwan Kulasekara",
+      "Dilhara Fernando"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lasith Malinga took 170 wickets and won 4 titles as a player with Mumbai Indians.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-016",
+    "question": "Who hit five consecutive sixes in the final over for KKR to defeat Gujarat Titans in 2023?",
+    "options": [
+      "Andre Russell",
+      "Rinku Singh",
+      "Nitish Rana",
+      "Venkatesh Iyer"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rinku Singh smashed Yash Dayal for 5 sixes off the final 5 balls.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-017",
+    "question": "Who was the first Indian batsman to score an IPL century (in 2009 for RCB)?",
+    "options": [
+      "Virat Kohli",
+      "Manish Pandey",
+      "Rohit Sharma",
+      "Suresh Raina"
+    ],
+    "correctAnswer": 1,
+    "explanation": "19-year-old Manish Pandey scored 114* against Deccan Chargers in Centurion.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-018",
+    "question": "Which West Indies all-rounder is celebrated as 'Dre Russ' for Kolkata Knight Riders?",
+    "options": [
+      "Kieron Pollard",
+      "Andre Russell",
+      "Dwayne Bravo",
+      "Sunil Narine"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Andre Russell is known for his devastating power-hitting and death bowling for KKR.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-019",
+    "question": "Which franchise represents Kolkata and is co-owned by Shah Rukh Khan?",
+    "options": [
+      "Delhi Capitals",
+      "Kolkata Knight Riders",
+      "Punjab Kings",
+      "Sunrisers Hyderabad"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kolkata Knight Riders (KKR) is co-owned by Shah Rukh Khan and Juhi Chawla.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-020",
+    "question": "Who captained Kolkata Knight Riders to their first two championships in 2012 and 2014?",
+    "options": [
+      "Sourav Ganguly",
+      "Gautam Gambhir",
+      "Dinesh Karthik",
+      "Shreyas Iyer"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Gautam Gambhir led KKR to titles in 2012 and 2014.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-021",
+    "question": "Who hit a 13-ball half-century in 2023, the fastest fifty in IPL history?",
+    "options": [
+      "KL Rahul",
+      "Yashasvi Jaiswal",
+      "Pat Cummins",
+      "Nicholas Pooran"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Yashasvi Jaiswal of Rajasthan Royals smashed a fifty in 13 balls against KKR.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-022",
+    "question": "Which West Indian mystery spinner has been a star for KKR since 2012?",
+    "options": [
+      "Samuel Badree",
+      "Sunil Narine",
+      "Akeal Hosein",
+      "Devendra Bishoo"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sunil Narine has won multiple MVPs and championships with KKR.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-023",
+    "question": "Which powerful West Indies all-rounder played for Mumbai Indians from 2010 to 2022?",
+    "options": [
+      "Chris Gayle",
+      "Kieron Pollard",
+      "Dwayne Bravo",
+      "Carlos Brathwaite"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kieron Pollard won 5 IPL titles and 2 Champions League T20s with Mumbai Indians.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-024",
+    "question": "What is the home ground of the Chennai Super Kings?",
+    "options": [
+      "Wankhede Stadium",
+      "M. A. Chidambaram Stadium (Chepauk)",
+      "Eden Gardens",
+      "Chinnaswamy Stadium"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Chepauk Stadium in Chennai is the iconic home of CSK.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-025",
+    "question": "What is the home ground of the Mumbai Indians?",
+    "options": [
+      "Brabourne Stadium",
+      "Wankhede Stadium",
+      "DY Patil Stadium",
+      "Sardar Patel Stadium"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Wankhede Stadium in Mumbai is the home fortress of the Mumbai Indians.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-026",
+    "question": "What is the home venue of the Royal Challengers Bengaluru?",
+    "options": [
+      "Arun Jaitley Stadium",
+      "M. Chinnaswamy Stadium",
+      "Eden Gardens",
+      "Rajiv Gandhi Stadium"
+    ],
+    "correctAnswer": 1,
+    "explanation": "M. Chinnaswamy Stadium in Bengaluru is the high-scoring home of RCB.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-027",
+    "question": "Which Indian leg-spinner is the highest wicket-taker in IPL history?",
+    "options": [
+      "Amit Mishra",
+      "Yuzvendra Chahal",
+      "Piyush Chawla",
+      "R. Ashwin"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Yuzvendra Chahal was the first bowler to breach the 200-wicket mark in IPL history.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-028",
+    "question": "Who took the first hat-trick in IPL history in 2008?",
+    "options": [
+      "L. Balaji",
+      "Amit Mishra",
+      "Makhaya Ntini",
+      "Yuvraj Singh"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Lakshmipathy Balaji of CSK took the very first IPL hat-trick against Kings XI Punjab.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-029",
+    "question": "Who is the only bowler to take three separate hat-tricks in the IPL?",
+    "options": [
+      "Yuvraj Singh",
+      "Amit Mishra",
+      "Lasith Malinga",
+      "Rashid Khan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Amit Mishra took hat-tricks in 2008, 2011, and 2013.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-030",
+    "question": "What is the famous anthem and whistle-themed slogan of Chennai Super Kings?",
+    "options": [
+      "'Korbo Lorbo Jeetbo'",
+      "'Whistle Podu'",
+      "'Duniya Hila Denge'",
+      "'Play Bold'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'Whistle Podu' is the celebrated battle cry of CSK.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-031",
+    "question": "Which Afghan spinner is famous for his unpickable googly and quick arm action in the IPL?",
+    "options": [
+      "Mujeeb Ur Rahman",
+      "Rashid Khan",
+      "Mohammad Nabi",
+      "Noor Ahmad"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rashid Khan has been an elite match-winner for SRH and Gujarat Titans.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-032",
+    "question": "Which Indian fast bowler clocked a 157 km/h delivery for Sunrisers Hyderabad in 2022?",
+    "options": [
+      "Mayank Yadav",
+      "Umran Malik",
+      "Jasprit Bumrah",
+      "Navdeep Saini"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Umran Malik stunned the cricketing world with raw 157 km/h pace in IPL 2022.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-033",
+    "question": "Who won the Player of the Tournament award in the inaugural 2008 IPL season?",
+    "options": [
+      "Yusuf Pathan",
+      "Shane Watson",
+      "Sohail Tanvir",
+      "Gautam Gambhir"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Shane Watson won the MVP award for his all-round performance with Rajasthan Royals.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-034",
+    "question": "Which Indian pace spearhead is famous for his unorthodox bowling action for Mumbai Indians?",
+    "options": [
+      "Mohammed Shami",
+      "Jasprit Bumrah",
+      "Bhuvneshwar Kumar",
+      "Arshdeep Singh"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Jasprit Bumrah is recognized globally as one of the finest fast bowlers in modern cricket.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-035",
+    "question": "Which swing bowler won consecutive Purple Caps in 2016 and 2017 for Sunrisers Hyderabad?",
+    "options": [
+      "Ashish Nehra",
+      "Bhuvneshwar Kumar",
+      "Mohit Sharma",
+      "Harshal Patel"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bhuvneshwar Kumar won back-to-back Purple Caps with SRH.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-036",
+    "question": "Who captained Sunrisers Hyderabad to their 2016 championship against RCB?",
+    "options": [
+      "Kane Williamson",
+      "David Warner",
+      "Shikhar Dhawan",
+      "Bhuvneshwar Kumar"
+    ],
+    "correctAnswer": 1,
+    "explanation": "David Warner led SRH to their maiden title victory in Bengaluru in 2016.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-037",
+    "question": "Who scored a fighting century (115*) for Kings XI Punjab in the 2014 IPL Final?",
+    "options": [
+      "George Bailey",
+      "Wriddhiman Saha",
+      "Glenn Maxwell",
+      "David Miller"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Wriddhiman Saha scored a century in the 2014 final against KKR.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-038",
+    "question": "What is the famous Kannada catchphrase used by Royal Challengers Bengaluru fans?",
+    "options": [
+      "'Aala Re'",
+      "'Ee Sala Cup Namde'",
+      "'Halla Bol'",
+      "'Roar Macha'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'Ee Sala Cup Namde' (This year the cup is ours) is the passionate chant of RCB fans.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-039",
+    "question": "Who scored 10 runs off the last two balls of the 2023 IPL Final to secure CSK's 5th title?",
+    "options": [
+      "Shivam Dube",
+      "Ravindra Jadeja",
+      "MS Dhoni",
+      "Ruturaj Gaikwad"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ravindra Jadeja struck a six and a four off Mohit Sharma's final deliveries.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-040",
+    "question": "Which young opener scored his maiden IPL century (101*) for RCB in 2021?",
+    "options": [
+      "Shubman Gill",
+      "Devdutt Padikkal",
+      "Ruturaj Gaikwad",
+      "Prithvi Shaw"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Devdutt Padikkal scored 101* off 52 balls against Rajasthan Royals.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-041",
+    "question": "Who took an extraordinary 5 wickets for just 5 runs for Mumbai Indians in the 2023 playoffs?",
+    "options": [
+      "Piyush Chawla",
+      "Akash Madhwal",
+      "Jason Behrendorff",
+      "Cameron Green"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Akash Madhwal registered figures of 5/5 against LSG in the 2023 Eliminator.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-042",
+    "question": "Which franchise was originally named Delhi Daredevils before rebranding?",
+    "options": [
+      "Punjab Kings",
+      "Delhi Capitals",
+      "Lucknow Super Giants",
+      "Rising Pune Supergiant"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Delhi Daredevils was renamed to Delhi Capitals in December 2018.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-043",
+    "question": "Which franchise was known as Kings XI Punjab before 2021?",
+    "options": [
+      "Delhi Capitals",
+      "Punjab Kings",
+      "Sunrisers Hyderabad",
+      "Gujarat Lions"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kings XI Punjab was rebranded as Punjab Kings ahead of the 2021 season.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-044",
+    "question": "Who holds the record for hitting the most sixes in IPL history (over 350 sixes)?",
+    "options": [
+      "Rohit Sharma",
+      "Chris Gayle",
+      "AB de Villiers",
+      "MS Dhoni"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Chris Gayle smashed 357 sixes across his IPL career.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-045",
+    "question": "Which English all-rounder was bought for a record 18.50 crore by Punjab Kings in 2023?",
+    "options": [
+      "Ben Stokes",
+      "Sam Curran",
+      "Harry Brook",
+      "Liam Livingstone"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sam Curran became the highest-paid player in IPL history at the 2023 auction.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-046",
+    "question": "Which Australian bowler broke the all-time auction record, sold to KKR for 24.75 crore in 2024?",
+    "options": [
+      "Pat Cummins",
+      "Mitchell Starc",
+      "Josh Hazlewood",
+      "Spencer Johnson"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mitchell Starc was signed by KKR for a record-shattering 24.75 crore.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-047",
+    "question": "Which Australian legend led Rajasthan Royals to victory in 2008 as captain-coach?",
+    "options": [
+      "Ricky Ponting",
+      "Shane Warne",
+      "Adam Gilchrist",
+      "Glenn McGrath"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Shane Warne masterminded Rajasthan Royals' historic victory in 2008.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-048",
+    "question": "Who was the first cricketer to play 250 matches in the IPL?",
+    "options": [
+      "Virat Kohli",
+      "MS Dhoni",
+      "Rohit Sharma",
+      "Dinesh Karthik"
+    ],
+    "correctAnswer": 1,
+    "explanation": "MS Dhoni became the first player to reach the milestone of 250 IPL appearances.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-049",
+    "question": "Who served as head coach of Mumbai Indians during their 2017, 2019, and 2020 title runs?",
+    "options": [
+      "Ricky Ponting",
+      "Mahela Jayawardene",
+      "Stephen Fleming",
+      "Trevor Bayliss"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mahela Jayawardene coached Mumbai Indians through their most dominant era.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  },
+  {
+    "questionId": "ipl-050",
+    "question": "Who has served as the long-tenured head coach of Chennai Super Kings since 2009?",
+    "options": [
+      "Gary Kirsten",
+      "Stephen Fleming",
+      "Brendon McCullum",
+      "Mike Hussey"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Stephen Fleming has coached CSK to 5 titles in partnership with MS Dhoni.",
+    "difficulty": "easy",
+    "topic": "IPL"
+  }
+]

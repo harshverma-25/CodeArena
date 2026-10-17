@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "body-001",
+    "question": "What is the largest organ of the human body?",
+    "options": [
+      "Liver",
+      "Brain",
+      "Skin",
+      "Lungs"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The skin is the body's largest organ, covering an average surface area of about 2 square meters in adults.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-002",
+    "question": "How many bones are there in the adult human skeleton?",
+    "options": [
+      "186",
+      "206",
+      "216",
+      "300"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An adult human has 206 bones, while infants are born with around 270 to 300 bones that fuse together over time.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-003",
+    "question": "What is the largest and strongest bone in the human body?",
+    "options": [
+      "Tibia",
+      "Femur (thighbone)",
+      "Humerus",
+      "Pelvis"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The femur, or thighbone, is the longest, heaviest, and strongest bone in the human body.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-004",
+    "question": "What is the smallest bone in the human body?",
+    "options": [
+      "Stapes (stirrup)",
+      "Malleus",
+      "Incus",
+      "Phalanx"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The stapes, located in the middle ear, is about 3 mm long and is the smallest bone in the human body.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-005",
+    "question": "How many chambers are there in the human heart?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "6"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The human heart has 4 chambers: two upper atria (left and right) and two lower ventricles (left and right).",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-006",
+    "question": "What protein in red blood cells is responsible for carrying oxygen throughout the body?",
+    "options": [
+      "Insulin",
+      "Hemoglobin",
+      "Keratin",
+      "Myoglobin"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hemoglobin is an iron-rich protein in red blood cells that binds oxygen in the lungs and delivers it to tissues.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-007",
+    "question": "Which blood type is known as the 'universal donor' for red blood cell transfusions?",
+    "options": [
+      "A positive",
+      "AB positive",
+      "O negative",
+      "B negative"
+    ],
+    "correctAnswer": 2,
+    "explanation": "O negative red blood cells lack A, B, and Rh antigens, making them safely transfusable to almost any recipient.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-008",
+    "question": "Which blood type is known as the 'universal recipient' for receiving red blood cells?",
+    "options": [
+      "O positive",
+      "AB positive",
+      "A negative",
+      "B positive"
+    ],
+    "correctAnswer": 1,
+    "explanation": "People with AB positive blood have A, B, and Rh antigens, meaning their immune system does not form antibodies against any of them.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-009",
+    "question": "What is the normal resting body temperature in healthy humans in Celsius?",
+    "options": [
+      "35°C",
+      "37°C",
+      "39°C",
+      "40°C"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Normal human body temperature is approximately 37°C (98.6°F).",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-010",
+    "question": "Which organ in the human body produces insulin to regulate blood sugar levels?",
+    "options": [
+      "Liver",
+      "Pancreas",
+      "Gallbladder",
+      "Spleen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The beta cells of the islets of Langerhans in the pancreas produce insulin.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-011",
+    "question": "What is the hardest substance in the human body?",
+    "options": [
+      "Bone",
+      "Tooth enamel",
+      "Cartilage",
+      "Finger nails"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Tooth enamel is 96% mineral (hydroxyapatite), making it the hardest substance in the human body.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-012",
+    "question": "What is the structural and functional unit of the human kidney that filters blood?",
+    "options": [
+      "Neuron",
+      "Nephron",
+      "Alveolus",
+      "Hepatocyte"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Each kidney contains about one million microscopic filtering units called nephrons.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-013",
+    "question": "What is the basic functional cell of the human nervous system called?",
+    "options": [
+      "Nephron",
+      "Neuron (nerve cell)",
+      "Glial cell",
+      "Osteocyte"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Neurons are specialized cells that transmit electrical and chemical signals throughout the nervous system.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-014",
+    "question": "Which part of the brain controls balance, posture, and muscle coordination?",
+    "options": [
+      "Cerebrum",
+      "Cerebellum",
+      "Medulla oblongata",
+      "Hypothalamus"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The cerebellum, located at the back of the brain beneath the cerebrum, regulates motor control and balance.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-015",
+    "question": "Which gland in the human body is referred to as the 'Master Gland'?",
+    "options": [
+      "Thyroid gland",
+      "Pituitary gland",
+      "Adrenal gland",
+      "Pineal gland"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The pituitary gland controls the secretions of many other endocrine glands throughout the body.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-016",
+    "question": "What tiny air sacs in the lungs are responsible for gas exchange between oxygen and carbon dioxide?",
+    "options": [
+      "Bronchioles",
+      "Alveoli",
+      "Cilia",
+      "Trachea"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Alveoli are microscopic balloon-shaped air sacs where oxygen diffuses into the bloodstream and CO2 diffuses out.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-017",
+    "question": "What percentage of the adult human body is approximately composed of water?",
+    "options": [
+      "30%",
+      "60%",
+      "85%",
+      "95%"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Water makes up approximately 60% of an adult human's total body weight.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-018",
+    "question": "What pigment gives human skin, hair, and eyes their natural color?",
+    "options": [
+      "Melatonin",
+      "Melanin",
+      "Keratin",
+      "Carotene"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Melanin, produced by melanocytes, determines pigmentation and protects cells against UV radiation damage.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-019",
+    "question": "What muscular dome-shaped organ separates the chest cavity from the abdomen and enables breathing?",
+    "options": [
+      "Diaphragm",
+      "Intercostal muscle",
+      "Esophagus",
+      "Peritoneum"
+    ],
+    "correctAnswer": 0,
+    "explanation": "When the diaphragm contracts and moves downwards, it creates negative pressure that draws air into the lungs.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-020",
+    "question": "How many ribs does a typical human body have (in 12 pairs)?",
+    "options": [
+      "20",
+      "22",
+      "24",
+      "26"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Humans typically have 24 ribs arranged in 12 pairs attached to the thoracic vertebrae.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-021",
+    "question": "What is the primary function of white blood cells (leukocytes)?",
+    "options": [
+      "Carry oxygen",
+      "Fight infections and diseases",
+      "Clot blood",
+      "Regulate body temperature"
+    ],
+    "correctAnswer": 1,
+    "explanation": "White blood cells are an essential part of the immune system that defend against bacteria, viruses, and pathogens.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-022",
+    "question": "What component of blood is primarily responsible for blood clotting to stop bleeding?",
+    "options": [
+      "Platelets (thrombocytes)",
+      "Red blood cells",
+      "Plasma",
+      "White blood cells"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Platelets adhere to broken blood vessel walls and initiate fibrin clot formation.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-023",
+    "question": "Which organ produces bile to assist in digesting fats?",
+    "options": [
+      "Gallbladder",
+      "Liver",
+      "Stomach",
+      "Pancreas"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The liver produces bile continuously, which is stored and concentrated in the gallbladder until needed.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-024",
+    "question": "What is the longest part of the human gastrointestinal tract where most nutrient absorption occurs?",
+    "options": [
+      "Stomach",
+      "Small intestine",
+      "Large intestine (colon)",
+      "Esophagus"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The small intestine measures about 6 meters (20 feet) in length and absorbs the vast majority of nutrients.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-025",
+    "question": "Which acid is naturally present in the human stomach to digest food and kill bacteria?",
+    "options": [
+      "Sulfuric acid",
+      "Hydrochloric acid (HCl)",
+      "Nitric acid",
+      "Acetic acid"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Gastric juice contains hydrochloric acid at a pH of around 1.5 to 3.5 to break down proteins and kill microorganisms.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-026",
+    "question": "What tough fibrous tissue connects muscles to bones?",
+    "options": [
+      "Ligament",
+      "Tendon",
+      "Cartilage",
+      "Fascia"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Tendons connect muscles to bones (e.g., Achilles tendon), while ligaments connect bone to bone.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-027",
+    "question": "What tissue connects one bone to another bone at a skeletal joint?",
+    "options": [
+      "Tendon",
+      "Ligament",
+      "Myofibril",
+      "Epithelium"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ligaments are tough, elastic bands of connective tissue that stabilize joints by holding bones together.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-028",
+    "question": "Which part of the human eye contains light-sensitive photoreceptor cells (rods and cones)?",
+    "options": [
+      "Cornea",
+      "Retina",
+      "Iris",
+      "Lens"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The retina is the inner light-sensitive layer that converts focused images into neural signals sent to the brain.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-029",
+    "question": "Which sensory receptor cells in the retina are primarily responsible for color vision?",
+    "options": [
+      "Rods",
+      "Cones",
+      "Cilia",
+      "Ganglion cells"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Cones detect color and high-detail vision in bright light, whereas rods are responsible for night and peripheral vision.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-030",
+    "question": "What is the colored, circular part of the eye that controls the amount of light entering the pupil?",
+    "options": [
+      "Cornea",
+      "Iris",
+      "Sclera",
+      "Pupil"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The iris contains muscles that constrict or dilate the pupil to control light entry, giving eyes their color.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-031",
+    "question": "How many vertebrae comprise the adult human spinal column (including sacrum and coccyx)?",
+    "options": [
+      "26",
+      "33",
+      "20",
+      "28"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The adult spine has 26 vertebrae: 7 cervical, 12 thoracic, 5 lumbar, 1 sacrum (fused), and 1 coccyx (fused).",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-032",
+    "question": "What is the normal adult resting pulse rate in beats per minute?",
+    "options": [
+      "30–50 bpm",
+      "60–100 bpm",
+      "110–140 bpm",
+      "150–180 bpm"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A typical healthy adult resting heart rate ranges from 60 to 100 beats per minute.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-033",
+    "question": "Which fibrous protein forms the structural basis of human hair and nails?",
+    "options": [
+      "Collagen",
+      "Keratin",
+      "Elastin",
+      "Albumin"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Keratin is an insoluble, highly protective structural protein found in outer skin cells, hair, and fingernails.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-034",
+    "question": "What is the most abundant protein in the human body, providing strength to skin, bones, and cartilage?",
+    "options": [
+      "Hemoglobin",
+      "Collagen",
+      "Actin",
+      "Myosin"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Collagen makes up about 30% of the body's total protein content, forming a structural scaffold.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-035",
+    "question": "Which organ filters out old, worn-out red blood cells and stores platelets?",
+    "options": [
+      "Spleen",
+      "Gallbladder",
+      "Pancreas",
+      "Appendix"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The spleen acts as a blood filter, recycling iron from damaged red blood cells and holding immune reserves.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-036",
+    "question": "Where in the human body are red blood cells, white blood cells, and platelets produced?",
+    "options": [
+      "Heart",
+      "Bone marrow",
+      "Kidneys",
+      "Liver"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hematopoiesis (blood cell production) primarily takes place within the spongy red bone marrow.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-037",
+    "question": "What involuntary muscle tissue makes up the wall of the human heart?",
+    "options": [
+      "Skeletal muscle",
+      "Cardiac muscle (myocardium)",
+      "Smooth muscle",
+      "Striated voluntary muscle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Cardiac muscle is an involuntary, striated muscle found exclusively in the walls of the heart.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-038",
+    "question": "What is the protective outer layer of the brain and spinal cord called?",
+    "options": [
+      "Meninges",
+      "Pericardium",
+      "Pleura",
+      "Periosteum"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The meninges consist of three protective membranes: dura mater, arachnoid mater, and pia mater.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-039",
+    "question": "Which blood vessels carry oxygenated blood away from the heart to the rest of the body (with the exception of pulmonary vessels)?",
+    "options": [
+      "Veins",
+      "Arteries",
+      "Capillaries",
+      "Venules"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arteries carry blood away from the heart at high pressure; the largest artery is the aorta.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-040",
+    "question": "What is the largest artery in the human body?",
+    "options": [
+      "Carotid artery",
+      "Aorta",
+      "Femoral artery",
+      "Pulmonary artery"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The aorta originates from the left ventricle of the heart and distributes oxygenated blood throughout the circulatory system.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-041",
+    "question": "Which vitamin is synthesized in human skin when exposed to sunlight?",
+    "options": [
+      "Vitamin A",
+      "Vitamin C",
+      "Vitamin D",
+      "Vitamin K"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Sunlight (UVB radiation) converts 7-dehydrocholesterol in the skin into cholecalciferol (Vitamin D3).",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-042",
+    "question": "What is the medical term for the voice box located in the neck?",
+    "options": [
+      "Pharynx",
+      "Larynx",
+      "Trachea",
+      "Esophagus"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The larynx houses the vocal folds (cords) which manipulate pitch and volume essential for phonation.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-043",
+    "question": "How many teeth are in a complete permanent adult dentition (including wisdom teeth)?",
+    "options": [
+      "28",
+      "30",
+      "32",
+      "36"
+    ],
+    "correctAnswer": 2,
+    "explanation": "A full set of adult permanent teeth includes 32 teeth: 8 incisors, 4 canines, 8 premolars, and 12 molars.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-044",
+    "question": "Which flap of cartilage prevents food from entering the windpipe (trachea) during swallowing?",
+    "options": [
+      "Uvula",
+      "Epiglottis",
+      "Tonsil",
+      "Palate"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The epiglottis folds over the glottis during swallowing to direct food down the esophagus into the stomach.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-045",
+    "question": "What is the primary function of the large intestine (colon)?",
+    "options": [
+      "Absorb water and salts",
+      "Digest protein",
+      "Produce enzymes",
+      "Filter toxins"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The large intestine absorbs remaining water and electrolytes from indigestible food matter, compacting waste.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-046",
+    "question": "What butterfly-shaped endocrine gland is situated at the base of the neck and regulates metabolism?",
+    "options": [
+      "Thymus",
+      "Thyroid gland",
+      "Adrenal gland",
+      "Pituitary gland"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The thyroid gland secretes thyroxine (T4) and triiodothyronine (T3), controlling metabolic rate and energy levels.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-047",
+    "question": "Which hormone is commonly known as the 'fight-or-flight' hormone produced by the adrenal glands?",
+    "options": [
+      "Cortisol",
+      "Adrenaline (Epinephrine)",
+      "Melatonin",
+      "Insulin"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Adrenaline increases heart rate, dilates airways, and boosts blood glucose in response to acute stress.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-048",
+    "question": "What is the common name for the kneecap bone?",
+    "options": [
+      "Fibula",
+      "Patella",
+      "Scapula",
+      "Clavicle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The patella is a sesamoid bone located in front of the knee joint that protects and articulates with the femur.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-049",
+    "question": "What is the common name for the clavicle bone?",
+    "options": [
+      "Shoulder blade",
+      "Collarbone",
+      "Breastbone",
+      "Shinbone"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The clavicle, commonly known as the collarbone, links the sternum to the shoulder blade (scapula).",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  },
+  {
+    "questionId": "body-050",
+    "question": "What is the liquid portion of human blood called, making up roughly 55% of blood volume?",
+    "options": [
+      "Serum",
+      "Plasma",
+      "Lymph",
+      "Cytosol"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Blood plasma is a yellowish liquid consisting of 92% water, along with proteins, electrolytes, and nutrients.",
+    "difficulty": "easy",
+    "topic": "Human Body"
+  }
+]

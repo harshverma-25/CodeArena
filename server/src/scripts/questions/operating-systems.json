@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "os-001",
+    "question": "What is the core component of an Operating System that manages system resources and hardware interaction?",
+    "options": [
+      "Shell",
+      "Kernel",
+      "BIOS",
+      "Compiler"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Kernel is the central core of an operating system with complete control over everything in the system.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-002",
+    "question": "What is a program in execution called in an operating system?",
+    "options": [
+      "Instruction",
+      "Process",
+      "Thread",
+      "Interrupt"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A process is an active program in execution including its program counter, registers, and memory variables.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-003",
+    "question": "What is a lightweight process that shares the same address space and memory with other units in the same process?",
+    "options": [
+      "Kernel",
+      "Thread",
+      "Semaphore",
+      "Daemon"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A thread is the smallest unit of CPU execution, sharing code, data, and resources with peer threads in a process.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-004",
+    "question": "What situation occurs when two or more processes are unable to proceed because each is waiting for the other to release a resource?",
+    "options": [
+      "Starvation",
+      "Deadlock",
+      "Thrashing",
+      "Paging"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Deadlock occurs when processes are permanently blocked because each holds resources needed by the others.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-005",
+    "question": "Which of the following is NOT one of Coffman's four necessary conditions for a deadlock to occur?",
+    "options": [
+      "Mutual Exclusion",
+      "Hold and Wait",
+      "Preemption of resources allowed",
+      "Circular Wait"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The four Coffman conditions are: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-006",
+    "question": "Which CPU scheduling algorithm allocates CPU time to processes in equal time slices or 'quanta'?",
+    "options": [
+      "First-Come, First-Served (FCFS)",
+      "Round Robin (RR)",
+      "Shortest Job First (SJF)",
+      "Priority Scheduling"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Round Robin assigns a fixed time quantum to each ready process in cyclic order.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-007",
+    "question": "What memory management scheme allows the execution of processes that may not be completely in physical RAM?",
+    "options": [
+      "Swapping",
+      "Virtual Memory",
+      "Overlays",
+      "Contiguous allocation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Virtual Memory uses secondary storage (swap/pagefile) as an extension of physical RAM.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-008",
+    "question": "What condition occurs when a system spends more time moving pages between RAM and disk than executing instructions?",
+    "options": [
+      "Deadlock",
+      "Thrashing",
+      "Fragmentation",
+      "Starvation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Thrashing occurs when memory is overcommitted and the OS constantly swaps pages back and forth.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-009",
+    "question": "What hardware component translates virtual addresses into physical addresses?",
+    "options": [
+      "ALU",
+      "Memory Management Unit (MMU)",
+      "Control Unit",
+      "BIOS"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The MMU (Memory Management Unit) handles virtual-to-physical address translation at the hardware level.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-010",
+    "question": "What signal from hardware or software notifies the CPU that an event requires immediate attention?",
+    "options": [
+      "Semaphore",
+      "Interrupt",
+      "Deadlock",
+      "Quantum"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An Interrupt alerts the processor to pause its current task and execute an Interrupt Service Routine (ISR).",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-011",
+    "question": "In Unix/Linux, which system call is used to create an identical child process?",
+    "options": [
+      "exec()",
+      "fork()",
+      "wait()",
+      "clone()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The fork() system call creates a new process by duplicating the calling parent process.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-012",
+    "question": "What synchronization tool was introduced by Edsger Dijkstra to control access to shared resources?",
+    "options": [
+      "Pipeline",
+      "Semaphore",
+      "Mutex lock",
+      "Monitor"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A Semaphore is an integer variable accessed only through atomic wait (P) and signal (V) operations.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-013",
+    "question": "What algorithm is used in operating systems for deadlock avoidance?",
+    "options": [
+      "Round Robin Algorithm",
+      "Banker's Algorithm",
+      "Dijkstra's Shortest Path",
+      "Kruskal's Algorithm"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Banker's Algorithm checks if granting a resource request leaves the system in a safe state.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-014",
+    "question": "What is the critical section in concurrent programming?",
+    "options": [
+      "The boot sector of a hard drive",
+      "A segment of code accessing shared resources that must not be accessed concurrently by multiple processes",
+      "The kernel space memory",
+      "The hardware cooling unit"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A critical section accesses shared resources that require mutual exclusion to prevent race conditions.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-015",
+    "question": "What is the term for switching the CPU from one process to another, saving the state of the old process and loading the state of the new one?",
+    "options": [
+      "Spooling",
+      "Context Switching",
+      "Paging",
+      "Pipelining"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Context switching stores the PCB state of the running process and restores the next ready process.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-016",
+    "question": "What data structure does the operating system maintain for each process to track its state, registers, and memory?",
+    "options": [
+      "Process Control Block (PCB)",
+      "File Allocation Table (FAT)",
+      "Page Directory",
+      "Interrupt Vector Table"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The PCB (Process Control Block) contains all execution context information for an individual process.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-017",
+    "question": "What page replacement algorithm replaces the page that has not been accessed for the longest period of time?",
+    "options": [
+      "First-In, First-Out (FIFO)",
+      "Least Recently Used (LRU)",
+      "Optimal (OPT)",
+      "Least Frequently Used (LFU)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "LRU page replacement replaces the page that hasn't been referenced for the longest past interval.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-018",
+    "question": "What phenomenon in FIFO page replacement causes the number of page faults to increase even when the number of allocated frames increases?",
+    "options": [
+      "Dijkstra's Anomaly",
+      "Belady's Anomaly",
+      "Amdahl's Law",
+      "Conway's Law"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Belady's Anomaly demonstrates that increasing page frames can paradoxically increase FIFO page faults.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-019",
+    "question": "What type of fragmentation occurs when memory is allocated in fixed-size blocks and a process leaves unused space inside its allocated block?",
+    "options": [
+      "External Fragmentation",
+      "Internal Fragmentation",
+      "Dynamic Fragmentation",
+      "Virtual Fragmentation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Internal fragmentation is wasted memory within an allocated partition or page frame.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-020",
+    "question": "What type of fragmentation occurs when total free memory is sufficient to satisfy a request, but the memory is not contiguous?",
+    "options": [
+      "Internal Fragmentation",
+      "External Fragmentation",
+      "Page Fault",
+      "Thrashing"
+    ],
+    "correctAnswer": 1,
+    "explanation": "External fragmentation occurs when free memory is broken into many small scattered blocks.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-021",
+    "question": "What is Spooling in operating systems?",
+    "options": [
+      "Simultaneous Peripheral Operations On-Line",
+      "Sequential Program Operating On Linux",
+      "System Process Optimization Over LAN",
+      "Shared Partition Organization On Loops"
+    ],
+    "correctAnswer": 0,
+    "explanation": "SPOOLing puts data into a buffer/temporary storage for slow peripheral devices like printers.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-022",
+    "question": "What is a major advantage of a Microkernel architecture over a Monolithic kernel?",
+    "options": [
+      "Faster raw execution speed",
+      "Higher modularity, fault isolation, and maintainability",
+      "Includes all drivers inside kernel mode",
+      "Requires no RAM"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Microkernels keep only minimal core services in kernel space, moving drivers and servers to user space.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-023",
+    "question": "What mode does the CPU operate in when executing operating system kernel code?",
+    "options": [
+      "User Mode",
+      "Kernel Mode (Privileged / Supervisor Mode)",
+      "Safe Mode",
+      "Virtual Mode"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kernel mode provides full, uninhibited access to all hardware and memory instructions.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-024",
+    "question": "What mechanism is used by user-space applications to safely request services from the operating system kernel?",
+    "options": [
+      "Function pointer",
+      "System Call (syscall)",
+      "Network socket",
+      "Interrupt Vector"
+    ],
+    "correctAnswer": 1,
+    "explanation": "System calls provide the programmatic interface between a running program and the OS kernel.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-025",
+    "question": "What is a Zombie Process in Unix/Linux?",
+    "options": [
+      "A process that runs forever",
+      "A process that has finished execution but still has an entry in the process table waiting for its parent to read its exit status",
+      "A process created by malware",
+      "A process running without memory"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A zombie process has terminated but retains an entry in the process table until the parent calls wait().",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-026",
+    "question": "What is an Orphan Process in Unix/Linux?",
+    "options": [
+      "A process whose parent process terminated before it did",
+      "A process that has no thread",
+      "A process that cannot be killed",
+      "A process with no PID"
+    ],
+    "correctAnswer": 0,
+    "explanation": "When a parent process terminates, its surviving child processes become orphans and are adopted by 'init' (PID 1).",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-027",
+    "question": "What is the Process ID (PID) of the very first user-space process created during Linux boot?",
+    "options": [
+      "0",
+      "1",
+      "100",
+      "1024"
+    ],
+    "correctAnswer": 1,
+    "explanation": "PID 1 is the 'init' or 'systemd' process, ancestor to all other processes on a Linux system.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-028",
+    "question": "Which disk scheduling algorithm services requests closest to the current head position?",
+    "options": [
+      "FCFS",
+      "Shortest Seek Time First (SSTF)",
+      "SCAN (Elevator)",
+      "LOOK"
+    ],
+    "correctAnswer": 1,
+    "explanation": "SSTF selects the disk I/O request with the minimum seek time from the current head position.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-029",
+    "question": "What is the SCAN disk scheduling algorithm also commonly known as?",
+    "options": [
+      "Circular Algorithm",
+      "Elevator Algorithm",
+      "First In First Out",
+      "Priority Algorithm"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The SCAN algorithm sweeps back and forth across disk tracks like an elevator servicing building floors.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-030",
+    "question": "What is a Mutex in concurrent programming?",
+    "options": [
+      "A mutual exclusion locking mechanism allowing only one thread to access a resource at a time",
+      "A multi-processor CPU",
+      "A file compression format",
+      "A memory swap space"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A Mutex (Mutual Exclusion) lock allows only the single owning thread to access the critical section.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-031",
+    "question": "What is the difference between a Preemptive and Non-Preemptive scheduling algorithm?",
+    "options": [
+      "Non-preemptive allows the OS to forcibly interrupt a running process",
+      "Preemptive allows the OS to interrupt a running process; non-preemptive lets the process hold the CPU until it yields or terminates",
+      "Preemptive only works on single-core processors",
+      "There is no difference"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Preemptive scheduling can interrupt running processes to give CPU time to higher-priority tasks.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-032",
+    "question": "What problem arises when low-priority processes wait indefinitely for CPU time due to a continuous stream of higher-priority processes?",
+    "options": [
+      "Deadlock",
+      "Starvation",
+      "Thrashing",
+      "Paging"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Starvation occurs when a process is perpetually denied necessary resources like CPU time.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-033",
+    "question": "What technique gradually increases the priority of processes that wait in the ready queue for a long time to prevent starvation?",
+    "options": [
+      "Paging",
+      "Aging",
+      "Throttling",
+      "Buffering"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Aging gradually increases process priority over time, ensuring low-priority jobs eventually run.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-034",
+    "question": "What is a Page Fault in an operating system?",
+    "options": [
+      "A hardware RAM failure",
+      "An interrupt raised when a program accesses a memory page not currently mapped in physical RAM",
+      "A corrupt file on disk",
+      "A bad sector in storage"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A page fault triggers the OS to fetch the required page from secondary storage into physical RAM.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-035",
+    "question": "What high-speed hardware cache in the MMU stores recent translations of virtual addresses to physical addresses?",
+    "options": [
+      "L1 Cache",
+      "Translation Lookaside Buffer (TLB)",
+      "RAM Buffer",
+      "Register File"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The TLB (Translation Lookaside Buffer) caches page table mappings for fast virtual-to-physical address lookup.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-036",
+    "question": "What is the purpose of the BIOS/UEFI during computer startup?",
+    "options": [
+      "Run web browser",
+      "Initialize hardware components and load the OS bootloader into memory",
+      "Manage swap partitions",
+      "Scan for computer viruses"
+    ],
+    "correctAnswer": 1,
+    "explanation": "BIOS/UEFI tests hardware via POST (Power-On Self-Test) and hands over control to the bootloader.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-037",
+    "question": "What file system is standard in modern Microsoft Windows operating systems?",
+    "options": [
+      "FAT32",
+      "NTFS",
+      "ext4",
+      "APFS"
+    ],
+    "correctAnswer": 1,
+    "explanation": "NTFS (New Technology File System) is the primary default file system for Windows.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-038",
+    "question": "What file system is standard in most modern Linux distributions?",
+    "options": [
+      "NTFS",
+      "ext4",
+      "FAT16",
+      "HFS+"
+    ],
+    "correctAnswer": 1,
+    "explanation": "ext4 (Fourth Extended Filesystem) is the standard journaling file system in Linux.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-039",
+    "question": "What is an Inode in Unix/Linux file systems?",
+    "options": [
+      "A data block containing file content",
+      "A data structure that stores metadata about a file (size, permissions, owner, block locations)",
+      "An internet network node",
+      "A shell script interpreter"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An Inode stores all metadata for a file or directory except its filename and raw content.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-040",
+    "question": "Which command in Linux displays currently active processes and dynamic resource usage in real time?",
+    "options": [
+      "ls",
+      "top",
+      "pwd",
+      "chmod"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'top' (or 'htop') command provides a real-time dynamic view of running system processes.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-041",
+    "question": "Which Linux command is used to terminate or signal a running process by its PID?",
+    "options": [
+      "stop",
+      "kill",
+      "exit",
+      "halt"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'kill' command sends signals (such as SIGTERM or SIGKILL) to terminate processes.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-042",
+    "question": "What signal number corresponds to SIGKILL (unconditional, uncatchable termination) in Linux?",
+    "options": [
+      "1",
+      "9",
+      "15",
+      "0"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Signal 9 (SIGKILL) forces immediate process termination and cannot be caught or ignored.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-043",
+    "question": "What is RAID 0 in storage systems?",
+    "options": [
+      "Mirroring for redundancy",
+      "Striping across disks for performance without fault tolerance",
+      "Parity-based redundancy",
+      "Dual-parity storage"
+    ],
+    "correctAnswer": 1,
+    "explanation": "RAID 0 stripes data across multiple disks to boost read/write speed, but provides no data redundancy.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-044",
+    "question": "What is RAID 1 in storage systems?",
+    "options": [
+      "Striping",
+      "Disk Mirroring (exact copy of data across drives)",
+      "Striping with distributed parity",
+      "Dedicated parity disk"
+    ],
+    "correctAnswer": 1,
+    "explanation": "RAID 1 creates an exact duplicate mirror of data across two or more disks for redundancy.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-045",
+    "question": "What is RAID 5 in storage systems?",
+    "options": [
+      "Striping with distributed parity across at least 3 disks",
+      "Mirroring only",
+      "No parity striping",
+      "Nested striping"
+    ],
+    "correctAnswer": 0,
+    "explanation": "RAID 5 combines block-level striping with distributed parity, tolerating the failure of one drive.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-046",
+    "question": "What is a Race Condition in concurrent programming?",
+    "options": [
+      "A race between two CPU cores for power",
+      "An undesirable situation where the output depends on the non-deterministic timing or order of thread execution",
+      "A network bandwidth contest",
+      "A rapid cache hit"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Race conditions occur when multiple threads access shared data concurrently and the outcome depends on thread timing.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-047",
+    "question": "What is Virtual Memory Paging?",
+    "options": [
+      "Breaking memory into fixed-sized blocks called pages (virtual) and frames (physical)",
+      "Breaking memory into variable-sized logical segments",
+      "Sending alert beeps to system administrators",
+      "Printing terminal outputs"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Paging divides virtual memory into fixed-size pages and physical memory into matching frames.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-048",
+    "question": "What is the typical page size in most modern 32-bit and 64-bit operating systems?",
+    "options": [
+      "512 bytes",
+      "4 KB",
+      "64 KB",
+      "1 MB"
+    ],
+    "correctAnswer": 1,
+    "explanation": "4 Kilobytes (4096 bytes) is the standard base memory page size on x86 architectures.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-049",
+    "question": "What is a Daemon in Unix/Linux operating systems?",
+    "options": [
+      "A malicious malware virus",
+      "A background process that runs continuously without direct user interaction",
+      "A broken kernel module",
+      "A root user account"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Daemons (often ending in 'd', like sshd, httpd) run in the background to handle system services.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  },
+  {
+    "questionId": "os-050",
+    "question": "What open-source operating system kernel was created by Linus Torvalds in 1991?",
+    "options": [
+      "Unix",
+      "Linux",
+      "BSD",
+      "MINIX"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Linus Torvalds released the first version of the Linux kernel in 1991 as a free, open-source project.",
+    "difficulty": "easy",
+    "topic": "Operating Systems"
+  }
+]

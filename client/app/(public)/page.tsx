@@ -330,7 +330,7 @@ export default function QuizzyHomePage() {
                 ...sub,
                 categorySlug: cat.slug,
                 categoryName: cat.name,
-                playedCount: 0,
+                playedCount: sub.playedCount ?? 0,
               });
             });
           });
@@ -390,7 +390,7 @@ export default function QuizzyHomePage() {
       const key = `${sub.categorySlug}-${sub.slug}`;
       return {
         ...sub,
-        playedCount: playMap[key] || sub.playedCount || 0,
+        playedCount: playMap[key] ?? sub.playedCount ?? 0,
       };
     });
   }, [subjects, popularQuizzes]);

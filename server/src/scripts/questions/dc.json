@@ -1,0 +1,452 @@
+[
+  {
+    "questionId": "dc-001",
+    "question": "What is Batman's real identity in DC Comics?",
+    "options": ["Clark Kent", "Bruce Wayne", "Barry Allen", "Oliver Queen"],
+    "correctAnswer": 1,
+    "explanation": "Billionaire industrialist Bruce Wayne fights crime in Gotham City as Batman.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-002",
+    "question": "What city is famously protected by Batman?",
+    "options": ["Metropolis", "Gotham City", "Central City", "Star City"],
+    "correctAnswer": 1,
+    "explanation": "Batman operates from the shadows of Gotham City.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-003",
+    "question": "What alien planet is Superman originally from?",
+    "options": ["Krypton", "Daxam", "Apokolips", "Thanagar"],
+    "correctAnswer": 0,
+    "explanation": "Superman was born on the doomed planet Krypton before being launched to Earth as an infant.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-004",
+    "question": "What is Superman's birth name given to him by his Kryptonian parents Jor-El and Lara?",
+    "options": ["Kal-El", "Zor-El", "Mon-El", "Dru-Zod"],
+    "correctAnswer": 0,
+    "explanation": "Superman's Kryptonian birth name is Kal-El, meaning 'voice of God' in Kryptonian lore.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-005",
+    "question": "What is Superman's adoptive Earth name while growing up on a farm in Smallville?",
+    "options": ["Bruce Wayne", "Clark Kent", "Hal Jordan", "Arthur Curry"],
+    "correctAnswer": 1,
+    "explanation": "Jonathan and Martha Kent raised Kal-El as their son, Clark Kent.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-006",
+    "question": "What is Superman's singular greatest physical weakness?",
+    "options": ["Lead", "Kryptonite", "Fire", "Vibranium"],
+    "correctAnswer": 1,
+    "explanation": "Green Kryptonite, radioactive remnants of planet Krypton, deprives Superman of his powers and induces agony.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-007",
+    "question": "What newspaper does Clark Kent work for as an investigative journalist in Metropolis?",
+    "options": ["The Daily Bugle", "The Daily Planet", "Gotham Gazette", "Central City Citizen"],
+    "correctAnswer": 1,
+    "explanation": "Clark Kent works at the Daily Planet in Metropolis alongside Lois Lane and Jimmy Olsen.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-008",
+    "question": "Who is the Pulitzer Prize-winning Daily Planet reporter and true love of Superman?",
+    "options": ["Cat Grant", "Lois Lane", "Vicki Vale", "Iris West"],
+    "correctAnswer": 1,
+    "explanation": "Lois Lane is the ace investigative reporter of the Daily Planet and wife of Clark Kent.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-009",
+    "question": "What is the secret subterranean headquarters beneath Wayne Manor called?",
+    "options": ["The Fortress of Solitude", "The Batcave", "The Hall of Justice", "The Watchtower"],
+    "correctAnswer": 1,
+    "explanation": "The Batcave is Batman's high-tech command center hidden beneath Wayne Manor.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-010",
+    "question": "Who is Bruce Wayne's fiercely loyal English butler, surgeon, and father figure?",
+    "options": ["Lucius Fox", "Alfred Pennyworth", "Jim Gordon", "Harvey Bullock"],
+    "correctAnswer": 1,
+    "explanation": "Alfred Pennyworth raised young Bruce following his parents' murder and assists the Bat-family.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-011",
+    "question": "Who is Batman's archenemy, known as the 'Clown Prince of Crime'?",
+    "options": ["The Riddler", "The Joker", "Two-Face", "The Penguin"],
+    "correctAnswer": 1,
+    "explanation": "The Joker is Batman's psychopathic, green-haired chaotic nemesis.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-012",
+    "question": "Who won an Academy Award for his legendary portrayal of the Joker in The Dark Knight (2008)?",
+    "options": ["Jack Nicholson", "Heath Ledger", "Joaquin Phoenix", "Jared Leto"],
+    "correctAnswer": 1,
+    "explanation": "Heath Ledger gave an unforgettable performance as the Joker in Christopher Nolan's The Dark Knight.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-013",
+    "question": "What is Wonder Woman's secret civilian name and Amazonian identity?",
+    "options": ["Kara Zor-El", "Diana Prince (Princess of Themyscira)", "Dinah Lance", "Barbara Gordon"],
+    "correctAnswer": 1,
+    "explanation": "Princess Diana of Themyscira, daughter of Queen Hippolyta, acts in the mortal world as Diana Prince.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-014",
+    "question": "What is the hidden island paradise where the Amazons live?",
+    "options": ["Atlantis", "Themyscira (Paradise Island)", "Nanda Parbat", "Kandor"],
+    "correctAnswer": 1,
+    "explanation": "Themyscira is the mystical island cloaked from the outside world where the Amazon warrior women reside.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-015",
+    "question": "What golden weapon does Wonder Woman use to compel anyone in its grasp to speak absolute truth?",
+    "options": ["Lasso of Truth (Golden Perfect)", "Sword of Athena", "Trident of Poseidon", "Aegis Shield"],
+    "correctAnswer": 0,
+    "explanation": "Forged by Hephaestus from the Girdle of Gaea, the Lasso of Truth forces those ensnared to speak the absolute truth.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-016",
+    "question": "Who is the 'Fastest Man Alive' and forensic scientist from Central City?",
+    "options": ["Wally West", "Barry Allen (The Flash)", "Jay Garrick", "Eobard Thawne"],
+    "correctAnswer": 1,
+    "explanation": "Barry Allen was doused in chemicals struck by lightning, granting him access to the Speed Force as The Flash.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-017",
+    "question": "What energy field provides The Flash and speedsters with their superhuman speed and time-travel abilities?",
+    "options": ["The Speed Force", "The Quantum Realm", "The Emotional Spectrum", "The Anti-Life Equation"],
+    "correctAnswer": 0,
+    "explanation": "The Speed Force is the cosmic extra-dimensional kinetic energy that powers DC speedsters.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-018",
+    "question": "Who is The Flash's yellow-suited time-traveling nemesis, also known as Professor Zoom?",
+    "options": ["Captain Cold", "Reverse-Flash (Eobard Thawne)", "Gorilla Grodd", "Savitar"],
+    "correctAnswer": 1,
+    "explanation": "Eobard Thawne, the Reverse-Flash from the 25th century, is Barry Allen's greatest enemy.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-019",
+    "question": "What underwater kingdom does Arthur Curry (Aquaman) rule?",
+    "options": ["Lemuria", "Atlantis", "Themyscira", "Sub-Diego"],
+    "correctAnswer": 1,
+    "explanation": "Arthur Curry is the half-human, half-Atlantean King of Atlantis.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-020",
+    "question": "What primary weapon does Aquaman wield to command the seas and ocean storms?",
+    "options": ["The Trident of Atlan / Neptune", "Axe of Vulko", "Coral Blade", "Waterbearer Hand"],
+    "correctAnswer": 0,
+    "explanation": "The royal Trident of Neptune grants authority over all the seven seas and oceanic creatures.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-021",
+    "question": "Who is the test pilot who received a power ring from dying alien Abin Sur to become Green Lantern?",
+    "options": ["John Stewart", "Hal Jordan", "Guy Gardner", "Kyle Rayner"],
+    "correctAnswer": 1,
+    "explanation": "Hal Jordan was chosen by the ring for his ability to overcome great fear, becoming Earth's first human Green Lantern.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-022",
+    "question": "What emotion on the Emotional Electromagnetic Spectrum powers the Green Lantern rings?",
+    "options": ["Hope (Blue)", "Willpower (Green)", "Fear (Yellow)", "Love (Violet)"],
+    "correctAnswer": 1,
+    "explanation": "Green Lantern rings are fueled by pure emerald Willpower, capable of manifesting hard-light constructs.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-023",
+    "question": "What planet is the headquarters of the Green Lantern Corps and home of the Guardians of the Universe?",
+    "options": ["Oa", "Mokoff", "Korugar", "Qward"],
+    "correctAnswer": 0,
+    "explanation": "Planet Oa sits at the center of the universe, home to the Central Power Battery.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-024",
+    "question": "Who was the former Green Lantern mentor of Hal Jordan who founded the Yellow Lantern Sinestro Corps driven by fear?",
+    "options": ["Kilowog", "Thaal Sinestro", "Atrocitus", "Larfleeze"],
+    "correctAnswer": 1,
+    "explanation": "Sinestro was expelled from the Green Lanterns for tyranny and forged the yellow power ring fueled by fear.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-025",
+    "question": "What magical word turns young orphan Billy Batson into an adult champion with the powers of Solomon, Hercules, Atlas, Zeus, Achilles, and Mercury?",
+    "options": ["Abracadabra", "Shazam!", "Hocus Pocus", "Open Sesame"],
+    "correctAnswer": 1,
+    "explanation": "By shouting 'SHAZAM!', Billy Batson is struck by a mystical lightning bolt and transformed into the champion of the Rock of Eternity.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-026",
+    "question": "Who is Shazam's ancient Egyptian counterpart and antihero rival?",
+    "options": ["Doctor Sivana", "Black Adam (Teth-Adam)", "Mister Mind", "Ibac"],
+    "correctAnswer": 1,
+    "explanation": "Teth-Adam was granted the powers of Egyptian gods six millennia ago, becoming Black Adam.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-027",
+    "question": "What young boy acrobat became Batman's first ward and sidekick, the original Robin?",
+    "options": ["Jason Todd", "Dick Grayson", "Tim Drake", "Damian Wayne"],
+    "correctAnswer": 1,
+    "explanation": "Dick Grayson, the youngest of the Flying Graysons, became the original Robin before adopting the moniker Nightwing.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-028",
+    "question": "What vigilante superhero identity did Dick Grayson adopt after outgrowing the Robin mantle and moving to Blüdhaven?",
+    "options": ["Red Hood", "Nightwing", "Red Robin", "Azrael"],
+    "correctAnswer": 1,
+    "explanation": "Dick Grayson stepped out from Batman's shadow to lead the Teen Titans and protect Blüdhaven as Nightwing.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-029",
+    "question": "Who was the second Robin, brutally murdered by the Joker with a crowbar and later resurrected as the lethal anti-hero Red Hood?",
+    "options": ["Tim Drake", "Jason Todd", "Damian Wayne", "Duke Thomas"],
+    "correctAnswer": 1,
+    "explanation": "Jason Todd was killed in 'A Death in the Family' and revived in the Lazarus Pit as the vengeful Red Hood.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-030",
+    "question": "Who is Batman's biological son trained from birth by the League of Assassins to be the fifth Robin?",
+    "options": ["Dick Grayson", "Damian Wayne", "Terry McGinnis", "Connor Hawke"],
+    "correctAnswer": 1,
+    "explanation": "Damian Wayne is the son of Bruce Wayne and Talia al Ghul, grandson of Ra's al Ghul.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-031",
+    "question": "Who is the head of the League of Assassins who uses ancient Lazarus Pits to achieve immortality?",
+    "options": ["Bane", "Ra's al Ghul", "Deathstroke", "Vandal Savage"],
+    "correctAnswer": 1,
+    "explanation": "Ra's al Ghul ('The Demon's Head') maintains centuries of life by rejuvenating himself in mystical Lazarus Pits.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-032",
+    "question": "What Venom-fueled mercenary famously broke Batman's back across his knee in the Knightfall storyline?",
+    "options": ["Killer Croc", "Bane", "Clayface", "Solomon Grundy"],
+    "correctAnswer": 1,
+    "explanation": "Bane deduced Batman's identity and shattered Bruce Wayne's spine over his knee in the Batcave.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-033",
+    "question": "Who was the brilliant Gotham District Attorney who was scarred by acid and became the coin-flipping villain Two-Face?",
+    "options": ["Edward Nygma", "Harvey Dent", "Oswald Cobblepot", "Jonathan Crane"],
+    "correctAnswer": 1,
+    "explanation": "Harvey Dent's split personality emerged after acid severely burned half of his face, leaving decisions to the flip of a double-headed coin.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-034",
+    "question": "What villain obsessed with riddles, puzzles, and green question marks tests Batman's intellect?",
+    "options": ["The Scarecrow", "The Riddler (Edward Nigma)", "Mad Hatter", "Hush"],
+    "correctAnswer": 1,
+    "explanation": "Edward Nygma / Nashton is The Riddler, creating deadly labyrinths and intellectual puzzles.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-035",
+    "question": "What former Arkham Asylum psychiatrist fell madly in love with the Joker, becoming Harley Quinn?",
+    "options": ["Dr. Pamela Isley", "Dr. Harleen Quinzel", "Dr. Leslie Thompkins", "Dr. Chase Meridian"],
+    "correctAnswer": 1,
+    "explanation": "Dr. Harleen Quinzel was manipulated by the Joker while treating him at Arkham, becoming Harley Quinn.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-036",
+    "question": "What eco-terrorist botanist controls plant life and secretes lethal pheromones as Poison Ivy?",
+    "options": ["Dr. Pamela Isley", "Selina Kyle", "Talia al Ghul", "Cheetah"],
+    "correctAnswer": 0,
+    "explanation": "Dr. Pamela Isley is Poison Ivy, champion of the Green who defends plant life against humanity.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-037",
+    "question": "Who is Gotham's feline master jewel thief and periodic romantic interest of Batman?",
+    "options": ["Poison Ivy", "Catwoman (Selina Kyle)", "Black Canary", "Huntress"],
+    "correctAnswer": 1,
+    "explanation": "Selina Kyle is Catwoman, an acrobatic burglar who shares a complex moral and romantic dynamic with Batman.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-038",
+    "question": "What high-security psychiatric facility in Gotham City houses Batman's most dangerous rogues?",
+    "options": ["Blackgate Penitentiary", "Arkham Asylum", "Belle Reve", "Iron Heights"],
+    "correctAnswer": 1,
+    "explanation": "The Elizabeth Arkham Asylum for the Criminally Insane houses Gotham's deranged supervillains.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-039",
+    "question": "What federal task force composed of incarcerated supervillains performs black-ops missions in exchange for reduced sentences?",
+    "options": ["Checkmate", "Task Force X (The Suicide Squad)", "The Secret Society", "The Injustice League"],
+    "correctAnswer": 1,
+    "explanation": "Amanda Waller oversees Task Force X, popularly called the Suicide Squad, implanting lethal nanite bombs in villains' necks.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-040",
+    "question": "Who is the ruthless government director behind the Suicide Squad?",
+    "options": ["Lois Lane", "Amanda Waller", "Victoria Hand", "Mercy Graves"],
+    "correctAnswer": 1,
+    "explanation": "Amanda Waller ('The Wall') is the cold, calculated government official in charge of A.R.G.U.S. and Task Force X.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-041",
+    "question": "Who is Superman's greatest human rival, a ruthless billionaire industrialist and scientific genius?",
+    "options": ["Bruce Wayne", "Lex Luthor", "Maxwell Lord", "Ted Kord"],
+    "correctAnswer": 1,
+    "explanation": "Lex Luthor, CEO of LexCorp, views Superman as an existential threat to human achievement and pride.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-042",
+    "question": "What prehistoric Kryptonian genetically modified monster succeeded in beating Superman to death in 1992?",
+    "options": ["Brainiac", "Doomsday", "Metallo", "Bizarro"],
+    "correctAnswer": 1,
+    "explanation": "Doomsday arrived on Earth and fought Superman to mutual destruction outside the Daily Planet in 'The Death of Superman'.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-043",
+    "question": "Who is the green alien cybernetic collector who shrinks and bottles alien civilizations, including the Kryptonian city of Kandor?",
+    "options": ["Mongul", "Brainiac", "Darkseid", "Despero"],
+    "correctAnswer": 1,
+    "explanation": "Brainiac (the Collector of Worlds) captures cities, preserves them in bottled micro-habitats, and vaporizes the planets.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-044",
+    "question": "Who is the supreme dark New God and tyrant of Apokolips who seeks the Anti-Life Equation?",
+    "options": ["Steppenwolf", "Darkseid", "Kalibak", "Desaad"],
+    "correctAnswer": 1,
+    "explanation": "Darkseid is the lord of Apokolips whose singular cosmic ambition is to strip all sentient beings of free will with the Anti-Life Equation.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-045",
+    "question": "What is the name of Darkseid's terrifying hellscape industrial throne world?",
+    "options": ["New Genesis", "Apokolips", "Warworld", "Tamaran"],
+    "correctAnswer": 1,
+    "explanation": "Apokolips is a fiery dystopian machine planet filled with fire-pits and enslaved populations ruled by Darkseid.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-046",
+    "question": "What deadly tracking beam does Darkseid fire from his eyes that bends and zig-zags around obstacles?",
+    "options": ["Heat Vision", "Omega Beams", "Optic Blast", "Disintegration Ray"],
+    "correctAnswer": 1,
+    "explanation": "Darkseid's Omega Beams lock onto targets, curving through the air to disintegrate or teleport whatever they strike.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-047",
+    "question": "What Green Arrow hero is an expert archer and billionaire owner of Queen Industries in Star City?",
+    "options": ["Roy Harper", "Oliver Queen", "Connor Hawke", "Malcolm Merlyn"],
+    "correctAnswer": 1,
+    "explanation": "Oliver Queen was stranded on a deserted island where he mastered archery to become the vigilante Green Arrow.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-048",
+    "question": "Who is the high-tech teenage superhero Victor Stone, whose body was reconstructed with alien Mother Box technology?",
+    "options": ["Steel", "Cyborg", "Blue Beetle", "Static"],
+    "correctAnswer": 1,
+    "explanation": "Vic Stone was a star athlete whose scientist father saved his life using cybernetics and a Mother Box, transforming him into Cyborg.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-049",
+    "question": "What is the name of Superman's crystalline Arctic palace where he studies Kryptonian technology and history?",
+    "options": ["The Batcave", "The Fortress of Solitude", "Kandor", "The Hall of Justice"],
+    "correctAnswer": 1,
+    "explanation": "The Fortress of Solitude is Kal-El's isolated retreat in the Arctic icy wastes containing holographic archives of Jor-El.",
+    "difficulty": "easy",
+    "topic": "DC"
+  },
+  {
+    "questionId": "dc-050",
+    "question": "Who is the legendary Commissioner of the Gotham City Police Department (GCPD) and ally of Batman?",
+    "options": ["Harvey Bullock", "James 'Jim' Gordon", "Renee Montoya", "Arnold Flass"],
+    "correctAnswer": 1,
+    "explanation": "Jim Gordon is the honest cop who summons Batman to the GCPD rooftop using the Bat-Signal.",
+    "difficulty": "easy",
+    "topic": "DC"
+  }
+]

@@ -59,6 +59,8 @@ const BattleSchema = new Schema<IBattleDocument>(
   {
     roomId: { type: Schema.Types.ObjectId, ref: 'Room', required: true },
     roomCode: { type: String, required: true, index: true },
+    categoryId: { type: String, default: null, index: true },
+    subjectId: { type: String, default: null, index: true },
     topic: { type: String, required: true },
     difficulty: { type: String, required: true },
     questionCount: { type: Number, required: true, default: 10, enum: [10, 15, 20] },

@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "phys-001",
+    "question": "What is the SI unit of force?",
+    "options": [
+      "Joule",
+      "Newton",
+      "Pascal",
+      "Watt"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Newton (N) is the SI unit of force, named after Sir Isaac Newton, where 1 N = 1 kg·m/s².",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-002",
+    "question": "What is the SI unit of energy and work?",
+    "options": [
+      "Newton",
+      "Joule",
+      "Watt",
+      "Volt"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Joule (J) is the SI unit of energy and mechanical work, equal to 1 Newton applied over 1 meter.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-003",
+    "question": "What is the SI unit of power, representing the rate of energy transfer per second?",
+    "options": [
+      "Joule",
+      "Watt",
+      "Ohm",
+      "Ampere"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Watt (W) is the SI unit of power, equivalent to one joule of energy per second (1 W = 1 J/s).",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-004",
+    "question": "What is Newton's First Law of Motion commonly referred to as?",
+    "options": [
+      "Law of Universal Gravitation",
+      "Law of Inertia",
+      "Law of Action and Reaction",
+      "Law of Acceleration"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Law of Inertia states that an object remains at rest or in uniform motion unless acted upon by a net external force.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-005",
+    "question": "According to Newton's Second Law of Motion, what does force equal?",
+    "options": [
+      "Mass divided by Acceleration",
+      "Mass multiplied by Acceleration ($F = ma$)",
+      "Velocity multiplied by Time",
+      "Work divided by Distance"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Newton's Second Law defines force as the product of mass and acceleration ($F = ma$).",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-006",
+    "question": "What does Newton's Third Law of Motion state?",
+    "options": [
+      "Force equals mass times velocity",
+      "Energy cannot be created or destroyed",
+      "For every action, there is an equal and opposite reaction",
+      "Pressure equals force over area"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Newton's Third Law states that whenever one body exerts a force on another, the second exerts an equal and opposite force on the first.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-007",
+    "question": "What is the acceleration due to gravity on the surface of Earth approximately equal to?",
+    "options": [
+      "5.8 m/s²",
+      "9.8 m/s²",
+      "12.4 m/s²",
+      "19.6 m/s²"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Standard acceleration due to Earth's gravity ($g$) at sea level is approximately 9.8 m/s² (or 9.81 m/s²).",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-008",
+    "question": "What is the SI unit of electrical current?",
+    "options": [
+      "Volt",
+      "Ampere",
+      "Ohm",
+      "Coulomb"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Ampere (A) measures the flow of electric charge per second (1 A = 1 Coulomb/second).",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-009",
+    "question": "What is the SI unit of electrical resistance?",
+    "options": [
+      "Watt",
+      "Ohm",
+      "Farad",
+      "Henry"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Ohm (Ω) is the SI unit of electrical resistance, defined by Ohm's Law ($R = V/I$).",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-010",
+    "question": "What is the SI unit of electrical potential difference (voltage)?",
+    "options": [
+      "Ampere",
+      "Volt",
+      "Tesla",
+      "Weber"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Volt (V) is the SI unit of electrical potential and electromotive force.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-011",
+    "question": "According to Ohm's Law, what is the mathematical relationship between Voltage ($V$), Current ($I$), and Resistance ($R$)?",
+    "options": [
+      "$V = I \\times R$",
+      "$V = I / R$",
+      "$I = V \\times R$",
+      "$R = V \\times I$"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Ohm's Law states that current is directly proportional to voltage and inversely proportional to resistance: $V = I \\times R$.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-012",
+    "question": "What is the SI unit of pressure?",
+    "options": [
+      "Newton",
+      "Pascal",
+      "Joule",
+      "Torr"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Pascal (Pa) is the SI unit of pressure, defined as one Newton of force per square meter (1 Pa = 1 N/m²).",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-013",
+    "question": "What is the SI unit of frequency, representing cycles per second?",
+    "options": [
+      "Baud",
+      "Hertz",
+      "Decibel",
+      "Lumen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Hertz (Hz) is the SI unit of frequency, named after Heinrich Hertz (1 Hz = 1 cycle per second).",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-014",
+    "question": "What type of energy does an object possess due to its motion?",
+    "options": [
+      "Potential energy",
+      "Kinetic energy",
+      "Thermal energy",
+      "Chemical energy"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kinetic energy is the energy an object possesses by virtue of being in motion ($KE = \\frac{1}{2}mv^2$).",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-015",
+    "question": "What type of energy is stored in an object due to its position in a gravitational field?",
+    "options": [
+      "Kinetic energy",
+      "Gravitational potential energy",
+      "Nuclear energy",
+      "Radiant energy"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Gravitational potential energy ($PE = mgh$) is the energy stored when work is done against gravity to elevate an object.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-016",
+    "question": "What does the Law of Conservation of Energy state?",
+    "options": [
+      "Energy can be created from nothing",
+      "Energy can neither be created nor destroyed, only transformed",
+      "Energy decreases over time",
+      "Energy and mass are completely independent"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The first law of thermodynamics states that total energy in an isolated system remains constant; it can only change form.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-017",
+    "question": "What is absolute zero, the theoretical lowest temperature where molecular motion ceases?",
+    "options": [
+      "0°C",
+      "-273.15°C (0 Kelvin)",
+      "-100°C",
+      "-459°C"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Absolute zero is 0 Kelvin or -273.15°C, where particles possess minimum classical kinetic energy.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-018",
+    "question": "What phenomenon occurs when a wave bounces back after striking a barrier?",
+    "options": [
+      "Refraction",
+      "Reflection",
+      "Diffraction",
+      "Absorption"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Reflection involves a change in direction of waves when they bounce off a barrier, following the law: angle of incidence = angle of reflection.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-019",
+    "question": "What phenomenon describes the bending of light as it passes from one medium to another with a different refractive index?",
+    "options": [
+      "Reflection",
+      "Refraction",
+      "Interference",
+      "Polarization"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Refraction is the change in direction and speed of a wave passing from one medium into another (e.g., air into water).",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-020",
+    "question": "What type of lens is thicker in the middle than at the edges and converges parallel light rays to a focal point?",
+    "options": [
+      "Concave lens",
+      "Convex lens",
+      "Cylindrical lens",
+      "Plano-concave lens"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A convex (converging) lens focuses incoming parallel light rays onto a single focal point.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-021",
+    "question": "What type of mirror is curved inward and can produce both real and magnified virtual images?",
+    "options": [
+      "Plane mirror",
+      "Convex mirror",
+      "Concave mirror",
+      "Parabolic diverging mirror"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Concave mirrors curve inward like a cave and are used in shaving mirrors and car headlights.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-022",
+    "question": "What type of mirror is commonly used as a passenger-side vehicle rearview mirror because it offers a wider field of view?",
+    "options": [
+      "Concave mirror",
+      "Convex mirror",
+      "Plane mirror",
+      "Two-way mirror"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Convex mirrors bulge outward, producing upright, reduced virtual images with an expanded viewing angle ('Objects in mirror are closer than they appear').",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-023",
+    "question": "What kind of wave is sound in air?",
+    "options": [
+      "Transverse electromagnetic wave",
+      "Longitudinal mechanical wave",
+      "Surface wave",
+      "Standing torsional wave"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sound waves in air are longitudinal compression waves where air molecules oscillate parallel to the direction of propagation.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-024",
+    "question": "What kind of wave is visible light?",
+    "options": [
+      "Longitudinal mechanical wave",
+      "Transverse electromagnetic wave",
+      "Infrasonic wave",
+      "Acoustic wave"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Light is a transverse electromagnetic wave with mutually perpendicular oscillating electric and magnetic fields.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-025",
+    "question": "What change in perceived pitch occurs when an ambulance siren moves rapidly toward and then away from an observer?",
+    "options": [
+      "Photoelectric effect",
+      "Doppler Effect",
+      "Compton effect",
+      "Tyndall effect"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Doppler Effect causes perceived frequency to increase as a source approaches and decrease as it recedes.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-026",
+    "question": "What is the speed of sound in dry air at room temperature (20°C) approximately?",
+    "options": [
+      "100 m/s",
+      "343 m/s",
+      "1,500 m/s",
+      "3,000 m/s"
+    ],
+    "correctAnswer": 1,
+    "explanation": "At 20°C, sound travels through dry air at approximately 343 meters per second (approx. 1,235 km/h or 767 mph).",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-027",
+    "question": "Does sound travel faster through solids, liquids, or gases?",
+    "options": [
+      "Gases",
+      "Liquids",
+      "Solids",
+      "Speed is identical in all states"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Sound travels fastest in dense, elastic solids (like steel at ~5,100 m/s) because tightly packed molecules transmit vibrations rapidly.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-028",
+    "question": "What is the SI unit of magnetic flux density?",
+    "options": [
+      "Henry",
+      "Tesla",
+      "Weber",
+      "Lumen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Tesla (T) is the SI unit of magnetic B-field strength, named after Nikola Tesla.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-029",
+    "question": "What is the phenomenon where electric current creates a magnetic field, and a moving magnetic field creates electric current?",
+    "options": [
+      "Thermodynamics",
+      "Electromagnetism",
+      "Capacitance",
+      "Fluorescence"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Electromagnetism describes the mutual interplay between electricity and magnetic fields discovered by Oersted and Faraday.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-030",
+    "question": "What electrical component stores electric charge between two conducting plates separated by an insulator?",
+    "options": [
+      "Resistor",
+      "Capacitor",
+      "Inductor",
+      "Diode"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A capacitor stores electrostatic potential energy in an electric field between its plates.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-031",
+    "question": "What semiconductor device allows electric current to flow easily in only one forward direction while blocking it in reverse?",
+    "options": [
+      "Resistor",
+      "Diode",
+      "Capacitor",
+      "Transformer"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A diode (such as a p-n junction diode or LED) functions as a one-way electrical valve.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-032",
+    "question": "What device steps up (increases) or steps down (decreases) AC voltage using electromagnetic induction between coils?",
+    "options": [
+      "Transformer",
+      "Generator",
+      "Rectifier",
+      "Inverter"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A transformer transfers electrical energy between circuits through inductive coupling without changing frequency.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-033",
+    "question": "What is the name of the resistance force opposing the relative motion of two solid surfaces sliding against each other?",
+    "options": [
+      "Inertia",
+      "Friction",
+      "Tension",
+      "Buoyancy"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Frictional force opposes sliding or rolling between contact surfaces and dissipates mechanical energy as heat.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-034",
+    "question": "Which principle states that an object immersed in a fluid experiences an upward buoyant force equal to the weight of the displaced fluid?",
+    "options": [
+      "Bernoulli's Principle",
+      "Archimedes' Principle",
+      "Pascal's Law",
+      "Hooke's Law"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Archimedes' Principle explains why heavy steel ships float if their hulls displace water weighing more than the vessel.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-035",
+    "question": "Which fluid dynamics principle explains the aerodynamic lift on airplane wings: as fluid speed increases, internal pressure decreases?",
+    "options": [
+      "Archimedes' Principle",
+      "Bernoulli's Principle",
+      "Coulomb's Law",
+      "Kepler's Law"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bernoulli's principle states that an increase in fluid velocity occurs simultaneously with a decrease in static pressure.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-036",
+    "question": "What is the minimum velocity an object must reach to break completely free from Earth's gravitational pull without further propulsion?",
+    "options": [
+      "Orbital speed",
+      "Escape velocity",
+      "Terminal velocity",
+      "Speed of sound"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Earth's escape velocity from the surface is approximately 11.2 km/s (around 25,000 mph).",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-037",
+    "question": "What is the constant maximum speed a falling object reaches when the upward drag of air resistance equals downward gravity?",
+    "options": [
+      "Escape velocity",
+      "Terminal velocity",
+      "Sonic velocity",
+      "Free fall constant"
+    ],
+    "correctAnswer": 1,
+    "explanation": "At terminal velocity, net acceleration is zero because the opposing aerodynamic drag equals the gravitational force.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-038",
+    "question": "What law of elasticity states that within elastic limits, the strain/extension of a spring is directly proportional to the applied stress/force ($F = -kx$)?",
+    "options": [
+      "Hooke's Law",
+      "Ohm's Law",
+      "Boyle's Law",
+      "Snell's Law"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Robert Hooke formulated Hooke's Law in 1676, relating spring restoring force to displacement.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-039",
+    "question": "What is the term for a material that offers exactly zero electrical resistance at very low temperatures?",
+    "options": [
+      "Semiconductor",
+      "Superconductor",
+      "Insulator",
+      "Electrolyte"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Superconductors expel magnetic fields (Meissner effect) and conduct electricity with zero resistance below a critical temperature.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-040",
+    "question": "In Einstein's mass-energy equivalence equation $E = mc^2$, what does 'c' represent?",
+    "options": [
+      "Speed of sound",
+      "Speed of light in a vacuum",
+      "Centrifugal constant",
+      "Cosmological constant"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In $E = mc^2$, $c$ represents the speed of light in a vacuum (~$3 \\times 10^8$ m/s), indicating that mass can be converted into immense energy.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-041",
+    "question": "What is the property of matter that describes its resistance to any change in its state of rest or motion?",
+    "options": [
+      "Density",
+      "Inertia",
+      "Momentum",
+      "Velocity"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Inertia is directly proportional to an object's mass; greater mass implies greater resistance to acceleration.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-042",
+    "question": "What physical quantity is defined as the product of an object's mass and its velocity ($p = mv$)?",
+    "options": [
+      "Force",
+      "Momentum",
+      "Kinetic Energy",
+      "Work"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Linear momentum is a conserved vector quantity equal to mass times velocity.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-043",
+    "question": "What optical effect causes a straight straw to appear bent or broken when placed in a clear glass of water?",
+    "options": [
+      "Diffraction",
+      "Refraction",
+      "Internal reflection",
+      "Dispersion"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Light rays bend at the air-water boundary because light travels slower in water than in air.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-044",
+    "question": "What optical phenomenon occurs when light attempts to pass into a less dense medium at an angle greater than the critical angle, resulting in 100% reflection?",
+    "options": [
+      "Total Internal Reflection",
+      "Diffuse reflection",
+      "Polarization",
+      "Scattering"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Total Internal Reflection is the foundational principle allowing light signals to travel through fiber optic cables.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-045",
+    "question": "Which of the four fundamental forces of nature is the strongest?",
+    "options": [
+      "Gravitational force",
+      "Weak nuclear force",
+      "Electromagnetic force",
+      "Strong nuclear force"
+    ],
+    "correctAnswer": 3,
+    "explanation": "The strong nuclear force is the strongest fundamental interaction, binding quarks into protons/neutrons and holding nuclei together.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-046",
+    "question": "Which of the four fundamental forces of nature is by far the weakest, yet dominates large-scale astronomical structures?",
+    "options": [
+      "Strong nuclear force",
+      "Electromagnetic force",
+      "Weak nuclear force",
+      "Gravitational force"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Gravity is trillions of times weaker than other forces, but because it is always attractive and has infinite range, it shapes galaxies and orbits.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-047",
+    "question": "What is the SI unit of electric charge?",
+    "options": [
+      "Ampere",
+      "Coulomb",
+      "Volt",
+      "Farad"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Coulomb (C) is the SI unit of electric charge, equal to the charge of roughly $6.242 \\times 10^{18}$ electrons.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-048",
+    "question": "What law in electrostatics describes the electrostatic force of attraction or repulsion between two point charges?",
+    "options": [
+      "Ohm's Law",
+      "Coulomb's Law",
+      "Faraday's Law",
+      "Ampere's Law"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Coulomb's Law states that force is directly proportional to the product of charges and inversely proportional to the square of the distance between them.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-049",
+    "question": "What term describes the spread of a wave around obstacles and through small openings?",
+    "options": [
+      "Refraction",
+      "Diffraction",
+      "Polarization",
+      "Attenuation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Diffraction is the bending and spreading of waves when they encounter an obstacle or aperture comparable in size to their wavelength.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  },
+  {
+    "questionId": "phys-050",
+    "question": "What simple machine consists of a rigid beam pivoted at a fixed point called a fulcrum?",
+    "options": [
+      "Pulley",
+      "Lever",
+      "Wedge",
+      "Inclined plane"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A lever uses a fulcrum to multiply mechanical force, divided into first, second, and third class levers.",
+    "difficulty": "easy",
+    "topic": "Physics Challenge"
+  }
+]

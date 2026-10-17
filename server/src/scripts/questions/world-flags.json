@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "flag-001",
+    "question": "Which country features a red maple leaf on its national flag?",
+    "options": [
+      "Canada",
+      "United States",
+      "Australia",
+      "New Zealand"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Canada's national flag prominently displays an iconic 11-pointed red maple leaf on a white field flanked by red borders.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-002",
+    "question": "How many stars are displayed on the national flag of the United States?",
+    "options": [
+      "48",
+      "50",
+      "52",
+      "45"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The US flag has 50 stars representing the 50 states, along with 13 stripes representing the original 13 colonies.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-003",
+    "question": "Which symbol is centered on the white band of the Indian national flag?",
+    "options": [
+      "Charkha",
+      "Ashoka Chakra",
+      "Lotus",
+      "Lion Capital"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Ashoka Chakra, a 24-spoke navy blue wheel, is located at the center of the Indian tricolour.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-004",
+    "question": "Which country's flag features a red circle on a plain white background representing the rising sun?",
+    "options": [
+      "South Korea",
+      "China",
+      "Japan",
+      "Vietnam"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The flag of Japan, known as the Hinomaru ('circle of the sun'), features a crimson-red disc on a white field.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-005",
+    "question": "What is the common name for the national flag of the United Kingdom?",
+    "options": [
+      "Stars and Stripes",
+      "Union Jack",
+      "Tricolore",
+      "Southern Cross"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The national flag of the United Kingdom is commonly known as the Union Jack or Union Flag.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-006",
+    "question": "Which is the only country in the world that does not have a four-sided rectangular flag?",
+    "options": [
+      "Bhutan",
+      "Nepal",
+      "Switzerland",
+      "Vatican City"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nepal's flag is the only non-quadrilateral national flag; it is made of two joined pennants forming a double triangle.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-007",
+    "question": "Which European country's flag consists of a simple white cross on a red square background?",
+    "options": [
+      "Denmark",
+      "Switzerland",
+      "Sweden",
+      "Austria"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Switzerland's national flag is one of only two square sovereign state flags, featuring a bold white cross on a red field.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-008",
+    "question": "Which country has a large yellow five-pointed star surrounded by four smaller yellow stars on a red background?",
+    "options": [
+      "Vietnam",
+      "China",
+      "North Korea",
+      "Singapore"
+    ],
+    "correctAnswer": 1,
+    "explanation": "China's national flag is the Five-star Red Flag, featuring one large central star with four smaller stars in an arc.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-009",
+    "question": "What colors make up the national flag of Germany from top to bottom?",
+    "options": [
+      "Black, Red, Gold",
+      "Red, White, Black",
+      "Black, Yellow, Red",
+      "Gold, Red, Black"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The German flag consists of three equal horizontal bands colored black, red, and gold.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-010",
+    "question": "Which country's flag features a green field with a large yellow rhombus containing a blue celestial globe with 27 stars?",
+    "options": [
+      "Argentina",
+      "Brazil",
+      "Colombia",
+      "Mexico"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Brazil's flag features the green background, yellow rhombus, and a blue starry globe inscribed with 'Ordem e Progresso'.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-011",
+    "question": "Which country's flag features three vertical stripes of Blue, White, and Red?",
+    "options": [
+      "France",
+      "Italy",
+      "Netherlands",
+      "Russia"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The French Tricolore consists of three equal vertical bands of blue, white, and red.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-012",
+    "question": "Which country's flag consists of three vertical stripes of Green, White, and Red?",
+    "options": [
+      "Ireland",
+      "Italy",
+      "Hungary",
+      "Bulgaria"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Italy's national flag (il Tricolore) features three equal vertical stripes of green, white, and red.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-013",
+    "question": "Which country features a green cedar tree in the center of a white stripe flanked by two red stripes?",
+    "options": [
+      "Lebanon",
+      "Cyprus",
+      "Syria",
+      "Jordan"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The flag of Lebanon features the green Lebanon Cedar prominently in the white stripe.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-014",
+    "question": "Which country features the Union Jack in the top left corner along with the Southern Cross constellation?",
+    "options": [
+      "Canada",
+      "Australia",
+      "South Africa",
+      "India"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Australia's flag features the Union Jack in the canton, the Commonwealth Star, and the five stars of the Southern Cross.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-015",
+    "question": "How many colors are on the national flag of South Africa?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "correctAnswer": 2,
+    "explanation": "South Africa's flag incorporates six colors: black, yellow, green, white, red, and blue in a distinctive Y-shape design.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-016",
+    "question": "Which animal is depicted on the national flag of Bhutan?",
+    "options": [
+      "Tiger",
+      "Thunder Dragon (Druk)",
+      "Snow Leopard",
+      "Elephant"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The flag of Bhutan features Druk, the white Thunder Dragon, clutching jewels in its claws across yellow and orange halves.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-017",
+    "question": "Which country's flag features a sun with a human face surrounded by 32 alternating straight and wavy rays?",
+    "options": [
+      "Argentina",
+      "Chile",
+      "Uruguay",
+      "Peru"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The flag of Argentina features the 'Sun of May' (Sol de Mayo) with a human face in the center of a white band.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-018",
+    "question": "Which country's flag consists of a red background with a green five-pointed star (Seal of Solomon) at its center?",
+    "options": [
+      "Turkey",
+      "Tunisia",
+      "Morocco",
+      "Algeria"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The flag of Morocco is a red field with an emerald green five-pointed linear star centered on it.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-019",
+    "question": "Which Nordic country's flag features a yellow Scandinavian cross on a blue field?",
+    "options": [
+      "Norway",
+      "Finland",
+      "Sweden",
+      "Denmark"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Sweden's flag features a yellow Nordic cross extending to the edges on a blue background.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-020",
+    "question": "Which country's flag is considered the oldest continuously used national flag in the world?",
+    "options": [
+      "United Kingdom",
+      "Denmark",
+      "France",
+      "Netherlands"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Dannebrog (the flag of Denmark) holds the world record for the oldest continuously used national flag, dating back to 1219.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-021",
+    "question": "Which country features a golden lion holding a sword (Kastane) on its flag?",
+    "options": [
+      "Singapore",
+      "Sri Lanka",
+      "India",
+      "Thailand"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The flag of Sri Lanka, also called the Lion Flag, features a golden lion holding a sword against a maroon background.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-022",
+    "question": "What symbol is in the center of the flag of Israel?",
+    "options": [
+      "Menorah",
+      "Star of David",
+      "Olive Branch",
+      "Crescent"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The flag of Israel features the blue Star of David (Magen David) between two horizontal blue stripes on a white background.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-023",
+    "question": "Which country's flag is a plain green field with an offset red circle, resembling a sun rising over green plains?",
+    "options": [
+      "Bangladesh",
+      "Pakistan",
+      "Maldives",
+      "Oman"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The flag of Bangladesh features a red circle (symbolizing the rising sun and blood of martyrs) on a bottle green field.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-024",
+    "question": "Which country's flag features a white crescent moon and a five-pointed star on a dark green field with a white vertical bar on the left?",
+    "options": [
+      "Turkey",
+      "Pakistan",
+      "Algeria",
+      "Tunisia"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The national flag of Pakistan consists of a dark green field with a white crescent moon and star, and a vertical white stripe at the hoist.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-025",
+    "question": "Which country has a white crescent moon and star on an entirely red field?",
+    "options": [
+      "Turkey",
+      "Egypt",
+      "Singapore",
+      "Malaysia"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The national flag of Turkey consists of a white crescent moon and a star centered on a vivid red background.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-026",
+    "question": "Which country features an eagle perched on a prickly pear cactus eating a rattlesnake on its national flag?",
+    "options": [
+      "Guatemala",
+      "Mexico",
+      "Ecuador",
+      "Bolivia"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mexico's coat of arms on its flag portrays an eagle perched on a cactus eating a serpent, from Aztec mythology.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-027",
+    "question": "Which country's flag features an outline of the entire island country along with two olive branches?",
+    "options": [
+      "Cyprus",
+      "Malta",
+      "Madagascar",
+      "Iceland"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Cyprus features a copper-colored map of the island above two olive branches on a pure white field.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-028",
+    "question": "Which country's flag consists of horizontal stripes of White, Blue, and Red from top to bottom?",
+    "options": [
+      "France",
+      "Russia",
+      "Poland",
+      "Czech Republic"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Russian flag is a tricolor consisting of three equal horizontal fields: white on the top, blue in the middle, and red on the bottom.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-029",
+    "question": "Which European country's flag is simply two horizontal bands: White on top and Red on bottom?",
+    "options": [
+      "Poland",
+      "Monaco",
+      "Indonesia",
+      "Austria"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Poland's flag consists of two horizontal stripes of equal width, the upper one white and the lower one red.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-030",
+    "question": "Which Southeast Asian country's flag is two horizontal bands of Red on top and White on bottom (identical to Monaco's proportions aside)?",
+    "options": [
+      "Singapore",
+      "Indonesia",
+      "Malaysia",
+      "Thailand"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Indonesia's national flag (Sang Saka Merah-Putih) consists of a red stripe over a white stripe.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-031",
+    "question": "What color is the cross on the national flag of Greece?",
+    "options": [
+      "Red",
+      "Gold",
+      "White",
+      "Black"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The Greek flag consists of a white cross in the upper hoist canton with nine alternating blue and white horizontal stripes.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-032",
+    "question": "Which country features an AK-47 assault rifle crossed with a hoe on its national flag?",
+    "options": [
+      "Mozambique",
+      "Angola",
+      "Zimbabwe",
+      "Uganda"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The flag of Mozambique features an AK-47 rifle symbolizing defense and vigilance, alongside a hoe symbolizing agriculture.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-033",
+    "question": "Which nation's flag consists of horizontal stripes of red, white, and blue, representing the oldest tricolor in continuous use?",
+    "options": [
+      "Luxembourg",
+      "Netherlands",
+      "France",
+      "Croatia"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Netherlands flag is a horizontal tricolor of red, white, and cobalt blue, dating back to 1572.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-034",
+    "question": "Which African country has a flag featuring black, red, and green horizontal stripes separated by white fimbriations and a Maasai shield with two crossed spears?",
+    "options": [
+      "Kenya",
+      "Tanzania",
+      "Ethiopia",
+      "Ghana"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The flag of Kenya features a traditional Maasai warrior shield and two crossed spears at its center.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-035",
+    "question": "Which country's flag features a blue Nordic cross on a white background?",
+    "options": [
+      "Norway",
+      "Finland",
+      "Iceland",
+      "Denmark"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Finland's flag (Siniristilippu) features a blue Scandinavian cross on a white field, representing its lakes and snow.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-036",
+    "question": "Which country has red stars on its flag's Southern Cross constellation, unlike Australia's white stars?",
+    "options": [
+      "Papua New Guinea",
+      "New Zealand",
+      "Samoa",
+      "Fiji"
+    ],
+    "correctAnswer": 1,
+    "explanation": "New Zealand's flag features four red five-pointed stars with white borders representing the Southern Cross constellation.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-037",
+    "question": "What is the only sovereign country whose flag contains a depiction of an intact Bible?",
+    "options": [
+      "Vatican City",
+      "Dominican Republic",
+      "Greece",
+      "Georgia"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The coat of arms on the Dominican Republic's flag includes an open Bible with a small golden cross above it.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-038",
+    "question": "Which country features five white horizontal stripes and four blue horizontal stripes with a red canton and a white star?",
+    "options": [
+      "Cuba",
+      "Liberia",
+      "Puerto Rico",
+      "Chile"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Liberia's flag closely resembles the US flag, featuring 11 red and white stripes and a single white star on a blue canton.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-039",
+    "question": "Which country's flag has a red background with a single large yellow star in the center?",
+    "options": [
+      "Vietnam",
+      "North Korea",
+      "China",
+      "Laos"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Vietnam's flag is known as the 'Red Flag with a Gold Star', designed with a centered five-pointed yellow star.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-040",
+    "question": "Which European country's flag has five red crosses (one large and four smaller Jerusalem crosses) on a white field?",
+    "options": [
+      "England",
+      "Georgia",
+      "Malta",
+      "Switzerland"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The flag of Georgia, known as the Five Cross Flag, displays Saint George's cross and four smaller Bolnur-Katskhuri crosses.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-041",
+    "question": "Which country has three horizontal stripes: saffron on top, white in middle, and green at bottom?",
+    "options": [
+      "Ireland",
+      "India",
+      "Niger",
+      "Ivory Coast"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The National Flag of India is a horizontal rectangular tricolour of India saffron, white, and India green.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-042",
+    "question": "Which country's flag features the Shahada (Islamic creed) written in white Arabic script above a white sword on a green background?",
+    "options": [
+      "Iran",
+      "Saudi Arabia",
+      "Pakistan",
+      "United Arab Emirates"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Saudi Arabia's green flag displays the Shahada above a horizontal white sword pointing to the left.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-043",
+    "question": "Which country's flag features five horizontal bands of red, white, blue, white, and red, known as the Trairanga?",
+    "options": [
+      "Thailand",
+      "Costa Rica",
+      "North Korea",
+      "Laos"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The flag of Thailand, known as the Thong Trairong ('tricolour flag'), has five horizontal stripes: red, white, blue, white, and red.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-044",
+    "question": "What colors are featured on the national flag of Spain?",
+    "options": [
+      "Red and Yellow",
+      "Blue and White",
+      "Green and White",
+      "Red and White"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Spanish flag (La Rojigualda) has three horizontal stripes: red, yellow (double width), and red, with the coat of arms.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-045",
+    "question": "Which country's flag features a red vertical stripe on the left and a green stripe on the right with an armillary sphere and national shield?",
+    "options": [
+      "Portugal",
+      "Italy",
+      "Mexico",
+      "Brazil"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The flag of Portugal is vertically divided into green at the hoist and red at the fly, centered with the Portuguese coat of arms.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-046",
+    "question": "Which country has a solid red flag featuring a golden double-headed eagle in the center?",
+    "options": [
+      "Albania",
+      "Montenegro",
+      "Serbia",
+      "North Macedonia"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Montenegro's flag consists of a red banner bordered by gold with the coat of arms (a golden double-headed eagle) in the center.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-047",
+    "question": "Which country has a black double-headed eagle centered on a solid red background?",
+    "options": [
+      "Albania",
+      "Poland",
+      "Austria",
+      "Germany"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Albania's flag features a silhouette of a black double-headed eagle in the center of a red background.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-048",
+    "question": "Which country's flag features a yellow sun with eight rays and three five-pointed yellow stars in the corners of a white triangle?",
+    "options": [
+      "Philippines",
+      "Malaysia",
+      "Indonesia",
+      "Myanmar"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The national flag of the Philippines features a white triangle containing a golden sun with eight rays and three stars.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-049",
+    "question": "Which country's flag features a silhouette of the Angkor Wat temple complex?",
+    "options": [
+      "Laos",
+      "Cambodia",
+      "Thailand",
+      "Vietnam"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Cambodia is one of only a few nations to feature a building on its flag, displaying the white depiction of Angkor Wat.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  },
+  {
+    "questionId": "flag-050",
+    "question": "What color is the circular disc in the center of the flag of Palau, symbolizing the moon?",
+    "options": [
+      "Silver",
+      "Yellow",
+      "White",
+      "Orange"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Palau's flag features a bright yellow circular disc representing the full moon on a light blue background symbolizing the ocean.",
+    "difficulty": "easy",
+    "topic": "World Flags Challenge"
+  }
+]

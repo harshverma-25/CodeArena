@@ -46,6 +46,7 @@ export class CategoryService {
           description: cat.description,
           icon: cat.icon,
           isActive: cat.isActive,
+          playedCount: cat.playedCount || 0,
           questionCount,
           availableLengths,
           isPlayable: questionCount >= 10,
@@ -93,6 +94,7 @@ export class CategoryService {
           icon: subj.icon,
           thumbnailUrl: subj.thumbnailUrl || '',
           isActive: subj.isActive,
+          playedCount: subj.playedCount || 0,
           questionCount,
           availableLengths,
           isPlayable: questionCount >= 10,
@@ -108,6 +110,7 @@ export class CategoryService {
           description: category.description,
           icon: category.icon,
           isActive: category.isActive,
+          playedCount: category.playedCount || 0,
           questionCount: totalCategoryCount,
           availableLengths: categoryAvailableLengths,
           isPlayable: totalCategoryCount >= 10,
@@ -151,6 +154,7 @@ export class CategoryService {
         description: category.description,
         icon: category.icon,
         isActive: category.isActive,
+        playedCount: category.playedCount || 0,
         questionCount: totalCategoryCount,
         availableLengths,
         isPlayable: totalCategoryCount >= 10,
@@ -202,10 +206,6 @@ export class CategoryService {
       { $sort: { count: -1, lastPlayedAt: -1 } },
     ]);
 
-    if (!completedBattles || completedBattles.length === 0) {
-      return [];
-    }
-
     const allCategories = await this.repository.findAllActiveCategories();
     const categoryMap = new Map<string, any>();
     for (const cat of allCategories) {
@@ -235,75 +235,126 @@ export class CategoryService {
       }
     >();
 
-    for (const record of completedBattles) {
-      const rawCat = record._id?.categoryId;
-      const rawSubj = record._id?.subjectId;
-      const rawTopic = record._id?.topic;
-      const count = record.count || 0;
+    if (completedBattles && completedBattles.length > 0) {
+      for (const record of completedBattles) {
+        const rawCat = record._id?.categoryId;
+        const rawSubj = record._id?.subjectId;
+        const rawTopic = record._id?.topic;
+        const count = record.count || 0;
 
-      let matchedCat: any = null;
-      let matchedSubj: any = null;
+        let matchedCat: any = null;
+        let matchedSubj: any = null;
 
-      if (rawSubj) {
-        matchedSubj = subjectMap.get(String(rawSubj).toLowerCase());
-      }
-
-      if (rawCat) {
-        matchedCat = categoryMap.get(String(rawCat).toLowerCase());
-      }
-
-      // If no category/subject found in room settings, attempt topic resolution from legacy matches
-      if (!matchedCat && !matchedSubj && rawTopic && rawTopic !== 'random') {
-        const topicLower = String(rawTopic).toLowerCase();
-        if (subjectMap.has(topicLower)) {
-          matchedSubj = subjectMap.get(topicLower);
-        } else if (categoryMap.has(topicLower)) {
-          matchedCat = categoryMap.get(topicLower);
+        if (rawSubj) {
+          matchedSubj = subjectMap.get(String(rawSubj).toLowerCase());
         }
-      }
 
-      if (matchedSubj) {
-        if (!matchedCat) {
-          matchedCat = allCategories.find(
-            (c) => c._id.toString() === matchedSubj.categoryId?.toString()
-          );
+        if (rawCat) {
+          matchedCat = categoryMap.get(String(rawCat).toLowerCase());
         }
-        if (matchedCat && matchedCat.isActive && matchedSubj.isActive) {
-          const key = `${matchedCat.slug}:${matchedSubj.slug}`;
+
+        // If no category/subject found in room settings, attempt topic resolution from legacy matches
+        if (!matchedCat && !matchedSubj && rawTopic && rawTopic !== 'random') {
+          const topicLower = String(rawTopic).toLowerCase();
+          if (subjectMap.has(topicLower)) {
+            matchedSubj = subjectMap.get(topicLower);
+          } else if (categoryMap.has(topicLower)) {
+            matchedCat = categoryMap.get(topicLower);
+          }
+        }
+
+        if (matchedSubj) {
+          if (!matchedCat) {
+            matchedCat = allCategories.find(
+              (c) => c._id.toString() === matchedSubj.categoryId?.toString()
+            );
+          }
+          if (matchedCat && matchedCat.isActive && matchedSubj.isActive) {
+            const key = `${matchedCat.slug}:${matchedSubj.slug}`;
+            const existing = consolidatedMap.get(key);
+            if (existing) {
+              existing.playedCount += count;
+            } else {
+              consolidatedMap.set(key, {
+                title: matchedSubj.name,
+                description:
+                  matchedSubj.description ||
+                  `${matchedSubj.name} quiz under ${matchedCat.name}.`,
+                categorySlug: matchedCat.slug,
+                subjectSlug: matchedSubj.slug,
+                isMixedCategory: false,
+                icon: matchedSubj.icon || matchedCat.icon || 'code',
+                playedCount: count,
+              });
+            }
+          }
+        } else if (matchedCat && matchedCat.isActive) {
+          const key = `${matchedCat.slug}:mixed`;
           const existing = consolidatedMap.get(key);
           if (existing) {
             existing.playedCount += count;
           } else {
             consolidatedMap.set(key, {
-              title: matchedSubj.name,
+              title: `Mixed ${matchedCat.name}`,
               description:
-                matchedSubj.description ||
-                `${matchedSubj.name} quiz under ${matchedCat.name}.`,
+                matchedCat.description ||
+                `Comprehensive quiz covering all topics in ${matchedCat.name}.`,
               categorySlug: matchedCat.slug,
-              subjectSlug: matchedSubj.slug,
-              isMixedCategory: false,
-              icon: matchedSubj.icon || matchedCat.icon || 'code',
+              subjectSlug: null,
+              isMixedCategory: true,
+              icon: matchedCat.icon || 'brain',
               playedCount: count,
             });
           }
         }
-      } else if (matchedCat && matchedCat.isActive) {
-        const key = `${matchedCat.slug}:mixed`;
-        const existing = consolidatedMap.get(key);
-        if (existing) {
-          existing.playedCount += count;
-        } else {
-          consolidatedMap.set(key, {
-            title: `Mixed ${matchedCat.name}`,
-            description:
-              matchedCat.description ||
-              `Comprehensive quiz covering all topics in ${matchedCat.name}.`,
-            categorySlug: matchedCat.slug,
-            subjectSlug: null,
-            isMixedCategory: true,
-            icon: matchedCat.icon || 'brain',
-            playedCount: count,
-          });
+      }
+    }
+
+    // Merge subjects with direct playedCount > 0 from database
+    for (const subj of allSubjects) {
+      if ((subj.playedCount || 0) > 0) {
+        const cat = allCategories.find((c) => c._id.toString() === subj.categoryId?.toString());
+        if (cat && cat.isActive && subj.isActive) {
+          const key = `${cat.slug}:${subj.slug}`;
+          const existing = consolidatedMap.get(key);
+          if (existing) {
+            existing.playedCount = Math.max(existing.playedCount, subj.playedCount || 0);
+          } else {
+            consolidatedMap.set(key, {
+              title: subj.name,
+              description: subj.description || `${subj.name} quiz under ${cat.name}.`,
+              categorySlug: cat.slug,
+              subjectSlug: subj.slug,
+              isMixedCategory: false,
+              icon: subj.icon || cat.icon || 'code',
+              playedCount: subj.playedCount || 0,
+            });
+          }
+        }
+      }
+    }
+
+    // If still empty or fewer than limit, include active subjects sorted by playedCount
+    if (consolidatedMap.size < limit) {
+      const remainingSubjects = [...allSubjects]
+        .sort((a, b) => (b.playedCount || 0) - (a.playedCount || 0));
+
+      for (const subj of remainingSubjects) {
+        if (consolidatedMap.size >= limit) break;
+        const cat = allCategories.find((c) => c._id.toString() === subj.categoryId?.toString());
+        if (cat && cat.isActive && subj.isActive) {
+          const key = `${cat.slug}:${subj.slug}`;
+          if (!consolidatedMap.has(key)) {
+            consolidatedMap.set(key, {
+              title: subj.name,
+              description: subj.description || `${subj.name} quiz under ${cat.name}.`,
+              categorySlug: cat.slug,
+              subjectSlug: subj.slug,
+              isMixedCategory: false,
+              icon: subj.icon || cat.icon || 'code',
+              playedCount: subj.playedCount || 0,
+            });
+          }
         }
       }
     }

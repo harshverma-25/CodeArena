@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "oop-001",
+    "question": "What are the four fundamental pillars of Object-Oriented Programming (OOP)?",
+    "options": [
+      "Compilation, Interpretation, Linking, Loading",
+      "Encapsulation, Abstraction, Inheritance, Polymorphism",
+      "Functions, Variables, Arrays, Pointers",
+      "Classes, Methods, Modules, Packages"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The four core pillars of OOP are Encapsulation, Abstraction, Inheritance, and Polymorphism.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-002",
+    "question": "What OOP principle bundles data (attributes) and methods that manipulate that data into a single unit while restricting direct access to internal components?",
+    "options": [
+      "Inheritance",
+      "Encapsulation",
+      "Polymorphism",
+      "Abstraction"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Encapsulation bundles data and methods together and hides internal state using private variables and public getters/setters.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-003",
+    "question": "What OOP principle focuses on showing only the essential features of an object while hiding the complex background implementation details?",
+    "options": [
+      "Inheritance",
+      "Abstraction",
+      "Overloading",
+      "Coupling"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Abstraction displays essential functionality to the user while concealing the internal mechanics (e.g., driving a car without knowing engine mechanics).",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-004",
+    "question": "What OOP mechanism allows a new class (derived/subclass) to inherit fields and methods from an existing class (base/superclass)?",
+    "options": [
+      "Polymorphism",
+      "Inheritance",
+      "Encapsulation",
+      "Overloading"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Inheritance promotes code reuse by allowing a child class to inherit attributes and behaviors from a parent class.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-005",
+    "question": "What does the word 'Polymorphism' literally mean in computer science?",
+    "options": [
+      "Single form",
+      "Many forms",
+      "Without form",
+      "Hidden form"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Derived from Greek, Polymorphism means 'many forms' — the ability of an object or method to behave differently in different contexts.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-006",
+    "question": "What is an instance of a class in OOP called?",
+    "options": [
+      "Function",
+      "Object",
+      "Variable",
+      "Module"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An object is a specific runtime instance created from a class blueprint.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-007",
+    "question": "What special method is automatically invoked when a new object instance of a class is created?",
+    "options": [
+      "Destructor",
+      "Constructor",
+      "Initializer",
+      "Static Method"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A constructor is automatically called when memory is allocated for an object using the 'new' keyword.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-008",
+    "question": "What special method is called when an object goes out of scope or is deleted to release allocated system resources?",
+    "options": [
+      "Constructor",
+      "Destructor",
+      "Finalizer",
+      "Garbage Collector"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A destructor deallocates memory and cleans up resources when an object is destroyed.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-009",
+    "question": "What is Method Overloading (Compile-Time Polymorphism)?",
+    "options": [
+      "Defining multiple methods in the same class with the same name but different parameter lists",
+      "Redefining a parent class method in a child class with identical parameters",
+      "Overloading the CPU with too many functions",
+      "Deleting methods from a class"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Method Overloading features multiple methods sharing the same name but differing in number, type, or order of parameters.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-010",
+    "question": "What is Method Overriding (Run-Time Polymorphism)?",
+    "options": [
+      "Defining methods with different names",
+      "Providing a specific implementation in a child class for a method already defined in its parent class with the exact same signature",
+      "Calling a method inside another method",
+      "Deleting variables at runtime"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Method Overriding allows a subclass to provide a specific implementation of a method defined in its superclass.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-011",
+    "question": "Which access modifier restricts the visibility of members so they can only be accessed within the class they are declared in?",
+    "options": [
+      "public",
+      "private",
+      "protected",
+      "default"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'private' members are accessible only within the declaring class, preventing external access.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-012",
+    "question": "Which access modifier makes members accessible from anywhere within any class or package?",
+    "options": [
+      "private",
+      "public",
+      "protected",
+      "sealed"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'public' members have no access restrictions and can be invoked from any other code.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-013",
+    "question": "Which access modifier makes members accessible within the same class, subclasses (inheritance), and often the same package?",
+    "options": [
+      "private",
+      "protected",
+      "public",
+      "internal"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'protected' allows derived classes to access parent members while keeping them hidden from general outside classes.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-014",
+    "question": "What is a class that cannot be directly instantiated and can contain both abstract methods (without bodies) and concrete methods called?",
+    "options": [
+      "Interface",
+      "Abstract Class",
+      "Static Class",
+      "Final Class"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An Abstract Class serves as a base blueprint for subclasses and cannot be instantiated directly with 'new'.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-015",
+    "question": "What is a contract in OOP that defines a set of method signatures that implementing classes must define, supporting multiple inheritance?",
+    "options": [
+      "Interface",
+      "Abstract Class",
+      "Virtual Table",
+      "Module"
+    ],
+    "correctAnswer": 0,
+    "explanation": "An Interface defines purely what a class must do without dictating how, enabling polymorphism and multiple inheritance.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-016",
+    "question": "What keyword in Java and C++ refers to the current invoking instance of a class?",
+    "options": [
+      "self",
+      "this",
+      "super",
+      "current"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'this' keyword refers to the current object instance within its methods.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-017",
+    "question": "What keyword in Java is used to refer to or call the immediate parent class's constructor or methods?",
+    "options": [
+      "parent",
+      "super",
+      "base",
+      "root"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'super' is used in Java to access members and constructors of the parent class.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-018",
+    "question": "What keyword in C# is used to refer to the base/parent class?",
+    "options": [
+      "super",
+      "base",
+      "parent",
+      "this"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In C#, the 'base' keyword is used to access base class constructors and methods.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-019",
+    "question": "What is a class member keyword that belongs to the class itself rather than to individual object instances?",
+    "options": [
+      "virtual",
+      "static",
+      "volatile",
+      "dynamic"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'static' variables and methods are shared across all instances of a class and can be called without creating an object.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-020",
+    "question": "What keyword in Java prevents a variable from being re-assigned, a method from being overridden, or a class from being inherited?",
+    "options": [
+      "const",
+      "final",
+      "static",
+      "sealed"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'final' in Java creates constants, prevents method overriding, and prohibits class subclassing.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-021",
+    "question": "What is the problem in C++ where a class inherits from two classes that both inherit from a single common base class called?",
+    "options": [
+      "Multiple Inheritance Trap",
+      "Diamond Problem",
+      "Circular Dependency",
+      "Deadlock"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Diamond Problem causes ambiguity over which parent method is inherited, solved in C++ using virtual inheritance.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-022",
+    "question": "Why does Java NOT support multiple inheritance through classes?",
+    "options": [
+      "Java compilers are too slow",
+      "To avoid complexity and ambiguity such as the Diamond Problem",
+      "Memory restrictions",
+      "Java has no classes"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Java disallows multiple class inheritance to prevent ambiguity, allowing multiple inheritance through interfaces instead.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-023",
+    "question": "What design principle suggests that classes should prefer composition (has-a) over inheritance (is-a)?",
+    "options": [
+      "Composition over Inheritance",
+      "Single Responsibility",
+      "Open/Closed Principle",
+      "DRY Principle"
+    ],
+    "correctAnswer": 0,
+    "explanation": "'Favor object composition over class inheritance' provides greater flexibility and looser coupling.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-024",
+    "question": "What does an 'is-a' relationship represent in object-oriented design?",
+    "options": [
+      "Composition",
+      "Inheritance",
+      "Aggregation",
+      "Encapsulation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An 'is-a' relationship represents inheritance (e.g., a Dog 'is-a' Mammal).",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-025",
+    "question": "What does a 'has-a' relationship represent in object-oriented design?",
+    "options": [
+      "Inheritance",
+      "Composition / Aggregation",
+      "Polymorphism",
+      "Abstraction"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A 'has-a' relationship represents composition or containment (e.g., a Car 'has-an' Engine).",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-026",
+    "question": "What is a Pure Virtual Function in C++?",
+    "options": [
+      "A function with no name",
+      "A virtual function declared with '= 0' that has no implementation in the base class",
+      "A function that executes in GPU",
+      "A private destructor"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A pure virtual function (e.g. `virtual void draw() = 0;`) makes the containing class an abstract class.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-027",
+    "question": "What data structure does C++ use behind the scenes to resolve dynamic binding for virtual functions at runtime?",
+    "options": [
+      "Virtual Table (vtable) and vptr",
+      "Binary Search Tree",
+      "Linked List",
+      "Hash Table"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The vtable (virtual method table) is an array of function pointers used to dispatch virtual functions dynamically.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-028",
+    "question": "What design pattern guarantees that a class has only one single instance throughout the application and provides global access to it?",
+    "options": [
+      "Factory Pattern",
+      "Singleton Pattern",
+      "Observer Pattern",
+      "Adapter Pattern"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Singleton Pattern restricts class instantiation to a single global instance.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-029",
+    "question": "What design pattern defines a one-to-many dependency where when one object changes state, all its dependents are automatically notified?",
+    "options": [
+      "Observer Pattern",
+      "Singleton Pattern",
+      "Strategy Pattern",
+      "Decorator Pattern"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Observer Pattern is widely used in event-driven programming (such as listeners and reactive state).",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-030",
+    "question": "What design pattern creates objects without exposing the exact instantiation logic to the client, using a factory method?",
+    "options": [
+      "Factory Method Pattern",
+      "Prototype Pattern",
+      "Builder Pattern",
+      "Proxy Pattern"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Factory Pattern delegates the creation of specific objects to subclasses or specialized methods.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-031",
+    "question": "What does the 'S' stand for in the SOLID principles of object-oriented design?",
+    "options": [
+      "Static Principle",
+      "Single Responsibility Principle",
+      "System Optimization",
+      "Security Protocol"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Single Responsibility states that a class should have one, and only one, reason to change.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-032",
+    "question": "What does the 'O' stand for in the SOLID principles?",
+    "options": [
+      "Object Principle",
+      "Open/Closed Principle",
+      "Order Allocation",
+      "Output Redirection"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Open/Closed Principle states that software entities should be open for extension, but closed for modification.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-033",
+    "question": "What does the 'L' stand for in the SOLID principles?",
+    "options": [
+      "Linear Principle",
+      "Liskov Substitution Principle",
+      "Late Binding",
+      "Lazy Evaluation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Liskov Substitution Principle states that derived classes must be substitutable for their base classes without breaking behavior.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-034",
+    "question": "What does the 'I' stand for in the SOLID principles?",
+    "options": [
+      "Inheritance Principle",
+      "Interface Segregation Principle",
+      "Initialization Rule",
+      "Immutable State"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Interface Segregation states that clients should not be forced to depend on interfaces they do not use.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-035",
+    "question": "What does the 'D' stand for in the SOLID principles?",
+    "options": [
+      "Dynamic Dispatch",
+      "Dependency Inversion Principle",
+      "Destructor Design",
+      "Data Encapsulation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dependency Inversion states that high-level modules should depend on abstractions, not on concrete low-level details.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-036",
+    "question": "What is an association where the lifetime of the contained child object depends strictly on the parent (if the parent is destroyed, the child is destroyed)?",
+    "options": [
+      "Aggregation",
+      "Composition",
+      "Generalization",
+      "Specialization"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Composition is a strong 'has-a' relationship where the component cannot exist independently of the owner.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-037",
+    "question": "What is an association where child objects can exist independently of the parent object (e.g. Students in a Classroom)?",
+    "options": [
+      "Composition",
+      "Aggregation",
+      "Encapsulation",
+      "Polymorphism"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Aggregation is a weak 'has-a' relationship where child entities possess independent lifecycles.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-038",
+    "question": "What automatic memory management feature in Java and C# automatically reclaims memory occupied by unreachable objects?",
+    "options": [
+      "Manual deallocation",
+      "Garbage Collection (GC)",
+      "Destructor Call",
+      "Memory Swapper"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Garbage Collector periodically scans the heap and frees memory occupied by dereferenced objects.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-039",
+    "question": "What is Early (Static) Binding in programming?",
+    "options": [
+      "Connecting a method call to its method body at compile time",
+      "Resolving method calls at runtime",
+      "Binding memory at system boot",
+      "Loading external libraries"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Early binding binds the method call during compilation (e.g., overloaded methods, non-virtual methods).",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-040",
+    "question": "What is Late (Dynamic) Binding in programming?",
+    "options": [
+      "Connecting a method call to its implementation at runtime based on the actual object type",
+      "Compiling code after running it",
+      "Binding variables after shutdown",
+      "Resolving errors in the linker"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Late binding defers method resolution to runtime (essential for method overriding and virtual functions).",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-041",
+    "question": "What is a Copy Constructor in C++?",
+    "options": [
+      "A constructor that takes no parameters",
+      "A constructor that initializes a new object using an existing object of the same class",
+      "A constructor that duplicates a class file",
+      "A constructor written in assembly"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A copy constructor initializes an object using another object of the same class (e.g., `ClassName(const ClassName &obj)`).",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-042",
+    "question": "What type of copy duplicates only the top-level pointer references rather than the actual underlying allocated memory?",
+    "options": [
+      "Deep Copy",
+      "Shallow Copy",
+      "Atomic Copy",
+      "Virtual Copy"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A shallow copy copies pointer values, causing both objects to point to the exact same memory buffer.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-043",
+    "question": "What type of copy allocates completely fresh independent memory and replicates all nested data values?",
+    "options": [
+      "Shallow Copy",
+      "Deep Copy",
+      "Reference Copy",
+      "Alias Copy"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A deep copy creates fully independent duplicates of all pointed-to objects and memory buffers.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-044",
+    "question": "What is the ultimate root base class of all classes in Java?",
+    "options": [
+      "System",
+      "Object",
+      "Class",
+      "Base"
+    ],
+    "correctAnswer": 1,
+    "explanation": "`java.lang.Object` sits at the top of the class hierarchy in Java; every class implicitly inherits from it.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-045",
+    "question": "Which keyword in Python is passed as the first parameter to instance methods to refer to the current object instance?",
+    "options": [
+      "this",
+      "self",
+      "me",
+      "cls"
+    ],
+    "correctAnswer": 1,
+    "explanation": "By convention, Python uses `self` as the explicit first parameter of instance methods.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-046",
+    "question": "What is the constructor method named in a Python class?",
+    "options": [
+      "__construct__",
+      "__init__",
+      "__new__",
+      "__start__"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The `__init__()` method acts as the initializer/constructor for newly instantiated Python objects.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-047",
+    "question": "What term describes the degree of interdependence between software modules (low/loose is desirable)?",
+    "options": [
+      "Cohesion",
+      "Coupling",
+      "Encapsulation",
+      "Polymorphism"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Coupling measures how closely connected modules are; loose coupling is a premier design goal.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-048",
+    "question": "What term describes how focused and closely related the responsibilities of a single class or module are (high is desirable)?",
+    "options": [
+      "Coupling",
+      "Cohesion",
+      "Inheritance",
+      "Modularity"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Cohesion measures how focused a module's internal responsibilities are; high cohesion is desirable.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-049",
+    "question": "What type of class in C++ grants non-member functions or other classes access to its private and protected members?",
+    "options": [
+      "Virtual Class",
+      "Friend Class / Function",
+      "Static Class",
+      "Sealed Class"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Declaring a `friend class` in C++ explicitly permits that class to access private and protected members.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "questionId": "oop-050",
+    "question": "What computer language developed in the 1960s by Ole-Johan Dahl and Kristen Nygaard is widely regarded as the first object-oriented language?",
+    "options": [
+      "Smalltalk",
+      "Simula 67",
+      "C++",
+      "Java"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Simula 67 introduced classes, objects, inheritance, and subclasses for the first time in computer history.",
+    "difficulty": "easy",
+    "topic": "OOP Concepts"
+  }
+]

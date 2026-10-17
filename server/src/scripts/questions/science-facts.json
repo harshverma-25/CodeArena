@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "scifact-001",
+    "question": "How long does it take for light from the Sun to reach the surface of the Earth?",
+    "options": [
+      "8 seconds",
+      "8 minutes and 20 seconds",
+      "8 hours",
+      "Instantly"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Traveling at approximately 300,000 km/s across 150 million km, sunlight reaches Earth in about 8 minutes and 20 seconds.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-002",
+    "question": "Can sound travel through the vacuum of outer space?",
+    "options": [
+      "Yes, but very quietly",
+      "No, sound requires a physical medium to travel",
+      "Yes, at the speed of light",
+      "Only radio sounds can"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sound is a mechanical pressure wave that cannot travel in a vacuum because there are no molecules to vibrate.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-003",
+    "question": "What happens to liquid water when it freezes into solid ice that is unique compared to most substances?",
+    "options": [
+      "It contracts and becomes denser",
+      "It expands and becomes less dense",
+      "Its mass doubles",
+      "It turns acidic"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Water expands upon freezing due to open hexagonal hydrogen-bonded crystal lattices, which is why ice floats.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-004",
+    "question": "What is the only planet in our solar system that spins clockwise on its axis (retrograde rotation)?",
+    "options": [
+      "Mars",
+      "Venus",
+      "Mercury",
+      "Jupiter"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Venus rotates in the opposite direction (retrograde) to almost all other planets, meaning the sun rises in the west.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-005",
+    "question": "Why does an apple fall from a tree toward the ground rather than flying into the sky?",
+    "options": [
+      "Centrifugal force",
+      "Earth's gravitational attraction",
+      "Magnetic pull",
+      "Atmospheric pressure"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Earth's mass creates a gravitational field that pulls all objects toward its center.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-006",
+    "question": "What is the speed of light in a vacuum approximately equal to?",
+    "options": [
+      "3,000 km/s",
+      "30,000 km/s",
+      "300,000 km/s",
+      "3,000,000 km/s"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Light travels in a vacuum at exactly 299,792,458 meters per second (approx. 300,000 km/s or 186,000 miles/s).",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-007",
+    "question": "What is the hottest planet in the Solar System, with surface temperatures exceeding 460°C?",
+    "options": [
+      "Mercury",
+      "Venus",
+      "Mars",
+      "Jupiter"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Although Mercury is closest to the Sun, Venus is hotter due to an extreme runaway greenhouse effect caused by a dense CO2 atmosphere.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-008",
+    "question": "Why does the daytime sky on Earth appear blue?",
+    "options": [
+      "Reflections from oceans",
+      "Rayleigh scattering of sunlight by atmospheric gases",
+      "Ozone emission",
+      "Oxygen molecules are blue"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rayleigh scattering causes shorter blue wavelengths of sunlight to scatter much more strongly in all directions than longer red wavelengths.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-009",
+    "question": "What natural event produces a flash of light followed by a sonic shockwave called thunder?",
+    "options": [
+      "Earthquake",
+      "Lightning",
+      "Tornado",
+      "Solar flare"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A lightning bolt instantly superheats surrounding air to 30,000 kelvins, producing an explosive shockwave heard as thunder.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-010",
+    "question": "Why do we always see lightning before we hear the thunder?",
+    "options": [
+      "Light travels much faster than sound",
+      "Sound travels faster than light",
+      "Thunder is generated after the strike finishes",
+      "Our eyes process faster than ears"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Light travels at 300,000 km/s, reaching our eyes virtually instantly, whereas sound crawls at approximately 343 m/s.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-011",
+    "question": "What is the only metal that remains in a liquid state at room temperature (around 20°C)?",
+    "options": [
+      "Gallium",
+      "Mercury (quicksilver)",
+      "Bromine",
+      "Cesium"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mercury (Hg) has a melting point of -38.8°C, making it the only metallic element liquid at standard room temperature.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-012",
+    "question": "What is the only non-metal that is a liquid at room temperature?",
+    "options": [
+      "Chlorine",
+      "Bromine",
+      "Iodine",
+      "Sulfur"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bromine (Br) is a reddish-brown halogen that is the only non-metallic element existing as a liquid at room temperature.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-013",
+    "question": "Does pure honey ever spoil or go bad if kept in a sealed container?",
+    "options": [
+      "Yes, in 6 months",
+      "Yes, in 2 years",
+      "No, it never spoils due to low moisture and high acidity",
+      "Yes, it grows mold"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Honey has very low water content and high acidity (pH ~3.9), creating an inhospitable environment for bacteria and fungi to grow.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-014",
+    "question": "Which gas do green plants absorb from the air during photosynthesis to produce glucose?",
+    "options": [
+      "Oxygen",
+      "Carbon dioxide (CO2)",
+      "Nitrogen",
+      "Methane"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Plants utilize solar energy to convert carbon dioxide and water into glucose and oxygen via photosynthesis.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-015",
+    "question": "What gas is released into the atmosphere as a byproduct of plant photosynthesis?",
+    "options": [
+      "Carbon dioxide",
+      "Oxygen (O2)",
+      "Nitrogen",
+      "Hydrogen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Water molecules are split during light reactions, releasing molecular oxygen as a vital byproduct.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-016",
+    "question": "What celestial object's gravitational pull is primarily responsible for ocean tides on Earth?",
+    "options": [
+      "The Sun",
+      "The Moon",
+      "Mars",
+      "Jupiter"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Because the Moon is much closer to Earth than the Sun, its tidal gravitational force is more than twice as strong.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-017",
+    "question": "What is the chemical formula for ordinary table salt?",
+    "options": [
+      "NaCl",
+      "KCl",
+      "CaCl2",
+      "Na2SO4"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Table salt is composed of sodium and chlorine ions combined into sodium chloride (NaCl).",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-018",
+    "question": "What is the pH value of pure, neutral water at 25°C?",
+    "options": [
+      "0",
+      "7",
+      "10",
+      "14"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A neutral solution has equal concentrations of hydrogen and hydroxide ions, corresponding to a pH of exactly 7.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-019",
+    "question": "What is the name of the astronomical phenomenon where the Moon passes directly between the Earth and the Sun?",
+    "options": [
+      "Lunar Eclipse",
+      "Solar Eclipse",
+      "Aurora Borealis",
+      "Equinox"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In a solar eclipse, the Moon's shadow falls onto Earth, partially or completely blocking sunlight.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-020",
+    "question": "What happens during a lunar eclipse?",
+    "options": [
+      "The Sun passes between Earth and Moon",
+      "The Earth passes directly between the Sun and the Moon",
+      "The Moon passes between Sun and Earth",
+      "A comet blocks the Moon"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A lunar eclipse occurs when the Earth aligns directly between the Sun and Moon, casting Earth's shadow onto the Moon.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-021",
+    "question": "What naturally occurring glowing lights are seen in high-latitude night skies, caused by solar wind particles hitting the atmosphere?",
+    "options": [
+      "Rainbows",
+      "Auroras (Northern/Southern Lights)",
+      "Halos",
+      "Mirages"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Charged particles from solar winds collide with atmospheric oxygen and nitrogen atoms, exciting them into glowing auroras.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-022",
+    "question": "What is the term for a shooting star seen streaking across the night sky?",
+    "options": [
+      "Comet",
+      "Meteor",
+      "Asteroid",
+      "Supernova"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A meteor is the streak of light caused by a space rock (meteoroid) burning up due to frictional heating in Earth's atmosphere.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-023",
+    "question": "What is a meteorite?",
+    "options": [
+      "A rock that burns up completely in the air",
+      "A space rock that survives passage through the atmosphere and lands on Earth's surface",
+      "A distant icy comet",
+      "An exploded star"
+    ],
+    "correctAnswer": 1,
+    "explanation": "When a piece of a meteoroid survives its descent through the atmosphere and strikes the ground, it is called a meteorite.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-024",
+    "question": "Which planet in our solar system has the most prominent and extensive ring system easily visible with small telescopes?",
+    "options": [
+      "Jupiter",
+      "Saturn",
+      "Uranus",
+      "Neptune"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Saturn's rings span hundreds of thousands of kilometers across but are surprisingly thin, composed of billions of ice and rock particles.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-025",
+    "question": "What is the name of the supermassive black hole at the center of our Milky Way galaxy?",
+    "options": [
+      "Cygnus X-1",
+      "Sagittarius A*",
+      "Andromeda Core",
+      "Messier 87"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sagittarius A* (pronounced Sagittarius A-star) is the supermassive black hole around 4 million times the mass of the Sun at our galactic center.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-026",
+    "question": "What state of matter is the most abundant in the visible universe, found in stars and interstellar nebulae?",
+    "options": [
+      "Solid",
+      "Liquid",
+      "Gas",
+      "Plasma"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Over 99% of visible matter in the universe is plasma, an ionized gas of free electrons and positive ions.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-027",
+    "question": "Can diamond be scratched by any other naturally occurring mineral?",
+    "options": [
+      "Yes, by quartz",
+      "Yes, by sapphire",
+      "No, diamond is the hardest natural mineral and can only be scratched by another diamond",
+      "Yes, by topaz"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Diamond rates a maximum 10 on the Mohs hardness scale; its tetrahedral covalent carbon bonds can only be scratched by diamond.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-028",
+    "question": "What are diamonds composed of chemically?",
+    "options": [
+      "Pure Silicon",
+      "Pure Carbon",
+      "Calcium carbonate",
+      "Titanium dioxide"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Both diamond and pencil graphite are allotropes of pure carbon crystallized under different pressures and temperatures.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-029",
+    "question": "What is dry ice made of?",
+    "options": [
+      "Frozen liquid nitrogen",
+      "Solid carbon dioxide (CO2)",
+      "Frozen heavy water",
+      "Solidified methane"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dry ice is solid carbon dioxide that sublimates directly into gas at -78.5°C (-109.3°F) without melting into a liquid.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-030",
+    "question": "What is the transition called when a substance turns directly from a solid into a gas without passing through a liquid phase?",
+    "options": [
+      "Evaporation",
+      "Sublimation",
+      "Condensation",
+      "Deposition"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sublimation is the direct phase change from solid to gas (e.g., dry ice and mothballs).",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-031",
+    "question": "What force keeps the planets orbiting around the Sun?",
+    "options": [
+      "Magnetism",
+      "Gravity",
+      "Friction",
+      "Electrostatic force"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Sun's colossal mass generates the gravitational pull that curves the paths of planets into stable elliptical orbits.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-032",
+    "question": "What is the boiling point of pure water at standard sea level atmospheric pressure in Celsius?",
+    "options": [
+      "50°C",
+      "90°C",
+      "100°C",
+      "212°C"
+    ],
+    "correctAnswer": 2,
+    "explanation": "At standard sea-level pressure (1 atm), water boils at 100°C (212°F).",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-033",
+    "question": "What is the freezing point of pure water at standard atmospheric pressure in Celsius?",
+    "options": [
+      "-10°C",
+      "0°C",
+      "4°C",
+      "32°C"
+    ],
+    "correctAnswer": 1,
+    "explanation": "At standard atmospheric pressure, water freezes into ice at 0°C (32°F).",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-034",
+    "question": "Why do astronauts float weightlessly aboard the International Space Station (ISS)?",
+    "options": [
+      "There is zero gravity in space",
+      "They are in perpetual free fall around Earth along with the station",
+      "They wear special anti-gravity suits",
+      "Magnetic repulsion"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Gravity at ISS altitude is still about 90% of Earth's surface gravity; astronauts float because they and the station are in continuous orbital free fall.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-035",
+    "question": "Which gas makes up roughly 78% of Earth's atmosphere?",
+    "options": [
+      "Oxygen",
+      "Nitrogen",
+      "Carbon dioxide",
+      "Argon"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nitrogen comprises approximately 78.08% of Earth's atmosphere, while oxygen makes up about 20.95%.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-036",
+    "question": "Which gas makes up roughly 21% of Earth's atmosphere?",
+    "options": [
+      "Nitrogen",
+      "Oxygen",
+      "Argon",
+      "Helium"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Oxygen accounts for about 21% of dry atmospheric air, sustaining aerobic respiration.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-037",
+    "question": "What is the name of our spiral home galaxy containing hundreds of billions of stars?",
+    "options": [
+      "Andromeda Galaxy",
+      "Milky Way Galaxy",
+      "Whirlpool Galaxy",
+      "Triangulum Galaxy"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Our solar system resides in the Orion Arm of the barred spiral Milky Way Galaxy.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-038",
+    "question": "What is the closest major spiral galaxy to our own Milky Way?",
+    "options": [
+      "Sombrero Galaxy",
+      "Andromeda Galaxy (M31)",
+      "Large Magellanic Cloud",
+      "Centaurus A"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Andromeda Galaxy lies approximately 2.5 million light-years away and is heading toward a merger with the Milky Way in 4.5 billion years.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-039",
+    "question": "What explosive event marks the catastrophic death of a massive star?",
+    "options": [
+      "Nebula",
+      "Supernova",
+      "Protostar",
+      "Pulsar"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A supernova is a stellar explosion that outshines entire galaxies and disperses heavy elements across space.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-040",
+    "question": "What is a light-year a unit of?",
+    "options": [
+      "Time",
+      "Distance",
+      "Brightness",
+      "Speed"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A light-year is the astronomical distance that light travels in one Julian year (approx. 9.46 trillion kilometers).",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-041",
+    "question": "Which subatomic particles carry a negative electric charge?",
+    "options": [
+      "Protons",
+      "Neutrons",
+      "Electrons",
+      "Positrons"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Electrons are negatively charged fundamental leptons that orbit the atomic nucleus.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-042",
+    "question": "Which subatomic particles carry a positive electric charge?",
+    "options": [
+      "Electrons",
+      "Protons",
+      "Neutrons",
+      "Neutrinos"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Protons carry a positive electrical charge of +1 elementary charge inside the atomic nucleus.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-043",
+    "question": "Which subatomic particle has no electrical charge (is electrically neutral)?",
+    "options": [
+      "Proton",
+      "Electron",
+      "Neutron",
+      "Ion"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Neutrons carry zero net electric charge and reside alongside protons in the atomic nucleus.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-044",
+    "question": "Can an ordinary glass prism bend and split white sunlight into a spectrum of rainbow colors?",
+    "options": [
+      "No, it only absorbs light",
+      "Yes, through refraction and dispersion",
+      "Only artificial light can be split",
+      "Yes, through reflection only"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A glass prism refracts different wavelengths (colors) of light by different angles, dispersing white light into its spectrum.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-045",
+    "question": "What optical device uses curved glass or mirrors to make distant celestial objects appear closer and brighter?",
+    "options": [
+      "Microscope",
+      "Telescope",
+      "Periscope",
+      "Kaleidoscope"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Telescopes gather and focus electromagnetic radiation from distant astronomical objects to create magnified images.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-046",
+    "question": "What optical instrument uses lenses to magnify tiny microscopic organisms invisible to the naked human eye?",
+    "options": [
+      "Telescope",
+      "Microscope",
+      "Spectroscope",
+      "Stethoscope"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Microscopes magnify microscopic specimens such as cells and bacteria.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-047",
+    "question": "What layer of the Earth's stratosphere shields living organisms from harmful solar ultraviolet (UV) radiation?",
+    "options": [
+      "Ionosphere",
+      "Ozone layer",
+      "Troposphere",
+      "Mesosphere"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The ozone layer (O3) in the stratosphere absorbs between 97% and 99% of the Sun's medium-frequency ultraviolet light.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-048",
+    "question": "What is the innermost, solid layer of the Earth composed mostly of iron and nickel?",
+    "options": [
+      "Crust",
+      "Mantle",
+      "Outer Core",
+      "Inner Core"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Earth's inner core is a solid metallic ball of iron and nickel maintained under extreme pressures despite temperatures above 5,000°C.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-049",
+    "question": "What generates Earth's protective magnetic field that deflects lethal solar wind particles?",
+    "options": [
+      "The crust",
+      "Convection currents of molten iron in the outer core",
+      "The Moon",
+      "Atmospheric winds"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The geodynamo created by swirling molten iron in the liquid outer core generates Earth's geomagnetic field.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  },
+  {
+    "questionId": "scifact-050",
+    "question": "What is the estimated scientific age of Planet Earth?",
+    "options": [
+      "10,000 years",
+      "100 million years",
+      "4.54 billion years",
+      "14 billion years"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Radiometric dating of meteorite material and ancient terrestrial rock confirms Earth formed approximately 4.54 billion years ago.",
+    "difficulty": "easy",
+    "topic": "Amazing Science Facts"
+  }
+]

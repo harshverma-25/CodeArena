@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "wld-hist-001",
+    "question": "In which year did World War I begin?",
+    "options": [
+      "1912",
+      "1914",
+      "1918",
+      "1939"
+    ],
+    "correctAnswer": 1,
+    "explanation": "World War I began on July 28, 1914 following the assassination of Archduke Franz Ferdinand of Austria.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-002",
+    "question": "In which year did World War II end with the unconditional surrender of Axis forces?",
+    "options": [
+      "1943",
+      "1944",
+      "1945",
+      "1948"
+    ],
+    "correctAnswer": 2,
+    "explanation": "World War II ended in 1945 following the surrender of Germany in May and Japan in September.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-003",
+    "question": "Who was the first President of the United States?",
+    "options": [
+      "Thomas Jefferson",
+      "John Adams",
+      "George Washington",
+      "Benjamin Franklin"
+    ],
+    "correctAnswer": 2,
+    "explanation": "George Washington served as the first U.S. President from 1789 to 1797 after leading the Continental Army.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-004",
+    "question": "Which French military leader and Emperor conquered much of continental Europe in the early 19th century?",
+    "options": [
+      "Louis XIV",
+      "Napoleon Bonaparte",
+      "Charles de Gaulle",
+      "Robespierre"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Napoleon Bonaparte rose during the French Revolution, crowned himself Emperor in 1804, and dominated European warfare.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-005",
+    "question": "In which ancient civilization were the Great Pyramids of Giza built?",
+    "options": [
+      "Ancient Greece",
+      "Ancient Rome",
+      "Ancient Egypt",
+      "Mesopotamia"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The pyramids at Giza were built during the Old Kingdom period of Ancient Egypt as royal tombs for pharaohs.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-006",
+    "question": "What year did the historic Apollo 11 mission land the first humans on the Moon?",
+    "options": [
+      "1965",
+      "1969",
+      "1972",
+      "1975"
+    ],
+    "correctAnswer": 1,
+    "explanation": "On July 20, 1969, American astronauts Neil Armstrong and Buzz Aldrin landed the Apollo 11 Lunar Module on the Moon.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-007",
+    "question": "Who was the first human to walk on the surface of the Moon?",
+    "options": [
+      "Yuri Gagarin",
+      "Neil Armstrong",
+      "Buzz Aldrin",
+      "Michael Collins"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Neil Armstrong stepped onto the lunar surface declaring, 'That's one small step for man, one giant leap for mankind.'",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-008",
+    "question": "Who was the first human being to travel into outer space in 1961?",
+    "options": [
+      "Neil Armstrong",
+      "Yuri Gagarin",
+      "Alan Shepard",
+      "John Glenn"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Soviet cosmonaut Yuri Gagarin orbited the Earth on April 12, 1961 aboard Vostok 1.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-009",
+    "question": "In which year did the Berlin Wall fall, signaling the impending end of the Cold War?",
+    "options": [
+      "1985",
+      "1989",
+      "1991",
+      "1993"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Berlin Wall fell on November 9, 1989, leading to the reunification of East and West Germany.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-010",
+    "question": "The sinking of which famous luxury passenger liner occurred on its maiden voyage in April 1912?",
+    "options": [
+      "Lusitania",
+      "Britannic",
+      "Titanic",
+      "Queen Mary"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The RMS Titanic struck an iceberg in the North Atlantic and sank on the night of April 14–15, 1912.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-011",
+    "question": "The storming of the Bastille prison in July 1789 was the flashpoint of which major revolution?",
+    "options": [
+      "American Revolution",
+      "Russian Revolution",
+      "French Revolution",
+      "Industrial Revolution"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The storming of the Bastille on July 14, 1789 marked the dramatic opening conflict of the French Revolution.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-012",
+    "question": "Who was the leader of the Soviet Union during World War II?",
+    "options": [
+      "Vladimir Lenin",
+      "Joseph Stalin",
+      "Nikita Khrushchev",
+      "Leon Trotsky"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Joseph Stalin ruled the Soviet Union as General Secretary throughout World War II and the onset of the Cold War.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-013",
+    "question": "Which Roman general and statesman was assassinated on the Ides of March (March 15) in 44 BCE?",
+    "options": [
+      "Julius Caesar",
+      "Augustus",
+      "Mark Antony",
+      "Nero"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Julius Caesar was assassinated by a conspiracy of Roman senators led by Marcus Junius Brutus in the Theatre of Pompey.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-014",
+    "question": "Who was the first Emperor of the Roman Empire, ruling from 27 BCE until 14 CE?",
+    "options": [
+      "Julius Caesar",
+      "Caesar Augustus",
+      "Tiberius",
+      "Claudius"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Augustus (Octavian), the adopted heir of Julius Caesar, became the first Emperor of Rome, initiating the Pax Romana.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-015",
+    "question": "In which year did Christopher Columbus make his historic first landfall in the Americas?",
+    "options": [
+      "1492",
+      "1498",
+      "1512",
+      "1540"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Christopher Columbus crossed the Atlantic under Spanish sponsorship and landed in the Bahamas in October 1492.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-016",
+    "question": "The Renaissance cultural and intellectual movement originated in which European country in the 14th century?",
+    "options": [
+      "France",
+      "England",
+      "Italy",
+      "Germany"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The European Renaissance began in the wealthy city-states of central and northern Italy, especially Florence.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-017",
+    "question": "Which devastating pandemic, also known as the Black Death, killed an estimated 30–60% of Europe's population in the 14th century?",
+    "options": [
+      "Smallpox",
+      "Bubonic Plague",
+      "Cholera",
+      "Spanish Flu"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Bubonic Plague, caused by the bacterium Yersinia pestis, ravaged Europe between 1346 and 1353.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-018",
+    "question": "Who was the Prime Minister of the United Kingdom through most of World War II, known for his stirring wartime speeches?",
+    "options": [
+      "Neville Chamberlain",
+      "Winston Churchill",
+      "Clement Attlee",
+      "Anthony Eden"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Winston Churchill served as UK Prime Minister from 1940 to 1945, rallying the British people to resist Nazi Germany.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-019",
+    "question": "Which South African anti-apartheid revolutionary served 27 years in prison before becoming South Africa's first Black president in 1994?",
+    "options": [
+      "Desmond Tutu",
+      "Nelson Mandela",
+      "Oliver Tambo",
+      "Steve Biko"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nelson Mandela won the 1993 Nobel Peace Prize and was inaugurated as South Africa's first democratically elected president in 1994.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-020",
+    "question": "In which year did the United States declare its independence from Great Britain?",
+    "options": [
+      "1774",
+      "1776",
+      "1783",
+      "1789"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Continental Congress adopted the Declaration of Independence on July 4, 1776 in Philadelphia.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-021",
+    "question": "Which city was the target of the first atomic bomb used in warfare on August 6, 1945?",
+    "options": [
+      "Nagasaki",
+      "Hiroshima",
+      "Tokyo",
+      "Kyoto"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The US B-29 bomber Enola Gay dropped the 'Little Boy' atomic bomb on the Japanese city of Hiroshima.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-022",
+    "question": "Which Japanese city was bombed with the second atomic bomb on August 9, 1945?",
+    "options": [
+      "Hiroshima",
+      "Nagasaki",
+      "Osaka",
+      "Nagoya"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'Fat Man' plutonium bomb was detonated over Nagasaki three days after Hiroshima.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-023",
+    "question": "Who wrote the famous 'Ninety-five Theses' in 1517, sparking the Protestant Reformation in Europe?",
+    "options": [
+      "John Calvin",
+      "Martin Luther",
+      "Henry VIII",
+      "Erasmus"
+    ],
+    "correctAnswer": 1,
+    "explanation": "German monk and theologian Martin Luther nailed his 95 Theses to the door of All Saints' Church in Wittenberg.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-024",
+    "question": "What international organization was founded in 1945 following World War II to maintain global peace and security?",
+    "options": [
+      "League of Nations",
+      "United Nations",
+      "NATO",
+      "European Union"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The United Nations (UN) was founded on October 24, 1945 by 51 member states.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-025",
+    "question": "The ancient Silk Road was a network of trade routes connecting China primarily with which region?",
+    "options": [
+      "Sub-Saharan Africa",
+      "The Mediterranean and Europe",
+      "Australasia",
+      "South America"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Silk Road facilitated trade in silk, spices, and culture between Han China and the Greco-Roman Mediterranean.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-026",
+    "question": "Which Greek philosopher was sentenced to death by drinking poison hemlock in 399 BCE?",
+    "options": [
+      "Plato",
+      "Aristotle",
+      "Socrates",
+      "Pythagoras"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Socrates was convicted by an Athenian court of impiety and corrupting the youth, drinking hemlock as his sentence.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-027",
+    "question": "Who was the Macedonian king who created one of the largest empires of the ancient world by age 30?",
+    "options": [
+      "Philip II",
+      "Alexander the Great",
+      "Pericles",
+      "Darius the Great"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Alexander the Great conquered Greece, Egypt, and the Persian Empire all the way to northern India before dying at 32.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-028",
+    "question": "In which year did the Russian Revolution take place, overthrowing the Czarist autocracy and leading to Bolshevik rule?",
+    "options": [
+      "1905",
+      "1914",
+      "1917",
+      "1922"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The 1917 Russian Revolution comprised the February Revolution and the October Revolution led by Lenin's Bolsheviks.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-029",
+    "question": "Who was the British monarch who reigned for over 70 years from 1952 to 2022?",
+    "options": [
+      "Queen Victoria",
+      "Queen Elizabeth I",
+      "Queen Elizabeth II",
+      "Queen Anne"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Queen Elizabeth II reigned from February 1952 until her passing in September 2022, the longest in British history.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-030",
+    "question": "Which battle in 1815 marked the final military defeat of Napoleon Bonaparte?",
+    "options": [
+      "Battle of Austerlitz",
+      "Battle of Leipzig",
+      "Battle of Waterloo",
+      "Battle of Trafalgar"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Napoleon was decisively defeated by British and Prussian armies led by the Duke of Wellington and Gebhard von Blücher at Waterloo.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-031",
+    "question": "Which US President issued the Emancipation Proclamation in 1863 during the American Civil War?",
+    "options": [
+      "Ulysses S. Grant",
+      "Abraham Lincoln",
+      "Andrew Jackson",
+      "Thomas Jefferson"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Abraham Lincoln issued the Emancipation Proclamation on January 1, 1863, declaring all slaves in Confederate states to be free.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-032",
+    "question": "In which ancient city did the first Olympic Games take place in 776 BCE?",
+    "options": [
+      "Athens",
+      "Sparta",
+      "Olympia",
+      "Corinth"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The ancient Olympic Games were held in Olympia, Greece, in honor of Zeus.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-033",
+    "question": "Who was the Mongolian warrior-ruler who founded the Mongol Empire in the early 13th century?",
+    "options": [
+      "Kublai Khan",
+      "Genghis Khan",
+      "Tamerlane",
+      "Attila the Hun"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Genghis Khan (born Temüjin) united the nomadic tribes of Northeast Asia to form the largest contiguous empire in history.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-034",
+    "question": "Which medieval English document signed by King John in 1215 established that everyone, even the king, is subject to the law?",
+    "options": [
+      "Bill of Rights",
+      "Magna Carta",
+      "Doomsday Book",
+      "Petition of Right"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Magna Carta (Great Charter) of 1215 laid foundational principles for constitutional governance and individual liberty.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-035",
+    "question": "Which war took place between the United States and the Soviet Union characterized by geopolitical tension, nuclear arms race, but no direct armed conflict?",
+    "options": [
+      "World War I",
+      "The Cold War",
+      "Korean War",
+      "Vietnam War"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Cold War was an ideological, military, and technological standoff between Western and Eastern Blocs from roughly 1947 to 1991.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-036",
+    "question": "In which year did the Soviet Union officially dissolve into 15 independent nations?",
+    "options": [
+      "1989",
+      "1990",
+      "1991",
+      "1995"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The USSR dissolved in December 1991, ending the Cold War era.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-037",
+    "question": "What ancient wonder was built in Babylon by King Nebuchadnezzar II for his homesick wife?",
+    "options": [
+      "Colossus of Rhodes",
+      "Hanging Gardens of Babylon",
+      "Lighthouse of Alexandria",
+      "Temple of Artemis"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Hanging Gardens of Babylon featured lush tiered gardens described as a marvel of engineering.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-038",
+    "question": "Which infamous surprise military strike by the Imperial Japanese Navy on December 7, 1941 brought the United States into World War II?",
+    "options": [
+      "Battle of Midway",
+      "Attack on Pearl Harbor",
+      "Battle of Iwo Jima",
+      "Battle of Coral Sea"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Japan attacked the US naval base at Pearl Harbor, Hawaii, prompting President Franklin D. Roosevelt to declare war.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-039",
+    "question": "Who was the female pilot who became the first woman to fly solo across the Atlantic Ocean in 1932?",
+    "options": [
+      "Amelia Earhart",
+      "Bessie Coleman",
+      "Harriet Quimby",
+      "Valentina Tereshkova"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Amelia Earhart completed her solo transatlantic flight from Newfoundland to Northern Ireland in May 1932.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-040",
+    "question": "What defensive structure over 13,000 miles long was built across northern China over centuries to protect against nomadic invasions?",
+    "options": [
+      "Grand Canal",
+      "Great Wall of China",
+      "Forbidden City",
+      "Terracotta Army"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Great Wall of China was built by multiple dynasties, most notably the Qin, Han, and Ming dynasties.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-041",
+    "question": "Who was the first woman in space, orbiting the Earth aboard Vostok 6 in June 1963?",
+    "options": [
+      "Sally Ride",
+      "Valentina Tereshkova",
+      "Svetlana Savitskaya",
+      "Mae Jemison"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Soviet cosmonaut Valentina Tereshkova spent nearly three days in space, completing 48 orbits.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-042",
+    "question": "Which city was the historic capital of the Byzantine Empire for over 1,000 years until it fell to the Ottomans in 1453?",
+    "options": [
+      "Athens",
+      "Constantinople (Istanbul)",
+      "Rome",
+      "Alexandria"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Constantinople was founded by Roman Emperor Constantine the Great and fell to Sultan Mehmed II in 1453.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-043",
+    "question": "What was the name of the diplomatic alliance formed in 1949 between North American and European nations for collective defense?",
+    "options": [
+      "Warsaw Pact",
+      "NATO (North Atlantic Treaty Organization)",
+      "League of Nations",
+      "ANZUS"
+    ],
+    "correctAnswer": 1,
+    "explanation": "NATO was established by 12 founding countries in April 1949 to safeguard freedom and security.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-044",
+    "question": "Which European country experienced the Industrial Revolution first during the mid-18th century?",
+    "options": [
+      "Germany",
+      "France",
+      "Great Britain",
+      "Belgium"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Great Britain pioneered the Industrial Revolution with steam engines, coal reserves, and mechanized textile mills.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-045",
+    "question": "Who was the Russian mystic and self-proclaimed holy man who befriended the family of Tsar Nicholas II?",
+    "options": [
+      "Rasputin",
+      "Trotsky",
+      "Lenin",
+      "Kerensky"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Grigori Rasputin exerted immense influence over Tsarina Alexandra due to his perceived ability to treat Tsarevich Alexei's hemophilia.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-046",
+    "question": "What year did the famous D-Day invasion of Normandy by Allied forces take place?",
+    "options": [
+      "1942",
+      "1943",
+      "1944",
+      "1945"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Operation Overlord (D-Day) commenced on June 6, 1944 with amphibious landings on the beaches of Normandy, France.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-047",
+    "question": "Which ancient civilization developed cuneiform, widely considered the earliest known writing system?",
+    "options": [
+      "Egyptians",
+      "Sumerians (Mesopotamia)",
+      "Phoenicians",
+      "Indus Valley"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Sumerians of ancient Mesopotamia invented wedge-shaped cuneiform writing on clay tablets c. 3200 BCE.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-048",
+    "question": "Who was the Queen of Egypt famous for her alliances with Julius Caesar and Mark Antony?",
+    "options": [
+      "Nefertiti",
+      "Hatshepsut",
+      "Cleopatra VII",
+      "Twosret"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Cleopatra VII Philopator was the last active ruler of the Ptolemaic Kingdom of Egypt.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-049",
+    "question": "The ancient Greek city-state famous for its fierce military culture and the 300 Spartans at Thermopylae was:",
+    "options": [
+      "Athens",
+      "Sparta",
+      "Thebes",
+      "Rhodes"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sparta was a warrior society in ancient Greece renowned for its disciplined hoplite army and rigorous military training.",
+    "difficulty": "easy",
+    "topic": "World History"
+  },
+  {
+    "questionId": "wld-hist-050",
+    "question": "Which treaty officially ended World War I in June 1919?",
+    "options": [
+      "Treaty of Paris",
+      "Treaty of Versailles",
+      "Treaty of Ghent",
+      "Treaty of Utrecht"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Treaty of Versailles was signed on June 28, 1919 in the Hall of Mirrors at Versailles, France.",
+    "difficulty": "easy",
+    "topic": "World History"
+  }
+]

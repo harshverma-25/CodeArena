@@ -1,0 +1,531 @@
+[
+  {
+    "questionId": "dialogue-001",
+    "question": "Which iconic movie features the famous line: 'May the Force be with you'?",
+    "options": ["Star Trek", "Star Wars", "Blade Runner", "Dune"],
+    "correctAnswer": 1,
+    "explanation": "'May the Force be with you' is the quintessential blessing spoken by Jedi and the Rebellion in Star Wars.",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-002",
+    "question": "Which film features the legendary line: 'I'll make him an offer he can't refuse'?",
+    "options": ["Scarface", "Goodfellas", "The Godfather", "Casino"],
+    "correctAnswer": 2,
+    "explanation": "Marlon Brando as Don Vito Corleone famously uttered this line in Francis Ford Coppola's The Godfather (1972).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-003",
+    "question": "What movie features Arnold Schwarzenegger's immortal catchphrase: 'I'll be back'?",
+    "options": ["Predator", "The Terminator", "Commando", "Total Recall"],
+    "correctAnswer": 1,
+    "explanation": "Arnold Schwarzenegger as the T-800 cyborg said 'I'll be back' before driving into a police station in The Terminator (1984).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-004",
+    "question": "In Titanic (1997), what does Jack Dawson (Leonardo DiCaprio) shout from the bow of the ship?",
+    "options": ["'I am on top of the world!'", "'I'm the king of the world!'", "'Nothing can stop us!'", "'Here comes freedom!'"],
+    "correctAnswer": 1,
+    "explanation": "Jack Dawson screams 'I'm the king of the world!' while standing at the bow of the RMS Titanic.",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-005",
+    "question": "Which movie features the memorable quote: 'Houston, we have a problem'?",
+    "options": ["Interstellar", "Apollo 13", "The Martian", "Gravity"],
+    "correctAnswer": 1,
+    "explanation": "Tom Hanks as Commander Jim Lovell delivers this famous line in Ron Howard's Apollo 13 (1995).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-006",
+    "question": "Which movie features the line: 'Mama always said life was like a box of chocolates. You never know what you're gonna get'?",
+    "options": ["Cast Away", "Forrest Gump", "Big", "The Green Mile"],
+    "correctAnswer": 1,
+    "explanation": "Forrest Gump (Tom Hanks) recites his mother's wisdom while sitting on the bus bench in Forrest Gump (1994).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-007",
+    "question": "Which Batman film features Heath Ledger's Joker asking: 'Why so serious?'",
+    "options": ["Batman Begins", "The Dark Knight", "The Dark Knight Rises", "The Batman"],
+    "correctAnswer": 1,
+    "explanation": "Heath Ledger's Joker tells the chilling story of how he got his scars while asking 'Why so serious?' in The Dark Knight.",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-008",
+    "question": "What movie features Jack Nicholson shouting: 'Here's Johnny!' after chopping through a bathroom door?",
+    "options": ["Psycho", "The Shining", "Misery", "A Few Good Men"],
+    "correctAnswer": 1,
+    "explanation": "Jack Torrance (Jack Nicholson) breaks through the door with an axe and shouts 'Here's Johnny!' in Stanley Kubrick's The Shining.",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-009",
+    "question": "Which film features the explosive courtroom line: 'You can't handle the truth!'?",
+    "options": ["A Time to Kill", "A Few Good Men", "Primal Fear", "The Rainmaker"],
+    "correctAnswer": 1,
+    "explanation": "Colonel Nathan R. Jessep (Jack Nicholson) bellows 'You can't handle the truth!' under cross-examination by Tom Cruise.",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-010",
+    "question": "Which classic sci-fi film features the tiny extraterrestrial saying: 'E.T. phone home'?",
+    "options": ["Close Encounters of the Third Kind", "E.T. the Extra-Terrestrial", "Flight of the Navigator", "Super 8"],
+    "correctAnswer": 1,
+    "explanation": "E.T. points to the night sky and utters 'E.T. phone home' in Steven Spielberg's 1982 masterpiece.",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-011",
+    "question": "Which mobster classic features Al Pacino shouting: 'Say hello to my little friend!' while firing an M16 grenade launcher?",
+    "options": ["The Godfather Part II", "Scarface", "Carlito's Way", "Heat"],
+    "correctAnswer": 1,
+    "explanation": "Tony Montana (Al Pacino) makes his legendary last stand against hitmen shouting 'Say hello to my little friend!' in Scarface (1983).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-012",
+    "question": "What is the famous first rule of Fight Club recited by Tyler Durden?",
+    "options": [
+      "'Always respect your opponent.'",
+      "'The first rule of Fight Club is: you do not talk about Fight Club.'",
+      "'No shirts, no shoes.'",
+      "'Fights go on as long as they have to.'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Brad Pitt as Tyler Durden lays down the first and second rule: 'You do not talk about Fight Club.'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-013",
+    "question": "In The Lord of the Rings: The Fellowship of the Ring, what does Gandalf shout to the Balrog on the Bridge of Khazad-dûm?",
+    "options": ["'Fall into the shadow!'", "'You shall not pass!'", "'Back to the dark!'", "'The ring is safe!'"],
+    "correctAnswer": 1,
+    "explanation": "Gandalf the Grey slams his staff into the stone bridge and thunders: 'YOU SHALL NOT PASS!'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-014",
+    "question": "In The Lord of the Rings, what does Gollum affectionately call the One Ring?",
+    "options": ["'My Treasure'", "'My Precious'", "'My Master'", "'My Gold'"],
+    "correctAnswer": 1,
+    "explanation": "Gollum obsessively refers to the One Ring as 'My Precious'.",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-015",
+    "question": "What is James Bond's signature way to introduce himself?",
+    "options": ["'I am James Bond.'", "'The name's Bond. James Bond.'", "'Agent 007 at your service.'", "'Call me James.'"],
+    "correctAnswer": 1,
+    "explanation": "The world's most famous secret agent always introduces himself as: 'The name's Bond. James Bond.'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-016",
+    "question": "How does James Bond order his trademark vodka martini?",
+    "options": ["'Stirred, never shaken.'", "'Shaken, not stirred.'", "'On the rocks with a twist.'", "'Double shot, neat.'"],
+    "correctAnswer": 1,
+    "explanation": "Bond famously insists his martini be 'Shaken, not stirred.'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-017",
+    "question": "Which movie features Dorothy saying: 'Toto, I've a feeling we're not in Kansas anymore'?",
+    "options": ["Alice in Wonderland", "The Wizard of Oz", "Mary Poppins", "Chitty Chitty Bang Bang"],
+    "correctAnswer": 1,
+    "explanation": "Judy Garland as Dorothy delivers this line upon stepping into the Technicolor land of Oz in The Wizard of Oz (1939).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-018",
+    "question": "In The Wizard of Oz, what phrase does Dorothy click her ruby slippers three times to repeat?",
+    "options": ["'Take me to Auntie Em.'", "'There's no place like home.'", "'Home is where the heart is.'", "'Back to Kansas now.'"],
+    "correctAnswer": 1,
+    "explanation": "Clicking her heels and chanting 'There's no place like home' transports Dorothy back to Kansas.",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-019",
+    "question": "Which Clint Eastwood western/cop thriller features: 'Go ahead, make my day'?",
+    "options": ["Dirty Harry", "Sudden Impact", "The Good, the Bad and the Ugly", "A Fistful of Dollars"],
+    "correctAnswer": 1,
+    "explanation": "Clint Eastwood's Inspector 'Dirty' Harry Callahan utters 'Go ahead, make my day' in Sudden Impact (1983).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-020",
+    "question": "What question does Dirty Harry ask a wounded robber while holding his .44 Magnum revolver in Dirty Harry (1971)?",
+    "options": [
+      "'Are you ready to surrender?'",
+      "'Do I feel lucky? Well, do ya, punk?'",
+      "'Who do you think you are?'",
+      "'Did you count your bullets?'"],
+    "correctAnswer": 1,
+    "explanation": "Callahan challenges the criminal: 'You've got to ask yourself one question: \"Do I feel lucky?\" Well, do ya, punk?'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-021",
+    "question": "Which romance classic set in French Morocco features Rick Blaine (Humphrey Bogart) saying: 'Here's looking at you, kid'?",
+    "options": ["Gone with the Wind", "Casablanca", "Sabrina", "Roman Holiday"],
+    "correctAnswer": 1,
+    "explanation": "Humphrey Bogart famously toasts Ingrid Bergman with 'Here's looking at you, kid' in Casablanca (1942).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-022",
+    "question": "Which classic film closes with Rhett Butler telling Scarlett O'Hara: 'Frankly, my dear, I don't give a damn'?",
+    "options": ["Citizen Kane", "Gone with the Wind", "Casablanca", "Wuthering Heights"],
+    "correctAnswer": 1,
+    "explanation": "Clark Gable as Rhett Butler delivers the #1 American Film Institute movie quote in Gone with the Wind (1939).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-023",
+    "question": "Which psychological horror film features the young boy Cole Sear whispering: 'I see dead people'?",
+    "options": ["The Others", "The Sixth Sense", "Poltergeist", "The Ring"],
+    "correctAnswer": 1,
+    "explanation": "Haley Joel Osment whispers 'I see dead people' to Bruce Willis in M. Night Shyamalan's The Sixth Sense (1999).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-024",
+    "question": "Which movie features Tom Cruise and Cuba Gooding Jr. repeatedly screaming: 'SHOW ME THE MONEY!'?",
+    "options": ["Jerry Maguire", "Top Gun", "A Few Good Men", "The Firm"],
+    "correctAnswer": 0,
+    "explanation": "Sports agent Jerry Maguire (Tom Cruise) screams 'Show me the money!' to retain football player Rod Tidwell.",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-025",
+    "question": "In Top Gun (1986), what do Maverick and Goose high-five and proclaim before flight?",
+    "options": [
+      "'I feel the rush, the rush for danger!'",
+      "'I feel the need... the need for speed!'",
+      "'Target locked, ready to rock!'",
+      "'Clear skies, full throttle!'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Tom Cruise and Anthony Edwards recite the immortal line: 'I feel the need... the need for speed!'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-026",
+    "question": "Which film features the chilling line: 'A census taker once tried to test me. I ate his liver with some fava beans and a nice Chianti'?",
+    "options": ["Seven", "The Silence of the Lambs", "Red Dragon", "American Psycho"],
+    "correctAnswer": 1,
+    "explanation": "Dr. Hannibal Lecter (Anthony Hopkins) taunts FBI agent Clarice Starling in The Silence of the Lambs (1991).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-027",
+    "question": "Which movie features Bruce Willis as John McClane shouting: 'Yippee-ki-yay, motherf***er!'?",
+    "options": ["Lethal Weapon", "Die Hard", "Speed", "The Last Boy Scout"],
+    "correctAnswer": 1,
+    "explanation": "John McClane famously delivers his cowboy catchphrase over radio to terrorist Hans Gruber in Die Hard (1988).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-028",
+    "question": "What is the famous line spoken by Chief Brody (Roy Scheider) after seeing the great white shark up close in Jaws (1975)?",
+    "options": [
+      "'We need heavy artillery.'",
+      "'You're gonna need a bigger boat.'",
+      "'Turn the ship around now!'",
+      "'That's no ordinary fish.'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Brody backs into the cabin in shock and tells Quint: 'You're gonna need a bigger boat.'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-029",
+    "question": "In The Matrix (1999), what choice of pills does Morpheus offer to Neo?",
+    "options": [
+      "A black pill or a white pill",
+      "A blue pill or a red pill",
+      "A green pill or a purple pill",
+      "A yellow pill or an orange pill"
+    ],
+    "correctAnswer": 1,
+    "explanation": "'You take the blue pill, the story ends... You take the red pill, you stay in Wonderland and I show you how deep the rabbit-hole goes.'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-030",
+    "question": "In The Empire Strikes Back (1980), what does Darth Vader actually reveal to Luke Skywalker after Luke claims Vader killed his father?",
+    "options": [
+      "'Luke, I am your father.'",
+      "'No, I am your father.'",
+      "'You know the truth, my son.'",
+      "'Obi-Wan lied to you; I am your master.'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The frequently misquoted actual line is: 'No, I am your father.'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-031",
+    "question": "In Back to the Future (1985), what does Doc Brown say right before revving up the DeLorean to return to 2015?",
+    "options": [
+      "'Keep your seatbelts on!'",
+      "'Roads? Where we're going, we don't need roads.'",
+      "'Time waits for no man.'",
+      "'Hold on to your hoverboards!'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Doc Brown pulls down his futuristic visor and tells Marty: 'Roads? Where we're going, we don't need roads.'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-032",
+    "question": "What phrase does Russell Crowe's Maximus proclaim to the roaring Colosseum crowd in Gladiator (2000)?",
+    "options": [
+      "'Rome shall fall!'",
+      "'Are you not entertained?!'",
+      "'I fight for freedom!'",
+      "'Bow before your master!'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "After dispatching his opponents effortlessly, Maximus hurls his sword and yells: 'Are you not entertained?!'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-033",
+    "question": "In Toy Story (1995), what is Buzz Lightyear's interstellar heroic slogan?",
+    "options": [
+      "'To the galaxy and past!'",
+      "'To infinity and beyond!'",
+      "'Star command to the rescue!'",
+      "'Fly high, touch the stars!'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Buzz Lightyear's catchphrase throughout the Toy Story franchise is 'To infinity and beyond!'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-034",
+    "question": "In Toy Story, what does Woody shout at Buzz Lightyear when Buzz insists he is a real space ranger?",
+    "options": [
+      "'You're not real!'",
+      "'You are a toy!'",
+      "'You're just plastic!'",
+      "'Wake up, astronaut!'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Woody loses his temper and yells: 'You are a toy! You aren't the real Buzz Lightyear, you're an action figure!'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-035",
+    "question": "Which comedy features the line: 'Fasten your seatbelts, it's going to be a bumpy night'?",
+    "options": ["Some Like It Hot", "All About Eve", "The Philadelphia Story", "Sunset Boulevard"],
+    "correctAnswer": 1,
+    "explanation": "Bette Davis as Broadway star Margo Channing delivers this legendary line in All About Eve (1950).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-036",
+    "question": "In The Lion King (1994), what does the Swahili phrase 'Hakuna Matata' mean?",
+    "options": ["'Be strong and brave'", "'No worries for the rest of your days'", "'Great king of the pride'", "'The circle of life'"],
+    "correctAnswer": 1,
+    "explanation": "Timon and Pumbaa teach Simba that 'Hakuna Matata' means 'No worries'.",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-037",
+    "question": "In Taxi Driver (1976), what famous monologue does Robert De Niro recite looking into the mirror?",
+    "options": [
+      "'Who do you think is standing there?'",
+      "'You talkin' to me?'",
+      "'Nobody makes a fool out of me.'",
+      "'I'm the only one left.'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Travis Bickle (Robert De Niro) draws his gun in front of his apartment mirror uttering: 'You talkin' to me?'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-038",
+    "question": "Which action thriller features Liam Neeson's phone monologue: 'I will find you, and I will kill you'?",
+    "options": ["Non-Stop", "Taken", "Unknown", "The Grey"],
+    "correctAnswer": 1,
+    "explanation": "Bryan Mills (Liam Neeson) delivers his famous 'particular set of skills' warning to his daughter's captors in Taken (2008).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-039",
+    "question": "In The Shining, what single sentence does Jack Torrance type thousands of times over and over on his typewriter?",
+    "options": [
+      "'Redrum, Redrum, Redrum'",
+      "'All work and no play makes Jack a dull boy'",
+      "'The Overlook Hotel is my home'",
+      "'Winter will never end'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Wendy discovers to her horror that Jack's manuscript is pages upon pages of 'All work and no play makes Jack a dull boy.'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-040",
+    "question": "In 300 (2006), what does King Leonidas (Gerard Butler) roar before kicking the Persian messenger into the well?",
+    "options": ["'For glory and honor!'", "'THIS IS SPARTA!'", "'Never surrender!'", "'Greece will stand!'"],
+    "correctAnswer": 1,
+    "explanation": "Leonidas bellows 'THIS IS SPARTA!' before launching the Spartan kick in Zack Snyder's 300.",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-041",
+    "question": "In A Nightmare on Elm Street, what nursery rhyme begins: 'One, two, Freddy's coming for you...'?",
+    "options": [
+      "'...Three, four, better lock your door'",
+      "'...Three, four, don't fall on the floor'",
+      "'...Three, four, open the store'",
+      "'...Three, four, close the drawer'"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The jump-rope rhyme warns: 'One, two, Freddy's coming for you. Three, four, better lock your door...'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-042",
+    "question": "Which movie features the chilling question asked over the telephone: 'What's your favorite scary movie?'",
+    "options": ["Halloween", "Scream", "Friday the 13th", "I Know What You Did Last Summer"],
+    "correctAnswer": 1,
+    "explanation": "Ghostface calls Casey Becker (Drew Barrymore) in the opening scene of Wes Craven's Scream (1996).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-043",
+    "question": "In Jerry Maguire, what romantic line does Dorothy Boyd (Renée Zellweger) interrupt Jerry's speech with?",
+    "options": [
+      "'I love you too.'",
+      "'You had me at hello.'",
+      "'Don't say another word.'",
+      "'You complete me.'"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dorothy stops Jerry's emotional speech by whispering through tears: 'Shut up. Just shut up. You had me at hello.'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-044",
+    "question": "What iconic victory yell does Sylvester Stallone scream at the top of his lungs at the end of Rocky (1976)?",
+    "options": ["'Mickey!'", "'Adrian!'", "'Apollo!'", "'I won!'"],
+    "correctAnswer": 1,
+    "explanation": "Battered and half-blind after 15 rounds, Rocky ignores interviewers and desperately screams for 'Adrian!'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-045",
+    "question": "In The Shawshank Redemption (1994), what choice does Andy Dufresne give in his letter to Red?",
+    "options": [
+      "'Get busy living, or get busy dying.'",
+      "'Hope is a dangerous thing.'",
+      "'Never look back at the past.'",
+      "'Freedom is an illusion.'"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Andy tells Red: 'I guess it comes down to a simple choice, really. Get busy living, or get busy dying.'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-046",
+    "question": "What is the dying word spoken by newspaper tycoon Charles Foster Kane at the opening of Citizen Kane (1941)?",
+    "options": ["'Xanadu'", "'Rosebud'", "'Mother'", "'Gold'"],
+    "correctAnswer": 1,
+    "explanation": "The entire mystery of Citizen Kane centers around uncovering the meaning of his dying word: 'Rosebud'.",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-047",
+    "question": "What does Jack Dawson promise Rose DeWitt Bukater on the floating door in Titanic?",
+    "options": [
+      "'Winning that ticket was the best thing that ever happened to me... promise me you will survive.'",
+      "'We will see Paris together.'",
+      "'Hold on, the boats are coming.'",
+      "'Never let go of the necklace.'"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Jack makes Rose promise she will survive and grow old with babies, telling her: 'Promise me you'll never let go.'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-048",
+    "question": "Which Bollywood blockbuster features the famous dialogue: 'Mogambo khush hua'?",
+    "options": ["Sholay", "Mr. India", "Don", "Deewaar"],
+    "correctAnswer": 1,
+    "explanation": "Amrish Puri's villain Mogambo delivers the immortal Hindi catchphrase 'Mogambo khush hua' in Mr. India (1987).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-049",
+    "question": "Which legendary Bollywood classic features Gabbar Singh asking: 'Kitne aadmi the?' (How many men were there?)",
+    "options": ["Deewaar", "Sholay", "Zanjeer", "Kaalia"],
+    "correctAnswer": 1,
+    "explanation": "Amjad Khan as dacoit Gabbar Singh delivers the iconic dialogue 'Kitne aadmi the?' in Sholay (1975).",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  },
+  {
+    "questionId": "dialogue-050",
+    "question": "Which classic Amitabh Bachchan film features the famous reply: 'Mere paas maa hai' (I have mother)?",
+    "options": ["Sholay", "Deewaar", "Don", "Agneepath"],
+    "correctAnswer": 1,
+    "explanation": "In Yash Chopra's Deewaar (1975), when Vijay boasts of his wealth, his brother Ravi (Shashi Kapoor) replies: 'Mere paas maa hai.'",
+    "difficulty": "easy",
+    "topic": "Movie Dialogue"
+  }
+]

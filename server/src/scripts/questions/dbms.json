@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "dbms-001",
+    "question": "What does DBMS stand for in computer science?",
+    "options": [
+      "Database Management System",
+      "Data Backup Management Software",
+      "Database Memory System",
+      "Digital Base Monitoring System"
+    ],
+    "correctAnswer": 0,
+    "explanation": "DBMS stands for Database Management System, software designed to store, retrieve, manage, and manipulate data efficiently.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-002",
+    "question": "What does SQL stand for in database terminology?",
+    "options": [
+      "Structured Question Language",
+      "Structured Query Language",
+      "Sequential Query Language",
+      "Standard Quick Language"
+    ],
+    "correctAnswer": 1,
+    "explanation": "SQL stands for Structured Query Language, the standard domain-specific language used for interacting with relational databases.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-003",
+    "question": "What does RDBMS stand for?",
+    "options": [
+      "Relational Database Management System",
+      "Rapid Database Management Service",
+      "Remote Data Backup System",
+      "Restricted Data Base Management Software"
+    ],
+    "correctAnswer": 0,
+    "explanation": "RDBMS stands for Relational Database Management System, a DBMS based on the relational data model introduced by E.F. Codd.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-004",
+    "question": "What is a database?",
+    "options": [
+      "A collection of hardware cables and drives",
+      "An organized collection of structured data stored electronically",
+      "A software program solely used to write HTML web pages",
+      "A network cable connecting computers"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A database is an organized collection of structured information or data, typically stored electronically in a computer system.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-005",
+    "question": "Which key uniquely identifies each record in a database table?",
+    "options": [
+      "Foreign Key",
+      "Secondary Key",
+      "Primary Key",
+      "Composite Index"
+    ],
+    "correctAnswer": 2,
+    "explanation": "A Primary Key is a column (or combination of columns) that uniquely identifies each record/tuple in a database table.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-006",
+    "question": "Can a Primary Key column in a database table contain NULL values?",
+    "options": [
+      "Yes, up to one NULL value is permitted",
+      "Yes, if declared as optional",
+      "No, primary key values must be unique and non-null",
+      "Yes, in any relational table"
+    ],
+    "correctAnswer": 2,
+    "explanation": "By definition, a Primary Key enforces entity integrity: values must be unique and can never contain NULL.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-007",
+    "question": "What is a Foreign Key in a relational database?",
+    "options": [
+      "A key generated from an external encryption library",
+      "A field in one table that uniquely identifies a row in another table",
+      "A key used exclusively to encrypt network packets",
+      "A primary key that contains alphanumeric characters"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A Foreign Key is an attribute in one table that refers to the Primary Key of another table, establishing a relationship between them.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-008",
+    "question": "In the relational database model, what is a single row of a table called?",
+    "options": [
+      "Attribute",
+      "Tuple",
+      "Domain",
+      "Schema"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In relational model terminology, a horizontal row or record in a table is referred to as a tuple.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-009",
+    "question": "In the relational database model, what is a column in a table called?",
+    "options": [
+      "Tuple",
+      "Attribute",
+      "Entity",
+      "Transaction"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In relational database theory, columns that describe properties or characteristics of an entity are called attributes.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-010",
+    "question": "In relational database theory, what is another term for a table?",
+    "options": [
+      "Relation",
+      "Domain",
+      "Trigger",
+      "Cursor"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In relational database theory, a table composed of rows and columns is formally called a Relation.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-011",
+    "question": "Which SQL statement is used to fetch data from a database table?",
+    "options": [
+      "EXTRACT",
+      "FETCH",
+      "SELECT",
+      "PULL"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The SELECT statement is used in SQL to query and retrieve rows of data from one or more database tables.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-012",
+    "question": "Which SQL statement is used to insert new rows into a database table?",
+    "options": [
+      "ADD RECORD",
+      "INSERT INTO",
+      "CREATE ROW",
+      "APPEND"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The INSERT INTO statement is used to add new data records into an existing table in SQL.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-013",
+    "question": "Which SQL statement is used to modify existing records in a table?",
+    "options": [
+      "MODIFY",
+      "UPDATE",
+      "CHANGE",
+      "ALTER TABLE"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The UPDATE statement is used to change existing column values for one or more records in a database table.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-014",
+    "question": "Which SQL statement is used to remove existing rows from a table?",
+    "options": [
+      "REMOVE",
+      "DELETE",
+      "ERASE",
+      "DISCARD"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The DELETE statement removes rows matching a WHERE condition from a table, or all rows if no condition is provided.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-015",
+    "question": "Which SQL command deletes an entire table and its schema completely from the database?",
+    "options": [
+      "DELETE TABLE",
+      "REMOVE TABLE",
+      "DROP TABLE",
+      "TRUNCATE SCHEMA"
+    ],
+    "correctAnswer": 2,
+    "explanation": "DROP TABLE removes the entire table structure, schema definition, indexes, and all stored data permanently.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-016",
+    "question": "What is the primary difference between TRUNCATE and DELETE in SQL?",
+    "options": [
+      "TRUNCATE is a DDL command that quickly removes all rows without logging individual row deletions",
+      "DELETE cannot use a WHERE clause",
+      "TRUNCATE preserves table rows while deleting columns",
+      "DELETE is always faster than TRUNCATE"
+    ],
+    "correctAnswer": 0,
+    "explanation": "TRUNCATE is a DDL operation that deallocates data pages directly, making it faster and non-row-logged compared to DELETE.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-017",
+    "question": "What category of SQL commands do CREATE, ALTER, and DROP belong to?",
+    "options": [
+      "DML (Data Manipulation Language)",
+      "DDL (Data Definition Language)",
+      "DCL (Data Control Language)",
+      "TCL (Transaction Control Language)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "DDL (Data Definition Language) includes commands like CREATE, ALTER, and DROP that define or modify the structure of database objects.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-018",
+    "question": "What category of SQL commands do SELECT, INSERT, UPDATE, and DELETE belong to?",
+    "options": [
+      "DDL (Data Definition Language)",
+      "DML (Data Manipulation Language)",
+      "DCL (Data Control Language)",
+      "TCL (Transaction Control Language)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "DML (Data Manipulation Language) commands handle the retrieval, insertion, updating, and deletion of data within tables.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-019",
+    "question": "What category of SQL commands do GRANT and REVOKE belong to?",
+    "options": [
+      "DDL (Data Definition Language)",
+      "DML (Data Manipulation Language)",
+      "DCL (Data Control Language)",
+      "TCL (Transaction Control Language)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "DCL (Data Control Language) manages user permissions, privileges, and access control on database objects using GRANT and REVOKE.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-020",
+    "question": "What category of SQL commands do COMMIT and ROLLBACK belong to?",
+    "options": [
+      "DML (Data Manipulation Language)",
+      "DDL (Data Definition Language)",
+      "TCL (Transaction Control Language)",
+      "DQL (Data Query Language)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "TCL (Transaction Control Language) manages transactions within a database, featuring commands like COMMIT, ROLLBACK, and SAVEPOINT.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-021",
+    "question": "What does the letter 'A' in the ACID properties of database transactions stand for?",
+    "options": [
+      "Availability",
+      "Atomicity",
+      "Accuracy",
+      "Authentication"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In ACID properties, 'A' stands for Atomicity, meaning all steps of a transaction complete successfully or none take effect.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-022",
+    "question": "What does the principle of 'Atomicity' guarantee in a database transaction?",
+    "options": [
+      "Data is stored in physical atomic units",
+      "All operations in a transaction execute successfully or the whole transaction is aborted (all or nothing)",
+      "Transactions can only be executed by a single user at any time",
+      "All tables must use numerical primary keys"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Atomicity ensures that a transaction is treated as a single indivisible unit: either all operations succeed, or none are applied.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-023",
+    "question": "What does the letter 'C' in ACID transaction properties stand for?",
+    "options": [
+      "Concurrency",
+      "Consistency",
+      "Compactness",
+      "Compatibility"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Consistency ensures that a transaction takes the database from one valid state to another, maintaining all integrity constraints.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-024",
+    "question": "What does the letter 'I' in ACID transaction properties stand for?",
+    "options": [
+      "Integrity",
+      "Isolation",
+      "Idempotency",
+      "Indexing"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Isolation guarantees that concurrent execution of transactions leaves the database in the same state as if executed sequentially.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-025",
+    "question": "What does the letter 'D' in ACID transaction properties stand for?",
+    "options": [
+      "Durability",
+      "Distribution",
+      "Dependency",
+      "Decentralization"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Durability guarantees that once a transaction has been committed, its updates survive permanently even in the event of a system crash.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-026",
+    "question": "Which SQL clause is used to filter records based on a specified condition?",
+    "options": [
+      "WHERE",
+      "ORDER BY",
+      "GROUP BY",
+      "AS"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The WHERE clause is used in SQL SELECT, UPDATE, and DELETE statements to filter records that satisfy a specific condition.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-027",
+    "question": "Which SQL clause is used to sort the result set in ascending or descending order?",
+    "options": [
+      "SORT BY",
+      "ORDER BY",
+      "GROUP BY",
+      "ALIGN"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The ORDER BY clause sorts retrieved rows in ascending (ASC) or descending (DESC) order based on specified column(s).",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-028",
+    "question": "Which SQL keyword is used to return only unique, non-duplicate values?",
+    "options": [
+      "UNIQUE",
+      "DISTINCT",
+      "INDIVIDUAL",
+      "SINGLE"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The DISTINCT keyword is used in a SELECT statement to remove duplicate rows from the query results.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-029",
+    "question": "Which SQL aggregate function returns the total count of rows that match a condition?",
+    "options": [
+      "SUM()",
+      "TOTAL()",
+      "COUNT()",
+      "NUMBER()"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The COUNT() function returns the number of rows that match specified search criteria, e.g., COUNT(*).",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-030",
+    "question": "Which SQL aggregate function calculates the average value of a numeric column?",
+    "options": [
+      "AVG()",
+      "MEAN()",
+      "MEDIAN()",
+      "AVERAGE()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The AVG() function calculates and returns the arithmetic mean of a numeric column.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-031",
+    "question": "Which SQL aggregate function returns the largest value among records in a column?",
+    "options": [
+      "HIGHEST()",
+      "MAX()",
+      "TOP()",
+      "PEAK()"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The MAX() aggregate function returns the maximum value found in a selected column.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-032",
+    "question": "Which SQL aggregate function returns the smallest value in a column?",
+    "options": [
+      "BOTTOM()",
+      "LEAST()",
+      "MIN()",
+      "LOWEST()"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The MIN() aggregate function returns the minimum value found in a selected column.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-033",
+    "question": "Which SQL aggregate function calculates the cumulative total of a numeric column?",
+    "options": [
+      "SUM()",
+      "ADD()",
+      "TOTAL()",
+      "AGGREGATE()"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The SUM() function adds up all numeric values in a specified column and returns the total.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-034",
+    "question": "Which SQL clause groups rows that have the same values into summary rows?",
+    "options": [
+      "ORDER BY",
+      "GROUP BY",
+      "CLUSTER BY",
+      "COLLECT BY"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The GROUP BY statement groups rows with identical values in specified columns, typically used alongside aggregate functions like COUNT or SUM.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-035",
+    "question": "Which SQL clause is used to filter records produced by a GROUP BY clause?",
+    "options": [
+      "WHERE",
+      "HAVING",
+      "LIMIT",
+      "RESTRICT"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The HAVING clause was added to SQL because the WHERE keyword cannot be applied directly to aggregate functions.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-036",
+    "question": "What is the key difference between WHERE and HAVING in SQL?",
+    "options": [
+      "WHERE filters rows before aggregation; HAVING filters groups after aggregation",
+      "WHERE can only be used with numeric data",
+      "HAVING is executed before table rows are fetched",
+      "There is no difference; they are interchangeable"
+    ],
+    "correctAnswer": 0,
+    "explanation": "WHERE filters individual rows prior to grouping, whereas HAVING filters aggregated groups after GROUP BY is applied.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-037",
+    "question": "Which SQL JOIN returns only the rows where there is a match in both tables?",
+    "options": [
+      "INNER JOIN",
+      "LEFT JOIN",
+      "RIGHT JOIN",
+      "FULL JOIN"
+    ],
+    "correctAnswer": 0,
+    "explanation": "INNER JOIN selects records that have matching values in both tables being joined.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-038",
+    "question": "Which SQL JOIN returns all records from the left table and matching records from the right table?",
+    "options": [
+      "RIGHT JOIN",
+      "LEFT JOIN",
+      "INNER JOIN",
+      "CROSS JOIN"
+    ],
+    "correctAnswer": 1,
+    "explanation": "LEFT JOIN (or LEFT OUTER JOIN) returns all records from the left table, and matching records from the right table (filling NULL if no match exists).",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-039",
+    "question": "Which SQL JOIN returns all records from the right table and matched records from the left table?",
+    "options": [
+      "LEFT JOIN",
+      "RIGHT JOIN",
+      "INNER JOIN",
+      "SELF JOIN"
+    ],
+    "correctAnswer": 1,
+    "explanation": "RIGHT JOIN (or RIGHT OUTER JOIN) returns all records from the right table, and matched values from the left table.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-040",
+    "question": "What does an ER Diagram stand for in database design?",
+    "options": [
+      "Entity-Relationship Diagram",
+      "Electronic-Record Diagram",
+      "Extended-Relational Diagram",
+      "Enterprise-Resource Diagram"
+    ],
+    "correctAnswer": 0,
+    "explanation": "ER Diagram stands for Entity-Relationship Diagram, a visual representation of entities, attributes, and relationships in a database.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-041",
+    "question": "In an Entity-Relationship (ER) diagram, which geometric shape represents an Entity?",
+    "options": [
+      "Ellipse",
+      "Rectangle",
+      "Diamond",
+      "Triangle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In standard ER diagrams, a Rectangle is used to represent an Entity (e.g., Student, Department).",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-042",
+    "question": "In an Entity-Relationship (ER) diagram, which shape represents an Attribute?",
+    "options": [
+      "Rectangle",
+      "Diamond",
+      "Ellipse (Oval)",
+      "Square"
+    ],
+    "correctAnswer": 2,
+    "explanation": "In standard ER diagrams, an Ellipse or Oval is used to represent an Attribute of an entity.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-043",
+    "question": "In an Entity-Relationship (ER) diagram, which geometric shape represents a Relationship?",
+    "options": [
+      "Diamond",
+      "Circle",
+      "Rectangle",
+      "Hexagon"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In standard ER diagrams, a Diamond shape is used to represent a Relationship connecting two or more entities.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-044",
+    "question": "What is the primary goal of Normalization in a relational database?",
+    "options": [
+      "To increase physical disk drive speed",
+      "To reduce data redundancy and avoid update anomalies",
+      "To combine all data into a single huge table",
+      "To prevent users from using SQL queries"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Normalization is the process of structuring relational database tables to reduce data redundancy and avoid insertion, update, and deletion anomalies.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-045",
+    "question": "What is the key requirement for a table to be in First Normal Form (1NF)?",
+    "options": [
+      "All columns must have foreign keys",
+      "Each column must contain only atomic (indivisible) values and rows must be unique",
+      "It must not contain any numerical columns",
+      "The table must contain at least 10 rows"
+    ],
+    "correctAnswer": 1,
+    "explanation": "1NF requires that all column values are atomic (no repeating groups or arrays) and each row is uniquely identifiable.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-046",
+    "question": "What is a Candidate Key in relational database design?",
+    "options": [
+      "A key that has been rejected by the administrator",
+      "A minimal superkey that can uniquely identify any tuple in a table",
+      "A foreign key that references an unindexed table",
+      "Any column containing duplicate strings"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A Candidate Key is a minimal set of attributes that uniquely identifies tuples in a relation; any candidate key can be chosen as the primary key.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-047",
+    "question": "What is the default sort direction of an ORDER BY clause if neither ASC nor DESC is specified?",
+    "options": [
+      "Descending (DESC)",
+      "Ascending (ASC)",
+      "Random order",
+      "Order of insertion"
+    ],
+    "correctAnswer": 1,
+    "explanation": "In standard SQL, the ORDER BY clause sorts records in Ascending order (ASC) by default.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-048",
+    "question": "In an SQL LIKE pattern matching clause, what does the percent sign (%) wildcard represent?",
+    "options": [
+      "Exactly one numeric digit",
+      "Zero, one, or multiple characters",
+      "Only lowercase letters",
+      "A mathematical percentage calculation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The percent sign (%) wildcard in SQL LIKE statements matches any sequence of zero or more characters.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-049",
+    "question": "In an SQL LIKE pattern matching clause, what does the underscore (_) wildcard represent?",
+    "options": [
+      "Exactly one single character",
+      "Zero or more characters",
+      "Any blank space",
+      "The end of the line"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The underscore (_) wildcard in SQL LIKE pattern matching matches exactly one single character.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  },
+  {
+    "questionId": "dbms-050",
+    "question": "What does a database transaction COMMIT command do?",
+    "options": [
+      "Cancels and undoes all changes made in the transaction",
+      "Permanently saves all changes made during the current transaction to the database",
+      "Deletes the database table",
+      "Pauses database queries until user approval"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The COMMIT command saves all modifications made by DML statements during the current transaction permanently into the database.",
+    "difficulty": "easy",
+    "topic": "DBMS"
+  }
+]

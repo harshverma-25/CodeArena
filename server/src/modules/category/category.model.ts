@@ -8,6 +8,7 @@ const CategorySchema = new Schema<ICategoryDocument>(
     description: { type: String, default: '' },
     icon: { type: String, default: '' },
     isActive: { type: Boolean, default: true, index: true },
+    playedCount: { type: Number, default: 0, min: 0 },
   },
   { timestamps: true }
 );
@@ -21,11 +22,13 @@ const SubjectSchema = new Schema<ISubjectDocument>(
     icon: { type: String, default: '' },
     thumbnailUrl: { type: String, default: '' },
     isActive: { type: Boolean, default: true, index: true },
+    playedCount: { type: Number, default: 0, min: 0 },
   },
   { timestamps: true }
 );
 
 SubjectSchema.index({ categoryId: 1, isActive: 1 });
+SubjectSchema.index({ playedCount: -1 });
 
 export const CategoryModel = model<ICategoryDocument>('Category', CategorySchema);
 export const SubjectModel = model<ISubjectDocument>('Subject', SubjectSchema);

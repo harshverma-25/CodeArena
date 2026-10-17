@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "sci-001",
+    "question": "Who developed the three fundamental laws of motion and the universal law of gravitation?",
+    "options": [
+      "Albert Einstein",
+      "Sir Isaac Newton",
+      "Galileo Galilei",
+      "Johannes Kepler"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir Isaac Newton laid the foundation of classical mechanics in his 1687 work 'Philosophiae Naturalis Principia Mathematica'.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-002",
+    "question": "Which theoretical physicist developed the theory of relativity and won the 1921 Nobel Prize for explaining the photoelectric effect?",
+    "options": [
+      "Max Planck",
+      "Albert Einstein",
+      "Niels Bohr",
+      "Erwin Schrödinger"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Albert Einstein fundamentally changed our understanding of space, time, gravity, and quantum physics.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-003",
+    "question": "Who was the Italian astronomer often called the 'Father of Modern Observational Astronomy' who used a telescope to discover moons around Jupiter?",
+    "options": [
+      "Nicolaus Copernicus",
+      "Galileo Galilei",
+      "Tycho Brahe",
+      "Giordano Bruno"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Galileo Galilei discovered the four largest moons of Jupiter, sunspots, and lunar craters, confirming the Copernican heliocentric model.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-004",
+    "question": "Who was the Polish astronomer who proposed the revolutionary Heliocentric model where Earth and other planets orbit the Sun?",
+    "options": [
+      "Galileo Galilei",
+      "Nicolaus Copernicus",
+      "Johannes Kepler",
+      "Ptolemy"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nicolaus Copernicus published 'De revolutionibus orbium coelestium' in 1543, displacing Earth from the center of the universe.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-005",
+    "question": "Who formulated the three mathematical laws of planetary motion, showing that planets orbit in ellipses rather than perfect circles?",
+    "options": [
+      "Galileo Galilei",
+      "Johannes Kepler",
+      "Tycho Brahe",
+      "Isaac Newton"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Johannes Kepler discovered that planetary orbits are elliptical with the Sun at one focus.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-006",
+    "question": "Who is the only scientist to have won Nobel Prizes in two different scientific fields (Physics in 1903 and Chemistry in 1911)?",
+    "options": [
+      "Linus Pauling",
+      "Marie Curie",
+      "John Bardeen",
+      "Frederick Sanger"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Marie Skłodowska-Curie won the Nobel Prize in Physics for radioactivity research and Chemistry for discovering radium and polonium.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-007",
+    "question": "Which Serbian-American electrical engineer designed the AC induction motor and developed the modern AC electrical transmission system?",
+    "options": [
+      "Thomas Edison",
+      "Nikola Tesla",
+      "Guglielmo Marconi",
+      "Alexander Graham Bell"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nikola Tesla held over 300 patents that enabled the modern electrical grid and high-frequency alternating current devices.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-008",
+    "question": "Who was the prolific American inventor who accumulated 1,093 US patents, including the phonograph and motion picture camera?",
+    "options": [
+      "Nikola Tesla",
+      "Thomas Edison",
+      "Henry Ford",
+      "Alexander Graham Bell"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Thomas Alva Edison established the world's first industrial research laboratory at Menlo Park, New Jersey.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-009",
+    "question": "Who discovered the first antibiotic, Penicillin, saving hundreds of millions of lives from bacterial infections?",
+    "options": [
+      "Louis Pasteur",
+      "Alexander Fleming",
+      "Edward Jenner",
+      "Robert Koch"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir Alexander Fleming made the serendipitous discovery of antibacterial penicillin mold at St. Mary's Hospital in London in 1928.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-010",
+    "question": "Who is known as the 'Father of Microbiology' for developing vaccines for rabies and discovering the process of pasteurization?",
+    "options": [
+      "Robert Koch",
+      "Louis Pasteur",
+      "Antonie van Leeuwenhoek",
+      "Joseph Lister"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Louis Pasteur disproved spontaneous generation and proved the germ theory of disease.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-011",
+    "question": "Who developed the smallpox vaccine in 1796, pioneering the field of immunology and leading to the global eradication of smallpox?",
+    "options": [
+      "Louis Pasteur",
+      "Edward Jenner",
+      "Jonas Salk",
+      "Albert Sabin"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Edward Jenner inoculated James Phipps with cowpox, demonstrating immunity against smallpox.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-012",
+    "question": "Who discovered the laws of genetic inheritance through eight years of breeding experiments with pea plants?",
+    "options": [
+      "Charles Darwin",
+      "Gregor Mendel",
+      "Thomas Hunt Morgan",
+      "Alfred Russel Wallace"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Gregor Mendel established the fundamental laws of segregation and independent assortment.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-013",
+    "question": "Who authored 'On the Origin of Species' in 1859, proposing the theory of evolution by natural selection?",
+    "options": [
+      "Gregor Mendel",
+      "Charles Darwin",
+      "Jean-Baptiste Lamarck",
+      "Thomas Malthus"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Charles Darwin's observations aboard HMS Beagle, especially in the Galápagos Islands, led to his theory of natural selection.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-014",
+    "question": "Who were the two scientists who deduced the double-helix structure of DNA at Cambridge in 1953?",
+    "options": [
+      "Charles Darwin and Gregor Mendel",
+      "James Watson and Francis Crick",
+      "Louis Pasteur and Robert Koch",
+      "Linus Pauling and George Beadle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "James Watson and Francis Crick solved the structural model of DNA using crucial X-ray diffraction data from Rosalind Franklin.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-015",
+    "question": "Which British biophysicist captured Photo 51, the critical X-ray diffraction image demonstrating the double-helix geometry of DNA?",
+    "options": [
+      "Ada Lovelace",
+      "Rosalind Franklin",
+      "Dorothy Hodgkin",
+      "Lise Meitner"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rosalind Franklin's superb X-ray crystallographic photo of B-DNA provided the vital experimental evidence for the double-helix structure.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-016",
+    "question": "Who was the Danish physicist who developed the planetary model of the atom with quantized electron energy levels?",
+    "options": [
+      "Ernest Rutherford",
+      "Niels Bohr",
+      "J.J. Thomson",
+      "Werner Heisenberg"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Niels Bohr proposed that electrons travel in discrete stable orbits without radiating energy, winning the 1922 Nobel Prize.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-017",
+    "question": "Who is known as the 'Father of Nuclear Physics' after discovering the atomic nucleus through his famous gold foil experiment?",
+    "options": [
+      "Niels Bohr",
+      "Ernest Rutherford",
+      "J.J. Thomson",
+      "James Chadwick"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ernest Rutherford's alpha particle scattering experiment proved that positive charge and mass are concentrated in a tiny central nucleus.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-018",
+    "question": "Who discovered the negatively charged electron in 1897 using cathode ray tubes?",
+    "options": [
+      "Ernest Rutherford",
+      "J.J. Thomson",
+      "James Chadwick",
+      "John Dalton"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir J.J. Thomson discovered the first subatomic particle (the electron) and proposed the plum pudding atomic model.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-019",
+    "question": "Who discovered the neutron inside the atomic nucleus in 1932, winning the 1935 Nobel Prize in Physics?",
+    "options": [
+      "Ernest Rutherford",
+      "James Chadwick",
+      "Niels Bohr",
+      "Enrico Fermi"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir James Chadwick discovered the uncharged neutron, completing the fundamental tri-particle picture of the atom.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-020",
+    "question": "Who is considered the 'Father of Modern Chemistry' for formulating the law of conservation of mass and naming oxygen and hydrogen?",
+    "options": [
+      "Robert Boyle",
+      "Antoine Lavoisier",
+      "John Dalton",
+      "Joseph Priestley"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Antoine Lavoisier proved that combustion is oxidation, debunked the phlogiston theory, and standardized chemical nomenclature.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-021",
+    "question": "Who formulated the first modern atomic theory in 1803, stating that all matter is composed of indivisible atoms?",
+    "options": [
+      "Robert Boyle",
+      "John Dalton",
+      "Antoine Lavoisier",
+      "Amadeo Avogadro"
+    ],
+    "correctAnswer": 1,
+    "explanation": "English schoolteacher John Dalton proposed that chemical elements consist of characteristic identical atoms that combine in whole-number ratios.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-022",
+    "question": "Who created the first periodic table of elements, successfully predicting the properties of undiscovered elements like gallium and germanium?",
+    "options": [
+      "Dmitri Mendeleev",
+      "Henry Moseley",
+      "Lothar Meyer",
+      "John Newlands"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Dmitri Mendeleev arranged the known 63 elements by atomic weight and periodic periodicity in 1869.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-023",
+    "question": "Which English physicist and chemist discovered electromagnetic induction, invented the electric motor and transformer, and introduced the terms anode, cathode, and electrode?",
+    "options": [
+      "James Clerk Maxwell",
+      "Michael Faraday",
+      "Andre-Marie Ampere",
+      "Heinrich Hertz"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Michael Faraday was one of the most prolific experimental scientists in history despite having little formal schooling.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-024",
+    "question": "Which Scottish mathematical physicist published the unified equations of electromagnetism proving light is an electromagnetic wave?",
+    "options": [
+      "Michael Faraday",
+      "James Clerk Maxwell",
+      "Lord Kelvin",
+      "Isaac Newton"
+    ],
+    "correctAnswer": 1,
+    "explanation": "James Clerk Maxwell unified electricity, magnetism, and optics into four classical partial differential equations.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-025",
+    "question": "Who was the German theoretical physicist considered the originator of quantum theory, introducing Planck's constant ($h$)?",
+    "options": [
+      "Albert Einstein",
+      "Max Planck",
+      "Werner Heisenberg",
+      "Erwin Schrödinger"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Max Planck resolved the ultraviolet catastrophe by proposing that energy is emitted in discrete packets called quanta ($E = h\\nu$).",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-026",
+    "question": "Who formulated the Uncertainty Principle, which states that one cannot simultaneously know the exact position and momentum of a particle?",
+    "options": [
+      "Max Planck",
+      "Werner Heisenberg",
+      "Niels Bohr",
+      "Louis de Broglie"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Werner Heisenberg introduced the fundamental quantum uncertainty principle ($Delta x cdot Delta p ge hbar/2$) in 1927.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-027",
+    "question": "Which Austrian theoretical physicist formulated the wave equation for quantum mechanics and proposed a famous cat thought experiment?",
+    "options": [
+      "Werner Heisenberg",
+      "Erwin Schrödinger",
+      "Paul Dirac",
+      "Wolfgang Pauli"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Erwin Schrödinger developed wave mechanics and formulated the Schrödinger's cat paradox illustrating quantum superposition.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-028",
+    "question": "Who is celebrated as the 'Father of Indian Space Program' and founder of ISRO?",
+    "options": [
+      "Dr. Homi Bhabha",
+      "Dr. Vikram Sarabhai",
+      "Dr. A.P.J. Abdul Kalam",
+      "Prof. Satish Dhawan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dr. Vikram Sarabhai convinced the Indian government of the importance of a space program and spearheaded INCOSPAR / ISRO.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-029",
+    "question": "Who is known as the 'Father of the Indian Nuclear Program' and founder of the Tata Institute of Fundamental Research (TIFR)?",
+    "options": [
+      "Dr. Vikram Sarabhai",
+      "Dr. Homi Jehangir Bhabha",
+      "Dr. C.V. Raman",
+      "Dr. Raja Ramanna"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dr. Homi Bhabha laid the architectural foundation for India's 3-stage nuclear power program.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-030",
+    "question": "Which Indian physicist won the 1930 Nobel Prize in Physics for discovering the scattering of light that bears his name?",
+    "options": [
+      "Satyendra Nath Bose",
+      "Sir C.V. Raman",
+      "Meghnad Saha",
+      "Subrahmanyan Chandrasekhar"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir C.V. Raman discovered the Raman Effect on February 28, 1928, celebrated annually in India as National Science Day.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-031",
+    "question": "Which Indian-American astrophysicist won the 1983 Nobel Prize for determining the maximum mass limit (~1.4 solar masses) of a stable white dwarf star?",
+    "options": [
+      "C.V. Raman",
+      "Subrahmanyan Chandrasekhar",
+      "S.N. Bose",
+      "Jayant Narlikar"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Subrahmanyan Chandrasekhar calculated the 'Chandrasekhar Limit' above which a dying star must collapse into a neutron star or black hole.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-032",
+    "question": "Which Indian astrophysicist developed the thermal ionization equation used to interpret stellar spectral classifications?",
+    "options": [
+      "Homi Bhabha",
+      "Meghnad Saha",
+      "C.V. Raman",
+      "J.C. Bose"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Saha Ionization Equation (1920) relates a star's temperature and pressure to the ionization states of its chemical elements.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-033",
+    "question": "Who was the theoretical physicist and director of the Manhattan Project's Los Alamos Laboratory, often called the 'Father of the Atomic Bomb'?",
+    "options": [
+      "Enrico Fermi",
+      "J. Robert Oppenheimer",
+      "Richard Feynman",
+      "Edward Teller"
+    ],
+    "correctAnswer": 1,
+    "explanation": "J. Robert Oppenheimer led the scientific team that developed the first nuclear weapons during World War II.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-034",
+    "question": "Which Italian-American physicist built the world's first artificial nuclear reactor (Chicago Pile-1) in 1942?",
+    "options": [
+      "Robert Oppenheimer",
+      "Enrico Fermi",
+      "Niels Bohr",
+      "Leo Szilard"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Enrico Fermi achieved the first self-sustaining controlled nuclear chain reaction under the University of Chicago football stadium.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-035",
+    "question": "Who was the renowned cosmologist who showed that black holes emit thermal radiation (now called Hawking radiation)?",
+    "options": [
+      "Carl Sagan",
+      "Stephen Hawking",
+      "Roger Penrose",
+      "Kip Thorne"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Stephen Hawking combined quantum mechanics with general relativity to prove black holes slowly radiate energy and evaporate.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-036",
+    "question": "Which American astronomer confirmed the existence of galaxies outside our Milky Way and proved the universe is expanding?",
+    "options": [
+      "Carl Sagan",
+      "Edwin Hubble",
+      "Harlow Shapley",
+      "George Gamow"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Edwin Hubble used the Hooker telescope at Mount Wilson to measure Cepheid variables in Andromeda, proving it is a separate galaxy.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-037",
+    "question": "Which American astronomer and science communicator hosted the legendary 1980 television series 'Cosmos: A Personal Voyage'?",
+    "options": [
+      "Neil deGrasse Tyson",
+      "Carl Sagan",
+      "Stephen Hawking",
+      "Bill Nye"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Carl Sagan inspired millions worldwide with his lyrical advocacy of scientific skepticism and space exploration.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-038",
+    "question": "Who invented the modern polio vaccine that virtually eradicated epidemic infantile paralysis worldwide?",
+    "options": [
+      "Edward Jenner",
+      "Jonas Salk",
+      "Louis Pasteur",
+      "Alexander Fleming"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dr. Jonas Salk developed the injectable inactivated polio vaccine in 1953, famously refusing to patent it so it could benefit humanity.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-039",
+    "question": "Who developed the oral polio vaccine (OPV) using attenuated live virus that became the primary tool for global eradication?",
+    "options": [
+      "Jonas Salk",
+      "Albert Sabin",
+      "Alexander Fleming",
+      "Paul Ehrlich"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dr. Albert Sabin developed the easily administered oral polio sugar-cube drop vaccine in the late 1950s.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-040",
+    "question": "Who was the British mathematician, cryptanalyst, and computer scientist who cracked the German Enigma code during World War II?",
+    "options": [
+      "Charles Babbage",
+      "Alan Turing",
+      "John von Neumann",
+      "Claude Shannon"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Alan Turing designed the Bombe machines at Bletchley Park, formulated the Turing Machine, and established modern computer science.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-041",
+    "question": "Who was the Hungarian-American mathematician who pioneered digital computer architecture (CPU, memory, ALU), game theory, and cellular automata?",
+    "options": [
+      "Alan Turing",
+      "John von Neumann",
+      "Norbert Wiener",
+      "Kurt Gödel"
+    ],
+    "correctAnswer": 1,
+    "explanation": "John von Neumann created the stored-program computer architecture upon which virtually all modern computers operate.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-042",
+    "question": "Who is known as the 'Father of Modern Surgery' for introducing carbolic acid (phenol) antiseptic techniques in hospitals?",
+    "options": [
+      "Edward Jenner",
+      "Joseph Lister",
+      "William Harvey",
+      "Ignaz Semmelweis"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir Joseph Lister applied Pasteur's germ theory to surgery, drastically reducing post-operative surgical gangrene and sepsis.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-043",
+    "question": "Who discovered that blood circulates continuously in one direction throughout the human body propelled by the heart as a pump?",
+    "options": [
+      "Claudius Galen",
+      "William Harvey",
+      "Andreas Vesalius",
+      "Hippocrates"
+    ],
+    "correctAnswer": 1,
+    "explanation": "English physician William Harvey published his groundbreaking treatise 'De Motu Cordis' in 1628.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-044",
+    "question": "Who is widely revered as the 'Father of Medicine' and author of the ancient ethical oath taken by physicians?",
+    "options": [
+      "Galen",
+      "Hippocrates",
+      "Aristotle",
+      "Socrates"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ancient Greek physician Hippocrates established medicine as a distinct profession based on observation rather than superstition.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-045",
+    "question": "Which Dutch scientist is known as the 'Father of Microbiology' for grinding his own precision lenses and discovering microscopic protozoa and bacteria?",
+    "options": [
+      "Robert Hooke",
+      "Antonie van Leeuwenhoek",
+      "Christiaan Huygens",
+      "Zacharias Janssen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Antonie van Leeuwenhoek was the first person to observe and describe single-celled organisms, which he called animalcules.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-046",
+    "question": "Which German scientist discovered X-radiation in 1895, taking the first X-ray image of his wife's hand?",
+    "options": [
+      "Henri Becquerel",
+      "Wilhelm Röntgen",
+      "Max Planck",
+      "Heinrich Hertz"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Wilhelm Conrad Röntgen discovered X-rays while experimenting with Lenard tubes, winning the very first Nobel Prize in Physics in 1901.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-047",
+    "question": "Who discovered natural radioactivity in uranium salts in 1896, sharing the 1903 Nobel Prize with Marie and Pierre Curie?",
+    "options": [
+      "Ernest Rutherford",
+      "Henri Becquerel",
+      "Wilhelm Röntgen",
+      "J.J. Thomson"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Henri Becquerel discovered that uranium crystals spontaneously darkened photographic plates even when wrapped in black paper.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-048",
+    "question": "Who was the American theoretical physicist celebrated for his quantum electrodynamics diagrams, charismatic teaching, and bongo drumming?",
+    "options": [
+      "Murray Gell-Mann",
+      "Richard Feynman",
+      "Carl Sagan",
+      "J. Robert Oppenheimer"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Richard Feynman won the 1965 Nobel Prize in Physics for quantum electrodynamics and popularized physics through books and lectures.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-049",
+    "question": "Which British scientist proposed the existence of a scalar boson field that imparts mass to fundamental particles, verified at CERN in 2012?",
+    "options": [
+      "Stephen Hawking",
+      "Peter Higgs",
+      "Paul Dirac",
+      "Roger Penrose"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Peter Higgs predicted the Higgs boson in 1964, which was discovered at the Large Hadron Collider in 2012.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  },
+  {
+    "questionId": "sci-050",
+    "question": "Who was the Greek mathematician and inventor who famously shouted 'Eureka!' after discovering the principle of buoyancy in his bath?",
+    "options": [
+      "Pythagoras",
+      "Archimedes of Syracuse",
+      "Euclid",
+      "Eratosthenes"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Archimedes realized that the volume of water displaced equaled the volume of his submerged body, formulating his buoyancy principle.",
+    "difficulty": "easy",
+    "topic": "Famous Scientists"
+  }
+]

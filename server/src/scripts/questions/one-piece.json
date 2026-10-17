@@ -1,0 +1,452 @@
+[
+  {
+    "questionId": "one-piece-001",
+    "question": "What is Monkey D. Luffy's ultimate dream?",
+    "options": ["To become the greatest swordsman", "To find All Blue", "To become the King of the Pirates", "To map the entire world"],
+    "correctAnswer": 2,
+    "explanation": "Luffy sets out to sea with the goal of finding the One Piece and becoming the King of the Pirates.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-002",
+    "question": "What is the name of Monkey D. Luffy's pirate crew?",
+    "options": ["Red Hair Pirates", "Straw Hat Pirates", "Whitebeard Pirates", "Heart Pirates"],
+    "correctAnswer": 1,
+    "explanation": "Luffy's crew is known as the Straw Hat Pirates (Mugiwara Pirates).",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-003",
+    "question": "What kind of Devil Fruit did Luffy eat as a child?",
+    "options": ["Mera Mera no Mi (Flame-Flame Fruit)", "Gomu Gomu no Mi (Gum-Gum Fruit)", "Ope Ope no Mi (Op-Op Fruit)", "Gura Gura no Mi (Tremor-Tremor Fruit)"],
+    "correctAnswer": 1,
+    "explanation": "Luffy ate the Gomu Gomu no Mi (later revealed as Hito Hito no Mi, Model: Nika), which turned his body into rubber.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-004",
+    "question": "Who was the first crew member to join Luffy's Straw Hat crew?",
+    "options": ["Sanji", "Nami", "Roronoa Zoro", "Usopp"],
+    "correctAnswer": 2,
+    "explanation": "Roronoa Zoro was recruited by Luffy in Shells Town as the first member of the Straw Hats.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-005",
+    "question": "How many swords does Roronoa Zoro famously wield in combat?",
+    "options": ["One", "Two", "Three", "Four"],
+    "correctAnswer": 2,
+    "explanation": "Zoro is master of the Santoryu (Three-Sword Style), holding one sword in each hand and one in his mouth.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-006",
+    "question": "What is the primary role of Nami on the Straw Hat pirate ship?",
+    "options": ["Cook", "Doctor", "Navigator", "Sniper"],
+    "correctAnswer": 2,
+    "explanation": "Nami is the expert navigator of the Straw Hat crew with a dream to draw a complete map of the world.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-007",
+    "question": "What is Sanji's primary role and dream aboard the Thousand Sunny?",
+    "options": ["Shipwright; find Laugh Tale", "Doctor; cure all diseases", "Cook; find the legendary sea 'All Blue'", "Musician; reunite with Laboon"],
+    "correctAnswer": 2,
+    "explanation": "Sanji is the Straw Hats' master chef whose dream is to discover the mythical All Blue where fish from all four seas swim together.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-008",
+    "question": "Why does Sanji only fight using his legs and feet?",
+    "options": ["His arms are too weak", "He refuses to risk damaging his hands used for cooking", "He was cursed by a devil fruit", "His legs have cybernetic implants"],
+    "correctAnswer": 1,
+    "explanation": "Sanji believes a cook's hands are sacred exclusively for food preparation, so he uses strictly kick attacks.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-009",
+    "question": "What is Tony Tony Chopper's species and role in the crew?",
+    "options": ["A dog who is a sniper", "A blue-nosed reindeer who is the crew's doctor", "A raccoon who is the helmsman", "A mink bear who is a musician"],
+    "correctAnswer": 1,
+    "explanation": "Chopper is a blue-nosed reindeer who ate the Human-Human Fruit (Hito Hito no Mi) and serves as the doctor.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-010",
+    "question": "Who gave Luffy his iconic straw hat and inspired him to become a pirate?",
+    "options": ["Gol D. Roger", "Silvers Rayleigh", "Red-Haired Shanks", "Monkey D. Garp"],
+    "correctAnswer": 2,
+    "explanation": "Red-Haired Shanks gave his treasured straw hat to Luffy in Foosha Village, promising Luffy would return it when he became a great pirate.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-011",
+    "question": "What was the name of the Straw Hats' first pirate ship before the Thousand Sunny?",
+    "options": ["Moby Dick", "Going Merry", "Red Force", "Victoria Punk"],
+    "correctAnswer": 1,
+    "explanation": "The Going Merry, gifted by Kaya in Syrup Village, was their beloved first ship.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-012",
+    "question": "Who built the Straw Hats' second ship, the Thousand Sunny?",
+    "options": ["Iceburg", "Tom", "Franky", "Usopp"],
+    "correctAnswer": 2,
+    "explanation": "Franky built the Thousand Sunny from the indestructible Treasure Tree Adam and joined as their shipwright.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-013",
+    "question": "What is Brook's physical form and musical role in the crew?",
+    "options": ["A ghost playing flute", "A living skeleton who plays violin and guitar", "A fish-man drummer", "A cyborg trumpeter"],
+    "correctAnswer": 1,
+    "explanation": "Brook ate the Revive-Revive Fruit (Yomi Yomi no Mi), returning as a living skeleton, and serves as the Straw Hats' musician.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-014",
+    "question": "What is Nico Robin's unique ability and archaeological dream?",
+    "options": ["Create clones; find Elbaf", "Sprout body parts using Hana Hana no Mi; decipher Poneglyphs to learn the Void Century", "Control weather; find Pluton", "Read minds; conquer Mary Geoise"],
+    "correctAnswer": 1,
+    "explanation": "Robin ate the Flower-Flower Fruit (Hana Hana no Mi) and is the sole survivor of Ohara capable of reading Poneglyphs.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-015",
+    "question": "Who is the helmsman of the Straw Hat crew and former Warlord of the Sea?",
+    "options": ["Arlong", "Jinbe", "Hatchan", "Fisher Tiger"],
+    "correctAnswer": 1,
+    "explanation": "Jinbe, the 'Knight of the Sea' and master of Fish-Man Karate, officially joined the crew as their helmsman.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-016",
+    "question": "What is the universal weakness shared by all Devil Fruit users in One Piece?",
+    "options": ["They cannot stand loud noises", "They lose all strength and drown in standing water/seawater", "They cannot eat meat", "They age twice as fast"],
+    "correctAnswer": 1,
+    "explanation": "The sea hates Devil Fruit users; when submerged in water, they lose their energy and cannot swim.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-017",
+    "question": "Who was the legendary King of the Pirates who hid the One Piece treasure on Laugh Tale?",
+    "options": ["Rocks D. Xebec", "Edward Newgate", "Gol D. Roger", "Kouzuki Oden"],
+    "correctAnswer": 2,
+    "explanation": "Gol D. Roger was the Pirate King who conquered the Grand Line and initiated the Great Pirate Era at his execution.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-018",
+    "question": "Who is Luffy's grandfather and a legendary Marine Vice Admiral?",
+    "options": ["Sengoku", "Monkey D. Garp", "Akainu", "Kuzan"],
+    "correctAnswer": 1,
+    "explanation": "Monkey D. Garp, the 'Hero of the Marines', is Luffy's grandfather.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-019",
+    "question": "Who is Luffy's biological father and leader of the Revolutionary Army?",
+    "options": ["Monkey D. Dragon", "Silvers Rayleigh", "Clover", "Vegapunk"],
+    "correctAnswer": 0,
+    "explanation": "Monkey D. Dragon, the 'World's Worst Criminal', is the Supreme Commander of the Revolutionary Army and Luffy's father.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-020",
+    "question": "Who are Luffy's two sworn adoptive brothers from childhood?",
+    "options": ["Zoro and Sanji", "Portgas D. Ace and Sabo", "Coby and Helmeppo", "Law and Kid"],
+    "correctAnswer": 1,
+    "explanation": "Luffy, Ace, and Sabo shared cups of sake on Mount Colubo to swear an eternal brotherhood.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-021",
+    "question": "What Devil Fruit did Portgas D. Ace consume?",
+    "options": ["Magu Magu no Mi", "Mera Mera no Mi (Flame-Flame Fruit)", "Hie Hie no Mi", "Pika Pika no Mi"],
+    "correctAnswer": 1,
+    "explanation": "Ace ate the Mera Mera no Mi, a Logia-type fruit giving him the power of fire.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-022",
+    "question": "Who succeeded Ace as the wielder of the Flame-Flame Fruit in Dressrosa?",
+    "options": ["Luffy", "Sabo", "Bartolomeo", "Burgess"],
+    "correctAnswer": 1,
+    "explanation": "Sabo, Chief of Staff of the Revolutionary Army, won the Corrida Colosseum tournament and ate the Mera Mera no Mi.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-023",
+    "question": "What is the three-class system of Devil Fruits?",
+    "options": ["Fire, Water, Earth", "Paramecia, Zoan, Logia", "Offense, Defense, Support", "Common, Rare, Legendary"],
+    "correctAnswer": 1,
+    "explanation": "Devil Fruits are categorized into Paramecia (body modifications/substances), Zoan (animal transformations), and Logia (elemental).",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-024",
+    "question": "What mineral substance emits the same energy as the sea and neutralizes Devil Fruit abilities?",
+    "options": ["Seastone (Kairōseki)", "Poneglyph Stone", "Vearth", "Wapometal"],
+    "correctAnswer": 0,
+    "explanation": "Seastone emits sea energy that drains the physical strength of Devil Fruit users on contact.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-025",
+    "question": "Who was the 'Strongest Man in the World' and captain of the Whitebeard Pirates?",
+    "options": ["Kaido", "Big Mom", "Edward Newgate (Whitebeard)", "Shanks"],
+    "correctAnswer": 2,
+    "explanation": "Edward Newgate, known as Whitebeard, wielded the Tremor-Tremor Fruit and was celebrated as the Strongest Man in the World.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-026",
+    "question": "Which Marine Admiral possesses the Mag-Mag Fruit and killed Ace at the Summit War of Marineford?",
+    "options": ["Aokiji (Kuzan)", "Kizaru (Borsalino)", "Akainu (Sakazuki)", "Fujitora (Issho)"],
+    "correctAnswer": 2,
+    "explanation": "Akainu (Sakazuki), user of the magma Logia fruit, dealt the fatal blow to Ace protecting Luffy.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-027",
+    "question": "Who is currently the World's Greatest Swordsman whom Zoro vows to defeat?",
+    "options": ["Shanks", "Dracule Mihawk", "Fujitora", "Vista"],
+    "correctAnswer": 1,
+    "explanation": "Dracule 'Hawk-Eyes' Mihawk holds the title of World's Greatest Swordsman.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-028",
+    "question": "What is the name of Dracule Mihawk's legendary Black Blade sword?",
+    "options": ["Wado Ichimonji", "Yoru", "Shusui", "Sandai Kitetsu"],
+    "correctAnswer": 1,
+    "explanation": "Yoru is one of the 12 Supreme Grade Swords and the signature weapon of Mihawk.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-029",
+    "question": "Which sword did Zoro inherit from his childhood friend and rival Kuina?",
+    "options": ["Yoru", "Wado Ichimonji", "Enma", "Sandai Kitetsu"],
+    "correctAnswer": 1,
+    "explanation": "Wado Ichimonji was Kuina's sword, which Zoro carries in his mouth in her honor.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-030",
+    "question": "What is the alias adopted by Usopp when he wore a mask to help save Robin at Enies Lobby?",
+    "options": ["Captain Usopp", "Sogeking (Sniper King)", "God Usopp", "Usoland"],
+    "correctAnswer": 1,
+    "explanation": "Usopp donned a cape and mask to become Sogeking, the king of snipers from Sniper Island.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-031",
+    "question": "What are the three forms of Haki in the One Piece universe?",
+    "options": ["Fire, Wind, Lightning", "Observation (Kenbunshoku), Armament (Busoshoku), Conqueror's (Haoshoku)", "Ninjutsu, Taijutsu, Genjutsu", "Offense, Defense, Speed"],
+    "correctAnswer": 1,
+    "explanation": "The three forms of Haki are Observation (sensing), Armament (hardening), and Conqueror's (imposing willpower).",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-032",
+    "question": "Who trained Luffy in Haki during the two-year timeskip on Rusukaina?",
+    "options": ["Monkey D. Garp", "Silvers Rayleigh (The Dark King)", "Red-Haired Shanks", "Jinbe"],
+    "correctAnswer": 1,
+    "explanation": "Silvers Rayleigh, the former first mate of the Roger Pirates, trained Luffy in all three types of Haki.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-033",
+    "question": "What is the name of Trafalgar D. Water Law's pirate crew?",
+    "options": ["Kid Pirates", "Heart Pirates", "Drake Pirates", "Onsen Pirates"],
+    "correctAnswer": 1,
+    "explanation": "Trafalgar Law is the captain and doctor of the Heart Pirates who sail in a submarine.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-034",
+    "question": "What is the ability granted by Law's Ope Ope no Mi?",
+    "options": ["Create an invisible surgical sphere ('Room') where he manipulates everything", "Control lightning across islands", "Turn body parts into weapons", "Create seismic shockwaves"],
+    "correctAnswer": 0,
+    "explanation": "The Op-Op Fruit allows Law to create a spherical territory called 'Room' where he can spatially manipulate objects and bodies.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-035",
+    "question": "Which villain ruled the desert kingdom of Alabasta from behind the scenes using Baroque Works?",
+    "options": ["Doflamingo", "Sir Crocodile", "Rob Lucci", "Gecko Moria"],
+    "correctAnswer": 1,
+    "explanation": "Sir Crocodile, user of the Sand-Sand Fruit, operated Baroque Works under the code name 'Mr. 0'.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-036",
+    "question": "Who is the princess of Alabasta who sailed with the Straw Hats as their honorary crewmate?",
+    "options": ["Rebecca", "Nefertari Vivi", "Shirahoshi", "Yamato"],
+    "correctAnswer": 1,
+    "explanation": "Princess Nefertari Vivi traveled with the Straw Hats from Reverse Mountain through the liberation of Alabasta.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-037",
+    "question": "What celestial body is Enel obsessed with traveling to using his flying ark Maxim?",
+    "options": ["The Sun", "Fairy Vearth (The Moon)", "Mars", "Saturn"],
+    "correctAnswer": 1,
+    "explanation": "Enel built the Ark Maxim to travel to 'Fairy Vearth', which is the Moon.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-038",
+    "question": "Who is the Empress of Amazon Lily who fell deeply in love with Luffy?",
+    "options": ["Boa Hancock", "Vinsmoke Reiju", "Charlotte Pudding", "Carrot"],
+    "correctAnswer": 0,
+    "explanation": "Boa Hancock, the Snake Princess of the Kuja and user of the Love-Love Fruit, fell in love with Luffy.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-039",
+    "question": "What is the name of the great underwater prison managed by Chief Warden Magellan?",
+    "options": ["Enies Lobby", "Marineford", "Impel Down", "G-5"],
+    "correctAnswer": 2,
+    "explanation": "Impel Down is the World Government's maximum-security underwater penitentiary.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-040",
+    "question": "What is the name of the island in the sky reached via the Knock Up Stream?",
+    "options": ["Fish-Man Island", "Skypiea", "Wano", "Zou"],
+    "correctAnswer": 1,
+    "explanation": "Skypiea is the cloud island kingdom located 10,000 meters above the sea in the White-White Sea.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-041",
+    "question": "What massive island sits on the back of a colossal thousand-year-old walking elephant named Zunesha?",
+    "options": ["Elbaf", "Zou", "Totto Land", "Egghead"],
+    "correctAnswer": 1,
+    "explanation": "Zou is home to the Mink Tribe, located atop the back of the gigantic walking elephant Zunesha.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-042",
+    "question": "What evil underworld broker persona was used by Donquixote Doflamingo?",
+    "options": ["Joker", "King", "Jack", "Queen"],
+    "correctAnswer": 0,
+    "explanation": "Doflamingo operated in the criminal underworld under the codename 'Joker', producing artificial SMILE fruits.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-043",
+    "question": "What is the name of Big Mom's sweet-themed archipelago kingdom?",
+    "options": ["Dressrosa", "Totto Land (Whole Cake Island)", "Germa 66", "Sphinx"],
+    "correctAnswer": 1,
+    "explanation": "Charlotte Linlin (Big Mom) rules Totto Land, centered around Whole Cake Island.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-044",
+    "question": "Who was the 'Strongest Creature in the World' who ruled over Wano Country?",
+    "options": ["Katakuri", "Kaido", "King the Conflagration", "Orochi"],
+    "correctAnswer": 1,
+    "explanation": "Kaido of the Beasts ruled Onigashima and Wano, renowned as the strongest creature alive.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-045",
+    "question": "What is Luffy's awakened Gear 5 form connected to in myth?",
+    "options": ["The Buddha", "Sun God Nika, the Warrior of Liberation", "Asura", "Yamata no Orochi"],
+    "correctAnswer": 1,
+    "explanation": "Gear 5 represents the awakening of the Mythical Zoan fruit Hito Hito no Mi, Model: Nika (Sun God Nika).",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-046",
+    "question": "Who is Kaido's daughter who idolizes Kozuki Oden and aided Luffy in the Wano raid?",
+    "options": ["Ulti", "Black Maria", "Yamato", "Kiku"],
+    "correctAnswer": 2,
+    "explanation": "Yamato, child of Kaido, proclaims herself to be Kozuki Oden and fought valiantly beside the Straw Hats.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-047",
+    "question": "What is the name of the final island on the Grand Line where the One Piece is located?",
+    "options": ["Raftel / Laugh Tale", "Lodestar Island", "God Valley", "Mary Geoise"],
+    "correctAnswer": 0,
+    "explanation": "Gol D. Roger named the final island 'Laugh Tale' after laughing at the story left behind by Joy Boy.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-048",
+    "question": "What kind of ancient massive cubes are required to locate Laugh Tale?",
+    "options": ["Dial Stones", "Road Poneglyphs (Red Poneglyphs)", "Seastone Pillars", "Dials"],
+    "correctAnswer": 1,
+    "explanation": "There are four Red Road Poneglyphs; when their coordinates are combined, they pinpoint Laugh Tale.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-049",
+    "question": "Who was Luffy's friend who joined the Marines and rose under Garp's tutelage to become a Marine Captain/Hero?",
+    "options": ["Helmeppo", "Coby", "Smoker", "Tashigi"],
+    "correctAnswer": 1,
+    "explanation": "Coby, whom Luffy freed from Alvida in Chapter 2, trained with Garp to become a courageous Marine Captain.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  },
+  {
+    "questionId": "one-piece-050",
+    "question": "Who is the treacherous pirate captain of the Blackbeard Pirates who wields both Dark and Tremor fruit powers?",
+    "options": ["Buggy", "Marshall D. Teach (Blackbeard)", "Eustass Kid", "Gecko Moria"],
+    "correctAnswer": 1,
+    "explanation": "Marshall D. Teach is the only known individual in history to wield two Devil Fruit powers simultaneously.",
+    "difficulty": "easy",
+    "topic": "One Piece"
+  }
+]

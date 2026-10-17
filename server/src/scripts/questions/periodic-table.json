@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "pt-001",
+    "question": "Who is celebrated as the primary creator of the first organized Periodic Table of Elements in 1869?",
+    "options": [
+      "Antoine Lavoisier",
+      "Dmitri Mendeleev",
+      "John Newlands",
+      "Henry Moseley"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Russian chemist Dmitri Mendeleev organized elements by increasing atomic mass and predicted properties of yet undiscovered elements.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-002",
+    "question": "How are chemical elements arranged in the modern periodic table?",
+    "options": [
+      "Increasing atomic mass",
+      "Increasing atomic number (number of protons)",
+      "Alphabetical order",
+      "Order of discovery"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Following Henry Moseley's work, modern elements are sequenced strictly by increasing atomic number.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-003",
+    "question": "What are the horizontal rows on the Periodic Table called?",
+    "options": [
+      "Groups",
+      "Periods",
+      "Families",
+      "Series"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The periodic table contains 7 horizontal rows called periods, indicating the highest electron energy level filled.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-004",
+    "question": "What are the vertical columns on the Periodic Table called?",
+    "options": [
+      "Periods",
+      "Groups (or Families)",
+      "Blocks",
+      "Tiers"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Vertical columns are called groups; elements in the same group share identical valence electron configurations and similar chemistry.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-005",
+    "question": "How many official periods are there in the modern Periodic Table?",
+    "options": [
+      "5",
+      "7",
+      "8",
+      "10"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The modern standard periodic table has exactly 7 horizontal periods.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-006",
+    "question": "How many numbered groups (columns) are in the standard modern Periodic Table?",
+    "options": [
+      "8",
+      "12",
+      "16",
+      "18"
+    ],
+    "correctAnswer": 3,
+    "explanation": "The IUPAC periodic table contains 18 numbered vertical groups from alkali metals (Group 1) to noble gases (Group 18).",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-007",
+    "question": "What is Group 18 of the Periodic Table collectively known as?",
+    "options": [
+      "Alkali metals",
+      "Halogens",
+      "Noble gases",
+      "Transition metals"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Group 18 elements (Helium, Neon, Argon, Krypton, Xenon, Radon, Oganesson) have full outer electron shells and are chemically inert.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-008",
+    "question": "What is Group 1 of the Periodic Table (excluding Hydrogen) called?",
+    "options": [
+      "Alkaline earth metals",
+      "Alkali metals",
+      "Halogens",
+      "Metalloids"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Group 1 metals (Lithium, Sodium, Potassium, Rubidium, Cesium, Francium) are highly reactive soft alkali metals.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-009",
+    "question": "What is Group 2 of the Periodic Table called?",
+    "options": [
+      "Alkali metals",
+      "Alkaline earth metals",
+      "Transition metals",
+      "Noble gases"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Group 2 elements (Beryllium, Magnesium, Calcium, Strontium, Barium, Radium) are alkaline earth metals with two valence electrons.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-010",
+    "question": "What is Group 17 of the Periodic Table called, meaning 'salt-former'?",
+    "options": [
+      "Noble gases",
+      "Halogens",
+      "Chalcogens",
+      "Pnictogens"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Halogens (Fluorine, Chlorine, Bromine, Iodine, Astatine) readily react with metals to form ionic salts.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-011",
+    "question": "What is the lightest chemical element in the entire Periodic Table?",
+    "options": [
+      "Helium",
+      "Hydrogen",
+      "Lithium",
+      "Carbon"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hydrogen ($H$) has an atomic mass of approximately 1.008 amu and atomic number 1.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-012",
+    "question": "What is the second lightest and second most abundant element in the universe?",
+    "options": [
+      "Hydrogen",
+      "Helium",
+      "Oxygen",
+      "Nitrogen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Helium ($He$, atomic number 2) comprises about 24% of the observable elemental mass in the universe.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-013",
+    "question": "What is the chemical symbol for Helium?",
+    "options": [
+      "H",
+      "He",
+      "Hl",
+      "Hm"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The chemical symbol for Helium is He.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-014",
+    "question": "What is the chemical symbol for Nitrogen?",
+    "options": [
+      "Ni",
+      "Na",
+      "N",
+      "Nt"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Nitrogen has atomic number 7 and is represented by the single letter N.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-015",
+    "question": "What is the chemical symbol for Carbon?",
+    "options": [
+      "Ca",
+      "C",
+      "Cr",
+      "Co"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Carbon is represented by the chemical symbol C.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-016",
+    "question": "What is the chemical symbol for Calcium?",
+    "options": [
+      "C",
+      "Ca",
+      "Cl",
+      "Cm"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Calcium has atomic number 20 and chemical symbol Ca.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-017",
+    "question": "What is the chemical symbol for Chlorine?",
+    "options": [
+      "Ch",
+      "Cl",
+      "Cr",
+      "C"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Chlorine has atomic number 17 and symbol Cl.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-018",
+    "question": "What is the chemical symbol for Copper?",
+    "options": [
+      "Co",
+      "Cu",
+      "Cp",
+      "Cr"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The symbol Cu comes from the Latin word 'Cuprum' (from Cyprus, famous for copper mines).",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-019",
+    "question": "What is the chemical symbol for Mercury?",
+    "options": [
+      "Me",
+      "Hg",
+      "Mc",
+      "Hy"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The symbol Hg comes from Greek 'Hydrargyrum', meaning 'liquid silver' or 'water-silver'.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-020",
+    "question": "What is the chemical symbol for Potassium?",
+    "options": [
+      "P",
+      "Po",
+      "K",
+      "Pt"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Potassium is represented by K, derived from the Neo-Latin word Kalium.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-021",
+    "question": "What element has the chemical symbol 'P'?",
+    "options": [
+      "Potassium",
+      "Phosphorus",
+      "Platinum",
+      "Polonium"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Phosphorus (atomic number 15) has the symbol P.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-022",
+    "question": "What is the chemical symbol for Tungsten, derived from its German name 'Wolfram'?",
+    "options": [
+      "Tu",
+      "Tg",
+      "W",
+      "Tn"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Tungsten uses the symbol W, derived from Wolframite / Wolfram.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-023",
+    "question": "What element has the highest melting point of any metal (3,422°C), traditionally used in light bulb filaments?",
+    "options": [
+      "Titanium",
+      "Platinum",
+      "Tungsten (W)",
+      "Osmium"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Tungsten's exceptionally high melting point of 3,422°C (6,192°F) made it ideal for incandescent filaments.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-024",
+    "question": "What is the densest naturally occurring element on Earth?",
+    "options": [
+      "Lead",
+      "Gold",
+      "Osmium",
+      "Uranium"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Osmium (Os) has a density of 22.59 g/cm³, slightly denser than iridium and nearly twice as dense as lead.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-025",
+    "question": "What is the lightest solid metal on the Periodic Table?",
+    "options": [
+      "Aluminum",
+      "Lithium",
+      "Sodium",
+      "Magnesium"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lithium ($Li$, atomic number 3) has a density of only 0.534 g/cm³, light enough to float on water or kerosene.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-026",
+    "question": "What element is the most abundant element in the Earth's crust by mass?",
+    "options": [
+      "Silicon",
+      "Oxygen",
+      "Iron",
+      "Aluminum"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Oxygen accounts for about 46.6% of the mass of the Earth's crust, mostly bound as silicate minerals.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-027",
+    "question": "What is the second most abundant element in the Earth's crust, widely used in semiconductor microchips?",
+    "options": [
+      "Carbon",
+      "Silicon",
+      "Aluminum",
+      "Germanium"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Silicon ($Si$) makes up 27.7% of the crust and forms the foundation of modern integrated circuits.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-028",
+    "question": "What is the most abundant metal in the Earth's crust by mass?",
+    "options": [
+      "Iron",
+      "Aluminum",
+      "Calcium",
+      "Copper"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Aluminum is the most abundant metal in the crust (~8.1% of crustal mass), extracted commercially from bauxite ore.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-029",
+    "question": "What is the most electronegative element on the Periodic Table?",
+    "options": [
+      "Chlorine",
+      "Oxygen",
+      "Fluorine",
+      "Nitrogen"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Fluorine has the highest electronegativity rating of 3.98 on the Pauling scale.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-030",
+    "question": "What are elements that share intermediate properties of both metals and nonmetals called (e.g., Silicon, Boron, Arsenic)?",
+    "options": [
+      "Halogens",
+      "Metalloids (semimetals)",
+      "Transition metals",
+      "Lanthanides"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Metalloids possess metallic luster but behave as semiconductors of electricity.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-031",
+    "question": "Which metallic element is liquid at temperatures just above room temperature and melts in human hand warmth (29.76°C)?",
+    "options": [
+      "Mercury",
+      "Gallium",
+      "Cesium",
+      "Sodium"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Gallium ($Ga$) melts at 29.76°C (85.57°F), liquefying when held in a human hand.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-032",
+    "question": "What radioactive actinide element with atomic number 92 is the primary fuel used in nuclear power stations?",
+    "options": [
+      "Thorium",
+      "Uranium",
+      "Plutonium",
+      "Radium"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Uranium ($U$, atomic number 92) possesses the fissile isotope U-235, which sustains controlled nuclear chain reactions.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-033",
+    "question": "How many known chemical elements currently comprise the completed seven periods of the Periodic Table?",
+    "options": [
+      "100",
+      "109",
+      "118",
+      "126"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The Periodic Table currently has 118 verified elements, terminating with element 118, Oganesson ($Og$).",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-034",
+    "question": "What element has atomic number 118, the heaviest synthetic element in the periodic table?",
+    "options": [
+      "Tennessine",
+      "Oganesson",
+      "Moscovium",
+      "Livermorium"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Oganesson ($Og$) is element 118, named after Russian nuclear physicist Yuri Oganessian.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-035",
+    "question": "What element has atomic number 99 and is named in honor of Albert Einstein?",
+    "options": [
+      "Mendelevium",
+      "Curium",
+      "Einsteinium",
+      "Nobelium"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Einsteinium ($Es$, atomic number 99) was discovered in the radioactive debris of the first thermonuclear bomb test in 1952.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-036",
+    "question": "What element is named after Marie and Pierre Curie?",
+    "options": [
+      "Curium",
+      "Californium",
+      "Berkelium",
+      "Radium"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Curium ($Cm$, atomic number 96) was named by Glenn Seaborg's team in honour of Marie and Pierre Curie.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-037",
+    "question": "What element is named after the inventor of the periodic table, Dmitri Mendeleev?",
+    "options": [
+      "Meitnerium",
+      "Mendelevium",
+      "Rutherfordium",
+      "Bohrium"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mendelevium ($Md$, atomic number 101) honors Dmitri Mendeleev.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-038",
+    "question": "Which noble gas is radioactive and can seep into basements from the natural decay of uranium in surrounding soil and rock?",
+    "options": [
+      "Argon",
+      "Krypton",
+      "Radon",
+      "Xenon"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Radon ($Rn$, atomic number 86) is a naturally occurring colorless radioactive gas and a leading environmental cause of lung cancer.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-039",
+    "question": "What is the chemical symbol for Uranium?",
+    "options": [
+      "Ur",
+      "U",
+      "Um",
+      "Un"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Uranium is designated by the single capital letter U.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-040",
+    "question": "What is the chemical symbol for Platinum, the precious, corrosion-resistant catalytic metal?",
+    "options": [
+      "Pl",
+      "Pt",
+      "P",
+      "Pa"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Platinum has atomic number 78 and chemical symbol Pt.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-041",
+    "question": "What is the chemical symbol for Magnesium?",
+    "options": [
+      "Mn",
+      "Mg",
+      "Mo",
+      "Ma"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Magnesium has atomic number 12 and symbol Mg (while Mn is Manganese).",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-042",
+    "question": "What is the chemical symbol for Manganese?",
+    "options": [
+      "Mg",
+      "Mn",
+      "Ma",
+      "Mo"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Manganese has atomic number 25 and chemical symbol Mn.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-043",
+    "question": "What is the chemical symbol for Zinc?",
+    "options": [
+      "Z",
+      "Zn",
+      "Zi",
+      "Zc"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Zinc has atomic number 30 and symbol Zn.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-044",
+    "question": "What is the chemical symbol for Iodine, an essential trace element required for thyroid function?",
+    "options": [
+      "Io",
+      "Id",
+      "I",
+      "In"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Iodine (atomic number 53) has the chemical symbol I.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-045",
+    "question": "What element has the chemical symbol 'K'?",
+    "options": [
+      "Krypton",
+      "Potassium",
+      "Kurchatovium",
+      "Phosphorus"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The letter K stands for Potassium (Kalium).",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-046",
+    "question": "What element has the chemical symbol 'Sn'?",
+    "options": [
+      "Strontium",
+      "Silicon",
+      "Tin",
+      "Scandium"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Sn stands for Tin (from Latin Stannum).",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-047",
+    "question": "What element has the chemical symbol 'Sb'?",
+    "options": [
+      "Selenium",
+      "Antimony",
+      "Samarium",
+      "Scandium"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Antimony has the symbol Sb from Latin 'Stibium'.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-048",
+    "question": "What element has the chemical symbol 'Na'?",
+    "options": [
+      "Nickel",
+      "Sodium",
+      "Nitrogen",
+      "Neon"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sodium has the symbol Na from Latin 'Natrium'.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-049",
+    "question": "What is the two-row block of elements typically set below the main periodic table called?",
+    "options": [
+      "Transition metals",
+      "Lanthanides and Actinides (Inner Transition Metals)",
+      "Alkali and Alkaline Earth metals",
+      "Noble gases"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The f-block rows at the bottom consist of the Lanthanide and Actinide series.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  },
+  {
+    "questionId": "pt-050",
+    "question": "Which element's isotope, Carbon-14, is widely used in archaeology for radiometric dating of organic remains?",
+    "options": [
+      "Nitrogen-14",
+      "Carbon-14",
+      "Uranium-238",
+      "Potassium-40"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Carbon-14 has a half-life of 5,730 years and allows accurate dating of wood, bone, and organic artifacts up to 50,000 years old.",
+    "difficulty": "easy",
+    "topic": "Periodic Table"
+  }
+]

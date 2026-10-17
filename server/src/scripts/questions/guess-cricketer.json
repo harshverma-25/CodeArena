@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "guess-cric-001",
+    "question": "I am known as the 'Little Master' and 'God of Cricket' wearing Jersey #10. Who am I?",
+    "options": [
+      "Sunil Gavaskar",
+      "Sachin Tendulkar",
+      "Virat Kohli",
+      "Sourav Ganguly"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sachin Tendulkar is revered globally as the God of Cricket.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-002",
+    "question": "I am known as 'Thala' and 'Captain Cool'. I finished the 2011 World Cup with a six. Who am I?",
+    "options": [
+      "Suresh Raina",
+      "MS Dhoni",
+      "Ravindra Jadeja",
+      "Rohit Sharma"
+    ],
+    "correctAnswer": 1,
+    "explanation": "MS Dhoni wore jersey number 7 and captained India to 3 ICC trophies.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-003",
+    "question": "I am known as 'King Kohli' and wear Jersey #18. I have scored 50 ODI centuries. Who am I?",
+    "options": [
+      "Rohit Sharma",
+      "Virat Kohli",
+      "KL Rahul",
+      "Shubman Gill"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Virat Kohli is the prolific Indian batsman known as 'King Kohli'.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-004",
+    "question": "I am nicknamed 'Hitman' and wear Jersey #45. I scored 264 in an ODI. Who am I?",
+    "options": [
+      "Shikhar Dhawan",
+      "Rohit Sharma",
+      "Suryakumar Yadav",
+      "Hardik Pandya"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rohit Sharma holds the world record ODI score of 264.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-005",
+    "question": "I am the West Indian batting giant nicknamed 'The Universe Boss'. Who am I?",
+    "options": [
+      "Kieron Pollard",
+      "Chris Gayle",
+      "Brian Lara",
+      "Andre Russell"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Chris Gayle is known as the Universe Boss.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-006",
+    "question": "I was nicknamed 'The Wall' for my rock-solid defensive batting. Who am I?",
+    "options": [
+      "VVS Laxman",
+      "Rahul Dravid",
+      "Anil Kumble",
+      "Cheteshwar Pujara"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rahul Dravid was the dependable rock of India's middle order.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-007",
+    "question": "I am the 'Prince of Trinidad' who scored 400* in a Test match. Who am I?",
+    "options": [
+      "Vivian Richards",
+      "Brian Lara",
+      "Clive Lloyd",
+      "Curtly Ambrose"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Brian Lara holds the individual Test world record of 400 not out.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-008",
+    "question": "I was nicknamed the 'Haryana Hurricane' and led India to the 1983 World Cup title. Who am I?",
+    "options": [
+      "Sunil Gavaskar",
+      "Kapil Dev",
+      "Madan Lal",
+      "Mohinder Amarnath"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kapil Dev was India's premier fast-bowling all-rounder.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-009",
+    "question": "I am nicknamed 'Boom Boom' for my aggressive hitting for Pakistan. Who am I?",
+    "options": [
+      "Shoaib Akhtar",
+      "Shahid Afridi",
+      "Inzamam-ul-Haq",
+      "Wasim Akram"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Shahid Afridi was famously called 'Boom Boom'.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-010",
+    "question": "I am an Indian pacer with a unique hyperextended action and deadly yorkers. Who am I?",
+    "options": [
+      "Mohammed Shami",
+      "Jasprit Bumrah",
+      "Bhuvneshwar Kumar",
+      "Arshdeep Singh"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Jasprit Bumrah is India's leading strike bowler across formats.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-011",
+    "question": "I bowled the 'Ball of the Century' to Mike Gatting in the 1993 Ashes. Who am I?",
+    "options": [
+      "Glenn McGrath",
+      "Shane Warne",
+      "Stuart MacGill",
+      "Brett Lee"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Shane Warne's leg-break drifted and pitched outside leg before clipping off stump.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-012",
+    "question": "I am known as 'Mr. 360' and played for South Africa and RCB. Who am I?",
+    "options": [
+      "Glenn Maxwell",
+      "AB de Villiers",
+      "Jos Buttler",
+      "David Miller"
+    ],
+    "correctAnswer": 1,
+    "explanation": "AB de Villiers is known for his innovative 360-degree shot-making.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-013",
+    "question": "I am India's T20 superstar ranked #1 in the world and nicknamed 'SKY'. Who am I?",
+    "options": [
+      "Shreyas Iyer",
+      "Suryakumar Yadav",
+      "Rishabh Pant",
+      "Sanju Samson"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Suryakumar Yadav is known by the acronym 'SKY'.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-014",
+    "question": "I am known as 'Dada' and took off my shirt on the Lord's balcony in 2002. Who am I?",
+    "options": [
+      "VVS Laxman",
+      "Sourav Ganguly",
+      "Yuvraj Singh",
+      "Harbhajan Singh"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sourav Ganguly celebrated India's NatWest Series win at Lord's.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-015",
+    "question": "I am nicknamed 'Punter' and captained Australia to World Cup titles in 2003 and 2007. Who am I?",
+    "options": [
+      "Steve Waugh",
+      "Ricky Ponting",
+      "Michael Clarke",
+      "Allan Border"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ricky Ponting was one of Australia's most successful captains.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-016",
+    "question": "I am known as 'The Sultan of Swing' with 502 ODI wickets for Pakistan. Who am I?",
+    "options": [
+      "Waqar Younis",
+      "Wasim Akram",
+      "Imran Khan",
+      "Shoaib Akhtar"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Wasim Akram was the master of conventional and reverse swing.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-017",
+    "question": "I am nicknamed 'Jumbo' and took 619 Test wickets for India. Who am I?",
+    "options": [
+      "Harbhajan Singh",
+      "Anil Kumble",
+      "R. Ashwin",
+      "Bishan Bedi"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Anil Kumble is India's highest Test wicket-taker.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-018",
+    "question": "I hit 6 sixes in an over in 2007 and was Player of the Tournament in World Cup 2011. Who am I?",
+    "options": [
+      "Suresh Raina",
+      "Yuvraj Singh",
+      "Gautam Gambhir",
+      "Irfan Pathan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Yuvraj Singh was India's hero in both World Cup triumphs.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-019",
+    "question": "I am the 'Rawalpindi Express' who bowled the fastest ball in cricket history. Who am I?",
+    "options": [
+      "Brett Lee",
+      "Shoaib Akhtar",
+      "Mohammad Amir",
+      "Umar Gul"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Shoaib Akhtar was nicknamed after his hometown of Rawalpindi.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-020",
+    "question": "I batted without a helmet and intimidated bowlers with my swagger for the West Indies. Who am I?",
+    "options": [
+      "Clive Lloyd",
+      "Sir Viv Richards",
+      "Gordon Greenidge",
+      "Desmond Haynes"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir Viv Richards was one of the most destructive batsmen in history.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-021",
+    "question": "I scored over 13,000 Test runs and took 292 Test wickets for South Africa. Who am I?",
+    "options": [
+      "Shaun Pollock",
+      "Jacques Kallis",
+      "Lance Klusener",
+      "Hansie Cronje"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Jacques Kallis is considered one of the greatest all-rounders of all time.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-022",
+    "question": "I am India's 'Turbanator' who took a famous hat-trick in Kolkata 2001. Who am I?",
+    "options": [
+      "Navjot Sidhu",
+      "Harbhajan Singh",
+      "Bishan Bedi",
+      "Arshdeep Singh"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Harbhajan Singh took 417 Test wickets for India.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-023",
+    "question": "I am called 'Sir Jadeja' and known for my sword celebration and rocket throws. Who am I?",
+    "options": [
+      "Axar Patel",
+      "Ravindra Jadeja",
+      "Hardik Pandya",
+      "Shardul Thakur"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ravindra Jadeja is India's star all-rounder and premier fielder.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-024",
+    "question": "I led Pakistan's 'Cornered Tigers' to World Cup victory in 1992. Who am I?",
+    "options": [
+      "Javed Miandad",
+      "Imran Khan",
+      "Wasim Akram",
+      "Inzamam-ul-Haq"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Imran Khan captained Pakistan to their sole ODI World Cup triumph.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-025",
+    "question": "I am an Australian batting maestro with a quirky fidgety stance averaging over 58 in Tests. Who am I?",
+    "options": [
+      "David Warner",
+      "Steve Smith",
+      "Marnus Labuschagne",
+      "Usman Khawaja"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Steve Smith has scored over 30 Test centuries for Australia.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-026",
+    "question": "I am an Australian wicketkeeper-batsman nicknamed 'Gilly' who opened in ODIs. Who am I?",
+    "options": [
+      "Ian Healy",
+      "Adam Gilchrist",
+      "Brad Haddin",
+      "Matthew Wade"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Adam Gilchrist revolutionized the role of wicket-keeper batsmen.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-027",
+    "question": "I scored the winning runs at the Gabba in 2021 and wear Jersey #17 for India. Who am I?",
+    "options": [
+      "KL Rahul",
+      "Rishabh Pant",
+      "Ishan Kishan",
+      "Sanju Samson"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rishabh Pant scored 89* to breach Australia's fortress at the Gabba.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-028",
+    "question": "I was nicknamed 'Pigeon' and took 563 Test wickets for Australia with metronomic accuracy. Who am I?",
+    "options": [
+      "Brett Lee",
+      "Glenn McGrath",
+      "Jason Gillespie",
+      "Mitchell Johnson"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Glenn McGrath is one of the most successful fast bowlers in history.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-029",
+    "question": "I am the gentle former captain of New Zealand praised for my 'Nice Guy' sportsmanship. Who am I?",
+    "options": [
+      "Brendon McCullum",
+      "Kane Williamson",
+      "Ross Taylor",
+      "Martin Guptill"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kane Williamson captained New Zealand to the 2021 World Test Championship title.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-030",
+    "question": "I was a diving South African fielder who famously broke the stumps to run out Inzamam in 1992. Who am I?",
+    "options": [
+      "AB de Villiers",
+      "Jonty Rhodes",
+      "Herschelle Gibbs",
+      "Faf du Plessis"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Jonty Rhodes set the gold standard for modern fielding.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-031",
+    "question": "I played heroics in the 2019 World Cup final and 2019 Headingley Ashes Test for England. Who am I?",
+    "options": [
+      "Joe Root",
+      "Ben Stokes",
+      "Eoin Morgan",
+      "Jos Buttler"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ben Stokes is England's clutch all-rounder and Test captain.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-032",
+    "question": "I have taken over 500 Test wickets for India with variations like the carrom ball. Who am I?",
+    "options": [
+      "Harbhajan Singh",
+      "R. Ashwin",
+      "Anil Kumble",
+      "Axar Patel"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ravichandran Ashwin is one of India's greatest match-winners in Test history.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-033",
+    "question": "I am the 'Nawab of Najafgarh' who hit two triple centuries in Test cricket. Who am I?",
+    "options": [
+      "Gautam Gambhir",
+      "Virender Sehwag",
+      "Shikhar Dhawan",
+      "Navjot Sidhu"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Virender Sehwag scored 309 in Multan and 319 in Chennai.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-034",
+    "question": "I scored four consecutive centuries in the 2015 World Cup for Sri Lanka. Who am I?",
+    "options": [
+      "Mahela Jayawardene",
+      "Kumar Sangakkara",
+      "Sanath Jayasuriya",
+      "Tillakaratne Dilshan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kumar Sangakkara was a masterclass left-handed batsman and wicketkeeper.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-035",
+    "question": "I am the 'Matara Hurricane' who tore bowling attacks apart in the 1996 World Cup. Who am I?",
+    "options": [
+      "Aravinda de Silva",
+      "Sanath Jayasuriya",
+      "Romesh Kaluwitharana",
+      "Marvan Atapattu"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sanath Jayasuriya revolutionized opening in limited-overs cricket.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-036",
+    "question": "I am an Australian fast bowler nicknamed 'Binga' who bowled over 160 km/h. Who am I?",
+    "options": [
+      "Mitchell Johnson",
+      "Brett Lee",
+      "Shaun Tait",
+      "Mitchell Starc"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Brett Lee took 310 Test wickets and 380 ODI wickets with ferocious pace.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-037",
+    "question": "I am an Australian left-arm speedster who took 37 wickets in the 2013-14 Ashes. Who am I?",
+    "options": [
+      "Mitchell Starc",
+      "Mitchell Johnson",
+      "Ryan Harris",
+      "Peter Siddle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mitchell Johnson's hostility dismantled England in the 2013-14 series.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-038",
+    "question": "I am an Indian leg-spinner nicknamed 'Yuzi' who was once a junior national chess player. Who am I?",
+    "options": [
+      "Kuldeep Yadav",
+      "Yuzvendra Chahal",
+      "Piyush Chawla",
+      "Rahul Chahar"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Yuzvendra Chahal is India's leading wicket-taker in T20Is.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-039",
+    "question": "I am an Indian chinaman bowler from Kanpur with multiple international hat-tricks. Who am I?",
+    "options": [
+      "Axar Patel",
+      "Kuldeep Yadav",
+      "Ravi Bishnoi",
+      "Varun Chakravarthy"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kuldeep Yadav is India's premier left-arm wrist-spinner.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-040",
+    "question": "I am an Australian captain nicknamed 'Tugga' who led a record 16-match Test winning streak. Who am I?",
+    "options": [
+      "Allan Border",
+      "Steve Waugh",
+      "Mark Taylor",
+      "Ricky Ponting"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Steve Waugh led Australia through an era of unprecedented dominance.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-041",
+    "question": "I am nicknamed 'Gabbar' and loved twirling my mustache after scoring centuries. Who am I?",
+    "options": [
+      "Rohit Sharma",
+      "Shikhar Dhawan",
+      "Hardik Pandya",
+      "Ravindra Jadeja"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Shikhar Dhawan was India's clutch opener in ICC tournaments.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-042",
+    "question": "I bowled the final over of the 2024 T20 World Cup final defending 16 runs against South Africa. Who am I?",
+    "options": [
+      "Jasprit Bumrah",
+      "Hardik Pandya",
+      "Arshdeep Singh",
+      "Axar Patel"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hardik Pandya dismissed David Miller and sealed India's World Cup victory in Barbados.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-043",
+    "question": "I scored centuries in both the 2023 WTC Final and 2023 World Cup Final for Australia. Who am I?",
+    "options": [
+      "David Warner",
+      "Travis Head",
+      "Mitchell Marsh",
+      "Marnus Labuschagne"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Travis Head won Player of the Match in both major 2023 finals.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-044",
+    "question": "I was the West Indies captain who lifted the 1975 and 1979 World Cups wearing glasses. Who am I?",
+    "options": [
+      "Viv Richards",
+      "Clive Lloyd",
+      "Garfield Sobers",
+      "Frank Worrell"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Clive Lloyd captained the legendary West Indies team of the 1970s.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-045",
+    "question": "I am an Indian opening batsman dubbed the 'Prince' who scored 208 in an ODI against New Zealand. Who am I?",
+    "options": [
+      "Prithvi Shaw",
+      "Shubman Gill",
+      "Yashasvi Jaiswal",
+      "Ishan Kishan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Shubman Gill is one of India's brightest young batting stars.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-046",
+    "question": "I was the first batsman in first-class cricket to hit 6 sixes in an over in 1968. Who am I?",
+    "options": [
+      "Ravi Shastri",
+      "Sir Garfield Sobers",
+      "Herschelle Gibbs",
+      "Yuvraj Singh"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir Garry Sobers hit 6 sixes in an over for Nottinghamshire.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-047",
+    "question": "I hit 6 sixes in an over in the Ranji Trophy and later became head coach of Team India. Who am I?",
+    "options": [
+      "Kapil Dev",
+      "Ravi Shastri",
+      "Madan Lal",
+      "Sandeep Patil"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ravi Shastri was a hard-hitting all-rounder and renowned commentator.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-048",
+    "question": "I am a former South African captain who currently captains RCB in the IPL. Who am I?",
+    "options": [
+      "Graeme Smith",
+      "Faf du Plessis",
+      "Quinton de Kock",
+      "David Miller"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Faf du Plessis took over as RCB captain in 2022.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-049",
+    "question": "I am the world-famous Afghan leg-spinner wearing Jersey #19 in franchise leagues worldwide. Who am I?",
+    "options": [
+      "Mohammad Nabi",
+      "Rashid Khan",
+      "Mujeeb Ur Rahman",
+      "Fazalhaq Farooqi"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rashid Khan has taken hundreds of T20 wickets worldwide.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  },
+  {
+    "questionId": "guess-cric-050",
+    "question": "I was a terrifying 6'7\" West Indian fast bowler with 405 Test wickets who never smiled at batsmen. Who am I?",
+    "options": [
+      "Michael Holding",
+      "Sir Curtly Ambrose",
+      "Courtney Walsh",
+      "Malcolm Marshall"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Curtly Ambrose formed a fearsome bowling partnership with Courtney Walsh.",
+    "difficulty": "easy",
+    "topic": "Guess the Cricketer"
+  }
+]

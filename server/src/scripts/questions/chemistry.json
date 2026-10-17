@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "chem-001",
+    "question": "What is the chemical symbol for the element Gold?",
+    "options": [
+      "Ag",
+      "Au",
+      "Fe",
+      "Pb"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The symbol Au comes from the Latin word for gold, 'Aurum', meaning 'shining dawn'.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-002",
+    "question": "What is the chemical symbol for the element Silver?",
+    "options": [
+      "Si",
+      "Ag",
+      "Au",
+      "Sn"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The symbol Ag comes from the Latin word for silver, 'Argentum'.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-003",
+    "question": "What is the chemical symbol for Iron?",
+    "options": [
+      "Ir",
+      "Fe",
+      "In",
+      "I"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The symbol Fe is derived from 'Ferrum', the Latin name for iron.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-004",
+    "question": "What is the chemical formula for water?",
+    "options": [
+      "H2O2",
+      "H2O",
+      "HO2",
+      "OH"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Water consists of two hydrogen atoms covalently bonded to one oxygen atom ($H_2O$).",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-005",
+    "question": "What is the chemical formula for carbon dioxide?",
+    "options": [
+      "CO",
+      "CO2",
+      "C2O",
+      "CH4"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Carbon dioxide consists of one carbon atom doubly bonded to two oxygen atoms ($CO_2$).",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-006",
+    "question": "What is the common name for the compound dihydrogen monoxide?",
+    "options": [
+      "Bleach",
+      "Water",
+      "Vinegar",
+      "Ammonia"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dihydrogen monoxide is the humorous systematic chemical name for ordinary water ($H_2O$).",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-007",
+    "question": "What is the atomic number of Hydrogen, the simplest and lightest element?",
+    "options": [
+      "1",
+      "2",
+      "6",
+      "8"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Hydrogen has atomic number 1, with each atom containing a single proton in its nucleus.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-008",
+    "question": "What is the atomic number of Carbon, the fundamental building block of organic life?",
+    "options": [
+      "4",
+      "6",
+      "12",
+      "14"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Carbon has atomic number 6, containing 6 protons and typically 4 valence electrons capable of forming four covalent bonds.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-009",
+    "question": "What is the atomic number of Oxygen?",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "16"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Oxygen has atomic number 8, indicating 8 protons in its atomic nucleus.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-010",
+    "question": "What is the main chemical compound found in ordinary household vinegar?",
+    "options": [
+      "Hydrochloric acid",
+      "Acetic acid (ethanoic acid)",
+      "Citric acid",
+      "Sulfuric acid"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Vinegar is an aqueous solution containing typically 4% to 8% acetic acid ($CH_3COOH$).",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-011",
+    "question": "What is the chemical name for ordinary baking soda?",
+    "options": [
+      "Sodium chloride",
+      "Sodium bicarbonate (sodium hydrogen carbonate)",
+      "Sodium hydroxide",
+      "Calcium carbonate"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Baking soda is sodium bicarbonate ($NaHCO_3$), which releases carbon dioxide gas when reacting with an acid.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-012",
+    "question": "What gas is produced when vinegar (acetic acid) is mixed with baking soda (sodium bicarbonate)?",
+    "options": [
+      "Oxygen",
+      "Carbon dioxide (CO2)",
+      "Hydrogen",
+      "Methane"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The acid-base reaction produces sodium acetate, water, and effervescent bubbles of carbon dioxide gas.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-013",
+    "question": "What is the pH range of acidic solutions on the pH scale?",
+    "options": [
+      "0 to less than 7",
+      "Exactly 7",
+      "Greater than 7 to 14",
+      "Above 14"
+    ],
+    "correctAnswer": 0,
+    "explanation": "On the standard pH scale from 0 to 14, acids have a pH below 7, with lower values indicating stronger acidity.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-014",
+    "question": "What is the pH range of basic (alkaline) solutions?",
+    "options": [
+      "Below 7",
+      "Exactly 7",
+      "Greater than 7 to 14",
+      "Negative values"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Bases have a pH greater than 7, with 14 representing strong alkalinity.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-015",
+    "question": "What color does blue litmus paper turn when exposed to an acidic solution?",
+    "options": [
+      "Yellow",
+      "Red",
+      "Green",
+      "Stays Blue"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Litmus is a natural pH indicator; blue litmus turns red in acids, while red litmus turns blue in bases.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-016",
+    "question": "What color does red litmus paper turn in a basic (alkaline) solution?",
+    "options": [
+      "Blue",
+      "Yellow",
+      "Pink",
+      "Colorless"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Red litmus paper turns blue when submerged in an alkaline/basic medium.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-017",
+    "question": "What is the chemical formula for laughing gas, commonly used as a dental anesthetic?",
+    "options": [
+      "NO",
+      "N2O (Nitrous oxide)",
+      "NO2",
+      "N2O4"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nitrous oxide ($N_2O$) is a colorless gas with sweet odor used for conscious sedation and pain relief.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-018",
+    "question": "What is the main component of natural gas used in home heating and cooking?",
+    "options": [
+      "Propane",
+      "Methane (CH4)",
+      "Butane",
+      "Ethane"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Methane ($CH_4$), the simplest hydrocarbon, typically makes up 70% to 90% of natural gas.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-019",
+    "question": "What gas is primarily stored in domestic pressurized LPG cylinders for cooking?",
+    "options": [
+      "Methane",
+      "Propane and Butane",
+      "Acetylene",
+      "Hydrogen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Liquefied Petroleum Gas (LPG) consists mainly of propane ($C_3H_8$) and butane ($C_4H_{10}$) compressed into liquid form.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-020",
+    "question": "What chemical bond is formed when atoms share pairs of valence electrons?",
+    "options": [
+      "Ionic bond",
+      "Covalent bond",
+      "Metallic bond",
+      "Hydrogen bond"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Covalent bonds form when two nonmetal atoms share one or more pairs of electrons to achieve stable octets.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-021",
+    "question": "What chemical bond is formed through the electrostatic attraction between positively and negatively charged ions after electron transfer?",
+    "options": [
+      "Covalent bond",
+      "Ionic bond",
+      "Peptide bond",
+      "Van der Waals bond"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ionic bonds form when one atom transfers valence electrons to another (e.g., $Na^+$ and $Cl^-$ in NaCl).",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-022",
+    "question": "What is the process called where iron slowly reacts with oxygen and moisture to form hydrated iron oxide?",
+    "options": [
+      "Combustion",
+      "Rusting (Corrosion)",
+      "Fermentation",
+      "Electrolysis"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rusting is an electrochemical oxidation reaction that forms flaky red-brown iron oxide ($Fe_2O_3 \\cdot nH_2O$).",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-023",
+    "question": "What method protects iron and steel from rusting by coating it with a thin layer of zinc?",
+    "options": [
+      "Anodizing",
+      "Galvanization",
+      "Electroplating",
+      "Alloying"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Galvanization applies a sacrificial zinc coating that oxidizes before the underlying iron can corrode.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-024",
+    "question": "What is an alloy of copper and zinc called?",
+    "options": [
+      "Bronze",
+      "Brass",
+      "Pewter",
+      "Solder"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Brass is an alloy consisting primarily of copper and zinc, widely used for musical instruments and plumbing.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-025",
+    "question": "What is an alloy of copper and tin called?",
+    "options": [
+      "Brass",
+      "Bronze",
+      "Steel",
+      "Electrum"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bronze is traditionally composed of copper combined with approximately 12% tin.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-026",
+    "question": "What is stainless steel primarily made of?",
+    "options": [
+      "Iron, Carbon, and Chromium",
+      "Copper and Zinc",
+      "Aluminum and Magnesium",
+      "Lead and Tin"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Stainless steel is an iron alloy with at least 10.5% chromium, which forms a passive chromium oxide layer resisting rust.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-027",
+    "question": "What is the chemical name for common chalk, limestone, and marble?",
+    "options": [
+      "Calcium oxide",
+      "Calcium carbonate (CaCO3)",
+      "Calcium sulfate",
+      "Magnesium carbonate"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Chalk, limestone, and marble are all geological forms of calcium carbonate ($CaCO_3$).",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-028",
+    "question": "What is the chemical formula for ozone?",
+    "options": [
+      "O",
+      "O2",
+      "O3",
+      "O4"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Ozone is a triatomic molecule made of three oxygen atoms ($O_3$).",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-029",
+    "question": "Which noble gas is lighter than air, non-flammable, and used to inflate party balloons?",
+    "options": [
+      "Hydrogen",
+      "Helium",
+      "Neon",
+      "Argon"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Helium is an inert, non-reactive noble gas that provides safe buoyancy for balloons and airships.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-030",
+    "question": "Which noble gas produces a distinctive reddish-orange glow in illuminated advertising signs?",
+    "options": [
+      "Argon",
+      "Neon",
+      "Krypton",
+      "Xenon"
+    ],
+    "correctAnswer": 1,
+    "explanation": "When high voltage passes through low-pressure neon gas, it emits a vibrant, classic reddish-orange light.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-031",
+    "question": "What is the chemical symbol for Lead?",
+    "options": [
+      "Ld",
+      "Pb",
+      "Pl",
+      "Le"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The symbol Pb is derived from the Latin 'Plumbum', from which the English word 'plumbing' also originated.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-032",
+    "question": "What is the chemical symbol for Tin?",
+    "options": [
+      "Ti",
+      "Sn",
+      "Tn",
+      "Sb"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The symbol Sn comes from the Latin word for tin, 'Stannum'.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-033",
+    "question": "What is the chemical symbol for Sodium?",
+    "options": [
+      "So",
+      "Na",
+      "Sd",
+      "S"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The symbol Na originates from 'Natrium', the Neo-Latin name for sodium.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-034",
+    "question": "What is the chemical symbol for Potassium?",
+    "options": [
+      "P",
+      "Po",
+      "K",
+      "Pt"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The symbol K comes from 'Kalium', the Neo-Latin word for potassium derived from Arabic al-qalyah.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-035",
+    "question": "What substance speeds up the rate of a chemical reaction without being consumed in the process?",
+    "options": [
+      "Inhibitor",
+      "Catalyst",
+      "Reagent",
+      "Solvent"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A catalyst lowers the activation energy of a chemical reaction, increasing its rate without undergoing permanent chemical change.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-036",
+    "question": "What are biological catalysts that speed up biochemical reactions in living cells called?",
+    "options": [
+      "Hormones",
+      "Enzymes",
+      "Vitamins",
+      "Steroids"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Enzymes are specialized proteins that catalyze essential physiological reactions with high specificity.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-037",
+    "question": "What is an exothermic chemical reaction?",
+    "options": [
+      "A reaction that absorbs thermal heat",
+      "A reaction that releases thermal heat to surroundings",
+      "A reaction that only occurs in water",
+      "A reaction that consumes electricity"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Exothermic reactions release energy (usually heat and light) because products have lower enthalpy than reactants.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-038",
+    "question": "What is an endothermic chemical reaction?",
+    "options": [
+      "A reaction that releases heat",
+      "A reaction that absorbs heat from its surroundings",
+      "A nuclear explosion",
+      "A reaction that freezes matter instantly"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Endothermic reactions absorb thermal energy from the environment (e.g., instant cold packs), causing surroundings to cool.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-039",
+    "question": "What is the name for atoms of the same chemical element that have the same number of protons but different numbers of neutrons?",
+    "options": [
+      "Isomers",
+      "Isotopes",
+      "Allotropes",
+      "Isobars"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Isotopes possess identical chemical properties due to the same proton count, but differ in atomic mass.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-040",
+    "question": "What is an ion with a net positive electric charge called?",
+    "options": [
+      "Anion",
+      "Cation",
+      "Positron",
+      "Isotope"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A cation is a positively charged ion formed when an atom loses one or more valence electrons.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-041",
+    "question": "What is an ion with a net negative electric charge called?",
+    "options": [
+      "Cation",
+      "Anion",
+      "Neutron",
+      "Proton"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An anion is a negatively charged ion formed when an atom gains one or more electrons.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-042",
+    "question": "Which acid is found in citrus fruits like lemons, oranges, and limes, giving them their sour taste?",
+    "options": [
+      "Acetic acid",
+      "Citric acid",
+      "Lactic acid",
+      "Malic acid"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Citric acid is a natural organic tricarboxylic acid found in high concentrations in citrus fruits.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-043",
+    "question": "Which acid accumulates in human muscles during vigorous exercise causing temporary muscle fatigue?",
+    "options": [
+      "Citric acid",
+      "Lactic acid",
+      "Acetic acid",
+      "Uric acid"
+    ],
+    "correctAnswer": 1,
+    "explanation": "During anaerobic glycolysis, muscle cells convert pyruvate into lactic acid when oxygen levels are depleted.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-044",
+    "question": "What is the common chemical name of quicklime?",
+    "options": [
+      "Calcium carbonate",
+      "Calcium oxide (CaO)",
+      "Calcium hydroxide",
+      "Calcium chloride"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Calcium oxide ($CaO$) is quicklime, produced by heating limestone to drive off carbon dioxide.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-045",
+    "question": "What is the common name of slaked lime?",
+    "options": [
+      "Calcium oxide",
+      "Calcium hydroxide ($Ca(OH)_2$)",
+      "Calcium sulfate",
+      "Calcium carbonate"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Calcium hydroxide ($Ca(OH)_2$) is slaked lime, formed when quicklime reacts vigorously with water.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-046",
+    "question": "What is the chemical name for the mineral Plaster of Paris?",
+    "options": [
+      "Calcium carbonate",
+      "Calcium sulfate hemihydrate ($CaSO_4 \\cdot \\frac{1}{2}H_2O$)",
+      "Sodium sulfate",
+      "Magnesium sulfate"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Plaster of Paris is calcium sulfate hemihydrate, produced by heating gypsum.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-047",
+    "question": "What is the primary organic compound that gives fruits like bananas and apples their sweet taste?",
+    "options": [
+      "Cellulose",
+      "Fructose",
+      "Starch",
+      "Glycogen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Fructose (fruit sugar) is a simple monosaccharide found naturally in fruits, honey, and root vegetables.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-048",
+    "question": "What is the term for a homogeneous mixture formed when a solute completely dissolves in a solvent?",
+    "options": [
+      "Suspension",
+      "Colloid",
+      "Solution",
+      "Emulsion"
+    ],
+    "correctAnswer": 2,
+    "explanation": "A solution is a homogeneous mixture where solute particles are dissolved at the molecular or ionic level.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-049",
+    "question": "What liquid is known as the 'Universal Solvent' because it dissolves more substances than any other liquid?",
+    "options": [
+      "Ethanol",
+      "Water",
+      "Acetone",
+      "Benzene"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Water's polar molecular structure and hydrogen bonding allow it to dissolve a wide array of ionic and polar substances.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  },
+  {
+    "questionId": "chem-050",
+    "question": "What is the constant value of Avogadro's number, representing particles per mole?",
+    "options": [
+      "$3.14 \\times 10^7$",
+      "$6.022 \\times 10^{23}$",
+      "$9.81 \\times 10^9$",
+      "$1.602 \\times 10^{-19}$"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Avogadro's number ($N_A$) is approximately $6.02214076 \\times 10^{23}$, the number of constituent particles in one mole.",
+    "difficulty": "easy",
+    "topic": "Chemistry Quiz"
+  }
+]

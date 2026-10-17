@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "inv-001",
+    "question": "Who is widely credited with inventing the first practical telephone in 1876?",
+    "options": [
+      "Thomas Edison",
+      "Alexander Graham Bell",
+      "Nikola Tesla",
+      "Guglielmo Marconi"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Alexander Graham Bell received the first US patent for the telephone in March 1876.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-002",
+    "question": "Who invented the first practical long-lasting incandescent light bulb?",
+    "options": [
+      "Nikola Tesla",
+      "Thomas Edison",
+      "Benjamin Franklin",
+      "Michael Faraday"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Thomas Edison and his team developed a carbon filament incandescent bulb that burned for over 1,200 hours in 1879.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-003",
+    "question": "Who formulated the universal law of gravitation after observing a falling apple?",
+    "options": [
+      "Galileo Galilei",
+      "Sir Isaac Newton",
+      "Albert Einstein",
+      "Johannes Kepler"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir Isaac Newton published his universal law of gravitation and three laws of motion in the 'Principia Mathematica' in 1687.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-004",
+    "question": "Who discovered the first antibiotic, Penicillin, in 1928?",
+    "options": [
+      "Louis Pasteur",
+      "Alexander Fleming",
+      "Edward Jenner",
+      "Robert Koch"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir Alexander Fleming noticed that Penicillium notatum mold contaminated a Petri dish and killed Staphylococcus bacteria.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-005",
+    "question": "Who invented the World Wide Web (WWW) while working at CERN in 1989?",
+    "options": [
+      "Bill Gates",
+      "Tim Berners-Lee",
+      "Vint Cerf",
+      "Steve Jobs"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir Tim Berners-Lee invented the World Wide Web, including HTML, HTTP, and URLs, to help scientists share information.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-006",
+    "question": "Which brothers are celebrated for inventing and flying the world's first successful motor-operated airplane in 1903?",
+    "options": [
+      "Montgolfier Brothers",
+      "Wright Brothers (Orville and Wilbur)",
+      "Lumière Brothers",
+      "Warner Brothers"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Orville and Wilbur Wright achieved the first controlled, powered, sustained airplane flight at Kitty Hawk, North Carolina.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-007",
+    "question": "Who developed the smallpox vaccine in 1796, creating the world's very first vaccine?",
+    "options": [
+      "Louis Pasteur",
+      "Edward Jenner",
+      "Jonas Salk",
+      "Alexander Fleming"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Edward Jenner used cowpox material to inoculate patients against smallpox, founding the science of immunology.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-008",
+    "question": "Who is known as the 'Father of Computers' for designing the Analytical Engine?",
+    "options": [
+      "Alan Turing",
+      "Charles Babbage",
+      "John von Neumann",
+      "Ada Lovelace"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Charles Babbage originated the concept of a programmable digital computer in the 19th century.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-009",
+    "question": "Who is celebrated as the world's first computer programmer for writing an algorithm for Babbage's Analytical Engine?",
+    "options": [
+      "Grace Hopper",
+      "Ada Lovelace",
+      "Katherine Johnson",
+      "Margaret Hamilton"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ada Lovelace recognized that the computer could manipulate symbols beyond numbers, writing the first published algorithm.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-010",
+    "question": "Who developed the polio vaccine that saved millions of children worldwide from paralysis?",
+    "options": [
+      "Jonas Salk",
+      "Albert Sabin",
+      "Edward Jenner",
+      "Louis Pasteur"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Dr. Jonas Salk developed the first safe and effective inactivated polio vaccine in 1953, choosing not to patent it.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-011",
+    "question": "Who developed the rabies vaccine and the process of pasteurization to kill pathogens in liquids?",
+    "options": [
+      "Robert Koch",
+      "Louis Pasteur",
+      "Alexander Fleming",
+      "Joseph Lister"
+    ],
+    "correctAnswer": 1,
+    "explanation": "French chemist and microbiologist Louis Pasteur developed pasteurization and vaccines for rabies and anthrax.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-012",
+    "question": "Who discovered X-rays in 1895 and won the inaugural Nobel Prize in Physics in 1901?",
+    "options": [
+      "Henri Becquerel",
+      "Wilhelm Conrad Röntgen",
+      "Marie Curie",
+      "Ernest Rutherford"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Wilhelm Röntgen discovered electromagnetic rays capable of penetrating opaque objects and producing photographic shadows of bones.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-013",
+    "question": "Who invented dynamite and used his vast fortune to institute the Nobel Prizes?",
+    "options": [
+      "Alfred Nobel",
+      "Robert Nobel",
+      "Fritz Haber",
+      "Svante Arrhenius"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Swedish chemist Alfred Nobel invented dynamite in 1867 and bequeathed his wealth to establish the Nobel Prizes.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-014",
+    "question": "Who invented the movable-type mechanical printing press in Europe around 1440?",
+    "options": [
+      "William Caxton",
+      "Johannes Gutenberg",
+      "Aldus Manutius",
+      "Martin Luther"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Johannes Gutenberg's printing press in Mainz, Germany transformed the spread of knowledge across the Western world.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-015",
+    "question": "Who developed the theory of Special Relativity ($E = mc^2$) and General Relativity?",
+    "options": [
+      "Isaac Newton",
+      "Albert Einstein",
+      "Niels Bohr",
+      "Max Planck"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Albert Einstein published Special Relativity in 1905 and General Relativity in 1915, revolutionizing modern physics.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-016",
+    "question": "Who was awarded Nobel Prizes in two different scientific fields (Physics and Chemistry) for pioneering work on radioactivity?",
+    "options": [
+      "Pierre Curie",
+      "Marie Curie",
+      "Irène Joliot-Curie",
+      "Lise Meitner"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Marie Curie discovered polonium and radium, winning the 1903 Nobel in Physics and the 1911 Nobel in Chemistry.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-017",
+    "question": "Who developed the alternating current (AC) electrical system and the induction motor?",
+    "options": [
+      "Thomas Edison",
+      "Nikola Tesla",
+      "George Westinghouse",
+      "James Watt"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nikola Tesla patented AC electrical motors and power transmission, creating the foundation for modern power grids.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-018",
+    "question": "Who was the Italian inventor who sent the first transatlantic radio signal and developed commercial wireless telegraphy?",
+    "options": [
+      "Alessandro Volta",
+      "Guglielmo Marconi",
+      "Heinrich Hertz",
+      "Enrico Fermi"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Guglielmo Marconi shared the 1909 Nobel Prize in Physics for developing long-distance radio communication.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-019",
+    "question": "Who invented the electric battery (voltaic pile), providing the first continuous source of electrical current?",
+    "options": [
+      "Luigi Galvani",
+      "Alessandro Volta",
+      "Andre-Marie Ampere",
+      "Michael Faraday"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Count Alessandro Volta invented the electrochemical battery in 1800, and the electrical unit 'Volt' is named after him.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-020",
+    "question": "Who discovered the double-helix structure of DNA in 1953 along with Rosalind Franklin and Maurice Wilkins?",
+    "options": [
+      "Charles Darwin & Gregor Mendel",
+      "James Watson & Francis Crick",
+      "Louis Pasteur & Robert Koch",
+      "Linus Pauling & Erwin Chargaff"
+    ],
+    "correctAnswer": 1,
+    "explanation": "James Watson and Francis Crick correctly deduced the double helix structure of DNA, sharing the 1962 Nobel Prize.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-021",
+    "question": "Which Scottish engineer substantially improved the steam engine with a separate condenser, powering the Industrial Revolution?",
+    "options": [
+      "George Stephenson",
+      "James Watt",
+      "Thomas Newcomen",
+      "Robert Fulton"
+    ],
+    "correctAnswer": 1,
+    "explanation": "James Watt patented the separate condenser in 1769, dramatically improving the thermal efficiency of steam engines.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-022",
+    "question": "Who invented the mercury-in-glass thermometer and established the temperature scale bearing his name?",
+    "options": [
+      "Anders Celsius",
+      "Daniel Gabriel Fahrenheit",
+      "Lord Kelvin",
+      "René Antoine Réaumur"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Daniel Gabriel Fahrenheit invented the precision mercury thermometer in 1714 and developed the Fahrenheit scale.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-023",
+    "question": "Who designed the Celsius temperature scale, originally setting 0 as boiling and 100 as freezing (inverted later)?",
+    "options": [
+      "Daniel Fahrenheit",
+      "Anders Celsius",
+      "William Thomson (Lord Kelvin)",
+      "Robert Boyle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Swedish astronomer Anders Celsius proposed the centigrade temperature scale in 1742.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-024",
+    "question": "Who invented the mechanical television system, transmitting the first recognizable moving human face on a screen in 1925?",
+    "options": [
+      "Philo Farnsworth",
+      "John Logie Baird",
+      "Vladimir Zworykin",
+      "Thomas Edison"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Scottish inventor John Logie Baird demonstrated the first working television system in London in 1925.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-025",
+    "question": "Who invented the phonograph (gramophone) to record and reproduce sound in 1877?",
+    "options": [
+      "Alexander Graham Bell",
+      "Thomas Edison",
+      "Nikola Tesla",
+      "Emile Berliner"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Thomas Edison invented the tinfoil phonograph in 1877, speaking the nursery rhyme 'Mary Had a Little Lamb'.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-026",
+    "question": "Who is known as the 'Father of Genetics' for his experiments on pea plants?",
+    "options": [
+      "Charles Darwin",
+      "Gregor Mendel",
+      "Thomas Hunt Morgan",
+      "Hugo de Vries"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Augustinian friar Gregor Mendel discovered the fundamental laws of genetic inheritance through pea plant breeding.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-027",
+    "question": "Who invented the computer mouse in 1964, made out of a wooden shell with two metal wheels?",
+    "options": [
+      "Douglas Engelbart",
+      "Alan Kay",
+      "Steve Jobs",
+      "Bill English"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Douglas Engelbart at the Stanford Research Institute invented the computer mouse and demonstrated it in 1968.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-028",
+    "question": "Who developed the first commercially successful gasoline-powered automobile in 1886?",
+    "options": [
+      "Henry Ford",
+      "Karl Benz",
+      "Gottlieb Daimler",
+      "Rudolf Diesel"
+    ],
+    "correctAnswer": 1,
+    "explanation": "German engineer Karl Benz patented the Benz Patent-Motorwagen in 1886, regarded as the first modern automobile.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-029",
+    "question": "Who revolutionized automotive manufacturing by introducing the moving assembly line for the Model T in 1913?",
+    "options": [
+      "Karl Benz",
+      "Henry Ford",
+      "Walter Chrysler",
+      "Louis Chevrolet"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Henry Ford's moving assembly line drastically reduced production time and made cars affordable for ordinary people.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-030",
+    "question": "Who invented the diesel internal combustion engine in the 1890s?",
+    "options": [
+      "Karl Benz",
+      "Rudolf Diesel",
+      "Nikolaus Otto",
+      "Felix Wankel"
+    ],
+    "correctAnswer": 1,
+    "explanation": "German mechanical engineer Rudolf Diesel invented the high-efficiency compression-ignition engine that bears his name.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-031",
+    "question": "Who developed the tactile reading and writing system for blind people using raised dots in 1824?",
+    "options": [
+      "Valentin Haüy",
+      "Louis Braille",
+      "Helen Keller",
+      "Charles Barbier"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Louis Braille, blinded in childhood, designed the 6-dot cell system at the age of 15.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-032",
+    "question": "Who discovered the Raman Effect in 1928, explaining the inelastic scattering of light?",
+    "options": [
+      "Homi Bhabha",
+      "Sir C.V. Raman",
+      "Jagadish Chandra Bose",
+      "S. Chandrasekhar"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir C.V. Raman discovered that scattered light changes wavelength, winning the 1930 Nobel Prize in Physics.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-033",
+    "question": "Which Indian polymath pioneered wireless millimeter waves and proved that plants feel sensations using the crescograph?",
+    "options": [
+      "C.V. Raman",
+      "Sir Jagadish Chandra Bose",
+      "Satyendra Nath Bose",
+      "Prafulla Chandra Ray"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir J.C. Bose made pioneering breakthroughs in microwave optics and plant physiology.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-034",
+    "question": "Who discovered oxygen gas independently in 1774 by heating mercuric oxide?",
+    "options": [
+      "Antoine Lavoisier",
+      "Joseph Priestley",
+      "Henry Cavendish",
+      "John Dalton"
+    ],
+    "correctAnswer": 1,
+    "explanation": "English chemist Joseph Priestley isolated pure oxygen (which he called 'dephlogisticated air') in 1774.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-035",
+    "question": "Who is known as the 'Father of Modern Chemistry' for establishing the law of conservation of mass and naming oxygen?",
+    "options": [
+      "Robert Boyle",
+      "Antoine Lavoisier",
+      "John Dalton",
+      "Dmitri Mendeleev"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Antoine Lavoisier revolutionized chemistry by proving that matter changes form but is neither created nor destroyed.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-036",
+    "question": "Who discovered hydrogen gas in 1766, which he referred to as 'inflammable air'?",
+    "options": [
+      "Joseph Priestley",
+      "Henry Cavendish",
+      "Robert Boyle",
+      "Humphry Davy"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Henry Cavendish was the first to recognize hydrogen as a distinct element and discovered it produces water when burned.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-037",
+    "question": "Who discovered electromagnetic induction in 1831, enabling electric generators and transformers?",
+    "options": [
+      "James Clerk Maxwell",
+      "Michael Faraday",
+      "Andre-Marie Ampere",
+      "Heinrich Hertz"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Michael Faraday discovered that a changing magnetic field induces an electromotive force (EMF) in a wire.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-038",
+    "question": "Who formulated the classical theory of electromagnetic radiation, unifying electricity, magnetism, and light?",
+    "options": [
+      "Michael Faraday",
+      "James Clerk Maxwell",
+      "Isaac Newton",
+      "Albert Einstein"
+    ],
+    "correctAnswer": 1,
+    "explanation": "James Clerk Maxwell published his four famous equations demonstrating that light is an electromagnetic wave.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-039",
+    "question": "Who discovered blood circulation and proved the heart pumps blood continuously throughout the body?",
+    "options": [
+      "Claudius Galen",
+      "William Harvey",
+      "Andreas Vesalius",
+      "Hippocrates"
+    ],
+    "correctAnswer": 1,
+    "explanation": "English physician William Harvey published his landmark discovery of systemic blood circulation in 1628.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-040",
+    "question": "Who discovered the ABO blood group system in 1900, enabling safe blood transfusions?",
+    "options": [
+      "Alexander Fleming",
+      "Karl Landsteiner",
+      "Robert Koch",
+      "Paul Ehrlich"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Austrian biologist Karl Landsteiner identified human blood groups A, B, and O, winning the 1930 Nobel Prize in Medicine.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-041",
+    "question": "Who first observed living single-celled microorganisms (bacteria and protozoa) using homemade microscopes?",
+    "options": [
+      "Robert Hooke",
+      "Antonie van Leeuwenhoek",
+      "Louis Pasteur",
+      "Robert Brown"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Antonie van Leeuwenhoek, the 'Father of Microbiology', discovered microscopic life which he termed 'animalcules'.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-042",
+    "question": "Who coined the biological term 'cell' in 1665 after observing cork tissue under a compound microscope?",
+    "options": [
+      "Antonie van Leeuwenhoek",
+      "Robert Hooke",
+      "Theodor Schwann",
+      "Matthias Schleiden"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Robert Hooke noted the microscopic pores in cork resembled monks' dormitory rooms ('cellulae') in his book Micrographia.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-043",
+    "question": "Who invented the modern seismograph in 1880 to detect and record earthquakes?",
+    "options": [
+      "Charles Richter",
+      "John Milne",
+      "Giuseppe Mercalli",
+      "Beno Gutenberg"
+    ],
+    "correctAnswer": 1,
+    "explanation": "British geologist John Milne invented the horizontal pendulum seismograph while working in Japan.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-044",
+    "question": "Who developed the logarithmic magnitude scale used to measure the energy released by earthquakes in 1935?",
+    "options": [
+      "John Milne",
+      "Charles F. Richter",
+      "Giuseppe Mercalli",
+      "Alfred Wegener"
+    ],
+    "correctAnswer": 1,
+    "explanation": "American seismologist Charles Richter developed the Richter magnitude scale at Caltech in 1935.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-045",
+    "question": "Who proposed the groundbreaking theory of Continental Drift in 1912, suggesting all continents were once a single supercontinent (Pangaea)?",
+    "options": [
+      "James Hutton",
+      "Alfred Wegener",
+      "Charles Lyell",
+      "Harry Hess"
+    ],
+    "correctAnswer": 1,
+    "explanation": "German meteorologist Alfred Wegener proposed that continents slowly drift across the ocean floor, founding plate tectonics.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-046",
+    "question": "Who discovered the planet Uranus in 1781 using a telescope he built himself?",
+    "options": [
+      "Galileo Galilei",
+      "William Herschel",
+      "Johannes Kepler",
+      "Edwin Hubble"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir William Herschel discovered Uranus, the first planet discovered since ancient times with a telescope.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-047",
+    "question": "Who discovered that the universe is expanding and that distant galaxies are moving away from us?",
+    "options": [
+      "Albert Einstein",
+      "Edwin Hubble",
+      "Carl Sagan",
+      "Stephen Hawking"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Edwin Hubble discovered the redshift-distance relation (Hubble's Law) in 1929, proving cosmic expansion.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-048",
+    "question": "Who invented the ballpoint pen (Biro) with a rolling ball mechanism in the 1930s?",
+    "options": [
+      "Lewis Waterman",
+      "László Bíró",
+      "John Loud",
+      "Parker Brothers"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hungarian journalist László Bíró patented the smudge-free ballpoint pen using quick-drying printer ink in 1938.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-049",
+    "question": "Who invented the first commercial safety elevator brake mechanism in 1852?",
+    "options": [
+      "Thomas Edison",
+      "Elisha Otis",
+      "Henry Bessemer",
+      "Alexander Miles"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Elisha Otis invented the safety hoist brake that prevents elevators from crashing if the hoisting rope breaks.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  },
+  {
+    "questionId": "inv-050",
+    "question": "Who developed the Linux operating system kernel in 1991 as a free, open-source project?",
+    "options": [
+      "Richard Stallman",
+      "Linus Torvalds",
+      "Ken Thompson",
+      "Dennis Ritchie"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Finnish software engineer Linus Torvalds announced and released the Linux kernel while a student at the University of Helsinki.",
+    "difficulty": "easy",
+    "topic": "Inventions & Discoveries"
+  }
+]

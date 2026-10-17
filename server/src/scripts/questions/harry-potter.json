@@ -1,0 +1,467 @@
+[
+  {
+    "questionId": "hp-001",
+    "question": "What shape is the famous scar on Harry Potter's forehead?",
+    "options": ["A star", "A crescent moon", "A lightning bolt", "A snitch"],
+    "correctAnswer": 2,
+    "explanation": "Harry received his famous lightning bolt-shaped scar when Voldemort attempted to cast the Killing Curse on him as an infant.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-002",
+    "question": "What are the names of Harry Potter's two best friends at Hogwarts?",
+    "options": ["Draco Malfoy and Neville Longbottom", "Ron Weasley and Hermione Granger", "Fred and George Weasley", "Dean Thomas and Seamus Finnigan"],
+    "correctAnswer": 1,
+    "explanation": "Harry, Ron Weasley, and Hermione Granger formed the legendary Golden Trio throughout their years at Hogwarts.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-003",
+    "question": "What are the four houses of Hogwarts School of Witchcraft and Wizardry?",
+    "options": [
+      "Gryffindor, Hufflepuff, Ravenclaw, Slytherin",
+      "Ilvermorny, Beauxbatons, Durmstrang, Hogwarts",
+      "Aurors, Death Eaters, Ministry, Order",
+      "Phoenix, Dragon, Basilisk, Centaur"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The four founders established Gryffindor, Hufflepuff, Ravenclaw, and Slytherin houses.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-004",
+    "question": "What magical enchanted artifact sorts new first-year students into their Hogwarts houses?",
+    "options": ["The Goblet of Fire", "The Sorting Hat", "The Mirror of Erised", "The Marauder's Map"],
+    "correctAnswer": 1,
+    "explanation": "The Sorting Hat assesses a student's values, talents, and mind before proclaiming their house in the Great Hall.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-005",
+    "question": "What platform at King's Cross Station does the Hogwarts Express depart from?",
+    "options": ["Platform 7", "Platform 9 3/4", "Platform 10 1/2", "Platform 11"],
+    "correctAnswer": 1,
+    "explanation": "Wizards cross the magical barrier between platforms 9 and 10 to board the train at Platform 9 3/4.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-006",
+    "question": "Who was the wise Headmaster of Hogwarts School who possessed the Elder Wand for decades?",
+    "options": ["Severus Snape", "Albus Dumbledore", "Minerva McGonagall", "Phineas Nigellus"],
+    "correctAnswer": 1,
+    "explanation": "Professor Albus Percival Wulfric Brian Dumbledore was the revered Headmaster of Hogwarts.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-007",
+    "question": "Who was the dark wizard so feared that witches and wizards called him 'He-Who-Must-Not-Be-Named'?",
+    "options": ["Gellert Grindelwald", "Lord Voldemort (Tom Riddle)", "Barty Crouch Jr.", "Lucius Malfoy"],
+    "correctAnswer": 1,
+    "explanation": "Lord Voldemort, born Tom Marvolo Riddle, was the most feared Dark Lord in modern wizarding history.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-008",
+    "question": "What spell is used to produce a bright beam of light from the tip of a wand?",
+    "options": ["Alohomora", "Lumos", "Nox", "Accio"],
+    "correctAnswer": 1,
+    "explanation": "Lumos illuminates the tip of the caster's wand; Nox extinguishes it.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-009",
+    "question": "What spell is used to unlock locked doors and windows?",
+    "options": ["Expelliarmus", "Alohomora", "Wingardium Leviosa", "Stupefy"],
+    "correctAnswer": 1,
+    "explanation": "Alohomora is the Unlocking Charm used to open non-magically enchanted locks.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-010",
+    "question": "What spell is used to levitate objects, famously enunciated by Hermione as 'Wing-GAR-dium Levi-O-sa'?",
+    "options": ["Wingardium Leviosa", "Aguamenti", "Incendio", "Petrificus Totalus"],
+    "correctAnswer": 0,
+    "explanation": "Wingardium Leviosa is the Levitation Charm taught by Professor Flitwick in first year.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-011",
+    "question": "What is Harry Potter's signature dueling charm used to disarm opponents?",
+    "options": ["Avada Kedavra", "Expelliarmus", "Crucio", "Sectumsempra"],
+    "correctAnswer": 1,
+    "explanation": "Expelliarmus is the Disarming Charm, which forces an opponent's wand from their hand.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-012",
+    "question": "What are the three Unforgivable Curses in wizarding law?",
+    "options": [
+      "Lumos, Nox, Accio",
+      "Avada Kedavra, Crucio, Imperio",
+      "Stupefy, Expelliarmus, Petrificus Totalus",
+      "Reducto, Bombarda, Diffindo"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The three Unforgivable Curses are the Killing Curse (Avada Kedavra), the Torture Curse (Cruciatus), and the Mind Control Curse (Imperius).",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-013",
+    "question": "What is the name of Harry's beloved snowy owl companion?",
+    "options": ["Errol", "Hedwig", "Fawkes", "Pigwidgeon"],
+    "correctAnswer": 1,
+    "explanation": "Hedwig was bought for Harry by Hagrid at Eeylops Owl Emporium for his 11th birthday.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-014",
+    "question": "Who is the half-giant Keeper of Keys and Grounds at Hogwarts?",
+    "options": ["Argus Filch", "Rubeus Hagrid", "Grawp", "Filius Flitwick"],
+    "correctAnswer": 1,
+    "explanation": "Rubeus Hagrid is the lovable half-giant gamekeeper and Care of Magical Creatures teacher.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-015",
+    "question": "What is the name of Dumbledore's loyal phoenix whose tears have powerful healing properties?",
+    "options": ["Buckbeak", "Fawkes", "Aragog", "Norbert"],
+    "correctAnswer": 1,
+    "explanation": "Fawkes is Dumbledore's phoenix who saved Harry from basilisk venom in the Chamber of Secrets.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-016",
+    "question": "What is the name of the popular wizarding sport played on flying broomsticks?",
+    "options": ["Gobstones", "Quidditch", "Exploding Snap", "Wizard Chess"],
+    "correctAnswer": 1,
+    "explanation": "Quidditch is the most popular sport in the wizarding world, played with four balls on flying brooms.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-017",
+    "question": "What tiny, winged golden ball does Harry catch as a Seeker to win a Quidditch match and score 150 points?",
+    "options": ["Quaffle", "Golden Snitch", "Bludger", "Remembrall"],
+    "correctAnswer": 1,
+    "explanation": "Catching the Golden Snitch awards 150 points and automatically ends the Quidditch match.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-018",
+    "question": "What position did Harry Potter play on the Gryffindor Quidditch team?",
+    "options": ["Chaser", "Beater", "Seeker", "Keeper"],
+    "correctAnswer": 2,
+    "explanation": "Harry became the youngest Hogwarts Seeker in a century in his first year.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-019",
+    "question": "Who is the Potions Master and Head of Slytherin House who secretly protected Harry out of love for Lily Potter?",
+    "options": ["Horace Slughorn", "Severus Snape", "Remus Lupin", "Gilderoy Lockhart"],
+    "correctAnswer": 1,
+    "explanation": "Severus Snape played the ultimate double agent to protect Lily Evans' son until his dying breath.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-020",
+    "question": "What is Snape's famous response when Dumbledore asks if he still loves Lily 'after all this time'?",
+    "options": ["'Forever.'", "'Always.'", "'Never doubted it.'", "'Until the very end.'"],
+    "correctAnswer": 1,
+    "explanation": "Snape conjured his silver doe Patronus and replied with the iconic single word: 'Always.'",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-021",
+    "question": "What form does Harry Potter's corporeal Patronus take?",
+    "options": ["An Otter", "A Stag (Prongs)", "A Doe", "A Phoenix"],
+    "correctAnswer": 1,
+    "explanation": "Harry's Patronus is a silver stag, matching his father James Potter's Animagus form, Prongs.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-022",
+    "question": "What charm is cast with the incantation 'Expecto Patronum' to repel Dementors?",
+    "options": ["Shield Charm", "Patronus Charm", "Cheering Charm", "Memory Charm"],
+    "correctAnswer": 1,
+    "explanation": "Expecto Patronum harnesses a powerful happy memory to manifest a protective silver guardian.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-023",
+    "question": "What soul-sucking dark creatures guard the wizarding prison of Azkaban?",
+    "options": ["Boggarts", "Dementors", "Thestrals", "Inferi"],
+    "correctAnswer": 1,
+    "explanation": "Dementors drain peace, hope, and joy from human minds and consume souls via the Dementor's Kiss.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-024",
+    "question": "Who is Harry's godfather who escaped from Azkaban in The Prisoner of Azkaban?",
+    "options": ["Remus Lupin", "Sirius Black", "Peter Pettigrew", "Arthur Weasley"],
+    "correctAnswer": 1,
+    "explanation": "Sirius Black (Padfoot) was James Potter's best friend and Harry's devoted godfather.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-025",
+    "question": "What Animagus form did Sirius Black disguise himself as?",
+    "options": ["A rat", "A large black dog (The Grim / Snuffles)", "A stag", "A wolf"],
+    "correctAnswer": 1,
+    "explanation": "Sirius was an unregistered Animagus who transformed into a large shaggy black dog.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-026",
+    "question": "Who was the traitorous Marauder who betrayed James and Lily to Voldemort and lived 12 years disguised as Ron's pet rat Scabbers?",
+    "options": ["Sirius Black", "Peter Pettigrew (Wormtail)", "Remus Lupin", "Severus Snape"],
+    "correctAnswer": 1,
+    "explanation": "Peter Pettigrew lived as Scabbers the rat before helping restore Voldemort to a physical body.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-027",
+    "question": "What condition did Defense Against the Dark Arts teacher Remus Lupin secretly suffer from?",
+    "options": ["Vampirism", "Lycanthropy (Werewolf)", "Banshee curse", "Maledictus"],
+    "correctAnswer": 1,
+    "explanation": "Remus Lupin (Moony) transformed into a werewolf during every full moon.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-028",
+    "question": "What magical parchment created by Moony, Wormtail, Padfoot, and Prongs reveals everyone's location at Hogwarts?",
+    "options": ["The Daily Prophet", "The Marauder's Map", "Tom Riddle's Diary", "The Invisible Scroll"],
+    "correctAnswer": 1,
+    "explanation": "Activated with 'I solemnly swear that I am up to no good', the Marauder's Map tracks all movement in the castle.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-029",
+    "question": "What phrase clears and conceals the Marauder's Map after use?",
+    "options": ["'Nox'", "'Mischief managed.'", "'Finite Incantatem'", "'Disappear'"],
+    "correctAnswer": 1,
+    "explanation": "Tapping the map with a wand and saying 'Mischief managed' blanks the parchment back to blank paper.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-030",
+    "question": "What are the three Deathly Hallows created according to the Tale of the Three Brothers?",
+    "options": [
+      "The Invisibility Cloak, the Resurrection Stone, and the Elder Wand",
+      "The Goblet of Fire, the Sorting Hat, and the Sword of Gryffindor",
+      "The Diadem, the Locket, and the Cup",
+      "The Mirror, the Pensieve, and the Time-Turner"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The three Deathly Hallows are the Elder Wand, the Resurrection Stone, and the Cloak of Invisibility.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-031",
+    "question": "What objects did Voldemort create to store fragments of his shattered soul to achieve immortality?",
+    "options": ["Portkeys", "Horcruxes", "Hallows", "Pensieves"],
+    "correctAnswer": 1,
+    "explanation": "Voldemort divided his soul into seven Horcruxes to ensure he could never truly die.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-032",
+    "question": "What giant serpent residing in the Chamber of Secrets had a petrifying gaze and lethal venom?",
+    "options": ["Nagini", "The Basilisk", "Hungarian Horntail", "Acromantula"],
+    "correctAnswer": 1,
+    "explanation": "Salazar Slytherin hid the Basilisk in the Chamber of Secrets, which Harry killed with Godric Gryffindor's sword.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-033",
+    "question": "What is the rare magical ability to converse with snakes called?",
+    "options": ["Legilimency", "Parseltongue", "Occlumency", "Metamorphmagus"],
+    "correctAnswer": 1,
+    "explanation": "Parseltongue is the language of serpents, a trait associated with the heirs of Salazar Slytherin.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-034",
+    "question": "What was the name of Voldemort's giant venomous pet snake who was his final Horcrux?",
+    "options": ["Aragog", "Nagini", "Norbert", "Fang"],
+    "correctAnswer": 1,
+    "explanation": "Nagini was Voldemort's snake companion and Horcrux, beheaded by Neville Longbottom with the Sword of Gryffindor.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-035",
+    "question": "Who is the loyal House-Elf who warned Harry not to return to Hogwarts in his second year?",
+    "options": ["Kreacher", "Dobby", "Winky", "Hokey"],
+    "correctAnswer": 1,
+    "explanation": "Dobby the House-Elf served the Malfoys until Harry tricked Lucius Malfoy into giving Dobby a sock.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-036",
+    "question": "How is a House-Elf freed from servitude by their master?",
+    "options": ["By paying them gold galleons", "By presenting them with clothes", "By performing an incantation", "By defeating their master in a duel"],
+    "correctAnswer": 1,
+    "explanation": "A house-elf is set free only if their master presents them with an item of clothing.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-037",
+    "question": "What piece of clothing did Harry slip inside Tom Riddle's diary to trick Lucius Malfoy into freeing Dobby?",
+    "options": ["A glove", "A dirty sock", "A necktie", "A hat"],
+    "correctAnswer": 1,
+    "explanation": "Harry hid his own slimy sock in the diary; Lucius tossed it aside and Dobby caught it, earning his freedom.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-038",
+    "question": "What bank in Diagon Alley is run by Goblins and regarded as the safest place in the world for valuables?",
+    "options": ["Borgin and Burkes", "Gringotts Wizarding Bank", "Ollivanders", "Flourish and Blotts"],
+    "correctAnswer": 1,
+    "explanation": "Gringotts Wizarding Bank is staffed by goblins with underground vaults guarded by dragons and enchantments.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-039",
+    "question": "Who was the legendary wandmaker who crafted Harry's holly and phoenix feather wand in Diagon Alley?",
+    "options": ["Gregorovitch", "Garrick Ollivander", "Mykew Gregorovitch", "Antioch Peverell"],
+    "correctAnswer": 1,
+    "explanation": "Mr. Ollivander runs Ollivanders: Makers of Fine Wands since 382 B.C.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-040",
+    "question": "What shared core was contained in both Harry's wand and Voldemort's wand?",
+    "options": ["Dragon heartstring", "Feathers from the same phoenix (Fawkes)", "Unicorn hair", "Veela hair"],
+    "correctAnswer": 1,
+    "explanation": "Fawkes the phoenix gave two tail feathers: one went into Tom Riddle's wand, the other into Harry Potter's.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-041",
+    "question": "What tournament between three European wizarding schools took place at Hogwarts in The Goblet of Fire?",
+    "options": ["The World Quidditch Cup", "The Triwizard Tournament", "The Dueling League", "The Order Challenge"],
+    "correctAnswer": 1,
+    "explanation": "The Triwizard Tournament was held between Hogwarts, Beauxbatons Academy, and the Durmstrang Institute.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-042",
+    "question": "Who was the handsome Hufflepuff Triwizard champion tragically murdered by Peter Pettigrew in the graveyard?",
+    "options": ["Viktor Krum", "Cedric Diggory", "Oliver Wood", "Percy Weasley"],
+    "correctAnswer": 1,
+    "explanation": "Cedric Diggory, played by Robert Pattinson, was murdered on Voldemort's orders: 'Kill the spare.'",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-043",
+    "question": "What pink-clad, cat-loving Ministry inquisitor tortured students with a blood quill at Hogwarts?",
+    "options": ["Rita Skeeter", "Dolores Umbridge", "Bellatrix Lestrange", "Alecto Carrow"],
+    "correctAnswer": 1,
+    "explanation": "Dolores Umbridge made Harry repeatedly write 'I must not tell lies' carved into the back of his hand.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-044",
+    "question": "What secret student defense group did Harry, Ron, and Hermione form in Order of the Phoenix?",
+    "options": ["The Order of the Phoenix", "Dumbledore's Army (DA)", "The Inquisitorial Squad", "The Slug Club"],
+    "correctAnswer": 1,
+    "explanation": "Dumbledore's Army trained in the Room of Requirement to practice practical defensive counter-curses.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-045",
+    "question": "What secret room in Hogwarts only appears when a person is in great need of it?",
+    "options": ["The Chamber of Secrets", "The Room of Requirement (Come and Go Room)", "The Trophy Room", "The Headmaster's Tower"],
+    "correctAnswer": 1,
+    "explanation": "The Room of Requirement on the seventh floor equips itself with whatever the seeker requires.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-046",
+    "question": "Who was Voldemort's most fanatical, sadistic Death Eater follower who killed Sirius Black?",
+    "options": ["Narcissa Malfoy", "Bellatrix Lestrange", "Alecto Carrow", "Pansy Parkinson"],
+    "correctAnswer": 1,
+    "explanation": "Bellatrix Lestrange struck Sirius with a curse into the Veil in the Department of Mysteries.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-047",
+    "question": "Who famously shouted 'NOT MY DAUGHTER, YOU BITCH!' before killing Bellatrix Lestrange in the Battle of Hogwarts?",
+    "options": ["Minerva McGonagall", "Molly Weasley", "Hermione Granger", "Ginny Weasley"],
+    "correctAnswer": 1,
+    "explanation": "Molly Weasley stepped up to protect Ginny and dueled Bellatrix to the death in the Great Hall.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-048",
+    "question": "What young witch did Harry Potter eventually marry in the epilogue?",
+    "options": ["Hermione Granger", "Cho Chang", "Ginny Weasley", "Luna Lovegood"],
+    "correctAnswer": 2,
+    "explanation": "Harry married Ginny Weasley, and they had three children: James Sirius, Albus Severus, and Lily Luna.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-049",
+    "question": "Who did Ron Weasley marry in the epilogue?",
+    "options": ["Lavender Brown", "Hermione Granger", "Pansy Parkinson", "Fleur Delacour"],
+    "correctAnswer": 1,
+    "explanation": "Ron Weasley and Hermione Granger married and had two children: Rose and Hugo Granger-Weasley.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  },
+  {
+    "questionId": "hp-050",
+    "question": "What are non-magical people born into non-magical families called in the British wizarding world?",
+    "options": ["No-Maj", "Squibs", "Muggles", "Mudbloods"],
+    "correctAnswer": 2,
+    "explanation": "Muggles is the British wizarding term for ordinary humans with no magical abilities.",
+    "difficulty": "easy",
+    "topic": "Harry Potter"
+  }
+]

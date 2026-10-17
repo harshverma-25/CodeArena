@@ -1,0 +1,452 @@
+[
+  {
+    "questionId": "jjk-001",
+    "question": "Who is the main protagonist of Jujutsu Kaisen?",
+    "options": ["Megumi Fushiguro", "Yuji Itadori", "Yuta Okkotsu", "Satoru Gojo"],
+    "correctAnswer": 1,
+    "explanation": "Yuji Itadori is the main protagonist who swallows Ryomen Sukuna's finger to save his friends.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-002",
+    "question": "What is the title and status of Satoru Gojo in the Jujutsu world?",
+    "options": ["First Grade Sorcerer", "The Strongest Jujutsu Sorcerer (Special Grade)", "Principal of Kyoto High", "Supreme Commander of Jujutsu"],
+    "correctAnswer": 1,
+    "explanation": "Satoru Gojo is universally acknowledged as the strongest Special Grade modern Jujutsu Sorcerer.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-003",
+    "question": "Who is known as the 'King of Curses' in Jujutsu Kaisen?",
+    "options": ["Mahito", "Suguru Geto", "Ryomen Sukuna", "Kenjaku"],
+    "correctAnswer": 2,
+    "explanation": "Ryomen Sukuna, a legendary sorcerer from the Heian Era, is the King of Curses.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-004",
+    "question": "How many fingers did Ryomen Sukuna have in total that were scattered across Japan?",
+    "options": ["10", "15", "20", "25"],
+    "correctAnswer": 2,
+    "explanation": "Sukuna had four arms and twenty fingers, each preserving indestructible cursed energy.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-005",
+    "question": "What rare dōjutsu (ocular trait) does Satoru Gojo possess that allows him to perceive cursed energy at an atomic level?",
+    "options": ["Byakugan", "Six Eyes (Rikugan)", "Sharingan", "Cursed Eyes"],
+    "correctAnswer": 1,
+    "explanation": "The Six Eyes (Rikugan) is an innate ocular trait of the Gojo clan that grants immaculate cursed energy perception and efficiency.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-006",
+    "question": "What is Satoru Gojo's inherited cursed technique that creates an infinite barrier between him and any incoming attack?",
+    "options": ["Limitless (Mukagen)", "Straw Doll Technique", "Ten Shadows", "Blood Manipulation"],
+    "correctAnswer": 0,
+    "explanation": "Limitless brings the concept of infinity into reality, rendering attacks unable to physically touch Gojo.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-007",
+    "question": "What is the name of Satoru Gojo's Domain Expansion?",
+    "options": ["Malevolent Shrine", "Unlimited Void (Muryōkūsho)", "Chimera Shadow Garden", "Self-Embodiment of Perfection"],
+    "correctAnswer": 1,
+    "explanation": "Unlimited Void floods the target's brain with infinite boundless information, paralyzing them instantly.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-008",
+    "question": "What is the name of Ryomen Sukuna's open-barrier Domain Expansion?",
+    "options": ["Malevolent Shrine (Fukuma Mizushi)", "Unlimited Void", "Coffin of the Iron Mountain", "Idle Death Gamble"],
+    "correctAnswer": 0,
+    "explanation": "Malevolent Shrine manifests a demonic shrine in reality without closing a barrier, slicing everything in a 200m radius.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-009",
+    "question": "What inherited cursed technique does Megumi Fushiguro use using shadow puppets?",
+    "options": ["Limitless", "Ten Shadows Technique (Tokusa no Kagebō)", "Boogie Woogie", "Cursed Speech"],
+    "correctAnswer": 1,
+    "explanation": "Megumi uses the Zen'in clan's prized Ten Shadows Technique to summon various shikigami from shadows.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-010",
+    "question": "What weapon technique does Nobara Kugisaki use to attack curses through effigies and straw dolls?",
+    "options": ["Straw Doll Technique (Resonance and Hairpin)", "Ten Shadows", "Miracle", "Black Flash"],
+    "correctAnswer": 0,
+    "explanation": "Nobara uses a hammer, nails, and straw doll with her Straw Doll Technique to transmit cursed damage via Resonance.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-011",
+    "question": "What phenomenon occurs when a physical blow connects within 0.000001 seconds of a cursed energy flash, multiplying power by 2.5?",
+    "options": ["Divergent Fist", "Black Flash (Kokusen)", "Maximum Output", "Domain Amplification"],
+    "correctAnswer": 1,
+    "explanation": "Black Flash is a spatial distortion that sparks black lightning and amplifies impact exponentially.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-012",
+    "question": "Who is Yuji Itadori's self-proclaimed 'Best Friend' and eccentric Todo clan sorcerer who loves Takada-chan?",
+    "options": ["Panda", "Aoi Todo", "Kento Nanami", "Toge Inumaki"],
+    "correctAnswer": 1,
+    "explanation": "Aoi Todo bonded with Yuji over their shared taste in women (tall women with a big ass like Jennifer Lawrence).",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-013",
+    "question": "What is Aoi Todo's innate technique that swaps places of two objects or people with cursed energy when he claps his hands?",
+    "options": ["Boogie Woogie", "Idle Transfiguration", "Puppet Manipulation", "Cursed Speech"],
+    "correctAnswer": 0,
+    "explanation": "Boogie Woogie switches the positions of anything with a minimum amount of cursed energy upon clapping.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-014",
+    "question": "What former corporate salaryman-turned-sorcerer serves as a pragmatic mentor to Yuji and uses the 7:3 Ratio Technique?",
+    "options": ["Kento Nanami", "Naobito Zenin", "Masamichi Yaga", "Atsuya Kusakabe"],
+    "correctAnswer": 0,
+    "explanation": "Kento Nanami is a Grade 1 sorcerer who calculates 7:3 points to forcibly create critical strike weaknesses.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-015",
+    "question": "What cursed speech user only speaks in rice ball ingredients (like 'Salmon', 'Kelp', 'Bonito flakes') to protect others?",
+    "options": ["Yuta Okkotsu", "Toge Inumaki", "Noritoshi Kamo", "Panda"],
+    "correctAnswer": 1,
+    "explanation": "Toge Inumaki restricts his speech to onigiri ingredients to prevent accidentally cursing people with his Cursed Speech.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-016",
+    "question": "What kind of creature is Panda at Tokyo Jujutsu High?",
+    "options": ["A real panda fed cursed food", "An Abrupt Mutated Cursed Corpse created by Principal Yaga", "A shikigami summoned by Megumi", "A cursed spirit"],
+    "correctAnswer": 1,
+    "explanation": "Panda is a sentient Mutated Cursed Corpse created by Principal Masamichi Yaga possessing three sibling cores.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-017",
+    "question": "What Zen'in clan member was born with virtually zero cursed energy due to Heavenly Restriction and relies strictly on cursed tools?",
+    "options": ["Mai Zen'in", "Maki Zen'in", "Naoya Zen'in", "Toji Fushiguro"],
+    "correctAnswer": 1,
+    "explanation": "Maki Zen'in was born with negligible cursed energy due to Heavenly Restriction, which grants superhuman physical prowess.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-018",
+    "question": "Who was the 'Sorcerer Killer' who possessed zero cursed energy, defeated Satoru Gojo in hidden inventory, and was Megumi's father?",
+    "options": ["Suguru Geto", "Toji Fushiguro (Zenin)", "Choso", "Naobito"],
+    "correctAnswer": 1,
+    "explanation": "Toji Fushiguro possessed a complete Heavenly Restriction that removed all cursed energy in exchange for godlike physical attributes.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-019",
+    "question": "Who is the protagonist of Jujutsu Kaisen 0 who commands the Queen of Curses, Rika Orimoto?",
+    "options": ["Yuji Itadori", "Yuta Okkotsu", "Megumi Fushiguro", "Kinji Hakari"],
+    "correctAnswer": 1,
+    "explanation": "Yuta Okkotsu was haunted by his childhood sweetheart Rika before learning to harness her Special Grade cursed spirit power.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-020",
+    "question": "Who was Satoru Gojo's closest best friend who fell into darkness and sought to eliminate all non-sorcerers?",
+    "options": ["Kento Nanami", "Suguru Geto", "Masamichi Yaga", "Mei Mei"],
+    "correctAnswer": 1,
+    "explanation": "Suguru Geto was Gojo's beloved best friend whose despair over non-sorcerers driving curses led him to become a curse user.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-021",
+    "question": "What evil ancient brain-hopping sorcerer possessed Suguru Geto's deceased body?",
+    "options": ["Sukuna", "Kenjaku", "Mahito", "Tengen"],
+    "correctAnswer": 1,
+    "explanation": "Kenjaku is a thousand-year-old sorcerer who transplants his brain with stitches into host corpses, including Geto.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-022",
+    "question": "Which Disaster Curse was born from humanity's hatred and fear of other humans and manipulates souls?",
+    "options": ["Jogo", "Hanami", "Dagon", "Mahito"],
+    "correctAnswer": 3,
+    "explanation": "Mahito is the cursed spirit of human hatred whose Idle Transfiguration reshapes human souls.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-023",
+    "question": "What is Mahito's technique called that alters the shape of souls and mutates bodies on touch?",
+    "options": ["Idle Transfiguration (Mukentenshin)", "Disaster Flames", "Blood Manipulation", "Star Rage"],
+    "correctAnswer": 0,
+    "explanation": "Idle Transfiguration allows Mahito to touch the soul of a living being and disfigure or explode their flesh.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-024",
+    "question": "Which volcanic one-eyed Special Grade Disaster Curse represents volcanoes and earth fires?",
+    "options": ["Jogo", "Hanami", "Dagon", "Kurourushi"],
+    "correctAnswer": 0,
+    "explanation": "Jogo is the hotheaded Disaster Curse of volcanoes who arrogantly challenged Satoru Gojo.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-025",
+    "question": "Which Disaster Curse was born from humanity's fear of forests and flora?",
+    "options": ["Hanami", "Dagon", "Choso", "Kechizu"],
+    "correctAnswer": 0,
+    "explanation": "Hanami was born from the fear and mistreatment of nature, forests, and plants.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-026",
+    "question": "What is the supreme, untamed divine general shikigami summoned by Megumi via the ritual 'With this treasure, I summon...'?",
+    "options": ["Divine Dog: Totality", "Eight-Handled Sword Divergent Sila Divine General Mahoraga", "Nue", "Great Serpent"],
+    "correctAnswer": 1,
+    "explanation": "Mahoraga is the untamable Ten Shadows shikigami capable of adapting to any and all phenomena.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-027",
+    "question": "What unique adaptation wheel rotates behind Mahoraga's back?",
+    "options": ["Dharmachakra Wheel", "Flame Ring", "Six Eyes Ring", "Sundial"],
+    "correctAnswer": 0,
+    "explanation": "The eight-spoked wheel atop Mahoraga turns whenever it adapts to a new attack or technique.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-028",
+    "question": "What special cursed object was used to seal Satoru Gojo during the Shibuya Incident?",
+    "options": ["Playful Cloud", "Prison Realm (Gokumonkyō)", "Inverted Spear of Heaven", "Split Soul Katana"],
+    "correctAnswer": 1,
+    "explanation": "The Prison Realm is a living barrier curse tool that trapped Satoru Gojo inside a pocket dimension.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-029",
+    "question": "Who is the oldest of the Death Painting Womb brothers who realizes Yuji Itadori is his younger brother?",
+    "options": ["Eso", "Kechizu", "Choso", "Noritoshi"],
+    "correctAnswer": 2,
+    "explanation": "Choso senses the blood connection to Yuji through their shared parentage via Kenjaku.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-030",
+    "question": "What technique shared by the Kamo clan and Death Paintings does Choso master?",
+    "options": ["Blood Manipulation", "Ten Shadows", "Limitless", "Projection Sorcery"],
+    "correctAnswer": 0,
+    "explanation": "Blood Manipulation allows Choso to shape and fire pressurized blood attacks like Piercing Blood and Supernova.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-031",
+    "question": "What special three-section staff cursed tool has no imbued technique but scales purely with the wielder's physical strength?",
+    "options": ["Dragon Bone", "Playful Cloud (Yūun)", "Festering Life Sword", "Inverted Spear of Heaven"],
+    "correctAnswer": 1,
+    "explanation": "Playful Cloud is a Special Grade cursed tool whose destructive force depends solely on the wielder's muscular strength.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-032",
+    "question": "What Special Grade cursed dagger nullifies any and all active cursed techniques on contact?",
+    "options": ["Inverted Spear of Heaven", "Kamutoke", "Black Rope", "Chain of A Thousand Miles"],
+    "correctAnswer": 0,
+    "explanation": "The Inverted Spear of Heaven nullifies any cursed technique, which Toji used to bypass Gojo's Infinity.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-033",
+    "question": "What is Satoru Gojo's 'Hollow Purple' created by combining?",
+    "options": ["Blue (Convergence/Attraction) and Red (Divergence/Repulsion)", "Black Flash and Rasengan", "Six Eyes and Limitless", "Yellow and Green"],
+    "correctAnswer": 0,
+    "explanation": "Hollow Technique: Purple combines Cursed Technique Lapse: Blue with Cursed Technique Reversal: Red to erase matter.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-034",
+    "question": "What is the primary role of Master Tengen in the Jujutsu society?",
+    "options": ["Fighting in front lines", "Maintaining sacred protective barriers surrounding Japan and Jujutsu schools", "Selecting the next Hokage", "Forging cursed weapons"],
+    "correctAnswer": 1,
+    "explanation": "Immortal Master Tengen stabilizes all defensive barriers that protect Jujutsu High and suppress curse outbreaks across Japan.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-035",
+    "question": "What innocent girl was selected as the Star Plasma Vessel to merge with Master Tengen during Gojo's high school years?",
+    "options": ["Riko Amanai", "Misato Kuroi", "Tsumiki Fushiguro", "Shoko Ieiri"],
+    "correctAnswer": 0,
+    "explanation": "Riko Amanai was the lively middle-school girl designated as the Star Plasma Vessel before being shot by Toji.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-036",
+    "question": "Who is the resident doctor and medical specialist at Tokyo Jujutsu High who can output Reverse Cursed Technique to heal others?",
+    "options": ["Mei Mei", "Utahime Iori", "Shoko Ieiri", "Yuki Tsukumo"],
+    "correctAnswer": 2,
+    "explanation": "Shoko Ieiri was Gojo and Geto's classmate and one of the rare sorcerers capable of healing others using RCT.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-037",
+    "question": "What grade sorcerer is Yuki Tsukumo, known for asking sorcerers what kind of women they like?",
+    "options": ["Grade 2", "Grade 1", "Special Grade", "Semi-Grade 1"],
+    "correctAnswer": 2,
+    "explanation": "Yuki Tsukumo is one of only four Special Grade modern sorcerers, wielding the mass technique Star Rage.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-038",
+    "question": "What is Kinji Hakari's pachinko-themed Domain Expansion based on a romance manga?",
+    "options": ["Idle Death Gamble (Restless Gambler)", "Malevolent Shrine", "Time Cell Moon Palace", "Horizon of the Captivating Skandha"],
+    "correctAnswer": 0,
+    "explanation": "Idle Death Gamble simulates a pachinko game; hitting a jackpot grants Hakari 4 minutes and 11 seconds of infinite cursed energy and immortality.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-039",
+    "question": "Who is Kokichi Muta who controls the puppet Mechamaru from a tub due to a frail body from Heavenly Restriction?",
+    "options": ["Ultimate Mechamaru", "Noritoshi Kamo", "Panda", "Arata Nitta"],
+    "correctAnswer": 0,
+    "explanation": "Kokichi Muta used Heavenly Restriction's vast cursed range to pilot puppets like Ultimate Mechamaru from afar.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-040",
+    "question": "What type of weapon does Maki Zen'in use when she destroys the Zen'in clan?",
+    "options": ["A cursed bow", "Dragon Bone and the Split Soul Katana", "A pistol", "Nun-chucks"],
+    "correctAnswer": 1,
+    "explanation": "Maki wielded the Dragon Bone and her sister Mai's final creation, the replica Split Soul Katana.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-041",
+    "question": "What battle tournament takes place annually between Tokyo and Kyoto Jujutsu High schools?",
+    "options": ["Kyoto Goodwill Event", "Chunin Exam", "Hunter Exam", "Demon Slayer Final Selection"],
+    "correctAnswer": 0,
+    "explanation": "The Kyoto Sister-School Goodwill Event is an annual competition between the Tokyo and Kyoto branches.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-042",
+    "question": "What is the battle royale organized by Kenjaku in selected barrier colonies across Japan?",
+    "options": ["The Shibuya Incident", "The Culling Game", "Night Parade of a Hundred Demons", "The Heian Games"],
+    "correctAnswer": 1,
+    "explanation": "The Culling Game is Kenjaku's deadly tournament designed to prepare Japan for merging humanity with Tengen.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-043",
+    "question": "Who is the modern lawyer-turned-sorcerer whose domain creates a courtroom trial without violence?",
+    "options": ["Hiromi Higuruma", "Hajime Kashimo", "Ryu Ishigori", "Takaba"],
+    "correctAnswer": 0,
+    "explanation": "Hiromi Higuruma uses Deadly Sentencing, a courtroom domain where Judgeman levies confiscation and death penalties.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-044",
+    "question": "Who is the ancient lightning sorcerer from 400 years ago who fought Hakari and sought to duel Sukuna?",
+    "options": ["Hajime Kashimo", "Ryu Ishigori", "Takako Uro", "Reggie Star"],
+    "correctAnswer": 0,
+    "explanation": "Hajime Kashimo possessed electrical cursed energy and saved his single-use technique Mythic Amber exclusively for Sukuna.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-045",
+    "question": "Who is the failed comedian whose cursed technique 'Comedian' makes reality of anything he thinks is genuinely funny?",
+    "options": ["Fumihiko Takaba", "Aoi Todo", "Charles Bernard", "Choso"],
+    "correctAnswer": 0,
+    "explanation": "Fumihiko Takaba possesses the reality-warping technique Comedian, rivaling even Satoru Gojo without realizing it.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-046",
+    "question": "What is the name of Sukuna's two slashing attacks?",
+    "options": ["Dismantle (Kai) and Cleave (Hachi)", "Fire Arrow and Ice Spear", "Slash and Burn", "Void Cut and Shadow Slice"],
+    "correctAnswer": 0,
+    "explanation": "Sukuna uses Dismantle for inanimate objects and Cleave which adjusts to the target's cursed toughness.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-047",
+    "question": "What incantation does Sukuna use to unleash his catastrophic fire technique?",
+    "options": ["Open (Fūga)", "Ignite (Moe)", "Burn (Yake)", "Inferno (Goka)"],
+    "correctAnswer": 0,
+    "explanation": "Sukuna utters 'Open' (Fūga) to manifest a devastating high-temperature fire arrow.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-048",
+    "question": "Whose body does Sukuna take over as a vessel after feeding him his finger during the Culling Game?",
+    "options": ["Megumi Fushiguro", "Yuta Okkotsu", "Satoru Gojo", "Hiromi Higuruma"],
+    "correctAnswer": 0,
+    "explanation": "Sukuna forcibly feeds his finger to Megumi Fushiguro to steal his body and the Ten Shadows technique.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-049",
+    "question": "What is the name of the teacher at Kyoto High who sings with her technique to amplify other sorcerers' cursed energy to 120%?",
+    "options": ["Utahime Iori", "Miwa Kasumi", "Mei Mei", "Momo Nishimiya"],
+    "correctAnswer": 0,
+    "explanation": "Utahime Iori uses Solo Forbidden Area to enhance the cursed energy output of herself and allies.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  },
+  {
+    "questionId": "jjk-050",
+    "question": "What blue-haired Kyoto student claims to be 'useless Miwa' and holds Gojo in starry-eyed admiration?",
+    "options": ["Kasumi Miwa", "Mai Zen'in", "Momo Nishimiya", "Yuko Ozawa"],
+    "correctAnswer": 0,
+    "explanation": "Kasumi Miwa is a sweet New Shadow Style user who excitedly asked Gojo for a selfie.",
+    "difficulty": "easy",
+    "topic": "Jujutsu Kaisen"
+  }
+]

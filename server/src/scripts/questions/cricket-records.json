@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "cricket-rec-001",
+    "question": "Who holds the record for the highest individual score in Test cricket (400*)?",
+    "options": [
+      "Matthew Hayden",
+      "Brian Lara",
+      "Don Bradman",
+      "Virender Sehwag"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Brian Lara scored 400 not out against England in Antigua in 2004.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-002",
+    "question": "Who holds the record for the highest individual score in Men's ODI history (264)?",
+    "options": [
+      "Martin Guptill",
+      "Rohit Sharma",
+      "Virender Sehwag",
+      "Chris Gayle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rohit Sharma scored 264 against Sri Lanka at Eden Gardens in 2014.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-003",
+    "question": "Who is the only batsman in cricket history to score 100 international centuries?",
+    "options": [
+      "Ricky Ponting",
+      "Sachin Tendulkar",
+      "Virat Kohli",
+      "Jacques Kallis"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sachin Tendulkar scored 51 Test centuries and 49 ODI centuries (100 total).",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-004",
+    "question": "What is Sir Donald Bradman's legendary career Test batting average?",
+    "options": [
+      "88.50",
+      "99.94",
+      "104.2",
+      "95.14"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir Don Bradman retired with an untouchable Test batting average of 99.94.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-005",
+    "question": "Who is the highest wicket-taker in international cricket with 800 Test wickets?",
+    "options": [
+      "Shane Warne",
+      "Muttiah Muralitharan",
+      "James Anderson",
+      "Anil Kumble"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Muttiah Muralitharan of Sri Lanka took 800 Test wickets and 534 ODI wickets.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-006",
+    "question": "Who was the first male cricketer to score a double century (200*) in an ODI?",
+    "options": [
+      "Virender Sehwag",
+      "Sachin Tendulkar",
+      "Rohit Sharma",
+      "Chris Gayle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sachin Tendulkar scored 200* against South Africa in Gwalior on Feb 24, 2010.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-007",
+    "question": "Who is the only batsman in ODI cricket to score three double centuries?",
+    "options": [
+      "Chris Gayle",
+      "Rohit Sharma",
+      "Martin Guptill",
+      "Fakhar Zaman"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rohit Sharma scored 209, 264, and 208* in ODIs.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-008",
+    "question": "Who scored the fastest century in ODI history in just 31 balls?",
+    "options": [
+      "Shahid Afridi",
+      "AB de Villiers",
+      "Corey Anderson",
+      "Glenn Maxwell"
+    ],
+    "correctAnswer": 1,
+    "explanation": "AB de Villiers reached 100 off 31 balls against the West Indies in 2015.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-009",
+    "question": "Who hit six sixes in an over off Stuart Broad in the 2007 T20 World Cup?",
+    "options": [
+      "Chris Gayle",
+      "Yuvraj Singh",
+      "MS Dhoni",
+      "Kieron Pollard"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Yuvraj Singh smashed 6 sixes in an over in Durban, reaching a 12-ball fifty.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-010",
+    "question": "Which country has won the Men's ODI Cricket World Cup a record 6 times?",
+    "options": [
+      "India",
+      "Australia",
+      "West Indies",
+      "England"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Australia won the World Cup in 1987, 1999, 2003, 2007, 2015, and 2023.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-011",
+    "question": "Who bowled the fastest recorded delivery in international cricket at 161.3 km/h?",
+    "options": [
+      "Brett Lee",
+      "Shoaib Akhtar",
+      "Shaun Tait",
+      "Mitchell Starc"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Shoaib Akhtar clocked 161.3 km/h (100.2 mph) against England in the 2003 World Cup.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-012",
+    "question": "Who is the all-time leading run-scorer in international cricket with 34,357 runs?",
+    "options": [
+      "Kumar Sangakkara",
+      "Sachin Tendulkar",
+      "Ricky Ponting",
+      "Virat Kohli"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sachin Tendulkar scored 15,921 Test runs and 18,426 ODI runs.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-013",
+    "question": "Which English spinner was the first bowler to take all 10 wickets in a Test innings in 1956?",
+    "options": [
+      "Jim Laker",
+      "Derek Underwood",
+      "Graeme Swann",
+      "Tony Lock"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Jim Laker took 10 for 53 against Australia at Old Trafford.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-014",
+    "question": "Which Indian spinner famously took all 10 wickets in a Test innings against Pakistan in 1999?",
+    "options": [
+      "Harbhajan Singh",
+      "Anil Kumble",
+      "Bishan Bedi",
+      "R. Ashwin"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Anil Kumble took 10 for 74 at Feroz Shah Kotla in Delhi.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-015",
+    "question": "Who was the fastest batsman to reach 50 ODI centuries, breaking Sachin's record in 2023?",
+    "options": [
+      "Rohit Sharma",
+      "Virat Kohli",
+      "Babar Azam",
+      "David Warner"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Virat Kohli scored his 50th ODI century in the 2023 World Cup semi-final at Wankhede.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-016",
+    "question": "Who holds the record for the most dismissals by a wicketkeeper in international cricket (998)?",
+    "options": [
+      "Adam Gilchrist",
+      "Mark Boucher",
+      "MS Dhoni",
+      "Kumar Sangakkara"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mark Boucher of South Africa leads with 998 dismissals across formats.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-017",
+    "question": "Who holds the record for the most stumpings in international cricket history (195)?",
+    "options": [
+      "Kumar Sangakkara",
+      "MS Dhoni",
+      "Romesh Kaluwitharana",
+      "Adam Gilchrist"
+    ],
+    "correctAnswer": 1,
+    "explanation": "MS Dhoni's quick glovework produced an all-time record 195 stumpings.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-018",
+    "question": "Who captained India to their historic first World Cup win at Lord's in 1983?",
+    "options": [
+      "Sunil Gavaskar",
+      "Kapil Dev",
+      "Mohinder Amarnath",
+      "Ravi Shastri"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kapil Dev captained India to defeat the two-time defending champion West Indies.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-019",
+    "question": "What is the highest team total in Men's ODI history (498/4)?",
+    "options": [
+      "Australia",
+      "England",
+      "South Africa",
+      "India"
+    ],
+    "correctAnswer": 1,
+    "explanation": "England scored 498/4 against the Netherlands in 2022.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-020",
+    "question": "Who was the first batsman in history to score 10,000 runs in Test cricket?",
+    "options": [
+      "Allan Border",
+      "Sunil Gavaskar",
+      "Brian Lara",
+      "Viv Richards"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sunil Gavaskar breached the 10,000-run landmark against Pakistan in Ahmedabad in 1987.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-021",
+    "question": "Who holds the record for most runs in a single ODI World Cup edition (765 in 2023)?",
+    "options": [
+      "Sachin Tendulkar",
+      "Virat Kohli",
+      "Rohit Sharma",
+      "Matthew Hayden"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Virat Kohli scored 765 runs in 11 innings in the 2023 World Cup.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-022",
+    "question": "Who holds the record for the most centuries in Cricket World Cup history (7)?",
+    "options": [
+      "Sachin Tendulkar",
+      "Rohit Sharma",
+      "David Warner",
+      "Kumar Sangakkara"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rohit Sharma hit 7 World Cup centuries across the 2015, 2019, and 2023 editions.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-023",
+    "question": "Who is the only fast bowler in cricket history to take over 700 Test wickets?",
+    "options": [
+      "Glenn McGrath",
+      "James Anderson",
+      "Stuart Broad",
+      "Courtney Walsh"
+    ],
+    "correctAnswer": 1,
+    "explanation": "James Anderson of England retired with 704 Test wickets.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-024",
+    "question": "What was the lowest team total in Test cricket history (26 all out)?",
+    "options": [
+      "India",
+      "New Zealand",
+      "South Africa",
+      "Zimbabwe"
+    ],
+    "correctAnswer": 1,
+    "explanation": "New Zealand was bowled out for 26 against England in Auckland in 1955.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-025",
+    "question": "What was India's lowest-ever Test innings score (36 all out in 2020)?",
+    "options": [
+      "Against England",
+      "Against Australia at Adelaide",
+      "Against South Africa",
+      "Against New Zealand"
+    ],
+    "correctAnswer": 1,
+    "explanation": "India was dismissed for 36 in the day-night Adelaide Test in 2020.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-026",
+    "question": "Who scored an iconic 175* from 17/5 for India against Zimbabwe in the 1983 World Cup?",
+    "options": [
+      "Sunil Gavaskar",
+      "Kapil Dev",
+      "Sandeep Patil",
+      "Mohinder Amarnath"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kapil Dev's 175 not out at Tunbridge Wells saved India's tournament.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-027",
+    "question": "Who holds the record for the fastest fifty in ODI World Cup history (18 balls)?",
+    "options": [
+      "Brendon McCullum",
+      "Glenn Maxwell",
+      "AB de Villiers",
+      "Travis Head"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Brendon McCullum smashed an 18-ball fifty against England in Wellington in 2015.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-028",
+    "question": "Who scored the fastest century in World Cup history (40 balls in 2023)?",
+    "options": [
+      "Aiden Markram",
+      "Glenn Maxwell",
+      "Heinrich Klaasen",
+      "Travis Head"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Glenn Maxwell reached his century in 40 balls against the Netherlands in Delhi.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-029",
+    "question": "Who scored 201* while suffering severe cramps to chase 292 for Australia in World Cup 2023?",
+    "options": [
+      "David Warner",
+      "Glenn Maxwell",
+      "Mitchell Marsh",
+      "Pat Cummins"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Glenn Maxwell produced a solo masterclass to rescue Australia from 91/7 against Afghanistan.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-030",
+    "question": "Who is the only captain in cricket history to win all three ICC white-ball trophies?",
+    "options": [
+      "Ricky Ponting",
+      "MS Dhoni",
+      "Clive Lloyd",
+      "Eoin Morgan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "MS Dhoni won the T20 World Cup (2007), ODI World Cup (2011), and Champions Trophy (2013).",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-031",
+    "question": "Who holds the record for the most sixes in all international cricket combined (over 600)?",
+    "options": [
+      "Chris Gayle",
+      "Rohit Sharma",
+      "Shahid Afridi",
+      "Brendon McCullum"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rohit Sharma holds the world record with over 600 international sixes.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-032",
+    "question": "Who holds the best bowling figures in an ODI World Cup match (7 for 15)?",
+    "options": [
+      "Chaminda Vaas",
+      "Glenn McGrath",
+      "Tim Southee",
+      "Mohammed Shami"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Glenn McGrath took 7/15 against Namibia in the 2003 World Cup.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-033",
+    "question": "Which Indian bowler was the leading wicket-taker in the 2023 World Cup with 24 wickets?",
+    "options": [
+      "Jasprit Bumrah",
+      "Mohammed Shami",
+      "Mohammed Siraj",
+      "Kuldeep Yadav"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mohammed Shami took 24 wickets in 7 games, including 7/57 in the semi-final.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-034",
+    "question": "Who took a Test hat-trick in the first over of a match against Pakistan in Karachi in 2006?",
+    "options": [
+      "Wasim Akram",
+      "Irfan Pathan",
+      "Zaheer Khan",
+      "Javagal Srinath"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Irfan Pathan dismissed Salman Butt, Younis Khan, and Mohammad Yousuf in the opening over.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-035",
+    "question": "Who was the first Indian batsman to score a triple century (309) in Test cricket?",
+    "options": [
+      "Sachin Tendulkar",
+      "Virender Sehwag",
+      "Rahul Dravid",
+      "Sunil Gavaskar"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Virender Sehwag scored 309 against Pakistan in Multan in 2004.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-036",
+    "question": "Who is the only other Indian batsman besides Sehwag to score a Test triple century?",
+    "options": [
+      "Virat Kohli",
+      "Karun Nair",
+      "Rohit Sharma",
+      "Cheteshwar Pujara"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Karun Nair scored 303* against England in Chennai in December 2016.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-037",
+    "question": "What is the highest successful fourth-innings run chase in Test cricket (418)?",
+    "options": [
+      "India vs Australia",
+      "West Indies vs Australia",
+      "South Africa vs Australia",
+      "England vs Australia"
+    ],
+    "correctAnswer": 1,
+    "explanation": "West Indies scored 418/7 to beat Australia in Antigua in 2003.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-038",
+    "question": "In which historic 2006 ODI did South Africa chase down Australia's 434?",
+    "options": [
+      "Sydney",
+      "The Wanderers (Johannesburg)",
+      "Durban",
+      "Melbourne"
+    ],
+    "correctAnswer": 1,
+    "explanation": "South Africa reached 438/9 with a ball to spare at The Wanderers.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-039",
+    "question": "Who scored 175 off 111 balls for South Africa in the legendary 438 match?",
+    "options": [
+      "Jacques Kallis",
+      "Herschelle Gibbs",
+      "Graeme Smith",
+      "Mark Boucher"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Herschelle Gibbs played an unforgettable innings to anchor the chase.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-040",
+    "question": "Who holds the record for playing the most consecutive Tests without missing a match (159)?",
+    "options": [
+      "Allan Border",
+      "Alastair Cook",
+      "Mark Waugh",
+      "Brendon McCullum"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Alastair Cook played 159 consecutive Tests for England between 2006 and 2018.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-041",
+    "question": "Who scored the first-ever century in Men's T20 International cricket (in 2007)?",
+    "options": [
+      "Yuvraj Singh",
+      "Chris Gayle",
+      "Brendon McCullum",
+      "Suresh Raina"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Chris Gayle scored 117 off 57 balls against South Africa in the 2007 T20 World Cup.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-042",
+    "question": "Who holds the record for the most catches by a non-wicketkeeper in Test history (210)?",
+    "options": [
+      "Ricky Ponting",
+      "Rahul Dravid",
+      "Jacques Kallis",
+      "Mahela Jayawardene"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rahul Dravid took 210 catches, primarily at slip, in his Test career.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-043",
+    "question": "Who took 4 wickets in 4 consecutive balls twice in international cricket?",
+    "options": [
+      "Rashid Khan",
+      "Lasith Malinga",
+      "Tim Southee",
+      "Curtis Campher"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lasith Malinga achieved 4 in 4 against South Africa (2007) and New Zealand (2019).",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-044",
+    "question": "Who scored an epic 281 in the Kolkata Test in 2001 after India was asked to follow on?",
+    "options": [
+      "Rahul Dravid",
+      "VVS Laxman",
+      "Sourav Ganguly",
+      "Sachin Tendulkar"
+    ],
+    "correctAnswer": 1,
+    "explanation": "VVS Laxman's 281 turned the match around against Steve Waugh's Australia.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-045",
+    "question": "Who is the only bowler to take 500+ wickets in both Tests and ODIs?",
+    "options": [
+      "Shane Warne",
+      "Muttiah Muralitharan",
+      "Wasim Akram",
+      "Glenn McGrath"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Muralitharan took 800 Test wickets and 534 ODI wickets.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-046",
+    "question": "Who was the first left-arm fast bowler to take 500 ODI wickets?",
+    "options": [
+      "Chaminda Vaas",
+      "Wasim Akram",
+      "Mitchell Starc",
+      "Zaheer Khan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Wasim Akram was the first bowler to reach 500 ODI wickets.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-047",
+    "question": "Who holds the record for the most balls faced in Test cricket history (over 31,000 balls)?",
+    "options": [
+      "Sachin Tendulkar",
+      "Rahul Dravid",
+      "Jacques Kallis",
+      "Alastair Cook"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rahul Dravid faced 31,258 balls across his 164 Test appearances.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-048",
+    "question": "What is the highest partnership in Test cricket history (624 runs)?",
+    "options": [
+      "Sangakkara and Jayawardene",
+      "Hayden and Langer",
+      "Greenidge and Haynes",
+      "Dravid and Laxman"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Kumar Sangakkara (287) and Mahela Jayawardene (374) shared a 624-run stand in 2006.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-049",
+    "question": "Who scored 149 in the 2007 World Cup final with a squash ball inside his glove?",
+    "options": [
+      "Ricky Ponting",
+      "Adam Gilchrist",
+      "Matthew Hayden",
+      "Sanath Jayasuriya"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Adam Gilchrist's century powered Australia to victory against Sri Lanka in Barbados.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  },
+  {
+    "questionId": "cricket-rec-050",
+    "question": "Who holds the record for the most Man of the Match awards in Men's international cricket (76)?",
+    "options": [
+      "Virat Kohli",
+      "Sachin Tendulkar",
+      "Sanath Jayasuriya",
+      "Jacques Kallis"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sachin Tendulkar won 76 Player of the Match awards in his international career.",
+    "difficulty": "easy",
+    "topic": "Cricket Records"
+  }
+]

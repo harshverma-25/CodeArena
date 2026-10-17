@@ -36,6 +36,7 @@ export interface Category {
   icon?: string;
   isActive: boolean;
   questionCount: number;
+  playedCount?: number;
   availableLengths?: number[];
   isPlayable?: boolean;
 }
@@ -48,6 +49,7 @@ export interface Subject {
   categoryId: string;
   isActive: boolean;
   questionCount: number;
+  playedCount?: number;
   availableLengths?: number[];
   isPlayable?: boolean;
   thumbnailUrl?: string;

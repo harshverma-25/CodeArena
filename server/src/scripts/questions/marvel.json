@@ -1,0 +1,462 @@
+[
+  {
+    "questionId": "marvel-001",
+    "question": "What is the real identity of Iron Man?",
+    "options": ["Steve Rogers", "Bruce Banner", "Tony Stark", "Peter Parker"],
+    "correctAnswer": 2,
+    "explanation": "Tony Stark is the billionaire genius philanthropist who built the powered armor suit to become Iron Man.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-002",
+    "question": "What fictional indestructible metal was used to forge Captain America's shield?",
+    "options": ["Adamantium", "Vibranium", "Uru", "Titanium"],
+    "correctAnswer": 1,
+    "explanation": "Captain America's shield was manufactured from Vibranium from Wakanda by Howard Stark.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-003",
+    "question": "What is the name of Thor's enchanted mystical hammer?",
+    "options": ["Stormbreaker", "Mjolnir", "Gungnir", "Hofund"],
+    "correctAnswer": 1,
+    "explanation": "Mjolnir is Thor's iconic war hammer forged from the heart of a dying star in Nidavellir.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-004",
+    "question": "What type of radiation transformed scientist Bruce Banner into the Incredible Hulk?",
+    "options": ["Cosmic rays", "Gamma radiation", "X-ray radiation", "Quantum particles"],
+    "correctAnswer": 1,
+    "explanation": "Bruce Banner was exposed to lethal doses of Gamma radiation during an experimental super-soldier test.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-005",
+    "question": "What is Peter Parker's superhero alter ego?",
+    "options": ["Ant-Man", "Spider-Man", "Falcon", "Daredevil"],
+    "correctAnswer": 1,
+    "explanation": "Peter Parker is Spider-Man, bitten by a radioactive spider in Queens, New York.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-006",
+    "question": "What was the first movie that launched the Marvel Cinematic Universe (MCU) in 2008?",
+    "options": ["Captain America: The First Avenger", "The Incredible Hulk", "Iron Man", "Thor"],
+    "correctAnswer": 2,
+    "explanation": "Iron Man, directed by Jon Favreau and starring Robert Downey Jr., kicked off the MCU in 2008.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-007",
+    "question": "How many Infinity Stones did Thanos collect to assemble the Infinity Gauntlet?",
+    "options": ["Four", "Five", "Six", "Seven"],
+    "correctAnswer": 2,
+    "explanation": "There are six Infinity Stones: Space, Mind, Reality, Power, Time, and Soul.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-008",
+    "question": "What color is the Time Stone contained within the Eye of Agamotto worn by Doctor Strange?",
+    "options": ["Blue", "Red", "Green", "Purple"],
+    "correctAnswer": 2,
+    "explanation": "The Time Stone is glowing green and was safeguarded by Doctor Strange in the Eye of Agamotto.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-009",
+    "question": "What color is the Space Stone originally contained inside the Tesseract?",
+    "options": ["Blue", "Yellow", "Orange", "Purple"],
+    "correctAnswer": 0,
+    "explanation": "The Space Stone within the Tesseract glows bright blue and allows instantaneous teleportation.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-010",
+    "question": "What color is the Power Stone retrieved by Star-Lord in Guardians of the Galaxy inside the Orb?",
+    "options": ["Green", "Purple", "Red", "Yellow"],
+    "correctAnswer": 1,
+    "explanation": "The Power Stone emits a vivid purple energy capable of vaporizing planets.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-011",
+    "question": "What African nation is the technologically advanced homeland of King T'Challa (Black Panther)?",
+    "options": ["Sokovia", "Wakanda", "Zamunda", "Genosha"],
+    "correctAnswer": 1,
+    "explanation": "Wakanda is the technologically advanced African kingdom rich in raw Vibranium.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-012",
+    "question": "What is the famous greeting and battle cry of Wakanda?",
+    "options": ["Hail Hydra!", "Wakanda Forever!", "I am Iron Man!", "Avengers Assemble!"],
+    "correctAnswer": 1,
+    "explanation": "'Wakanda Forever!' accompanied by crossed arms over the chest is the iconic national salute.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-013",
+    "question": "Who is Thor's mischievous adoptive brother and God of Mischief?",
+    "options": ["Odin", "Heimdall", "Loki", "Hela"],
+    "correctAnswer": 2,
+    "explanation": "Loki Laufeyson is the God of Mischief and adopted son of Odin.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-014",
+    "question": "Who was the director of S.H.I.E.L.D. who brought the Avengers Initiative together?",
+    "options": ["Phil Coulson", "Nick Fury", "Alexander Pierce", "Maria Hill"],
+    "correctAnswer": 1,
+    "explanation": "Nick Fury, played by Samuel L. Jackson, assembled the original six Avengers.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-015",
+    "question": "Who are the original six members of the Avengers in the 2012 film?",
+    "options": [
+      "Iron Man, Captain America, Thor, Hulk, Black Widow, Hawkeye",
+      "Spider-Man, Black Panther, Ant-Man, Falcon, War Machine, Vision",
+      "Wolverine, Cyclops, Storm, Jean Grey, Beast, Professor X",
+      "Star-Lord, Gamora, Drax, Rocket, Groot, Mantis"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The original core MCU Avengers are Iron Man, Captain America, Thor, Hulk, Black Widow, and Hawkeye.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-016",
+    "question": "What is Black Widow's real name?",
+    "options": ["Wanda Maximoff", "Natasha Romanoff", "Carol Danvers", "Peggy Carter"],
+    "correctAnswer": 1,
+    "explanation": "Natasha Romanoff was trained as an elite assassin in the Russian Red Room before joining S.H.I.E.L.D.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-017",
+    "question": "What is Hawkeye's real name?",
+    "options": ["Clint Barton", "Sam Wilson", "Bucky Barnes", "Scott Lang"],
+    "correctAnswer": 0,
+    "explanation": "Clint Barton is Hawkeye, the master archer of the Avengers.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-018",
+    "question": "What is the name of Captain America's lifelong childhood friend who was turned into the Winter Soldier?",
+    "options": ["Sam Wilson", "James Buchanan 'Bucky' Barnes", "John Walker", "Brock Rumlow"],
+    "correctAnswer": 1,
+    "explanation": "Bucky Barnes fell from a train during WWII and was brainwashed by Hydra into the Winter Soldier.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-019",
+    "question": "What evil clandestine organization infiltrated S.H.I.E.L.D. from within with the phrase 'Hail Hydra'?",
+    "options": ["A.I.M.", "Hydra", "Ten Rings", "The Hand"],
+    "correctAnswer": 1,
+    "explanation": "Hydra was secretly operating inside S.H.I.E.L.D. since the end of World War II, revealed in Captain America: The Winter Soldier.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-020",
+    "question": "Who was the super-soldier Nazi commander who served as head of Hydra and used the Tesseract in WWII?",
+    "options": ["Baron Zemo", "Red Skull (Johann Schmidt)", "Arnim Zola", "Crossbones"],
+    "correctAnswer": 1,
+    "explanation": "Johann Schmidt took an imperfect version of Erskine's serum, disfiguring him as the Red Skull.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-021",
+    "question": "Who is the leader of the Guardians of the Galaxy, also known as Star-Lord?",
+    "options": ["Peter Quill", "Rocket Raccoon", "Drax the Destroyer", "Yondu Udonta"],
+    "correctAnswer": 0,
+    "explanation": "Peter Quill, abducted from Earth by the Ravagers as a child, is Star-Lord.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-022",
+    "question": "What is the only phrase Groot famously repeats, voiced by Vin Diesel?",
+    "options": ["'I am strong!'", "'I am Groot!'", "'We are family!'", "'Groot smash!'"],
+    "correctAnswer": 1,
+    "explanation": "Groot can only say 'I am Groot' in differing inflections (until his heartfelt 'We are Groot').",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-023",
+    "question": "What species is Rocket, the wisecracking weapons engineer of the Guardians?",
+    "options": ["A genetically engineered cybernetic raccoon", "An alien badger", "A mutant dog", "A robotic ferret"],
+    "correctAnswer": 0,
+    "explanation": "Rocket was an Earth raccoon genetically altered and cybernetically enhanced by the High Evolutionary.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-024",
+    "question": "Who is the adopted green daughter of Thanos who fell in love with Peter Quill?",
+    "options": ["Nebula", "Gamora", "Mantis", "Proxima Midnight"],
+    "correctAnswer": 1,
+    "explanation": "Gamora is the deadlier daughter of Thanos who turned against him to protect the universe.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-025",
+    "question": "What AI assistant created by Tony Stark was later uploaded into Vision's vibranium synthozoid body?",
+    "options": ["FRIDAY", "KAREN", "J.A.R.V.I.S.", "EDITH"],
+    "correctAnswer": 2,
+    "explanation": "J.A.R.V.I.S., voiced by Paul Bettany, was merged with the Mind Stone and vibranium to create Vision.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-026",
+    "question": "What rogue artificial intelligence created by Tony Stark and Bruce Banner tried to eradicate humanity in 2015?",
+    "options": ["Ultron", "Zola", "Kang", "Modok"],
+    "correctAnswer": 0,
+    "explanation": "Ultron deemed humanity the greatest threat to peace and tried to wipe out Earth using Sokovia as a meteor.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-027",
+    "question": "What superhero alter ego does Scott Lang adopt after inheriting Hank Pym's size-shifting suit?",
+    "options": ["Wasp", "Ant-Man", "Goliath", "Yellowjacket"],
+    "correctAnswer": 1,
+    "explanation": "Scott Lang uses Pym Particles to shrink to insect size while boosting density as Ant-Man.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-028",
+    "question": "What is the miniature subatomic dimension where Janet van Dyne was trapped and time moves differently?",
+    "options": ["Dark Dimension", "Quantum Realm", "Soul World", "Mirror Dimension"],
+    "correctAnswer": 1,
+    "explanation": "The Quantum Realm is a microscopic reality where the laws of space and time break down.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-029",
+    "question": "Who is the Sorcerer Supreme who taught Stephen Strange the mystic arts at Kamar-Taj?",
+    "options": ["Wong", "The Ancient One", "Kaecilius", "Mordo"],
+    "correctAnswer": 1,
+    "explanation": "The Ancient One, portrayed by Tilda Swinton, opened Doctor Strange's mind to the multiverse.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-030",
+    "question": "What bargain catchphrase did Doctor Strange repeatedly say to defeat Dormammu in a time loop?",
+    "options": ["'I can do this all day.'", "'Dormammu, I've come to bargain.'", "'We are in the endgame now.'", "'By the Vishanti!'"],
+    "correctAnswer": 1,
+    "explanation": "Doctor Strange trapped Dormammu in an infinite time loop saying: 'Dormammu, I've come to bargain.'",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-031",
+    "question": "What superhero title does Wanda Maximoff fully unlock at the end of WandaVision?",
+    "options": ["Chaos Witch", "The Scarlet Witch", "Sorceress Supreme", "Phoenix"],
+    "correctAnswer": 1,
+    "explanation": "Wanda embraces her mythological prophecy and unlocks her full chaos magic as the Scarlet Witch.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-032",
+    "question": "What was the name of Wanda's speedster twin brother who died saving Hawkeye in Age of Ultron?",
+    "options": ["Pietro Maximoff (Quicksilver)", "Billy", "Tommy", "Speed"],
+    "correctAnswer": 0,
+    "explanation": "Pietro Maximoff, also known as Quicksilver, possessed superhuman speed.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-033",
+    "question": "What is the phrase Captain America famously says when he stands back up in combat?",
+    "options": ["'I have no fear.'", "'I can do this all day.'", "'Justice never sleeps.'", "'Whatever it takes.'"],
+    "correctAnswer": 1,
+    "explanation": "Steve Rogers' quintessential defining phrase is 'I can do this all day.'",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-034",
+    "question": "What is the famous three-word rally cry spoken by Captain America in Avengers: Endgame before the final battle?",
+    "options": ["'Avengers, go forth!'", "'Avengers, assemble.'", "'Fight for Earth!'", "'Avengers, take down!'"],
+    "correctAnswer": 1,
+    "explanation": "After summoning Mjolnir and seeing the portals open, Cap finally delivered the line: 'Avengers... assemble.'",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-035",
+    "question": "Who sacrificed her life on Vormir so the Avengers could acquire the Soul Stone in Endgame?",
+    "options": ["Gamora", "Natasha Romanoff (Black Widow)", "Nebula", "Wanda Maximoff"],
+    "correctAnswer": 1,
+    "explanation": "Natasha fought Clint to sacrifice herself so Clint could return to his family with the Soul Stone.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-036",
+    "question": "What were Tony Stark's final words before snapping his fingers with the Nano Gauntlet in Avengers: Endgame?",
+    "options": ["'I am invincible.'", "'And I... am... Iron Man.'", "'Goodbye, universe.'", "'For Peter.'"],
+    "correctAnswer": 1,
+    "explanation": "Thanos stated 'I am inevitable', to which Tony replied 'And I... am... Iron Man' before snapping away Thanos' army.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-037",
+    "question": "Who did Steve Rogers pass his iconic Captain America shield to at the end of Avengers: Endgame?",
+    "options": ["Bucky Barnes", "Sam Wilson (The Falcon)", "Clint Barton", "War Machine"],
+    "correctAnswer": 1,
+    "explanation": "An elderly Steve Rogers chose Sam Wilson to carry on the mantle and ideals of Captain America.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-038",
+    "question": "What is the name of Peter Parker's high school best friend in the MCU?",
+    "options": ["Harry Osborn", "Ned Leeds", "Flash Thompson", "Miles Morales"],
+    "correctAnswer": 1,
+    "explanation": "Ned Leeds, Peter's lovable best friend, proudly dubbed himself the 'Guy in the Chair'.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-039",
+    "question": "Who played Peter Parker in the 2002 Sam Raimi Spider-Man trilogy?",
+    "options": ["Andrew Garfield", "Tobey Maguire", "Tom Holland", "Shameik Moore"],
+    "correctAnswer": 1,
+    "explanation": "Tobey Maguire starred as Peter Parker in the groundbreaking 2002-2007 trilogy directed by Sam Raimi.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-040",
+    "question": "What iconic motto does Uncle Ben teach Peter Parker?",
+    "options": [
+      "'With great power comes great responsibility.'",
+      "'Fortune favors the bold.'",
+      "'Always do what is right.'",
+      "'Never back down.'"
+    ],
+    "correctAnswer": 0,
+    "explanation": "'With great power comes great responsibility' is the foundational moral philosophy of Spider-Man.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-041",
+    "question": "What indestructible metal is bonded to Wolverine's skeleton and claws?",
+    "options": ["Vibranium", "Adamantium", "Carbonadium", "Uru"],
+    "correctAnswer": 1,
+    "explanation": "The Weapon X program coated Logan's mutant skeleton and claws with the indestructible metal Adamantium.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-042",
+    "question": "Who is the telepathic founder and headmaster of Xavier's School for Gifted Youngsters?",
+    "options": ["Magneto (Erik Lehnsherr)", "Professor Charles Xavier (Professor X)", "Cyclops", "Beast"],
+    "correctAnswer": 1,
+    "explanation": "Professor Charles Xavier founded the X-Men to advocate for peaceful coexistence between humans and mutants.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-043",
+    "question": "Who is the Master of Magnetism who believes mutantkind must rule over humanity?",
+    "options": ["Magneto (Erik Lehnsherr)", "Apocalypse", "Mystique", "Juggernaut"],
+    "correctAnswer": 0,
+    "explanation": "Magneto controls magnetic fields and metallic metals, often leading the Brotherhood of Mutants.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-044",
+    "question": "What 'Merc with a Mouth' anti-hero constantly breaks the fourth wall, played by Ryan Reynolds?",
+    "options": ["The Punisher", "Deadpool (Wade Wilson)", "Blade", "Gambit"],
+    "correctAnswer": 1,
+    "explanation": "Deadpool is famous for regenerative healing, dark comedy, and talking directly to the movie audience.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-045",
+    "question": "What is the name of Thor's giant battle-axe forged in Avengers: Infinity War?",
+    "options": ["Stormbreaker", "Mjolnir", "Dragonfang", "Thunderstrike"],
+    "correctAnswer": 0,
+    "explanation": "Eitri forged Stormbreaker using the neutron star forge of Nidavellir, with Groot supplying the wooden handle.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-046",
+    "question": "What blind lawyer from Hell's Kitchen fights crime as the 'Man Without Fear'?",
+    "options": ["Luke Cage", "Matt Murdock (Daredevil)", "Danny Rand", "Frank Castle"],
+    "correctAnswer": 1,
+    "explanation": "Blinded as a boy by radioactive waste, Matt Murdock's other senses were heightened to superhuman levels as Daredevil.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-047",
+    "question": "Who is the brutal crime lord known as Kingpin who runs New York's underworld?",
+    "options": ["Wilson Fisk", "Bullseye", "Hammerhead", "Tombstone"],
+    "correctAnswer": 0,
+    "explanation": "Wilson Fisk is the menacing Kingpin of Crime in New York City, opposing Daredevil and Spider-Man.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-048",
+    "question": "What cosmic entity was born with the creation of the universe and was trapped inside the Power Stone?",
+    "options": ["Eternals", "Celestials", "Kree", "Skrulls"],
+    "correctAnswer": 1,
+    "explanation": "Celestials are colossal primordial cosmic beings who wield cosmic energy and seeded life on planets.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-049",
+    "question": "What shape-shifting alien race fled the Kree Empire in Captain Marvel?",
+    "options": ["Skrulls", "Sovereign", "Chitauri", "Outriders"],
+    "correctAnswer": 0,
+    "explanation": "The Skrulls, led by Talos, are shape-shifting refugees who can replicate appearances down to DNA.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  },
+  {
+    "questionId": "marvel-050",
+    "question": "What beloved Marvel creator made iconic cameo appearances in virtually every MCU film through Endgame?",
+    "options": ["Jack Kirby", "Stan Lee", "Steve Ditko", "Bob Kane"],
+    "correctAnswer": 1,
+    "explanation": "Stan Lee co-created Spider-Man, Iron Man, the X-Men, Hulk, and Avengers, delighting fans with his cameos.",
+    "difficulty": "easy",
+    "topic": "Marvel"
+  }
+]

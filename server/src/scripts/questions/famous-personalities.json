@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "pers-001",
+    "question": "Who is known as the 'Missile Man of India' for his contributions to India's civilian space and missile programs?",
+    "options": [
+      "Vikram Sarabhai",
+      "Dr. A.P.J. Abdul Kalam",
+      "Homi J. Bhabha",
+      "Satish Dhawan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dr. A.P.J. Abdul Kalam played a leading role in developing the Agni and Prithvi missiles and served as the 11th President of India.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-002",
+    "question": "Who was known as the 'Nightingale of India' (Bharat Kokila) for her lyrical poetry?",
+    "options": [
+      "Lata Mangeshkar",
+      "Sarojini Naidu",
+      "M.S. Subbulakshmi",
+      "Asha Bhosle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mahatma Gandhi bestowed the title 'Nightingale of India' on Sarojini Naidu for her lyrical and evocative English poetry.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-003",
+    "question": "Who painted the world-famous masterpiece 'Mona Lisa' and 'The Last Supper'?",
+    "options": [
+      "Michelangelo",
+      "Raphael",
+      "Leonardo da Vinci",
+      "Vincent van Gogh"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Italian polymath Leonardo da Vinci painted the enigmatic Mona Lisa during the Renaissance.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-004",
+    "question": "Which legendary English playwright wrote 'Romeo and Juliet', 'Hamlet', and 'Macbeth'?",
+    "options": [
+      "Charles Dickens",
+      "William Shakespeare",
+      "George Bernard Shaw",
+      "Jane Austen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "William Shakespeare is widely regarded as the greatest writer in the English language and the world's pre-eminent dramatist.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-005",
+    "question": "Who founded the Missionaries of Charity in Kolkata and was awarded the Nobel Peace Prize in 1979?",
+    "options": [
+      "Florence Nightingale",
+      "Mother Teresa (Saint Teresa of Calcutta)",
+      "Joan of Arc",
+      "Helen Keller"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mother Teresa devoted her life to serving the destitute and sick in Kolkata and was canonized as a Catholic saint in 2016.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-006",
+    "question": "Who was the visionary co-founder of Apple Inc. who unveiled the Macintosh, iPod, and iPhone?",
+    "options": [
+      "Bill Gates",
+      "Steve Jobs",
+      "Steve Wozniak",
+      "Mark Zuckerberg"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Steve Jobs co-founded Apple and revolutionized consumer technology with iconic products including the iPhone and iPad.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-007",
+    "question": "Who co-founded Microsoft Corporation and became one of the world's leading philanthropists through the Gates Foundation?",
+    "options": [
+      "Steve Jobs",
+      "Bill Gates",
+      "Larry Ellison",
+      "Jeff Bezos"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bill Gates co-founded Microsoft in 1975 with Paul Allen and launched Windows, dominating personal computing.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-008",
+    "question": "Who is the legendary singer renowned as the 'Queen of Melody' who recorded songs for thousands of Indian films over seven decades?",
+    "options": [
+      "Asha Bhosle",
+      "Lata Mangeshkar",
+      "K.S. Chithra",
+      "Shreya Ghoshal"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lata Mangeshkar, the recipient of the Bharat Ratna, is celebrated as one of the greatest playback singers of all time.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-009",
+    "question": "Which civil rights icon delivered the memorable 'I Have a Dream' speech at the Lincoln Memorial in 1963?",
+    "options": [
+      "Malcolm X",
+      "Martin Luther King Jr.",
+      "Rosa Parks",
+      "John Lewis"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dr. Martin Luther King Jr. delivered his historic speech during the March on Washington for Jobs and Freedom.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-010",
+    "question": "Which British scientist authored 'On the Origin of Species' introducing the theory of evolution by natural selection?",
+    "options": [
+      "Gregor Mendel",
+      "Charles Darwin",
+      "Alfred Russel Wallace",
+      "Thomas Huxley"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Charles Darwin published his groundbreaking theory of biological evolution by natural selection in 1859.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-011",
+    "question": "Who was the 'Lady with the Lamp' who revolutionized modern professional nursing during the Crimean War?",
+    "options": [
+      "Clara Barton",
+      "Florence Nightingale",
+      "Mary Seacole",
+      "Dorothea Dix"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Florence Nightingale laid the foundation of modern nursing and sanitary hospital care while tending wounded British soldiers.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-012",
+    "question": "Which Indian theoretical physicist and mathematician worked with Albert Einstein to formulate a new state of matter?",
+    "options": [
+      "C.V. Raman",
+      "Satyendra Nath Bose",
+      "Meghnad Saha",
+      "Homi Bhabha"
+    ],
+    "correctAnswer": 1,
+    "explanation": "S.N. Bose collaborated with Einstein, leading to the discovery of the Bose-Einstein condensate and naming of 'bosons'.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-013",
+    "question": "Who was the blind and deaf American author and political activist who earned a bachelor of arts degree in 1904?",
+    "options": [
+      "Anne Sullivan",
+      "Helen Keller",
+      "Laura Bridgman",
+      "Marie Curie"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Helen Keller overcame deafblindness with the help of teacher Anne Sullivan to become an internationally renowned author and orator.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-014",
+    "question": "Which famous Dutch Post-Impressionist artist painted 'The Starry Night' and 'Sunflowers'?",
+    "options": [
+      "Claude Monet",
+      "Vincent van Gogh",
+      "Pablo Picasso",
+      "Salvador Dalí"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Vincent van Gogh created some of the most influential works in Western art, including 'The Starry Night' in 1889.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-015",
+    "question": "Who was the visionary physicist and cosmologist who wrote the international bestseller 'A Brief History of Time' while living with ALS?",
+    "options": [
+      "Carl Sagan",
+      "Stephen Hawking",
+      "Richard Feynman",
+      "Neil deGrasse Tyson"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Stephen Hawking made landmark contributions to general relativity and black hole physics despite living with motor neurone disease.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-016",
+    "question": "Which Indian self-taught mathematical genius contributed deeply to number theory, infinite series, and continued fractions?",
+    "options": [
+      "Srinivasa Ramanujan",
+      "Aryabhata",
+      "Shakuntala Devi",
+      "P.C. Mahalanobis"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Srinivasa Ramanujan possessed extraordinary mathematical intuition, collaborating with G.H. Hardy at Cambridge.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-017",
+    "question": "Who was the German-Jewish girl who documented her life in hiding from the Nazis in Amsterdam in her world-famous diary?",
+    "options": [
+      "Anne Frank",
+      "Sophie Scholl",
+      "Hannah Arendt",
+      "Rosa Luxemburg"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Anne Frank's 'The Diary of a Young Girl' is one of the world's most widely read books documenting the Holocaust.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-018",
+    "question": "Which iconic martial artist and actor popularized martial arts films globally with 'Enter the Dragon'?",
+    "options": [
+      "Jackie Chan",
+      "Jet Li",
+      "Bruce Lee",
+      "Chuck Norris"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Bruce Lee founded Jeet Kune Do and revolutionized action cinema with his charisma, philosophy, and martial arts mastery.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-019",
+    "question": "Who is the legendary Indian industrialist known as the 'Father of Indian Aviation' who launched Tata Airlines?",
+    "options": [
+      "Jamsetji Tata",
+      "J.R.D. Tata",
+      "Ratan Tata",
+      "G.D. Birla"
+    ],
+    "correctAnswer": 1,
+    "explanation": "J.R.D. Tata obtained India's first commercial pilot license in 1929 and founded Tata Airlines (later Air India).",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-020",
+    "question": "Who painted the Sistine Chapel ceiling in the Vatican, including the famous 'Creation of Adam'?",
+    "options": [
+      "Leonardo da Vinci",
+      "Michelangelo",
+      "Donatello",
+      "Botticelli"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Michelangelo Buonarroti spent four grueling years painting the monumental frescoes on the ceiling of the Sistine Chapel.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-021",
+    "question": "Which Pakistani activist for female education was awarded the Nobel Peace Prize in 2014 at the age of 17?",
+    "options": [
+      "Benazir Bhutto",
+      "Malala Yousafzai",
+      "Asma Jahangir",
+      "Shirin Ebadi"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Malala Yousafzai survived a Taliban assassination attempt and became the youngest Nobel Prize laureate in history.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-022",
+    "question": "Who was the visionary founder of the multinational tech giant Amazon.com in 1994?",
+    "options": [
+      "Elon Musk",
+      "Jeff Bezos",
+      "Satya Nadella",
+      "Tim Cook"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Jeff Bezos founded Amazon as an online bookstore in his garage, transforming it into the world's largest online retailer and cloud provider.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-023",
+    "question": "Who is the CEO of Tesla and SpaceX who also purchased social media platform Twitter (now X)?",
+    "options": [
+      "Sundar Pichai",
+      "Elon Musk",
+      "Peter Thiel",
+      "Jack Dorsey"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Elon Musk heads SpaceX, Tesla, Neuralink, and X Corp.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-024",
+    "question": "Which Indian music maestro won two Academy Awards (Oscars) for the musical score of 'Slumdog Millionaire' in 2009?",
+    "options": [
+      "A.R. Rahman",
+      "Ilaiyaraaja",
+      "R.D. Burman",
+      "Zakir Hussain"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A.R. Rahman, known as the 'Mozart of Madras', won Oscars for Best Original Score and Best Original Song ('Jai Ho').",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-025",
+    "question": "Who was the renowned Indian sitar virtuoso who composed ragas, performed at Woodstock, and taught George Harrison of The Beatles?",
+    "options": [
+      "Pandit Ravi Shankar",
+      "Ustad Bismillah Khan",
+      "Pandit Shivkumar Sharma",
+      "Hariprasad Chaurasia"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Pandit Ravi Shankar was India's most celebrated classical music ambassador to the Western world.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-026",
+    "question": "Which American animator, film producer, and entrepreneur created Mickey Mouse and built Disneyland?",
+    "options": [
+      "Walt Disney",
+      "Stan Lee",
+      "Chuck Jones",
+      "Jim Henson"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Walt Disney created Mickey Mouse in 1928, produced 'Snow White and the Seven Dwarfs', and founded the Disney entertainment empire.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-027",
+    "question": "Who was the author of the 'Harry Potter' fantasy novel series?",
+    "options": [
+      "J.R.R. Tolkien",
+      "J.K. Rowling",
+      "C.S. Lewis",
+      "George R.R. Martin"
+    ],
+    "correctAnswer": 1,
+    "explanation": "J.K. Rowling wrote the 7-book Harry Potter saga, which sold over 500 million copies worldwide.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-028",
+    "question": "Who authored 'The Hobbit' and the epic high-fantasy trilogy 'The Lord of the Rings'?",
+    "options": [
+      "J.K. Rowling",
+      "J.R.R. Tolkien",
+      "Terry Pratchett",
+      "Arthur Conan Doyle"
+    ],
+    "correctAnswer": 1,
+    "explanation": "J.R.R. Tolkien, an Oxford philologist, created the rich mythology and languages of Middle-earth.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-029",
+    "question": "Which Spanish artist co-founded the Cubist movement and painted the powerful anti-war mural 'Guernica'?",
+    "options": [
+      "Salvador Dalí",
+      "Pablo Picasso",
+      "Diego Velázquez",
+      "Francisco Goya"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Pablo Picasso was one of the most prolific and influential artists of the 20th century, pioneering Cubism.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-030",
+    "question": "Who is known as the 'Human Computer' for her extraordinary ability to perform complex mental arithmetic instantly?",
+    "options": [
+      "Kalpana Chawla",
+      "Shakuntala Devi",
+      "Janaki Ammal",
+      "Anandi Gopal Joshi"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Shakuntala Devi demonstrated phenomenal mental calculations worldwide and earned a place in the Guinness Book of Records.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-031",
+    "question": "Who was the first Indian woman in space, flying aboard Space Shuttle Columbia in 1997?",
+    "options": [
+      "Sunita Williams",
+      "Kalpana Chawla",
+      "Sirisha Bandla",
+      "Rakesh Sharma"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Kalpana Chawla, born in Karnal, Haryana, was an aerospace engineer and the first Indian-origin woman to fly in space.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-032",
+    "question": "Who was the first Indian citizen to travel into outer space in 1984 aboard the Soviet Soyuz T-11?",
+    "options": [
+      "Kalpana Chawla",
+      "Rakesh Sharma",
+      "Ravish Malhotra",
+      "Vikram Sarabhai"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Wing Commander Rakesh Sharma spent nearly 8 days aboard Salyut 7, describing India as 'Saare jahan se achha'.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-033",
+    "question": "Which comic book writer and editor co-created iconic Marvel superheroes like Spider-Man, Iron Man, and the Avengers?",
+    "options": [
+      "Jack Kirby",
+      "Stan Lee",
+      "Bob Kane",
+      "Steve Ditko"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Stan Lee was the creative face of Marvel Comics, co-creating beloved characters with artists Jack Kirby and Steve Ditko.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-034",
+    "question": "Who was the deaf German composer who created timeless masterpieces like Symphony No. 5 and Symphony No. 9 ('Ode to Joy')?",
+    "options": [
+      "Wolfgang Amadeus Mozart",
+      "Ludwig van Beethoven",
+      "Johann Sebastian Bach",
+      "Franz Schubert"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Beethoven composed some of his most monumental works after losing his hearing almost completely.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-035",
+    "question": "Which Austrian musical prodigy began composing at age five and wrote over 600 works before his untimely death at 35?",
+    "options": [
+      "Ludwig van Beethoven",
+      "Wolfgang Amadeus Mozart",
+      "Johannes Brahms",
+      "Joseph Haydn"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mozart was a peerless musical genius of the Classical era, composing operas, symphonies, and concertos.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-036",
+    "question": "Who was the famous silent movie comedian and filmmaker known for his character 'The Tramp' with a bowler hat and cane?",
+    "options": [
+      "Buster Keaton",
+      "Charlie Chaplin",
+      "Harold Lloyd",
+      "Groucho Marx"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Charlie Chaplin is widely regarded as one of the most important figures in the history of cinema.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-037",
+    "question": "Which Indian author wrote the classic novel 'The God of Small Things', winning the Booker Prize in 1997?",
+    "options": [
+      "Salman Rushdie",
+      "Arundhati Roy",
+      "Jhumpa Lahiri",
+      "Kiran Desai"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Arundhati Roy won international acclaim and the 1997 Booker Prize for her debut novel set in Kerala.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-038",
+    "question": "Who is the legendary cricket commentator and master batsman known as the 'Little Master' who scored 100 international centuries?",
+    "options": [
+      "Sunil Gavaskar",
+      "Sachin Tendulkar",
+      "Brian Lara",
+      "Ricky Ponting"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sachin Tendulkar is celebrated as the God of Cricket and was awarded India's highest civilian award, the Bharat Ratna.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-039",
+    "question": "Who is the co-founder of Facebook (now Meta) who launched the social networking platform from his Harvard dorm room in 2004?",
+    "options": [
+      "Eduardo Saverin",
+      "Mark Zuckerberg",
+      "Dustin Moskovitz",
+      "Sheryl Sandberg"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mark Zuckerberg created Facebook in February 2004, leading it to become the world's most ubiquitous social media network.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-040",
+    "question": "Which Indian business tycoon founded Reliance Industries in 1958, transforming it into India's largest private enterprise?",
+    "options": [
+      "Mukesh Ambani",
+      "Dhirubhai Ambani",
+      "Anil Ambani",
+      "Ratan Tata"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dhirubhai Ambani built the vast Reliance petrochemicals and industrial empire from modest beginnings.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-041",
+    "question": "Who was the charismatic boxer known as 'The Greatest' who float like a butterfly and sting like a bee?",
+    "options": [
+      "Mike Tyson",
+      "Muhammad Ali",
+      "Joe Frazier",
+      "George Foreman"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Muhammad Ali (born Cassius Clay) was a three-time world heavyweight champion and global civil rights figure.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-042",
+    "question": "Which French military heroine led the French army to momentous victories during the Hundred Years' War before being burned at the stake at age 19?",
+    "options": [
+      "Marie Antoinette",
+      "Joan of Arc",
+      "Madame Roland",
+      "Charlotte Corday"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Joan of Arc, the 'Maid of Orléans', is a national heroine and patron saint of France.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-043",
+    "question": "Who is the current CEO of Alphabet and Google, born and raised in Tamil Nadu, India?",
+    "options": [
+      "Satya Nadella",
+      "Sundar Pichai",
+      "Arvind Krishna",
+      "Shantanu Narayen"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sundar Pichai earned his engineering degree from IIT Kharagpur and became Google CEO in 2015 and Alphabet CEO in 2019.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-044",
+    "question": "Who is the current CEO of Microsoft Corporation who led its transformation toward cloud computing and AI?",
+    "options": [
+      "Sundar Pichai",
+      "Satya Nadella",
+      "Steve Ballmer",
+      "Arvind Krishna"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Satya Nadella took over as CEO of Microsoft in 2014, steering unprecedented growth in Azure cloud and enterprise services.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-045",
+    "question": "Which Indian tabla virtuoso collaborated with international musicians and performed at the White House?",
+    "options": [
+      "Ustad Alla Rakha",
+      "Ustad Zakir Hussain",
+      "Pandit Anindo Chatterjee",
+      "Talvin Singh"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Ustad Zakir Hussain is globally acclaimed as a maestro of the tabla and a recipient of the Padma Vibhushan.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-046",
+    "question": "Who was the creator of the iconic fictional British detective Sherlock Holmes?",
+    "options": [
+      "Agatha Christie",
+      "Sir Arthur Conan Doyle",
+      "Edgar Allan Poe",
+      "Ian Fleming"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir Arthur Conan Doyle wrote four novels and 56 short stories featuring the Baker Street consulting detective.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-047",
+    "question": "Which English author is celebrated as the 'Queen of Crime' for detective novels featuring Hercule Poirot and Miss Marple?",
+    "options": [
+      "Dorothy L. Sayers",
+      "Agatha Christie",
+      "Ruth Rendell",
+      "P.D. James"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Agatha Christie is the best-selling fiction writer of all time according to Guinness World Records, selling over 2 billion books.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-048",
+    "question": "Who was the beloved wildlife presenter and naturalist known for broadcasting BBC nature series like 'Planet Earth' and 'Blue Planet'?",
+    "options": [
+      "Steve Irwin",
+      "Sir David Attenborough",
+      "Jane Goodall",
+      "Jacques Cousteau"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sir David Attenborough has been educating the world about Earth's biodiversity and conservation for over six decades.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-049",
+    "question": "Who was the primatologist famous for her 60-year ground-breaking study of wild chimpanzees in Gombe Stream National Park, Tanzania?",
+    "options": [
+      "Dian Fossey",
+      "Jane Goodall",
+      "Birute Galdikas",
+      "Mary Leakey"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dame Jane Goodall discovered that chimpanzees make and use tools, altering human understanding of primates.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  },
+  {
+    "questionId": "pers-050",
+    "question": "Which American film director directed legendary blockbusters like 'Jaws', 'E.T.', 'Jurassic Park', and 'Schindler's List'?",
+    "options": [
+      "George Lucas",
+      "Steven Spielberg",
+      "James Cameron",
+      "Martin Scorsese"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Steven Spielberg is the most commercially successful director in cinematic history, winning multiple Academy Awards.",
+    "difficulty": "easy",
+    "topic": "Famous Personalities"
+  }
+]

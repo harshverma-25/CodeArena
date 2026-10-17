@@ -1,0 +1,702 @@
+[
+  {
+    "questionId": "ind-hist-001",
+    "question": "Who was the first Prime Minister of independent India?",
+    "options": [
+      "Sardar Vallabhbhai Patel",
+      "Jawaharlal Nehru",
+      "Dr. B.R. Ambedkar",
+      "Lal Bahadur Shastri"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Jawaharlal Nehru served as India's first Prime Minister from independence in 1947 until his death in 1964.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-002",
+    "question": "In which year did India gain independence from British colonial rule?",
+    "options": [
+      "1942",
+      "1945",
+      "1947",
+      "1950"
+    ],
+    "correctAnswer": 2,
+    "explanation": "India achieved independence at midnight on August 15, 1947.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-003",
+    "question": "Who is officially revered as the 'Father of the Nation' in India?",
+    "options": [
+      "Subhas Chandra Bose",
+      "Mahatma Gandhi",
+      "Bhagat Singh",
+      "Rabindranath Tagore"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Mahatma Gandhi (Mohandas Karamchand Gandhi) led the non-violent freedom struggle and is honored as the Father of the Nation.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-004",
+    "question": "Who is known as the 'Chief Architect of the Indian Constitution'?",
+    "options": [
+      "Dr. Rajendra Prasad",
+      "Dr. B.R. Ambedkar",
+      "Jawaharlal Nehru",
+      "B.N. Rau"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dr. Bhimrao Ramji Ambedkar chaired the Drafting Committee of the Constituent Assembly that created the Constitution of India.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-005",
+    "question": "Who was the first President of independent India?",
+    "options": [
+      "Dr. Sarvepalli Radhakrishnan",
+      "Dr. Rajendra Prasad",
+      "Zakir Husain",
+      "C. Rajagopalachari"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Dr. Rajendra Prasad served as the first President of the Republic of India from 1950 to 1962.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-006",
+    "question": "Which Mughal Emperor built the Taj Mahal in Agra in memory of his beloved wife Mumtaz Mahal?",
+    "options": [
+      "Akbar",
+      "Jahangir",
+      "Shah Jahan",
+      "Babur"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Shah Jahan commissioned the white marble mausoleum in 1631 in memory of his wife Mumtaz Mahal.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-007",
+    "question": "Who was the founder of the Maurya Empire in ancient India?",
+    "options": [
+      "Ashoka",
+      "Chandragupta Maurya",
+      "Bindusara",
+      "Bimbisara"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Chandragupta Maurya founded the Maurya Empire around 322 BCE with the guidance of Chanakya (Kautilya).",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-008",
+    "question": "Which Mauryan Emperor renounced violence and embraced Buddhism following the devastating Kalinga War?",
+    "options": [
+      "Chandragupta Maurya",
+      "Bindusara",
+      "Ashoka the Great",
+      "Brihadratha"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Emperor Ashoka embraced Buddhism and the philosophy of Dhamma after witnessing the bloodshed of the Kalinga War in 261 BCE.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-009",
+    "question": "Who was the first female Prime Minister of India?",
+    "options": [
+      "Sarojini Naidu",
+      "Indira Gandhi",
+      "Pratibha Patil",
+      "Sushma Swaraj"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Indira Gandhi was the first and to date only female Prime Minister of India, serving across multiple terms.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-010",
+    "question": "Who is known as the 'Iron Man of India' for integrating over 560 princely states into the Indian Union?",
+    "options": [
+      "Sardar Vallabhbhai Patel",
+      "Subhas Chandra Bose",
+      "Lal Bahadur Shastri",
+      "Bal Gangadhar Tilak"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Sardar Vallabhbhai Patel, the first Deputy PM and Home Minister, united India's princely states into one nation.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-011",
+    "question": "The historic Jallianwala Bagh massacre occurred in which city in 1919?",
+    "options": [
+      "Lahore",
+      "Amritsar",
+      "Delhi",
+      "Jalandhar"
+    ],
+    "correctAnswer": 1,
+    "explanation": "British troops under General Dyer opened fire on unarmed civilians at Jallianwala Bagh in Amritsar, Punjab on April 13, 1919.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-012",
+    "question": "Who gave the famous slogan 'Give me blood, and I shall give you freedom'?",
+    "options": [
+      "Bhagat Singh",
+      "Subhas Chandra Bose",
+      "Chandrasekhar Azad",
+      "Bal Gangadhar Tilak"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Netaji Subhas Chandra Bose delivered this rallying cry to the Indian National Army (Azad Hind Fauj) in Burma.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-013",
+    "question": "In which year did the historic Revolt of 1857 (First War of Indian Independence) break out?",
+    "options": [
+      "1757",
+      "1857",
+      "1905",
+      "1942"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Sepoy Mutiny / First War of Indian Independence began in Meerut in May 1857.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-014",
+    "question": "Which movement was launched by Mahatma Gandhi in August 1942 calling for British withdrawal from India?",
+    "options": [
+      "Non-Cooperation Movement",
+      "Civil Disobedience Movement",
+      "Quit India Movement",
+      "Swadeshi Movement"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The Quit India Movement (Bharat Chhodo Andolan) was launched at the Bombay session of the AICC on August 8, 1942.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-015",
+    "question": "Who was the founder of the Mughal Empire in India in 1526 following the First Battle of Panipat?",
+    "options": [
+      "Akbar",
+      "Humayun",
+      "Babur",
+      "Sher Shah Suri"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Zahir-ud-din Muhammad Babur defeated Ibrahim Lodi in the First Battle of Panipat (1526) to establish the Mughal dynasty.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-016",
+    "question": "Who was the legendary Maratha warrior king who established the Maratha Empire and was crowned Chhatrapati in 1674?",
+    "options": [
+      "Chhatrapati Sambhaji",
+      "Chhatrapati Shivaji Maharaj",
+      "Baji Rao I",
+      "Peshwa Madhavrao"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Chhatrapati Shivaji Maharaj carved out an independent Maratha kingdom and was crowned at Raigad in 1674.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-017",
+    "question": "Who composed the Indian national anthem, 'Jana Gana Mana'?",
+    "options": [
+      "Bankim Chandra Chatterjee",
+      "Rabindranath Tagore",
+      "Sarojini Naidu",
+      "Kavi Pradeep"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rabindranath Tagore originally composed 'Bharoto Bhagyo Bidhata' in Bengali, whose first stanza was adopted as the National Anthem.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-018",
+    "question": "Who composed India's national song, 'Vande Mataram'?",
+    "options": [
+      "Rabindranath Tagore",
+      "Bankim Chandra Chattopadhyay",
+      "Sri Aurobindo",
+      "Swami Vivekananda"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bankim Chandra Chattopadhyay wrote 'Vande Mataram' in his 1882 novel Anandamath.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-019",
+    "question": "Which ancient civilization in the Indian subcontinent is famous for planned cities like Harappa and Mohenjo-Daro?",
+    "options": [
+      "Vedic Civilization",
+      "Indus Valley Civilization",
+      "Maurya Civilization",
+      "Gupta Civilization"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Indus Valley Civilization (c. 2500–1900 BCE) was famous for grid-pattern city layouts, drainage systems, and granaries.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-020",
+    "question": "Who was the prominent freedom fighter known as 'Shaheed-e-Azam' who was executed along with Rajguru and Sukhdev in 1931?",
+    "options": [
+      "Chandrashekhar Azad",
+      "Bhagat Singh",
+      "Ashfaqulla Khan",
+      "Ram Prasad Bismil"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bhagat Singh was martyred on March 23, 1931 at Lahore Jail at the young age of 23 and is honored as Shaheed-e-Azam.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-021",
+    "question": "Which historic march led by Mahatma Gandhi in 1930 broke the British salt tax monopoly?",
+    "options": [
+      "Bardoli Satyagraha",
+      "Dandi March (Salt Satyagraha)",
+      "Champaran Satyagraha",
+      "Kheda Satyagraha"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Gandhi and 78 followers marched 240 miles from Sabarmati Ashram to Dandi, making salt on April 6, 1930.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-022",
+    "question": "Who was the Queen of Jhansi who fought heroically against the British in the Revolt of 1857?",
+    "options": [
+      "Rani Padmini",
+      "Rani Lakshmibai",
+      "Begum Hazrat Mahal",
+      "Kittur Chennamma"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rani Lakshmibai of Jhansi fought fearlessly against British forces during the 1857 Rebellion.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-023",
+    "question": "Which great Indian emperor is associated with the 'Navaratnas' (Nine Gems) including Birbal and Tansen?",
+    "options": [
+      "Babur",
+      "Humayun",
+      "Akbar the Great",
+      "Aurangzeb"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The third Mughal emperor Akbar patronized nine extraordinarily talented individuals at his court called the Navaratnas.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-024",
+    "question": "Which period of ancient Indian history is widely regarded as the 'Golden Age of India' due to achievements in science, math, and arts?",
+    "options": [
+      "Maurya Empire",
+      "Gupta Empire",
+      "Kushan Empire",
+      "Chola Empire"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Gupta Empire (c. 4th to 6th century CE) saw brilliant advances by Aryabhata, Kalidasa, and Varahamihira.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-025",
+    "question": "Who gave the famous slogan 'Swaraj is my birthright, and I shall have it'?",
+    "options": [
+      "Lala Lajpat Rai",
+      "Bipin Chandra Pal",
+      "Bal Gangadhar Tilak",
+      "Gopal Krishna Gokhale"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Lokmanya Bal Gangadhar Tilak coined this inspirational phrase during India's national independence movement.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-026",
+    "question": "What year did the Constitution of India officially come into effect, celebrated annually as Republic Day?",
+    "options": [
+      "1947",
+      "1948",
+      "1950",
+      "1952"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The Constitution of India came into full legal effect on January 26, 1950, transitioning India into a sovereign democratic republic.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-027",
+    "question": "Who was the first woman to become President of India?",
+    "options": [
+      "Sarojini Naidu",
+      "Indira Gandhi",
+      "Pratibha Patil",
+      "Droupadi Murmu"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Pratibha Patil served as the 12th President of India from 2007 to 2012, becoming the first female president of the nation.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-028",
+    "question": "The historic Battle of Plassey was fought in which year, laying the foundation of British East India Company rule?",
+    "options": [
+      "1757",
+      "1764",
+      "1857",
+      "1600"
+    ],
+    "correctAnswer": 0,
+    "explanation": "On June 23, 1757, Robert Clive defeated Siraj-ud-Daulah, the Nawab of Bengal, at Plassey.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-029",
+    "question": "Who was the first Indian to be awarded the Nobel Prize in 1913?",
+    "options": [
+      "C.V. Raman",
+      "Rabindranath Tagore",
+      "Mother Teresa",
+      "Hargobind Khorana"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Rabindranath Tagore was awarded the 1913 Nobel Prize in Literature for his collection of poems, Gitanjali.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-030",
+    "question": "Which ancient university in modern-day Bihar was one of the world's greatest centers of Buddhist learning?",
+    "options": [
+      "Takshashila",
+      "Nalanda University",
+      "Vikramashila",
+      "Vallabhi"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Nalanda University was founded during the Gupta era in the 5th century CE and attracted scholars from across Asia.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-031",
+    "question": "Who was the founder of Sikhism and the first of the ten Sikh Gurus?",
+    "options": [
+      "Guru Gobind Singh",
+      "Guru Nanak Dev Ji",
+      "Guru Arjan Dev Ji",
+      "Guru Tegh Bahadur Ji"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Guru Nanak Dev Ji (1469–1539) founded Sikhism in the Punjab region.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-032",
+    "question": "Which Sikh Guru established the Khalsa Panth in 1699 at Anandpur Sahib?",
+    "options": [
+      "Guru Nanak",
+      "Guru Har Gobind",
+      "Guru Tegh Bahadur",
+      "Guru Gobind Singh"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Guru Gobind Singh Ji, the tenth Sikh Guru, initiated the Khalsa on Baisakhi day in 1699.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-033",
+    "question": "Who was the British Viceroy of India at the time of Partition and Independence in 1947?",
+    "options": [
+      "Lord Curzon",
+      "Lord Mountbatten",
+      "Lord Linlithgow",
+      "Lord Wavell"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lord Louis Mountbatten was the last British Viceroy and oversaw the partition and transfer of power.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-034",
+    "question": "Who founded the Arya Samaj in 1875 advocating a return to the pristine teachings of the Vedas?",
+    "options": [
+      "Raja Ram Mohan Roy",
+      "Swami Dayananda Saraswati",
+      "Swami Vivekananda",
+      "Ishwar Chandra Vidyasagar"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Swami Dayananda Saraswati founded the Arya Samaj in Bombay with the slogan 'Back to the Vedas'.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-035",
+    "question": "Who founded the Brahmo Samaj in 1828 and worked tirelessly to abolish the practice of Sati?",
+    "options": [
+      "Raja Ram Mohan Roy",
+      "Swami Vivekananda",
+      "Rabindranath Tagore",
+      "Keshub Chandra Sen"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Raja Ram Mohan Roy, known as the 'Father of Indian Renaissance', led the campaign that outlawed Sati in 1829.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-036",
+    "question": "Who gave the famous and powerful speech representing Hinduism at the World's Parliament of Religions in Chicago in 1893?",
+    "options": [
+      "Swami Dayananda",
+      "Swami Vivekananda",
+      "Paramahansa Yogananda",
+      "Sri Aurobindo"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Swami Vivekananda began his historic address with 'Sisters and brothers of America!', earning a standing ovation.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-037",
+    "question": "Which ancient treatise on statecraft, economic policy, and military strategy was authored by Chanakya?",
+    "options": [
+      "Arthashastra",
+      "Manusmriti",
+      "Kamasutra",
+      "Panchatantra"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Arthashastra is Chanakya's (Kautilya's) comprehensive Sanskrit manual on governance and political statecraft.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-038",
+    "question": "Who was the ruler of Mysore known as the 'Tiger of Mysore' who resisted British expansion?",
+    "options": [
+      "Hyder Ali",
+      "Tipu Sultan",
+      "Mir Jafar",
+      "Nawab of Arcot"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Tipu Sultan ruled Mysore from 1782 to 1799 and was famously called the 'Sher-e-Mysore' (Tiger of Mysore).",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-039",
+    "question": "Which city served as the capital of British India before it was shifted to New Delhi in 1911?",
+    "options": [
+      "Bombay (Mumbai)",
+      "Calcutta (Kolkata)",
+      "Madras (Chennai)",
+      "Agra"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Calcutta was the capital of the British Indian Empire until King George V announced the transfer to Delhi at the 1911 Delhi Durbar.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-040",
+    "question": "Who was the first Indian woman to become the President of the Indian National Congress?",
+    "options": [
+      "Annie Besant",
+      "Sarojini Naidu",
+      "Indira Gandhi",
+      "Sucheta Kripalani"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Sarojini Naidu presided over the 1925 Kanpur session, becoming the first Indian woman Congress president (Annie Besant was British).",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-041",
+    "question": "Who was the founder of the Indian National Army (Azad Hind Fauj) initially formed in 1942?",
+    "options": [
+      "Subhas Chandra Bose",
+      "Captain Mohan Singh",
+      "Rash Behari Bose",
+      "Bhagat Singh"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Captain Mohan Singh first organized Indian PoWs into the INA in Malaya in 1942, before Netaji took leadership in 1943.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-042",
+    "question": "Which Indian mathematician from the Gupta era wrote the 'Aryabhatiya' and approximated the value of Pi?",
+    "options": [
+      "Brahmagupta",
+      "Aryabhata",
+      "Bhaskara I",
+      "Varahamihira"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Aryabhata (476–550 CE) proposed that the Earth rotates on its axis and approximated Pi to 3.1416.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-043",
+    "question": "Who was the only female ruler of the Delhi Sultanate?",
+    "options": [
+      "Nur Jahan",
+      "Razia Sultana",
+      "Chand Bibi",
+      "Mumtaz Mahal"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Razia Sultana ruled the Delhi Sultanate from 1236 to 1240, succeeding her father Sultan Iltutmish.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-044",
+    "question": "In which year did Vasco da Gama arrive at Calicut, India, discovering the direct sea route from Europe?",
+    "options": [
+      "1492",
+      "1498",
+      "1526",
+      "1600"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Portuguese explorer Vasco da Gama landed at Kappad near Calicut (Kozhikode) in Kerala in May 1498.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-045",
+    "question": "The ancient rock-cut caves of Ajanta and Ellora are located in which Indian state?",
+    "options": [
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Karnataka",
+      "Rajasthan"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The UNESCO World Heritage Sites of Ajanta and Ellora caves are situated in the Aurangabad (Chhatrapati Sambhaji Nagar) district of Maharashtra.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-046",
+    "question": "Who was the second Prime Minister of India who coined the historic slogan 'Jai Jawan Jai Kisan'?",
+    "options": [
+      "Gulzarilal Nanda",
+      "Lal Bahadur Shastri",
+      "Morarji Desai",
+      "Charan Singh"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Lal Bahadur Shastri coined 'Jai Jawan Jai Kisan' during the 1965 Indo-Pak war to motivate soldiers and farmers.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-047",
+    "question": "Who was the commander of the British Indian Army responsible for ordering fire at Jallianwala Bagh?",
+    "options": [
+      "Lord Curzon",
+      "General Dyer",
+      "General Cornwallis",
+      "Lord Dalhousie"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Brigadier-General Reginald Dyer ordered troops to block exits and open fire on the gathering at Jallianwala Bagh.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-048",
+    "question": "Which movement began with the Partition of Bengal in 1905, promoting domestic Indian goods and boycotting British textiles?",
+    "options": [
+      "Swadeshi Movement",
+      "Quit India Movement",
+      "Non-Cooperation Movement",
+      "Khilafat Movement"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The Swadeshi Movement arose against Lord Curzon's partition of Bengal, encouraging self-reliance and the burning of foreign clothes.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-049",
+    "question": "Who was the supreme commander of the Delhi Sultanate who founded the Slave (Mamluk) Dynasty in 1206?",
+    "options": [
+      "Qutb-ud-din Aibak",
+      "Iltutmish",
+      "Balban",
+      "Alauddin Khilji"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Qutb-ud-din Aibak became the first Sultan of Delhi in 1206 and began construction of the Qutub Minar.",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  },
+  {
+    "questionId": "ind-hist-050",
+    "question": "Which ancient Indian King was famously called 'Devanampriya Priyadasi' in his rock and pillar edicts?",
+    "options": [
+      "Samudragupta",
+      "Harsha",
+      "Ashoka",
+      "Kanishka"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Emperor Ashoka's edicts across the subcontinent consistently refer to him as 'Devanampriya' (Beloved of the Gods).",
+    "difficulty": "easy",
+    "topic": "Indian History"
+  }
+]

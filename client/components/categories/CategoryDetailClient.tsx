@@ -437,7 +437,7 @@ export function CategoryDetailClient({ slug, verifiedCategory }: CategoryDetailC
                     isMixedCategory={false}
                     thumbnailUrl={sub.thumbnailUrl}
                     questionCount={sub.questionCount}
-                    playedCount={0}
+                    playedCount={sub.playedCount ?? 0}
                     onPlay={() => {
                       setActivePlayModalQuiz({
                         title: sub.name,
