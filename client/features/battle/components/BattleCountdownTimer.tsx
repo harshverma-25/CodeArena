@@ -66,14 +66,14 @@ export const BattleTimerCard = React.memo(function BattleTimerCard({
   }, [status, isRevealed, roundStartedAt, totalDurationMs]);
 
   return (
-    <div className="relative bg-[#FEF08A] border-[2.5px] border-black rounded-[22px] p-3.5 sm:p-4 shadow-[4px_4px_0px_#000] flex flex-col justify-between overflow-hidden">
-      <div className="flex items-center gap-3">
+    <div className="relative bg-[#FEF08A] border-[2.5px] border-black rounded-[22px] p-3.5 sm:p-4 lg:p-3 shadow-[4px_4px_0px_#000] flex flex-col justify-between overflow-hidden">
+      <div className="flex items-center gap-2.5 sm:gap-3 lg:gap-2.5">
         {/* Timer Stopwatch Icon */}
-        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#CFFAFE] border-2 border-black flex items-center justify-center shrink-0 shadow-[2px_2px_0px_#000]">
-          <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-black stroke-[2.5]" />
+        <div className="w-10 h-10 sm:w-11 sm:h-11 lg:w-9.5 lg:h-9.5 rounded-2xl lg:rounded-xl bg-[#CFFAFE] border-2 border-black flex items-center justify-center shrink-0 shadow-[2px_2px_0px_#000]">
+          <Clock className="w-5 h-5 sm:w-6 sm:h-6 lg:w-5 lg:h-5 text-black stroke-[2.5]" />
         </div>
         <div>
-          <div className="font-black text-2xl sm:text-3xl text-black leading-none font-mono tracking-tight">
+          <div className="font-black text-2xl sm:text-3xl lg:text-[26px] text-black leading-none font-mono tracking-tight">
             {timeRemaining}s
           </div>
           <span className="text-[10px] font-black tracking-widest text-stone-900 uppercase mt-0.5 block">

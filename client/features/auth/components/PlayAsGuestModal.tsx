@@ -11,9 +11,10 @@ import { useApiClient } from "@/hooks/useApiClient";
 interface PlayAsGuestModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSuccess?: () => void;
 }
 
-export function PlayAsGuestModal({ isOpen, onClose }: PlayAsGuestModalProps) {
+export function PlayAsGuestModal({ isOpen, onClose, onSuccess }: PlayAsGuestModalProps) {
   const router = useRouter();
   const api = useApiClient();
   const [displayName, setDisplayName] = useState("");
@@ -47,10 +48,11 @@ export function PlayAsGuestModal({ isOpen, onClose }: PlayAsGuestModalProps) {
       setGuestSession(token, user, user.expiresIn || 86400);
 
       onClose();
-      // Navigate to homepage
-      router.push("/");
-      // Hard refresh so all providers pick up the new session cleanly
-      window.location.href = "/";
+      if (onSuccess) {
+        onSuccess();
+      } else {
+        router.refresh();
+      }
     } catch (err: any) {
       setError(err?.message || "An unexpected error occurred. Please try again.");
       setIsLoading(false);

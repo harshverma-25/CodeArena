@@ -12,7 +12,7 @@ export default function PublicLayout({
   return (
     <div className="relative flex min-h-screen flex-col bg-[#FAF7EE] text-stone-900 selection:bg-[#FFE600] selection:text-black">
       <Navbar />
-      <main className="flex-1 pt-20">{children}</main>
+      <main className="flex-1 pt-16 sm:pt-20">{children}</main>
     </div>
   );
 }

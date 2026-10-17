@@ -19,9 +19,9 @@ export const QuestionProgressCard = React.memo(function QuestionProgressCard({
   currentQIndex,
 }: QuestionProgressCardProps) {
   return (
-    <div className="relative bg-white border-[2.5px] border-black rounded-[22px] p-3.5 sm:p-4 shadow-[4px_4px_0px_#000] flex flex-col justify-between">
+    <div className="relative bg-white border-[2.5px] border-black rounded-[22px] p-3.5 sm:p-4 lg:p-3 shadow-[4px_4px_0px_#000] flex flex-col justify-between">
       <div>
-        <h3 className="font-black text-sm sm:text-base text-black text-center tracking-tight">
+        <h3 className="font-black text-sm sm:text-base lg:text-[15px] text-black text-center tracking-tight">
           Question {currentQNumber} / {totalQuestions}
         </h3>
       </div>

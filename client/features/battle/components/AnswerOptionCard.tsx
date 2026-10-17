@@ -63,7 +63,7 @@ export const AnswerOptionCard = React.memo(function AnswerOptionCard({
       type="button"
       disabled={isLocked || isSubmitting}
       onClick={() => onSelect(idx)}
-      className={`group relative text-left p-3.5 sm:p-4.5 rounded-2xl flex items-center gap-3 sm:gap-3.5 transition-all overflow-hidden ${cardClasses} ${
+      className={`group relative text-left p-3.5 sm:p-4 lg:py-3 lg:px-3.5 rounded-2xl lg:rounded-[14px] flex items-center gap-3 sm:gap-3.5 lg:gap-3 transition-all overflow-hidden ${cardClasses} ${
         !isLocked ? "hover:-translate-y-1 active:translate-x-[1px] active:translate-y-[1px] cursor-pointer" : ""
       }`}
     >
@@ -72,7 +72,7 @@ export const AnswerOptionCard = React.memo(function AnswerOptionCard({
 
       {/* Option Box Letter (A, B, C, D) */}
       <div
-        className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center font-black text-lg sm:text-xl shrink-0 shadow-[1px_1px_0px_#000] ${badgeClasses}`}
+        className={`w-10 h-10 sm:w-11 sm:h-11 lg:w-9 lg:h-9 rounded-xl lg:rounded-lg flex items-center justify-center font-black text-lg sm:text-xl lg:text-base shrink-0 shadow-[1px_1px_0px_#000] ${badgeClasses}`}
       >
         {letter}
       </div>
@@ -80,7 +80,7 @@ export const AnswerOptionCard = React.memo(function AnswerOptionCard({
       {/* Option Text */}
       <div className="flex-1 min-w-0 pr-2">
         <span
-          className={`font-black text-base sm:text-lg xl:text-xl leading-snug break-words ${
+          className={`font-black text-base sm:text-lg lg:text-base xl:text-[17px] leading-snug break-words ${
             isCorrect || isWrongSelected ? "text-white" : "text-black"
           }`}
         >
@@ -103,16 +103,16 @@ export const AnswerOptionCard = React.memo(function AnswerOptionCard({
       {/* Feedback Icon on Right */}
       <div className="shrink-0">
         {isCorrect ? (
-          <div className="w-7 h-7 rounded-full bg-white text-emerald-600 flex items-center justify-center font-black">
-            <Check className="w-4 h-4 stroke-[3]" />
+          <div className="w-7 h-7 lg:w-6.5 lg:h-6.5 rounded-full bg-white text-emerald-600 flex items-center justify-center font-black">
+            <Check className="w-4 h-4 lg:w-3.5 lg:h-3.5 stroke-[3]" />
           </div>
         ) : isWrongSelected ? (
-          <div className="w-7 h-7 rounded-full bg-white text-red-600 flex items-center justify-center font-black">
-            <X className="w-4 h-4 stroke-[3]" />
+          <div className="w-7 h-7 lg:w-6.5 lg:h-6.5 rounded-full bg-white text-red-600 flex items-center justify-center font-black">
+            <X className="w-4 h-4 lg:w-3.5 lg:h-3.5 stroke-[3]" />
           </div>
         ) : isSelected && isLocked ? (
-          <div className="w-7 h-7 rounded-full bg-black text-[#FFE600] flex items-center justify-center font-black">
-            <Check className="w-4 h-4 stroke-[3]" />
+          <div className="w-7 h-7 lg:w-6.5 lg:h-6.5 rounded-full bg-black text-[#FFE600] flex items-center justify-center font-black">
+            <Check className="w-4 h-4 lg:w-3.5 lg:h-3.5 stroke-[3]" />
           </div>
         ) : null}
       </div>

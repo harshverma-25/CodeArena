@@ -97,11 +97,33 @@ export function CategoryDetailClient({ slug, verifiedCategory }: CategoryDetailC
     availableQuestions?: number;
   } | null>(null);
 
+  const [pendingPlayAction, setPendingPlayAction] = useState<{
+    type: "solo" | "multiplayer";
+    subjectSlug: string | null;
+    isMixed: boolean;
+  } | null>(null);
+
   useEffect(() => {
-    setGuestActive(isGuestSessionActive());
+    const updateGuest = () => setGuestActive(isGuestSessionActive());
+    updateGuest();
+    window.addEventListener("codearena:guest-auth-change", updateGuest);
+    return () => window.removeEventListener("codearena:guest-auth-change", updateGuest);
   }, []);
 
   const hasAccess = Boolean(currentUser || guestActive);
+
+  // Resume pending quiz action when access is granted
+  useEffect(() => {
+    if (hasAccess && pendingPlayAction) {
+      const action = pendingPlayAction;
+      setPendingPlayAction(null);
+      if (action.type === "solo") {
+        handlePlaySolo(action.subjectSlug, action.isMixed);
+      } else {
+        handlePlayMultiplayer(action.subjectSlug, action.isMixed);
+      }
+    }
+  }, [hasAccess, pendingPlayAction]);
 
   const fetchCategoryAndSubjects = async () => {
     try {
@@ -134,6 +156,7 @@ export function CategoryDetailClient({ slug, verifiedCategory }: CategoryDetailC
   // Handle Solo Play launch
   const handlePlaySolo = async (subjectSlug: string | null, isMixed: boolean) => {
     if (!hasAccess) {
+      setPendingPlayAction({ type: "solo", subjectSlug, isMixed });
       setIsGuestModalOpen(true);
       return;
     }
@@ -168,6 +191,7 @@ export function CategoryDetailClient({ slug, verifiedCategory }: CategoryDetailC
   // Handle Multiplayer Room launch
   const handlePlayMultiplayer = async (subjectSlug: string | null, isMixed: boolean) => {
     if (!hasAccess) {
+      setPendingPlayAction({ type: "multiplayer", subjectSlug, isMixed });
       setIsGuestModalOpen(true);
       return;
     }
@@ -207,6 +231,10 @@ export function CategoryDetailClient({ slug, verifiedCategory }: CategoryDetailC
       <PlayAsGuestModal
         isOpen={isGuestModalOpen}
         onClose={() => {
+          setIsGuestModalOpen(false);
+          setGuestActive(isGuestSessionActive());
+        }}
+        onSuccess={() => {
           setIsGuestModalOpen(false);
           setGuestActive(isGuestSessionActive());
         }}

@@ -401,6 +401,15 @@ export default function HomeClientView({
   const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
   const [guestActive, setGuestActive] = useState<boolean>(false);
   const [pendingJoinPin, setPendingJoinPin] = useState<string | null>(null);
+  const [pendingPlayAction, setPendingPlayAction] = useState<{
+    type: "solo" | "multiplayer";
+    quiz: {
+      categorySlug: string;
+      subjectSlug?: string | null;
+      isMixedCategory?: boolean;
+      questionCount?: number;
+    };
+  } | null>(null);
 
   // Search state (synced with Navbar inline search)
   const [searchQuery, setSearchQuery] = useState("");
@@ -441,6 +450,19 @@ export default function HomeClientView({
       router.push(`/lobby/${pin}`);
     }
   }, [hasAccess, pendingJoinPin, router]);
+
+  // If user completed guest login while attempting to play a quiz, resume quiz play immediately
+  useEffect(() => {
+    if (hasAccess && pendingPlayAction) {
+      const action = pendingPlayAction;
+      setPendingPlayAction(null);
+      if (action.type === "solo") {
+        handlePlaySolo(action.quiz);
+      } else {
+        handlePlayMultiplayer(action.quiz);
+      }
+    }
+  }, [hasAccess, pendingPlayAction]);
 
   // If initialData is missing (e.g. client navigation or failed SSR), fetch in a single aggregated request
   useEffect(() => {
@@ -545,6 +567,7 @@ export default function HomeClientView({
     questionCount?: number;
   }) => {
     if (!hasAccess) {
+      setPendingPlayAction({ type: "solo", quiz });
       setIsGuestModalOpen(true);
       return;
     }
@@ -581,6 +604,7 @@ export default function HomeClientView({
     questionCount?: number;
   }) => {
     if (!hasAccess) {
+      setPendingPlayAction({ type: "multiplayer", quiz });
       setIsGuestModalOpen(true);
       return;
     }
@@ -1172,6 +1196,10 @@ export default function HomeClientView({
       <PlayAsGuestModal
         isOpen={isGuestModalOpen}
         onClose={() => setIsGuestModalOpen(false)}
+        onSuccess={() => {
+          setIsGuestModalOpen(false);
+          setGuestActive(isGuestSessionActive());
+        }}
       />
     </div>
   );
