@@ -27,6 +27,17 @@ export class CategoryController {
   }
 
   /**
+   * GET /api/v1/categories/summary
+   * Retrieve aggregated catalog data for homepage in a single request.
+   */
+  async getHomeSummary(_req: Request, res: Response) {
+    const summary = await categoryService.getHomeSummary();
+    return res.status(200).json(
+      new ApiResponse(200, summary, 'Homepage catalog summary retrieved successfully')
+    );
+  }
+
+  /**
    * GET /api/v1/categories/:categoryId
    * Retrieve single category details.
    */

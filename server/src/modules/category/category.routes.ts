@@ -24,6 +24,13 @@ router.get(
   asyncHandler((req, res) => categoryController.getPopularQuizzes(req, res))
 );
 
+// Route: GET /api/v1/categories/summary (Aggregated homepage catalog payload)
+router.get(
+  '/summary',
+  catalogCache,
+  asyncHandler((req, res) => categoryController.getHomeSummary(req, res))
+);
+
 // Route: GET /api/v1/categories/:categoryId
 router.get(
   '/:categoryId',

@@ -237,6 +237,26 @@ export class QuestionRepository {
 
     return { subjectCounts, totalCategoryCount };
   }
+
+  /**
+   * Batch count published questions across all active subjects in a single aggregation.
+   * Completely avoids per-subject or per-category N+1 queries for homepage catalog aggregation.
+   */
+  async countPublishedGroupedByAllSubjects(): Promise<Map<string, number>> {
+    const results = await QuestionModel.aggregate([
+      { $match: { isPublished: true, subjectId: { $ne: null } } },
+      { $group: { _id: '$subjectId', count: { $sum: 1 } } },
+    ]);
+
+    const subjectCounts = new Map<string, number>();
+    for (const r of results) {
+      if (r._id) {
+        subjectCounts.set(r._id.toString(), r.count);
+      }
+    }
+
+    return subjectCounts;
+  }
 }
 
 export const questionRepository = new QuestionRepository();

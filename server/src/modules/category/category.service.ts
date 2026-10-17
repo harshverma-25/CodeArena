@@ -56,6 +56,77 @@ export class CategoryService {
   }
 
   /**
+   * Retrieve aggregated catalog data for homepage in a single fast cached roundtrip.
+   * Completely eliminates the 8-request client-side waterfall.
+   */
+  async getHomeSummary(): Promise<{
+    categories: any[];
+    subjects: any[];
+    popularQuizzes: any[];
+  }> {
+    const cacheKey = 'categories:home-summary';
+    return cacheService.getOrSet(cacheKey, this.TTL_CATEGORIES, async () => {
+      const [categories, allSubjects, popularQuizzes, categoryCounts, subjectCounts] = await Promise.all([
+        this.repository.findAllActiveCategories(),
+        this.repository.findAllActiveSubjects(),
+        this.getPopularQuizzes(6),
+        questionRepository.countPublishedGroupedByCategory(),
+        questionRepository.countPublishedGroupedByAllSubjects(),
+      ]);
+
+      const categoryMap = new Map<string, any>();
+      const enrichedCategories = categories.map((cat) => {
+        const questionCount = categoryCounts.get(cat._id.toString()) || 0;
+        const availableLengths = getAvailableQuizLengths(questionCount);
+        const catObj = {
+          _id: cat._id.toString(),
+          id: cat._id.toString(),
+          name: cat.name,
+          slug: cat.slug,
+          description: cat.description,
+          icon: cat.icon,
+          isActive: cat.isActive,
+          playedCount: cat.playedCount || 0,
+          questionCount,
+          availableLengths,
+          isPlayable: questionCount >= 10,
+        };
+        categoryMap.set(cat._id.toString(), catObj);
+        return catObj;
+      });
+
+      const enrichedSubjects = allSubjects.map((sub) => {
+        const cat = categoryMap.get(sub.categoryId.toString());
+        const questionCount = subjectCounts.get(sub._id.toString()) || 0;
+        const availableLengths = getAvailableQuizLengths(questionCount);
+        return {
+          _id: sub._id.toString(),
+          id: sub._id.toString(),
+          categoryId: sub.categoryId.toString(),
+          categorySlug: cat?.slug || '',
+          categoryName: cat?.name || '',
+          name: sub.name,
+          slug: sub.slug,
+          description: sub.description,
+          icon: sub.icon,
+          thumbnailUrl: sub.thumbnailUrl || '',
+          isActive: sub.isActive,
+          playedCount: sub.playedCount || 0,
+          questionCount,
+          availableLengths,
+          isPlayable: questionCount >= 10,
+        };
+      });
+
+      return {
+        categories: enrichedCategories,
+        subjects: enrichedSubjects,
+        popularQuizzes,
+      };
+    });
+  }
+
+  /**
    * Retrieve single category by ID or slug.
    */
   async getCategory(categoryIdOrSlug: string): Promise<ICategoryDocument> {
