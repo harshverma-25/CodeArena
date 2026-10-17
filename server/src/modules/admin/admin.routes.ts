@@ -1,9 +1,10 @@
-import { Router } from 'express';
+import express, { Router } from 'express';
 import { adminController } from './admin.controller.js';
 import { authenticate, authorizeAdmin } from '../../middleware/auth.middleware.js';
 import { validateRequest } from '../../middleware/validate.middleware.js';
 import { asyncHandler } from '../../shared/utils/async-handler.js';
 import { noCache } from '../../middleware/cache.middleware.js';
+import { mediaGenerationRateLimiter } from '../../middleware/rate-limiter.middleware.js';
 import {
   createCategorySchema,
   updateCategorySchema,
@@ -21,6 +22,7 @@ import {
 } from './admin.validation.js';
 
 const router = Router();
+const largePayloadParser = express.json({ limit: '10mb' });
 
 // Protect ALL admin routes with authenticate + authorizeAdmin and strict noCache
 router.use(asyncHandler(authenticate));
@@ -77,12 +79,14 @@ router.delete(
 
 router.post(
   '/media/upload',
+  largePayloadParser,
   validateRequest(uploadMediaSchema),
   asyncHandler((req, res) => adminController.uploadMedia(req, res))
 );
 
 router.post(
   '/media/generate',
+  mediaGenerationRateLimiter,
   validateRequest(generateMediaSchema),
   asyncHandler((req, res) => adminController.generateMedia(req, res))
 );
@@ -113,12 +117,14 @@ router.get(
 
 router.post(
   '/import/preview',
+  largePayloadParser,
   validateRequest(previewImportSchema),
   asyncHandler((req, res) => adminController.previewImport(req, res))
 );
 
 router.post(
   '/import/execute',
+  largePayloadParser,
   validateRequest(executeImportSchema),
   asyncHandler((req, res) => adminController.executeImport(req, res))
 );

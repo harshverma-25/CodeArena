@@ -70,11 +70,11 @@ app.use(cors({
 // Parse Cookie headers for HttpOnly auth tokens
 app.use(cookieParser());
 
-// Parse incoming JSON payloads
-app.use(express.json({ limit: '10mb' }));
+// Parse incoming JSON payloads with safe bounded limits to mitigate memory exhaustion
+app.use(express.json({ limit: '100kb' }));
 
 // Parse URL-encoded payloads
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '100kb' }));
 
 // Request logging middleware
 app.use(requestLogger);

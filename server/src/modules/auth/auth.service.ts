@@ -426,53 +426,72 @@ export class AuthService {
   async createGuestSession(customDisplayName?: string): Promise<IGuestSessionResponse> {
     const rawUuid = crypto.randomUUID().replace(/-/g, '');
     const guestId = `guest_${rawUuid.slice(0, 16)}`;
-    const randomSuffix = crypto.randomBytes(3).toString('hex').toLowerCase();
-    const username = `guest_${randomSuffix}`;
+    const maxRetries = 3;
+    let lastError: any;
 
-    const displayName = customDisplayName?.trim() || `Guest ${randomSuffix.toUpperCase()}`;
-    const avatar = generateLocalSvgAvatar(username);
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        // High-entropy 6-byte (12 hex chars) random suffix yields 2.8e14 unique possibilities
+        const randomSuffix = crypto.randomBytes(6).toString('hex').toLowerCase();
+        const username = `guest_${randomSuffix}`;
 
-    const user = await userRepository.create({
-      username,
-      displayName,
-      avatar,
-      isGuest: true,
-      role: 'guest',
-      matchesPlayed: 0,
-      wins: 0,
-      losses: 0,
-      draws: 0,
-      totalCorrect: 0,
-      totalQuestions: 0,
-      accuracy: 0,
-      highestWinStreak: 0,
-    });
+        const displayName = customDisplayName?.trim() || `Guest ${randomSuffix.slice(0, 6).toUpperCase()}`;
+        const avatar = generateLocalSvgAvatar(username);
 
-    const expiresIn = 86400; // 24 hours
-    const token = this.signGuestToken(
-      {
-        sub: user._id.toString(),
-        guestId,
-        displayName: user.displayName,
-      },
-      expiresIn
-    );
+        const user = await userRepository.create({
+          username,
+          displayName,
+          avatar,
+          isGuest: true,
+          role: 'guest',
+          matchesPlayed: 0,
+          wins: 0,
+          losses: 0,
+          draws: 0,
+          totalCorrect: 0,
+          totalQuestions: 0,
+          accuracy: 0,
+          highestWinStreak: 0,
+        });
 
-    logger.info(`Guest session created for user ${user.username} (${user._id})`);
+        const expiresIn = 86400; // 24 hours
+        const token = this.signGuestToken(
+          {
+            sub: user._id.toString(),
+            guestId,
+            displayName: user.displayName,
+          },
+          expiresIn
+        );
 
-    return {
-      token,
-      user: {
-        _id: user._id.toString(),
-        guestId,
-        username: user.username,
-        displayName: user.displayName,
-        avatar: user.avatar,
-        isGuest: true,
-        role: 'guest',
-        expiresIn,
-      },
-    };
+        logger.info(`Guest session created for user ${user.username} (${user._id})`);
+
+        return {
+          token,
+          user: {
+            _id: user._id.toString(),
+            guestId,
+            username: user.username,
+            displayName: user.displayName,
+            avatar: user.avatar,
+            isGuest: true,
+            role: 'guest',
+            expiresIn,
+          },
+        };
+      } catch (err: any) {
+        lastError = err;
+        // Check for MongoDB duplicate key error (code 11000 or duplicate key name)
+        if (err?.code === 11000 || err?.name === 'MongoServerError') {
+          logger.warn(`Guest username collision on attempt ${attempt}. Retrying with fresh random identifier...`);
+          continue;
+        }
+        throw err;
+      }
+    }
+
+    logger.error(lastError, 'Failed to create guest session after multiple retry attempts');
+    throw new ApiError(500, 'Failed to create guest session due to identifier collision. Please try again.');
   }
 }
 

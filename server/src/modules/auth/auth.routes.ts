@@ -11,6 +11,7 @@ import { asyncHandler } from '../../shared/utils/async-handler.js';
 import { ApiError } from '../../shared/errors/api-error.js';
 import { authenticate, optionalAuthenticate } from '../../middleware/auth.middleware.js';
 import { noCache } from '../../middleware/cache.middleware.js';
+import { authRateLimiter } from '../../middleware/rate-limiter.middleware.js';
 
 const router = Router();
 router.use(noCache);
@@ -55,6 +56,7 @@ function guestRateLimiter(req: Request, res: Response, next: NextFunction) {
 // POST /api/v1/auth/register
 router.post(
   '/register',
+  authRateLimiter,
   validateRequest(registerSchema),
   asyncHandler((req: Request, res: Response) => authController.register(req, res))
 );
@@ -62,6 +64,7 @@ router.post(
 // POST /api/v1/auth/login
 router.post(
   '/login',
+  authRateLimiter,
   validateRequest(loginSchema),
   asyncHandler((req: Request, res: Response) => authController.login(req, res))
 );

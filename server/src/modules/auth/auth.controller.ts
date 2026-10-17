@@ -1,7 +1,24 @@
-import { Request, Response } from 'express';
+import { Request, Response, CookieOptions } from 'express';
 import { authService } from './auth.service.js';
 import { ApiResponse } from '../../shared/utils/api-response.js';
 import { ApiError } from '../../shared/errors/api-error.js';
+
+const isProd = process.env.NODE_ENV === 'production';
+
+export const getRefreshCookieOptions = (): CookieOptions => ({
+  httpOnly: true,
+  secure: isProd,
+  sameSite: isProd ? 'none' : 'lax',
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  path: '/api/v1/auth',
+});
+
+export const getClearRefreshCookieOptions = (): CookieOptions => ({
+  httpOnly: true,
+  secure: isProd,
+  sameSite: isProd ? 'none' : 'lax',
+  path: '/api/v1/auth',
+});
 
 export class AuthController {
   /**
@@ -11,14 +28,8 @@ export class AuthController {
   async register(req: Request, res: Response): Promise<void> {
     const result = await authService.register(req.body);
 
-    // Set HttpOnly refresh token cookie
-    res.cookie('refreshToken', result.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      path: '/api/v1/auth',
-    });
+    // Set HttpOnly refresh token cookie (SameSite=None in production for cross-site Vercel <-> Render)
+    res.cookie('refreshToken', result.refreshToken, getRefreshCookieOptions());
 
     // Strip refreshToken from JSON body — it is delivered only via the HttpOnly cookie
     const { refreshToken: _rt, ...safeResult } = result;
@@ -35,14 +46,8 @@ export class AuthController {
   async login(req: Request, res: Response): Promise<void> {
     const result = await authService.login(req.body);
 
-    // Set HttpOnly refresh token cookie
-    res.cookie('refreshToken', result.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      path: '/api/v1/auth',
-    });
+    // Set HttpOnly refresh token cookie (SameSite=None in production for cross-site Vercel <-> Render)
+    res.cookie('refreshToken', result.refreshToken, getRefreshCookieOptions());
 
     // Strip refreshToken from JSON body — it is delivered only via the HttpOnly cookie
     const { refreshToken: _rt, ...safeResult } = result;
@@ -72,13 +77,7 @@ export class AuthController {
     const result = await authService.refresh(token);
 
     // Set updated HttpOnly refresh token cookie
-    res.cookie('refreshToken', result.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      path: '/api/v1/auth',
-    });
+    res.cookie('refreshToken', result.refreshToken, getRefreshCookieOptions());
 
     // Strip refreshToken from JSON body — it is delivered only via the HttpOnly cookie
     const { refreshToken: _rt, ...safeResult } = result;
@@ -101,12 +100,7 @@ export class AuthController {
       await authService.logout(userId, token);
     }
 
-    res.clearCookie('refreshToken', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/api/v1/auth',
-    });
+    res.clearCookie('refreshToken', getClearRefreshCookieOptions());
 
     res.status(200).json(
       new ApiResponse(200, null, 'Logged out successfully.')
