@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Play, Users, Trophy, Film } from "lucide-react";
 import {
   ArcadeBrainIcon,
@@ -98,14 +99,14 @@ export function QuizThumbnail({
   if (optimizedSrc && !hasError) {
     return (
       <div className="w-full h-full relative overflow-hidden bg-stone-200">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={optimizedSrc}
           alt={alt}
-          loading="lazy"
-          decoding="async"
+          fill
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px"
           onError={() => setHasError(true)}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          priority={false}
         />
       </div>
     );

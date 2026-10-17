@@ -97,6 +97,16 @@ export class CacheService {
 
   /**
    * Store value in Redis with a TTL in seconds and update local memory cache.
+  /**
+   * Helper to extract the namespace prefix from a cache key (e.g. 'categories:' from 'categories:all').
+   */
+  private getNamespacePrefix(key: string): string | null {
+    const idx = key.indexOf(':');
+    return idx !== -1 ? key.slice(0, idx + 1) : null;
+  }
+
+  /**
+   * Store value in Redis with a TTL in seconds and update local memory cache.
    */
   async set<T>(key: string, value: T, ttlSeconds: number, options?: CacheOptions): Promise<boolean> {
     if (value === null || value === undefined) {
@@ -116,6 +126,16 @@ export class CacheService {
 
     try {
       await this.withTimeout(client.set(fullKey, value, { ex: ttlSeconds }), options?.timeoutMs);
+
+      // Track the key in its targeted namespace set for fast O(K) prefix invalidation
+      const ns = this.getNamespacePrefix(key);
+      if (ns) {
+        const nsKey = this.buildKey(`_ns:${ns}`);
+        // Maintain 24h TTL on namespace tracking set to prevent unbounded growth
+        client.sadd(nsKey, fullKey).catch(() => {});
+        client.expire(nsKey, 86400).catch(() => {});
+      }
+
       return true;
     } catch (err) {
       this.logRedisWarning(`set(${key})`, err);
@@ -140,6 +160,16 @@ export class CacheService {
 
     try {
       const count = await this.withTimeout(client.del(...fullKeys));
+
+      // Remove keys from their namespace tracking set
+      for (const k of keys) {
+        const ns = this.getNamespacePrefix(k);
+        if (ns) {
+          const nsKey = this.buildKey(`_ns:${ns}`);
+          client.srem(nsKey, this.buildKey(k)).catch(() => {});
+        }
+      }
+
       return typeof count === 'number' ? count : keys.length;
     } catch (err) {
       this.logRedisWarning(`del(${keys.join(',')})`, err);
@@ -149,13 +179,16 @@ export class CacheService {
 
   /**
    * Delete all keys matching a specific prefix (e.g. 'categories:' or 'popular:').
+   * Employs targeted namespace tracking sets to achieve fast O(K) invalidation without
+   * triggering an expensive, blocking O(N) KEYS scan across Upstash Redis.
    */
   async delByPrefix(prefix: string): Promise<number> {
-    const searchPattern = `${this.buildKey(prefix)}*`;
+    const rawPrefix = prefix.endsWith(':') ? prefix : `${prefix}:`;
+    const fullPrefix = this.buildKey(prefix);
 
-    // Clear matching keys in local memory
+    // 1. Clear matching keys in local memory cache
     for (const key of this.memoryCache.keys()) {
-      if (key.startsWith(this.buildKey(prefix))) {
+      if (key.startsWith(fullPrefix)) {
         this.memoryCache.delete(key);
       }
     }
@@ -164,11 +197,41 @@ export class CacheService {
     if (!client) return 0;
 
     try {
-      const keys = await this.withTimeout(client.keys(searchPattern));
-      if (Array.isArray(keys) && keys.length > 0) {
-        return await this.withTimeout(client.del(...keys));
+      const nsKey = this.buildKey(`_ns:${rawPrefix}`);
+
+      // 2. Fetch targeted keys tracked under this namespace set
+      const trackedKeys: string[] = await this.withTimeout(client.smembers(nsKey)).catch(() => []);
+
+      let totalDeleted = 0;
+
+      if (Array.isArray(trackedKeys) && trackedKeys.length > 0) {
+        // Delete all tracked keys + the tracking set itself in a single targeted command
+        const deleted = await this.withTimeout(client.del(...trackedKeys, nsKey));
+        totalDeleted = typeof deleted === 'number' ? deleted : trackedKeys.length;
+      } else {
+        // Fallback: If no tracked set exists, use cursor-based non-blocking SCAN instead of blocking KEYS
+        let cursor = 0;
+        const searchPattern = `${fullPrefix}*`;
+        let iterations = 0;
+        const maxIterations = 5;
+
+        do {
+          const [nextCursor, keys] = await this.withTimeout(
+            client.scan(cursor, { match: searchPattern, count: 50 })
+          );
+          cursor = Number(nextCursor);
+          if (Array.isArray(keys) && keys.length > 0) {
+            const count = await this.withTimeout(client.del(...keys));
+            totalDeleted += typeof count === 'number' ? count : keys.length;
+          }
+          iterations++;
+        } while (cursor !== 0 && iterations < maxIterations);
+
+        // Also clean up the tracking set key if it existed
+        client.del(nsKey).catch(() => {});
       }
-      return 0;
+
+      return totalDeleted;
     } catch (err) {
       this.logRedisWarning(`delByPrefix(${prefix})`, err);
       return 0;
