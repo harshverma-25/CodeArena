@@ -13,6 +13,8 @@ export default function robots(): MetadataRoute.Robots {
           "/categories",
           "/categories/",
           "/images/",
+          "/quizzy-favicon.svg",
+          "/quizzy-wordmark.svg",
           "/icon.png",
           "/apple-icon.png",
           "/favicon.ico",

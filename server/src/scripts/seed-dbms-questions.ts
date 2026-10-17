@@ -56,6 +56,10 @@ async function seedDBMS() {
     category = await categoriesCollection.findOne({ _id: catInsert.insertedId });
   }
 
+  if (!category) {
+    throw new Error('Failed to find or create category');
+  }
+
   if (!subject) {
     console.log('Creating subject "DBMS Quiz"...');
     const subjInsert = await subjectsCollection.insertOne({
@@ -76,6 +80,10 @@ async function seedDBMS() {
       { $set: { categoryId: category._id, updatedAt: new Date() } }
     );
     subject.categoryId = category._id;
+  }
+
+  if (!subject) {
+    throw new Error('Failed to find or create subject');
   }
 
   console.log(`✅ Category: "${category.name}" (ID: ${category._id}, slug: ${category.slug})`);

@@ -8,9 +8,12 @@ async function verifyAll() {
   await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/codearena');
   console.log('✅ Connected to MongoDB.\n');
 
-  const categories = await mongoose.connection.db.collection('categories').find({}).sort({ order: 1, name: 1 }).toArray();
-  const subjects = await mongoose.connection.db.collection('subjects').find({}).sort({ name: 1 }).toArray();
-  const questionsColl = mongoose.connection.db.collection('questions');
+  const db = mongoose.connection.db;
+  if (!db) throw new Error('Database connection not established');
+
+  const categories = await db.collection('categories').find({}).sort({ order: 1, name: 1 }).toArray();
+  const subjects = await db.collection('subjects').find({}).sort({ name: 1 }).toArray();
+  const questionsColl = db.collection('questions');
 
   let totalQuestionsInDB = 0;
   let subjectsWith50OrMore = 0;

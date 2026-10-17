@@ -126,6 +126,10 @@ async function seedAll() {
       category = await categoriesCollection.findOne({ _id: res.insertedId });
     }
 
+    if (!category) {
+      throw new Error(`Failed to find or create category ${conf.categoryName}`);
+    }
+
     // 2. Locate Subject
     let subject = await subjectsCollection.findOne({
       $or: [{ slug: conf.subjectSlug }, { name: conf.subjectName }],
@@ -150,6 +154,10 @@ async function seedAll() {
         { $set: { categoryId: category._id, updatedAt: new Date() } }
       );
       subject.categoryId = category._id;
+    }
+
+    if (!subject) {
+      throw new Error(`Failed to find or create subject ${conf.subjectName}`);
     }
 
     // 3. Read JSON

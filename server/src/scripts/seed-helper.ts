@@ -33,6 +33,10 @@ export async function seedSubjectQuestions(
     cat = await categoriesCol.findOne({ _id: res.insertedId });
   }
 
+  if (!cat) {
+    throw new Error(`Failed to find or create category ${categorySlug}`);
+  }
+
   let subj = await subjectsCol.findOne({ slug: subjectSlug });
   if (!subj) {
     const res = await subjectsCol.insertOne({
@@ -49,6 +53,10 @@ export async function seedSubjectQuestions(
   } else if (!subj.categoryId || subj.categoryId.toString() !== cat._id.toString()) {
     await subjectsCol.updateOne({ _id: subj._id }, { $set: { categoryId: cat._id, updatedAt: new Date() } });
     subj.categoryId = cat._id;
+  }
+
+  if (!subj) {
+    throw new Error(`Failed to find or create subject ${subjectSlug}`);
   }
 
   // Save to JSON

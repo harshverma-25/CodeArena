@@ -199,18 +199,15 @@ export default function LoginPage() {
       <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center z-10 mb-6">
-        <Link href="/" className="inline-flex items-center gap-2.5 mb-3 group">
+        <Link href="/" className="inline-flex items-center justify-center mb-4 group hover:scale-105 transition-transform" title="Back to Quizzy Home">
           <Image
-            src="/images/quizzy-logo.png"
-            alt="Quizzy Logo"
-            width={108}
-            height={40}
+            src="/quizzy-wordmark.svg"
+            alt="Quizzy"
+            width={144}
+            height={48}
             priority
             className="h-10 w-auto object-contain"
           />
-          <span className="text-2xl font-bold tracking-tight text-[#1d1b16]">
-            Quizzy
-          </span>
         </Link>
         <h2 className="text-2xl font-bold tracking-tight text-[#1d1b16]">
           Welcome back to Quizzy

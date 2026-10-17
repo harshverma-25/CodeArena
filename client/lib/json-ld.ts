@@ -27,7 +27,7 @@ export function buildOrganizationJsonLd() {
     "@type": "Organization",
     name: siteConfig.name,
     url: siteConfig.url,
-    logo: getAbsoluteUrl("/images/quizzy-hero-logo.jpg"),
+    logo: getAbsoluteUrl("/quizzy-wordmark.svg"),
     sameAs: [],
   };
 }

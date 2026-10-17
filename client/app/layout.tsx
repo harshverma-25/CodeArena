@@ -76,11 +76,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon.png", type: "image/png" },
+      { url: "/quizzy-favicon.svg", type: "image/svg+xml" },
+      { url: "/icon.svg", type: "image/svg+xml" },
       { url: "/favicon.ico" },
     ],
-    apple: "/apple-icon.png",
-    shortcut: "/icon.png",
+    apple: "/quizzy-favicon.svg",
+    shortcut: "/quizzy-favicon.svg",
   },
 };
 
@@ -94,6 +95,9 @@ export default function RootLayout({
       lang="en"
       className={`${plusJakartaSans.variable} ${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="icon" type="image/svg+xml" href="/quizzy-favicon.svg" />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <AppProviders>{children}</AppProviders>
         <Analytics />

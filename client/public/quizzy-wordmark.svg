@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 160" width="480" height="160" role="img" aria-label="Quizzy text logo">
+  <title>Quizzy</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lilita+One&amp;display=swap');
+    .word { font-family: 'Lilita One','Baloo 2','Arial Black','Impact',sans-serif; font-weight: 900; }
+  </style>
+  <g class="word">
+    <text x="20" y="118" font-size="108" textLength="440" lengthAdjust="spacingAndGlyphs" fill="#111" transform="translate(6,7)">QUIZZY</text>
+    <text x="20" y="118" font-size="108" textLength="440" lengthAdjust="spacingAndGlyphs" fill="#FFD60A" stroke="#111" stroke-width="9" stroke-linejoin="round" paint-order="stroke fill">QUIZZY</text>
+  </g>
+</svg>

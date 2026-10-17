@@ -158,12 +158,12 @@ export function Navbar() {
             <Link href="/" className="flex items-center hover:scale-105 transition-transform" title="Quizzy Home">
               <div className="relative flex items-center">
                 <Image
-                  src="/images/quizzy-hero-logo.jpg"
+                  src="/quizzy-wordmark.svg"
                   alt="Quizzy"
-                  width={79}
+                  width={132}
                   height={44}
                   priority
-                  className="h-10 sm:h-11 w-auto object-contain rounded-xl"
+                  className="h-9 sm:h-10 w-auto object-contain"
                 />
               </div>
             </Link>
